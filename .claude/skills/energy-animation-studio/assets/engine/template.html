@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
+    </div>
+    <h1><span id="mNo"></span> <span id="mT"></span></h1>
+    <p id="mLede"></p>
+    <div class="langsw" role="group" data-i18n-aria="langGroup" aria-label="介面語言"><button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="true">中文</button><button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button><button type="button" data-lang="ja" lang="ja" aria-pressed="false">日本語</button></div>
+    <p class="series" id="mSeries"></p>
+  </header>
+  <section aria-label="動畫" data-i18n-aria="secAnim">
+    <div class="stage" id="stage">
+      <canvas id="cv" role="img" aria-label="__TITLE__"></canvas>
+      <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
+      <div class="caption" id="caption" aria-live="polite"></div>
+      <div class="scale-note" data-i18n="scaleNote">示意圖：比例經過調整</div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="bPrev" data-i18n-aria="prev" aria-label="上一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="btn play" id="bPlay" aria-label="暫停"><svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+      <button class="btn" id="bNext" data-i18n-aria="next" aria-label="下一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      <div class="timeline" id="timeline" tabindex="0" role="slider" data-i18n-aria="progress" aria-label="播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="tl-track" id="tlTrack"><div class="tl-fill" id="tlFill"></div></div>
+        <div class="tl-head" id="tlHead"></div>
+      </div>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seg" role="group" data-i18n-aria="speed" aria-label="播放速度">
+        <button data-speed="0.5" aria-pressed="false">0.5×</button>
+        <button data-speed="1" aria-pressed="true">1×</button>
+        <button data-speed="2" aria-pressed="false">2×</button>
+      </div>
+      <button class="btn toggle" id="bLabels" aria-pressed="true" data-i18n-title="labelsTip" data-i18n="labels" title="顯示／隱藏標註">標註</button>
+      <button class="btn" id="bFull" data-i18n-aria="full" aria-label="全螢幕"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="btn rec" id="bRec" type="button" aria-haspopup="dialog"><span class="rdot" aria-hidden="true"></span><span data-i18n="rec">匯出影片</span></button>
+    </div>
+  </section>
+  <section class="info" aria-live="polite">
+    <div>
+      <h2><span class="n" id="iNo">1</span><span id="iT"></span></h2>
+      <p class="en" id="iE"></p>
+      <p class="desc" id="iD"></p>
+    </div>
+    <ol class="steps" id="iS"></ol>
+  </section>
+  <nav class="shots" data-i18n-aria="chapNav" aria-label="分鏡">
+    <h3 data-i18n="chapHead">本集分鏡</h3>
+    <div class="shot-grid" id="shotGrid"></div>
+  </nav>
+  <section class="facts" data-i18n-aria="factsAria" aria-label="重點數字">
+    <h3 data-i18n="factsHead">本集重點數字</h3>
+    <dl class="fact-grid" id="facts"></dl>
+  </section>
+  <p class="foot" id="foot"></p>
+</div>
+<dialog class="recdlg" id="recDlg" aria-labelledby="recTitle">
+  <div class="rec-head">
+    <h2 id="recTitle" data-i18n="recTitle">錄製 MP4 影片</h2>
+    <button class="btn" id="recX" type="button" data-i18n-aria="close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <p class="rec-intro" data-i18n="recIntro"></p>
+  <div class="rec-opts">
+    <span id="oSpeed" data-i18n="optSpeed">影片速度</span>
+    <div class="seg" role="group" aria-labelledby="oSpeed" data-opt="speed"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="2" aria-pressed="false">2×</button></div>
+    <span id="oRange" data-i18n="optRange">範圍</span>
+    <div class="seg" role="group" aria-labelledby="oRange" data-opt="range"><button type="button" class="tx" data-v="all" aria-pressed="true" data-i18n="rangeAll">全片</button><button type="button" class="tx" data-v="chap" aria-pressed="false" data-i18n="rangeChap">目前分鏡</button></div>
+    <span id="oRes" data-i18n="optRes">解析度</span>
+    <div class="seg" role="group" aria-labelledby="oRes" data-opt="res"><button type="button" data-v="720" aria-pressed="false">720p</button><button type="button" data-v="1080" aria-pressed="true">1080p</button></div>
+    <span id="oFps" data-i18n="optFps">影格率</span>
+    <div class="seg" role="group" aria-labelledby="oFps" data-opt="fps"><button type="button" data-v="30" aria-pressed="true">30 fps</button><button type="button" data-v="60" aria-pressed="false">60 fps</button></div>
+  </div>
+  <p class="rec-sum" id="recSum"></p>
+  <div class="rec-prog" id="recProg" hidden>
+    <canvas id="recPrev" width="640" height="360" aria-hidden="true"></canvas>
+    <div class="rec-bar"><i id="recBar"></i></div>
+    <p class="rec-stat" id="recStat" aria-live="polite"></p>
+    <p class="rec-note" id="recNote" data-i18n="keepTab"></p>
+  </div>
+  <div class="rec-act">
+    <button class="btn" id="recCancel" type="button" hidden data-i18n="cancel">取消</button>
+    <a class="btn primary" id="recDl" hidden data-i18n="download">下載 MP4</a>
+    <button class="btn primary" id="recGo" type="button" data-i18n="start">開始錄製</button>
+  </div>
+</dialog>
+<script>
+__MUXER__
+</script>
+<script>
+__JS__
+</script>
+</body>
+</html>

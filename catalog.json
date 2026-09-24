@@ -1,0 +1,313 @@
+{
+  "siteTitle": {
+    "zh": "再生能源動畫館",
+    "en": "Renewable Energy Animations",
+    "ja": "再生可能エネルギー・アニメーション館"
+  },
+  "siteLede": {
+    "zh": "用動畫看懂再生能源：從設備怎麼運作，到一座電廠怎麼從無到有。每個主題都由一支總覽動畫和數集深入動畫組成。",
+    "en": "Understanding renewable energy through animation: how the equipment works, and how a power plant goes from nothing to reality. Each topic has an overview film and several in-depth episodes.",
+    "ja": "アニメーションで再生可能エネルギーを理解する。設備の仕組みから、発電所がゼロから完成するまでを描きます。各テーマは総集編と複数の詳しいエピソードで構成されています。"
+  },
+  "disclaimer": {
+    "zh": "教育用途示意動畫，數值為典型範例；實際依各案設計與主管機關核定內容而定。",
+    "en": "Educational schematic animations; figures are typical examples. Actual values depend on each project's design and the authorities' approvals.",
+    "ja": "教育用の模式アニメーションです。数値は典型的な例で、実際は各案件の設計と主管機関の承認内容によります。"
+  },
+  "topics": [
+    {
+      "slug": "offshore-wind",
+      "title": {
+        "zh": "離岸風電",
+        "en": "Offshore Wind",
+        "ja": "洋上風力"
+      },
+      "summary": {
+        "zh": "測風、調查、打樁、海纜、風機安裝到併網運轉",
+        "en": "From wind measurement, surveys, piling and cables to turbine installation and grid connection",
+        "ja": "風況観測、調査、杭打ち、海底ケーブルから風車の据付と系統連系まで"
+      },
+      "lede": {
+        "zh": "從第一次測風到萬家燈火。先看一支 3 分多鐘的全流程總覽，再依興趣點進 13 集深入動畫，每集 1 到 1.5 分鐘，以現場施工動畫與原理圖解拆解每一個階段。",
+        "en": "From the first wind measurement to city lights. Start with the three-minute overview of the whole process, then dive into 13 in-depth episodes of 1 to 1.5 minutes each, which combine site animation with explanatory diagrams to take every stage apart.",
+        "ja": "最初の風況観測から街の灯りまで。まず3分あまりの総集編で全体の流れを見てから、興味に合わせて13本の詳しいエピソード（各1〜1.5分）へ。現場のアニメーションと原理の図解で各段階を解き明かします。"
+      },
+      "overview": {
+        "file": "overview.html",
+        "title": {
+          "zh": "離岸風場的誕生：開發全流程",
+          "en": "The Birth of an Offshore Wind Farm: the full process",
+          "ja": "洋上風力発電所ができるまで：開発プロセス全解説"
+        },
+        "sub": {
+          "zh": "13 個階段一次看完",
+          "en": "All 13 stages in one film",
+          "ja": "13 の段階を一本で"
+        }
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "調查與規劃",
+            "en": "Survey and planning",
+            "ja": "調査と計画"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "風況量測",
+                "en": "Wind resource assessment",
+                "ja": "風況観測"
+              },
+              "sub": {
+                "zh": "光達原理、風切、韋伯分布到年發電量",
+                "en": "LiDAR principle, wind shear and Weibull statistics to annual energy yield",
+                "ja": "ライダーの原理、ウィンドシア、ワイブル分布から年間発電量まで"
+              }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "地球物理調查",
+                "en": "Geophysical survey",
+                "ja": "物理探査"
+              },
+              "sub": {
+                "zh": "測深、側掃、磁力儀與地層剖面",
+                "en": "Multibeam, side-scan, magnetometer and sub-bottom profiling",
+                "ja": "マルチビーム、サイドスキャン、磁気探査、地層探査"
+              }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "地質鑽探",
+                "en": "Geotechnical investigation",
+                "ja": "地盤調査"
+              },
+              "sub": {
+                "zh": "動態定位、CPT 與樁的尺寸",
+                "en": "Dynamic positioning, CPT and sizing the pile",
+                "ja": "動的位置保持、CPT、杭の寸法決定"
+              }
+            },
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "環境影響評估",
+                "en": "Environmental impact assessment",
+                "ja": "環境影響評価"
+              },
+              "sub": {
+                "zh": "鯨豚、鳥類、底棲調查與噪音管制",
+                "en": "Cetacean, bird and benthic surveys and noise limits",
+                "ja": "鯨類・鳥類・底生生物の調査と騒音規制"
+              }
+            }
+          ]
+        },
+        {
+          "name": {
+            "zh": "基礎與電力設施",
+            "en": "Foundations and power infrastructure",
+            "ja": "基礎と電力設備"
+          },
+          "episodes": [
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "基礎打樁",
+                "en": "Monopile installation",
+                "ja": "モノパイル基礎の打設"
+              },
+              "sub": {
+                "zh": "裝船、翻樁、打樁、氣泡幕與防淘刷",
+                "en": "Load-out, upending, piling, bubble curtains and scour protection",
+                "ja": "積込み、建て起こし、杭打ち、バブルカーテン、洗掘防止"
+              }
+            },
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "轉接段安裝",
+                "en": "Transition piece (TP)",
+                "ja": "トランジションピースの据付"
+              },
+              "sub": {
+                "zh": "吊裝、對位與螺栓法蘭",
+                "en": "Lifting, alignment and bolted flanges",
+                "ja": "吊上げ、位置合わせ、ボルトフランジ"
+              }
+            },
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "海上變電站",
+                "en": "Offshore substation",
+                "ja": "洋上変電所"
+              },
+              "sub": {
+                "zh": "套管基礎、上部模組與升壓原理",
+                "en": "Jacket, topside and why the voltage is stepped up",
+                "ja": "ジャケット、トップサイド、昇圧の理由"
+              }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "海纜鋪設",
+                "en": "Subsea cable laying",
+                "ja": "海底ケーブルの敷設"
+              },
+              "sub": {
+                "zh": "海纜構造、埋設與 HDD 登陸",
+                "en": "Cable anatomy, burial and HDD landfall",
+                "ja": "ケーブル構造、埋設、HDD による陸揚げ"
+              }
+            }
+          ]
+        },
+        {
+          "name": {
+            "zh": "風機安裝",
+            "en": "Turbine installation",
+            "ja": "風車の据付"
+          },
+          "episodes": [
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "風機安裝：塔架",
+                "en": "Turbine installation: tower",
+                "ja": "風車の据付：タワー"
+              },
+              "sub": {
+                "zh": "插樁預壓、頂升與塔架吊裝",
+                "en": "Leg preload, jacking up and lifting the tower",
+                "ja": "脚のプリロード、ジャッキアップ、タワーの吊上げ"
+              }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "風機安裝：機艙",
+                "en": "Turbine installation: nacelle",
+                "ja": "風車の据付：ナセル"
+              },
+              "sub": {
+                "zh": "機艙吊裝、內部構造與傳動系統",
+                "en": "Nacelle lift, what is inside and drivetrains",
+                "ja": "ナセルの吊上げ、内部構造、ドライブトレイン"
+              }
+            },
+            {
+              "no": 11,
+              "file": "ep11.html",
+              "title": {
+                "zh": "風機安裝：葉片",
+                "en": "Turbine installation: blades",
+                "ja": "風車の据付：ブレード"
+              },
+              "sub": {
+                "zh": "葉片構造、盤車與作業窗口",
+                "en": "Blade structure, hub turning and weather windows",
+                "ja": "ブレード構造、ハブの回転、作業可能時間帯"
+              }
+            }
+          ]
+        },
+        {
+          "name": {
+            "zh": "運轉",
+            "en": "Operation",
+            "ja": "運転"
+          },
+          "episodes": [
+            {
+              "no": 12,
+              "file": "ep12.html",
+              "title": {
+                "zh": "併網運轉",
+                "en": "Commissioning and operation",
+                "ja": "系統連系と運転"
+              },
+              "sub": {
+                "zh": "送電順序、變槳控制與維運",
+                "en": "Energisation sequence, pitch control and O&M",
+                "ja": "受電の順序、ピッチ制御、運転保守"
+              }
+            },
+            {
+              "no": 13,
+              "file": "ep13.html",
+              "title": {
+                "zh": "風場全面運轉",
+                "en": "The whole wind farm at work",
+                "ja": "風力発電所の全面運転"
+              },
+              "sub": {
+                "zh": "配置、尾流、生命週期與日夜運轉",
+                "en": "Layout, wakes, lifecycle and day into night",
+                "ja": "配置、ウェイク、ライフサイクル、昼から夜へ"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "solar-pv",
+      "title": {
+        "zh": "太陽光電",
+        "en": "Solar PV",
+        "ja": "太陽光発電"
+      },
+      "summary": {
+        "zh": "地面型太陽光電場從整地、打樁、支架模組到併網的施工流程",
+        "en": "How a ground-mounted solar farm is built, from site preparation and piling to racking and grid connection",
+        "ja": "地上設置型太陽光発電所の整地、杭打ち、架台・モジュールから系統連系までの工程"
+      },
+      "lede": {
+        "zh": "從一片空地到開始送電：跟著施工團隊看地面型太陽光電場的每一道工序，以及直流如何一路送進台電電網。",
+        "en": "From an empty plot to first power: follow the construction team through every step of a ground-mounted solar farm, and see how DC power makes its way into Taipower's grid.",
+        "ja": "何もない土地から送電開始まで。地上設置型太陽光発電所の各工程と、直流が台湾電力の系統に届くまでを施工チームとともにたどります。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "施工",
+            "en": "Construction",
+            "ja": "施工"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "太陽光電場施工流程",
+                "en": "Building a solar farm",
+                "ja": "太陽光発電所の建設工程"
+              },
+              "sub": {
+                "zh": "整地放樣、打樁、支架模組、組串與併網",
+                "en": "Setting out, piling, racking, stringing and grid connection",
+                "ja": "墨出し、杭打ち、架台とモジュール、ストリング、系統連系"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
