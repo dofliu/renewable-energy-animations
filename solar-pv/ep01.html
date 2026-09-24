@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep02.js｜離岸風場開發系列</title>
+<title>pv01.js｜太陽光電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -191,7 +191,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 風況量測" data-en="← 01 Wind resource assessment" data-ja="← 01 風況観測">← 01 風況量測</span></a><a href="ep03.html"><span data-zh="03 地質鑽探 →" data-en="03 Geotechnical investigation →" data-ja="03 地盤調査 →">03 地質鑽探 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="太陽光電系列" data-en="Solar PV series" data-ja="太陽光発電シリーズ">太陽光電系列</span></a><span class="sp"></span><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -203,7 +203,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep02.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="pv01.js｜太陽光電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note" data-i18n="scaleNote">示意圖：比例經過調整</div>
@@ -460,978 +460,771 @@ const LANG_KEY='rea-lang';
 /* strings intentionally shown in Chinese in other languages (e.g. bilingual subtitles); qa.py ignores them */
 const QA_KEEP=[];
 
-/* ================= MARINE KIT: coastal cross-section world (sea left, land right) ================= */
-/* ================= world geometry ================= */
-const SEA=470,TX=640,OX=1120,COAST=1455;
-const bedBase=x=>702+6*Math.sin(x*.013)+4*Math.sin(x*.031+1);
-function bedY(x){
-  if(x<1180) return bedBase(x);
-  if(x<COAST){const k=(x-1180)/(COAST-1180);const s=k*k*(3-2*k);return lerp(bedBase(1180),SEA+6,s);}
-  return Math.max(440,SEA+6-(x-COAST)*.5);
+/* ================= LAND & OPEN-SEA KIT =================
+   Generic backgrounds for topics that are not the offshore-wind coastal section:
+   solar farms, onshore wind, storage, hydrogen, wave/tidal energy.
+   World is 1600×900; GY is the default ground line. */
+const GY=600;
+const LCLOUDS=(()=>{const r=rng(17),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*200,s:.5+r()*.8,sp:3+r()*5});return a;})();
+function lcloud(x,y,s){ctx.beginPath();[[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});ctx.fillStyle='rgba(255,255,255,.9)';ctx.fill();}
+/* sky down to horizon hy; o.sun={x,y}; o.dusk 0..1 warms the colours */
+function landSky(hy,o){
+  hy=hy||GY;o=o||{};const k=o.dusk||0;
+  const g=ctx.createLinearGradient(0,VY0,0,hy);
+  g.addColorStop(0,k?`rgb(${lerp(79,60,k)|0},${lerp(143,70,k)|0},${lerp(196,130,k)|0})`:'#4f8fc4');
+  g.addColorStop(.6,k?`rgb(${lerp(156,220,k)|0},${lerp(198,130,k)|0},${lerp(223,110,k)|0})`:'#9cc6df');
+  g.addColorStop(1,k?`rgb(${lerp(226,250,k)|0},${lerp(239,190,k)|0},${lerp(242,120,k)|0})`:'#e2eff2');
+  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,hy-VY0+2);
+  const sn=o.sun||{x:1280,y:120};const rg=ctx.createRadialGradient(sn.x,sn.y,8,sn.x,sn.y,220);rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(1,'rgba(255,244,214,0)');ctx.fillStyle=rg;ctx.fillRect(sn.x-230,sn.y-230,460,460);circ(sn.x,sn.y,20,'#fff8e2');
+  if(o.clouds!==false)for(const c of LCLOUDS){const x=((c.x+TT*c.sp+400)%2400)-400;if(c.y>hy-40)continue;lcloud(x,c.y,c.s);}
 }
-const wv=(x,t)=>SEA+2.4*Math.sin(x*.021-t*1.7)+1.5*Math.sin(x*.047+t*1.2);
-const bedTX=bedY(TX),bedOX=bedY(OX);
-const PILE_TOP=460,PILE_W=30,PILE_BOT=bedTX+130,PILE_L=PILE_BOT-PILE_TOP;
-const TP_TOP=420,TP_BOT=478,TP_H=58;
-const TW_TOP=185,HS=(TP_TOP-TW_TOP)/3;
-const tw=y=>lerp(16,26,(y-TW_TOP)/(TP_TOP-TW_TOP));
-const HUB={x:TX-44,y:TW_TOP-20},BR=165;
-const JH=bedOX-440;
-const LAY=[{a:0,b:36,c:'#d9c393',n:'細砂層',m:'0–7 m'},{a:36,b:92,c:'#a4876a',n:'粉土質黏土',m:'7–18 m'},{a:92,b:152,c:'#c4a678',n:'緊密砂層',m:'18–30 m'},{a:152,b:760,c:'#6d6862',n:'岩盤／極緊密層',m:'> 30 m'}];
-const WRECK_X=250,UXO_X=560;
-const HDD_EXIT=1350;
+const groundY=x=>GY+6*Math.sin(x*.004)+3*Math.sin(x*.013);
+const LAND_LAY=[{d:0,c:'#7a9a55',n:'表土'},{d:16,c:'#a4876a',n:'黏土層'},{d:110,c:'#c4a678',n:'砂礫層'},{d:230,c:'#6d6862',n:'岩盤'}];
+/* layered ground below groundY; o.layers overrides LAND_LAY; o.grass=false hides grass */
+function drawGround(o){
+  o=o||{};const Ls=o.layers||LAND_LAY;
+  Ls.forEach((L,i)=>{ctx.beginPath();ctx.moveTo(VX0,groundY(VX0)+L.d);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,groundY(x)+L.d+(i?nz(x*.01+i)*4:0));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=L.c;ctx.fill();});
+  if(o.grass!==false){ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=Math.floor(VX0);x<=VX1;x+=5){const y=groundY(x);ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%4));}ctx.stroke();}
+}
+function landBase(){landSky();drawGround();}
+function landEnd(){}
+/* open-sea swell for wave / tidal topics: o={y:mean level,A:amplitude,L:wavelength,sp:speed,bed:seabed y} */
+function swellY(x,o){o=o||{};const A=o.A===undefined?18:o.A,L=o.L||260,sp=o.sp||1.2,y0=o.y||420;return y0+A*Math.sin(TAU*(x/L)-TT*sp)+A*.22*Math.sin(TAU*(x/(L*.43))-TT*sp*1.7);}
+function drawSwell(o){
+  o=o||{};const bed=o.bed||820;const g=ctx.createLinearGradient(0,(o.y||420)-40,0,bed);g.addColorStop(0,'#3b93bb');g.addColorStop(.5,'#1d6690');g.addColorStop(1,'#0b3858');
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.8;ctx.stroke();
+  box(VX0,bed,VX1-VX0,VY1-bed+20,'#b59a6a');ln([VX0,bed,VX1,bed],'#a98a58',2);
+}
+function seaBase(){landSky(420,{});drawSwell();}
+/* ---- objects ---- */
+/* PV module on a post: base (x,y) on ground, panel width w, tilt in degrees facing right→left sun */
+function solarPanel(x,y,w,tilt,o){
+  o=o||{};const h=o.h||w*.45,a=-(tilt||20)*Math.PI/180;ln([x,y,x,y-h],'#8a99a3',Math.max(2,w*.05));
+  ctx.save();ctx.translate(x,y-h);ctx.rotate(a);const t=w*.06;box(-w/2,-t,w,t,'#1f3f66');
+  ctx.strokeStyle='rgba(160,200,240,.55)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(-w/2+w*i/6,-t);ctx.lineTo(-w/2+w*i/6,0);}ctx.stroke();
+  box(-w/2,-t,w,1.5,'#9fc3e6');if(o.glint)box(-w/2+w*.2,-t,w*.25,1.5,'#fff');ctx.restore();
+}
+function pvRow(x0,y,n,gap,w,tilt){for(let i=0;i<n;i++)solarPanel(x0+i*gap,y,w,tilt);}
+/* side-view truck; flip=true faces left */
+function truck(x,y,flip,col,load){ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);
+  box(0,-34,90,26,col||'#e8572a');box(92,-40,34,32,'#f4f6f7');box(100,-36,18,12,'#2a3a46');box(0,-10,126,6,'#2b3137');
+  if(load)load();for(const wx of [18,44,108])circ(wx,-3,8,'#222','#555',2);ctx.restore();}
+function fence(x0,x1,y){ctx.strokeStyle='rgba(60,70,75,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,y-18);ctx.lineTo(x1,y-18);ctx.moveTo(x0,y-9);ctx.lineTo(x1,y-9);for(let x=x0;x<=x1;x+=16){ctx.moveTo(x,y);ctx.lineTo(x,y-20);}ctx.stroke();}
+function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.strokeRect(x,y-h,w,h);ctx.fillStyle='rgba(0,0,0,.25)';for(let i=0;i<3;i++)ctx.fillRect(x+w*.15,y-h+h*(.2+i*.22),w*.7,h*.08);}
+/* pile-driving rig for ground-mounted PV or onshore foundations */
+function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
-/* ================= environment ================= */
-const WATER_END=COAST+12;
-function surf(x){if(x>=WATER_END)return SEA+1;const k=clamp((WATER_END-x)/90);return SEA+(wv(x,TT)-SEA)*k;}
-const CLOUDS=(()=>{const r=rng(11),a=[];for(let i=0;i<10;i++)a.push({x:r()*2600-500,y:30+r()*230,s:.55+r()*.9,sp:3+r()*6});return a;})();
-function cloud(x,y,s,a){
-  ctx.save();ctx.globalAlpha*=a;
-  ctx.beginPath();
-  [[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17],[40,8,20]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});
-  ctx.fillStyle='rgba(255,255,255,.92)';ctx.fill();
-  ctx.clip();ctx.fillStyle='rgba(170,195,215,.35)';ctx.fillRect(x-60*s,y+8*s,180*s,30*s);
-  ctx.restore();
+// KITS: land
+/* 太陽光電系列 第 1 集：太陽光電場施工流程（地面型） */
+const ANG=12*Math.PI/180,HALF=92,EMB=72;               // 1 m ≈ 40 px；樁入土約 1.8 m
+const ROWS=[230,460,690,920,1150,1380];
+const gy=x=>groundY(x);
+function tg(cx){const dx=HALF*Math.cos(ANG),dy=HALF*Math.sin(ANG),y0=gy(cx)-40;return {x0:cx-dx,y0,x1:cx+dx,y1:y0-2*dy};}
+const lineY=(g,x)=>g.y0+(x-g.x0)*(g.y1-g.y0)/(g.x1-g.x0);
+const PILES=[];ROWS.forEach((cx,r)=>{const g=tg(cx);[g.x0+28,g.x1-28].forEach(x=>PILES.push({x,top:lineY(g,x)+9,r}));});
+function drawPile(p,f,cut){
+  const g0=gy(p.x),L=g0-p.top+EMB,top=g0+EMB*f-L;
+  if(cut&&f>0)alphaDo(.7,()=>box(p.x-4,g0,8,EMB*f,'#5d6a73'));
+  const yb=Math.min(g0,top+L);box(p.x-4,top,8,yb-top,'#9aa7b0');ln([p.x-4,top,p.x-4,yb],'#6f7c85',1.5);ln([p.x+4,top,p.x+4,yb],'#6f7c85',1.5);
+  return top;
 }
-function drawSky(){
-  const g=ctx.createLinearGradient(0,-120,0,SEA);
-  g.addColorStop(0,'#4f8fc4');g.addColorStop(.55,'#9cc6df');g.addColorStop(1,'#e2eff2');
-  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,SEA+10-VY0);
-  const sx=1290,sy=110,rg=ctx.createRadialGradient(sx,sy,10,sx,sy,230);
-  rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(.25,'rgba(255,244,214,.35)');rg.addColorStop(1,'rgba(255,244,214,0)');
-  ctx.fillStyle=rg;ctx.fillRect(sx-240,sy-240,480,480);circ(sx,sy,20,'#fff8e2');
-  for(const c of CLOUDS){let x=((c.x+TT*c.sp+500)%2700+2700)%2700-500;if(x>VX1+50||x+120*c.s<VX0-50)continue;cloud(x,c.y,c.s,.95);}
-  // distant mountains on the land side
-  ctx.fillStyle='rgba(120,150,170,.55)';ctx.beginPath();ctx.moveTo(1260,SEA+2);
-  for(let x=1260;x<=2200;x+=20){ctx.lineTo(x,SEA-12-38*clamp((x-1260)/400)-18*Math.sin(x*.013)-10*Math.sin(x*.041));}
-  ctx.lineTo(2200,SEA+2);ctx.fill();
-  const hz=ctx.createLinearGradient(0,SEA-70,0,SEA);hz.addColorStop(0,'rgba(255,255,255,0)');hz.addColorStop(1,'rgba(255,255,255,.4)');
-  ctx.fillStyle=hz;ctx.fillRect(VX0,SEA-70,VX1-VX0,72);
-}
-function waterTop(x0,x1){ctx.moveTo(x0,surf(x0));for(let x=x0;x<=x1;x+=8)ctx.lineTo(x,surf(x));ctx.lineTo(x1,surf(x1));}
-function drawWaterBack(){
-  const xe=Math.min(VX1,WATER_END+40);if(xe<=VX0)return;
-  const g=ctx.createLinearGradient(0,SEA,0,780);
-  g.addColorStop(0,'#3b93bb');g.addColorStop(.45,'#1d6690');g.addColorStop(1,'#0b3858');
-  ctx.beginPath();waterTop(VX0,xe);ctx.lineTo(xe,VY1+10);ctx.lineTo(VX0,VY1+10);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-}
-function waterRegion(){
-  const xe=Math.min(VX1,WATER_END);ctx.beginPath();waterTop(VX0,xe);
-  for(let x=xe;x>=VX0;x-=8)ctx.lineTo(x,bedY(x));ctx.lineTo(VX0,bedY(VX0));ctx.closePath();
-}
-function soilRegion(){ctx.beginPath();ctx.moveTo(VX0,bedY(VX0));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,bedY(x));ctx.lineTo(VX1,bedY(VX1));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();}
-const layB=(x,i)=>bedY(x)+LAY[i].a+(i?nz(x*.012+i*3.1)*5:0);
-const SOILTEX=(()=>{const r=rng(5),a=[];for(let x=-600;x<2300;x+=5.5){const d=r()*330;a.push({x:x+r()*4,d,r:r(),q:r()});}return a;})();
-function drawSoil(){
-  for(let i=0;i<LAY.length;i++){
-    ctx.beginPath();ctx.moveTo(VX0,layB(VX0,i));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,layB(x,i));
-    ctx.lineTo(VX1,layB(VX1,i));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=LAY[i].c;ctx.fill();
-  }
-  for(const p of SOILTEX){
-    if(p.x<VX0||p.x>VX1)continue;const b=bedY(p.x),y=b+p.d;if(y>VY1)continue;
-    let li=0;for(let i=1;i<LAY.length;i++)if(y>layB(p.x,i))li=i;
-    if(y<b+3)continue;
-    if(li===0){ctx.fillStyle='rgba(120,95,50,.35)';ctx.fillRect(p.x,y,1.6,1.4);}
-    else if(li===1){ctx.fillStyle='rgba(70,50,35,.28)';ctx.fillRect(p.x,y,5+p.r*5,1);}
-    else if(li===2){ctx.fillStyle=p.q>.5?'rgba(110,85,50,.35)':'rgba(255,240,210,.35)';ctx.beginPath();ctx.arc(p.x,y,1+p.r*1.2,0,TAU);ctx.fill();}
-    else{ctx.strokeStyle='rgba(30,30,30,.28)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,y);ctx.lineTo(p.x+4+p.r*6,y+(p.q-.5)*6);ctx.stroke();}
-  }
-  ctx.strokeStyle='rgba(40,25,10,.22)';ctx.lineWidth=1;
-  for(let i=1;i<LAY.length;i++){ctx.beginPath();ctx.moveTo(VX0,layB(VX0,i));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,layB(x,i));ctx.stroke();}
-  // seabed line
-  ctx.beginPath();ctx.moveTo(VX0,bedY(VX0));for(let x=VX0;x<=VX1;x+=5)ctx.lineTo(x,bedY(x)+(x<WATER_END?Math.sin(x*.35)*.8:0));
-  ctx.strokeStyle='#a98a58';ctx.lineWidth=2.2;ctx.stroke();
-  // grass and beach on land
-  const g0=Math.max(VX0,1500);
-  if(VX1>g0){ctx.beginPath();ctx.moveTo(g0,bedY(g0));for(let x=g0;x<=VX1;x+=6)ctx.lineTo(x,bedY(x)-1.5);for(let x=VX1;x>=g0;x-=6)ctx.lineTo(x,bedY(x)+5);ctx.closePath();ctx.fillStyle='#78a557';ctx.fill();
-    ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=g0;x<=VX1;x+=4){const y=bedY(x)-1;ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%3));}ctx.stroke();}
-}
-function tree(x,s){const y=bedY(x);box(x-1.2*s,y-9*s,2.4*s,9*s,'#6b4f35');circ(x,y-13*s,6*s,'#4f8a43');circ(x-3*s,y-10*s,4.5*s,'#5c9a4c');circ(x+3.5*s,y-11*s,4.5*s,'#467c3b');}
-function drawWaterOver(){
-  if(VX0>WATER_END)return;
-  ctx.save();waterRegion();ctx.fillStyle='rgba(16,78,118,.17)';ctx.fill();ctx.clip();
-  for(let i=0;i<6;i++){
-    const x0=((i*310+TT*9)%1900)-200;
-    const g=ctx.createLinearGradient(0,SEA,0,SEA+230);g.addColorStop(0,'rgba(220,245,255,.10)');g.addColorStop(1,'rgba(220,245,255,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x0,SEA);ctx.lineTo(x0+36,SEA);ctx.lineTo(x0+130,SEA+240);ctx.lineTo(x0+70,SEA+240);ctx.closePath();ctx.fill();
-  }
-  ctx.restore();
-  const xe=Math.min(VX1,WATER_END);
-  ctx.beginPath();waterTop(VX0,xe);ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.6;ctx.stroke();
-  ctx.save();ctx.translate(0,3.5);ctx.beginPath();waterTop(VX0,xe);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
-}
-function soilVeil(x0,x1,a){ctx.save();soilRegion();ctx.clip();ctx.fillStyle=`rgba(120,95,62,${a||.38})`;ctx.fillRect(x0,VY0,x1-x0,VY1-VY0+30);ctx.restore();}
+function drawRack(g,f){if(f<=0)return;alphaDo(f,()=>{ln([g.x0-4,g.y0+6,g.x1+4,g.y1+6],'#b8c2c8',5);
+  for(const t of [.12,.5,.88]){const x=lerp(g.x0,g.x1,t),y=lerp(g.y0,g.y1,t)+2;box(x-4,y-3,8,6,'#d6dde1');}});}
+function drawMod(g,k,i,glint){if(k<=0)return;ctx.save();ctx.globalAlpha*=clamp(k);ctx.translate(g.x0,g.y0-(1-k)*40);ctx.rotate(-ANG);
+  const s0=i*92+1;box(s0,-8,90,8,'#1f3f66');ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.beginPath();for(let j=1;j<6;j++){ctx.moveTo(s0+j*15,-8);ctx.lineTo(s0+j*15,0);}ctx.stroke();
+  box(s0,-8,90,1.6,'#9fc3e6');if(glint)box(s0+20+((TT*30)%50),-8,18,1.6,'#fff');circ(s0,-8,2.2,'#c9d1d6');circ(s0+90,-8,2.2,'#c9d1d6');ctx.restore();}
+function drawTable(cx,rack,m0,m1,glint){const g=tg(cx);drawRack(g,rack);drawMod(g,m0,0,glint);drawMod(g,m1,1,glint);}
+function excavator(x,t){const y=gy(x);box(x-58,y-16,116,16,'#2f3438');for(const wx of [-46,-16,16,46])circ(x+wx,y-8,6,'#555');
+  box(x-44,y-44,92,28,'#e9b21f');box(x+4,y-78,38,34,'#e9b21f');box(x+10,y-72,22,18,'#2a3a46');
+  const px=x-30,py=y-44,ex=x-95,ey=y-112+10*Math.sin(t*2.2),bx=x-138,by=y-24+18*Math.sin(t*2.2+1);
+  ln([px,py,ex,ey],'#e0a81c',9);ln([ex,ey,bx,by],'#e0a81c',7);poly([bx-14,by-6,bx+6,by-10,bx+2,by+12,bx-16,by+8],'#3b3f43');}
+function mound(x){return Math.max(0,20+16*Math.sin(x*.021)+12*nz(x*.013+3));}
+function stake(x,a){alphaDo(a,()=>{const y=gy(x);ln([x,y,x,y-26],'#8a6a44',2.5);poly([x,y-26,x+12,y-22,x,y-18],'#ff7a1a');});}
+function surveyor(x){const y=gy(x);person(x,y,'#ff7a1a',6);ln([x+9,y,x+9,y-66],'#dfe5e8',2);circ(x+9,y-68,5,'#f2c230');}
 
-/* ================= vessels (local coords: stern x=0, bow +x, waterline y=0) ================= */
-function hull(len,fb,dr,col,bot,stripe,bowRise){
-  bowRise=bowRise===undefined?6:bowRise;
-  ctx.beginPath();ctx.moveTo(-2,-fb);ctx.lineTo(len-22,-fb);ctx.lineTo(len,-fb-bowRise);
-  ctx.bezierCurveTo(len-3,-fb*.2,len-10,dr*.6,len-32,dr);ctx.lineTo(12,dr);ctx.quadraticCurveTo(0,dr,0,dr*.2);ctx.closePath();
-  ctx.fillStyle=col;ctx.fill();
-  ctx.save();ctx.clip();
-  ctx.fillStyle=bot||'#8e2f2a';ctx.fillRect(-6,1.5,len+12,dr+8);
-  if(stripe){ctx.fillStyle=stripe;ctx.fillRect(-6,-fb*.5-1.5,len+12,3);}
-  ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(-6,-fb,len+12,2);
-  ctx.fillStyle='rgba(0,0,0,.14)';ctx.fillRect(-6,-fb*.25,len+12,fb*.25);
-  ctx.restore();
-}
-function vsl(x,len,flip,o,fn){
-  o=o||{};const d=flip?-1:1,cx=x+d*len/2,damp=o.damp===undefined?1:o.damp;
-  const wl=SEA+(surf(cx)-SEA)*damp;
-  const tilt=o.tilt?Math.atan((surf(cx+len*.4)-surf(cx-len*.4))/(len*.8))*o.tilt:0;
-  ctx.save();if(o.a!==undefined)ctx.globalAlpha*=clamp(o.a);ctx.translate(x,wl);ctx.rotate(tilt);if(flip)ctx.scale(-1,1);fn(wl);ctx.restore();
-  return wl;
-}
-const wlAt=(cx,damp)=>SEA+(surf(cx)-SEA)*(damp===undefined?1:damp);
-function superBlock(x,y,w,h,rows,col){box(x,y,w,h,col||'#f4f6f7');ctx.strokeStyle='rgba(0,0,0,.12)';ctx.lineWidth=.8;ctx.strokeRect(x,y,w,h);for(let r=0;r<rows;r++)wins(x+4,y+4+r*10,Math.floor((w-6)/7),7,4,4.5);}
-function mast(x,y,h){ln([x,y,x,y-h],'#4a5560',1.4);ln([x-5,y-h*.6,x+5,y-h*.6],'#4a5560',1.1);circ(x,y-h-1,1.6,'#f2c230');}
-
-function vWorkboat(){
-  hull(130,14,8,'#e8572a','#6d2a22','#fff');rail(2,78,-14,5);
-  superBlock(80,-36,34,22,1);superBlock(84,-46,24,10,0);wins(87,-44,3,7,4,4);mast(96,-46,16);
-}
-function vSurvey(){
-  hull(170,15,9,'#f4f6f7','#2c5f8a','#1f7f99');
-  // gondola / drop keel
-  poly([108,9,112,17,132,17,136,9],'#2c5f8a');
-  superBlock(88,-40,64,25,2);superBlock(98,-52,44,12,0);wins(101,-50,6,7,4,4);mast(122,-52,20);circ(114,-60,3,'#fff','#8a99a3');
-  // A-frame at stern
-  ln([6,-15,10,-44,20,-15],'#e8572a',2.4);ln([10,-44,-4,-40],'#e8572a',2);
-  box(22,-22,20,7,'#6b7780');circ(32,-24,5,'#4d5962');
-}
-function vDrill(){
-  hull(210,16,11,'#e9eef0','#963027','#0e5a8a');
-  // pipe rack
-  for(let i=0;i<5;i++)box(18,-19-i*2.6,62,2.2,i%2?'#8b6b4a':'#9d7b56');
-  // derrick over moonpool at 105
-  const b=-16,h=92;ln([92,b,101,b-h,109,b-h,118,b],'#e8572a',2.2);
-  ctx.strokeStyle='#e8572a';ctx.lineWidth=1;ctx.beginPath();
-  for(let i=0;i<6;i++){const y0=b-i*h/6,y1=b-(i+1)*h/6,k0=i/6,k1=(i+1)/6;ctx.moveTo(lerp(92,101,k0),y0);ctx.lineTo(lerp(118,109,k1),y1);ctx.moveTo(lerp(118,109,k0),y0);ctx.lineTo(lerp(92,101,k1),y1);}
-  ctx.stroke();box(98,b-h-6,14,6,'#394650');
-  superBlock(150,-60,50,44,3);superBlock(146,-72,58,12,0);wins(150,-70,7,7.5,4,4);
-  box(140,-80,74,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(140,-80,74,4);mast(170,-80,16);
-}
-function vResearch(){
-  hull(150,14,9,'#2f7a5c','#1d3b30','#fff');
-  superBlock(70,-38,52,24,2);superBlock(78,-50,38,12,0);wins(81,-48,5,7,4,4);
-  rail(78,116,-50,5,'rgba(255,255,255,.8)');mast(108,-50,22);
-  // stern crane
-  ln([14,-14,14,-30],'#e9edef',3);
-}
-function vHLV(){
-  hull(430,18,14,'#b3332b','#5b2320','#fff',8);
-  // deck stuff
-  box(2,-30,22,12,'#4d5962');
-  box(60,-62,40,16,'#e9b21f');box(66,-48,28,30,'#e9edef');ctx.strokeStyle='rgba(0,0,0,.2)';ctx.strokeRect(66,-48,28,30);
-  wins(70,-58,4,8,4,4,'#2a3a46');
-  superBlock(350,-88,62,70,5);box(344,-100,74,12,'#f4f6f7');wins(348,-97,9,7.4,4,5);
-  box(380,-106,60,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(380,-106,60,4);
-  mast(372,-100,22);
-}
-function drawGripper(R,deck,open){
-  const o=open*9;box(R-2,deck-10,TX+30-R,6,'#2b3137');
-  box(TX-18-o-5,deck-26,6,30,'#e8572a');box(TX+18+o-1,deck-26,6,30,'#e8572a');
-  box(TX+26,deck-14,6,14,'#2b3137');
-}
-function vBubble(){
-  hull(100,11,7,'#2d6ea3','#1a3550','#fff');
-  circ(26,-24,13,'#6b7780','#394650',1.5);ctx.strokeStyle='#1c252c';ctx.lineWidth=1;for(let r=4;r<12;r+=3){ctx.beginPath();ctx.arc(26,-24,r,0,TAU);ctx.stroke();}
-  box(44,-24,14,13,'#e8572a');superBlock(62,-32,26,21,1);mast(76,-32,14);
-}
-function vGuard(){
-  hull(80,9,5,'#f4f6f7','#2a3a46','#e8572a');superBlock(40,-24,26,15,1);mast(56,-24,12);person(48,-24,'#e8572a',.9);
-}
-function vCraneVessel(){
-  hull(460,20,15,'#1f3d5c','#6a2622','#f2c230',8);
-  superBlock(8,-92,50,72,6);box(4,-104,58,12,'#f4f6f7');wins(8,-101,7,7.4,4,5);
-  box(-4,-110,46,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(-4,-110,46,4);mast(50,-104,20);
-  box(402,-60,36,40,'#e9edef');box(394,-78,52,18,'#e8a33a');wins(400,-74,5,8,4,4,'#2a3a46');
-}
-function vCLV(){
-  hull(250,16,11,'#2c3e50','#7a2a24','#e8572a');
-  // carousel
-  box(40,-46,110,30,'#3a4650');ctx.strokeStyle='#e8a33a';ctx.lineWidth=1.3;for(let y=-43;y<-18;y+=4){ctx.beginPath();ctx.moveTo(42,y);ctx.lineTo(148,y);ctx.stroke();}
-  box(38,-50,114,4,'#20282e');box(92,-58,6,8,'#20282e');
-  box(14,-26,18,10,'#6b7780');
-  // chute at stern
-  ctx.strokeStyle='#8a99a3';ctx.lineWidth=4;ctx.beginPath();ctx.arc(4,-12,10,-Math.PI/2,-Math.PI,true);ctx.stroke();
-  superBlock(180,-60,56,44,3);box(176,-72,64,12,'#f4f6f7');wins(180,-69,8,7.4,4,5);mast(208,-72,18);
-}
-function vSmallWork(){
-  hull(110,12,7,'#e8572a','#6d2a22','#fff');
-  ln([2,-12,-6,-44,12,-12],'#f2c230',2.2);ln([-6,-44,-10,-42],'#f2c230',2);
-  circ(30,-19,7,'#394650');superBlock(62,-34,32,22,1);mast(80,-34,14);
-}
-function vCTV(){
-  ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(70,-12);ctx.lineTo(72,-4);ctx.lineTo(66,6);ctx.lineTo(6,6);ctx.lineTo(0,-2);ctx.closePath();ctx.fillStyle='#f2c230';ctx.fill();
-  box(0,1,68,5,'#2a3a46');box(20,1,30,5,'rgba(0,0,0,.25)');
-  box(70,-16,7,16,'#1c1c1c');
-  superBlock(24,-28,34,16,1);box(28,-32,24,4,'#e9edef');mast(40,-32,10);
-}
-function vSOV(){
-  hull(230,16,11,'#1f5f9e','#6a2622','#fff');
-  superBlock(150,-66,70,50,4);box(146,-78,78,12,'#f4f6f7');wins(150,-75,10,7.4,4,5);mast(190,-78,18);
-  box(112,-46,10,30,'#f2c230');box(20,-24,40,8,'#e9edef');
-}
-function wtivLeg(x,bot,col,a){
-  const top=bot-420;ctx.save();ctx.globalAlpha*=a;
-  ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(x-7,bot-6);ctx.lineTo(x-7,top);ctx.moveTo(x+7,bot-6);ctx.lineTo(x+7,top);ctx.stroke();
-  ctx.lineWidth=1;ctx.beginPath();for(let y=bot-6;y>top;y-=14){ctx.moveTo(x-7,y);ctx.lineTo(x+7,y-7);ctx.lineTo(x-7,y-14);}ctx.stroke();
-  poly([x-16,bot-6,x+16,bot-6,x+8,bot+4,x-8,bot+4],col);
-  box(x-8,top-3,16,3,'#555');ctx.restore();
-}
-function drawWTIV(R,d,legBot){
-  wtivLeg(R-440,legBot,'#d9b44a',.75);wtivLeg(R-40,legBot,'#d9b44a',.75);
-  // hull
-  box(R-482,d,482,32,'#e3e9ec');box(R-482,d+12,482,6,'#0e5a8a');box(R-482,d+24,482,8,'#7a2a24');
-  poly([R-482,d,R-495,d+6,R-488,d+32,R-482,d+32],'#e3e9ec');
-  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=1;ctx.strokeRect(R-482,d,482,32);
-  // accommodation
-  superBlock(R-480,d-70,50,70,6);box(R-484,d-82,58,12,'#f4f6f7');wins(R-481,d-79,7,7.5,4,5);
-  box(R-505,d-88,70,5,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(R-505,d-88,70,5);mast(R-440,d-82,18);
-  // blade rack stands
-  for(const sx of [R-282,R-392]){ln([sx,d,sx,d-46],'#4d5962',2);for(let k=0;k<3;k++)ln([sx-8,d-38+12*k+3,sx+8,d-38+12*k+3],'#4d5962',1.6);}
-  // jacking houses + front legs
-  for(const lx of [R-455,R-25]){box(lx-15,d-22,30,22,'#c4ced3');}
-  wtivLeg(R-455,legBot,'#f2c230',1);wtivLeg(R-25,legBot,'#f2c230',1);
-  box(R-44,d-40,38,14,'#f2c230');box(R-40,d-44,30,4,'#394650');
-}
-
-/* ================= structures ================= */
-function drawPile(bx,by,ang,L,w){
-  ctx.save();ctx.translate(bx,by);ctx.rotate(ang-Math.PI/2);
-  const g=ctx.createLinearGradient(-w/2,0,w/2,0);g.addColorStop(0,'#3d4b55');g.addColorStop(.35,'#8093a0');g.addColorStop(1,'#33404a');
-  ctx.beginPath();ctx.moveTo(-w/2,0);ctx.lineTo(-w/2,-L*.8);ctx.lineTo(-w*.43,-L);ctx.lineTo(w*.43,-L);ctx.lineTo(w/2,-L*.8);ctx.lineTo(w/2,0);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=.8;ctx.beginPath();for(let k=1;k<10;k++){const y=-L*k/10;const hw=k>8?w*.45:w/2;ctx.moveTo(-hw,y);ctx.lineTo(hw,y);}ctx.stroke();
-  box(-w*.46,-L-2,w*.92,3,'#252e35');
-  ctx.fillStyle='#f2c230';ctx.fillRect(-w*.47,-L+3,w*.94,14);
-  ctx.restore();
-}
-function drawHammer(x,yb,flash){
-  if(flash>0){const rg=ctx.createRadialGradient(x,yb,2,x,yb,46);rg.addColorStop(0,`rgba(255,236,170,${.9*flash})`);rg.addColorStop(1,'rgba(255,200,80,0)');ctx.fillStyle=rg;ctx.fillRect(x-50,yb-50,100,100);}
-  box(x-21,yb-26,42,34,'#3a4046');box(x-17,yb-100,34,74,'#e07b27');
-  box(x-17,yb-100,34,6,'#2b2f33');box(x-17,yb-60,34,4,'#2b2f33');box(x-6,yb-110,12,10,'#2b2f33');
-  ln([x+17,yb-80,x+24,yb-70,x+24,yb-40],'#222',1.4);
-  ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(x-13,yb-94,6,32);
-}
-function drawTP(cx,yb,o){
-  o=o||{};const top=yb-58;
-  if(!o.bare){
-    ctx.strokeStyle='#e8a33a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-30,top+2);ctx.lineTo(cx-30,yb+24);ctx.moveTo(cx-37,top+2);ctx.lineTo(cx-37,yb+24);ctx.stroke();
-    ctx.lineWidth=1;ctx.beginPath();for(let y=top+6;y<yb+22;y+=5){ctx.moveTo(cx-37,y);ctx.lineTo(cx-30,y);}ctx.stroke();
-    ln([cx-30,top+30,cx-17,top+30],'#c08a1c',1.4);ln([cx-30,yb+10,cx-17,yb+10],'#c08a1c',1.4);
-  }
-  const g=ctx.createLinearGradient(cx-17,0,cx+17,0);g.addColorStop(0,'#c9971a');g.addColorStop(.4,'#f7d24c');g.addColorStop(1,'#b3830c');
-  ctx.fillStyle=g;ctx.fillRect(cx-17,top,34,58);box(cx-18,yb-4,36,4,'#a67b10');
-  rrp(cx+3,top+16,9,15,2);ctx.fillStyle='#e8edf0';ctx.fill();
-  if(!o.bare){
-    box(cx-57,top-3,114,4,'#6f7a80');rail(cx-57,cx+57,top-3,8);
-    ln([cx-57,top+1,cx-17,top+14],'#555',1.2);ln([cx+57,top+1,cx+17,top+14],'#555',1.2);
-    ln([cx+46,top-3,cx+46,top-24,cx+32,top-28],'#e8572a',2);ln([cx+32,top-28,cx+32,top-20],'#333',.8);
-  }
-}
-function drawTowerSec(cx,yb,k){
-  const yt=yb-HS,wb=tw(TP_TOP-k*HS),wt=tw(TP_TOP-(k+1)*HS);
-  const g=ctx.createLinearGradient(cx-wb/2,0,cx+wb/2,0);g.addColorStop(0,'#c3ccd1');g.addColorStop(.4,'#f8fafb');g.addColorStop(1,'#aeb8be');
-  poly([cx-wb/2,yb,cx-wt/2,yt,cx+wt/2,yt,cx+wb/2,yb],g);
-  box(cx-wt/2-1,yt,wt+2,2.2,'#8f9aa1');box(cx-wb/2-1,yb-2.2,wb+2,2.2,'#8f9aa1');
-  if(k===0){rrp(cx-4,yb-24,8,15,2);ctx.fillStyle='#9aa5ab';ctx.fill();}
-}
-function drawNacelle(ax,ay,cut,light){
-  box(ax-14,ay-4,28,4,'#8c979d');
-  const g=ctx.createLinearGradient(0,ay-38,0,ay-3);g.addColorStop(0,'#fdfefe');g.addColorStop(1,'#c3ccd1');
-  rrp(ax-30,ay-38,92,35,5);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1;ctx.stroke();
-  box(ax+30,ay-47,26,9,'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=.7;ctx.beginPath();for(let x=ax+33;x<ax+55;x+=3){ctx.moveTo(x,ay-46);ctx.lineTo(x,ay-39);}ctx.stroke();
-  rail(ax+2,ax+28,ay-38,6);
-  if(cut>0){
-    ctx.save();ctx.globalAlpha*=clamp(cut);
-    rrp(ax-26,ay-34,84,27,3);ctx.fillStyle='#22313b';ctx.fill();
-    circ(ax-20,ay-20,9,'#8c979d','#c9d1d5',1.5);circ(ax-20,ay-20,3.5,'#394650');
-    box(ax-10,ay-32,16,24,'#b87333');ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=.8;ctx.beginPath();for(let x=ax-8;x<ax+6;x+=3){ctx.moveTo(x,ay-32);ctx.lineTo(x,ay-8);}ctx.stroke();
-    box(ax+10,ay-31,8,22,'#2f6fb0');box(ax+20,ay-31,8,22,'#2f6fb0');ctx.fillStyle='#8fd0ff';ctx.fillRect(ax+12,ay-28,3,2);ctx.fillRect(ax+22,ay-28,3,2);
-    box(ax+32,ay-30,20,21,'#6c777e');ctx.strokeStyle='#4a545a';ctx.beginPath();for(let x=ax+34;x<ax+52;x+=3){ctx.moveTo(x,ay-28);ctx.lineTo(x,ay-11);}ctx.stroke();
-    box(ax-4,ay-10,8,4,'#e8a33a');circ(ax-8,ay-7,2,'#e8a33a');circ(ax+8,ay-7,2,'#e8a33a');
-    ctx.restore();
-  }
-  ctx.beginPath();ctx.ellipse(ax-30,ay-20,28,16.5,0,Math.PI/2,Math.PI*1.5);ctx.closePath();
-  const sg=ctx.createLinearGradient(0,ay-37,0,ay-3);sg.addColorStop(0,'#ffffff');sg.addColorStop(1,'#cfd7db');ctx.fillStyle=sg;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.15)';ctx.stroke();
-  circ(ax+52,ay-49,2.4,light?'#ff3b30':'#8a1a14');if(light){const rg=ctx.createRadialGradient(ax+52,ay-49,1,ax+52,ay-49,14);rg.addColorStop(0,'rgba(255,60,48,.6)');rg.addColorStop(1,'rgba(255,60,48,0)');ctx.fillStyle=rg;ctx.fillRect(ax+38,ay-63,28,28);}
-}
-function chord(s){if(s<.04)return 7;if(s<.22)return 7+6*ease((s-.04)/.18);return lerp(13,2.2,Math.pow((s-.22)/.78,.85));}
-function drawBlade(cx,cy,a,R,col){
-  const k=R/165;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
-  ctx.beginPath();ctx.moveTo(0,-3.5*k);
-  for(let i=0;i<=16;i++){const s=i/16;ctx.lineTo(s*R,-chord(s)*.36*k);}
-  for(let i=16;i>=0;i--){const s=i/16;ctx.lineTo(s*R,chord(s)*.64*k);}
-  ctx.closePath();ctx.fillStyle=col||'#f5f7f8';ctx.fill();ctx.strokeStyle='rgba(60,80,95,.4)';ctx.lineWidth=.8;ctx.stroke();
-  ctx.fillStyle='rgba(120,135,145,.35)';ctx.fillRect(0,-3.6*k,R*.035,7.2*k);
-  ctx.restore();
-}
-function drawRotor(hx,hy,a,n){for(let i=0;i<n;i++)drawBlade(hx,hy,a-i*TAU/3,BR);circ(hx,hy,8.5,'#f2f5f6','rgba(0,0,0,.25)',1);circ(hx,hy,3,'#c9d1d5');}
-function jacketHW(y,yb,H){return lerp(55,40,(yb-y)/H);}
-function drawJacket(cx,yb,H,jt){
-  const yt=yb-H,L=y=>jacketHW(y,yb,H);
-  ctx.strokeStyle='rgba(150,165,175,.55)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx-L(yb)+8,yb);ctx.lineTo(cx-L(yt)+8,yt);ctx.moveTo(cx+L(yb)-8,yb);ctx.lineTo(cx+L(yt)-8,yt);ctx.stroke();
-  ctx.strokeStyle='#8595a0';ctx.lineWidth=2;ctx.beginPath();
-  for(let i=0;i<4;i++){const y0=yb-H*i/4,y1=yb-H*(i+1)/4;ctx.moveTo(cx-L(y0),y0);ctx.lineTo(cx+L(y1),y1);ctx.moveTo(cx+L(y0),y0);ctx.lineTo(cx-L(y1),y1);ctx.moveTo(cx-L(y1),y1);ctx.lineTo(cx+L(y1),y1);}
-  ctx.stroke();
-  if(jt){ctx.strokeStyle='#5d6b74';ctx.lineWidth=2.4;ctx.beginPath();
-    ctx.moveTo(cx-62,yb-15);ctx.quadraticCurveTo(cx-60,yb-30,cx-L(yb-40)-6,yb-40);ctx.lineTo(cx-L(yt+4)-6,yt+4);
-    ctx.moveTo(cx+62,yb-15);ctx.quadraticCurveTo(cx+60,yb-30,cx+L(yb-40)+6,yb-40);ctx.lineTo(cx+L(yt+4)+6,yt+4);ctx.stroke();
-    circ(cx-62,yb-15,3,'#5d6b74');circ(cx+62,yb-15,3,'#5d6b74');}
-  const leg=(s)=>{ctx.strokeStyle='#2f3a42';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(cx+s*L(yb),yb);ctx.lineTo(cx+s*L(yt),yt);ctx.stroke();ctx.strokeStyle='#a5b3bb';ctx.lineWidth=4;ctx.stroke();
-    ctx.strokeStyle='#f2c230';ctx.lineWidth=4.2;ctx.beginPath();ctx.moveTo(cx+s*L(yt+34),yt+34);ctx.lineTo(cx+s*L(yt),yt);ctx.stroke();};
-  leg(-1);leg(1);
-  for(const s of [-1,1]){const x=cx+s*(L(yb)+10.5);box(x-3.5,yb-26,7,26,'#6d7b84');box(cx+s*L(yb)-11,yb-2,22,4,'#55626a');}
-  box(cx-L(yt)-3,yt-4,L(yt)*2+6,5,'#f2c230');
-}
-function drawPins(cx,yb,prog,flash){
-  const off=44*(1-prog);
-  for(const s of [-1,1]){const x=cx+s*(55+10.5);box(x-2.5,yb-26-off,5,70,'#9aa6ad');box(x-3,yb-27-off,6,2,'#394650');
-    if(flash>0){const rg=ctx.createRadialGradient(x,yb-27-off,1,x,yb-27-off,16);rg.addColorStop(0,`rgba(255,230,160,${flash})`);rg.addColorStop(1,'rgba(255,230,160,0)');ctx.fillStyle=rg;ctx.fillRect(x-18,yb-45-off,36,36);}}
-}
-function drawTopside(cx,yb,det){
-  box(cx-75,yb-14,150,14,'#6f7c85');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=.8;ctx.beginPath();for(let x=cx-75;x<cx+75;x+=15){ctx.moveTo(x,yb-14);ctx.lineTo(x+15,yb);}ctx.stroke();
-  box(cx-70,yb-80,134,66,'#e4e8ea');ctx.strokeStyle='rgba(0,0,0,.14)';ctx.strokeRect(cx-70,yb-80,134,66);ctx.beginPath();ctx.moveTo(cx-70,yb-47);ctx.lineTo(cx+64,yb-47);ctx.stroke();
-  box(cx-34,yb-74,44,56,'#56626a');ctx.strokeStyle='#39434a';ctx.lineWidth=1;ctx.beginPath();for(let x=cx-32;x<cx+10;x+=3.5){ctx.moveTo(x,yb-70);ctx.lineTo(x,yb-22);}ctx.stroke();
-  box(cx-26,yb-86,4,12,'#8b6b4a');box(cx-14,yb-86,4,12,'#8b6b4a');box(cx-2,yb-86,4,12,'#8b6b4a');
-  box(cx+18,yb-74,40,24,'#cfd6da');wins(cx+21,yb-70,5,7.4,4,4);box(cx+18,yb-44,40,24,'#cfd6da');wins(cx+21,yb-40,5,7.4,4,4);
-  box(cx-64,yb-74,24,52,'#cfd6da');wins(cx-61,yb-70,3,7,4,4);
-  box(cx-75,yb-84,150,4,'#6f7c85');
-  box(cx-122,yb-96,70,4,'#6f7c85');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.4;ctx.strokeRect(cx-122,yb-96,70,4);
-  ln([cx-122,yb-92,cx-70,yb-80],'#6f7c85',1.6);ln([cx-100,yb-92,cx-70,yb-66],'#6f7c85',1.2);
-  if(det>0){ctx.save();ctx.globalAlpha*=det;ctx.fillStyle='#6fe07a';for(let x=cx-120;x<cx-54;x+=9){ctx.fillRect(x,yb-98,2,2);}ctx.restore();}
-  box(cx+48,yb-98,10,14,'#e8a33a');ln([cx+53,yb-98,cx+86,yb-130],'#e8a33a',2.4);ln([cx+86,yb-130,cx+86,yb-110],'#333',.8);
-  box(cx+30,yb-100,5,16,'#9aa5ab');circ(cx-60,yb-86,2,'#f2c230');
-}
-function drawOnshore(a){
-  alphaDo(a,()=>{
-    const g=440;ctx.strokeStyle='rgba(60,70,75,.6)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(1526,g-8);ctx.lineTo(1600,g-8);for(let x=1526;x<=1600;x+=5){ctx.moveTo(x,g);ctx.lineTo(x,g-8);}ctx.stroke();
-    superBlock(1532,g-26,26,26,1,'#dde3e6');box(1530,g-29,30,3,'#8a979e');
-    box(1565,g-18,18,18,'#5d6b74');ctx.strokeStyle='#3e4a52';ctx.lineWidth=.8;ctx.beginPath();for(let x=1567;x<1582;x+=3){ctx.moveTo(x,g-16);ctx.lineTo(x,g-2);}ctx.stroke();
-    for(const bx of [1568,1574,1580]){box(bx-1,g-28,2,10,'#c9b89a');circ(bx,g-28,1.6,'#a0876a');}
-    ctx.strokeStyle='#6b7780';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(1588,g);ctx.lineTo(1588,g-40);ctx.moveTo(1598,g);ctx.lineTo(1598,g-40);ctx.moveTo(1585,g-40);ctx.lineTo(1601,g-40);
-    for(let y=g;y>g-40;y-=8){ctx.moveTo(1588,y);ctx.lineTo(1598,y-8);}ctx.stroke();
-  });
-}
-function drawPylon(){
-  const x=1632,g=bedY(1632),top=g-120;
-  ctx.strokeStyle='#5d6b74';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-11,g);ctx.lineTo(x-2.5,top);ctx.moveTo(x+11,g);ctx.lineTo(x+2.5,top);
-  for(let k=0;k<8;k++){const y0=g-k*15,y1=g-(k+1)*15,w0=lerp(11,2.5,k/8),w1=lerp(11,2.5,(k+1)/8);ctx.moveTo(x-w0,y0);ctx.lineTo(x+w1,y1);ctx.moveTo(x+w0,y0);ctx.lineTo(x-w1,y1);}
-  ctx.moveTo(x-20,top+14);ctx.lineTo(x+20,top+14);ctx.moveTo(x-16,top+36);ctx.lineTo(x+16,top+36);ctx.stroke();
-  ctx.strokeStyle='rgba(40,50,55,.55)';ctx.lineWidth=.8;ctx.beginPath();
-  for(const [dx,dy] of [[-20,14],[20,14],[-16,36],[16,36]]){ctx.moveTo(x+dx,top+dy+4);if(dx<0)ctx.quadraticCurveTo(x+dx-20,top+dy+30,1597,g-38);else ctx.quadraticCurveTo(x+dx+60,top+dy+26,x+dx+160,top+dy-6);}
-  ctx.stroke();
-}
-function hddPt(t){
-  if(t<.8){const q=t/.8,m=1-q,p0={x:1350,y:bedY(1350)},p1={x:1430,y:560},p2={x:1505,y:452};return {x:m*m*p0.x+2*m*q*p1.x+q*q*p2.x,y:m*m*p0.y+2*m*q*p1.y+q*q*p2.y};}
-  const q=(t-.8)/.2;return {x:lerp(1505,1545,q),y:lerp(452,441,q)};
-}
-function drawHDD(a){alphaDo(a,()=>{ctx.beginPath();for(let i=0;i<=30;i++){const p=hddPt(i/30);i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);}
-  ctx.strokeStyle='rgba(50,45,40,.55)';ctx.lineWidth=6;ctx.stroke();ctx.strokeStyle='rgba(215,205,185,.9)';ctx.lineWidth=3.2;ctx.stroke();});}
-
-/* ================= life ================= */
-function dolphin(x,y,ang,s){
-  ctx.save();ctx.translate(x,y);ctx.rotate(ang);if(Math.cos(ang)<0)ctx.scale(s,-s);else ctx.scale(s,s);
-  ctx.beginPath();ctx.moveTo(23,0);ctx.quadraticCurveTo(19,-3,12,-4.5);ctx.quadraticCurveTo(0,-7.5,-14,-3.2);ctx.quadraticCurveTo(-20,-1.2,-24,-.3);ctx.lineTo(-24,1);ctx.quadraticCurveTo(-10,5.5,8,4.2);ctx.quadraticCurveTo(17,3,23,.8);ctx.closePath();
-  ctx.fillStyle='#b8a0a6';ctx.fill();
-  ctx.beginPath();ctx.ellipse(4,2.2,12,2.2,0,0,TAU);ctx.fillStyle='rgba(245,215,215,.75)';ctx.fill();
-  poly([-1,-6.5,-9,-14,-10,-5],'#a88f96');poly([-23,0,-31,-6,-27,.3,-31,6],'#a88f96');poly([7,3,2,8.5,0,4],'#a88f96');
-  circ(14,-1.6,.9,'#222');ctx.restore();
-}
-function fish(x,y,dir,s,col){ctx.save();ctx.translate(x,y);ctx.scale(dir*s,s);ctx.beginPath();ctx.ellipse(0,0,5,1.9,0,0,TAU);ctx.fillStyle=col||'rgba(200,225,235,.85)';ctx.fill();poly([-4,0,-8,-2.6,-8,2.6],col||'rgba(200,225,235,.85)');ctx.restore();}
-function school(cx,cy,n,seed,t,sp,dir,col){const r=rng(seed);for(let i=0;i<n;i++){const ox=(r()-.5)*sp*2,oy=(r()-.5)*sp*.7,ph=r()*6;fish(cx+ox+Math.sin(t*1.3+ph)*6*dir,cy+oy+Math.sin(t*2+ph)*3,dir,.8+r()*.5,col);}}
-function bird(x,y,s,t){const f=Math.sin(t*9)*5*s;ctx.strokeStyle='#2a3440';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(x-7*s,y-f);ctx.quadraticCurveTo(x-3*s,y-3*s-f*.4,x,y);ctx.quadraticCurveTo(x+3*s,y-3*s-f*.4,x+7*s,y-f);ctx.stroke();}
-function rov(x,y,t,active){
-  if(active){for(let i=0;i<14;i++){const k=((t*1.3+i/14)%1);circ(x-12-k*50,y-6-k*30+Math.sin(i*3)*6,3+k*9,`rgba(150,125,90,${.4*(1-k)})`);}}
-  box(x-14,y-5,30,5,'#222');for(let i=0;i<5;i++)circ(x-11+i*6,y-2.5,2,'#555');
-  box(x-12,y-19,26,14,'#f2c230');box(x-8,y-16,8,5,'#2a3a46');box(x+4,y-23,6,4,'#e8572a');
-  if(active){box(x-17,y-8,4,20,'#555');}
-}
-function buoy(x,wl,t,a){
-  alphaDo(a===undefined?1:a,()=>{
-    ctx.save();ctx.translate(x,wl);ctx.rotate(Math.sin(t*1.6)*.05);
-    poly([-20,-6,20,-6,14,10,-14,10],'#f2c230','#9c7a12',1);box(-4,10,8,10,'#9c7a12');
-    ln([-12,-6,-3,-44,3,-44,12,-6],'#6b7780',1.6);box(-9,-28,18,13,'#f4f6f7');ctx.strokeStyle='#8a99a3';ctx.strokeRect(-9,-28,18,13);box(-6,-31,12,3,'#394650');
-    poly([-22,-18,-10,-22,-10,-16,-22,-12],'#1f4a73');poly([22,-18,10,-22,10,-16,22,-12],'#1f4a73');
-    ln([0,-44,0,-58],'#6b7780',1.2);circ(0,-59,2.2,Math.sin(t*4)>0?'#ffe35a':'#b59a2a');ln([4,-50,10,-52],'#6b7780',1);
-    ctx.restore();
-  });
-}
-
-/* ================= persistent scenery items ================= */
-function drawWreck(hl){
-  const x=WRECK_X,y=bedY(x);ctx.save();ctx.translate(x,y+3);ctx.rotate(-.12);
-  poly([-34,0,-31,-9,18,-12,34,-4,30,3],'#5b4b3b','#3a2f25',1);poly([-20,-9,-15,-17,-1,-16,1,-10],'#4f4133');ln([-6,-12,-2,-27],'#4a3d30',2.2);
-  ctx.restore();
-  if(hl>0){ring(x,y-6,30+Math.sin(TT*6)*3,`rgba(232,87,42,${.8*hl})`,2);}
-}
-function drawUXO(hl,a){
-  alphaDo(a,()=>{const x=UXO_X,y=bedY(x);ctx.save();ctx.translate(x,y-2);ctx.rotate(.35);rrp(-9,-3.2,15,6.4,3.2);ctx.fillStyle='#4c5a3f';ctx.fill();poly([-9,0,-13,-4,-13,4],'#3c4832');ctx.restore();
-    if(hl>0){for(let i=0;i<3;i++){const k=(TT*1.2+i/3)%1;ring(x,y-3,6+k*34,`rgba(232,87,42,${hl*(1-k)})`,1.8);}}});
-}
-const FLS_X=380;
-function wb0(u){if(u<.46)return {x:lerp(-320,400,easeOut(seg(u,0,.2))),a:1};return {x:lerp(400,1500,easeIn(seg(u,.46,.78))),a:1-seg(u,.66,.76)};}
-function flsPos(){
-  const c=SC,u=SU;
-  if(c>0)return {x:FLS_X,y:wlAt(FLS_X,.9),free:true};
-  const w=wb0(u),deck=wlAt(w.x+65,.8)-14;
-  if(u<.2)return {x:w.x+34,y:deck-20};
-  if(u<.36){const p=kf(u,[[.2,w.x+34,deck-20],[.25,w.x+34,deck-44],[.3,FLS_X,deck-44],[.36,FLS_X,wlAt(FLS_X,.9)]]);return {x:p.x,y:p.y};}
-  return {x:FLS_X,y:wlAt(FLS_X,.9),free:true};
-}
-const flsAlpha=()=>SC<4?1:SC===4?1-seg(SU,0,.08):0;
-function drawMooring(){
-  const a=flsAlpha();if(a<=0)return;let p=1;if(SC===0){if(SU<.33)return;p=ease(seg(SU,.33,.45));}
-  const b=flsPos(),top={x:b.x,y:b.y+20},cl={x:lerp(b.x,340,p),y:lerp(b.y+26,bedY(340)-4,p)};
-  alphaDo(a,()=>{ctx.setLineDash([3,2.2]);ctx.beginPath();ctx.moveTo(top.x,top.y);ctx.quadraticCurveTo(lerp(top.x,cl.x,.3)+10,lerp(top.y,cl.y,.62),cl.x,cl.y);ctx.strokeStyle='#2b3035';ctx.lineWidth=1.7;ctx.stroke();ctx.setLineDash([]);box(cl.x-8,cl.y-4,16,9,'#4d5760');});
-}
-function drawFLS(){const a=flsAlpha();if(a<=0)return;const b=flsPos();buoy(b.x,b.y,b.free?TT:0,a);}
-function windV(h){return 10.3*Math.pow(h/150,.11)+.35*Math.sin(TT*1.9+h*.07);}
-
-/* default side-view background for shots with side:true */
-function sideBase(){
-  drawSky();drawWaterBack();drawSoil();
-  for(const [x,s] of [[1476,.8],[1490,1],[1506,.9],[1612,.9],[1664,1.1],[1690,.8],[1720,1]])if(x>VX0-20&&x<VX1+20)tree(x,s);
-  if(VX1>1600)drawPylon();
-}
-function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
-
-/* offshore-wind label dictionary (from the multilingual overview film) */
-Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
-
-// KITS: marine
-/* ================= EP02 地球物理調查 ================= */
-const BOULD_X=860;
-function svX(u,a,b){return lerp(-260,1700,seg(u,a||0,b||1));}
-function towPt(vx,wl,len,depth){return {x:vx-len,y:Math.min(bedY(vx-len)-depth,wl+len*.9)};}
-function drawTow(ax,ay,f,col){ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(lerp(ax,f.x,.5),lerp(ay,f.y,.15)+30,f.x+14,f.y-2);ctx.strokeStyle=col||'rgba(20,24,28,.85)';ctx.lineWidth=1.3;ctx.stroke();}
-function towfish(x,y,col){ctx.save();ctx.translate(x,y);rrp(-16,-4,34,8,4);ctx.fillStyle=col||'#f2c230';ctx.fill();poly([-16,0,-24,-7,-24,7],'#394650');ctx.restore();}
-function boulders(){const r=rng(21);for(let i=0;i<7;i++){const x=BOULD_X+(r()-.5)*70,s=4+r()*6;const y=bedY(x);ctx.beginPath();ctx.ellipse(x,y-s*.5,s*1.3,s,0,Math.PI,0);ctx.fillStyle='#6d6862';ctx.fill();}}
-function paleo(a){alphaDo(a,()=>{ctx.save();soilRegion();ctx.clip();ctx.beginPath();const x0=700,x1=960;ctx.moveTo(x0,layB(x0,1)+4);for(let x=x0;x<=x1;x+=6){const k=(x-x0)/(x1-x0);ctx.lineTo(x,layB(x,1)+4+62*Math.sin(k*Math.PI));}for(let x=x1;x>=x0;x-=6)ctx.lineTo(x,layB(x,1)+4);ctx.closePath();ctx.fillStyle='#8d7a5d';ctx.fill();ctx.strokeStyle='rgba(40,25,10,.4)';ctx.stroke();ctx.restore();});}
-const depthCol=d=>{const k=clamp((d-34)/14);const c=[[230,90,60],[240,200,70],[90,200,150],[40,130,200],[30,60,140]];const i=Math.min(3,Math.floor(k*4)),t=k*4-i;const a=c[i],b=c[i+1];return `rgb(${lerp(a[0],b[0],t)|0},${lerp(a[1],b[1],t)|0},${lerp(a[2],b[2],t)|0})`;};
-const bathy=(x,y)=>41+3*Math.sin(x*.045+y*.012)*.6+x*.006-y*.004+2.2*Math.sin(x*.012-y*.02);
-/* site plan geometry for shots 1 & 6 */
-const SITE={x:180,y:180,w:900,h:600};
-const TURB=(()=>{const A=[];for(let r=0;r<4;r++)for(let c=0;c<5;c++)A.push({x:SITE.x+110+c*170+(r%2)*40,y:SITE.y+95+r*140});return A;})();
-
-const EP={no:2,slug:'offshore-wind',seriesName:'離岸風場開發系列',total:13,t:'地球物理調查',en:'Geophysical survey',
-lede:'在任何一支樁打下去之前，得先知道海床長什麼樣子、底下埋了什麼。這一集跟著調查船，看多音束測深、側掃聲納、磁力儀與底層剖面儀，如何用聲波與磁場一層層「看穿」海底。',
-facts:[['256–512','道','多音束測深儀一次發射的音束數量，扇形掃過海床'],['3–5','倍水深','多音束單趟測線的覆蓋寬度，約為水深的 3 到 5 倍'],['< 0.5','m','側掃聲納可辨識的海床物體尺寸，足以看見岩塊與殘骸'],['1–5','nT','磁力儀可偵測的微小磁場變化，用來找出埋藏的金屬物'],['數十','m','底層剖面儀與高解析震測可看到海床下的地層深度'],['4–6','km/h','調查船施測時的航速，慢而穩定才能得到乾淨資料']],
-note:'說明：本集為教育用途示意動畫，儀器外觀、音束數量與地層厚度均經簡化。測線間距、覆蓋寬度與偵測能力依儀器、水深與海況而異，實際調查規劃依各場址的技術規範執行。',
+const EP={no:1,slug:'solar-pv',seriesName:'太陽光電系列',t:'太陽光電場施工流程',en:'Building a solar farm',
+lede:'一座地面型太陽光電場，從一片空地到開始送電要經過哪些工序？這一集跟著工程團隊整地放樣、打樁、組裝支架與模組，再看直流如何串成組串、經變流器與升壓站併入台電電網。',
+facts:[['1.5–3','m','地面型光電鋼樁常見的入土深度，依地質調查與拉拔試驗決定'],
+['10–15','°','台灣地面型光電常見的模組傾角，兼顧發電量、排水與抗風'],
+['1,500','V','直流系統電壓上限，決定一串最多能串接幾片模組'],
+['約 26','片','每一串的模組數示例（單片開路電壓約 50 V）'],
+['22.8 → 161','kV','大型案場在升壓站把集電電壓升到輸電電壓後併網'],
+['1–1.5','公頃','每 MW 地面型光電大約需要的土地面積']],
+note:'說明：本集為教育用途示意動畫，高度與距離比例經過調整。樁長、傾角、串列片數、電壓等級與用地面積為典型範例，實際依地質調查、結構計算、設備規格與台電併聯審查結果而定。',
+base:()=>{landSky(GY,{sun:{x:300,y:130}});drawGround();},
 shots:[
-/* 1 */{t:'規劃測線',en:'Survey line planning',dur:12,
- d:'調查從一張圖開始。依據預定的風機位置與海纜路由，規劃出平行的主測線，讓每一趟的掃描範圍彼此重疊，不留死角；再加上垂直方向的檢核測線，用來交叉驗證資料品質。調查船像割草機一樣來回航行，範圍可能涵蓋上百平方公里。',
- s:[[0,'依風機預定位置與海纜路由劃出調查範圍'],[.2,'平行主測線來回航行，相鄰測線的掃描範圍互相重疊'],[.6,'加上垂直方向的檢核測線，交叉比對資料品質'],[.82,'海纜路由另設走廊，一路延伸到登陸點']],
+{t:'整地與放樣',en:'Site preparation and setting out',dur:12,side:true,
+ d:'取得施工許可後，工程從整地開始。挖土機把高低起伏的地面整平，並依水土保持計畫挖設排水溝，讓大雨時的逕流有路可走。接著測量人員以衛星定位（GNSS RTK）依設計圖逐點放樣，在每一支樁的位置插上標樁，誤差控制在公分等級。最後沿著案場邊界架設施工圍籬，管制人車進出。',
+ s:[[0,'挖土機把起伏的地面整平'],[.3,'整平後的場地，為打樁做準備'],[.5,'測量人員以 GNSS 逐點放樣，標出每一支樁的位置'],[.8,'挖設排水溝、架設施工圍籬']],
+ cam:u=>({x:800,y:545,s:1.25}),
  draw(u){
-  diagBG();const S=SITE;
-  card(S.x,S.y,S.w,S.h,{bg:'rgba(31,127,153,.18)',st:'rgba(125,200,220,.5)',r:4});
-  wt(S.x+16,S.y-16,'風場調查範圍（示例 約 100 km²）',18,'rgba(227,236,238,.8)',600);
-  // corridor
-  poly([S.x+S.w,S.y+S.h*.55,1500,560,1500,640,S.x+S.w,S.y+S.h*.55+60],'rgba(31,127,153,.18)','rgba(125,200,220,.4)',1.2);
-  box(1500,420,80,380,'rgba(120,165,87,.5)');wt(1540,400,'陸地',18,'#cfe3c0',700,'center');
-  TURB.forEach(t=>{circ(t.x,t.y,7,'#fff');});
-  const nL=12,sp=S.w/nL,k=seg(u,.12,.62)*nL;ctx.lineWidth=2;
-  let vx=0,vy=0;
-  for(let i=0;i<nL;i++){const f=clamp(k-i);if(f<=0)break;const x=S.x+sp*(i+.5),y0=i%2?S.y+S.h:S.y,y1=i%2?S.y:S.y+S.h,ye=lerp(y0,y1,f);
-    box(x-sp*.62,Math.min(y0,ye),sp*1.24,Math.abs(ye-y0),'rgba(242,194,48,.10)');ln([x,y0,x,ye],'#f2c230',2);vx=x;vy=ye;}
-  if(u>.6){const k2=seg(u,.6,.8)*4;for(let j=0;j<4;j++){const f=clamp(k2-j);if(f<=0)break;const y=S.y+S.h*(j+.5)/4;ln([S.x,y,lerp(S.x,S.x+S.w,f),y],'#7dffc4',2);if(f<1){vx=lerp(S.x,S.x+S.w,f);vy=y;}}}
-  if(u>.8){const f=seg(u,.8,.97);const P=[{x:S.x+S.w,y:S.y+S.h*.55+30},{x:1500,y:600}];const q=lerpPt(P[0],P[1],f);ln([P[0].x,P[0].y,q.x,q.y],'#ff9d7a',2.4);vx=q.x;vy=q.y;}
-  if(u>.12){circ(vx,vy,9,'#e8572a','#fff',2);}
-  // legend
-  const L=[['#fff','預定風機位置'],['#f2c230','主測線'],['#7dffc4','檢核測線'],['#ff9d7a','海纜路由測線']];
-  card(1120,180,380,190,{bg:'rgba(7,27,39,.8)'});L.forEach((l,i)=>{const y=222+i*38;ln([1144,y,1180,y],l[0],4);wt(1194,y+7,l[1],19,'#fff',500);});
-  alphaDo(band(u,.25,.6),()=>{tag(S.x+sp*2.5,S.y+S.h+36,'掃描帶重疊 約 20–50%',{align:'center',size:18});});
- }},
-/* 2 */{t:'多音束測深 MBES',en:'Multibeam echosounder',dur:13,
- d:'多音束測深儀裝在船底，每秒發出數次扇形聲波，一次就有數百道音束打到海床。儀器量測每道聲波來回的時間，配合海水聲速剖面與船的姿態、定位資料，換算出每個點的精確水深。一趟航行就能掃出一條寬度約為水深 3 到 5 倍的地形帶，拼起來就是整片海床的立體地圖，連沙波起伏都清清楚楚。',
- s:[[0,'從船尾方向看：換能器向下發出扇形聲波'],[.22,'數百道音束同時打到海床，量測每道聲波的來回時間'],[.45,'以聲速剖面、船體姿態與定位資料校正，換算成水深'],[.66,'一條條掃描帶拼接成高解析的海床地形圖']],
+  const exX=lerp(1480,120,easeOut(seg(u,.02,.48)));
+  ctx.beginPath();ctx.moveTo(VX0,gy(VX0));for(let x=VX0;x<=VX1;x+=6){const h=x<exX-150?mound(x):x<exX-60?mound(x)*seg(exX-60-x,90,0):0;ctx.lineTo(x,gy(x)-h);}ctx.lineTo(VX1,gy(VX1));ctx.closePath();ctx.fillStyle='#9b7b58';ctx.fill();
+  const da=seg(u,.78,.9);if(da>0)alphaDo(da,()=>{const y=gy(90);poly([55,y,125,y,112,y+22,68,y+22],'#6b5540');box(70,y+12,40,8,'#4f8fc4');});
+  PILES.forEach((p,i)=>{const sx=lerp(150,1480,seg(u,.5,.8));stake(p.x,p.x<sx?1:0);});
+  const sa=band(u,.48,.84);if(sa>0)alphaDo(sa,()=>surveyor(lerp(150,1480,seg(u,.5,.8))));
+  const fa=seg(u,.84,.94);if(fa>0)alphaDo(fa,()=>fence(20,1580,GY+6));
+  if(u<.52)excavator(exX,TT);
+  lab(exX-80,gy(exX)-90,'挖土機整地',{dx:40,dy:-70,a:band(u,.04,.46)});
+  lab(1200,gy(1200),'整平後的場地',{dx:0,dy:-80,st:'g',a:band(u,.28,.5)});
+  lab(lerp(150,1480,seg(u,.5,.8))+9,gy(900)-68,'GNSS RTK 放樣',{dx:40,dy:-60,st:'s',a:band(u,.52,.8)});
+  lab(PILES[4].x,gy(PILES[4].x)-24,'標樁：每一支樁的位置',{dx:-30,dy:-90,a:band(u,.62,.84)});
+  lab(90,gy(90)+10,'排水溝',{dx:60,dy:-80,st:'l',a:band(u,.8,1)});
+  lab(1300,GY-12,'施工圍籬',{dx:30,dy:-70,a:band(u,.86,1)});
+ },
+ hud(u){hudPanel(230,120,'整地與放樣',seg(u,.05,.1),w=>{hrow(56,'整地進度',Math.round(100*seg(u,.02,.48))+'%',w);hrow(88,'放樣點',Math.round(12*seg(u,.5,.8))+' / 12',w,'#f2c230');});}},
+
+{t:'打樁：鋼樁基礎',en:'Driving the steel piles',dur:14,side:true,
+ d:'地面型光電多半不用混凝土基礎，而是以打樁機把熱浸鍍鋅的 H 型鋼或 C 型鋼樁直接打進地面。打樁機沿著放樣點逐支施打，入土深度常在 1.5 到 3 公尺，依地質調查結果決定；石塊多的地層需先引孔。每一支樁打完要量測頂部高程、位置與垂直度，因為上面的支架要靠它們對齊，誤差太大就裝不上去。',
+ s:[[0,'打樁機移到第一個標樁位置'],[.2,'液壓錘把鍍鋅鋼樁打入地面'],[.5,'剖面：鋼樁入土約 1.8 公尺'],[.75,'逐支量測頂部高程與垂直度']],
+ cam:u=>camMix({x:560,y:520,s:1.45},{x:800,y:500,s:1.05},ease(seg(u,.55,.9))),
+ draw(u){
+  const ca=seg(u,.4,.5);if(ca>0)alphaDo(ca*.35,()=>box(VX0,GY+10,VX1-VX0,EMB+30,'#3a2c20'));
+  const n=PILES.length,span=.84/n;let rigX=PILES[0].x-20,hy=0,cur=-1;
+  PILES.forEach((p,i)=>{const t=(u-.06)/span-i;const f=t<.2?0:seg(t,.2,.9);if(t<0)return;const top=drawPile(p,f,ca>0);
+    if(t>=0&&t<1){cur=i;const prev=i?PILES[i-1].x-20:p.x-140;rigX=lerp(prev,p.x-20,ease(seg(t,0,.2)));hy=f>0&&f<1?top-4*Math.abs(Math.sin(TT*14)):top;}});
+  if(u<.06)rigX=lerp(PILES[0].x-160,PILES[0].x-20,ease(seg(u,0,.06)));
+  if(cur<0&&u>=.06){rigX=PILES[n-1].x-20+lerp(0,160,seg(u,.9,1));}
+  pileRig(rigX,gy(rigX),hy||gy(rigX)-110);
+  lab(rigX+20,gy(rigX)-170,'打樁機',{dx:50,dy:-40,a:band(u,.03,.4)});
+  lab(PILES[1].x,PILES[1].top,'熱浸鍍鋅鋼樁',{dx:-40,dy:-80,st:'s',a:band(u,.2,.5)});
+  lab(PILES[2].x,gy(PILES[2].x)+EMB,'入土約 1.8 m',{dx:60,dy:30,st:'l',a:band(u,.48,.75)});
+  tick(PILES[0].x-10,gy(PILES[0].x)+EMB/2,'地下','right');
+  lab(PILES[5].x,PILES[5].top,'量測高程與垂直度',{dx:30,dy:-90,st:'g',a:band(u,.72,1)});
+ },
+ hud(u){hudPanel(230,150,'打樁紀錄',seg(u,.08,.13),w=>{const k=Math.min(12,Math.floor(Math.max(0,(u-.06)/(.84/12))));hrow(56,'已完成',trf('{k} / 12 支',{k}),w);hrow(88,'入土深度','1.8 m',w);hrow(120,'垂直度偏差','0.4°',w,'#7dffc4');});}},
+
+{t:'基樁為什麼怕「拔」',en:'Why piles are tested for uplift',dur:13,
+ d:'太陽能板像一面斜放的大板子，颱風吹過時，板下的氣流會產生向上的「上拔力」，同時還有側向推力。鋼樁靠著與土壤之間的摩擦與側向土壓抵抗這些力。因此施工前會在現場做拉拔試驗：用千斤頂把樁往上拉，記錄載重與位移，確認在設計載重的倍數下，位移仍在容許範圍內，才決定整區的樁長。',
+ s:[[0,'颱風時，板下氣流產生向上的上拔力'],[.25,'加上側向風力，都由鋼樁傳給土壤'],[.45,'土壤摩擦力抵抗上拔'],[.6,'現場拉拔試驗：記錄載重與上拔位移'],[.85,'達到試驗載重、位移仍在容許值內：合格']],
  draw(u){
   diagBG();
-  const sy=250,cx=440,bed=x=>690+18*Math.sin((x-cx)*.03+TT*.0)+ (x-cx)*.05;
-  // water column
-  const g=ctx.createLinearGradient(0,sy,0,780);g.addColorStop(0,'rgba(59,147,187,.55)');g.addColorStop(1,'rgba(11,56,88,.7)');ctx.fillStyle=g;ctx.fillRect(40,sy,800,560);
-  ctx.beginPath();ctx.moveTo(40,bed(40));for(let x=40;x<=840;x+=6)ctx.lineTo(x,bed(x));ctx.lineTo(840,810);ctx.lineTo(40,810);ctx.closePath();ctx.fillStyle='#b59a6a';ctx.fill();
-  ln([40,sy,840,sy],'rgba(255,255,255,.8)',2);
-  // vessel rear view
-  const roll=Math.sin(TT*1.3)*.03;ctx.save();ctx.translate(cx,sy);ctx.rotate(roll);poly([-70,-30,70,-30,56,18,-56,18],'#f4f6f7','#8a99a3',1.4);box(-40,-80,80,50,'#f4f6f7');wins(-32,-72,6,11,6,6);box(-10,-110,20,30,'#dfe5e8');box(-8,18,16,10,'#2c5f8a');ctx.restore();
-  const tx=cx,ty=sy+28,fan=seg(u,.05,.2);
-  const hit=a=>{let t=0;const dx=Math.sin(a),dy=Math.cos(a);while(t<900){const x=tx+dx*t,y=ty+dy*t;if(y>=bed(x))return {x,y,t};t+=3;}return {x:tx+dx*t,y:ty+dy*t,t};};
-  const N=33,ph=(TT*1.6)%1;const H=[];
-  for(let i=0;i<N;i++){const a=roll+lerp(-1.13,1.13,i/(N-1))*fan;const p=hit(a);H.push(p);ln([tx,ty,p.x,p.y],'rgba(160,255,215,.18)',1);}
-  if(fan>.2){ctx.beginPath();ctx.arc(tx,ty,ph*420,Math.PI/2-1.13,Math.PI/2+1.13);ctx.strokeStyle=`rgba(183,255,226,${.8*(1-ph)})`;ctx.lineWidth=2.4;ctx.stroke();}
-  if(u>.2)H.forEach((p,i)=>circ(p.x,p.y,3.2,depthCol(34+(p.y-sy)/560*40*.35+ (p.y-640)/12)));
-  alphaDo(seg(u,.2,.26),()=>{const a=H[0],b=H[N-1];ln([a.x,a.y+36,b.x,b.y+36],'#f2c230',1.6);ln([a.x,a.y+26,a.x,a.y+46],'#f2c230',1.6);ln([b.x,b.y+26,b.x,b.y+46],'#f2c230',1.6);});
-  alphaDo(seg(u,.2,.26),()=>wt(cx,782,'覆蓋寬度 ≈ 水深 × 4',19,'#f2c230',700,'center'));
-  alphaDo(band(u,.45,1),()=>{box(80,sy+30,10,300,'rgba(255,255,255,.2)');ln([85,sy+30,85,sy+330],'#7dffc4',2);wt(100,sy+60,'聲速剖面',17,'#7dffc4',600);wt(100,sy+84,'（溫度、鹽度會改變聲速）',15,'rgba(227,236,238,.7)',500);
-    tag(cx+90,sy-90,'姿態感測器＋衛星定位',{size:16});});
-  // map
-  const mx=900,my=170,mw=640,mh=610;card(mx,my,mw,mh,{bg:'rgba(7,27,39,.8)'});wt(mx+20,my+34,'水深地形圖（上視）',20,'#f2c230',700);
-  const px=mx+20,py=my+52,pw=mw-40,ph2=mh-120,cs=10,sw=16;const lines=4,p=seg(u,.22,.95)*lines;
-  for(let l=0;l<lines;l++){const f=clamp(p-l);if(f<=0)break;const c0=l*sw*cs*.9;const rows=Math.floor(ph2/cs),nr=Math.floor(rows*f);
-    for(let r=0;r<nr;r++){const rr=l%2?rows-1-r:r;for(let c=0;c<sw;c++){const x=px+c0+c*cs;if(x>px+pw-cs)continue;ctx.fillStyle=depthCol(bathy(x,py+rr*cs));ctx.fillRect(x,py+rr*cs,cs,cs);}}
-    if(f<1){const rr=l%2?rows-1-nr:nr;circ(px+c0+sw*cs*.6,py+rr*cs,8,'#fff','#13232e',2);}}
-  const lg=my+mh-44;for(let i=0;i<20;i++){ctx.fillStyle=depthCol(34+i*.7);ctx.fillRect(mx+60+i*14,lg,14,14);}wt(mx+54,lg+13,'淺',16,'#fff',600,'right');wt(mx+344,lg+13,'深',16,'#fff',600);wt(mx+mw-20,lg+13,'水深 34–48 m',16,'rgba(227,236,238,.8)',600,'right');
+  card(70,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(94,200,'作用在樁上的力',20,'#f2c230',700);
+  const G=560,px=420;box(90,G,660,220,'#5a4633');ln([90,G,750,G],'#8fbf6a',3);
+  box(px-6,G-150,12,150+130,'#9aa7b0');ctx.save();ctx.translate(px,G-150);ctx.rotate(-ANG);box(-190,-10,380,10,'#1f3f66');box(-190,-10,380,2,'#9fc3e6');ctx.restore();
+  const a1=seg(u,.03,.2),a2=seg(u,.22,.38),a3=seg(u,.42,.56);
+  alphaDo(a1,()=>{for(let i=0;i<4;i++){const y=G-110+i*12;arrow(120,y+30,260,y-10,'rgba(125,200,255,.8)',2.5);}arrow(px,G-160,px,G-260,'#e8572a',6);wt(px+16,G-236,'上拔力（風吸力）',19,'#ffb199',700);});
+  alphaDo(a2,()=>{arrow(px-150,G-60,px-14,G-60,'#f2c230',5);wt(px-150,G-78,'側向風力',18,'#f2c230',700);});
+  alphaDo(a3,()=>{for(let i=0;i<4;i++){const y=G+30+i*28;arrow(px-26,y,px-26,y+22,'#7dffc4',3);arrow(px+26,y,px+26,y+22,'#7dffc4',3);}wt(px+44,G+80,'土壤摩擦阻抗',18,'#7dffc4',700);wt(px+44,G+106,'入土深度決定阻抗大小',15,'rgba(227,236,238,.75)',500);});
+  const c=chartBox(840,160,690,640,{title:'拉拔試驗：載重與上拔位移（示例）',x0:0,x1:30,y0:0,y1:25,xt:[0,10,20,30],yt:[0,5,10,15,20,25],xl:'拉拔載重（kN）',yl:'位移（mm）',pt:70});
+  const lmax=24*seg(u,.58,.84);
+  if(lmax>0){ctx.beginPath();for(let L=0;L<=lmax;L+=.25){const d=.28*L+.0009*L*L*L;L?ctx.lineTo(c.X(L),c.Y(d)):ctx.moveTo(c.X(L),c.Y(d));}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3;ctx.stroke();
+   const d=.28*lmax+.0009*lmax**3;circ(c.X(lmax),c.Y(d),6,'#7dffc4');}
+  alphaDo(seg(u,.6,.66),()=>{ctx.setLineDash([8,6]);ln([c.X(12),c.py,c.X(12),c.py+c.ph],'#f2c230',2);ln([c.px,c.Y(20),c.px+c.pw,c.Y(20)],'#e8572a',2);ctx.setLineDash([]);
+   wt(c.X(12)+8,c.py+24,'設計上拔力 12 kN',16,'#f2c230',700);wt(c.px+c.pw-8,c.Y(20)-10,'容許位移 20 mm',16,'#ffb199',700,'right');});
+  alphaDo(seg(u,.8,.86),()=>{wt(c.X(24)-8,c.py+56,'試驗載重＝2 倍',16,'#7dffc4',700,'right');});
+  alphaDo(seg(u,.86,.92),()=>tag(c.px+20,c.py+c.ph-40,'位移在容許值內：合格',{bg:'#1f7f5c',fg:'#fff',size:18}));
  }},
-/* 3 */{t:'側掃聲納 SSS',en:'Side-scan sonar',dur:13,side:true,
- d:'側掃聲納裝在一條拖曳在船後方、貼近海床航行的「拖魚」上，向左右兩側斜射扇形聲波。凸出海床的物體會產生強烈回波，後方則留下沒有回聲的「聲影」，長度可以推算物體高度。畫面逐行累積，形成像黑白照片般的海床影像，沉船、岩塊、廢棄漁網、錨痕都無所遁形。',
- s:[[0,'調查船後方拖曳側掃聲納拖魚，距海床約 10–20 公尺'],[.2,'拖魚向兩側發射扇形聲波，逐行累積成海床影像'],[.45,'凸起物回波強烈，後方留下聲影：發現沉船殘骸'],[.72,'岩塊群與沉船位置被標記，列為設計時的避讓目標']],
- cam:u=>({x:clamp(svX(u,.02,.98)-160,260,1100),y:590,s:1.35}),
+
+{t:'支架與模組安裝',en:'Racking and module installation',dur:14,side:true,
+ d:'樁位確認後，工班在樁頂鎖上斜樑，再橫向架設檁條，形成固定傾角的支架。台灣常見傾角約 10 到 15 度，面向南方；角度太大會增加受風面積，太小則不利雨水沖刷灰塵。接著兩人一組把模組抬上支架，以直立兩排（2P）的方式排列，再用壓塊鎖在檁條上。每片模組的背面有接線盒與快速接頭，裝好後就能開始配線。',
+ s:[[0,'樁頂鎖上斜樑與檁條，組成固定傾角的支架'],[.35,'模組以直立兩排（2P）排列，傾角約 12°'],[.6,'兩人一組把模組抬上支架，壓塊鎖固'],[.85,'一排排完成，準備配線']],
+ cam:u=>camMix({x:520,y:530,s:1.6},{x:800,y:500,s:1.05},ease(seg(u,.6,.95))),
  draw(u){
-  drawWreck(0);boulders();
-  const vx=svX(u,.02,.98),wl=wlAt(vx+85,.7);const f=towPt(vx,wl,230,24);
-  drawTow(vx+10,wl-44,f);towfish(f.x,f.y);
-  vsl(vx,170,false,{damp:.7},vSurvey);
-  const sa=seg(u,.12,.18);alphaDo(sa,()=>{for(let i=0;i<3;i++){const k=(TT*1.5+i/3)%1;ctx.beginPath();ctx.ellipse(f.x,f.y,20+k*80,6+k*22,0,0,TAU);ctx.strokeStyle=`rgba(183,255,226,${.7*(1-k)})`;ctx.lineWidth=1.6;ctx.stroke();}});
-  const nearW=Math.abs(f.x-WRECK_X)<80,nearB=Math.abs(f.x-BOULD_X)<80,pastW=f.x>WRECK_X,pastB=f.x>BOULD_X;
-  if(pastW)ring(WRECK_X,bedY(WRECK_X)-6,32+Math.sin(TT*6)*3,'rgba(232,87,42,.85)',2);
-  if(pastB)ring(BOULD_X,bedY(BOULD_X)-5,44+Math.sin(TT*6)*3,'rgba(232,87,42,.85)',2);
-  lab(f.x,f.y,'側掃聲納拖魚',{dx:-40,dy:-50,a:band(u,.04,.4)});
-  lab(WRECK_X,bedY(WRECK_X)-12,'沉船殘骸',{dx:30,dy:-70,st:'w',a:pastW?1:0});
-  lab(BOULD_X,bedY(BOULD_X)-8,'岩塊群',{dx:40,dy:-70,st:'w',a:pastB?1:0});
+  PILES.forEach(p=>drawPile(p,1,false));
+  ROWS.forEach((cx,i)=>{const r=seg(u,.02+i*.07,.1+i*.07),m0=seg(u,.3+i*.09,.36+i*.09),m1=seg(u,.34+i*.09,.4+i*.09);drawTable(cx,r,m0,m1,false);});
+  const ci=clamp(Math.floor((u-.3)/.09),0,5),cx=ROWS[ci],g=tg(cx);
+  if(u>.28&&u<.9){person(g.x0-18,gy(g.x0-18),'#f2c230',6);person(g.x1+18,gy(g.x1+18),'#ff7a1a',6);}
+  const g1=tg(ROWS[1]);
+  lab((g1.x0+g1.x1)/2,(g1.y0+g1.y1)/2+6,'斜樑與檁條',{dx:-60,dy:-90,a:band(u,.1,.34)});
+  const g0=tg(ROWS[0]);tick(g0.x1+12,g0.y1-6,'傾角約 12°','left');
+  lab(g0.x0+40,lineY(g0,g0.x0+40)-8,'模組直立兩排（2P）',{dx:-20,dy:-100,st:'s',a:band(u,.34,.6)});
+  lab(g0.x1-2,lineY(g0,g0.x1-2)-8,'壓塊固定',{dx:40,dy:-60,st:'l',a:band(u,.5,.75)});
+  lab(g.x0-18,gy(g.x0)-40,'兩人一組抬運模組',{dx:-40,dy:-120,a:band(u,.58,.85)});
  },
- hud(u){hudPanel(250,330,'側掃聲納影像（瀑布圖）',seg(u,.16,.22),(w,h)=>{
-  const vx=svX(u,.02,.98),fx=vx-230,x0=14,y0=40,iw=w-28,ih=270,rows=54,cols=40,rw=ih/rows,cw=iw/cols;
-  for(let r=0;r<rows;r++){const ax=fx-r*9;for(let c=0;c<cols;c++){const s=(c-cols/2)/(cols/2),as=Math.abs(s);let v=as<.06?.05:.25+.35*hn(Math.round(ax/9),c)+.12*Math.sin(ax*.05+c*.4);
-      const dW=Math.abs(ax-WRECK_X);if(dW<34&&s>.18&&s<.36)v=.95;if(dW<34&&s>=.36&&s<.62)v=.03;
-      const dB=Math.abs(ax-BOULD_X);if(dB<40&&s<-.2&&s>-.5&&hn(Math.round(ax/7),c*3)>.55){v=.9;}if(dB<40&&s<=-.5&&s>-.62)v=.05;
-      v*=clamp(1-as*.35);const g=Math.round(clamp(v)*235);ctx.fillStyle=`rgb(${g},${Math.round(g*.86)},${Math.round(g*.55)})`;ctx.fillRect(x0+c*cw,y0+r*rw,cw+.5,rw+.5);}}
-  htext(x0,y0+ih+18,'左舷',11,'rgba(227,236,238,.7)');htext(x0+iw,y0+ih+18,'右舷',11,'rgba(227,236,238,.7)',500,FONT,'right');htext(x0+iw/2,y0+ih+18,'拖魚正下方',11,'rgba(227,236,238,.7)',500,FONT,'center');
- });}},
-/* 4 */{t:'磁力儀搜尋未爆彈',en:'Magnetometer and UXO',dur:13,side:true,
- d:'台灣周邊海域曾是二戰時期的戰場，海床下可能埋有未爆彈（UXO）。磁力儀被拖曳到貼近海床的位置，偵測地球磁場的微小擾動：鐵製物體會讓讀數出現一個尖峰。調查人員把所有異常點列表，交由遙控無人潛水器（ROV）目視確認；確認是未爆彈後，由專業團隊移除，或在設計上劃出避讓區。',
- s:[[0,'磁力儀拖曳在海床上方數公尺，持續記錄磁場強度'],[.3,'經過埋藏的鐵製物體時，讀數出現明顯尖峰'],[.52,'標記磁力異常點，派遙控無人潛水器（ROV）下潛確認'],[.78,'確認為未爆彈：劃設避讓區，或由專業團隊移除']],
- cam:u=>({x:clamp(Math.min(svX(u,.02,.62),UXO_X+320)-150,300,900),y:600,s:1.4}),
+ hud(u){hudPanel(230,120,'本區安裝進度',seg(u,.05,.1),w=>{hrow(56,'支架',trf('{k} / 6 排',{k:Math.round(6*seg(u,.02,.47))}),w);let m=0;ROWS.forEach((c,i)=>{m+=Math.round(seg(u,.3+i*.09,.36+i*.09))+Math.round(seg(u,.34+i*.09,.4+i*.09));});hrow(88,'模組',trf('{k} / 12 片',{k:m}),w,'#f2c230');});}},
+
+{t:'組串：直流怎麼串',en:'Stringing the DC side',dur:13,
+ d:'一片模組的電壓只有數十伏特，要把許多片串聯成一「串」，電壓才夠讓變流器有效率地工作。串接的片數有上限：模組在低溫時電壓會升高，整串的開路電壓必須低於系統上限 1,500 V。以單片開路電壓約 50 V 為例，一串約可接 26 片。多串模組再並聯接到組串式變流器，由它追蹤最大功率點，把直流轉成交流。',
+ s:[[0,'模組一片接一片串聯，電壓逐片相加'],[.3,'26 片約 1,300 V；低溫時電壓再升高'],[.5,'整串電壓必須低於系統上限 1,500 V'],[.7,'多串並聯接到組串式變流器，直流轉成交流']],
  draw(u){
-  drawUXO(u>.33?1:0,1);
-  let vx=svX(u,.02,.62);vx=Math.min(vx,UXO_X+320);if(u>.84)vx=lerp(UXO_X+320,1700,easeIn(seg(u,.84,1)));
-  const wl=wlAt(vx+85,.7),f=towPt(vx,wl,200,8);drawTow(vx+10,wl-44,f);towfish(f.x,f.y,'#e8572a');
-  vsl(vx,170,false,{damp:.7},vSurvey);
-  if(u>.52&&u<.86){const k=ease(seg(u,.52,.66)),rx=vx+80,ry=lerp(wl+10,bedY(UXO_X+30)-2,k),rxx=lerp(rx,UXO_X+34,k);ln([rx,wl,rxx,ry-20],'#f2c230',1.2);rov(rxx,ry,TT,false);
-    if(k>=1){const L=(TT*2)%1;poly([rxx-12,ry-12,UXO_X-20,bedY(UXO_X)-4+L*0,UXO_X+10,bedY(UXO_X)],'rgba(255,240,180,.18)');}}
-  if(u>.76){alphaDo(seg(u,.76,.8),()=>{ctx.setLineDash([6,5]);ring(UXO_X,bedY(UXO_X)-2,70,'#e8572a',2);ctx.setLineDash([]);});}
-  lab(f.x,f.y,'磁力儀',{dx:-30,dy:-44,a:band(u,.04,.3)});
-  lab(UXO_X,bedY(UXO_X)-4,'磁力異常點',{dx:-80,dy:-60,st:'w',a:band(u,.35,.76)});
-  lab(UXO_X,bedY(UXO_X)-70,'避讓區',{dx:60,dy:-40,st:'w',a:seg(u,.78,.82)});
- },
- hud(u){hudPanel(260,200,'磁場強度（nT）',seg(u,.06,.12),(w)=>{
-  const vx=Math.min(svX(u,.02,.62),UXO_X+320),fx=vx-200,x0=16,y0=40,cw=w-32,ch=120,xa=fx-500;
-  ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1;ctx.strokeRect(x0,y0,cw,ch);
-  const val=x=>{const d=x-UXO_X;return 30*Math.exp(-d*d/900)*(1)-14*Math.exp(-Math.pow(d-26,2)/500)+2.2*hn(Math.round(x/6),3)-1.1;};
-  ctx.beginPath();for(let i=0;i<=cw;i+=2){const x=xa+i/cw*500;if(x>fx)break;const y=y0+ch*.62-val(x)*2.4;i?ctx.lineTo(x0+i,y):ctx.moveTo(x0+i,y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.stroke();
-  htext(x0+4,y0+ch+22,'背景值 約 44,000 nT，圖中顯示偏差量',11,'rgba(227,236,238,.7)');
-  const pk=val(UXO_X);if(fx>UXO_X+10){const px=x0+(UXO_X-xa)/500*cw;if(px>x0){circ(px,y0+ch*.62-pk*2.4,5,'#e8572a');htext(px+8,y0+22,'+'+pk.toFixed(0)+' nT',15,'#e8572a',700,COND);}}
- });}},
-/* 5 */{t:'看穿海床：淺層剖面',en:'Sub-bottom profiling',dur:13,side:true,
- d:'前面的儀器只看得到海床表面。底層剖面儀（SBP）與高解析震測（UHRS）發出頻率較低的聲波，能穿進海床下方數公尺到上百公尺；聲波每遇到一個性質不同的地層介面就反射一次，排列起來就是一張地層剖面圖。它能找出被泥沙掩埋的古河道、軟弱黏土層與淺層氣體，這些都會影響樁的設計與打樁難度。',
- s:[[0,'調查船以低頻聲波脈衝向下穿透海床'],[.22,'聲波在每一個地層介面反射，回波被記錄下來'],[.45,'回波排列成地層剖面圖，看見細砂、黏土與緊密砂層的分界'],[.68,'發現被掩埋的古河道：軟弱沉積物會影響基礎設計']],
- cam:u=>({x:clamp(svX(u,.03,.95)+60,400,1060),y:650,s:1.2}),
- draw(u){paleo(1);},
- fx(u){
-  const vx=svX(u,.03,.95),wl=wlAt(vx+85,.7);vsl(vx,170,false,{damp:.7},vSurvey);
-  const sx=vx+120,sy=wl+14,k=(TT*1.2)%1;
-  ctx.save();ctx.beginPath();ctx.rect(sx-200,sy,400,420);ctx.clip();ctx.beginPath();ctx.arc(sx,sy,k*420,0,Math.PI);ctx.strokeStyle=`rgba(183,255,226,${.8*(1-k)})`;ctx.lineWidth=2.4;ctx.stroke();ctx.restore();
-  for(let i=0;i<3;i++){const y=layB(sx,i+1);const inCh=sx>700&&sx<960&&i===0;const yy=inCh?layB(sx,1)+4+62*Math.sin((sx-700)/260*Math.PI):y;ln([sx-30,yy,sx+30,yy],`rgba(255,240,150,${.9-.2*i})`,2.2);}
-  ln([sx,sy,sx,bedY(sx)],'rgba(183,255,226,.3)',1);
-  lab(760,layB(830,1)+40,'被掩埋的古河道',{dx:-60,dy:80,st:'w',a:seg(u,.66,.72)*(vx>620?1:0)});
-  lab(sx,sy,'底層剖面儀',{dx:60,dy:-80,a:band(u,.03,.3)});
- },
- hud(u){hudPanel(270,230,'地層剖面（SBP）',seg(u,.4,.46),(w)=>{
-  const vx=svX(u,.03,.95),sx=vx+120,x0=14,y0=40,cw=w-28,ch=160,xa=0,xb=1300;
-  ctx.fillStyle='#1b1e20';ctx.fillRect(x0,y0,cw,ch);
-  const X=x=>x0+(x-xa)/(xb-xa)*cw,Y=d=>y0+10+d*.8;
-  for(let i=0;i<4;i++){ctx.beginPath();let st=false;for(let x=xa;x<=Math.min(sx,xb);x+=10){let d=i===0?0:layB(x,i)-bedY(x);d+= bedY(x)-690;const y=Y(d);st?ctx.lineTo(X(x),y):ctx.moveTo(X(x),y);st=true;}ctx.strokeStyle=['#fff','#f2d98a','#e8b86a','#c9895a'][i];ctx.lineWidth=i?1.6:2.2;ctx.stroke();}
-  if(sx>700){ctx.beginPath();let st=false;for(let x=700;x<=Math.min(sx,960);x+=8){const d=layB(x,1)+4+62*Math.sin((x-700)/260*Math.PI)-690;st?ctx.lineTo(X(x),Y(d)):ctx.moveTo(X(x),Y(d));st=true;}ctx.strokeStyle='#ff8a60';ctx.lineWidth=2;ctx.stroke();}
-  htext(x0,y0+ch+20,'橫軸：航行距離　縱軸：海床下深度',11,'rgba(227,236,238,.7)');
- });}},
-/* 6 */{t:'整合成海床風險圖',en:'Integrated hazard map',dur:12,
- d:'所有調查成果被整合進同一張地理資訊圖，並和後續的地質鑽探資料結合成「地盤模型」。設計團隊據此微調每一部風機的位置、讓海纜繞過沉船與未爆彈避讓區，也決定哪些機位需要額外鑽探。調查做得越完整，施工階段遇到意外、延誤與追加費用的風險就越低。',
- s:[[0,'把水深、影像、磁力與地層資料疊合在同一張圖上'],[.28,'標出沉船、未爆彈、岩塊群與古河道等風險區'],[.5,'落在古河道上的機位微調到較穩定的位置'],[.72,'海纜路由繞開沉船與避讓區，完成初步配置']],
+  diagBG();
+  const N=26,k=seg(u,.02,.42),lit=Math.floor(N*k+.001);
+  wt(80,200,'一串模組（串聯）',20,'#f2c230',700);
+  for(let i=0;i<N;i++){const x=80+i*54;box(x,226,46,62,i<lit?'#2b5f99':'#1a3350');ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.strokeRect(x,226,46,62);if(i<N-1)ln([x+46,257,x+54,257],i<lit-1?'#f2c230':'rgba(255,255,255,.25)',2);}
+  wt(80,330,trf('{n} 片 × 約 50 V ＝ {v} V',{n:lit,v:(lit*50).toLocaleString('en-US')}),22,'#fff',700);
+  const c=chartBox(70,380,780,420,{title:'串接片數與整串開路電壓',x0:0,x1:30,y0:0,y1:1600,xt:[0,10,20,30],yt:[0,500,1000,1500],xl:'串接片數',yl:'V',pt:66});
+  ln([c.px,c.Y(1500),c.px+c.pw,c.Y(1500)],'#e8572a',2.5);wt(c.px+10,c.Y(1500)-10,'系統上限 1,500 V',16,'#ffb199',700);
+  ln([c.X(0),c.Y(0),c.X(lit),c.Y(lit*50)],'#7dffc4',3);circ(c.X(lit),c.Y(lit*50),5,'#7dffc4');
+  alphaDo(seg(u,.3,.4),()=>{ctx.setLineDash([7,6]);ln([c.X(0),c.Y(0),c.X(26),c.Y(1390)],'#f2c230',2);ctx.setLineDash([]);wt(c.X(26)-6,c.Y(1390)-14,'低溫時約 1,390 V',16,'#f2c230',700,'right');});
+  card(900,380,630,420,{bg:'rgba(7,27,39,.75)'});wt(924,418,'多串並聯 → 組串式變流器',20,'#f2c230',700);
+  const a=seg(u,.62,.74);
+  alphaDo(a,()=>{for(let j=0;j<4;j++){const y=480+j*70;box(930,y-16,150,32,'#2b5f99');wt(1005,y,trf('第 {n} 串',{n:j+1}),16,'#fff',700,'center',FONT,'middle');ln([1080,y,1240,590],'#f2c230',2.5);
+     const f=((TT*.6+j*.25)%1);circ(lerp(1080,1240,f),lerp(y,590,f),4,'#fff');}
+   rrp(1240,540,150,100,12);ctx.fillStyle='#dfe5e8';ctx.fill();wt(1315,580,'變流器',18,'#13232e',700,'center');wt(1315,610,'DC → AC',16,'#13232e',600,'center',COND);
+   arrow(1390,590,1500,590,'#7dffc4',4);wt(1445,570,'交流',16,'#7dffc4',700,'center');
+   wt(924,760,'MPPT：隨日照調整工作點，取得最大功率',16,'rgba(227,236,238,.8)',500);});
+ }},
+
+{t:'變流器、升壓與併網',en:'From inverter to the grid',dur:13,
+ d:'變流器輸出的低壓交流電，先在場內的箱式變電站升到 22.8 kV，再由集電線路匯集到升壓站。小型案場可以直接併入台電的 22.8 kV 饋線；大型案場則自建或共用升壓站，把電壓升到 161 kV 或 69 kV 後併入輸電網。電壓越高，同樣的功率所需電流越小，線路損失也越低。',
+ s:[[0,'模組串列的直流電進入組串式變流器'],[.25,'箱式變電站把低壓交流升到 22.8 kV'],[.5,'集電線路匯集各區的電力到升壓站'],[.72,'升壓到 161 kV，併入台電輸電網']],
  draw(u){
-  diagBG();const S=SITE;
-  for(let y=S.y;y<S.y+S.h;y+=20)for(let x=S.x;x<S.x+S.w;x+=20){ctx.fillStyle=depthCol(bathy(x*.7,y*.7));ctx.globalAlpha=.55;ctx.fillRect(x,y,20,20);}ctx.globalAlpha=1;
-  ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.4;ctx.strokeRect(S.x,S.y,S.w,S.h);
-  const hz=seg(u,.25,.4);
-  const ch=[[S.x+380,S.y],[S.x+470,S.y+200],[S.x+420,S.y+400],[S.x+520,S.y+S.h]];
-  alphaDo(hz,()=>{ctx.beginPath();ctx.moveTo(ch[0][0],ch[0][1]);ctx.bezierCurveTo(ch[1][0],ch[1][1],ch[2][0],ch[2][1],ch[3][0],ch[3][1]);ctx.strokeStyle='rgba(141,122,93,.85)';ctx.lineWidth=46;ctx.stroke();ctx.strokeStyle='rgba(255,138,96,.9)';ctx.lineWidth=2;ctx.setLineDash([8,6]);ctx.stroke();ctx.setLineDash([]);
-   tag(S.x+560,S.y+170,'古河道',{bg:'#8d7a5d',fg:'#fff',size:17});
-   const W1={x:S.x+700,y:S.y+300},U1={x:S.x+250,y:S.y+470},B1={x:S.x+800,y:S.y+520};
-   ring(W1.x,W1.y,30,'#e8572a',3);tag(W1.x+36,W1.y,'沉船',{bg:'#e8572a',fg:'#fff',size:17});
-   ctx.setLineDash([6,5]);ring(U1.x,U1.y,44,'#e8572a',2.5);ctx.setLineDash([]);circ(U1.x,U1.y,6,'#e8572a');tag(U1.x+50,U1.y,'未爆彈避讓區',{bg:'#e8572a',fg:'#fff',size:17});
-   const r=rng(3);for(let i=0;i<14;i++)circ(B1.x+(r()-.5)*70,B1.y+(r()-.5)*50,4,'#3d3a36');tag(B1.x-40,B1.y+48,'岩塊群',{bg:'#6d6862',fg:'#fff',size:17});});
-  const mv=ease(seg(u,.5,.64));
-  TURB.forEach((t,i)=>{let x=t.x,y=t.y;if(i===7){x=lerp(t.x,t.x+95,mv);if(mv>0&&mv<1||u>.5){ctx.setLineDash([4,4]);ring(t.x,t.y,10,'rgba(255,255,255,.6)',1.5);ctx.setLineDash([]);}}
-    circ(x,y,9,i===7&&u>.5?'#f2c230':'#fff','#13232e',2);});
-  if(u>.5)lab(TURB[7].x+95,TURB[7].y,'機位微調',{dx:40,dy:-50,st:'s',a:band(u,.52,1)});
-  const ck=seg(u,.72,.9);if(ck>0){const W1={x:S.x+700,y:S.y+300};const P=[{x:TURB[8].x,y:TURB[8].y},{x:W1.x-10,y:W1.y-60},{x:W1.x+70,y:W1.y-40},{x:S.x+S.w,y:S.y+330}];
-    pathLine(partial(P,ck),'#f2c230',4);ctx.setLineDash([6,6]);ln([TURB[8].x,TURB[8].y,S.x+S.w,S.y+300],'rgba(255,255,255,.35)',2);ctx.setLineDash([]);
-    lab(W1.x+40,W1.y-50,'海纜繞過沉船',{dx:60,dy:-60,st:'s',a:seg(u,.84,.88)});}
-  card(1120,180,380,300,{bg:'rgba(7,27,39,.8)'});wt(1144,220,'圖層',20,'#f2c230',700);
-  [['水深地形（MBES）',.02],['海床物體（SSS）',.12],['磁力異常（MAG）',.18],['淺層地層（SBP）',.24],['風機位置與海纜',.5]].forEach((l,i)=>{const a=seg(u,l[1],l[1]+.04);circ(1152,256+i*44,7,a>0?'#7dffc4':'rgba(255,255,255,.2)');wt(1170,263+i*44,l[0],19,a>0?'#fff':'rgba(255,255,255,.4)',500);});
- }}
+  diagBG();
+  const Y=420,N=[[140,'模組串列','1,500 V 以下 DC'],[400,'組串式變流器','約 800 V AC'],[660,'箱式變電站','0.8 → 22.8 kV'],[930,'22.8 kV 集電線路','地下電纜'],[1200,'升壓站','22.8 → 161 kV'],[1460,'台電電網','161 kV']];
+  N.forEach((n,i)=>{const a=seg(u,.02+i*.14,.08+i*.14);if(a<=0)return;alphaDo(a,()=>{
+    if(i){const x0=N[i-1][0]+70,x1=n[0]-70;ln([x0,Y,x1,Y],i<2?'#f2c230':'#7dffc4',4);for(let k=0;k<3;k++){const f=((TT*.5+k/3)%1);circ(lerp(x0,x1,f),Y,5,'#fff');}}
+    rrp(n[0]-70,Y-50,140,100,14);ctx.fillStyle=i===5?'#1f7f5c':'rgba(255,255,255,.1)';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;ctx.stroke();
+    wt(n[0],Y-80,n[1],18,'#fff',700,'center');wt(n[0],Y+8,n[2],16,i<1?'#f2c230':'#7dffc4',700,'center',COND,'middle');});});
+  alphaDo(seg(u,.02,.1),()=>wt(140,Y+90,'直流',16,'#f2c230',700,'center'));
+  alphaDo(seg(u,.16,.24),()=>wt(400,Y+90,'直流 → 交流',16,'rgba(227,236,238,.8)',600,'center'));
+  const b=seg(u,.78,.88);
+  alphaDo(b,()=>{card(140,590,1320,190,{bg:'rgba(7,27,39,.75)'});wt(170,632,'兩種併網方式',20,'#f2c230',700);
+   tag(170,690,'小型案場',{size:18});wt(310,696,'直接併入台電 22.8 kV 饋線',18,'#fff',500);
+   tag(170,746,'大型案場',{size:18,bg:'#7dffc4'});wt(310,752,'自建或共用升壓站，升到 161 kV 或 69 kV 併入輸電網',18,'#fff',500);});
+ }},
+
+{t:'竣工查驗與併聯運轉',en:'Commissioning and first power',dur:13,side:true,
+ d:'設備全部裝好後，先由電機技師與施工團隊做竣工檢查：量測每一串的開路電壓與絕緣電阻、確認模組與支架確實接地，並以 I-V 曲線量測找出異常的組串。接著向台電申請併聯試運轉，保護電驛與通訊都確認正常後正式送電；最後向能源署辦理設備登記，案場才進入商轉，開始二十年的發電與維運。',
+ s:[[0,'竣工檢查：開路電壓、絕緣電阻與接地'],[.3,'I-V 曲線量測，找出異常組串'],[.55,'台電併聯試運轉，正式送電'],[.8,'辦理設備登記後進入商轉']],
+ base:u=>{landSky(GY,{sun:{x:lerp(260,1500,u),y:130+180*seg(u,.6,1)},dusk:.75*seg(u,.65,1)});drawGround();},
+ cam:u=>({x:820,y:525,s:1.12}),
+ draw(u){
+  PILES.forEach(p=>drawPile(p,1,false));
+  ROWS.forEach(cx=>drawTable(cx,1,1,1,u>.55));
+  [0,2,4].forEach(i=>{const g=tg(ROWS[i]),x=g.x1-28;box(x+5,gy(x)-40,20,26,'#dfe5e8');});
+  const bx=1455;cabinet(bx-40,gy(bx),80,62,'#dfe5e8');ln([bx+40,gy(bx)-40,1600,gy(bx)-120],'rgba(40,50,56,.7)',2);
+  if(u<.52){const x=lerp(300,1100,seg(u,.02,.5));person(x,gy(x),'#f2c230',6);box(x+5,gy(x)-40,8,10,'#e3ecee');}
+  lab(tg(ROWS[1]).x1-10,gy(ROWS[1])-40,'組串式變流器',{dx:40,dy:-90,a:band(u,.03,.3)});
+  lab(lerp(300,1100,seg(u,.02,.5)),gy(700)-44,'I-V 曲線量測',{dx:-20,dy:-110,st:'s',a:band(u,.28,.52)});
+  lab(bx,gy(bx)-62,'箱式變電站',{dx:-60,dy:-80,a:band(u,.45,.8)});
+  lab(1560,gy(1560)-100,'併入台電電網',{dx:-30,dy:-70,st:'g',a:band(u,.58,.85)});
+  lab(800,gy(800)-60,'設備登記完成，進入商轉',{dx:0,dy:-150,st:'g',a:band(u,.82,1)});
+ },
+ hud(u){hudPanel(240,150,'案場即時狀態',seg(u,.05,.1),w=>{const on=u>.55,p=on?10*clamp(Math.sin(Math.PI*lerp(.35,1.02,seg(u,.55,1)))):0;
+  hrow(56,'絕緣電阻',u>.1?'> 1 MΩ':'—',w);hrow(88,'併聯狀態',on?'併聯中':'待併聯',w,on?'#7dffc4':'#f2c230');hrow(120,'發電功率（示例）',p.toFixed(1)+' MW',w,'#f2c230');});}}
 ]};
 
-/* EP02 translations: Traditional Chinese → [English, Japanese] */
+/* 太陽光電場施工流程 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"離岸風場開發系列": [
-"Offshore Wind Development Series",
-"洋上風力開発シリーズ"
-],
-"地球物理調查": [
-"Geophysical survey",
-"物理探査"
-],
-"在任何一支樁打下去之前，得先知道海床長什麼樣子、底下埋了什麼。這一集跟著調查船，看多音束測深、側掃聲納、磁力儀與底層剖面儀，如何用聲波與磁場一層層「看穿」海底。": [
-"Before a single pile goes in, you need to know what the seabed looks like and what lies beneath it. This episode follows the survey vessel to see how multibeam echosounders, side-scan sonar, magnetometers and sub-bottom profilers use sound and magnetism to see through the seafloor layer by layer.",
-"杭を1本打つ前に、海底がどんな形をしていて、その下に何が埋まっているかを知る必要があります。このエピソードでは調査船に同行し、マルチビーム測深機、サイドスキャンソナー、磁気探査機、サブボトムプロファイラーが、音波と磁場で海底を一層ずつ「透視」する様子を見ていきます。"
-],
-"道": [
-"beams",
-"本"
-],
-"多音束測深儀一次發射的音束數量，扇形掃過海床": [
-"Beams a multibeam echosounder fires at once, sweeping the seabed in a fan",
-"マルチビーム測深機が一度に発射する音響ビームの数。扇形に海底を走査"
-],
-"倍水深": [
-"× water depth",
-"× 水深"
-],
-"多音束單趟測線的覆蓋寬度，約為水深的 3 到 5 倍": [
-"Width covered by one multibeam line, about 3 to 5 times the water depth",
-"マルチビーム1測線のカバー幅は水深の約3〜5倍"
-],
-"側掃聲納可辨識的海床物體尺寸，足以看見岩塊與殘骸": [
-"Size of seabed objects side-scan sonar can resolve, enough to see boulders and debris",
-"サイドスキャンソナーが識別できる海底物体の大きさ。岩塊や残骸が見える"
-],
-"磁力儀可偵測的微小磁場變化，用來找出埋藏的金屬物": [
-"Tiny magnetic changes a magnetometer can detect, used to find buried metal",
-"磁気探査機が検出できるわずかな磁場変化。埋設金属の発見に使う"
-],
-"數十": [
-"tens of",
-"数十"
-],
-"底層剖面儀與高解析震測可看到海床下的地層深度": [
-"Depth below the seabed that sub-bottom profilers and high-resolution seismic can image",
-"サブボトムプロファイラーと高分解能地震探査で見える海底下の深さ"
-],
-"調查船施測時的航速，慢而穩定才能得到乾淨資料": [
-"Survey speed of the vessel: slow and steady gives clean data",
-"調査船の測線航行速度。ゆっくり一定に走るほどきれいなデータが得られる"
-],
-"說明：本集為教育用途示意動畫，儀器外觀、音束數量與地層厚度均經簡化。測線間距、覆蓋寬度與偵測能力依儀器、水深與海況而異，實際調查規劃依各場址的技術規範執行。": [
-"Note: this episode is an educational schematic; instrument shapes, beam counts and layer thicknesses are simplified. Line spacing, coverage and detection limits vary with the instrument, water depth and sea state; real surveys follow each site's technical specifications.",
-"注：本エピソードは教育用の模式アニメーションで、機器の外観、ビーム数、地層の厚さは簡略化しています。測線間隔、カバー幅、検出能力は機器、水深、海況によって異なり、実際の調査計画は各サイトの技術仕様に従います。"
-],
-"規劃測線": [
-"Survey line planning",
-"測線計画"
-],
-"調查從一張圖開始。依據預定的風機位置與海纜路由，規劃出平行的主測線，讓每一趟的掃描範圍彼此重疊，不留死角；再加上垂直方向的檢核測線，用來交叉驗證資料品質。調查船像割草機一樣來回航行，範圍可能涵蓋上百平方公里。": [
-"A survey starts with a map. Based on the planned turbine positions and cable routes, parallel main lines are laid out so each pass overlaps the next with no gaps, and perpendicular cross lines are added to check data quality. The vessel sails back and forth like a lawnmower over an area that can exceed a hundred square kilometres.",
-"調査は1枚の地図から始まります。予定の風車位置とケーブルルートに基づいて平行な主測線を計画し、各回の走査範囲が隙間なく重なるようにします。さらに直交方向のチェック測線を加え、データ品質を相互に検証します。調査船は芝刈り機のように往復し、範囲は数百平方キロメートルに及ぶこともあります。"
-],
-"依風機預定位置與海纜路由劃出調查範圍": [
-"Draw the survey area around the planned turbines and cable routes",
-"予定の風車位置とケーブルルートから調査範囲を設定"
-],
-"平行主測線來回航行，相鄰測線的掃描範圍互相重疊": [
-"The vessel runs parallel main lines, each swath overlapping the next",
-"平行な主測線を往復し、隣り合う走査帯を重ねる"
-],
-"加上垂直方向的檢核測線，交叉比對資料品質": [
-"Perpendicular cross lines are added to cross-check data quality",
-"直交するチェック測線を加え、データ品質を相互比較"
-],
-"海纜路由另設走廊，一路延伸到登陸點": [
-"The cable route gets its own corridor, running all the way to the landfall",
-"ケーブルルートは別の回廊として陸揚げ地点まで続く"
-],
-"風場調查範圍（示例 約 100 km²）": [
-"Survey area (example, about 100 km²)",
-"風力発電所の調査範囲（例：約 100 km²）"
-],
-"陸地": [
-"Land",
-"陸地"
-],
-"預定風機位置": [
-"Planned turbine positions",
-"予定風車位置"
-],
-"主測線": [
-"Main lines",
-"主測線"
-],
-"檢核測線": [
-"Cross lines",
-"チェック測線"
-],
-"海纜路由測線": [
-"Cable route lines",
-"ケーブルルート測線"
-],
-"掃描帶重疊 約 20–50%": [
-"Swath overlap about 20–50%",
-"走査帯の重なり 約 20–50%"
-],
-"多音束測深 MBES": [
-"Multibeam echosounder (MBES)",
-"マルチビーム測深 MBES"
-],
-"多音束測深儀裝在船底，每秒發出數次扇形聲波，一次就有數百道音束打到海床。儀器量測每道聲波來回的時間，配合海水聲速剖面與船的姿態、定位資料，換算出每個點的精確水深。一趟航行就能掃出一條寬度約為水深 3 到 5 倍的地形帶，拼起來就是整片海床的立體地圖，連沙波起伏都清清楚楚。": [
-"A multibeam echosounder is mounted under the hull and sends out fan-shaped pulses several times a second, each with hundreds of beams hitting the seabed. It times each echo and, with the sound-speed profile of the water and the vessel's attitude and position, turns it into a precise depth. One pass maps a strip about 3 to 5 times as wide as the water is deep; stitched together, the strips form a 3D map of the seabed clear enough to show sand waves.",
-"マルチビーム測深機は船底に取り付けられ、毎秒数回、扇形の音波を発射します。1回で数百本のビームが海底に届きます。各音波の往復時間を測り、海水の音速プロファイルと船の姿勢・位置データを組み合わせて、各点の正確な水深に換算します。1回の航行で水深の約3〜5倍の幅の地形帯が得られ、つなぎ合わせると砂漣まではっきり見える海底の立体地図になります。"
-],
-"從船尾方向看：換能器向下發出扇形聲波": [
-"Seen from astern: the transducer sends a fan of sound downward",
-"船尾から見たところ：送受波器が下向きに扇形の音波を発射"
-],
-"數百道音束同時打到海床，量測每道聲波的來回時間": [
-"Hundreds of beams hit the seabed at once; each echo is timed",
-"数百本のビームが同時に海底に届き、各音波の往復時間を計測"
-],
-"以聲速剖面、船體姿態與定位資料校正，換算成水深": [
-"Corrected with sound speed, attitude and position, the times become depths",
-"音速プロファイル、船体姿勢、測位データで補正して水深に換算"
-],
-"一條條掃描帶拼接成高解析的海床地形圖": [
-"Strip after strip is stitched into a high-resolution seabed map",
-"走査帯をつなぎ合わせて高解像度の海底地形図に"
-],
-"覆蓋寬度 ≈ 水深 × 4": [
-"Coverage ≈ water depth × 4",
-"カバー幅 ≈ 水深 × 4"
-],
-"聲速剖面": [
-"Sound-speed profile",
-"音速プロファイル"
-],
-"（溫度、鹽度會改變聲速）": [
-"(temperature and salinity change sound speed)",
-"（水温と塩分が音速を変える）"
-],
-"姿態感測器＋衛星定位": [
-"Motion sensor + satellite positioning",
-"動揺センサー＋衛星測位"
-],
-"水深地形圖（上視）": [
-"Bathymetry map (plan view)",
-"水深地形図（平面図）"
-],
-"淺": [
-"Shallow",
-"浅"
-],
-"深": [
-"Deep",
-"深"
-],
-"水深 34–48 m": [
-"Depth 34–48 m",
-"水深 34–48 m"
-],
-"側掃聲納 SSS": [
-"Side-scan sonar (SSS)",
-"サイドスキャンソナー SSS"
-],
-"側掃聲納裝在一條拖曳在船後方、貼近海床航行的「拖魚」上，向左右兩側斜射扇形聲波。凸出海床的物體會產生強烈回波，後方則留下沒有回聲的「聲影」，長度可以推算物體高度。畫面逐行累積，形成像黑白照片般的海床影像，沉船、岩塊、廢棄漁網、錨痕都無所遁形。": [
-"Side-scan sonar sits on a towfish pulled behind the vessel close to the seabed, sending fans of sound sideways to port and starboard. Objects standing proud of the seabed return strong echoes and cast an echo-free acoustic shadow behind them, whose length reveals their height. Line by line the picture builds into something like a black-and-white photo of the seabed: wrecks, boulders, lost nets and anchor scars all show up.",
-"サイドスキャンソナーは、船の後方で海底近くを曳航される「トウフィッシュ」に搭載され、左右両舷へ斜めに扇形の音波を発射します。海底から突き出た物体は強い反射を返し、その後ろには音の返らない「音響の影」ができ、その長さから物体の高さを推定できます。1行ずつ積み重なった画面は白黒写真のような海底画像になり、沈船、岩塊、廃棄漁網、錨の跡まではっきり写ります。"
-],
-"調查船後方拖曳側掃聲納拖魚，距海床約 10–20 公尺": [
-"The vessel tows the side-scan towfish about 10–20 m above the seabed",
-"調査船がサイドスキャンのトウフィッシュを海底から約 10〜20 m の高さで曳航"
-],
-"拖魚向兩側發射扇形聲波，逐行累積成海床影像": [
-"The towfish sends sound to both sides, building the seabed image line by line",
-"トウフィッシュが両側へ音波を発射し、1行ずつ海底画像を積み上げる"
-],
-"凸起物回波強烈，後方留下聲影：發現沉船殘骸": [
-"Raised objects echo strongly and cast a shadow: a wreck is found",
-"突起物は強く反射し、背後に影ができる。沈船の残骸を発見"
-],
-"岩塊群與沉船位置被標記，列為設計時的避讓目標": [
-"Boulder fields and the wreck are marked as areas for the design to avoid",
-"岩塊群と沈船の位置を記録し、設計上の回避対象とする"
-],
-"側掃聲納拖魚": [
-"Side-scan towfish",
-"サイドスキャン・トウフィッシュ"
-],
-"沉船殘骸": [
-"Shipwreck",
-"沈船の残骸"
-],
-"岩塊群": [
-"Boulder field",
-"岩塊群"
-],
-"側掃聲納影像（瀑布圖）": [
-"Side-scan image (waterfall)",
-"サイドスキャン画像（ウォーターフォール）"
-],
-"左舷": [
-"Port",
-"左舷"
-],
-"右舷": [
-"Starboard",
-"右舷"
-],
-"拖魚正下方": [
-"Below towfish",
-"トウフィッシュ直下"
-],
-"磁力儀搜尋未爆彈": [
-"Magnetometer and UXO",
-"磁気探査で不発弾を探す"
-],
-"台灣周邊海域曾是二戰時期的戰場，海床下可能埋有未爆彈（UXO）。磁力儀被拖曳到貼近海床的位置，偵測地球磁場的微小擾動：鐵製物體會讓讀數出現一個尖峰。調查人員把所有異常點列表，交由遙控無人潛水器（ROV）目視確認；確認是未爆彈後，由專業團隊移除，或在設計上劃出避讓區。": [
-"The waters around Taiwan were a battlefield in the Second World War, and unexploded ordnance (UXO) may lie in the seabed. A magnetometer is towed close to the seabed to detect tiny disturbances in the Earth's magnetic field: iron objects make the reading spike. Every anomaly is listed and checked visually by a remotely operated vehicle (ROV); confirmed UXO is removed by specialists or fenced off with an avoidance zone in the design.",
-"台湾周辺の海域は第二次世界大戦中に戦場となり、海底には不発弾（UXO）が埋まっている可能性があります。磁気探査機を海底近くまで曳航し、地磁気のわずかな乱れを検出します。鉄製の物体があると読み値にピークが現れます。すべての異常点を一覧にし、遠隔操作無人潜水機（ROV）で目視確認します。不発弾と確認されれば専門チームが除去するか、設計上の回避区域を設けます。"
-],
-"磁力儀拖曳在海床上方數公尺，持續記錄磁場強度": [
-"The magnetometer is towed a few metres above the seabed, logging field strength",
-"磁気探査機を海底の数メートル上で曳航し、磁場強度を連続記録"
-],
-"經過埋藏的鐵製物體時，讀數出現明顯尖峰": [
-"Passing a buried iron object, the reading spikes sharply",
-"埋設された鉄製物体の上を通ると、読み値に明確なピーク"
-],
-"標記磁力異常點，派遙控無人潛水器（ROV）下潛確認": [
-"Anomalies are marked and an ROV dives to check them",
-"磁気異常点を記録し、ROV を潜航させて確認"
-],
-"確認為未爆彈：劃設避讓區，或由專業團隊移除": [
-"Confirmed UXO: set an avoidance zone or have specialists remove it",
-"不発弾と確認：回避区域を設けるか、専門チームが除去"
-],
-"磁力異常點": [
-"Magnetic anomaly",
-"磁気異常点"
-],
-"避讓區": [
-"Avoidance zone",
-"回避区域"
-],
-"磁場強度（nT）": [
-"Magnetic field (nT)",
-"磁場強度（nT）"
-],
-"背景值 約 44,000 nT，圖中顯示偏差量": [
-"Background about 44,000 nT; the chart shows the deviation",
-"背景値 約 44,000 nT、グラフは偏差を表示"
-],
-"看穿海床：淺層剖面": [
-"Sub-bottom profiling",
-"海底下を見る：浅部地層探査"
-],
-"前面的儀器只看得到海床表面。底層剖面儀（SBP）與高解析震測（UHRS）發出頻率較低的聲波，能穿進海床下方數公尺到上百公尺；聲波每遇到一個性質不同的地層介面就反射一次，排列起來就是一張地層剖面圖。它能找出被泥沙掩埋的古河道、軟弱黏土層與淺層氣體，這些都會影響樁的設計與打樁難度。": [
-"The instruments so far only see the seabed surface. Sub-bottom profilers (SBP) and ultra-high-resolution seismic (UHRS) send lower-frequency sound that penetrates metres to hundreds of metres below the seabed; the sound reflects at every boundary between layers of different material, and the echoes line up into a cross-section of the strata. It reveals buried palaeochannels, weak clay layers and shallow gas, all of which affect pile design and how hard piling will be.",
-"ここまでの機器で見えるのは海底面だけです。サブボトムプロファイラー（SBP）と超高分解能地震探査（UHRS）は低い周波数の音波を出し、海底下数メートルから数百メートルまで透過します。音波は性質の異なる地層の境界ごとに反射し、それを並べると地層断面図になります。埋没した古河道、軟弱な粘土層、浅部ガスが見つかり、いずれも杭の設計や打設の難しさに影響します。"
-],
-"調查船以低頻聲波脈衝向下穿透海床": [
-"The vessel sends low-frequency pulses down through the seabed",
-"調査船が低周波の音波パルスを海底下へ送る"
-],
-"聲波在每一個地層介面反射，回波被記錄下來": [
-"The sound reflects at each layer boundary and the echoes are recorded",
-"音波が各地層境界で反射し、エコーを記録"
-],
-"回波排列成地層剖面圖，看見細砂、黏土與緊密砂層的分界": [
-"The echoes form a cross-section showing where fine sand, clay and dense sand meet",
-"エコーを並べた地層断面に、細砂・粘土・締まった砂層の境界が見える"
-],
-"發現被掩埋的古河道：軟弱沉積物會影響基礎設計": [
-"A buried palaeochannel: soft sediment that will affect foundation design",
-"埋没古河道を発見：軟弱な堆積物は基礎設計に影響する"
-],
-"被掩埋的古河道": [
-"Buried palaeochannel",
-"埋没古河道"
-],
-"底層剖面儀": [
-"Sub-bottom profiler",
-"サブボトムプロファイラー"
-],
-"地層剖面（SBP）": [
-"Strata section (SBP)",
-"地層断面（SBP）"
-],
-"橫軸：航行距離　縱軸：海床下深度": [
-"Horizontal: distance sailed   Vertical: depth below seabed",
-"横軸：航行距離　縦軸：海底下の深さ"
-],
-"整合成海床風險圖": [
-"Integrated hazard map",
-"海底リスクマップへの統合"
-],
-"所有調查成果被整合進同一張地理資訊圖，並和後續的地質鑽探資料結合成「地盤模型」。設計團隊據此微調每一部風機的位置、讓海纜繞過沉船與未爆彈避讓區，也決定哪些機位需要額外鑽探。調查做得越完整，施工階段遇到意外、延誤與追加費用的風險就越低。": [
-"All survey results are merged into one GIS map and combined with later geotechnical data into a ground model. The design team uses it to fine-tune each turbine position, route cables around wrecks and UXO zones, and decide which positions need extra boreholes. The more complete the survey, the lower the risk of surprises, delays and extra cost during construction.",
-"すべての調査結果は1枚の地理情報マップに統合され、後の地盤調査データと合わせて「地盤モデル」になります。設計チームはこれをもとに各風車の位置を微調整し、ケーブルを沈船や不発弾の回避区域から迂回させ、追加ボーリングが必要な位置を決めます。調査が充実しているほど、施工段階で想定外の事態、遅延、追加費用が発生するリスクは下がります。"
-],
-"把水深、影像、磁力與地層資料疊合在同一張圖上": [
-"Overlay depth, imagery, magnetics and strata on one map",
-"水深、画像、磁気、地層データを1枚の図に重ね合わせる"
-],
-"標出沉船、未爆彈、岩塊群與古河道等風險區": [
-"Mark hazard zones: wrecks, UXO, boulder fields and palaeochannels",
-"沈船、不発弾、岩塊群、古河道などのリスク区域を表示"
-],
-"落在古河道上的機位微調到較穩定的位置": [
-"A position on the palaeochannel is moved to firmer ground",
-"古河道上の風車位置を、より安定した場所へ微調整"
-],
-"海纜路由繞開沉船與避讓區，完成初步配置": [
-"The cable route bends around the wreck and avoidance zone: first layout done",
-"ケーブルルートを沈船と回避区域から迂回させ、初期配置が完成"
-],
-"古河道": [
-"Palaeochannel",
-"古河道"
-],
-"沉船": [
-"Wreck",
-"沈船"
-],
-"未爆彈避讓區": [
-"UXO avoidance zone",
-"不発弾回避区域"
-],
-"機位微調": [
-"Micro-siting",
-"位置の微調整"
-],
-"海纜繞過沉船": [
-"Cable routed around wreck",
-"ケーブルが沈船を迂回"
-],
-"圖層": [
-"Layers",
-"レイヤー"
-],
-"水深地形（MBES）": [
-"Bathymetry (MBES)",
-"水深地形（MBES）"
-],
-"海床物體（SSS）": [
-"Seabed objects (SSS)",
-"海底物体（SSS）"
-],
-"磁力異常（MAG）": [
-"Magnetic anomalies (MAG)",
-"磁気異常（MAG）"
-],
-"淺層地層（SBP）": [
-"Shallow strata (SBP)",
-"浅部地層（SBP）"
-],
-"風機位置與海纜": [
-"Turbine positions & cables",
-"風車位置とケーブル"
+"太陽光電系列": [
+"Solar PV Series",
+"太陽光発電シリーズ"
+],
+"太陽光電場施工流程": [
+"Building a solar farm",
+"太陽光発電所の建設工程"
+],
+"一座地面型太陽光電場，從一片空地到開始送電要經過哪些工序？這一集跟著工程團隊整地放樣、打樁、組裝支架與模組，再看直流如何串成組串、經變流器與升壓站併入台電電網。": [
+"What does it take to turn an empty plot into a ground-mounted solar farm that sends power to the grid? This episode follows the construction team through site preparation, piling, racking and module installation, then shows how the DC side is wired into strings and reaches Taipower's grid through inverters and a step-up substation.",
+"何もない土地から送電を始めるまでに、地上設置型の太陽光発電所ではどんな工程を経るのでしょうか。このエピソードでは、施工チームとともに整地・墨出し、杭打ち、架台とモジュールの取付を追い、直流がどのようにストリングにまとめられ、パワーコンディショナーと昇圧変電所を経て台湾電力の系統に接続されるのかを見ていきます。"
+],
+"地面型光電鋼樁常見的入土深度，依地質調查與拉拔試驗決定": [
+"Typical embedment of steel piles for ground-mounted PV, set by the geotechnical survey and pull-out tests",
+"地上設置型太陽光の鋼製杭の一般的な根入れ深さ。地盤調査と引抜き試験で決定"
+],
+"台灣地面型光電常見的模組傾角，兼顧發電量、排水與抗風": [
+"Common module tilt for ground-mounted PV in Taiwan, balancing yield, drainage and wind load",
+"台湾の地上設置型で一般的なモジュール傾斜角。発電量、排水、耐風性のバランス"
+],
+"直流系統電壓上限，決定一串最多能串接幾片模組": [
+"DC system voltage limit, which sets how many modules one string can have",
+"直流システムの電圧上限。1ストリングに直列接続できる枚数を決める"
+],
+"約 26": [
+"about 26",
+"約 26"
+],
+"片": [
+"modules",
+"枚"
+],
+"每一串的模組數示例（單片開路電壓約 50 V）": [
+"Example modules per string (about 50 V open-circuit voltage each)",
+"1ストリングあたりのモジュール枚数の例（1枚の開放電圧は約 50 V）"
+],
+"大型案場在升壓站把集電電壓升到輸電電壓後併網": [
+"Large sites raise the collection voltage to transmission voltage at a step-up substation",
+"大規模サイトは昇圧変電所で集電電圧を送電電圧に上げて系統連系"
+],
+"公頃": [
+"hectares",
+"ha"
+],
+"每 MW 地面型光電大約需要的土地面積": [
+"Land needed per MW of ground-mounted PV, roughly",
+"地上設置型太陽光 1 MW あたりに必要な土地面積の目安"
+],
+"說明：本集為教育用途示意動畫，高度與距離比例經過調整。樁長、傾角、串列片數、電壓等級與用地面積為典型範例，實際依地質調查、結構計算、設備規格與台電併聯審查結果而定。": [
+"Note: this episode is an educational schematic; heights and distances are not to scale. Pile length, tilt, modules per string, voltage levels and land area are typical examples; real values depend on the geotechnical survey, structural calculations, equipment specifications and Taipower's grid-connection review.",
+"注：本エピソードは教育用の模式アニメーションで、高さと距離の縮尺は調整しています。杭長、傾斜角、ストリングの枚数、電圧階級、用地面積は典型的な例で、実際は地盤調査、構造計算、機器仕様、台湾電力の系統連系審査の結果によって異なります。"
+],
+"整地與放樣": [
+"Site preparation and setting out",
+"整地と墨出し"
+],
+"取得施工許可後，工程從整地開始。挖土機把高低起伏的地面整平，並依水土保持計畫挖設排水溝，讓大雨時的逕流有路可走。接著測量人員以衛星定位（GNSS RTK）依設計圖逐點放樣，在每一支樁的位置插上標樁，誤差控制在公分等級。最後沿著案場邊界架設施工圍籬，管制人車進出。": [
+"Once the construction permit is granted, work begins with site preparation. Excavators level the uneven ground and dig drainage ditches according to the soil and water conservation plan, so that runoff has somewhere to go in heavy rain. Surveyors then use satellite positioning (GNSS RTK) to set out every point from the design drawings, marking each pile position with a stake to within centimetres. Finally a construction fence goes up around the site boundary to control access.",
+"施工許可を取得すると、工事は整地から始まります。油圧ショベルが起伏のある地面を平らにし、水土保持計画に従って排水溝を掘り、大雨のときの雨水の流れ道をつくります。次に測量担当者が衛星測位（GNSS RTK）で設計図に基づき1点ずつ墨出しを行い、杭の位置ごとに測量杭を打ち、誤差をセンチ単位に抑えます。最後にサイトの境界に沿って仮囲いを設置し、人や車両の出入りを管理します。"
+],
+"挖土機把起伏的地面整平": [
+"Excavators level the uneven ground",
+"油圧ショベルが起伏のある地面を平らにする"
+],
+"整平後的場地，為打樁做準備": [
+"The levelled site is ready for piling",
+"整地した敷地で杭打ちの準備"
+],
+"測量人員以 GNSS 逐點放樣，標出每一支樁的位置": [
+"Surveyors set out each pile position point by point with GNSS",
+"測量担当者が GNSS で1点ずつ墨出しし、各杭の位置を示す"
+],
+"挖設排水溝、架設施工圍籬": [
+"Drainage ditches are dug and a construction fence goes up",
+"排水溝を掘り、仮囲いを設置"
+],
+"挖土機整地": [
+"Excavator levelling",
+"ショベルで整地"
+],
+"整平後的場地": [
+"Levelled site",
+"整地済みの敷地"
+],
+"GNSS RTK 放樣": [
+"GNSS RTK setting out",
+"GNSS RTK 墨出し"
+],
+"標樁：每一支樁的位置": [
+"Stakes: every pile position",
+"測量杭：各杭の位置"
+],
+"排水溝": [
+"Drainage ditch",
+"排水溝"
+],
+"施工圍籬": [
+"Construction fence",
+"仮囲い"
+],
+"整地進度": [
+"Levelling",
+"整地の進捗"
+],
+"放樣點": [
+"Points set out",
+"墨出し点"
+],
+"打樁：鋼樁基礎": [
+"Driving the steel piles",
+"杭打ち：鋼製杭基礎"
+],
+"地面型光電多半不用混凝土基礎，而是以打樁機把熱浸鍍鋅的 H 型鋼或 C 型鋼樁直接打進地面。打樁機沿著放樣點逐支施打，入土深度常在 1.5 到 3 公尺，依地質調查結果決定；石塊多的地層需先引孔。每一支樁打完要量測頂部高程、位置與垂直度，因為上面的支架要靠它們對齊，誤差太大就裝不上去。": [
+"Most ground-mounted solar farms skip concrete foundations. Instead, a pile driver hammers hot-dip galvanised H-section or C-section steel piles straight into the ground. The rig works along the set-out points one pile at a time, driving them typically 1.5 to 3 m deep depending on the ground; stony layers need pre-drilling. Each pile's top level, position and verticality are measured afterwards, because the racking above has to line up on them and large errors mean it won't fit.",
+"地上設置型の太陽光発電所の多くはコンクリート基礎を使わず、杭打ち機で溶融亜鉛めっきの H 形鋼や C 形鋼の杭を直接地面に打ち込みます。杭打ち機は墨出し点に沿って1本ずつ打設し、根入れ深さは地盤調査の結果に応じて一般に 1.5〜3 m です。石の多い地層では先行削孔が必要です。打設後は杭頭の高さ、位置、鉛直度を測ります。上の架台はこれらの杭にそろえて取り付けるため、誤差が大きいと取り付けられません。"
+],
+"打樁機移到第一個標樁位置": [
+"The pile driver moves to the first stake",
+"杭打ち機が最初の測量杭の位置へ移動"
+],
+"液壓錘把鍍鋅鋼樁打入地面": [
+"A hydraulic hammer drives the galvanised steel pile into the ground",
+"油圧ハンマーで亜鉛めっき鋼製杭を地中へ打ち込む"
+],
+"剖面：鋼樁入土約 1.8 公尺": [
+"Cross-section: the pile is embedded about 1.8 m",
+"断面：杭の根入れは約 1.8 m"
+],
+"逐支量測頂部高程與垂直度": [
+"Each pile's top level and verticality are measured",
+"1本ずつ杭頭の高さと鉛直度を計測"
+],
+"打樁機": [
+"Pile driver",
+"杭打ち機"
+],
+"熱浸鍍鋅鋼樁": [
+"Hot-dip galvanised steel pile",
+"溶融亜鉛めっき鋼製杭"
+],
+"入土約 1.8 m": [
+"Embedded about 1.8 m",
+"根入れ 約 1.8 m"
+],
+"地下": [
+"Below ground",
+"地下"
+],
+"量測高程與垂直度": [
+"Level and verticality check",
+"高さと鉛直度の計測"
+],
+"打樁紀錄": [
+"Piling log",
+"杭打ち記録"
+],
+"已完成": [
+"Completed",
+"完了"
+],
+"{k} / 12 支": [
+"{k} / 12 piles",
+"{k} / 12 本"
+],
+"入土深度": [
+"Embedment",
+"根入れ深さ"
+],
+"垂直度偏差": [
+"Verticality error",
+"鉛直度の誤差"
+],
+"基樁為什麼怕「拔」": [
+"Why piles are tested for uplift",
+"杭はなぜ「引抜き」に弱いのか"
+],
+"太陽能板像一面斜放的大板子，颱風吹過時，板下的氣流會產生向上的「上拔力」，同時還有側向推力。鋼樁靠著與土壤之間的摩擦與側向土壓抵抗這些力。因此施工前會在現場做拉拔試驗：用千斤頂把樁往上拉，記錄載重與位移，確認在設計載重的倍數下，位移仍在容許範圍內，才決定整區的樁長。": [
+"A solar panel is like a large board set at an angle. When a typhoon blows across it, the airflow beneath creates an upward uplift force, along with a sideways push. Steel piles resist these forces through friction with the soil and lateral earth pressure. So before construction, pull-out tests are done on site: a jack pulls a pile upward while load and displacement are logged, to confirm that at a multiple of the design load the displacement stays within limits. Only then is the pile length for the area decided.",
+"太陽光パネルは斜めに置いた大きな板のようなものです。台風が吹くとパネルの下の気流が上向きの「揚力（引抜き力）」を生み、同時に横からの力も加わります。鋼製杭は土との摩擦と横方向の土圧でこれらの力に抵抗します。そのため施工前に現地で引抜き試験を行い、ジャッキで杭を引き上げながら荷重と変位を記録し、設計荷重の数倍でも変位が許容範囲内であることを確かめてから、区域全体の杭長を決めます。"
+],
+"颱風時，板下氣流產生向上的上拔力": [
+"In a typhoon, air under the panels creates an upward uplift force",
+"台風時、パネル下の気流が上向きの引抜き力を生む"
+],
+"加上側向風力，都由鋼樁傳給土壤": [
+"Add the sideways wind force: the piles pass both to the soil",
+"横方向の風力も加わり、いずれも杭から地盤へ伝わる"
+],
+"土壤摩擦力抵抗上拔": [
+"Soil friction resists the uplift",
+"土の摩擦力が引抜きに抵抗"
+],
+"現場拉拔試驗：記錄載重與上拔位移": [
+"On-site pull-out test: logging load and uplift displacement",
+"現地の引抜き試験：荷重と引抜き変位を記録"
+],
+"達到試驗載重、位移仍在容許值內：合格": [
+"Test load reached with displacement within limits: pass",
+"試験荷重に達しても変位は許容値内：合格"
+],
+"作用在樁上的力": [
+"Forces on a pile",
+"杭に作用する力"
+],
+"上拔力（風吸力）": [
+"Uplift (wind suction)",
+"引抜き力（風による吸上げ）"
+],
+"側向風力": [
+"Lateral wind force",
+"横方向の風力"
+],
+"土壤摩擦阻抗": [
+"Soil friction",
+"土の摩擦抵抗"
+],
+"入土深度決定阻抗大小": [
+"Deeper embedment, more resistance",
+"根入れ深さで抵抗の大きさが決まる"
+],
+"拉拔試驗：載重與上拔位移（示例）": [
+"Pull-out test: load vs. uplift (example)",
+"引抜き試験：荷重と引抜き変位（例）"
+],
+"拉拔載重（kN）": [
+"Pull-out load (kN)",
+"引抜き荷重（kN）"
+],
+"位移（mm）": [
+"Displacement (mm)",
+"変位（mm）"
+],
+"設計上拔力 12 kN": [
+"Design uplift 12 kN",
+"設計引抜き力 12 kN"
+],
+"容許位移 20 mm": [
+"Allowable 20 mm",
+"許容変位 20 mm"
+],
+"試驗載重＝2 倍": [
+"Test load = 2×",
+"試験荷重＝2 倍"
+],
+"位移在容許值內：合格": [
+"Within limits: pass",
+"許容値内：合格"
+],
+"支架與模組安裝": [
+"Racking and module installation",
+"架台とモジュールの取付"
+],
+"樁位確認後，工班在樁頂鎖上斜樑，再橫向架設檁條，形成固定傾角的支架。台灣常見傾角約 10 到 15 度，面向南方；角度太大會增加受風面積，太小則不利雨水沖刷灰塵。接著兩人一組把模組抬上支架，以直立兩排（2P）的方式排列，再用壓塊鎖在檁條上。每片模組的背面有接線盒與快速接頭，裝好後就能開始配線。": [
+"With the piles checked, the crew bolts rafters to the pile heads and fixes purlins across them, forming racks at a fixed tilt. In Taiwan the tilt is usually about 10 to 15 degrees, facing south; a steeper tilt catches more wind, while a flatter one lets rain wash off less dust. Then pairs of workers lift the modules onto the racks, two in portrait (2P), and clamp them to the purlins. Each module has a junction box and quick connectors on the back, so wiring can start as soon as they are in place.",
+"杭の確認が終わると、作業班は杭頭に斜材（ラフター）を取り付け、その上に横方向の母屋材を架けて、一定の傾斜角の架台をつくります。台湾では一般に傾斜角 10〜15 度で南向きです。角度が大きすぎると受風面積が増え、小さすぎると雨でほこりが流れにくくなります。次に2人1組でモジュールを架台に載せ、縦置き2段（2P）に並べてクランプで母屋材に固定します。各モジュールの裏面には接続箱とコネクターがあり、取り付けが終わればすぐに配線を始められます。"
+],
+"樁頂鎖上斜樑與檁條，組成固定傾角的支架": [
+"Rafters and purlins are bolted to the piles, forming fixed-tilt racks",
+"杭頭に斜材と母屋材を取り付け、固定傾斜の架台を組む"
+],
+"模組以直立兩排（2P）排列，傾角約 12°": [
+"Modules sit two in portrait (2P) at about 12°",
+"モジュールを縦置き2段（2P）で配置、傾斜角は約 12°"
+],
+"兩人一組把模組抬上支架，壓塊鎖固": [
+"Workers lift the modules on in pairs and clamp them down",
+"2人1組でモジュールを架台に載せ、クランプで固定"
+],
+"一排排完成，準備配線": [
+"Row after row is finished, ready for wiring",
+"1列ずつ完成し、配線の準備"
+],
+"斜樑與檁條": [
+"Rafters and purlins",
+"斜材と母屋材"
+],
+"傾角約 12°": [
+"Tilt about 12°",
+"傾斜角 約 12°"
+],
+"模組直立兩排（2P）": [
+"Two in portrait (2P)",
+"縦置き2段（2P）"
+],
+"壓塊固定": [
+"Clamps",
+"クランプ固定"
+],
+"兩人一組抬運模組": [
+"Modules carried in pairs",
+"2人1組でモジュールを運ぶ"
+],
+"本區安裝進度": [
+"Installation progress",
+"この区画の取付状況"
+],
+"支架": [
+"Racks",
+"架台"
+],
+"{k} / 6 排": [
+"{k} / 6 rows",
+"{k} / 6 列"
+],
+"模組": [
+"Modules",
+"モジュール"
+],
+"{k} / 12 片": [
+"{k} / 12",
+"{k} / 12 枚"
+],
+"組串：直流怎麼串": [
+"Stringing the DC side",
+"ストリング：直流のつなぎ方"
+],
+"一片模組的電壓只有數十伏特，要把許多片串聯成一「串」，電壓才夠讓變流器有效率地工作。串接的片數有上限：模組在低溫時電壓會升高，整串的開路電壓必須低於系統上限 1,500 V。以單片開路電壓約 50 V 為例，一串約可接 26 片。多串模組再並聯接到組串式變流器，由它追蹤最大功率點，把直流轉成交流。": [
+"One module produces only a few tens of volts, so many are connected in series into a string to reach a voltage the inverter can work with efficiently. There is a limit to how many: module voltage rises in cold weather, and the string's open-circuit voltage must stay below the 1,500 V system limit. With about 50 V open-circuit per module, a string can take about 26 modules. Several strings are then connected in parallel to a string inverter, which tracks the maximum power point and converts DC into AC.",
+"モジュール1枚の電圧は数十ボルトしかないため、多数を直列につないで「ストリング」にし、パワーコンディショナーが効率よく動作できる電圧にします。直列枚数には上限があります。モジュールの電圧は低温で上がるため、ストリング全体の開放電圧はシステム上限の 1,500 V 未満でなければなりません。1枚の開放電圧を約 50 V とすると、1ストリングは約 26 枚です。複数のストリングを並列にしてストリング型パワーコンディショナーに接続し、最大電力点を追従しながら直流を交流に変換します。"
+],
+"模組一片接一片串聯，電壓逐片相加": [
+"Modules are linked in series and their voltages add up",
+"モジュールを1枚ずつ直列接続し、電圧が加算される"
+],
+"26 片約 1,300 V；低溫時電壓再升高": [
+"26 modules give about 1,300 V; cold weather raises it further",
+"26 枚で約 1,300 V。低温時はさらに上昇"
+],
+"整串電壓必須低於系統上限 1,500 V": [
+"The string voltage must stay below the 1,500 V system limit",
+"ストリング電圧はシステム上限 1,500 V 未満に"
+],
+"多串並聯接到組串式變流器，直流轉成交流": [
+"Strings are paralleled into a string inverter, which turns DC into AC",
+"複数ストリングを並列にしてパワーコンディショナーへ、直流を交流に変換"
+],
+"一串模組（串聯）": [
+"One string (in series)",
+"1ストリング（直列）"
+],
+"{n} 片 × 約 50 V ＝ {v} V": [
+"{n} × about 50 V = {v} V",
+"{n} 枚 × 約 50 V ＝ {v} V"
+],
+"串接片數與整串開路電壓": [
+"Modules in series vs. open-circuit voltage",
+"直列枚数とストリング開放電圧"
+],
+"串接片數": [
+"Modules in series",
+"直列枚数"
+],
+"系統上限 1,500 V": [
+"System limit 1,500 V",
+"システム上限 1,500 V"
+],
+"低溫時約 1,390 V": [
+"About 1,390 V when cold",
+"低温時 約 1,390 V"
+],
+"多串並聯 → 組串式變流器": [
+"Strings in parallel → string inverter",
+"ストリングの並列 → ストリング型パワコン"
+],
+"第 {n} 串": [
+"String {n}",
+"ストリング {n}"
+],
+"變流器": [
+"Inverter",
+"パワコン"
+],
+"交流": [
+"AC",
+"交流"
+],
+"MPPT：隨日照調整工作點，取得最大功率": [
+"MPPT: follows the sunlight to get maximum power",
+"MPPT：日射に合わせて動作点を調整し、最大電力を得る"
+],
+"變流器、升壓與併網": [
+"From inverter to the grid",
+"パワコン、昇圧、系統連系"
+],
+"變流器輸出的低壓交流電，先在場內的箱式變電站升到 22.8 kV，再由集電線路匯集到升壓站。小型案場可以直接併入台電的 22.8 kV 饋線；大型案場則自建或共用升壓站，把電壓升到 161 kV 或 69 kV 後併入輸電網。電壓越高，同樣的功率所需電流越小，線路損失也越低。": [
+"The low-voltage AC from the inverters is first stepped up to 22.8 kV by compact substations on site, then gathered by collection lines to the step-up substation. Small sites can connect directly to a Taipower 22.8 kV feeder; large sites build or share a step-up substation that raises the voltage to 161 kV or 69 kV before joining the transmission grid. The higher the voltage, the less current the same power needs and the lower the line losses.",
+"パワーコンディショナーが出力する低圧の交流は、まず場内のキュービクル式変電設備で 22.8 kV に昇圧され、集電線路で昇圧変電所に集められます。小規模サイトは台湾電力の 22.8 kV 配電線に直接連系できます。大規模サイトは昇圧変電所を自ら建設または共用し、161 kV または 69 kV に昇圧してから送電網に連系します。電圧が高いほど同じ電力に必要な電流は小さくなり、送電損失も下がります。"
+],
+"模組串列的直流電進入組串式變流器": [
+"DC from the module strings enters the string inverters",
+"ストリングの直流がストリング型パワコンに入る"
+],
+"箱式變電站把低壓交流升到 22.8 kV": [
+"A compact substation steps the low-voltage AC up to 22.8 kV",
+"キュービクル式変電設備が低圧交流を 22.8 kV に昇圧"
+],
+"集電線路匯集各區的電力到升壓站": [
+"Collection lines gather power from each block to the substation",
+"集電線路で各区画の電力を昇圧変電所に集める"
+],
+"升壓到 161 kV，併入台電輸電網": [
+"Stepped up to 161 kV and into Taipower's transmission grid",
+"161 kV に昇圧し、台湾電力の送電網に連系"
+],
+"模組串列": [
+"Module strings",
+"ストリング"
+],
+"1,500 V 以下 DC": [
+"DC up to 1,500 V",
+"直流 1,500 V 以下"
+],
+"組串式變流器": [
+"String inverter",
+"ストリング型パワコン"
+],
+"約 800 V AC": [
+"about 800 V AC",
+"約 800 V AC"
+],
+"箱式變電站": [
+"Compact substation",
+"キュービクル式変電設備"
+],
+"22.8 kV 集電線路": [
+"22.8 kV collection line",
+"22.8 kV 集電線路"
+],
+"地下電纜": [
+"Underground cable",
+"地中ケーブル"
+],
+"升壓站": [
+"Step-up substation",
+"昇圧変電所"
+],
+"台電電網": [
+"Taipower grid",
+"台湾電力系統"
+],
+"直流": [
+"DC",
+"直流"
+],
+"直流 → 交流": [
+"DC → AC",
+"直流 → 交流"
+],
+"兩種併網方式": [
+"Two ways to connect",
+"2つの連系方式"
+],
+"小型案場": [
+"Small sites",
+"小規模サイト"
+],
+"直接併入台電 22.8 kV 饋線": [
+"Connect directly to a Taipower 22.8 kV feeder",
+"台湾電力の 22.8 kV 配電線に直接連系"
+],
+"大型案場": [
+"Large sites",
+"大規模サイト"
+],
+"自建或共用升壓站，升到 161 kV 或 69 kV 併入輸電網": [
+"Build or share a step-up substation; up to 161 kV or 69 kV into the transmission grid",
+"昇圧変電所を建設または共用し、161 kV か 69 kV で送電網へ"
+],
+"竣工查驗與併聯運轉": [
+"Commissioning and first power",
+"竣工検査と系統連系運転"
+],
+"設備全部裝好後，先由電機技師與施工團隊做竣工檢查：量測每一串的開路電壓與絕緣電阻、確認模組與支架確實接地，並以 I-V 曲線量測找出異常的組串。接著向台電申請併聯試運轉，保護電驛與通訊都確認正常後正式送電；最後向能源署辦理設備登記，案場才進入商轉，開始二十年的發電與維運。": [
+"With everything installed, the electrical engineer and construction team carry out completion checks: measuring each string's open-circuit voltage and insulation resistance, confirming that modules and racks are properly earthed, and using I-V curve tracing to find faulty strings. Next comes Taipower's grid-connection trial: once protection relays and communications check out, the site is energised. Finally, equipment registration with the Energy Administration puts the site into commercial operation for twenty years of generation and maintenance.",
+"すべての設備を取り付けたら、まず電気技術士と施工チームが竣工検査を行います。各ストリングの開放電圧と絶縁抵抗を測定し、モジュールと架台が確実に接地されているか確認し、I-V カーブ測定で異常なストリングを見つけます。次に台湾電力に系統連系の試運転を申請し、保護リレーと通信が正常であることを確認してから送電を開始します。最後にエネルギー署で設備登録を行うと、サイトは商業運転に入り、20年にわたる発電と保守が始まります。"
+],
+"竣工檢查：開路電壓、絕緣電阻與接地": [
+"Completion checks: open-circuit voltage, insulation and earthing",
+"竣工検査：開放電圧、絶縁抵抗、接地"
+],
+"I-V 曲線量測，找出異常組串": [
+"I-V curve tracing finds faulty strings",
+"I-V カーブ測定で異常なストリングを見つける"
+],
+"台電併聯試運轉，正式送電": [
+"Taipower grid-connection trial: the site is energised",
+"台湾電力の連系試運転で送電開始"
+],
+"辦理設備登記後進入商轉": [
+"Equipment registration, then commercial operation",
+"設備登録を経て商業運転へ"
+],
+"I-V 曲線量測": [
+"I-V curve tracing",
+"I-V カーブ測定"
+],
+"併入台電電網": [
+"Into the Taipower grid",
+"台湾電力系統へ連系"
+],
+"設備登記完成，進入商轉": [
+"Registered and in commercial operation",
+"設備登録完了、商業運転へ"
+],
+"案場即時狀態": [
+"Live site status",
+"サイトのリアルタイム状態"
+],
+"絕緣電阻": [
+"Insulation resistance",
+"絶縁抵抗"
+],
+"併聯狀態": [
+"Grid status",
+"連系状態"
+],
+"併聯中": [
+"Connected",
+"連系中"
+],
+"待併聯": [
+"Awaiting connection",
+"連系待ち"
+],
+"發電功率（示例）": [
+"Output (example)",
+"発電出力（例）"
 ]
 });
 

@@ -6,7 +6,7 @@
 <title>離岸風場的誕生：開發全流程動畫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;
@@ -129,43 +129,90 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
 @media (prefers-reduced-motion:reduce){
   .chapcard,.caption{transition:none}
 }
+/* ---------- i18n ---------- */
+:root[lang="ja"]{--sans:"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow","Noto Sans JP","Noto Sans TC",sans-serif}
+.masthead{grid-template-columns:auto 1fr auto}
+.langsw{grid-column:3;grid-row:1 / span 2;align-self:start;display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:36px;background:var(--surface)}
+.langsw button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500;padding:0 12px;cursor:pointer;white-space:nowrap}
+.langsw button+button{border-left:1px solid var(--line)}
+.langsw button[aria-pressed="true"]{background:var(--chart);color:#fff}
+.langsw button:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}
+:root[data-theme="dark"] .seg button[aria-pressed="true"],:root[data-theme="dark"] .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"],:root:not([data-theme="light"]) .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}}
+
+/* ---------- video export ---------- */
+.btn.rec{display:inline-flex;align-items:center;gap:8px;padding:0 13px}
+.btn.rec .rdot{width:10px;height:10px;border-radius:50%;background:var(--alert);box-shadow:0 0 0 3px rgba(232,87,42,.2)}
+.recdlg{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:20px clamp(16px,3vw,26px);width:min(540px,calc(100vw - 24px));max-height:calc(100vh - 24px);box-shadow:0 30px 60px -30px rgba(5,22,32,.65)}
+.recdlg::backdrop{background:rgba(5,22,32,.55)}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rec-head h2{margin:0;font-size:20px;font-weight:900;line-height:1.3}
+.rec-head .btn{height:36px;min-width:36px}
+.rec-intro{margin:8px 0 18px;color:var(--muted);font-size:14px;line-height:1.75}
+.rec-opts{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:center}
+.rec-opts>span{font-size:14px;font-weight:700;color:var(--muted)}
+.rec-opts .seg{justify-self:start;height:36px}
+.rec-opts .seg button{min-width:54px}
+.seg button.tx{font-family:var(--sans);font-size:13px;font-weight:500;padding:0 12px}
+.recdlg.busy .rec-opts{opacity:.5;pointer-events:none}
+.rec-sum{margin:16px 0 0;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rec-prog{margin-top:14px}
+.rec-prog canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;background:var(--chart)}
+.rec-bar{margin-top:10px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.rec-bar i{display:block;height:100%;width:0;background:var(--signal)}
+.rec-stat{margin:8px 0 0;font-size:14px;min-height:1.6em}
+.rec-stat.err{color:var(--alert);font-weight:500}
+.rec-note{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.rec-act{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn.primary{background:var(--chart);color:#fff;border-color:var(--chart);padding:0 18px;font-weight:700}
+.btn.primary:disabled{opacity:.5;cursor:default}
+a.btn{text-decoration:none;display:inline-flex;align-items:center}
+[hidden]{display:none!important}
+@media (max-width:560px){
+  .masthead{grid-template-columns:auto 1fr}
+  .langsw{grid-column:1 / -1;grid-row:auto;justify-self:start;margin-top:4px}
+  .rec-opts{grid-template-columns:1fr;gap:4px}
+  .rec-opts .seg{margin-bottom:8px}
+}
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style>.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="系列導覽"><a href="../index.html">再生能源動畫館</a><a href="index.html">離岸風電系列</a><span class="sp"></span><a href="ep01.html">開始看第 01 集 →</a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="01 風況量測 →" data-en="01 Wind resource assessment →" data-ja="01 風況観測 →">01 風況量測 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
     </div>
-    <h1>離岸風場的誕生</h1>
-    <p>從測風、海底探勘、環評，到打樁、海纜、風機吊裝與併網運轉：以 13 個階段動態圖解一座離岸風場的開發全流程。</p>
+    <h1 data-i18n="h1">離岸風場的誕生</h1>
+    <p data-i18n="lede">從測風、海底探勘、環評，到打樁、海纜、風機吊裝與併網運轉：以 13 個階段動態圖解一座離岸風場的開發全流程。</p>
+    <div class="langsw" role="group" data-i18n-aria="langGroup" aria-label="介面語言"><button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="true">中文</button><button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button><button type="button" data-lang="ja" lang="ja" aria-pressed="false">日本語</button></div>
   </header>
 
-  <section aria-label="動畫">
+  <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="離岸風場開發流程動畫"></canvas>
+      <canvas id="cv" role="img" aria-label="離岸風場開發流程動畫" data-i18n-aria="canvasAria"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT">風況量測</b><i id="ccE">Wind resource assessment</i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
-      <div class="scale-note">示意圖：垂直與水平比例經過調整</div>
+      <div class="scale-note" data-i18n="scaleNote">示意圖：垂直與水平比例經過調整</div>
     </div>
 
     <div class="controls">
-      <button class="btn" id="bPrev" aria-label="上一個階段"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="btn" id="bPrev" aria-label="上一個階段" data-i18n-aria="prev"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
       <button class="btn play" id="bPlay" aria-label="暫停"><svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
-      <button class="btn" id="bNext" aria-label="下一個階段"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
-      <div class="timeline" id="timeline" tabindex="0" role="slider" aria-label="播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <button class="btn" id="bNext" aria-label="下一個階段" data-i18n-aria="next"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      <div class="timeline" id="timeline" tabindex="0" role="slider" aria-label="播放進度" data-i18n-aria="progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="tl-track" id="tlTrack"><div class="tl-fill" id="tlFill"></div></div>
         <div class="tl-head" id="tlHead"></div>
       </div>
       <span class="time" id="time">0:00 / 0:00</span>
-      <div class="seg" role="group" aria-label="播放速度">
+      <div class="seg" role="group" aria-label="播放速度" data-i18n-aria="speed">
         <button data-speed="0.5" aria-pressed="false">0.5×</button>
         <button data-speed="1" aria-pressed="true">1×</button>
         <button data-speed="2" aria-pressed="false">2×</button>
       </div>
-      <button class="btn toggle" id="bLabels" aria-pressed="true" title="顯示／隱藏標註">標註</button>
-      <button class="btn" id="bFull" aria-label="全螢幕"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="btn toggle" id="bLabels" aria-pressed="true" title="顯示／隱藏標註" data-i18n-title="labelsTip" data-i18n="labels">標註</button>
+      <button class="btn" id="bFull" aria-label="全螢幕" data-i18n-aria="full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="btn rec" id="bRec" type="button" aria-haspopup="dialog"><span class="rdot" aria-hidden="true"></span><span data-i18n="rec">匯出影片</span></button>
     </div>
   </section>
 
@@ -179,13 +226,47 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
     <ol class="steps" id="iS"></ol>
   </section>
 
-  <nav class="chapters" aria-label="章節">
-    <h3>全部階段</h3>
+  <nav class="chapters" aria-label="章節" data-i18n-aria="chapNav">
+    <h3 data-i18n="chapHead">全部階段</h3>
     <div class="chap-grid" id="chapGrid"></div>
   </nav>
 
-  <p class="foot">說明：本動畫為教育用途的示意圖，為了同時呈現海面上下的作業，高度、水深與地層厚度都經過誇大或壓縮。各項數字（如 15 MW 風機、66 kV 陣列海纜、打樁噪音 160 dB 管制值、發電量與戶數）為常見的典型值或估算範例，實際依各風場的設計、機型與主管機關核定內容而定。實務上各階段常平行進行，例如海上變電站、基礎與海纜工程可能同時施作。</p>
+  <p class="foot" data-i18n="foot">說明：本動畫為教育用途的示意圖，為了同時呈現海面上下的作業，高度、水深與地層厚度都經過誇大或壓縮。各項數字（如 15 MW 風機、66 kV 陣列海纜、打樁噪音 160 dB 管制值、發電量與戶數）為常見的典型值或估算範例，實際依各風場的設計、機型與主管機關核定內容而定。實務上各階段常平行進行，例如海上變電站、基礎與海纜工程可能同時施作。</p>
 </div>
+
+<dialog class="recdlg" id="recDlg" aria-labelledby="recTitle">
+  <div class="rec-head">
+    <h2 id="recTitle" data-i18n="recTitle">錄製 MP4 影片</h2>
+    <button class="btn" id="recX" type="button" data-i18n-aria="close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <p class="rec-intro" data-i18n="recIntro"></p>
+  <div class="rec-opts">
+    <span id="oSpeed" data-i18n="optSpeed">影片速度</span>
+    <div class="seg" role="group" aria-labelledby="oSpeed" data-opt="speed"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="2" aria-pressed="false">2×</button></div>
+    <span id="oRange" data-i18n="optRange">範圍</span>
+    <div class="seg" role="group" aria-labelledby="oRange" data-opt="range"><button type="button" class="tx" data-v="all" aria-pressed="true" data-i18n="rangeAll">全片</button><button type="button" class="tx" data-v="chap" aria-pressed="false" data-i18n="rangeChap">目前階段</button></div>
+    <span id="oRes" data-i18n="optRes">解析度</span>
+    <div class="seg" role="group" aria-labelledby="oRes" data-opt="res"><button type="button" data-v="720" aria-pressed="false">720p</button><button type="button" data-v="1080" aria-pressed="true">1080p</button></div>
+    <span id="oFps" data-i18n="optFps">影格率</span>
+    <div class="seg" role="group" aria-labelledby="oFps" data-opt="fps"><button type="button" data-v="30" aria-pressed="true">30 fps</button><button type="button" data-v="60" aria-pressed="false">60 fps</button></div>
+  </div>
+  <p class="rec-sum" id="recSum"></p>
+  <div class="rec-prog" id="recProg" hidden>
+    <canvas id="recPrev" width="640" height="360" aria-hidden="true"></canvas>
+    <div class="rec-bar"><i id="recBar"></i></div>
+    <p class="rec-stat" id="recStat" aria-live="polite"></p>
+    <p class="rec-note" id="recNote" data-i18n="keepTab"></p>
+  </div>
+  <div class="rec-act">
+    <button class="btn" id="recCancel" type="button" hidden data-i18n="cancel">取消</button>
+    <a class="btn primary" id="recDl" hidden data-i18n="download">下載 MP4</a>
+    <button class="btn primary" id="recGo" type="button" data-i18n="start">開始錄製</button>
+  </div>
+</dialog>
+<script>
+/*! mp4-muxer v5.2.2 | MIT License | (c) 2023 Vanilagy | https://github.com/Vanilagy/mp4-muxer */
+"use strict";var Mp4Muxer=(()=>{var e=Object.defineProperty,t=Object.getOwnPropertyDescriptor,i=Object.getOwnPropertyNames,s=Object.prototype.hasOwnProperty,a=(e,t,i)=>{if(!t.has(e))throw TypeError("Cannot "+i)},r=(e,t,i)=>(a(e,t,"read from private field"),i?i.call(e):t.get(e)),n=(e,t,i)=>{if(t.has(e))throw TypeError("Cannot add the same private member more than once");t instanceof WeakSet?t.add(e):t.set(e,i)},o=(e,t,i,s)=>(a(e,t,"write to private field"),s?s.call(e,i):t.set(e,i),i),h=(e,t,i)=>(a(e,t,"access private method"),i),l={};((t,i)=>{for(var s in i)e(t,s,{get:i[s],enumerable:!0})})(l,{ArrayBufferTarget:()=>Me,FileSystemWritableFileStreamTarget:()=>Oe,Muxer:()=>Rt,StreamTarget:()=>We});var d,f,u,m,p,c,w,g,b=new Uint8Array(8),y=new DataView(b.buffer),k=e=>[(e%256+256)%256],T=e=>(y.setUint16(0,e,!1),[b[0],b[1]]),C=e=>(y.setUint32(0,e,!1),[b[1],b[2],b[3]]),v=e=>(y.setUint32(0,e,!1),[b[0],b[1],b[2],b[3]]),S=e=>(y.setUint32(0,Math.floor(e/2**32),!1),y.setUint32(4,e,!1),[b[0],b[1],b[2],b[3],b[4],b[5],b[6],b[7]]),x=e=>(y.setInt16(0,256*e,!1),[b[0],b[1]]),z=e=>(y.setInt32(0,65536*e,!1),[b[0],b[1],b[2],b[3]]),E=e=>(y.setInt32(0,2**30*e,!1),[b[0],b[1],b[2],b[3]]),A=(e,t=!1)=>{let i=Array(e.length).fill(null).map((t,i)=>e.charCodeAt(i));return t&&i.push(0),i},M=e=>e&&e[e.length-1],W=e=>{let t;for(let i of e)(!t||i.presentationTimestamp>t.presentationTimestamp)&&(t=i);return t},O=(e,t,i=!0)=>{let s=e*t;return i?Math.round(s):s},B=e=>{let t=e*(Math.PI/180),i=Math.cos(t),s=Math.sin(t);return[i,s,0,-s,i,0,0,0,1]},U=B(0),D=e=>[z(e[0]),z(e[1]),E(e[2]),z(e[3]),z(e[4]),E(e[5]),z(e[6]),z(e[7]),E(e[8])],j=e=>e?"object"!=typeof e?e:Array.isArray(e)?e.map(j):Object.fromEntries(Object.entries(e).map(([e,t])=>[e,j(t)])):e,R=e=>e>=0&&e<2**32,I=(e,t,i)=>({type:e,contents:t&&new Uint8Array(t.flat(10)),children:i}),N=(e,t,i,s,a)=>I(e,[k(t),C(i),s??[]],a),V=e=>({type:"mdat",largeSize:e}),F=(e,t,i=!1)=>I("moov",null,[L(t,e),...e.map(e=>$(e,t)),i?me(e):null]),L=(e,t)=>{let i=O(Math.max(0,...t.filter(e=>e.samples.length>0).map(e=>{const t=W(e.samples);return t.presentationTimestamp+t.duration})),Bt),s=Math.max(...t.map(e=>e.id))+1,a=!R(e)||!R(i),r=a?S:v;return N("mvhd",+a,0,[r(e),r(e),v(Bt),r(i),z(1),x(1),Array(10).fill(0),D(U),Array(24).fill(0),v(s)])},$=(e,t)=>I("trak",null,[P(e,t),H(e,t)]),P=(e,t)=>{let i,s=W(e.samples),a=O(s?s.presentationTimestamp+s.duration:0,Bt),r=!R(t)||!R(a),n=r?S:v;return i="video"===e.info.type?"number"==typeof e.info.rotation?B(e.info.rotation):e.info.rotation:U,N("tkhd",+r,3,[n(t),n(t),v(e.id),v(0),n(a),Array(8).fill(0),T(0),T(0),x("audio"===e.info.type?1:0),T(0),D(i),z("video"===e.info.type?e.info.width:0),z("video"===e.info.type?e.info.height:0)])},H=(e,t)=>I("mdia",null,[_(e,t),q("video"===e.info.type?"vide":"soun"),G(e)]),_=(e,t)=>{let i=W(e.samples),s=O(i?i.presentationTimestamp+i.duration:0,e.timescale),a=!R(t)||!R(s),r=a?S:v;return N("mdhd",+a,0,[r(t),r(t),v(e.timescale),r(s),T(21956),T(0)])},q=e=>N("hdlr",0,0,[A("mhlr"),A(e),v(0),v(0),v(0),A("mp4-muxer-hdlr",!0)]),G=e=>I("minf",null,["video"===e.info.type?J():K(),Q(),Z(e)]),J=()=>N("vmhd",0,1,[T(0),T(0),T(0),T(0)]),K=()=>N("smhd",0,0,[T(0),T(0)]),Q=()=>I("dinf",null,[X()]),X=()=>N("dref",0,0,[v(1)],[Y()]),Y=()=>N("url ",0,1),Z=e=>{const t=e.compositionTimeOffsetTable.length>1||e.compositionTimeOffsetTable.some(e=>0!==e.sampleCompositionTimeOffset);return I("stbl",null,[ee(e),oe(e),he(e),le(e),de(e),fe(e),t?ue(e):null])},ee=e=>N("stsd",0,0,[v(1)],["video"===e.info.type?te(Se[e.info.codec],e):ne(ze[e.info.codec],e)]),te=(e,t)=>{return I(e,[Array(6).fill(0),T(1),T(0),T(0),Array(12).fill(0),T(t.info.width),T(t.info.height),v(4718592),v(4718592),v(0),T(1),Array(32).fill(0),T(24),(i=65535,y.setInt16(0,i,!1),[b[0],b[1]])],[xe[t.info.codec](t),t.info.decoderConfig.colorSpace?re(t):null]);var i},ie={bt709:1,bt470bg:5,smpte170m:6},se={bt709:1,smpte170m:6,"iec61966-2-1":13},ae={rgb:0,bt709:1,bt470bg:5,smpte170m:6},re=e=>I("colr",[A("nclx"),T(ie[e.info.decoderConfig.colorSpace.primaries]),T(se[e.info.decoderConfig.colorSpace.transfer]),T(ae[e.info.decoderConfig.colorSpace.matrix]),k((e.info.decoderConfig.colorSpace.fullRange?1:0)<<7)]),ne=(e,t)=>I(e,[Array(6).fill(0),T(1),T(0),T(0),v(0),T(t.info.numberOfChannels),T(16),T(0),T(0),z(t.info.sampleRate)],[Ee[t.info.codec](t)]),oe=e=>N("stts",0,0,[v(e.timeToSampleTable.length),e.timeToSampleTable.map(e=>[v(e.sampleCount),v(e.sampleDelta)])]),he=e=>{if(e.samples.every(e=>"key"===e.type))return null;let t=[...e.samples.entries()].filter(([,e])=>"key"===e.type);return N("stss",0,0,[v(t.length),t.map(([e])=>v(e+1))])},le=e=>N("stsc",0,0,[v(e.compactlyCodedChunkTable.length),e.compactlyCodedChunkTable.map(e=>[v(e.firstChunk),v(e.samplesPerChunk),v(1)])]),de=e=>N("stsz",0,0,[v(0),v(e.samples.length),e.samples.map(e=>v(e.size))]),fe=e=>e.finalizedChunks.length>0&&M(e.finalizedChunks).offset>=2**32?N("co64",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>S(e.offset))]):N("stco",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>v(e.offset))]),ue=e=>N("ctts",0,0,[v(e.compositionTimeOffsetTable.length),e.compositionTimeOffsetTable.map(e=>[v(e.sampleCount),v(e.sampleCompositionTimeOffset)])]),me=e=>I("mvex",null,e.map(pe)),pe=e=>N("trex",0,0,[v(e.id),v(1),v(0),v(0),v(0)]),ce=(e,t)=>I("moof",null,[we(e),...t.map(be)]),we=e=>N("mfhd",0,0,[v(e)]),ge=e=>{let t=0,i=0,s="delta"===e.type;return i|=+s,t|=s?1:2,t<<24|i<<16},be=e=>I("traf",null,[ye(e),ke(e),Te(e)]),ye=e=>{let t=0;t|=8,t|=16,t|=32,t|=131072;let i=e.currentChunk.samples[1]??e.currentChunk.samples[0],s={duration:i.timescaleUnitsToNextSample,size:i.size,flags:ge(i)};return N("tfhd",0,131128,[v(e.id),v(s.duration),v(s.size),v(s.flags)])},ke=e=>N("tfdt",1,0,[S(O(e.currentChunk.startTimestamp,e.timescale))]),Te=e=>{let t=e.currentChunk.samples.map(e=>e.timescaleUnitsToNextSample),i=e.currentChunk.samples.map(e=>e.size),s=e.currentChunk.samples.map(ge),a=e.currentChunk.samples.map(t=>O(t.presentationTimestamp-t.decodeTimestamp,e.timescale)),r=new Set(t),n=new Set(i),o=new Set(s),h=new Set(a),l=2===o.size&&s[0]!==s[1],d=r.size>1,f=n.size>1,u=!l&&o.size>1,m=h.size>1||[...h].some(e=>0!==e),p=0;return p|=1,p|=4*+l,p|=256*+d,p|=512*+f,p|=1024*+u,p|=2048*+m,N("trun",1,p,[v(e.currentChunk.samples.length),v(e.currentChunk.offset-e.currentChunk.moofOffset||0),l?v(s[0]):[],e.currentChunk.samples.map((e,r)=>{return[d?v(t[r]):[],f?v(i[r]):[],u?v(s[r]):[],m?(n=a[r],y.setInt32(0,n,!1),[b[0],b[1],b[2],b[3]]):[]];var n})])},Ce=(e,t)=>N("tfra",1,0,[v(e.id),v(63),v(e.finalizedChunks.length),e.finalizedChunks.map(i=>[S(O(i.startTimestamp,e.timescale)),S(i.moofOffset),v(t+1),v(1),v(1)])]),ve=()=>N("mfro",0,0,[v(0)]),Se={avc:"avc1",hevc:"hvc1",vp9:"vp09",av1:"av01"},xe={avc:e=>e.info.decoderConfig&&I("avcC",[...new Uint8Array(e.info.decoderConfig.description)]),hevc:e=>e.info.decoderConfig&&I("hvcC",[...new Uint8Array(e.info.decoderConfig.description)]),vp9:e=>{if(!e.info.decoderConfig)return null;let t=e.info.decoderConfig;if(!t.colorSpace)throw new Error("'colorSpace' is required in the decoder config for VP9.");let i=t.codec.split("."),s=Number(i[1]),a=Number(i[2]),r=0+(Number(i[3])<<4)+Number(t.colorSpace.fullRange);return N("vpcC",1,0,[k(s),k(a),k(r),k(2),k(2),k(2),T(0)])},av1:()=>I("av1C",[129,0,0,0])},ze={aac:"mp4a",opus:"Opus"},Ee={aac:e=>{let t=new Uint8Array(e.info.decoderConfig.description);return N("esds",0,0,[v(58753152),k(32+t.byteLength),T(1),k(0),v(75530368),k(18+t.byteLength),k(64),k(21),C(0),v(130071),v(130071),v(92307584),k(t.byteLength),...t,v(109084800),k(1),k(2)])},opus:e=>{let t=3840,i=0;const s=e.info.decoderConfig?.description;if(s){if(s.byteLength<18)throw new TypeError("Invalid decoder description provided for Opus; must be at least 18 bytes long.");const e=ArrayBuffer.isView(s)?new DataView(s.buffer,s.byteOffset,s.byteLength):new DataView(s);t=e.getUint16(10,!0),i=e.getInt16(14,!0)}return I("dOps",[k(0),k(e.info.numberOfChannels),T(t),v(e.info.sampleRate),x(i),k(0)])}},Ae=(Symbol("isTarget"),class{}),Me=class extends Ae{constructor(){super(...arguments),this.buffer=null}},We=class extends Ae{constructor(e){if(super(),this.options=e,"object"!=typeof e)throw new TypeError("StreamTarget requires an options object to be passed to its constructor.");if(e.onData){if("function"!=typeof e.onData)throw new TypeError("options.onData, when provided, must be a function.");if(e.onData.length<2)throw new TypeError("options.onData, when provided, must be a function that takes in at least two arguments (data and position). Ignoring the position argument, which specifies the byte offset at which the data is to be written, can lead to broken outputs.")}if(void 0!==e.chunked&&"boolean"!=typeof e.chunked)throw new TypeError("options.chunked, when provided, must be a boolean.");if(void 0!==e.chunkSize&&(!Number.isInteger(e.chunkSize)||e.chunkSize<1024))throw new TypeError("options.chunkSize, when provided, must be an integer and not smaller than 1024.")}},Oe=class extends Ae{constructor(e,t){if(super(),this.stream=e,this.options=t,!(e instanceof FileSystemWritableFileStream))throw new TypeError("FileSystemWritableFileStreamTarget requires a FileSystemWritableFileStream instance.");if(void 0!==t&&"object"!=typeof t)throw new TypeError("FileSystemWritableFileStreamTarget's options, when provided, must be an object.");if(t&&void 0!==t.chunkSize&&(!Number.isInteger(t.chunkSize)||t.chunkSize<=0))throw new TypeError("options.chunkSize, when provided, must be a positive integer")}},Be=class{constructor(){this.pos=0,n(this,d,new Uint8Array(8)),n(this,f,new DataView(r(this,d).buffer)),this.offsets=new WeakMap}seek(e){this.pos=e}writeU32(e){r(this,f).setUint32(0,e,!1),this.write(r(this,d).subarray(0,4))}writeU64(e){r(this,f).setUint32(0,Math.floor(e/2**32),!1),r(this,f).setUint32(4,e,!1),this.write(r(this,d).subarray(0,8))}writeAscii(e){for(let t=0;t<e.length;t++)r(this,f).setUint8(t%8,e.charCodeAt(t)),t%8==7&&this.write(r(this,d));e.length%8!=0&&this.write(r(this,d).subarray(0,e.length%8))}writeBox(e){if(this.offsets.set(e,this.pos),e.contents&&!e.children)this.writeBoxHeader(e,e.size??e.contents.byteLength+8),this.write(e.contents);else{let t=this.pos;if(this.writeBoxHeader(e,0),e.contents&&this.write(e.contents),e.children)for(let t of e.children)t&&this.writeBox(t);let i=this.pos,s=e.size??i-t;this.seek(t),this.writeBoxHeader(e,s),this.seek(i)}}writeBoxHeader(e,t){this.writeU32(e.largeSize?1:t),this.writeAscii(e.type),e.largeSize&&this.writeU64(t)}measureBoxHeader(e){return 8+(e.largeSize?8:0)}patchBox(e){let t=this.pos;this.seek(this.offsets.get(e)),this.writeBox(e),this.seek(t)}measureBox(e){if(e.contents&&!e.children){return this.measureBoxHeader(e)+e.contents.byteLength}{let t=this.measureBoxHeader(e);if(e.contents&&(t+=e.contents.byteLength),e.children)for(let i of e.children)i&&(t+=this.measureBox(i));return t}}};d=new WeakMap,f=new WeakMap;var Ue=class extends Be{constructor(e){super(),n(this,w),n(this,u,void 0),n(this,m,new ArrayBuffer(65536)),n(this,p,new Uint8Array(r(this,m))),n(this,c,0),o(this,u,e)}write(e){h(this,w,g).call(this,this.pos+e.byteLength),r(this,p).set(e,this.pos),this.pos+=e.byteLength,o(this,c,Math.max(r(this,c),this.pos))}finalize(){h(this,w,g).call(this,this.pos),r(this,u).buffer=r(this,m).slice(0,Math.max(r(this,c),this.pos))}};u=new WeakMap,m=new WeakMap,p=new WeakMap,c=new WeakMap,w=new WeakSet,g=function(e){let t=r(this,m).byteLength;for(;t<e;)t*=2;if(t===r(this,m).byteLength)return;let i=new ArrayBuffer(t),s=new Uint8Array(i);s.set(r(this,p),0),o(this,m,i),o(this,p,s)};var De,je,Re,Ie,Ne,Ve,Fe,Le,$e,Pe,He,_e,qe,Ge=class extends Be{constructor(e){super(),n(this,Ve),n(this,Le),n(this,Pe),n(this,_e),n(this,De,void 0),n(this,je,[]),n(this,Re,void 0),n(this,Ie,void 0),n(this,Ne,[]),o(this,De,e),o(this,Re,e.options?.chunked??!1),o(this,Ie,e.options?.chunkSize??16777216)}write(e){r(this,je).push({data:e.slice(),start:this.pos}),this.pos+=e.byteLength}flush(){if(0===r(this,je).length)return;let e=[],t=[...r(this,je)].sort((e,t)=>e.start-t.start);e.push({start:t[0].start,size:t[0].data.byteLength});for(let i=1;i<t.length;i++){let s=e[e.length-1],a=t[i];a.start<=s.start+s.size?s.size=Math.max(s.size,a.start+a.data.byteLength-s.start):e.push({start:a.start,size:a.data.byteLength})}for(let t of e){t.data=new Uint8Array(t.size);for(let e of r(this,je))t.start<=e.start&&e.start<t.start+t.size&&t.data.set(e.data,e.start-t.start);r(this,Re)?(h(this,Ve,Fe).call(this,t.data,t.start),h(this,_e,qe).call(this)):r(this,De).options.onData?.(t.data,t.start)}r(this,je).length=0}finalize(){r(this,Re)&&h(this,_e,qe).call(this,!0)}};De=new WeakMap,je=new WeakMap,Re=new WeakMap,Ie=new WeakMap,Ne=new WeakMap,Ve=new WeakSet,Fe=function(e,t){let i=r(this,Ne).findIndex(e=>e.start<=t&&t<e.start+r(this,Ie));-1===i&&(i=h(this,Pe,He).call(this,t));let s=r(this,Ne)[i],a=t-s.start,n=e.subarray(0,Math.min(r(this,Ie)-a,e.byteLength));s.data.set(n,a);let o={start:a,end:a+n.byteLength};if(h(this,Le,$e).call(this,s,o),0===s.written[0].start&&s.written[0].end===r(this,Ie)&&(s.shouldFlush=!0),r(this,Ne).length>2){for(let e=0;e<r(this,Ne).length-1;e++)r(this,Ne)[e].shouldFlush=!0;h(this,_e,qe).call(this)}n.byteLength<e.byteLength&&h(this,Ve,Fe).call(this,e.subarray(n.byteLength),t+n.byteLength)},Le=new WeakSet,$e=function(e,t){let i=0,s=e.written.length-1,a=-1;for(;i<=s;){let r=Math.floor(i+(s-i+1)/2);e.written[r].start<=t.start?(i=r+1,a=r):s=r-1}for(e.written.splice(a+1,0,t),(-1===a||e.written[a].end<t.start)&&a++;a<e.written.length-1&&e.written[a].end>=e.written[a+1].start;)e.written[a].end=Math.max(e.written[a].end,e.written[a+1].end),e.written.splice(a+1,1)},Pe=new WeakSet,He=function(e){let t={start:Math.floor(e/r(this,Ie))*r(this,Ie),data:new Uint8Array(r(this,Ie)),written:[],shouldFlush:!1};return r(this,Ne).push(t),r(this,Ne).sort((e,t)=>e.start-t.start),r(this,Ne).indexOf(t)},_e=new WeakSet,qe=function(e=!1){for(let t=0;t<r(this,Ne).length;t++){let i=r(this,Ne)[t];if(i.shouldFlush||e){for(let e of i.written)r(this,De).options.onData?.(i.data.subarray(e.start,e.end),i.start+e.start);r(this,Ne).splice(t--,1)}}};var Je,Ke,Qe,Xe,Ye,Ze,et,tt,it,st,at,rt,nt,ot,ht,lt,dt,ft,ut,mt,pt,ct,wt,gt,bt,yt,kt,Tt,Ct,vt,St,xt,zt,Et,At,Mt,Wt,Ot=class extends Ge{constructor(e){super(new We({onData:(t,i)=>e.stream.write({type:"write",data:t,position:i}),chunked:!0,chunkSize:e.options?.chunkSize}))}},Bt=1e3,Ut=["avc","hevc","vp9","av1"],Dt=["aac","opus"],jt=["strict","offset","cross-track-offset"],Rt=class{constructor(e){if(n(this,nt),n(this,ht),n(this,dt),n(this,ut),n(this,pt),n(this,wt),n(this,bt),n(this,kt),n(this,Ct),n(this,St),n(this,zt),n(this,At),n(this,Je,void 0),n(this,Ke,void 0),n(this,Qe,void 0),n(this,Xe,void 0),n(this,Ye,null),n(this,Ze,null),n(this,et,Math.floor(Date.now()/1e3)+2082844800),n(this,tt,[]),n(this,it,1),n(this,st,[]),n(this,at,[]),n(this,rt,!1),h(this,nt,ot).call(this,e),e.video=j(e.video),e.audio=j(e.audio),e.fastStart=j(e.fastStart),this.target=e.target,o(this,Je,{firstTimestampBehavior:"strict",...e}),e.target instanceof Me)o(this,Ke,new Ue(e.target));else if(e.target instanceof We)o(this,Ke,new Ge(e.target));else{if(!(e.target instanceof Oe))throw new Error(`Invalid target: ${e.target}`);o(this,Ke,new Ot(e.target))}h(this,ut,mt).call(this),h(this,ht,lt).call(this)}addVideoChunk(e,t,i,s){if(!(e instanceof EncodedVideoChunk))throw new TypeError("addVideoChunk's first argument (sample) must be of type EncodedVideoChunk.");if(t&&"object"!=typeof t)throw new TypeError("addVideoChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addVideoChunk's third argument (timestamp), when provided, must be a non-negative real number.");if(void 0!==s&&!Number.isFinite(s))throw new TypeError("addVideoChunk's fourth argument (compositionTimeOffset), when provided, must be a real number.");let a=new Uint8Array(e.byteLength);e.copyTo(a),this.addVideoChunkRaw(a,e.type,i??e.timestamp,e.duration,t,s)}addVideoChunkRaw(e,t,i,s,a,n){if(!(e instanceof Uint8Array))throw new TypeError("addVideoChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addVideoChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addVideoChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addVideoChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addVideoChunkRaw's fifth argument (meta), when provided, must be an object.");if(void 0!==n&&!Number.isFinite(n))throw new TypeError("addVideoChunkRaw's sixth argument (compositionTimeOffset), when provided, must be a real number.");if(h(this,At,Mt).call(this),!r(this,Je).video)throw new Error("No video track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ye).samples.length===r(this,Je).fastStart.expectedVideoChunks)throw new Error(`Cannot add more video chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedVideoChunks}).`);let o=h(this,wt,gt).call(this,r(this,Ye),e,t,i,s,a,n);if("fragmented"===r(this,Je).fastStart&&r(this,Ze)){for(;r(this,at).length>0&&r(this,at)[0].decodeTimestamp<=o.decodeTimestamp;){let e=r(this,at).shift();h(this,bt,yt).call(this,r(this,Ze),e)}o.decodeTimestamp<=r(this,Ze).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ye),o):r(this,st).push(o)}else h(this,bt,yt).call(this,r(this,Ye),o)}addAudioChunk(e,t,i){if(!(e instanceof EncodedAudioChunk))throw new TypeError("addAudioChunk's first argument (sample) must be of type EncodedAudioChunk.");if(t&&"object"!=typeof t)throw new TypeError("addAudioChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addAudioChunk's third argument (timestamp), when provided, must be a non-negative real number.");let s=new Uint8Array(e.byteLength);e.copyTo(s),this.addAudioChunkRaw(s,e.type,i??e.timestamp,e.duration,t)}addAudioChunkRaw(e,t,i,s,a){if(!(e instanceof Uint8Array))throw new TypeError("addAudioChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addAudioChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addAudioChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addAudioChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addAudioChunkRaw's fifth argument (meta), when provided, must be an object.");if(h(this,At,Mt).call(this),!r(this,Je).audio)throw new Error("No audio track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ze).samples.length===r(this,Je).fastStart.expectedAudioChunks)throw new Error(`Cannot add more audio chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedAudioChunks}).`);let n=h(this,wt,gt).call(this,r(this,Ze),e,t,i,s,a);if("fragmented"===r(this,Je).fastStart&&r(this,Ye)){for(;r(this,st).length>0&&r(this,st)[0].decodeTimestamp<=n.decodeTimestamp;){let e=r(this,st).shift();h(this,bt,yt).call(this,r(this,Ye),e)}n.decodeTimestamp<=r(this,Ye).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ze),n):r(this,at).push(n)}else h(this,bt,yt).call(this,r(this,Ze),n)}finalize(){if(r(this,rt))throw new Error("Cannot finalize a muxer more than once.");if("fragmented"===r(this,Je).fastStart){for(let e of r(this,st))h(this,bt,yt).call(this,r(this,Ye),e);for(let e of r(this,at))h(this,bt,yt).call(this,r(this,Ze),e);h(this,St,xt).call(this,!1)}else r(this,Ye)&&h(this,Ct,vt).call(this,r(this,Ye)),r(this,Ze)&&h(this,Ct,vt).call(this,r(this,Ze));let e=[r(this,Ye),r(this,Ze)].filter(Boolean);if("in-memory"===r(this,Je).fastStart){let t;for(let i=0;i<2;i++){let i=F(e,r(this,et)),s=r(this,Ke).measureBox(i);t=r(this,Ke).measureBox(r(this,Xe));let a=r(this,Ke).pos+s+t;for(let e of r(this,tt)){e.offset=a;for(let{data:i}of e.samples)a+=i.byteLength,t+=i.byteLength}if(a<2**32)break;t>=2**32&&(r(this,Xe).largeSize=!0)}let i=F(e,r(this,et));r(this,Ke).writeBox(i),r(this,Xe).size=t,r(this,Ke).writeBox(r(this,Xe));for(let e of r(this,tt))for(let t of e.samples)r(this,Ke).write(t.data),t.data=null}else if("fragmented"===r(this,Je).fastStart){let t=r(this,Ke).pos,i=(e=>I("mfra",null,[...e.map(Ce),ve()]))(e);r(this,Ke).writeBox(i);let s=r(this,Ke).pos-t;r(this,Ke).seek(r(this,Ke).pos-4),r(this,Ke).writeU32(s)}else{let t=r(this,Ke).offsets.get(r(this,Xe)),i=r(this,Ke).pos-t;r(this,Xe).size=i,r(this,Xe).largeSize=i>=2**32,r(this,Ke).patchBox(r(this,Xe));let s=F(e,r(this,et));if("object"==typeof r(this,Je).fastStart){r(this,Ke).seek(r(this,Qe)),r(this,Ke).writeBox(s);let e=t-r(this,Ke).pos;r(this,Ke).writeBox({type:"free",size:e})}else r(this,Ke).writeBox(s)}h(this,zt,Et).call(this),r(this,Ke).finalize(),o(this,rt,!0)}};return Je=new WeakMap,Ke=new WeakMap,Qe=new WeakMap,Xe=new WeakMap,Ye=new WeakMap,Ze=new WeakMap,et=new WeakMap,tt=new WeakMap,it=new WeakMap,st=new WeakMap,at=new WeakMap,rt=new WeakMap,nt=new WeakSet,ot=function(e){if("object"!=typeof e)throw new TypeError("The muxer requires an options object to be passed to its constructor.");if(!(e.target instanceof Ae))throw new TypeError("The target must be provided and an instance of Target.");if(e.video){if(!Ut.includes(e.video.codec))throw new TypeError(`Unsupported video codec: ${e.video.codec}`);if(!Number.isInteger(e.video.width)||e.video.width<=0)throw new TypeError(`Invalid video width: ${e.video.width}. Must be a positive integer.`);if(!Number.isInteger(e.video.height)||e.video.height<=0)throw new TypeError(`Invalid video height: ${e.video.height}. Must be a positive integer.`);const t=e.video.rotation;if("number"==typeof t&&![0,90,180,270].includes(t))throw new TypeError(`Invalid video rotation: ${t}. Has to be 0, 90, 180 or 270.`);if(Array.isArray(t)&&(9!==t.length||t.some(e=>"number"!=typeof e)))throw new TypeError(`Invalid video transformation matrix: ${t.join()}`);if(void 0!==e.video.frameRate&&(!Number.isInteger(e.video.frameRate)||e.video.frameRate<=0))throw new TypeError(`Invalid video frame rate: ${e.video.frameRate}. Must be a positive integer.`)}if(e.audio){if(!Dt.includes(e.audio.codec))throw new TypeError(`Unsupported audio codec: ${e.audio.codec}`);if(!Number.isInteger(e.audio.numberOfChannels)||e.audio.numberOfChannels<=0)throw new TypeError(`Invalid number of audio channels: ${e.audio.numberOfChannels}. Must be a positive integer.`);if(!Number.isInteger(e.audio.sampleRate)||e.audio.sampleRate<=0)throw new TypeError(`Invalid audio sample rate: ${e.audio.sampleRate}. Must be a positive integer.`)}if(e.firstTimestampBehavior&&!jt.includes(e.firstTimestampBehavior))throw new TypeError(`Invalid first timestamp behavior: ${e.firstTimestampBehavior}`);if("object"==typeof e.fastStart){if(e.video){if(void 0===e.fastStart.expectedVideoChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedVideoChunks'.");if(!Number.isInteger(e.fastStart.expectedVideoChunks)||e.fastStart.expectedVideoChunks<0)throw new TypeError("'expectedVideoChunks' must be a non-negative integer.")}if(e.audio){if(void 0===e.fastStart.expectedAudioChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedAudioChunks'.");if(!Number.isInteger(e.fastStart.expectedAudioChunks)||e.fastStart.expectedAudioChunks<0)throw new TypeError("'expectedAudioChunks' must be a non-negative integer.")}}else if(![!1,"in-memory","fragmented"].includes(e.fastStart))throw new TypeError("'fastStart' option must be false, 'in-memory', 'fragmented' or an object.");if(void 0!==e.minFragmentDuration&&(!Number.isFinite(e.minFragmentDuration)||e.minFragmentDuration<0))throw new TypeError("'minFragmentDuration' must be a non-negative number.")},ht=new WeakSet,lt=function(){var e;if(r(this,Ke).writeBox((e={holdsAvc:"avc"===r(this,Je).video?.codec,fragmented:"fragmented"===r(this,Je).fastStart}).fragmented?I("ftyp",[A("iso5"),v(512),A("iso5"),A("iso6"),A("mp41")]):I("ftyp",[A("isom"),v(512),A("isom"),e.holdsAvc?A("avc1"):[],A("mp41")])),o(this,Qe,r(this,Ke).pos),"in-memory"===r(this,Je).fastStart)o(this,Xe,V(!1));else if("fragmented"===r(this,Je).fastStart);else{if("object"==typeof r(this,Je).fastStart){let e=h(this,dt,ft).call(this);r(this,Ke).seek(r(this,Ke).pos+e)}o(this,Xe,V(!0)),r(this,Ke).writeBox(r(this,Xe))}h(this,zt,Et).call(this)},dt=new WeakSet,ft=function(){if("object"!=typeof r(this,Je).fastStart)return;let e=0,t=[r(this,Je).fastStart.expectedVideoChunks,r(this,Je).fastStart.expectedAudioChunks];for(let i of t)i&&(e+=8*Math.ceil(2/3*i),e+=4*i,e+=12*Math.ceil(2/3*i),e+=4*i,e+=8*i);return e+=4096,e},ut=new WeakSet,mt=function(){if(r(this,Je).video&&o(this,Ye,{id:1,info:{type:"video",codec:r(this,Je).video.codec,width:r(this,Je).video.width,height:r(this,Je).video.height,rotation:r(this,Je).video.rotation??0,decoderConfig:null},timescale:r(this,Je).video.frameRate??57600,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),r(this,Je).audio&&(o(this,Ze,{id:r(this,Je).video?2:1,info:{type:"audio",codec:r(this,Je).audio.codec,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate,decoderConfig:null},timescale:r(this,Je).audio.sampleRate,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),"aac"===r(this,Je).audio.codec)){let e=h(this,pt,ct).call(this,2,r(this,Je).audio.sampleRate,r(this,Je).audio.numberOfChannels);r(this,Ze).info.decoderConfig={codec:r(this,Je).audio.codec,description:e,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate}}},pt=new WeakSet,ct=function(e,t,i){let s=[96e3,88200,64e3,48e3,44100,32e3,24e3,22050,16e3,12e3,11025,8e3,7350].indexOf(t),a=i,r="";r+=e.toString(2).padStart(5,"0"),r+=s.toString(2).padStart(4,"0"),15===s&&(r+=t.toString(2).padStart(24,"0")),r+=a.toString(2).padStart(4,"0");let n=8*Math.ceil(r.length/8);r=r.padEnd(n,"0");let o=new Uint8Array(r.length/8);for(let e=0;e<r.length;e+=8)o[e/8]=parseInt(r.slice(e,e+8),2);return o},wt=new WeakSet,gt=function(e,t,i,s,a,r,n){let o=s/1e6,l=(s-(n??0))/1e6,d=a/1e6,f=h(this,kt,Tt).call(this,o,l,e);return o=f.presentationTimestamp,l=f.decodeTimestamp,r?.decoderConfig&&(null===e.info.decoderConfig?e.info.decoderConfig=r.decoderConfig:Object.assign(e.info.decoderConfig,r.decoderConfig)),{presentationTimestamp:o,decodeTimestamp:l,duration:d,data:t,size:t.byteLength,type:i,timescaleUnitsToNextSample:O(d,e.timescale)}},bt=new WeakSet,yt=function(e,t){"fragmented"!==r(this,Je).fastStart&&e.samples.push(t);const i=O(t.presentationTimestamp-t.decodeTimestamp,e.timescale);if(null!==e.lastTimescaleUnits){let s=O(t.decodeTimestamp,e.timescale,!1),a=Math.round(s-e.lastTimescaleUnits);if(e.lastTimescaleUnits+=a,e.lastSample.timescaleUnitsToNextSample=a,"fragmented"!==r(this,Je).fastStart){let t=M(e.timeToSampleTable);1===t.sampleCount?(t.sampleDelta=a,t.sampleCount++):t.sampleDelta===a?t.sampleCount++:(t.sampleCount--,e.timeToSampleTable.push({sampleCount:2,sampleDelta:a}));const s=M(e.compositionTimeOffsetTable);s.sampleCompositionTimeOffset===i?s.sampleCount++:e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i})}}else e.lastTimescaleUnits=0,"fragmented"!==r(this,Je).fastStart&&(e.timeToSampleTable.push({sampleCount:1,sampleDelta:O(t.duration,e.timescale)}),e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i}));e.lastSample=t;let s=!1;if(e.currentChunk){let i=t.presentationTimestamp-e.currentChunk.startTimestamp;if("fragmented"===r(this,Je).fastStart){let a=r(this,Ye)??r(this,Ze);const n=r(this,Je).minFragmentDuration??1;e===a&&"key"===t.type&&i>=n&&(s=!0,h(this,St,xt).call(this))}else s=i>=.5}else s=!0;s&&(e.currentChunk&&h(this,Ct,vt).call(this,e),e.currentChunk={startTimestamp:t.presentationTimestamp,samples:[]}),e.currentChunk.samples.push(t)},kt=new WeakSet,Tt=function(e,t,i){const s="strict"===r(this,Je).firstTimestampBehavior,a=-1===i.lastDecodeTimestamp;if(s&&a&&0!==t)throw new Error(`The first chunk for your media track must have a timestamp of 0 (received DTS=${t}).Non-zero first timestamps are often caused by directly piping frames or audio data from a MediaStreamTrack into the encoder. Their timestamps are typically relative to the age of thedocument, which is probably what you want.\n\nIf you want to offset all timestamps of a track such that the first one is zero, set firstTimestampBehavior: 'offset' in the options.\n`);if("offset"===r(this,Je).firstTimestampBehavior||"cross-track-offset"===r(this,Je).firstTimestampBehavior){let s;void 0===i.firstDecodeTimestamp&&(i.firstDecodeTimestamp=t),s="offset"===r(this,Je).firstTimestampBehavior?i.firstDecodeTimestamp:Math.min(r(this,Ye)?.firstDecodeTimestamp??1/0,r(this,Ze)?.firstDecodeTimestamp??1/0),t-=s,e-=s}if(t<i.lastDecodeTimestamp)throw new Error(`Timestamps must be monotonically increasing (DTS went from ${1e6*i.lastDecodeTimestamp} to ${1e6*t}).`);return i.lastDecodeTimestamp=t,{presentationTimestamp:e,decodeTimestamp:t}},Ct=new WeakSet,vt=function(e){if("fragmented"===r(this,Je).fastStart)throw new Error("Can't finalize individual chunks if 'fastStart' is set to 'fragmented'.");if(e.currentChunk)if(e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),0!==e.compactlyCodedChunkTable.length&&M(e.compactlyCodedChunkTable).samplesPerChunk===e.currentChunk.samples.length||e.compactlyCodedChunkTable.push({firstChunk:e.finalizedChunks.length,samplesPerChunk:e.currentChunk.samples.length}),"in-memory"!==r(this,Je).fastStart){e.currentChunk.offset=r(this,Ke).pos;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null;h(this,zt,Et).call(this)}else e.currentChunk.offset=0},St=new WeakSet,xt=function(e=!0){if("fragmented"!==r(this,Je).fastStart)throw new Error("Can't finalize a fragment unless 'fastStart' is set to 'fragmented'.");let t=[r(this,Ye),r(this,Ze)].filter(e=>e&&e.currentChunk);if(0===t.length)return;let i=(s=this,a=it,{set _(e){o(s,a,e,n)},get _(){return r(s,a,l)}})._++;var s,a,n,l;if(1===i){let e=F(t,r(this,et),!0);r(this,Ke).writeBox(e)}let d=r(this,Ke).pos,f=ce(i,t);r(this,Ke).writeBox(f);{let e=V(!1),i=0;for(let e of t)for(let t of e.currentChunk.samples)i+=t.size;let s=r(this,Ke).measureBox(e)+i;s>=2**32&&(e.largeSize=!0,s=r(this,Ke).measureBox(e)+i),e.size=s,r(this,Ke).writeBox(e)}for(let e of t){e.currentChunk.offset=r(this,Ke).pos,e.currentChunk.moofOffset=d;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null}let u=r(this,Ke).pos;r(this,Ke).seek(r(this,Ke).offsets.get(f));let m=ce(i,t);r(this,Ke).writeBox(m),r(this,Ke).seek(u);for(let e of t)e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),e.currentChunk=null;e&&h(this,zt,Et).call(this)},zt=new WeakSet,Et=function(){r(this,Ke)instanceof Ge&&r(this,Ke).flush()},At=new WeakSet,Mt=function(){if(r(this,rt))throw new Error("Cannot add new video or audio chunks after the file has been finalized.")},Wt=l,((a,r,n,o)=>{if(r&&"object"==typeof r||"function"==typeof r)for(let h of i(r))s.call(a,h)||h===n||e(a,h,{get:()=>r[h],enumerable:!(o=t(r,h))||o.enumerable});return a})(e({},"__esModule",{value:!0}),Wt)})();"object"==typeof module&&"object"==typeof module.exports&&Object.assign(module.exports,Mp4Muxer);
+</script>
 <script>
 
 /* ================= utilities ================= */
@@ -284,12 +365,12 @@ const CH=[
 const S=[];let TOTAL=0;CH.forEach((c,i)=>{S[i]=TOTAL;TOTAL+=c.dur;});
 
 /* ================= canvas, camera, labels ================= */
-const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const cv=document.getElementById('cv');let ctx=cv.getContext('2d');
 let dpr=1,cssW=960,cssH=540,fit=.6;
 let cam={x:800,y:450,s:1},VX0=0,VX1=W,VY0=0,VY1=H;
 let T=0,TT=0,CUR=0,U=0,SHOWLAB=true;
-const FONT='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
-const COND='"Barlow Condensed","Arial Narrow","Noto Sans TC","Noto Sans CJK TC",sans-serif';
+let FONT='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+let COND='"Barlow Condensed","Arial Narrow","Noto Sans TC","Noto Sans CJK TC",sans-serif';
 const TAU=Math.PI*2;
 
 function applyCam(c){
@@ -303,7 +384,7 @@ function screenSpace(){ctx.setTransform(dpr,0,0,dpr,0,0);}
 const LQ=[];
 function lab(x,y,text,o){
   o=o||{};if(!SHOWLAB)return;const a=o.a===undefined?1:o.a;if(a<=.01)return;
-  LQ.push({x,y,text,dx:o.dx===undefined?0:o.dx,dy:o.dy===undefined?-40:o.dy,a,st:o.st||'n',minor:!!o.minor});
+  LQ.push({x,y,text:tr(text),dx:o.dx===undefined?0:o.dx,dy:o.dy===undefined?-40:o.dy,a,st:o.st||'n',minor:!!o.minor});
 }
 function drawLabels(){
   screenSpace();
@@ -778,17 +859,20 @@ function ring(x,y,r,col,lw){ctx.beginPath();ctx.arc(x,y,Math.max(.1,r),0,TAU);ct
 
 /* ================= HUD ================= */
 const HK=()=>clamp(cssW/1200,.62,1.15);
+let HUDW=0;
 function hudPanel(w,h,title,a,fn){
   if(cssW<600||a<=.01||!SHOWLAB)return;
   const k=HK(),x=cssW-(w+14)*k,y=34*k;
   screenSpace();ctx.save();ctx.globalAlpha=clamp(a);ctx.translate(x,y);ctx.scale(k,k);
   rrp(0,0,w,h,10);ctx.fillStyle='rgba(7,27,39,.86)';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1;ctx.stroke();
-  ctx.fillStyle='#f2c230';ctx.font=`700 13px ${FONT}`;ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.fillText(title,14,23);
-  fn(w,h);ctx.restore();
+  ctx.fillStyle='#f2c230';ctx.font=`700 13px ${FONT}`;ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.fillText(tr(title),14,23,w-28);
+  HUDW=w;try{fn(w,h);}finally{HUDW=0;}ctx.restore();
 }
-function hrow(y,label,val,w,col){ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.font=`500 12px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.78)';ctx.fillText(label,14,y);ctx.textAlign='right';ctx.font=`700 17px ${COND}`;ctx.fillStyle=col||'#fff';ctx.fillText(val,w-14,y);ctx.textAlign='left';}
+function hrow(y,label,val,w,col){label=tr(label);val=tr(val);ctx.textBaseline='alphabetic';ctx.font=`700 17px ${COND}`;const vw=ctx.measureText(val).width;ctx.textAlign='left';ctx.font=`500 12px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.78)';ctx.fillText(label,14,y,Math.max(24,w-36-vw));ctx.textAlign='right';ctx.font=`700 17px ${COND}`;ctx.fillStyle=col||'#fff';ctx.fillText(val,w-14,y);ctx.textAlign='left';}
 function hbar(x,y,w,f,col){rrp(x,y,w,6,3);ctx.fillStyle='rgba(255,255,255,.14)';ctx.fill();if(f>0){rrp(x,y,Math.max(6,w*clamp(f)),6,3);ctx.fillStyle=col||'#f2c230';ctx.fill();}}
-function htext(x,y,t,size,col,weight,font,align){ctx.textBaseline='alphabetic';ctx.textAlign=align||'left';ctx.font=`${weight||500} ${size}px ${font||FONT}`;ctx.fillStyle=col||'#fff';ctx.fillText(t,x,y);ctx.textAlign='left';}
+function htext(x,y,t,size,col,weight,font,align){t=tr(t);const al=align||'left';ctx.textBaseline='alphabetic';ctx.textAlign=al;ctx.font=`${weight||500} ${size}px ${font||FONT}`;ctx.fillStyle=col||'#fff';
+  if(HUDW){const mw=al==='left'?HUDW-x-10:al==='right'?x-10:Math.min(x,HUDW-x)*2-10;if(mw>8){ctx.fillText(t,x,y,mw);ctx.textAlign='left';return;}}
+  ctx.fillText(t,x,y);ctx.textAlign='left';}
 
 /* ================= persistent scenery items ================= */
 function drawWreck(hl){
@@ -1005,7 +1089,7 @@ function hud3(u){
     rrp(x0,y0,ww,hh,6);ctx.fillStyle='rgba(255,255,255,.06)';ctx.fill();
     ctx.beginPath();for(let i=0;i<=ww;i+=2){const t=TT*3+i*.13;let a=Math.sin(t*7.1)*.18+Math.sin(t*13.7)*.12;if(near>0&&(Math.floor(i/6+TT*20)%7===0))a+=near*(Math.sin(i)*.8);ctx.lineTo(x0+i,y0+hh/2-a*hh*.45);}
     ctx.strokeStyle=near>.2?'#f2c230':'rgba(88,184,208,.95)';ctx.lineWidth=1.3;ctx.stroke();
-    if(near>.2){rrp(14,y0+hh+12,118,22,11);ctx.fillStyle='#e8572a';ctx.fill();htext(24,y0+hh+28,'偵測到鯨豚聲音',12,'#fff',700);}
+    if(near>.2){const pt=tr('偵測到鯨豚聲音');ctx.font=`700 12px ${FONT}`;rrp(14,y0+hh+12,Math.min(w-28,ctx.measureText(pt).width+20),22,11);ctx.fillStyle='#e8572a';ctx.fill();htext(24,y0+hh+28,pt,12,'#fff',700);}
     else htext(14,y0+hh+28,'全天候監聽中',12,'rgba(227,236,238,.8)');
     hrow(y0+hh+58,'背景噪音',`約 110 dB`,w);
   });
@@ -1419,7 +1503,7 @@ function hud11(u){
     hrow(50,'風速','11.4 m/s',w);hrow(76,'轉速',(7.4*f).toFixed(1)+' rpm',w);
     hrow(102,'輸出功率',pw.toFixed(1)+' MW',w,'#f2c230');hbar(14,110,w-28,pw/15,'#f2c230');
     hrow(140,'每轉一圈約發','34 度電',w);
-    rrp(14,150,f>.9?92:70,20,10);ctx.fillStyle=f>.9?'#1f7f5c':'#4f6470';ctx.fill();htext(24,164,f>.9?'併網發電中':'啟動中',11,'#fff',700);
+    const pt=tr(f>.9?'併網發電中':'啟動中');ctx.font=`700 11px ${FONT}`;rrp(14,150,Math.min(w-28,ctx.measureText(pt).width+20),20,10);ctx.fillStyle=f>.9?'#1f7f5c':'#4f6470';ctx.fill();htext(24,164,pt,11,'#fff',700);
   });
 }
 
@@ -1557,18 +1641,19 @@ function renderFarm(u){
 function farmHUD(u){
   screenSpace();
   const k=HK(),cols=cssW<700?2:4,gap=8*k,cw=cols===4?Math.min(180*k,(cssW*.56-gap*3)/4):Math.min(150*k,(cssW*.48-gap)/2),chh=cw*.46,x0=cssW-14*k-(cw*cols+gap*(cols-1)),y0=cols===4?30*k:cssH*.14;
-  const data=[[900,'MW','裝置容量'],[35,'億度','年發電量'],[88,'萬戶','家庭年用電'],[175,'萬公噸','年減碳 CO₂']];
+  const data=LANG==='zh'?[[900,'MW','裝置容量'],[35,'億度','年發電量'],[88,'萬戶','家庭年用電'],[175,'萬公噸','年減碳 CO₂']]:I18N.farm[LANG];
+  const nf=v=>LANG==='en'?v.toLocaleString('en-US'):String(v);
   data.forEach((d,i)=>{const t0=.1+i*.07,a=seg(u,t0,t0+.03);if(a<=0||!SHOWLAB)return;
     const cx=x0+(i%cols)*(cw+gap),cy=y0+Math.floor(i/cols)*(chh+gap);ctx.globalAlpha=a;
     rrp(cx,cy,cw,chh,8*k);ctx.fillStyle='rgba(7,27,39,.8)';ctx.fill();ctx.fillStyle='#f2c230';ctx.fillRect(cx,cy+chh*.2,3*k,chh*.6);
     const v=Math.round(d[0]*easeOut(seg(u,t0,t0+.12)));
-    ctx.textBaseline='alphabetic';ctx.font=`700 ${chh*.5}px ${COND}`;ctx.fillStyle='#fff';ctx.fillText(String(v),cx+12*k,cy+chh*.56);
-    const vw=ctx.measureText(String(v)).width;ctx.font=`700 ${chh*.2}px ${FONT}`;ctx.fillStyle='#f2c230';ctx.fillText(d[1],cx+14*k+vw,cy+chh*.56);
-    ctx.font=`500 ${chh*.19}px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.82)';ctx.fillText(d[2],cx+12*k,cy+chh*.86);ctx.globalAlpha=1;});
+    ctx.textBaseline='alphabetic';ctx.font=`700 ${chh*.5}px ${COND}`;ctx.fillStyle='#fff';ctx.fillText(nf(v),cx+12*k,cy+chh*.56);
+    const vw=ctx.measureText(nf(v)).width;ctx.font=`700 ${chh*.2}px ${FONT}`;ctx.fillStyle='#f2c230';ctx.fillText(d[1],cx+14*k+vw,cy+chh*.56);
+    ctx.font=`500 ${chh*.19}px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.82)';ctx.fillText(d[2],cx+12*k,cy+chh*.86,cw-18*k);ctx.globalAlpha=1;});
   const ea=seg(u,.9,.95);
   if(ea>0){ctx.globalAlpha=ea;ctx.textAlign='center';ctx.textBaseline='middle';const fs=clamp(cssW/24,20,50);
-    ctx.font=`900 ${fs}px ${FONT}`;ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillText('從一陣海風，到萬家燈火',cssW/2+2,cssH*.44+2);ctx.fillStyle='#fff';ctx.fillText('從一陣海風，到萬家燈火',cssW/2,cssH*.44);
-    ctx.font=`500 ${fs*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillText('From a sea breeze to city lights',cssW/2,cssH*.44+fs*.95);
+    ctx.font=`900 ${fs}px ${FONT}`;ctx.fillStyle='rgba(0,0,0,.35)';const em=ui('endMain'),mw=cssW*.92;ctx.fillText(em,cssW/2+2,cssH*.44+2,mw);ctx.fillStyle='#fff';ctx.fillText(em,cssW/2,cssH*.44,mw);
+    ctx.font=`500 ${fs*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillText(ui('endSub'),cssW/2,cssH*.44+fs*.95,mw);
     ctx.textAlign='left';ctx.globalAlpha=1;}
 }
 
@@ -1580,6 +1665,48 @@ function renderFrame(){
   if(CUR===12&&U<.05){SC=11;SU=1;renderSide();LQ.length=0;TQ.length=0;screenSpace();ctx.fillStyle=`rgba(4,14,22,${U/.05})`;ctx.fillRect(0,0,cssW,cssH);return;}
   if(CUR===12){SC=12;SU=U;renderFarm(U);drawTicks();drawLabels();farmHUD(U);if(U<.1){screenSpace();ctx.fillStyle=`rgba(4,14,22,${1-(U-.05)/.05})`;ctx.fillRect(0,0,cssW,cssH);}return;}
   SC=CUR;SU=U;renderSide();drawTicks();drawLabels();drawHUD();
+}
+
+/* ================= i18n ================= */
+const I18N={"dict":{"工作船":["Workboat","作業船"],"浮動式光達 FLS":["Floating LiDAR (FLS)","浮体式ライダー FLS"],"錨鍊與沉錘":["Mooring chain & clump weight","係留チェーンとシンカー"],"雷射光束：都卜勒效應測風":["Laser beams: Doppler wind measurement","レーザー光：ドップラー効果で風を計測"],"衛星即時回傳":["Real-time satellite uplink","衛星でリアルタイム送信"],"浮動式光達即時資料":["LiDAR live data","ライダー観測データ"],"風向 NNE 23°　紊流強度 7%":["Dir. NNE 23°   Turbulence 7%","風向 NNE 23°　乱流強度 7%"],"每 10 分鐘統計、經衛星回傳":["10-min averages sent via satellite","10分間統計を衛星で送信"],"調查船":["Survey vessel","調査船"],"多音束測深儀 MBES":["Multibeam echosounder (MBES)","マルチビーム測深機 MBES"],"側掃聲納（拖曳式）":["Side-scan sonar (towed)","サイドスキャンソナー（曳航式）"],"發現沉船殘骸：路由避開":["Wreck found: route avoids it","沈船を発見：ルートを回避"],"磁力儀":["Magnetometer","磁力計"],"磁力異常：疑似未爆彈":["Magnetic anomaly: possible UXO","磁気異常：不発弾の疑い"],"底層剖面儀 SBP：地層反射面":["Sub-bottom profiler (SBP): strata reflectors","地層探査機 SBP：地層の反射面"],"測線規劃（示意）":["Survey line plan (schematic)","測線計画（イメージ）"],"藍線：已完成測線　✕：障礙物／異常點":["Blue: lines done   ✕: obstacle / anomaly","青線：完了した測線　✕：障害物／異常点"],"鑽探船（動態定位 DP）":["Drilling vessel (DP)","掘削船（自動船位保持 DP）"],"海床框架":["Seabed frame","海底フレーム"],"CPT 圓錐貫入":["CPT cone penetration","CPT コーン貫入"],"細砂層":["Fine sand","細砂層"],"粉土質黏土":["Silty clay","シルト質粘土"],"緊密砂層":["Dense sand","締まった砂層"],"岩盤／極緊密層":["Bedrock / very dense","岩盤／非常に硬い層"],"岩心取樣":["Core sampling","コアサンプリング"],"CPT 錐尖阻力 qc":["CPT cone resistance qc","CPT 先端抵抗 qc"],"qc（MPa）":["qc (MPa)","qc（MPa）"],"拒入（岩盤）":["Refusal (bedrock)","貫入不能（岩盤）"],"岩心箱":["Core box","コア箱"],"研究船":["Research vessel","調査研究船"],"鯨豚觀察員":["Marine mammal observer","鯨類観察員"],"鯨豚":["Dolphins","イルカ"],"水下聽音器 PAM":["Hydrophone (PAM)","水中聴音器 PAM"],"遷徙鳥群：雷達追蹤高度約 130 m":["Migrating birds: radar-tracked at ~130 m","渡り鳥：レーダーで高度約 130 m を追跡"],"底質採樣器":["Grab sampler","採泥器"],"魚類與漁業資源調查":["Fish & fisheries survey","魚類・漁業資源調査"],"水下聲學監測 PAM":["Passive acoustic monitoring","水中音響モニタリング PAM"],"偵測到鯨豚聲音":["Cetacean calls detected","鯨類の音を検知"],"全天候監聽中":["Listening 24/7","24時間監視中"],"背景噪音":["Background noise","背景雑音"],"約 110 dB":["~110 dB","約 110 dB"],"環評審查通過":["EIA approved","環境アセス承認"],"取得開發許可":["Development permit granted","開発許可を取得"],"重件吊裝船 HLV":["Heavy-lift vessel (HLV)","重量物据付船 HLV"],"鯨豚觀察船":["MMO vessel","鯨類監視船"],"氣泡幕施工船":["Bubble-curtain vessel","バブルカーテン作業船"],"氣泡幕":["Bubble curtain","バブルカーテン"],"單樁 Monopile":["Monopile","モノパイル"],"翻轉豎起":["Upending","建て起こし"],"抱樁器":["Pile gripper","パイルグリッパー"],"自重貫入海床":["Self-weight penetration","自重で海底に貫入"],"液壓打樁錘":["Hydraulic hammer","油圧ハンマー"],"軟啟動：能量逐步加大":["Soft start: energy ramps up","ソフトスタート：打撃力を段階的に増加"],"噪音經氣泡幕衰減":["Noise damped by bubble curtain","騒音をバブルカーテンで低減"],"設計入土深度":["Design penetration depth","設計根入れ深さ"],"打樁監測":["Piling monitor","打設モニタリング"],"布設中":["Deploying","敷設中"],"運轉中":["Active","稼働中"],"鯨豚警戒區":["Exclusion zone","鯨類警戒区域"],"確認中":["Checking","確認中"],"淨空":["Clear","異常なし"],"打擊次數":["Blow count","打撃回数"],"錘擊能量":["Hammer energy","打撃エネルギー"],"入土深度":["Penetration","根入れ深さ"],"水下噪音 SEL（750 m）":["Underwater SEL (750 m)","水中騒音 SEL（750 m）"],"管制 160":["Limit 160","規制値 160"],"無減噪約 173":["Unmitigated ~173","対策なし 約173"],"轉接段 TP":["Transition piece (TP)","トランジションピース TP"],"對準樁頂套接":["Aligned and slid onto the pile","杭頭に合わせて差し込み"],"螺栓法蘭鎖固":["Bolted flange","ボルトでフランジ締結"],"工作平台":["Work platform","作業デッキ"],"靠船設施與爬梯":["Boat landing & ladder","ボートランディングと梯子"],"平台吊車":["Davit crane","デッキクレーン"],"吊裝船撤離":["Vessel departs","据付船が撤収"],"大型起重船":["Heavy-lift crane vessel","大型起重機船"],"套管式基礎 Jacket":["Jacket foundation","ジャケット基礎"],"打入針樁":["Pin piles driven","ピンパイル打設"],"上部模組":["Topside module","トップサイド"],"主變壓器":["Main transformer","主変圧器"],"直升機平台":["Helideck","ヘリデッキ"],"J 形管":["J-tubes","J チューブ"],"升壓送電":["Step-up and export","昇圧・送電"],"陣列海纜":["Array cable","アレイケーブル"],"主變":["Main","主変"],"壓器":["XFMR","圧器"],"輸出海纜":["Export cable","送電ケーブル"],"電壓升高、電流變小，":["Higher voltage, lower current,","電圧を上げて電流を下げ、"],"長距離輸電損耗更低":["so less is lost over distance","長距離送電の損失を低減"],"海纜鋪設船 CLV":["Cable-lay vessel (CLV)","ケーブル敷設船 CLV"],"海纜轉盤":["Cable carousel","ケーブルターンテーブル"],"拉入風機基礎":["Pull-in to turbine","風車基礎へ引き込み"],"陣列海纜 66 kV":["Array cable 66 kV","アレイケーブル 66 kV"],"埋設機：高壓水刀開溝":["Trencher: water-jet trenching","埋設機：高圧ジェットで溝掘り"],"拉入 J 形管":["Pull-in via J-tube","J チューブへ引き込み"],"HDD 登陸導管":["HDD landfall duct","HDD 陸揚げ管路"],"陸上絞機":["Onshore winch","陸上ウインチ"],"輸出海纜 161 kV":["Export cable 161 kV","送電ケーブル 161 kV"],"陸上變電站":["Onshore substation","陸上変電所"],"埋設機":["Trencher","埋設機"],"海纜剖面（3 芯 XLPE）":["Cable section (3-core XLPE)","ケーブル断面（3心 XLPE）"],"銅導體":["Copper core","銅導体"],"XLPE 絕緣":["XLPE insulation","XLPE 絶縁"],"光纖單元":["Optical fibre","光ファイバー"],"鋼線鎧裝":["Steel armour","鋼線外装"],"陣列 66 kV　輸出 161–220 kV":["Array 66 kV   Export 161–220 kV","アレイ 66 kV　送電 161–220 kV"],"埋深約 1–3 m":["Burial depth ~1–3 m","埋設深度 約 1–3 m"],"自升式風機安裝船 WTIV":["Jack-up installation vessel (WTIV)","SEP型風車据付船 WTIV"],"機艙":["Nacelles","ナセル"],"葉片":["Blades","ブレード"],"塔架段":["Tower sections","タワー"],"樁腿插入海床並預壓":["Legs pinned and preloaded","脚を海底に貫入・プレロード"],"船身頂升離開水面":["Hull jacked out of the water","船体をジャッキアップ"],"法蘭螺栓鎖固":["Flange bolting","フランジをボルト締結"],"機艙（含輪轂）":["Nacelle (with hub)","ナセル（ハブ付き）"],"導引繩":["Taglines","タグライン"],"對準偏航軸承，螺栓鎖固":["Aligned to yaw bearing and bolted","ヨー軸受に合わせボルト締結"],"輪轂":["Hub","ハブ"],"主軸承":["Main bearing","主軸受"],"發電機":["Generator","発電機"],"變流器":["Converter","コンバーター"],"變壓器":["Transformer","変圧器"],"冷卻系統":["Cooling","冷却システム"],"偏航驅動":["Yaw drive","ヨー駆動"],"葉片夾具 Blade yoke":["Blade yoke","ブレードヨーク"],"盤車裝置：輪轂轉 120°":["Turning gear: hub turns 120°","ターニング装置：ハブを 120° 回転"],"導引繩控制姿態":["Taglines steady the blade","タグラインで姿勢を制御"],"降下船身、收起樁腿":["Jack down and retract legs","ジャッキダウン・脚を引き上げ"],"自升式安裝船":["Jack-up vessel","SEP 船"],"狀態":["Status","状態"],"航行進場":["In transit","航行中"],"樁腿插入海床":["Legs down","脚を着底"],"頂升中":["Jacking up","ジャッキアップ中"],"吊裝作業":["Lifting","吊り上げ作業"],"氣隙（船底至海面）":["Air gap (hull to sea)","エアギャップ（船底〜海面）"],"樁腿長度":["Leg length","脚の長さ"],"約 110 m":["~110 m","約 110 m"],"（示意數值）":["(illustrative values)","（参考値）"],"機艙（15 MW 級示例）":["Nacelle (15 MW class)","ナセル（15 MW 級の例）"],"額定功率":["Rated power","定格出力"],"輪轂高度":["Hub height","ハブ高さ"],"約 150 m":["~150 m","約 150 m"],"機艙＋輪轂":["Nacelle + hub","ナセル＋ハブ"],"數百公噸":["Hundreds of t","数百トン"],"葉片吊裝":["Blade lift","ブレード吊り上げ"],"葉片長度":["Blade length","ブレード長"],"作業風速上限":["Wind limit","作業限界風速"],"約 10–12 m/s":["~10–12 m/s","約 10–12 m/s"],"目前風速":["Wind now","現在の風速"],"已安裝":["Installed","取付済み"],"人員運輸船 CTV":["Crew transfer vessel (CTV)","作業員輸送船 CTV"],"技術人員登塔":["Technicians step across","技術者が乗り移り"],"偏航對風、葉片變槳":["Yaw into wind, pitch blades","ヨーで風に正対・ピッチ制御"],"海上變電站升壓":["Offshore substation steps up","洋上変電所で昇圧"],"陸上變電站 → 電網":["Onshore substation → grid","陸上変電所 → 電力網"],"運維母船 SOV":["Service operation vessel (SOV)","保守支援母船 SOV"],"動態補償舷梯":["Motion-compensated gangway","動揺補償タラップ"],"基礎成為人工魚礁":["Foundations become artificial reefs","基礎が人工魚礁に"],"風機運轉狀態":["Turbine status","風車の運転状態"],"風速":["Wind speed","風速"],"轉速":["Rotor speed","回転数"],"輸出功率":["Power output","出力"],"每轉一圈約發":["Energy per rotation","1回転あたり発電量"],"34 度電":["~34 kWh","約 34 kWh"],"併網發電中":["Generating","発電中"],"啟動中":["Starting up","起動中"],"海上變電站":["Offshore substation","洋上変電所"],"輸出海纜登陸":["Export cable landfall","送電ケーブル陸揚げ"]},"ui":{"docTitle":["離岸風場的誕生：開發全流程動畫","The Birth of an Offshore Wind Farm: the full development process, animated","洋上風力発電所ができるまで：開発プロセス全解説アニメーション"],"h1":["離岸風場的誕生","The Birth of an Offshore Wind Farm","洋上風力発電所ができるまで"],"lede":["從測風、海底探勘、環評，到打樁、海纜、風機吊裝與併網運轉：以 13 個階段動態圖解一座離岸風場的開發全流程。","From measuring the wind, surveying the seabed and assessing the environment to piling, cable laying, turbine installation and grid connection: the full development of an offshore wind farm, animated in 13 stages.","風況観測、海底調査、環境アセスメントから、杭打ち、海底ケーブル、風車据付、系統連系まで。洋上風力発電所の開発プロセス全体を13の段階でアニメーション解説します。"],"secAnim":["動畫","Animation","アニメーション"],"canvasAria":["離岸風場開發流程動畫","Offshore wind farm development animation","洋上風力発電所の開発プロセスのアニメーション"],"scaleNote":["示意圖：垂直與水平比例經過調整","Schematic: vertical and horizontal scales adjusted","模式図：縦横の縮尺は調整しています"],"prev":["上一個階段","Previous stage","前の段階"],"next":["下一個階段","Next stage","次の段階"],"play":["播放","Play","再生"],"pause":["暫停","Pause","一時停止"],"replay":["重新播放","Replay","もう一度再生"],"progress":["播放進度","Playback position","再生位置"],"speed":["播放速度","Playback speed","再生速度"],"labels":["標註","Labels","ラベル"],"labelsTip":["顯示／隱藏標註","Show or hide labels","ラベルの表示／非表示"],"full":["全螢幕","Full screen","全画面"],"chapNav":["章節","Stages","段階"],"chapHead":["全部階段","All stages","すべての段階"],"langGroup":["介面語言","Interface language","表示言語"],"sep":["，",", ","、"],"foot":["說明：本動畫為教育用途的示意圖，為了同時呈現海面上下的作業，高度、水深與地層厚度都經過誇大或壓縮。各項數字（如 15 MW 風機、66 kV 陣列海纜、打樁噪音 160 dB 管制值、發電量與戶數）為常見的典型值或估算範例，實際依各風場的設計、機型與主管機關核定內容而定。實務上各階段常平行進行，例如海上變電站、基礎與海纜工程可能同時施作。","Note: this animation is an educational schematic. To show work above and below the sea surface at the same time, heights, water depths and layer thicknesses are exaggerated or compressed. Figures such as the 15 MW turbine, 66 kV array cables, the 160 dB piling-noise limit, energy output and household numbers are typical values or illustrative estimates; actual values depend on each project's design, turbine model and regulatory approvals. In practice many stages run in parallel; for example, offshore substation, foundation and cable works may proceed at the same time.","注：このアニメーションは教育用の模式図です。海面の上と下の作業を同時に見せるため、高さ・水深・地層の厚さは誇張または圧縮しています。各数値（15 MW の風車、66 kV のアレイケーブル、打設騒音の規制値 160 dB、発電量や世帯数など）は一般的な代表値または試算例であり、実際は各発電所の設計、機種、当局の承認内容によって異なります。実務では各段階が並行して進むことも多く、たとえば洋上変電所、基礎、海底ケーブルの工事が同時に行われる場合があります。"],"endMain":["從一陣海風，到萬家燈火","From a sea breeze to city lights","一陣の海風から、街の灯りへ"],"endSub":["From a sea breeze to city lights","從一陣海風，到萬家燈火","From a sea breeze to city lights"],"rec":["匯出影片","Export video","動画を書き出す"],"recTitle":["錄製 MP4 影片","Record an MP4 video","MP4 動画を書き出す"],"recIntro":["逐格離線算繪，不會掉格，也不必等動畫即時播完。語言與標註設定沿用目前畫面。","Frames are rendered offline one at a time, so nothing drops and you don't wait for real-time playback. Language and label settings follow the current view.","フレームを1枚ずつオフラインで描画するため、コマ落ちがなく、リアルタイム再生を待つ必要もありません。言語とラベルの設定は現在の表示に従います。"],"optSpeed":["影片速度","Video speed","再生速度"],"optRange":["範圍","Range","範囲"],"rangeAll":["全片","Whole animation","全編"],"rangeChap":["目前階段","Current stage","現在の段階"],"optRes":["解析度","Resolution","解像度"],"optFps":["影格率","Frame rate","フレームレート"],"sum":["影片長度 {d}，共 {f} 格，檔案最多約 {m} MB","Length {d}, {f} frames, up to about {m} MB","長さ {d}、{f} フレーム、最大約 {m} MB"],"sumChap":["（{c}）"," ({c})","（{c}）"],"start":["開始錄製","Start recording","書き出し開始"],"again":["再錄一次","Record again","もう一度書き出す"],"cancel":["取消","Cancel","キャンセル"],"close":["關閉","Close","閉じる"],"download":["下載 MP4","Download MP4","MP4 をダウンロード"],"stPrep":["準備編碼器…","Preparing the encoder…","エンコーダーを準備中…"],"stRun":["算繪中 {p}%，剩餘約 {e}","Rendering {p}%, about {e} left","描画中 {p}%、残り約 {e}"],"stFin":["封裝 MP4…","Writing the MP4…","MP4 を生成中…"],"stDone":["完成：{s} MB，已開始下載。","Done: {s} MB. The download has started.","完了：{s} MB。ダウンロードを開始しました。"],"stCancel":["已取消錄製。","Recording cancelled.","書き出しをキャンセルしました。"],"stNoSup":["這個瀏覽器不支援 WebCodecs 影片編碼，請改用最新版的 Chrome、Edge 或 Safari。","This browser does not support WebCodecs video encoding. Please use a recent Chrome, Edge or Safari.","このブラウザーは WebCodecs による動画エンコードに対応していません。最新版の Chrome、Edge、Safari をご利用ください。"],"stNoCodec":["找不到可用的影片編碼設定，請試試較低的解析度或影格率，或改用最新版 Chrome、Edge、Safari。","No usable video encoder setting was found. Try a lower resolution or frame rate, or a recent Chrome, Edge or Safari.","使用できる動画エンコード設定が見つかりません。解像度やフレームレートを下げるか、最新版の Chrome、Edge、Safari をお試しください。"],"stAlt":["（此瀏覽器沒有 H.264 編碼器，改以 {c} 編碼；Chrome、Firefox、VLC 可播放，QuickTime 可能無法播放。）","(This browser has no H.264 encoder, so the video uses {c}. It plays in Chrome, Firefox and VLC, but possibly not in QuickTime.)","（このブラウザーには H.264 エンコーダーがないため {c} で書き出しました。Chrome、Firefox、VLC では再生できますが、QuickTime では再生できない場合があります。）"],"stErr":["錄製失敗：","Recording failed: ","書き出しに失敗しました："],"keepTab":["錄製期間請保持此分頁開啟。","Keep this tab open while recording.","書き出し中はこのタブを開いたままにしてください。"]},"farm":{"en":[[900,"MW","Installed capacity"],[3500,"GWh","Annual generation"],[880,"k","Homes supplied"],[1750,"kt","CO₂ avoided a year"]],"ja":[[900,"MW","設備容量"],[35,"億kWh","年間発電量"],[88,"万世帯","家庭の年間電力"],[175,"万トン","年間 CO₂ 削減量"]]},"chEn":[{"d":"The first step is to find out whether the wind at this site is good enough. The developer deploys a floating LiDAR buoy or builds an offshore met mast and measures continuously for at least 12 months, collecting wind speed, direction, turbulence intensity and shear at different heights, along with wave height, currents and weather. These data underpin the annual energy production (AEP) estimate, turbine selection and project financing.","s":["A workboat carries the floating LiDAR to the planned site","The buoy is lowered by crane and held on the seabed by mooring chain and a clump weight","The LiDAR fires laser beams upward and measures wind speed and direction at each height using the Doppler effect","Data are sent back by satellite in real time for 12 months or more"],"c":["Workboat","Floating LiDAR (FLS)","Mooring system","Satellite data link"]},{"d":"A survey vessel sails back and forth along planned lines, using sound to see through the water and into the seabed. A multibeam echosounder maps the bathymetry in fine detail, a towed side-scan sonar picks out obstacles such as wrecks and boulders, a magnetometer searches for unexploded ordnance (UXO) and existing pipelines, and a sub-bottom profiler uses low-frequency sound to resolve the shallow layers beneath the seabed. The results shape the turbine layout and the cable routes.","s":["The survey vessel runs planned lines back and forth in a lawnmower pattern","A multibeam echosounder (MBES) builds a high-resolution bathymetric map","Side-scan sonar identifies obstacles and wreckage on the seabed","A magnetometer detects magnetic anomalies and flags possible UXO, to be confirmed and then cleared or avoided","A sub-bottom profiler (SBP) resolves the shallow strata below the seabed"],"c":["Survey vessel","Multibeam echosounder MBES","Side-scan sonar SSS","Magnetometer","Sub-bottom profiler SBP"]},{"d":"Geophysics covers the whole area; geotechnics confirms the ground at each point. At every planned turbine position a drilling vessel holds station, lowers its drill string and runs cone penetration tests (CPT) to measure soil resistance continuously, while recovering soil samples and rock cores for laboratory testing. These data directly determine the foundation type, pile diameter, pile length and whether piling is feasible at all.","s":["The drilling vessel holds position above the turbine location using dynamic positioning (DP)","The drill string and seabed frame are lowered","Cone penetration tests (CPT) continuously measure the strength of each layer","Soil samples and rock cores are recovered to build a borehole log","The data go to foundation design to set pile length and foundation type"],"c":["Drilling vessel","CPT cone penetration test","Core sampling","Seabed frame"]},{"d":"Before construction starts, the marine ecosystem has to be understood and protected. Survey teams carry out visual cetacean surveys and passive acoustic monitoring (PAM), track bird migration routes and flight heights by radar, sample seabed life and fisheries resources, and measure background underwater noise. Construction can begin only after the environmental impact assessment is approved and a development permit is granted, and monitoring and mitigation continue through construction and operation.","s":["Visual cetacean survey: observers record species, numbers and behaviour","Hydrophones (PAM) listen for cetacean calls around the clock","Bird radar tracks migration routes and flight heights","Sediment and benthic sampling, plus fish and fisheries surveys","The EIA is approved and a development permit is issued"],"c":["Research vessel","Marine mammal observers","Hydrophone PAM","Bird radar","Grab sampler"]},{"d":"The foundation is the turbine's root. Before work starts, a bubble curtain is laid to reduce underwater noise, and marine mammal observers confirm that no cetaceans are inside the exclusion zone. The heavy-lift vessel upends the monopile from horizontal to vertical, sets it in the pile gripper and lowers it into the sea, where it first sinks into the seabed under its own weight. A hydraulic hammer then soft-starts, raising its energy step by step to drive the pile tens of metres into the seabed. Another common option is the jacket foundation, held down by several pin piles.","s":["The heavy-lift vessel arrives and a support vessel lays the bubble curtain","Marine mammal observers confirm the exclusion zone is clear","The main crane upends the monopile","The monopile enters the gripper, is lowered upright and sinks in under its own weight","The hydraulic hammer is lifted on","Soft-start piling drives the pile to design depth","Piling complete: verticality and pile-top level are checked"],"c":["Heavy-lift vessel HLV","Pile gripper","Hydraulic hammer","Bubble-curtain vessel","MMO vessel"]},{"d":"The transition piece (TP) sits on top of the monopile and bridges the foundation and the tower. It carries the work platform, boat landing, ladders, davit crane and cable equipment, and it is where maintenance crews will step onto the turbine for years to come. Most TPs today are joined to the monopile with a large bolted flange; earlier grouted TPs could correct small tilts left by piling.","s":["The hammer is recovered and the transition piece is lifted","It is aligned over the pile top and slowly lowered into place","Hundreds of high-strength bolts secure the flange","Work platform, boat landing and ladders are in place","The vessel leaves for the next position"],"c":["Heavy-lift vessel HLV","Transition piece TP","Bolted flange","Boat landing"]},{"d":"Power from the turbines is gathered through 66 kV array cables at the offshore substation, where the main transformers step it up to 161 kV, 220 kV or more before it is sent ashore, cutting losses over the long distance. A large crane vessel first places a steel jacket on the seabed and drives pin piles to fix it, then lifts the topside module, weighing thousands of tonnes, into place in a single lift.","s":["A large crane vessel brings in the jacket and the topside module","The jacket foundation is lowered to the seabed","Pin piles are driven to fix the jacket to the seabed","The topside is lifted on: main transformers, switchgear and control systems","Helideck, J-tubes and other fittings are completed"],"c":["Crane vessel","Jacket foundation","Pin piles","Main transformer","Helideck"]},{"d":"The turntable on a cable-lay vessel's deck can hold thousands of tonnes of cable. Array cables (66 kV) link the turbines to the offshore substation, and export cables carry the power ashore at higher voltage. Each end of a cable is pulled into a foundation and the length between is laid along the route on the seabed; a trencher then uses high-pressure water jets to bury it 1–3 metres deep, out of reach of fishing gear and anchors. At the landfall the cable passes through a duct drilled in advance by horizontal directional drilling (HDD) and connects to the onshore substation.","s":["The cable-lay vessel arrives with cable stored on its carousel","One end of the array cable is pulled into the turbine foundation","The vessel moves along the route, laying cable over the chute onto the seabed","A trencher jets a trench and buries the cable","The other end is pulled into a J-tube on the offshore substation","Export cable: pulled ashore from the landfall through the HDD duct","Laid and buried out to sea, then pulled into the offshore substation"],"c":["Cable-lay vessel CLV","Cable carousel","Trenching ROV","HDD landfall duct","Onshore substation"]},{"d":"Turbine components are pre-assembled at the marshalling port, and a jack-up wind turbine installation vessel (WTIV) carries several sets out to sea at once. On site its four legs are pinned into the seabed and preloaded, and the whole hull is jacked up clear of the water, becoming a stable platform the waves cannot move. The main crane then lifts the tower sections one after another and bolts each to the TP flange.","s":["The vessel leaves port carrying towers, nacelles and blades","Four legs are lowered, pinned into the seabed and preloaded","The hull is jacked up out of the water","Tower section 1 is lifted and bolted to the TP flange","Tower section 2 is lifted","Tower section 3 is lifted and the tower is complete"],"c":["Jack-up installation vessel WTIV","Legs","Main crane","Tower sections"]},{"d":"The nacelle is the heart of the turbine, housing the main bearing, generator, converter, cooling and control systems; for a 15 MW-class machine it weighs several hundred tonnes. The main crane lifts it to the tower top about 150 metres up, aligns it precisely in the wind, bolts it to the yaw bearing and connects the power and control cables that run down the tower.","s":["The main crane lifts the nacelle (with hub)","It rises to tower-top height while taglines control its attitude","It is aligned with the yaw bearing and bolted down","Inside the nacelle: main bearing, generator, converter and cooling"],"c":["Main crane","Nacelle","Hub","Yaw bearing"]},{"d":"A single blade can be more than 100 metres long. The vessel lifts each blade horizontally with a dedicated blade yoke, steadies it with taglines and guides the root bolts precisely into the hub. After each blade, turning gear rotates the hub 120° for the next one. Blade lifts are the most wind-sensitive step and can only be done while wind speed is below the operating limit. Once all three are fitted, the vessel jacks down, retracts its legs and moves on to the next position.","s":["Blade 1 is lifted horizontally with the blade yoke","The root is inserted into the hub and bolted, then the hub turns 120°","Blade 2 is lifted","Blade 3 is lifted","The hull is lowered, the legs retracted, and the vessel moves on"],"c":["Blade yoke","Taglines","Turning gear","WTIV"]},{"d":"A crew transfer vessel (CTV) brings technicians to the turbine for commissioning, and once every test is passed it is formally connected to the grid. The turbine yaws into the wind and pitches its blades automatically; power flows through the array cables to the offshore substation to be stepped up, then through the export cable ashore to the onshore substation and into the grid. Routine maintenance is carried out from a service operation vessel (SOV) whose motion-compensated gangway lets crews step safely onto the turbine, while underwater the foundations gradually become artificial reefs where fish gather.","s":["The installation vessel leaves and a crew transfer vessel (CTV) docks","Technicians step across the boat landing to commission the turbine","Start-up: the turbine yaws into the wind, the blades pitch and the rotor turns","Power: turbine → array cable → offshore substation → export cable → onshore grid","A service operation vessel (SOV) uses its compensated gangway for routine maintenance"],"c":["Crew transfer vessel CTV","Service operation vessel SOV","Compensated gangway","Grid connection"]},{"d":"Dozens of turbines turning together make a complete offshore wind farm. With 60 turbines of 15 MW, installed capacity is about 900 MW; at a capacity factor of around 45%, the farm generates about 3.5 billion kWh a year, enough for roughly 880,000 households (assuming about 4,000 kWh per household per year). The design life is about 25–30 years, with continuous monitoring and maintenance, and at the end the farm is decommissioned, removed and recycled as regulations require.","s":["Dozens of turbines run automatically with the wind","Array strings feed the offshore substation, which steps up the power and sends it ashore","As the sun sets, the wind farm keeps generating","After dark, aviation warning lights flash in sync to mark the farm","A design life of 25–30 years, with ongoing monitoring and maintenance"],"c":["60 turbines (example)","900 MW capacity","About 3.5 billion kWh a year","About 880,000 homes"]}],"chJa":[{"t":"風況観測","d":"開発の第一歩は、この海域の風が「十分に良い」かを確かめることです。開発事業者は予定海域に浮体式ライダー（Floating LiDAR）を設置するか洋上観測マストを建て、少なくとも12か月にわたって連続観測し、高さごとの風速・風向・乱流強度・ウィンドシアを取得します。同時に波高・潮流・気象条件も記録し、年間発電量（AEP）の推定、風車の機種選定、資金調達の評価の根拠とします。","s":["作業船が浮体式ライダーを予定海域へ運ぶ","クレーンでブイを降ろし、係留チェーンとシンカーで海底に固定","ライダーが上空へレーザーを照射し、ドップラー効果で各高度の風速・風向を計測","データは衛星でリアルタイムに送信され、12か月以上観測を続ける"],"c":["作業船","浮体式ライダー FLS","係留システム","衛星データ通信"]},{"t":"物理探査","d":"調査船は計画した測線に沿って往復し、音波で海水と海底を「透視」します。マルチビーム測深機は精密な海底地形図を作り、曳航式サイドスキャンソナーは沈船や岩塊などの障害物を識別し、磁力計は不発弾（UXO）や既設パイプラインを探し、地層探査機は低周波の音波で海底下の浅い地層を解析します。これらの成果が風車の配置と海底ケーブルのルートを決めます。","s":["調査船が計画測線に沿って往復航行（芝刈り型の測線）","マルチビーム測深機（MBES）で高解像度の海底地形を作成","サイドスキャンソナーで海底の障害物や沈船を識別","磁力計で磁気異常を検出して不発弾の疑いを記録し、確認後に除去または回避","地層探査機（SBP）で海底下の浅い地層を解析"],"c":["調査船","マルチビーム測深機 MBES","サイドスキャンソナー SSS","磁力計","地層探査機 SBP"]},{"t":"地盤調査","d":"物理探査が「面」を見るのに対し、地盤調査は「点」を確かめます。掘削船は各風車の予定位置で船位を保持し、ロッドを降ろしてコーン貫入試験（CPT）で地層の先端抵抗を連続計測するとともに、土試料や岩石コアを採取して室内試験に回します。これらのデータが基礎形式、杭径、杭長、そして打設が可能かどうかを直接左右します。","s":["掘削船が自動船位保持（DP）で予定位置の真上に停船","ロッドと海底フレームを降ろす","コーン貫入試験（CPT）で各地層の強度を連続計測","土試料と岩石コアを採取し、柱状図を作成","データを基礎設計に渡し、杭長と基礎形式を決定"],"c":["掘削船","CPT コーン貫入試験","コアサンプリング","海底フレーム"]},{"t":"環境影響評価","d":"着工前に、この海の生態系を理解し守らなければなりません。調査チームは鯨類の目視調査と受動的音響モニタリング（PAM）を行い、レーダーで渡り鳥の経路と飛行高度を追跡し、底生生物や漁業資源を採取し、背景の水中騒音を測定します。環境影響評価の審査を通過して開発許可を得てはじめて工事ができ、工事中・運転中も継続的なモニタリングと環境保全措置が求められます。","s":["鯨類の目視調査：観察員が種類・個体数・行動を記録","水中聴音器（PAM）で鯨類の声を24時間監視","鳥類レーダーで渡りのルートと飛行高度を追跡","底質・底生生物の採取、魚類と漁業資源の調査","環境影響評価の審査を通過し、開発許可を取得"],"c":["調査研究船","鯨類観察員","水中聴音器 PAM","鳥類レーダー","採泥器"]},{"t":"基礎杭の打設","d":"基礎は風車の根です。着工前にバブルカーテンを敷設して水中騒音を抑え、鯨類観察員が警戒区域内に鯨類がいないことを確認します。重量物据付船はモノパイルを水平から垂直に建て起こし、パイルグリッパーに収めて正確に位置決めしてから海中へ降ろします。杭はまず自重で海底に貫入し、続いて油圧ハンマーが「ソフトスタート」で打撃エネルギーを徐々に上げながら、海底下数十メートルまで打ち込みます。もう一つの一般的な形式は、複数のピンパイルで固定するジャケット基礎です。","s":["重量物据付船が到着し、作業船がバブルカーテンを敷設","鯨類観察員が警戒区域内に鯨類がいないことを確認","メインクレーンでモノパイルを建て起こす（アップエンディング）","モノパイルをグリッパーに収め、垂直に降ろして自重で貫入","油圧ハンマーを吊り込む","ソフトスタートで打設し、設計深度まで打ち込む","打設完了、鉛直度と杭頭高さを確認"],"c":["重量物据付船 HLV","パイルグリッパー","油圧ハンマー","バブルカーテン作業船","鯨類監視船"]},{"t":"トランジションピース据付","d":"トランジションピース（TP）はモノパイルの頭部にはめ込まれ、基礎とタワーをつなぐ役割を担います。TP には作業デッキ、ボートランディング、梯子、デッキクレーン、ケーブル関連設備がまとめられ、将来の保守作業員が風車に乗り移る入口にもなります。現在は大型のボルトフランジでモノパイルと接合するのが主流で、初期のグラウト式 TP は打設時のわずかな傾きを補正できました。","s":["ハンマーを回収し、トランジションピースを吊り上げる","杭頭に位置を合わせ、ゆっくり降ろして差し込む","数百本の高力ボルトでフランジを締結","作業デッキ、ボートランディング、梯子が完成","据付船が撤収し、次の位置へ"],"c":["重量物据付船 HLV","トランジションピース TP","ボルトフランジ","ボートランディング"]},{"t":"洋上変電所","d":"風車が発電した電気は 66 kV のアレイケーブルで洋上変電所に集められ、主変圧器で 161 kV や 220 kV などの高電圧に昇圧してから陸へ送られます。長距離送電の損失を抑えるためです。大型起重機船はまず鋼製のジャケット基礎を海底に据え、ピンパイルを打ち込んで固定し、続いて数千トンに及ぶトップサイドを一度に吊り上げて据え付けます。","s":["大型起重機船がジャケット基礎とトップサイドを運んで到着","ジャケット基礎を海底へ吊り降ろす","ピンパイルを打ち込み、基礎を海底に固定","トップサイドを据付：主変圧器、開閉装置、制御システム","ヘリデッキ、J チューブなどの付帯設備が完成"],"c":["大型起重機船","ジャケット基礎","ピンパイル","主変圧器","ヘリデッキ"]},{"t":"海底ケーブル敷設","d":"ケーブル敷設船の甲板にある巨大なターンテーブルには、数千トンの海底ケーブルを積むことができます。アレイケーブル（66 kV）は風車と洋上変電所を結び、送電ケーブルはさらに高い電圧で電気を陸へ送ります。ケーブルの両端は基礎の内部へ引き込まれ、その間はルートに沿って海底に敷設されます。続いて埋設機が高圧ジェットで溝を掘り、漁具や錨による損傷を防ぐため海底下 1〜3 メートルに埋設します。陸揚げ部では、水平方向掘削（HDD）であらかじめ造った管路を通って海岸を横断し、陸上変電所へ接続します。","s":["ケーブル敷設船が到着、ターンテーブルにケーブルを積載","アレイケーブルの一端を風車基礎へ引き込む（プルイン）","敷設船がルートに沿って進み、シュートから海底へケーブルを敷設","埋設機が高圧ジェットで溝を掘り、ケーブルを埋設","もう一端を洋上変電所の J チューブへ引き込む","送電ケーブル：陸揚げ地点から HDD 管路を通して陸へ引き上げる","沖へ向けて敷設・埋設し、最後に洋上変電所へ引き込む"],"c":["ケーブル敷設船 CLV","ケーブルターンテーブル","埋設機 ROV","HDD 陸揚げ管路","陸上変電所"]},{"t":"風車据付：タワー","d":"風車の部材は組立港で事前に組み立てられ、自己昇降式の風車据付船（SEP 船／WTIV）が複数基分をまとめて沖へ運びます。現場に着くと 4 本の脚を海底に貫入させてプレロードを行い、船体全体を海面上までジャッキアップして、波の影響を受けない安定した作業台にします。メインクレーンがタワーのセクションを順に吊り上げ、フランジボルトで一段ずつ TP に締結します。","s":["据付船が組立港からタワー・ナセル・ブレードを積んで出港","4 本の脚を降ろして海底に貫入させ、プレロード","船体を海面上へジャッキアップ","タワー第 1 段を吊り上げ、TP のフランジに締結","タワー第 2 段を吊り上げ","タワー第 3 段を吊り上げ、タワー完成"],"c":["風車据付船 WTIV","昇降脚","メインクレーン","タワーセクション"]},{"t":"風車据付：ナセル","d":"ナセルは風車の心臓部で、主軸受、発電機、コンバーター、冷却・制御システムを収めており、15 MW 級では数百トンにもなります。メインクレーンがナセルを高さ約 150 メートルのタワー頂部まで吊り上げ、風の中で精密に位置を合わせてヨー軸受にボルトで締結し、タワー内のケーブルや制御線を接続します。","s":["メインクレーンでナセル（ハブ付き）を吊り上げる","タワー頂部の高さまで上げ、タグラインで姿勢を制御","ヨー軸受に位置を合わせ、ボルトで締結","ナセル内部：主軸受、発電機、コンバーター、冷却システム"],"c":["メインクレーン","ナセル","ハブ","ヨー軸受"]},{"t":"風車据付：ブレード","d":"ブレード 1 枚の長さは 100 メートルを超えることもあります。据付船は専用のブレードヨークでブレードを水平に吊り、タグラインで姿勢を制御しながら、翼根のボルトをハブへ正確に差し込みます。1 枚取り付けるごとにターニング装置でハブを 120° 回し、次の 1 枚を取り付けます。ブレードの吊り上げは最も風に敏感な作業で、風速が作業限界を下回る時間帯に行う必要があります。3 枚すべてを取り付けたら、船体を降ろして脚を引き上げ、次の位置へ向かいます。","s":["ブレードヨークで 1 枚目のブレードを水平に吊り上げる","翼根をハブに差し込んで締結し、ハブを 120° 回転","2 枚目のブレードを吊り上げる","3 枚目のブレードを吊り上げる","船体を海面へ降ろし、脚を引き上げて次の位置へ"],"c":["ブレードヨーク","タグライン","ターニング装置","WTIV"]},{"t":"系統連系・運転開始","d":"作業員輸送船（CTV）が技術者を風車へ送り、試運転を行います。各項目の試験を終えると正式に系統へ連系されます。風車は風向に合わせて自動でヨー旋回し、ブレードのピッチ角を調整します。電気はアレイケーブルで洋上変電所へ送られて昇圧され、送電ケーブルで陸へ上がり、陸上変電所から電力網へ流れます。日常の保守は保守支援母船（SOV）が動揺補償タラップで作業員を安全に乗り移らせて行い、海中の基礎はやがて魚が集まる人工魚礁になります。","s":["据付船が撤収し、作業員輸送船（CTV）が接舷","技術者がボートランディングから乗り移り、試運転を実施","風車始動：ヨーで風に正対し、ピッチ制御でローターが回り始める","電力の流れ：風車 → アレイケーブル → 洋上変電所 → 送電ケーブル → 陸上の電力網","保守支援母船（SOV）が動揺補償タラップで日常保守を実施"],"c":["作業員輸送船 CTV","保守支援母船 SOV","動揺補償タラップ","系統連系"]},{"t":"ウィンドファーム全体の稼働","d":"数十基の風車が同時に回り、ひとつの洋上ウィンドファームを形づくります。15 MW の風車 60 基の場合、設備容量は約 900 MW。設備利用率を約 45% とすると年間発電量は約 35 億 kWh で、約 88 万世帯の 1 年分の電力に相当します（1 世帯あたり年間約 4,000 kWh として試算）。設計寿命は約 25〜30 年で、その間は監視と保守を続け、撤去時には規定に従って解体・リサイクルします。","s":["数十基の風車が風況に応じて自動運転","各アレイケーブルが洋上変電所に集まり、昇圧して陸へ送電","日が沈んでも、ウィンドファームは発電を続ける","夜になると航空障害灯が同期して点滅し、ファームの範囲を示す","設計寿命 25〜30 年、監視と保守を継続"],"c":["風車 60 基（例）","設備容量 900 MW","年間発電 約 35 億 kWh","約 88 万世帯分"]}]};
+const LANGS=['zh','en','ja'];
+let LANG='zh',LI=-1;
+const CJK_RE=/[\u3000-\u9fff\uff00-\uffef]/;
+const TPAT=[
+  [/^量測第 (\d+) 天$/,m=>[`Day ${m[1]}`,`計測 ${m[1]} 日目`]],
+  [/^第 (\d+) 段塔架$/,m=>[`Tower section ${m[1]}`,`タワー第 ${m[1]} 段`]],
+  [/^第 (\d+) 支葉片$/,m=>[`Blade ${m[1]}`,`ブレード ${m[1]} 枚目`]]
+];
+function tr(s){
+  if(LI<0||typeof s!=='string'||!CJK_RE.test(s))return s;
+  const d=I18N.dict[s];if(d)return d[LI];
+  for(const [re,f] of TPAT){const m=s.match(re);if(m)return f(m)[LI];}
+  if(s.indexOf('\u3000')>=0)return s.split('\u3000').map(tr).join('   ');
+  return s;
+}
+function ui(k,vars){const a=I18N.ui[k];let s=a?a[LI+1]:k;if(vars)for(const v in vars)s=s.split('{'+v+'}').join(vars[v]);return s;}
+function loc(i){
+  const c=CH[i];
+  if(LANG==='en'){const e=I18N.chEn[i];return {t:c.en,sub:c.t,d:e.d,s:c.s.map((x,j)=>[x[0],e.s[j]]),c:e.c};}
+  if(LANG==='ja'){const e=I18N.chJa[i];return {t:e.t,sub:c.en,d:e.d,s:c.s.map((x,j)=>[x[0],e.s[j]]),c:e.c};}
+  return {t:c.t,sub:c.en,d:c.d,s:c.s,c:c.c};
+}
+const FONT_TC='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+const FONT_JP='"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif';
+function langText(){
+  /* every string the current language can draw, used to pre-load the right font slices */
+  let s='0123456789 MWkVm/s%°→';
+  if(LANG==='zh'){s+=Object.keys(I18N.dict).join('')+CH.map(c=>c.t+c.d+c.s.map(x=>x[1]).join('')+c.c.join('')).join('');}
+  else{s+=Object.values(I18N.dict).map(v=>v[LI]).join('')+CH.map((c,i)=>{const l=loc(i);return l.t+l.sub+l.d+l.s.map(x=>x[1]).join('')+l.c.join('');}).join('');}
+  return s+Object.values(I18N.ui).map(v=>v[LI+1]).join('');
+}
+function ensureFonts(){
+  if(!document.fonts||!document.fonts.load)return Promise.resolve();
+  const fam=LANG==='ja'?'"Noto Sans JP"':'"Noto Sans TC"',txt=langText(),jobs=[];
+  for(const w of [400,500,700,900])jobs.push(document.fonts.load(`${w} 16px ${fam}`,txt));
+  if(LANG==='ja')for(const w of [500,700])jobs.push(document.fonts.load(`${w} 16px "Noto Sans TC"`,txt));
+  for(const w of [500,600,700])jobs.push(document.fonts.load(`${w} 16px "Barlow Condensed"`,'0123456789 MWkV'));
+  return Promise.all(jobs).then(()=>document.fonts.ready).catch(()=>{});
 }
 
 /* ================= UI controller ================= */
@@ -1607,14 +1734,14 @@ function renderFrame(){
 
   function setPlayIcon(){
     playIcon.innerHTML=playing?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':(ended?'<path d="M12 5a7 7 0 1 1-6.6 4.7l1.9.7A5 5 0 1 0 12 7v3L7.5 6 12 2z"/>':'<path d="M7 4.5v15l12-7.5z"/>');
-    bPlay.setAttribute('aria-label',playing?'暫停':(ended?'重新播放':'播放'));
+    bPlay.setAttribute('aria-label',playing?ui('pause'):(ended?ui('replay'):ui('play')));
   }
   function jump(t){T=clamp(t,0,TOTAL-.001);ended=false;dirty=true;setPlayIcon();}
   function togglePlay(){if(ended){T=0;ended=false;playing=true;}else playing=!playing;setPlayIcon();dirty=true;}
   bPlay.addEventListener('click',togglePlay);
   $('bPrev').addEventListener('click',()=>{const c=chapIdx();jump(T-S[c]>1.5?S[c]+.001:S[Math.max(0,c-1)]+.001);});
   $('bNext').addEventListener('click',()=>{const c=chapIdx();if(c<CH.length-1)jump(S[c+1]+.001);else jump(TOTAL-.01);});
-  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{speed=+b.dataset.speed;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));}));
+  document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',()=>{speed=+b.dataset.speed;document.querySelectorAll('[data-speed]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));}));
   const bLab=$('bLabels');bLab.addEventListener('click',()=>{SHOWLAB=!SHOWLAB;bLab.setAttribute('aria-pressed',SHOWLAB?'true':'false');dirty=true;});
   $('bFull').addEventListener('click',()=>{const d=document;if(d.fullscreenElement||d.webkitFullscreenElement){(d.exitFullscreen||d.webkitExitFullscreen).call(d);}else{const f=stage.requestFullscreen||stage.webkitRequestFullscreen;if(f)f.call(stage);}});
   document.addEventListener('fullscreenchange',()=>setTimeout(resize,60));
@@ -1633,6 +1760,7 @@ function renderFrame(){
   });
   document.addEventListener('keydown',e=>{
     const tag=(e.target.tagName||'').toLowerCase();
+    if(document.getElementById('recDlg').open)return;
     if(tag==='input'||tag==='textarea')return;
     if(e.key===' '||e.code==='Space'){if(tag==='button')return;e.preventDefault();togglePlay();}
     else if(e.key==='ArrowLeft'&&e.target!==tl){$('bPrev').click();}
@@ -1640,15 +1768,15 @@ function renderFrame(){
   });
 
   function updateUI(){
-    const c=CUR,ch=CH[c],f=T/TOTAL*100;
+    const c=CUR,ch=loc(c),f=T/TOTAL*100;
     fill.style.width=f+'%';head.style.left=f+'%';
-    tl.setAttribute('aria-valuenow',Math.round(f));tl.setAttribute('aria-valuetext',`${pad(c+1)} ${ch.t}，${fmt(T)}`);
+    tl.setAttribute('aria-valuenow',Math.round(f));tl.setAttribute('aria-valuetext',`${pad(c+1)} ${ch.t}${ui('sep')}${fmt(T)}`);
     timeEl.textContent=fmt(T)+' / '+fmt(TOTAL);
     if(c!==prevC){
       prevC=c;prevStep=-2;
       card.classList.remove('show');
-      setTimeout(()=>{$('ccNo').textContent=pad(c+1);$('ccT').textContent=ch.t;$('ccE').textContent=ch.en;card.classList.add('show');},reduce?0:180);
-      $('iNo').textContent=pad(c+1);$('iT').textContent=ch.t;$('iE').textContent=ch.en;$('iD').textContent=ch.d;
+      setTimeout(()=>{$('ccNo').textContent=pad(c+1);$('ccT').textContent=ch.t;$('ccE').textContent=ch.sub;card.classList.add('show');},reduce?0:180);
+      $('iNo').textContent=pad(c+1);$('iT').textContent=ch.t;$('iE').textContent=ch.sub;$('iD').textContent=ch.d;
       $('iC').innerHTML=ch.c.map(x=>`<li>${x}</li>`).join('');
       $('iS').innerHTML=ch.s.map(s=>`<li>${s[1]}</li>`).join('');
       chapBtns.forEach((b,i)=>{b.classList.toggle('active',i===c);b.classList.toggle('past',i<c);if(i===c)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
@@ -1658,17 +1786,185 @@ function renderFrame(){
       [...$('iS').children].forEach((li,i)=>{li.className=i<si?'done':i===si?'now':'';});}
   }
 
+
+  /* ---------- language ---------- */
+  function setLang(l,save){
+    LANG=LANGS.includes(l)?l:'zh';LI=LANG==='zh'?-1:LANG==='en'?0:1;
+    document.documentElement.lang=LANG==='zh'?'zh-Hant-TW':LANG;
+    FONT=LANG==='ja'?FONT_JP:FONT_TC;
+    COND='"Barlow Condensed","Arial Narrow",'+(LANG==='ja'?'"Noto Sans JP",':'')+'"Noto Sans TC","Noto Sans CJK TC",sans-serif';
+    document.title=ui('docTitle');
+    document.querySelectorAll('[data-i18n]').forEach(e=>{e.textContent=ui(e.dataset.i18n);});
+    document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',ui(e.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-title]').forEach(e=>{e.title=ui(e.dataset.i18nTitle);});
+    document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG?'true':'false'));
+    chapBtns.forEach((b,i)=>{b.querySelector('.t').textContent=loc(i).t;});
+    prevC=-1;prevStep=-2;setPlayIcon();dirty=true;
+    if(recDlg.open)recSummary();
+    if(save){try{localStorage.setItem('rea-lang',LANG);}catch(e){}}
+    ensureFonts().then(()=>{dirty=true;});
+  }
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{if(!recBusy)setLang(b.dataset.lang,true);}));
+
+  /* ---------- MP4 export (offline, frame-accurate: WebCodecs H.264 + mp4-muxer) ---------- */
+  const recDlg=$('recDlg'),recGo=$('recGo'),recCancel=$('recCancel'),recDl=$('recDl'),recSum=$('recSum'),recProg=$('recProg'),recBar=$('recBar'),recStat=$('recStat'),recPrev=$('recPrev'),recNote=$('recNote');
+  const REC={speed:1,range:'all',res:1080,fps:30};
+  let recBusy=false,recAbort=false,recUrl=null,recChap=0;
+  const LW=1280,LH=720; /* logical layout size of the video; pixel size = LW*res/720 */
+  recDlg.querySelectorAll('[data-opt]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    if(recBusy)return;const k=g.dataset.opt;REC[k]=k==='range'?b.dataset.v:+b.dataset.v;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));recSummary();})));
+  function recSpan(){return REC.range==='chap'?[S[recChap],S[recChap]+CH[recChap].dur]:[0,TOTAL];}
+  function recBitrate(){return (REC.res>=1080?8e6:5e6)*(REC.fps>30?1.5:1);}
+  function recSummary(){
+    const [t0,t1]=recSpan(),d=(t1-t0)/REC.speed,f=Math.ceil(d*REC.fps),m=Math.ceil(recBitrate()*d/8/1e6);
+    let s=ui('sum',{d:fmt(d),f:f.toLocaleString('en-US'),m:m});
+    if(REC.range==='chap')s+=ui('sumChap',{c:pad(recChap+1)+' '+loc(recChap).t});
+    recSum.textContent=s;
+  }
+  function recStatus(msg,err){recStat.textContent=msg;recStat.classList.toggle('err',!!err);}
+  $('bRec').addEventListener('click',()=>{
+    recChap=chapIdx();playing=false;setPlayIcon();
+    if(!recBusy){recProg.hidden=true;recDl.hidden=true;recStatus('');recGo.textContent=ui('start');}
+    recSummary();if(recDlg.showModal)recDlg.showModal();else recDlg.setAttribute('open','');
+  });
+  $('recX').addEventListener('click',()=>{if(recBusy)recAbort=true;recDlg.close();});
+  recDlg.addEventListener('cancel',e=>{if(recBusy)e.preventDefault();});
+  recCancel.addEventListener('click',()=>{recAbort=true;});
+  recGo.addEventListener('click',()=>{if(!recBusy)recordVideo();});
+
+  const mch=new MessageChannel(),mq=[];mch.port1.onmessage=()=>{const f=mq.shift();if(f)f();};
+  const yieldNow=()=>new Promise(r=>{mq.push(r);mch.port2.postMessage(0);});
+  const breathe=()=>document.hidden?yieldNow():new Promise(r=>setTimeout(r,0));
+
+  function wrapLines(text,maxW){
+    const toks=text.match(/[A-Za-z0-9À-ÿ().,:;'’"%°–\-\/+&]+\s*|\s+|\S/g)||[];
+    const out=[];let cur='';
+    for(const t of toks){const next=cur+t;if(cur.trim()&&ctx.measureText(next.trimEnd()).width>maxW){out.push(cur.trimEnd());cur=t.trimStart();}else cur=next;}
+    if(cur.trim())out.push(cur.trimEnd());return out.length?out:[''];
+  }
+  /* the chapter card, caption and scale note live in HTML on the page, so the video draws them onto the canvas */
+  function drawOverlays(spd){
+    screenSpace();const c=CUR,L=loc(c);
+    const vt=(T-S[c])/spd,a=clamp((vt-.18)/.5);
+    if(a>0){
+      ctx.save();ctx.globalAlpha=a;ctx.translate(0,-6*(1-a));
+      const x0=clamp(cssW*.02,10,22),y0=clamp(cssW*.02,10,20),nS=clamp(cssW*.046,30,58),tS=clamp(cssW*.021,15,26),eS=clamp(cssW*.0135,12,17);
+      const inner=tS*1.2+eS*1.6,bh=Math.max(nS*.9,inner),no=pad(c+1);
+      ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.font=`700 ${nS}px ${COND}`;const nw=ctx.measureText(no).width;
+      ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=12;ctx.shadowOffsetY=2;ctx.fillStyle='#f2c230';ctx.fillText(no,x0,y0+nS*.78);
+      const bx=x0+nw+12;ctx.shadowColor='transparent';ctx.fillRect(bx,y0,3,bh);
+      const tx=bx+15,ty=y0+(bh-inner)/2;
+      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.62);
+      ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.62);
+      ctx.restore();
+    }
+    if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
+    const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
+    ctx.font=`500 ${fs}px ${FONT}`;
+    const lines=wrapLines(L.s[si][1],maxBox-px*2-dotW);
+    const tw=Math.max(...lines.map((l,i)=>ctx.measureText(l).width+(i?0:dotW)));
+    const bw=Math.min(maxBox,tw+px*2),bh=lines.length*lh+py*2,bx=(cssW-bw)/2,by=cssH-clamp(cssW*.018,8,20)-bh;
+    rrp(bx,by,bw,bh,10);ctx.fillStyle='rgba(7,26,37,.78)';ctx.fill();
+    ctx.textBaseline='middle';ctx.textAlign='left';
+    lines.forEach((l,i)=>{const w=ctx.measureText(l).width+(i?0:dotW),lx=(cssW-w)/2,ly=by+py+lh*(i+.5);
+      if(!i){circ(lx+4,ly,4,'#f2c230');}ctx.fillStyle='#f2f6f7';ctx.fillText(l,lx+(i?0:dotW),ly+.5);});
+  }
+  function renderExportFrame(ectx,t,spd,d){
+    const sv={ctx,cssW,cssH,dpr,fit,T};
+    ctx=ectx;cssW=LW;cssH=LH;dpr=d;fit=cssW/W;T=t;
+    try{renderFrame();drawOverlays(spd);}
+    finally{ctx=sv.ctx;cssW=sv.cssW;cssH=sv.cssH;dpr=sv.dpr;fit=sv.fit;T=sv.T;}
+  }
+  async function pickConfig(w,h,fps,br){
+    /* H.264 first (plays everywhere); VP9 / AV1 in MP4 as a fallback where the browser has no H.264 encoder */
+    const list=[['avc','avc1.640033'],['avc','avc1.64002A'],['avc','avc1.640028'],['avc','avc1.4D4033'],['avc','avc1.4D402A'],['avc','avc1.4D4028'],['avc','avc1.42E033'],['avc','avc1.42E02A'],['avc','avc1.42E028'],['avc','avc1.42001F'],
+      ['vp9','vp09.00.40.08'],['vp9','vp09.00.31.08'],['av1','av01.0.08M.08'],['av1','av01.0.05M.08']];
+    for(const [mux,codec] of list){
+      const cfg={codec,width:w,height:h,bitrate:br,framerate:fps};
+      if(mux==='avc')cfg.avc={format:'avc'};
+      try{const r=await VideoEncoder.isConfigSupported(cfg);if(r&&r.supported)return {mux,cfg};}catch(e){}
+    }
+    return null;
+  }
+  async function recordVideo(){
+    recProg.hidden=false;recDl.hidden=true;recBar.style.width='0%';
+    if(typeof VideoEncoder==='undefined'||typeof VideoFrame==='undefined'||typeof Mp4Muxer==='undefined'){recNote.hidden=true;recStatus(ui('stNoSup'),true);return;}
+    recBusy=true;recAbort=false;recNote.hidden=false;recGo.disabled=true;recCancel.hidden=false;recDlg.classList.add('busy');
+    if(recUrl){URL.revokeObjectURL(recUrl);recUrl=null;}
+    recStatus(ui('stPrep'));
+    const d=REC.res/720,VW=Math.round(LW*d/2)*2,VH=Math.round(LH*d/2)*2,fps=REC.fps,spd=REC.speed,[t0,t1]=recSpan();
+    const n=Math.ceil((t1-t0)/spd*fps),us=1e6/fps,keyEvery=fps*2;
+    let enc=null,encErr=null;
+    try{
+      await ensureFonts();
+      const pick=await pickConfig(VW,VH,fps,recBitrate());
+      if(!pick)throw new Error('__nocodec');const cfg=pick.cfg;
+      const muxer=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:pick.mux,width:VW,height:VH,frameRate:fps},fastStart:'in-memory',firstTimestampBehavior:'offset'});
+      enc=new VideoEncoder({output:(chunk,meta)=>muxer.addVideoChunk(chunk,meta),error:e=>{encErr=e;}});
+      enc.configure(cfg);
+      const ec=document.createElement('canvas');ec.width=VW;ec.height=VH;
+      const ectx=ec.getContext('2d',{alpha:false}),pctx=recPrev.getContext('2d');
+      const t0ms=performance.now();let lastUI=0;
+      for(let i=0;i<n;i++){
+        if(recAbort||encErr)break;
+        const t=Math.min(t0+i/fps*spd,t1-.001);
+        renderExportFrame(ectx,t,spd,d);
+        const fr=new VideoFrame(ec,{timestamp:Math.round(i*us),duration:Math.round(us)});
+        enc.encode(fr,{keyFrame:i%keyEvery===0});fr.close();
+        while(enc.encodeQueueSize>6&&!encErr&&!recAbort)await yieldNow();
+        const now=performance.now();
+        if(now-lastUI>150||i===n-1){
+          lastUI=now;const p=(i+1)/n,el=(now-t0ms)/1000;
+          recBar.style.width=(p*100).toFixed(1)+'%';
+          recStatus(ui('stRun',{p:Math.floor(p*100),e:fmt(el/p-el)}));
+          pctx.drawImage(ec,0,0,recPrev.width,recPrev.height);
+          await breathe();
+        }
+      }
+      if(encErr)throw encErr;
+      if(recAbort){try{enc.close();}catch(e){}recBar.style.width='0%';recStatus(ui('stCancel'));return;}
+      recStatus(ui('stFin'));await breathe();
+      await enc.flush();if(encErr)throw encErr;enc.close();
+      muxer.finalize();
+      const blob=new Blob([muxer.target.buffer],{type:'video/mp4'});
+      recUrl=URL.createObjectURL(blob);
+      recDl.href=recUrl;
+      recDl.download=`offshore-wind-farm_${LANG}_${REC.range==='chap'?'stage'+pad(recChap+1)+'_':''}${spd}x_${REC.res}p${fps}.mp4`;
+      recDl.hidden=false;recDl.click();
+      recStatus(ui('stDone',{s:(blob.size/1048576).toFixed(1)})+(pick.mux==='avc'?'':' '+ui('stAlt',{c:pick.mux.toUpperCase()})));recGo.textContent=ui('again');
+    }catch(e){
+      const msg=e&&e.message;recStatus(msg==='__nocodec'?ui('stNoCodec'):ui('stErr')+(msg||String(e)),true);
+      try{if(enc&&enc.state!=='closed')enc.close();}catch(_){}
+    }finally{
+      recBusy=false;recGo.disabled=false;recCancel.hidden=true;recNote.hidden=true;recDlg.classList.remove('busy');dirty=true;
+    }
+  }
+
   function loop(ts){
     const dt=last?Math.min(.1,(ts-last)/1000):0;last=ts;
     if(playing&&!ended){T+=dt*speed;if(T>=TOTAL){T=TOTAL-.001;ended=true;playing=false;setPlayIcon();}dirty=true;}
     if(dirty&&cssW>2){renderFrame();updateUI();dirty=false;}
     requestAnimationFrame(loop);
   }
+  let initLang='zh';
+  try{const q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase(),sv=localStorage.getItem('rea-lang'),nv=(navigator.language||'').toLowerCase();
+    initLang=LANGS.includes(q)?q:LANGS.includes(sv)?sv:nv.startsWith('ja')?'ja':nv.startsWith('zh')?'zh':nv.startsWith('en')?'en':'zh';}catch(e){}
+  setLang(initLang,false);
   setPlayIcon();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{dirty=true;});
   window.__ow={seek:t=>{T=t;dirty=true;},pause:()=>{playing=false;setPlayIcon();},get T(){return T;}};
   requestAnimationFrame(loop);
 })();
 </script>
-</body>
+<script id="topnav-js">(function(){var K='rea-lang',LS=['zh','en','ja'];
+function cur(){try{var q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();if(LS.indexOf(q)>=0)return q;var s=localStorage.getItem(K)||localStorage.getItem('owf-lang');if(LS.indexOf(s)>=0)return s;var n=(navigator.language||'').toLowerCase();return n.indexOf('ja')==0?'ja':n.indexOf('en')==0?'en':'zh';}catch(e){return 'zh';}}
+function apply(l){document.querySelectorAll('[data-zh]').forEach(function(el){var v=el.getAttribute('data-'+l);el.textContent=v||el.getAttribute('data-zh');});
+ var t=document.querySelector('title[data-zh]');if(t)document.title=t.getAttribute('data-'+l)||t.getAttribute('data-zh');
+ if(!document.getElementById('cv'))document.documentElement.lang=l==='zh'?'zh-Hant-TW':l;
+ document.querySelectorAll('.langsw [data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');});}
+document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-lang]');if(!b)return;var l=b.getAttribute('data-lang');try{localStorage.setItem(K,l);}catch(e){}setTimeout(function(){apply(l);},0);});
+document.addEventListener('langchange',function(ev){apply(ev.detail);});
+apply(cur());})();</script></body>
 </html>
