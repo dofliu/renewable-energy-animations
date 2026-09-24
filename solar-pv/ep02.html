@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>pv01.js｜太陽光電系列</title>
+<title>ep02.js｜太陽光電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -191,7 +191,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="太陽光電系列" data-en="Solar PV series" data-ja="太陽光発電シリーズ">太陽光電系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 太陽電池怎麼發電 →" data-en="02 How a solar cell makes electricity →" data-ja="02 太陽電池はどうやって発電するのか →">02 太陽電池怎麼發電 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="太陽光電系列" data-en="Solar PV series" data-ja="太陽光発電シリーズ">太陽光電系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 太陽光電場施工流程" data-en="← 01 Building a solar farm" data-ja="← 01 太陽光発電所の建設工程">← 01 太陽光電場施工流程</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -203,7 +203,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="pv01.js｜太陽光電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜太陽光電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note" data-i18n="scaleNote">示意圖：比例經過調整</div>
@@ -516,716 +516,383 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 太陽光電系列 第 1 集：太陽光電場施工流程（地面型） */
-const ANG=12*Math.PI/180,HALF=92,EMB=72;               // 1 m ≈ 40 px；樁入土約 1.8 m
-const ROWS=[230,460,690,920,1150,1380];
-const gy=x=>groundY(x);
-function tg(cx){const dx=HALF*Math.cos(ANG),dy=HALF*Math.sin(ANG),y0=gy(cx)-40;return {x0:cx-dx,y0,x1:cx+dx,y1:y0-2*dy};}
-const lineY=(g,x)=>g.y0+(x-g.x0)*(g.y1-g.y0)/(g.x1-g.x0);
-const PILES=[];ROWS.forEach((cx,r)=>{const g=tg(cx);[g.x0+28,g.x1-28].forEach(x=>PILES.push({x,top:lineY(g,x)+9,r}));});
-function drawPile(p,f,cut){
-  const g0=gy(p.x),L=g0-p.top+EMB,top=g0+EMB*f-L;
-  if(cut&&f>0)alphaDo(.7,()=>box(p.x-4,g0,8,EMB*f,'#5d6a73'));
-  const yb=Math.min(g0,top+L);box(p.x-4,top,8,yb-top,'#9aa7b0');ln([p.x-4,top,p.x-4,yb],'#6f7c85',1.5);ln([p.x+4,top,p.x+4,yb],'#6f7c85',1.5);
-  return top;
+/* 太陽光電系列 第 2 集：太陽電池怎麼發電 */
+const E_C='#58b8d0',H_C='#ff8a60';                       // 電子、電洞
+function elec(x,y,a){alphaDo(a===undefined?1:a,()=>{circ(x,y,8,E_C);ln([x-4,y,x+4,y],'#0e2a3b',2);});}
+function hole(x,y,a){alphaDo(a===undefined?1:a,()=>{circ(x,y,8,'rgba(14,42,59,.9)');ring(x,y,8,H_C,2.5);ln([x-4,y,x+4,y],H_C,2);ln([x,y-4,x,y+4],H_C,2);});}
+/* 波狀光子：由 (x0,y0) 到 (x1,y1) 畫到比例 f */
+function photon(x0,y0,x1,y1,col,f,amp){
+  f=clamp(f);if(f<=0)return;amp=amp||7;const L=Math.hypot(x1-x0,y1-y0),ux=(x1-x0)/L,uy=(y1-y0)/L,n=Math.max(2,Math.floor(L*f/3));
+  ctx.beginPath();for(let i=0;i<=n;i++){const s=L*f*i/n,w=amp*Math.sin(s*.16-TT*8);const x=x0+ux*s-uy*w,y=y0+uy*s+ux*w;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+  ctx.strokeStyle=col;ctx.lineWidth=2.6;ctx.stroke();const ex=x0+ux*L*f,ey=y0+uy*L*f;
+  poly([ex+ux*10,ey+uy*10,ex-uy*6,ey+ux*6,ex+uy*6,ey-ux*6],col);
 }
-function drawRack(g,f){if(f<=0)return;alphaDo(f,()=>{ln([g.x0-4,g.y0+6,g.x1+4,g.y1+6],'#b8c2c8',5);
-  for(const t of [.12,.5,.88]){const x=lerp(g.x0,g.x1,t),y=lerp(g.y0,g.y1,t)+2;box(x-4,y-3,8,6,'#d6dde1');}});}
-function drawMod(g,k,i,glint){if(k<=0)return;ctx.save();ctx.globalAlpha*=clamp(k);ctx.translate(g.x0,g.y0-(1-k)*40);ctx.rotate(-ANG);
-  const s0=i*92+1;box(s0,-8,90,8,'#1f3f66');ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.beginPath();for(let j=1;j<6;j++){ctx.moveTo(s0+j*15,-8);ctx.lineTo(s0+j*15,0);}ctx.stroke();
-  box(s0,-8,90,1.6,'#9fc3e6');if(glint)box(s0+20+((TT*30)%50),-8,18,1.6,'#fff');circ(s0,-8,2.2,'#c9d1d6');circ(s0+90,-8,2.2,'#c9d1d6');ctx.restore();}
-function drawTable(cx,rack,m0,m1,glint){const g=tg(cx);drawRack(g,rack);drawMod(g,m0,0,glint);drawMod(g,m1,1,glint);}
-function excavator(x,t){const y=gy(x);box(x-58,y-16,116,16,'#2f3438');for(const wx of [-46,-16,16,46])circ(x+wx,y-8,6,'#555');
-  box(x-44,y-44,92,28,'#e9b21f');box(x+4,y-78,38,34,'#e9b21f');box(x+10,y-72,22,18,'#2a3a46');
-  const px=x-30,py=y-44,ex=x-95,ey=y-112+10*Math.sin(t*2.2),bx=x-138,by=y-24+18*Math.sin(t*2.2+1);
-  ln([px,py,ex,ey],'#e0a81c',9);ln([ex,ey,bx,by],'#e0a81c',7);poly([bx-14,by-6,bx+6,by-10,bx+2,by+12,bx-16,by+8],'#3b3f43');}
-function mound(x){return Math.max(0,20+16*Math.sin(x*.021)+12*nz(x*.013+3));}
-function stake(x,a){alphaDo(a,()=>{const y=gy(x);ln([x,y,x,y-26],'#8a6a44',2.5);poly([x,y-26,x+12,y-22,x,y-18],'#ff7a1a');});}
-function surveyor(x){const y=gy(x);person(x,y,'#ff7a1a',6);ln([x+9,y,x+9,y-66],'#dfe5e8',2);circ(x+9,y-68,5,'#f2c230');}
+/* 模組 I-V 模型（示例參數）：Isc 13.9 A、Voc 51.6 V */
+const IV=(V,Isc,Voc,Vt)=>Math.max(0,Isc*(1-Math.exp((V-Voc)/Vt))/(1-Math.exp(-Voc/Vt)));
+const I25=V=>IV(V,13.9,51.6,2.6),I65=V=>IV(V,14.18,46.44,2.95);
+const SUN={x:760,y:120};
+const PX=[420,640,860,1080];                             // 場景中的四座模組
+const gyy=x=>groundY(x);
+function fieldModule(x,glint){solarPanel(x,gyy(x),190,22,{h:70,glint});}
+function thermo(x,y,f){rrp(x-9,y-120,18,120,9);ctx.fillStyle='rgba(255,255,255,.85)';ctx.fill();circ(x,y+4,15,'#e8572a');box(x-4,y-110*f,8,110*f+4,'#e8572a');}
 
-const EP={no:1,slug:'solar-pv',seriesName:'太陽光電系列',t:'太陽光電場施工流程',en:'Building a solar farm',
-lede:'一座地面型太陽光電場，從一片空地到開始送電要經過哪些工序？這一集跟著工程團隊整地放樣、打樁、組裝支架與模組，再看直流如何串成組串、經變流器與升壓站併入台電電網。',
-facts:[['1.5–3','m','地面型光電鋼樁常見的入土深度，依地質調查與拉拔試驗決定'],
-['10–15','°','台灣地面型光電常見的模組傾角，兼顧發電量、排水與抗風'],
-['1,500','V','直流系統電壓上限，決定一串最多能串接幾片模組'],
-['約 26','片','每一串的模組數示例（單片開路電壓約 50 V）'],
-['22.8 → 161','kV','大型案場在升壓站把集電電壓升到輸電電壓後併網'],
-['1–1.5','公頃','每 MW 地面型光電大約需要的土地面積']],
-note:'說明：本集為教育用途示意動畫，高度與距離比例經過調整。樁長、傾角、串列片數、電壓等級與用地面積為典型範例，實際依地質調查、結構計算、設備規格與台電併聯審查結果而定。',
-base:()=>{landSky(GY,{sun:{x:300,y:130}});drawGround();},
+const EP={no:2,slug:'solar-pv',seriesName:'太陽光電系列',t:'太陽電池怎麼發電',en:'How a solar cell makes electricity',
+lede:'陽光照在一片深藍色的板子上，為什麼就有電流流出？這一集從矽原子與光子談起，看 PN 接面如何把電子推向同一個方向，再從一片電池片組成模組，最後用 I-V 曲線理解最大功率點與溫度的影響。',
+facts:[['1.12','eV','矽的能隙：光子能量要高於這個值，才能把電子從鍵結中釋放'],
+['約 0.7','V','一片矽晶電池的開路電壓，與面積無關；面積決定電流大小'],
+['144','片','常見 182 mm 半片模組的電池數，分成兩半各 72 片串聯後並聯'],
+['1,000','W/m²','標準測試條件（STC）的日照強度，另規定電池溫度 25°C 與 AM1.5 光譜'],
+['−0.30 ~ −0.40','%/°C','常見矽晶模組的功率溫度係數，溫度每升 1°C 功率約少這麼多'],
+['約 22–23','%','目前常見商用矽晶模組的轉換效率範圍（示例）']],
+note:'說明：本集為教育用途示意動畫，原子、電池與模組的比例經過放大調整。I-V 曲線以 580 W 級半片模組為示例參數（開路電壓 51.6 V、短路電流 13.9 A）計算，溫度影響以功率溫度係數約 −0.3%/°C 估算；實際數值依各廠牌規格書與現場條件而定。',
+base:()=>{landSky(GY,{sun:SUN});drawGround();},
 shots:[
-{t:'整地與放樣',en:'Site preparation and setting out',dur:12,side:true,
- d:'取得施工許可後，工程從整地開始。挖土機把高低起伏的地面整平，並依水土保持計畫挖設排水溝，讓大雨時的逕流有路可走。接著測量人員以衛星定位（GNSS RTK）依設計圖逐點放樣，在每一支樁的位置插上標樁，誤差控制在公分等級。最後沿著案場邊界架設施工圍籬，管制人車進出。',
- s:[[0,'挖土機把起伏的地面整平'],[.3,'整平後的場地，為打樁做準備'],[.5,'測量人員以 GNSS 逐點放樣，標出每一支樁的位置'],[.8,'挖設排水溝、架設施工圍籬']],
- cam:u=>({x:800,y:545,s:1.25}),
+{t:'陽光照在模組上',en:'Sunlight on a solar module',dur:12,side:true,
+ d:'太陽光電模組沒有會轉動的零件，也不燃燒任何東西。陽光可以看成一顆顆帶有能量的「光子」，打在模組表面的電池片上，就直接在材料內部產生電流，從接線盒以直流電的形式流出。晴天中午，照到地面的日照強度大約每平方公尺 1,000 瓦；一片常見的模組把其中約兩成多轉換成電，其餘多半變成熱。',
+ s:[[0,'陽光由一顆顆帶有能量的光子組成'],[.3,'光子打在模組表面的電池片上'],[.55,'材料內部直接產生電流，沒有轉動零件'],[.78,'直流電從接線盒流出，送往變流器']],
+ cam:u=>camMix({x:800,y:430,s:1},{x:720,y:500,s:1.45},ease(seg(u,.2,.6))),
  draw(u){
-  const exX=lerp(1480,120,easeOut(seg(u,.02,.48)));
-  ctx.beginPath();ctx.moveTo(VX0,gy(VX0));for(let x=VX0;x<=VX1;x+=6){const h=x<exX-150?mound(x):x<exX-60?mound(x)*seg(exX-60-x,90,0):0;ctx.lineTo(x,gy(x)-h);}ctx.lineTo(VX1,gy(VX1));ctx.closePath();ctx.fillStyle='#9b7b58';ctx.fill();
-  const da=seg(u,.78,.9);if(da>0)alphaDo(da,()=>{const y=gy(90);poly([55,y,125,y,112,y+22,68,y+22],'#6b5540');box(70,y+12,40,8,'#4f8fc4');});
-  PILES.forEach((p,i)=>{const sx=lerp(150,1480,seg(u,.5,.8));stake(p.x,p.x<sx?1:0);});
-  const sa=band(u,.48,.84);if(sa>0)alphaDo(sa,()=>surveyor(lerp(150,1480,seg(u,.5,.8))));
-  const fa=seg(u,.84,.94);if(fa>0)alphaDo(fa,()=>fence(20,1580,GY+6));
-  if(u<.52)excavator(exX,TT);
-  lab(exX-80,gy(exX)-90,'挖土機整地',{dx:40,dy:-70,a:band(u,.04,.46)});
-  lab(1200,gy(1200),'整平後的場地',{dx:0,dy:-80,st:'g',a:band(u,.28,.5)});
-  lab(lerp(150,1480,seg(u,.5,.8))+9,gy(900)-68,'GNSS RTK 放樣',{dx:40,dy:-60,st:'s',a:band(u,.52,.8)});
-  lab(PILES[4].x,gy(PILES[4].x)-24,'標樁：每一支樁的位置',{dx:-30,dy:-90,a:band(u,.62,.84)});
-  lab(90,gy(90)+10,'排水溝',{dx:60,dy:-80,st:'l',a:band(u,.8,1)});
-  lab(1300,GY-12,'施工圍籬',{dx:30,dy:-70,a:band(u,.86,1)});
+  const G=seg(u,.02,.3);
+  PX.forEach((x,i)=>{for(let k=0;k<3;k++){const f=(TT*.45+k/3+i*.13)%1;if(G>0)alphaDo(G*.9,()=>photon(SUN.x+20,SUN.y+20,x-10,gyy(x)-86,'#f2c230',f,5));}});
+  PX.forEach(x=>fieldModule(x,u>.3));
+  const bx=1300;cabinet(bx,gyy(bx),70,70,'#dfe5e8');
+  const cab=[];PX.forEach((x,i)=>{cab.push(x+40,gyy(x)-8);});
+  ln([PX[0]+40,gyy(PX[0])-4,bx,gyy(bx)-4],'#2b3137',3);
+  const ca=seg(u,.55,.65);if(ca>0)for(let k=0;k<8;k++){const f=(TT*.35+k/8)%1;alphaDo(ca,()=>circ(lerp(PX[0]+40,bx,f),lerp(gyy(PX[0]),gyy(bx),f)-4,4,E_C));}
+  lab(SUN.x+60,SUN.y+60,'光子',{dx:60,dy:-30,st:'s',a:band(u,.03,.35)});
+  lab(PX[1],gyy(PX[1])-86,'太陽光電模組',{dx:-40,dy:-90,a:band(u,.25,.6)});
+  lab(PX[2]+80,gyy(PX[2])-60,'電池片直接把光變成電',{dx:40,dy:-110,st:'g',a:band(u,.5,.78)});
+  lab(bx+35,gyy(bx)-70,'變流器',{dx:30,dy:-70,a:band(u,.7,1)});
+  lab(lerp(PX[0]+40,bx,.5),gyy(700)-4,'直流電',{dx:0,dy:60,st:'l',a:band(u,.72,1)});
  },
- hud(u){hudPanel(230,120,'整地與放樣',seg(u,.05,.1),w=>{hrow(56,'整地進度',Math.round(100*seg(u,.02,.48))+'%',w);hrow(88,'放樣點',Math.round(12*seg(u,.5,.8))+' / 12',w,'#f2c230');});}},
+ hud(u){hudPanel(230,120,'晴天中午（示例）',seg(u,.05,.1),w=>{const G=Math.round(1000*ease(seg(u,.02,.3)));hrow(56,'日照強度',G+' W/m²',w,'#f2c230');hrow(88,'轉成電的比例','約 22%',w,'#7dffc4');});}},
 
-{t:'打樁：鋼樁基礎',en:'Driving the steel piles',dur:14,side:true,
- d:'地面型光電多半不用混凝土基礎，而是以打樁機把熱浸鍍鋅的 H 型鋼或 C 型鋼樁直接打進地面。打樁機沿著放樣點逐支施打，入土深度常在 1.5 到 3 公尺，依地質調查結果決定；石塊多的地層需先引孔。每一支樁打完要量測頂部高程、位置與垂直度，因為上面的支架要靠它們對齊，誤差太大就裝不上去。',
- s:[[0,'打樁機移到第一個標樁位置'],[.2,'液壓錘把鍍鋅鋼樁打入地面'],[.5,'剖面：鋼樁入土約 1.8 公尺'],[.75,'逐支量測頂部高程與垂直度']],
- cam:u=>camMix({x:560,y:520,s:1.45},{x:800,y:500,s:1.05},ease(seg(u,.55,.9))),
- draw(u){
-  const ca=seg(u,.4,.5);if(ca>0)alphaDo(ca*.35,()=>box(VX0,GY+10,VX1-VX0,EMB+30,'#3a2c20'));
-  const n=PILES.length,span=.84/n;let rigX=PILES[0].x-20,hy=0,cur=-1;
-  PILES.forEach((p,i)=>{const t=(u-.06)/span-i;const f=t<.2?0:seg(t,.2,.9);if(t<0)return;const top=drawPile(p,f,ca>0);
-    if(t>=0&&t<1){cur=i;const prev=i?PILES[i-1].x-20:p.x-140;rigX=lerp(prev,p.x-20,ease(seg(t,0,.2)));hy=f>0&&f<1?top-4*Math.abs(Math.sin(TT*14)):top;}});
-  if(u<.06)rigX=lerp(PILES[0].x-160,PILES[0].x-20,ease(seg(u,0,.06)));
-  if(cur<0&&u>=.06){rigX=PILES[n-1].x-20+lerp(0,160,seg(u,.9,1));}
-  pileRig(rigX,gy(rigX),hy||gy(rigX)-110);
-  lab(rigX+20,gy(rigX)-170,'打樁機',{dx:50,dy:-40,a:band(u,.03,.4)});
-  lab(PILES[1].x,PILES[1].top,'熱浸鍍鋅鋼樁',{dx:-40,dy:-80,st:'s',a:band(u,.2,.5)});
-  lab(PILES[2].x,gy(PILES[2].x)+EMB,'入土約 1.8 m',{dx:60,dy:30,st:'l',a:band(u,.48,.75)});
-  tick(PILES[0].x-10,gy(PILES[0].x)+EMB/2,'地下','right');
-  lab(PILES[5].x,PILES[5].top,'量測高程與垂直度',{dx:30,dy:-90,st:'g',a:band(u,.72,1)});
- },
- hud(u){hudPanel(230,150,'打樁紀錄',seg(u,.08,.13),w=>{const k=Math.min(12,Math.floor(Math.max(0,(u-.06)/(.84/12))));hrow(56,'已完成',trf('{k} / 12 支',{k}),w);hrow(88,'入土深度','1.8 m',w);hrow(120,'垂直度偏差','0.4°',w,'#7dffc4');});}},
-
-{t:'基樁為什麼怕「拔」',en:'Why piles are tested for uplift',dur:13,
- d:'太陽能板像一面斜放的大板子，颱風吹過時，板下的氣流會產生向上的「上拔力」，同時還有側向推力。鋼樁靠著與土壤之間的摩擦與側向土壓抵抗這些力。因此施工前會在現場做拉拔試驗：用千斤頂把樁往上拉，記錄載重與位移，確認在設計載重的倍數下，位移仍在容許範圍內，才決定整區的樁長。',
- s:[[0,'颱風時，板下氣流產生向上的上拔力'],[.25,'加上側向風力，都由鋼樁傳給土壤'],[.45,'土壤摩擦力抵抗上拔'],[.6,'現場拉拔試驗：記錄載重與上拔位移'],[.85,'達到試驗載重、位移仍在容許值內：合格']],
+{t:'光子打出電子',en:'Photons free electrons',dur:13,
+ d:'矽原子最外層有四個電子，和相鄰原子兩兩共用，排成整齊的晶格。光子打進矽裡，若能量大於矽的能隙 1.12 電子伏特，就能把一個電子從鍵結中「踢」出來，成為可以自由移動的電子，原位置留下一個帶正電的空位，稱為電洞。紅外光能量不足，會直接穿過；藍紫光能量太多，多出來的部分變成熱。這是矽晶電池效率有上限的主要原因。',
+ s:[[0,'矽原子共用電子，排成整齊的晶格'],[.2,'光子打進來，把電子從鍵結中釋放'],[.4,'能帶圖：能量要跨過 1.12 eV 的能隙'],[.6,'藍紫光能量太多，多出的部分變成熱'],[.8,'紅外光能量不足，直接穿過']],
  draw(u){
   diagBG();
-  card(70,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(94,200,'作用在樁上的力',20,'#f2c230',700);
-  const G=560,px=420;box(90,G,660,220,'#5a4633');ln([90,G,750,G],'#8fbf6a',3);
-  box(px-6,G-150,12,150+130,'#9aa7b0');ctx.save();ctx.translate(px,G-150);ctx.rotate(-ANG);box(-190,-10,380,10,'#1f3f66');box(-190,-10,380,2,'#9fc3e6');ctx.restore();
-  const a1=seg(u,.03,.2),a2=seg(u,.22,.38),a3=seg(u,.42,.56);
-  alphaDo(a1,()=>{for(let i=0;i<4;i++){const y=G-110+i*12;arrow(120,y+30,260,y-10,'rgba(125,200,255,.8)',2.5);}arrow(px,G-160,px,G-260,'#e8572a',6);wt(px+16,G-236,'上拔力（風吸力）',19,'#ffb199',700);});
-  alphaDo(a2,()=>{arrow(px-150,G-60,px-14,G-60,'#f2c230',5);wt(px-150,G-78,'側向風力',18,'#f2c230',700);});
-  alphaDo(a3,()=>{for(let i=0;i<4;i++){const y=G+30+i*28;arrow(px-26,y,px-26,y+22,'#7dffc4',3);arrow(px+26,y,px+26,y+22,'#7dffc4',3);}wt(px+44,G+80,'土壤摩擦阻抗',18,'#7dffc4',700);wt(px+44,G+106,'入土深度決定阻抗大小',15,'rgba(227,236,238,.75)',500);});
-  const c=chartBox(840,160,690,640,{title:'拉拔試驗：載重與上拔位移（示例）',x0:0,x1:30,y0:0,y1:25,xt:[0,10,20,30],yt:[0,5,10,15,20,25],xl:'拉拔載重（kN）',yl:'位移（mm）',pt:70});
-  const lmax=24*seg(u,.58,.84);
-  if(lmax>0){ctx.beginPath();for(let L=0;L<=lmax;L+=.25){const d=.28*L+.0009*L*L*L;L?ctx.lineTo(c.X(L),c.Y(d)):ctx.moveTo(c.X(L),c.Y(d));}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3;ctx.stroke();
-   const d=.28*lmax+.0009*lmax**3;circ(c.X(lmax),c.Y(d),6,'#7dffc4');}
-  alphaDo(seg(u,.6,.66),()=>{ctx.setLineDash([8,6]);ln([c.X(12),c.py,c.X(12),c.py+c.ph],'#f2c230',2);ln([c.px,c.Y(20),c.px+c.pw,c.Y(20)],'#e8572a',2);ctx.setLineDash([]);
-   wt(c.X(12)+8,c.py+24,'設計上拔力 12 kN',16,'#f2c230',700);wt(c.px+c.pw-8,c.Y(20)-10,'容許位移 20 mm',16,'#ffb199',700,'right');});
-  alphaDo(seg(u,.8,.86),()=>{wt(c.X(24)-8,c.py+56,'試驗載重＝2 倍',16,'#7dffc4',700,'right');});
-  alphaDo(seg(u,.86,.92),()=>tag(c.px+20,c.py+c.ph-40,'位移在容許值內：合格',{bg:'#1f7f5c',fg:'#fff',size:18}));
+  card(70,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(94,200,'矽晶格（示意）',20,'#f2c230',700);
+  const AX=[190,310,430,550,670],AY=[290,410,530,650];
+  ctx.strokeStyle='rgba(227,236,238,.35)';ctx.lineWidth=2;ctx.beginPath();
+  AX.forEach(x=>AY.forEach(y=>{if(x<670){ctx.moveTo(x+26,y-5);ctx.lineTo(x+94,y-5);ctx.moveTo(x+26,y+5);ctx.lineTo(x+94,y+5);}if(y<650){ctx.moveTo(x-5,y+26);ctx.lineTo(x-5,y+94);ctx.moveTo(x+5,y+26);ctx.lineTo(x+5,y+94);}}));ctx.stroke();
+  const fx=490,fy=410;                                      // 被釋放電子的位置（兩原子之間的鍵結）
+  AX.forEach(x=>AY.forEach(y=>{if(x<670&&!(x===430&&y===410)){elec(x+60,y,.55);}}));
+  AX.forEach(x=>AY.forEach(y=>{circ(x,y,26,'#1f5f8a','rgba(255,255,255,.4)',1.5);wt(x,y+1,'Si',18,'#fff',700,'center',COND,'middle');}));
+  const p1=seg(u,.06,.2),fr=ease(seg(u,.2,.36));
+  photon(120,230,fx-14,fy-14,'#f2c230',p1*(1-seg(u,.2,.24)));
+  if(fr>0){hole(fx,fy,1);const ex=lerp(fx,640,fr)+6*Math.sin(TT*3)*fr,ey=lerp(fy,560,fr)+6*Math.cos(TT*2.6)*fr;elec(ex,ey,1);}
+  else elec(fx,fy,.55);
+  alphaDo(seg(u,.26,.32),()=>{wt(640,600,'自由電子',17,E_C,700,'center');wt(fx,fy-24,'電洞',17,H_C,700,'center');});
+  alphaDo(seg(u,.08,.14),()=>wt(128,262,'光子',17,'#f2c230',700));
+  alphaDo(seg(u,.3,.36),()=>wt(94,760,'光子能量夠大，才能打斷鍵結',18,'rgba(227,236,238,.85)',500));
+  /* 右：能帶圖 */
+  card(820,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(844,200,'能帶圖：跨過能隙才算數',20,'#f2c230',700);
+  const a0=seg(u,.38,.46);
+  alphaDo(a0,()=>{box(870,250,640,80,'rgba(88,184,208,.18)','rgba(88,184,208,.6)',1.5);box(870,560,640,80,'rgba(255,138,96,.16)','rgba(255,138,96,.6)',1.5);
+   wt(1490,300,'導帶',17,E_C,700,'right');wt(1490,610,'價帶',17,H_C,700,'right');
+   ln([900,330,900,560],'rgba(255,255,255,.5)',1.5);ln([892,330,908,330],'rgba(255,255,255,.5)',1.5);ln([892,560,908,560],'rgba(255,255,255,.5)',1.5);
+   wt(916,440,'能隙',17,'#fff',700);wt(916,466,'1.12 eV',22,'#f2c230',700,'left',COND);});
+  const COL=[[1050,'#f2c230','可見光','產生電子電洞對',.42,.58],[1230,'#b37cff','藍紫光','多餘能量變成熱',.6,.78],[1410,'#ff8a60','紅外光','能量不足，穿過',.8,.94]];
+  COL.forEach(([x,c,nm,res,t0,t1],j)=>{const k=seg(u,t0,t1);if(k<=0)return;
+   const pf=seg(k,0,.35);photon(x-90,700,x-10,610,c,pf,5);
+   const jump=ease(seg(k,.35,.7));
+   if(j===2){alphaDo(seg(k,.35,.5),()=>{ctx.setLineDash([6,6]);arrow(x,590,x,470,'rgba(255,138,96,.8)',2.5);ctx.setLineDash([]);wt(x+14,500,'×',26,'#e8572a',700);});elec(x,600,1);}
+   else{const top=j===1?262:300,y=lerp(600,top,jump);if(jump>0&&jump<1)ln([x,600,x,y],'rgba(255,255,255,.35)',2);
+    let yy=y;if(j===1){const d=ease(seg(k,.7,.95));yy=lerp(top,300,d);if(d>0)for(let q=0;q<3;q++){const hy=282-q*14-12*((TT*1.4+q/3)%1);ln([x+18,hy,x+30,hy-6,x+42,hy],'#e8572a',2.5);}}
+    elec(x,yy,1);if(jump>.3)hole(x,600,1);}
+   alphaDo(seg(k,.1,.3),()=>{wt(x,690,nm,17,c,700,'center');wt(x,752,res,15,'rgba(227,236,238,.85)',500,'center');});});
  }},
 
-{t:'支架與模組安裝',en:'Racking and module installation',dur:14,side:true,
- d:'樁位確認後，工班在樁頂鎖上斜樑，再橫向架設檁條，形成固定傾角的支架。台灣常見傾角約 10 到 15 度，面向南方；角度太大會增加受風面積，太小則不利雨水沖刷灰塵。接著兩人一組把模組抬上支架，以直立兩排（2P）的方式排列，再用壓塊鎖在檁條上。每片模組的背面有接線盒與快速接頭，裝好後就能開始配線。',
- s:[[0,'樁頂鎖上斜樑與檁條，組成固定傾角的支架'],[.35,'模組以直立兩排（2P）排列，傾角約 12°'],[.6,'兩人一組把模組抬上支架，壓塊鎖固'],[.85,'一排排完成，準備配線']],
- cam:u=>camMix({x:520,y:530,s:1.6},{x:800,y:500,s:1.05},ease(seg(u,.6,.95))),
- draw(u){
-  PILES.forEach(p=>drawPile(p,1,false));
-  ROWS.forEach((cx,i)=>{const r=seg(u,.02+i*.07,.1+i*.07),m0=seg(u,.3+i*.09,.36+i*.09),m1=seg(u,.34+i*.09,.4+i*.09);drawTable(cx,r,m0,m1,false);});
-  const ci=clamp(Math.floor((u-.3)/.09),0,5),cx=ROWS[ci],g=tg(cx);
-  if(u>.28&&u<.9){person(g.x0-18,gy(g.x0-18),'#f2c230',6);person(g.x1+18,gy(g.x1+18),'#ff7a1a',6);}
-  const g1=tg(ROWS[1]);
-  lab((g1.x0+g1.x1)/2,(g1.y0+g1.y1)/2+6,'斜樑與檁條',{dx:-60,dy:-90,a:band(u,.1,.34)});
-  const g0=tg(ROWS[0]);tick(g0.x1+12,g0.y1-6,'傾角約 12°','left');
-  lab(g0.x0+40,lineY(g0,g0.x0+40)-8,'模組直立兩排（2P）',{dx:-20,dy:-100,st:'s',a:band(u,.34,.6)});
-  lab(g0.x1-2,lineY(g0,g0.x1-2)-8,'壓塊固定',{dx:40,dy:-60,st:'l',a:band(u,.5,.75)});
-  lab(g.x0-18,gy(g.x0)-40,'兩人一組抬運模組',{dx:-40,dy:-120,a:band(u,.58,.85)});
- },
- hud(u){hudPanel(230,120,'本區安裝進度',seg(u,.05,.1),w=>{hrow(56,'支架',trf('{k} / 6 排',{k:Math.round(6*seg(u,.02,.47))}),w);let m=0;ROWS.forEach((c,i)=>{m+=Math.round(seg(u,.3+i*.09,.36+i*.09))+Math.round(seg(u,.34+i*.09,.4+i*.09));});hrow(88,'模組',trf('{k} / 12 片',{k:m}),w,'#f2c230');});}},
-
-{t:'組串：直流怎麼串',en:'Stringing the DC side',dur:13,
- d:'一片模組的電壓只有數十伏特，要把許多片串聯成一「串」，電壓才夠讓變流器有效率地工作。串接的片數有上限：模組在低溫時電壓會升高，整串的開路電壓必須低於系統上限 1,500 V。以單片開路電壓約 50 V 為例，一串約可接 26 片。多串模組再並聯接到組串式變流器，由它追蹤最大功率點，把直流轉成交流。',
- s:[[0,'模組一片接一片串聯，電壓逐片相加'],[.3,'26 片約 1,300 V；低溫時電壓再升高'],[.5,'整串電壓必須低於系統上限 1,500 V'],[.7,'多串並聯接到組串式變流器，直流轉成交流']],
+{t:'PN 接面：把電子推往同一邊',en:'The PN junction',dur:14,
+ d:'只把電子打出來還不夠，它們很快又會和電洞重新結合。電池片的關鍵是 PN 接面：在矽裡摻入磷，形成電子較多的 N 型層；摻入硼，形成電洞較多的 P 型層。兩層接觸處形成一道內建電場，像一道單向的坡，光產生的電子被推向 N 型層，電洞被推向 P 型層。只要用導線把兩邊接起來，電子就會繞經外部電路流動，點亮燈泡，這就是光電流。',
+ s:[[0,'N 型層（摻磷）電子較多，P 型層（摻硼）電洞較多'],[.25,'兩層交界處形成內建電場'],[.45,'光產生的電子被推向 N 層，電洞被推向 P 層'],[.7,'接上外部電路，電子繞一圈點亮燈泡']],
  draw(u){
   diagBG();
-  const N=26,k=seg(u,.02,.42),lit=Math.floor(N*k+.001);
-  wt(80,200,'一串模組（串聯）',20,'#f2c230',700);
-  for(let i=0;i<N;i++){const x=80+i*54;box(x,226,46,62,i<lit?'#2b5f99':'#1a3350');ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.strokeRect(x,226,46,62);if(i<N-1)ln([x+46,257,x+54,257],i<lit-1?'#f2c230':'rgba(255,255,255,.25)',2);}
-  wt(80,330,trf('{n} 片 × 約 50 V ＝ {v} V',{n:lit,v:(lit*50).toLocaleString('en-US')}),22,'#fff',700);
-  const c=chartBox(70,380,780,420,{title:'串接片數與整串開路電壓',x0:0,x1:30,y0:0,y1:1600,xt:[0,10,20,30],yt:[0,500,1000,1500],xl:'串接片數',yl:'V',pt:66});
-  ln([c.px,c.Y(1500),c.px+c.pw,c.Y(1500)],'#e8572a',2.5);wt(c.px+10,c.Y(1500)-10,'系統上限 1,500 V',16,'#ffb199',700);
-  ln([c.X(0),c.Y(0),c.X(lit),c.Y(lit*50)],'#7dffc4',3);circ(c.X(lit),c.Y(lit*50),5,'#7dffc4');
-  alphaDo(seg(u,.3,.4),()=>{ctx.setLineDash([7,6]);ln([c.X(0),c.Y(0),c.X(26),c.Y(1390)],'#f2c230',2);ctx.setLineDash([]);wt(c.X(26)-6,c.Y(1390)-14,'低溫時約 1,390 V',16,'#f2c230',700,'right');});
-  card(900,380,630,420,{bg:'rgba(7,27,39,.75)'});wt(924,418,'多串並聯 → 組串式變流器',20,'#f2c230',700);
-  const a=seg(u,.62,.74);
-  alphaDo(a,()=>{for(let j=0;j<4;j++){const y=480+j*70;box(930,y-16,150,32,'#2b5f99');wt(1005,y,trf('第 {n} 串',{n:j+1}),16,'#fff',700,'center',FONT,'middle');ln([1080,y,1240,590],'#f2c230',2.5);
-     const f=((TT*.6+j*.25)%1);circ(lerp(1080,1240,f),lerp(y,590,f),4,'#fff');}
-   rrp(1240,540,150,100,12);ctx.fillStyle='#dfe5e8';ctx.fill();wt(1315,580,'變流器',18,'#13232e',700,'center');wt(1315,610,'DC → AC',16,'#13232e',600,'center',COND);
-   arrow(1390,590,1500,590,'#7dffc4',4);wt(1445,570,'交流',16,'#7dffc4',700,'center');
-   wt(924,760,'MPPT：隨日照調整工作點，取得最大功率',16,'rgba(227,236,238,.8)',500);});
+  const X0=120,X1=1060,NY=260,JY=380,PY=760,dep=seg(u,.22,.36);
+  box(X0,NY,X1-X0,JY-NY,'#1f5f8a');box(X0,JY,X1-X0,PY-JY,'#3c2f52');
+  alphaDo(dep,()=>{box(X0,JY-18,X1-X0,54,'rgba(255,255,255,.1)');ctx.setLineDash([6,6]);ln([X0,JY-18,X1,JY-18],'rgba(255,255,255,.35)',1.2);ln([X0,JY+36,X1,JY+36],'rgba(255,255,255,.35)',1.2);ctx.setLineDash([]);});
+  const r=rng(7);for(let i=0;i<22;i++){const x=X0+30+r()*(X1-X0-60),y=NY+18+r()*(JY-NY-50);elec(x+6*Math.sin(TT*1.3+i),y,.55);}
+  const r2=rng(11);for(let i=0;i<30;i++){const x=X0+30+r2()*(X1-X0-60),y=JY+60+r2()*(PY-JY-90);hole(x+6*Math.sin(TT*1.1+i),y,.55);}
+  alphaDo(seg(u,.03,.1),()=>{tag(X0+16,NY+26,'N 型矽（摻磷）',{size:18,bg:E_C});tag(X0+16,PY-30,'P 型矽（摻硼）',{size:18,bg:H_C});});
+  alphaDo(dep,()=>{for(let i=0;i<6;i++){const x=X0+80+i*160;arrow(x,JY-12,x,JY+32,'#f2c230',3);}tag(X1-16,JY+8,'內建電場',{size:17,align:'right'});});
+  const g=seg(u,.42,.5);
+  if(g>0)for(let k=0;k<6;k++){const p=(TT*.4+k/6)%1,x=X0+110+k*155;
+   alphaDo(g*clamp(Math.min(p*6,(1-p)*6)),()=>{photon(x-40,150,x-6,JY-4,'#f2c230',Math.min(1,p*4),4);if(p>.25){const q=ease(seg(p,.25,.9));elec(x,lerp(JY+8,NY+30,q),1);hole(x+14,lerp(JY+8,PY-60,q),1);}});}
+  /* 外部電路 */
+  const cA=seg(u,.66,.74);
+  alphaDo(cA,()=>{box(X0,NY-14,X1-X0,14,'#c9d1d6');box(X0,PY,X1-X0,14,'#c9d1d6');
+   const P=[X1,NY-7,1330,NY-7,1330,470],Q=[1330,560,1330,PY+7,X1,PY+7];ln(P,'#dfe5e8',4);ln(Q,'#dfe5e8',4);
+   const on=seg(u,.72,.8);const rg=ctx.createRadialGradient(1330,515,6,1330,515,110);rg.addColorStop(0,`rgba(255,230,140,${.8*on})`);rg.addColorStop(1,'rgba(255,230,140,0)');ctx.fillStyle=rg;ctx.fillRect(1210,395,240,240);
+   circ(1330,510,40,on>.5?'#ffe38a':'rgba(255,255,255,.25)','#fff',2);box(1316,548,28,18,'#9aa7b0');
+   wt(1395,500,'燈泡',18,'#fff',700);wt(1395,530,'亮起',16,'#ffe38a',600);
+   const path=[[X1,NY-7],[1330,NY-7],[1330,470],[1330,560],[1330,PY+7],[X1,PY+7]];
+   if(on>0)for(let k=0;k<10;k++){const f=(TT*.25+k/10)%1;const pt=partialPt(path,f);elec(pt[0],pt[1],on);}
+   wt(1190,NY-24,'電子流出 N 層',16,E_C,700,'center');wt(1190,PY+44,'回到 P 層與電洞結合',16,'rgba(227,236,238,.85)',500,'center');});
+  alphaDo(seg(u,.02,.08),()=>wt(X0,220,'電池片剖面（示意）',20,'#f2c230',700));
  }},
 
-{t:'變流器、升壓與併網',en:'From inverter to the grid',dur:13,
- d:'變流器輸出的低壓交流電，先在場內的箱式變電站升到 22.8 kV，再由集電線路匯集到升壓站。小型案場可以直接併入台電的 22.8 kV 饋線；大型案場則自建或共用升壓站，把電壓升到 161 kV 或 69 kV 後併入輸電網。電壓越高，同樣的功率所需電流越小，線路損失也越低。',
- s:[[0,'模組串列的直流電進入組串式變流器'],[.25,'箱式變電站把低壓交流升到 22.8 kV'],[.5,'集電線路匯集各區的電力到升壓站'],[.72,'升壓到 161 kV，併入台電輸電網']],
+{t:'電池片的構造',en:'Inside a solar cell',dur:12,
+ d:'一片矽晶電池片約 0.15 至 0.2 毫米厚，現在常見的邊長是 182 毫米，常再切成兩半使用。正面的細柵線負責收集電流，再匯到較粗的主柵線；表面的抗反射膜讓電池片呈深藍或黑色，減少陽光被反射。背面是另一個電極。不論電池片多大，單片的開路電壓都只有約 0.7 伏特，面積越大，產生的電流越多。',
+ s:[[0,'正面：細柵線收集電流，匯到主柵線'],[.3,'剖面：抗反射膜、N 型層、P 型基板與背電極'],[.6,'電池片常切成兩半，降低電流與電阻損失'],[.8,'單片約 0.7 V，面積決定電流大小']],
  draw(u){
   diagBG();
-  const Y=420,N=[[140,'模組串列','1,500 V 以下 DC'],[400,'組串式變流器','約 800 V AC'],[660,'箱式變電站','0.8 → 22.8 kV'],[930,'22.8 kV 集電線路','地下電纜'],[1200,'升壓站','22.8 → 161 kV'],[1460,'台電電網','161 kV']];
-  N.forEach((n,i)=>{const a=seg(u,.02+i*.14,.08+i*.14);if(a<=0)return;alphaDo(a,()=>{
-    if(i){const x0=N[i-1][0]+70,x1=n[0]-70;ln([x0,Y,x1,Y],i<2?'#f2c230':'#7dffc4',4);for(let k=0;k<3;k++){const f=((TT*.5+k/3)%1);circ(lerp(x0,x1,f),Y,5,'#fff');}}
-    rrp(n[0]-70,Y-50,140,100,14);ctx.fillStyle=i===5?'#1f7f5c':'rgba(255,255,255,.1)';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;ctx.stroke();
-    wt(n[0],Y-80,n[1],18,'#fff',700,'center');wt(n[0],Y+8,n[2],16,i<1?'#f2c230':'#7dffc4',700,'center',COND,'middle');});});
-  alphaDo(seg(u,.02,.1),()=>wt(140,Y+90,'直流',16,'#f2c230',700,'center'));
-  alphaDo(seg(u,.16,.24),()=>wt(400,Y+90,'直流 → 交流',16,'rgba(227,236,238,.8)',600,'center'));
-  const b=seg(u,.78,.88);
-  alphaDo(b,()=>{card(140,590,1320,190,{bg:'rgba(7,27,39,.75)'});wt(170,632,'兩種併網方式',20,'#f2c230',700);
-   tag(170,690,'小型案場',{size:18});wt(310,696,'直接併入台電 22.8 kV 饋線',18,'#fff',500);
-   tag(170,746,'大型案場',{size:18,bg:'#7dffc4'});wt(310,752,'自建或共用升壓站，升到 161 kV 或 69 kV 併入輸電網',18,'#fff',500);});
+  card(70,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(94,200,'正面（182 mm 電池片）',20,'#f2c230',700);
+  const S=400,x0=220,y0=250,a=seg(u,.02,.12);
+  alphaDo(a,()=>{box(x0,y0,S,S,'#1c3558');const fN=Math.floor(60*seg(u,.04,.2));ctx.strokeStyle='rgba(210,220,230,.55)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<fN;i++){const y=y0+S*i/60;ctx.moveTo(x0,y);ctx.lineTo(x0+S,y);}ctx.stroke();
+   const bN=Math.floor(10*seg(u,.12,.26));for(let i=0;i<bN;i++){const x=x0+S*(i+.5)/10;box(x-2,y0,4,S,'#e3e8ec');}
+   ln([x0,y0+S+24,x0+S,y0+S+24],'rgba(255,255,255,.6)',1.5);ln([x0,y0+S+16,x0,y0+S+32],'rgba(255,255,255,.6)',1.5);ln([x0+S,y0+S+16,x0+S,y0+S+32],'rgba(255,255,255,.6)',1.5);
+   wt(x0+S/2,y0+S+50,'182 mm',20,'#fff',700,'center',COND);});
+  const cut=seg(u,.58,.7);
+  alphaDo(cut,()=>{ctx.setLineDash([10,8]);ln([x0-20,y0+S/2,x0+S+20,y0+S/2],'#f2c230',3);ctx.setLineDash([]);tag(x0+S+10,y0+S/2-34,'切成半片',{size:16});});
+  alphaDo(band(u,.1,.55),()=>{wt(94,236,'細柵線：收集電流',16,'rgba(227,236,238,.85)',500);wt(94,730,'主柵線：把電流匯出',16,'#e3e8ec',700);});
+  /* 右：剖面 */
+  card(820,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(844,200,'剖面（厚度放大示意）',20,'#f2c230',700);
+  const L=[['抗反射膜',260,16,'#2d5f9e'],['N 型層（射極）',276,40,'#1f5f8a'],['P 型矽基板',316,260,'#3c2f52'],['背面電極',576,40,'#9aa7b0']];
+  const cx0=870,cx1=1250,b=seg(u,.28,.4);
+  alphaDo(b,()=>{L.forEach(([n,y,h,c],i)=>{box(cx0,y,cx1-cx0,h,c);const ty=y+h/2;ln([cx1,ty,cx1+24,ty],'rgba(255,255,255,.5)',1.2);wt(cx1+32,ty+6,n,17,i===2?H_C:i===1?E_C:'#fff',700);});
+   for(let i=0;i<6;i++){const x=cx0+30+i*64;poly([x,260,x+16,260,x+12,240,x+4,240],'#e3e8ec');}
+   wt(cx1+32,236,'正面柵線',16,'#e3e8ec',600);
+   ctx.setLineDash([6,5]);ln([cx0,316,cx1,316],'#f2c230',2);ctx.setLineDash([]);wt(cx0+10,338,'PN 接面',16,'#f2c230',700);
+   for(let i=0;i<5;i++){const f=(TT*.5+i/5)%1;photon(cx0+50+i*70,150+30,cx0+50+i*70+10,250,'#f2c230',Math.min(1,f*2.4),3);}
+   wt(1050,470,'厚度約 0.15–0.2 mm',18,'rgba(227,236,238,.85)',600,'center');});
+  const v=seg(u,.78,.88);
+  alphaDo(v,()=>{card(860,650,640,120,{bg:'rgba(31,127,92,.35)',st:'rgba(125,255,196,.5)'});wt(890,698,'單片開路電壓',18,'#fff',700);wt(1480,702,'約 0.7 V',34,'#7dffc4',700,'right',COND);wt(890,742,'電壓與面積無關；面積越大，電流越大',16,'rgba(227,236,238,.85)',500);});
  }},
 
-{t:'竣工查驗與併聯運轉',en:'Commissioning and first power',dur:13,side:true,
- d:'設備全部裝好後，先由電機技師與施工團隊做竣工檢查：量測每一串的開路電壓與絕緣電阻、確認模組與支架確實接地，並以 I-V 曲線量測找出異常的組串。接著向台電申請併聯試運轉，保護電驛與通訊都確認正常後正式送電；最後向能源署辦理設備登記，案場才進入商轉，開始二十年的發電與維運。',
- s:[[0,'竣工檢查：開路電壓、絕緣電阻與接地'],[.3,'I-V 曲線量測，找出異常組串'],[.55,'台電併聯試運轉，正式送電'],[.8,'辦理設備登記後進入商轉']],
- base:u=>{landSky(GY,{sun:{x:lerp(260,1500,u),y:130+180*seg(u,.6,1)},dusk:.75*seg(u,.65,1)});drawGround();},
- cam:u=>({x:820,y:525,s:1.12}),
+{t:'從電池片到模組',en:'From cells to a module',dur:13,
+ d:'一片電池片的電壓太低，也經不起風雨，所以要串聯並封裝成模組。常見的 182 毫米半片模組有 144 片電池，分成兩半各 72 片串聯，再彼此並聯，開路電壓約 50 伏特。電池片夾在兩層封裝膠膜（EVA 或 POE）之間，前面是強化玻璃、背面是背板或第二片玻璃，經層壓後裝上鋁框。接線盒裡的三顆旁路二極體，讓局部被遮蔭的電池串可以被繞過。',
+ s:[[0,'封裝結構：玻璃、膠膜、電池片、膠膜、背板'],[.35,'層壓成一體，再裝上鋁框'],[.5,'144 片半片電池：分成兩半，各 72 片串聯'],[.7,'接線盒內的旁路二極體，讓遮蔭的部分被繞過']],
  draw(u){
-  PILES.forEach(p=>drawPile(p,1,false));
-  ROWS.forEach(cx=>drawTable(cx,1,1,1,u>.55));
-  [0,2,4].forEach(i=>{const g=tg(ROWS[i]),x=g.x1-28;box(x+5,gy(x)-40,20,26,'#dfe5e8');});
-  const bx=1455;cabinet(bx-40,gy(bx),80,62,'#dfe5e8');ln([bx+40,gy(bx)-40,1600,gy(bx)-120],'rgba(40,50,56,.7)',2);
-  if(u<.52){const x=lerp(300,1100,seg(u,.02,.5));person(x,gy(x),'#f2c230',6);box(x+5,gy(x)-40,8,10,'#e3ecee');}
-  lab(tg(ROWS[1]).x1-10,gy(ROWS[1])-40,'組串式變流器',{dx:40,dy:-90,a:band(u,.03,.3)});
-  lab(lerp(300,1100,seg(u,.02,.5)),gy(700)-44,'I-V 曲線量測',{dx:-20,dy:-110,st:'s',a:band(u,.28,.52)});
-  lab(bx,gy(bx)-62,'箱式變電站',{dx:-60,dy:-80,a:band(u,.45,.8)});
-  lab(1560,gy(1560)-100,'併入台電電網',{dx:-30,dy:-70,st:'g',a:band(u,.58,.85)});
-  lab(800,gy(800)-60,'設備登記完成，進入商轉',{dx:0,dy:-150,st:'g',a:band(u,.82,1)});
+  diagBG();
+  card(70,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(94,200,'模組封裝結構',20,'#f2c230',700);
+  const LY=[['強化玻璃','rgba(190,225,240,.55)',10],['封裝膠膜（EVA）','rgba(255,255,255,.35)',6],['電池片','#1f3f66',8],['封裝膠膜（EVA）','rgba(255,255,255,.35)',6],['背板','#e3e8ec',8]];
+  const gap=lerp(78,16,ease(seg(u,.3,.45))),top=270;
+  for(let i=LY.length-1;i>=0;i--){const [n,c,th]=LY[i],y=top+i*gap;
+   const k=seg(u,.02+i*.05,.08+i*.05);if(k<=0)continue;alphaDo(k,()=>{poly([200,y,560,y,480,y+70,120,y+70],c,'rgba(255,255,255,.5)',1.2);poly([120,y+70,480,y+70,480,y+70+th,120,y+70+th],'rgba(0,0,0,.35)');
+    if(i===2){ctx.strokeStyle='rgba(160,200,240,.6)';ctx.lineWidth=1;ctx.beginPath();for(let j=1;j<8;j++){const t=j/8;ctx.moveTo(lerp(200,120,0)+t*360,y);ctx.lineTo(120+t*360,y+70);}ctx.stroke();}
+    alphaDo(1-seg(u,.3,.4),()=>{ln([560,y+35,585,y+35],'rgba(255,255,255,.5)',1.2);wt(595,y+41,n,16,i===2?'#f2c230':'#fff',600);});});}
+  const fr=seg(u,.4,.5);
+  alphaDo(fr,()=>{const yb=top+4*gap+78;poly([120,top+70,480,top+70,480,yb,120,yb],'#aab5bc');poly([480,top+70,560,top,560,yb-70,480,yb],'#8d989f');poly([200,top,560,top,480,top+70,120,top+70],null,'#dfe5e8',5);
+   wt(595,top+60,'層壓成一體',18,'#7dffc4',700);wt(595,top+92,'裝上鋁框',18,'#fff',600);wt(595,top+124,'前玻璃約 3.2 mm',16,'rgba(227,236,238,.8)',500);
+   card(100,560,640,200,{bg:'rgba(255,255,255,.05)'});wt(126,600,'為什麼要封裝',19,'#f2c230',700);wt(126,640,'電池片很薄很脆，怕水氣與撞擊',17,'#fff',500);wt(126,676,'層壓：加熱並抽真空，讓膠膜熔合',17,'#fff',500);wt(126,712,'玻璃透光、背板絕緣，鋁框提供強度',17,'#fff',500);});
+  /* 右：電池排列 */
+  card(820,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(844,200,'144 片半片電池的串接',20,'#f2c230',700);
+  const ga=seg(u,.46,.52),CW=25,CH=32,gx0=872,gy0=250;
+  alphaDo(ga,()=>{rrp(gx0-12,gy0-12,24*CW+20+24,6*CH+24,6);ctx.fillStyle='#0b1e2c';ctx.fill();ctx.strokeStyle='#c9d1d6';ctx.lineWidth=3;ctx.stroke();
+   const lit=Math.floor(72*seg(u,.52,.66));
+   for(let h=0;h<2;h++)for(let r=0;r<6;r++)for(let c=0;c<12;c++){const idx=r*12+(r%2?11-c:c);const x=gx0+h*(12*CW+20)+c*CW,y=gy0+r*CH;box(x+1,y+1,CW-2,CH-2,idx<lit?'#2b6fb0':'#1a3350');}
+   const jb=gx0+12*CW+10;box(jb-9,gy0-34,18,24,'#394650');
+   wt(gx0+6*CW,gy0+6*CH+42,'左半 72 片串聯',16,E_C,700,'center');wt(gx0+12*CW+20+6*CW,gy0+6*CH+42,'右半 72 片串聯',16,E_C,700,'center');
+   wt(jb,gy0-44,'接線盒',16,'#fff',700,'center');});
+  alphaDo(seg(u,.6,.66),()=>{wt(870,530,trf('{n} 片 × 約 0.7 V ≈ {v} V',{n:72,v:50}),24,'#fff',700);wt(870,562,'兩半並聯：電壓不變、電流相加',16,'rgba(227,236,238,.85)',500);});
+  const bd=seg(u,.7,.76);
+  alphaDo(bd,()=>{for(let i=0;i<3;i++){const y=gy0+i*2*CH;rrp(gx0-10,y,24*CW+20+20,2*CH-2,5);ctx.strokeStyle=i===1?'#e8572a':'rgba(242,194,48,.8)';ctx.lineWidth=2.5;ctx.stroke();}
+   alphaDo(.55,()=>box(gx0+4*CW,gy0+2*CH,3*CW,2*CH,'#0e1a22'));wt(gx0+5.5*CW,gy0+3*CH+6,'遮蔭',16,'#ffb199',700,'center');
+   card(860,600,640,170,{bg:'rgba(7,27,39,.6)'});wt(890,640,'3 顆旁路二極體',20,'#f2c230',700);
+   wt(890,678,'每顆負責 1/3 的電池串',17,'#fff',500);wt(890,712,'局部遮蔭時電流從二極體繞過，',17,'#fff',500);wt(890,744,'只損失被遮的那 1/3，不會整片停擺',17,'#7dffc4',600);});
+ }},
+
+{t:'I-V 曲線與最大功率點',en:'The I-V curve and maximum power point',dur:13,
+ d:'模組的「體檢表」是 I-V 曲線：橫軸是電壓、縱軸是電流。短路時電流最大，稱為短路電流 Isc；斷路時電壓最高，稱為開路電壓 Voc，但這兩點的功率都是零。功率等於電壓乘電流，在曲線轉彎的「膝點」附近最大，稱為最大功率點（MPP）。變流器的 MPPT 功能會隨日照變化，不斷調整工作電壓，讓模組一直停在這一點附近。',
+ s:[[0,'I-V 曲線：電壓越高，電流先持平再急降'],[.3,'兩端點：短路電流 Isc 與開路電壓 Voc'],[.5,'功率＝電壓 × 電流，在膝點附近最大'],[.75,'變流器的 MPPT 持續追蹤最大功率點']],
+ draw(u){
+  diagBG();
+  const A=chartBox(70,160,720,640,{title:'I-V 曲線（580 W 級模組示例）',x0:0,x1:55,y0:0,y1:16,xt:[0,10,20,30,40,50],yt:[0,4,8,12,16],xl:'電壓（V）',yl:'電流（A）',pt:70,gx:5,gy:4});
+  const B=chartBox(830,160,710,640,{title:'P-V 曲線：功率＝電壓 × 電流',x0:0,x1:55,y0:0,y1:700,xt:[0,10,20,30,40,50],yt:[0,200,400,600],xl:'電壓（V）',yl:'功率（W）',pt:70,gx:5,gy:7});
+  const Vm=44.1,Im=I25(Vm),Pm=Vm*Im;
+  const f1=seg(u,.02,.3);if(f1>0){ctx.beginPath();for(let V=0;V<=51.6*f1;V+=.2){const x=A.X(V),y=A.Y(I25(V));V?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3.5;ctx.stroke();}
+  alphaDo(seg(u,.3,.38),()=>{circ(A.X(0),A.Y(13.9),7,'#fff');wt(A.X(0)+14,A.Y(13.9)-14,'短路電流 Isc 13.9 A',17,'#fff',700);
+   circ(A.X(51.6),A.Y(0),7,'#fff');wt(A.X(51.6)-30,A.Y(0)-40,'開路電壓',17,'#fff',700,'right');wt(A.X(51.6)-30,A.Y(0)-16,'Voc 51.6 V',17,'#fff',700,'right',COND);});
+  const f2=seg(u,.42,.62);if(f2>0){ctx.beginPath();for(let V=0;V<=51.6*f2;V+=.2){const x=B.X(V),y=B.Y(V*I25(V));V?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#f2c230';ctx.lineWidth=3.5;ctx.stroke();}
+  alphaDo(seg(u,.44,.5),()=>wt(B.px+14,B.py+30,'兩端的功率都是 0',16,'rgba(227,236,238,.8)',500));
+  const m=seg(u,.62,.7);
+  alphaDo(m,()=>{ctx.fillStyle='rgba(242,194,48,.14)';ctx.fillRect(A.X(0),A.Y(Im),A.X(Vm)-A.X(0),A.Y(0)-A.Y(Im));
+   ctx.setLineDash([7,6]);ln([A.X(Vm),A.Y(Im),A.X(Vm),A.Y(0)],'#f2c230',2);ln([B.X(Vm),B.Y(Pm),B.X(Vm),B.Y(0)],'#f2c230',2);ctx.setLineDash([]);
+   circ(A.X(Vm),A.Y(Im),8,'#f2c230');circ(B.X(Vm),B.Y(Pm),8,'#f2c230');
+   wt(A.X(Vm)-12,A.Y(Im)+40,'最大功率點',17,'#f2c230',700,'right');wt(A.X(Vm)-12,A.Y(Im)+64,'44.1 V × 13.1 A',17,'#f2c230',700,'right',COND);
+   wt(B.X(Vm)-14,B.Y(Pm)-16,'Pmax 約 580 W',20,'#f2c230',700,'right');});
+  const t=seg(u,.74,.98);
+  if(t>0){const V=Vm+14*Math.sin(t*TAU*1.5)*Math.exp(-t*3.2);circ(A.X(V),A.Y(I25(V)),7,'#fff','#13232e',2);circ(B.X(V),B.Y(V*I25(V)),7,'#fff','#13232e',2);
+   alphaDo(seg(u,.74,.8),()=>tag(B.X(45),B.Y(70),'MPPT：來回微調電壓，找出最高點',{size:17,bg:'#7dffc4',align:'right'}));}
+ }},
+
+{t:'溫度越高，功率越低',en:'Heat lowers the output',dur:13,side:true,
+ d:'模組的標示功率是在電池溫度 25°C 的標準條件下量測。台灣夏天中午，模組溫度常達 60 至 70°C，電壓會明顯下降，常見矽晶模組的功率溫度係數約為每度 −0.3% 至 −0.4%，比 25°C 時少了一成以上。所以日照最強的正午不一定效率最好；支架架高、保留背面通風、選用溫度係數較低的模組，都能減少這部分損失。',
+ s:[[0,'夏天中午日照最強，模組也跟著升溫'],[.3,'模組溫度可達 65°C，電壓明顯下降'],[.55,'溫度每升 1°C，功率約少 0.3–0.4%'],[.72,'架高與背面通風，幫助模組散熱']],
+ base:u=>{landSky(GY,{sun:{x:lerp(260,1160,seg(u,0,.6)),y:lerp(300,170,seg(u,0,.6))},clouds:false});drawGround();},
+ cam:u=>({x:800,y:430,s:1}),
+ draw(u){
+  const T=lerp(30,65,ease(seg(u,.05,.5)));
+  PX.forEach(x=>fieldModule(x+120,false));
+  const hs=seg(u,.2,.4);if(hs>0)PX.forEach((x,i)=>{for(let q=0;q<3;q++){const p=(TT*.5+q/3+i*.2)%1,xx=x+120+(q-1)*40,yy=gyy(x)-100-p*70;alphaDo(hs*(1-p)*.8,()=>ln([xx,yy,xx+8,yy-10,xx,yy-20,xx+8,yy-30],'#ff8a60',2));}});
+  const vn=seg(u,.7,.8);if(vn>0)PX.forEach((x,i)=>{for(let q=0;q<3;q++){const p=(TT*.6+q/3+i*.1)%1;alphaDo(vn*.8,()=>arrow(x+40+p*120,gyy(x)-24-p*12,x+60+p*120,gyy(x)-30-p*12,'#7dc8dc',2.5));}});
+  const tx=1400;thermo(tx,gyy(tx)-30,seg(T,20,75));
+  wt(tx,gyy(tx)+26,trf('{t}°C',{t:Math.round(T)}),24,'#13232e',700,'center',COND);
+  /* 25°C 與 65°C 的 I-V 比較 */
+  const ca=seg(u,.3,.4);
+  alphaDo(ca,()=>{const c=chartBox(540,140,560,280,{title:'I-V 曲線：25°C 與 65°C',x0:0,x1:55,y0:0,y1:16,xt:[0,25,50],yt:[0,8,16],xl:'電壓（V）',pt:56,pb:40,gx:2,gy:2});
+   [[I25,51.6,'#7dffc4'],[I65,46.44,'#ff8a60']].forEach(([f,vo,col],j)=>{const k=j?seg(u,.36,.5):1;ctx.beginPath();for(let V=0;V<=vo*k;V+=.3){const x=c.X(V),y=c.Y(f(V));V?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=3;ctx.stroke();});
+   alphaDo(seg(u,.46,.52),()=>{wt(c.px+14,c.py+c.ph-44,'25°C：約 580 W',16,'#7dffc4',700);wt(c.px+14,c.py+c.ph-20,'65°C：約 510 W',16,'#ffb199',700);});});
+  lab(tx,gyy(tx)-150,'模組溫度',{dx:-40,dy:-60,st:'w',a:band(u,.08,.5)});
+  lab(PX[3]+180,gyy(PX[3])-100,'電壓下降、功率變低',{dx:30,dy:-60,st:'w',a:band(u,.5,.76)});
+  lab(PX[2]+120,gyy(PX[2])-40,'背面通風散熱',{dx:60,dy:-40,st:'g',a:band(u,.72,1)});
+  lab(PX[0]+120,gyy(PX[0])-30,'支架架高',{dx:-50,dy:-30,st:'l',a:band(u,.74,1)});
  },
- hud(u){hudPanel(240,150,'案場即時狀態',seg(u,.05,.1),w=>{const on=u>.55,p=on?10*clamp(Math.sin(Math.PI*lerp(.35,1.02,seg(u,.55,1)))):0;
-  hrow(56,'絕緣電阻',u>.1?'> 1 MΩ':'—',w);hrow(88,'併聯狀態',on?'併聯中':'待併聯',w,on?'#7dffc4':'#f2c230');hrow(120,'發電功率（示例）',p.toFixed(1)+' MW',w,'#f2c230');});}}
+ hud(u){hudPanel(240,150,'模組狀態（示例）',seg(u,.05,.1),w=>{const T=lerp(30,65,ease(seg(u,.05,.5))),G=lerp(700,1000,ease(seg(u,.05,.5)));const p=580*G/1000*(1-.0035*(T-25));
+  hrow(56,'日照強度',Math.round(G)+' W/m²',w,'#f2c230');hrow(88,'模組溫度',Math.round(T)+'°C',w,'#ff8a60');hrow(120,'輸出功率',Math.round(p)+' W',w,'#7dffc4');});}}
 ]};
+/* 沿折線取比例 f 的點 */
+function partialPt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
+  let r=f*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
 
-/* 太陽光電場施工流程 translations: Traditional Chinese → [English, Japanese] */
+/* 太陽電池怎麼發電 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"太陽光電系列": [
-"Solar PV Series",
-"太陽光発電シリーズ"
-],
-"太陽光電場施工流程": [
-"Building a solar farm",
-"太陽光発電所の建設工程"
-],
-"一座地面型太陽光電場，從一片空地到開始送電要經過哪些工序？這一集跟著工程團隊整地放樣、打樁、組裝支架與模組，再看直流如何串成組串、經變流器與升壓站併入台電電網。": [
-"What does it take to turn an empty plot into a ground-mounted solar farm that sends power to the grid? This episode follows the construction team through site preparation, piling, racking and module installation, then shows how the DC side is wired into strings and reaches Taipower's grid through inverters and a step-up substation.",
-"何もない土地から送電を始めるまでに、地上設置型の太陽光発電所ではどんな工程を経るのでしょうか。このエピソードでは、施工チームとともに整地・墨出し、杭打ち、架台とモジュールの取付を追い、直流がどのようにストリングにまとめられ、パワーコンディショナーと昇圧変電所を経て台湾電力の系統に接続されるのかを見ていきます。"
-],
-"地面型光電鋼樁常見的入土深度，依地質調查與拉拔試驗決定": [
-"Typical embedment of steel piles for ground-mounted PV, set by the geotechnical survey and pull-out tests",
-"地上設置型太陽光の鋼製杭の一般的な根入れ深さ。地盤調査と引抜き試験で決定"
-],
-"台灣地面型光電常見的模組傾角，兼顧發電量、排水與抗風": [
-"Common module tilt for ground-mounted PV in Taiwan, balancing yield, drainage and wind load",
-"台湾の地上設置型で一般的なモジュール傾斜角。発電量、排水、耐風性のバランス"
-],
-"直流系統電壓上限，決定一串最多能串接幾片模組": [
-"DC system voltage limit, which sets how many modules one string can have",
-"直流システムの電圧上限。1ストリングに直列接続できる枚数を決める"
-],
-"約 26": [
-"about 26",
-"約 26"
-],
-"片": [
-"modules",
-"枚"
-],
-"每一串的模組數示例（單片開路電壓約 50 V）": [
-"Example modules per string (about 50 V open-circuit voltage each)",
-"1ストリングあたりのモジュール枚数の例（1枚の開放電圧は約 50 V）"
-],
-"大型案場在升壓站把集電電壓升到輸電電壓後併網": [
-"Large sites raise the collection voltage to transmission voltage at a step-up substation",
-"大規模サイトは昇圧変電所で集電電圧を送電電圧に上げて系統連系"
-],
-"公頃": [
-"hectares",
-"ha"
-],
-"每 MW 地面型光電大約需要的土地面積": [
-"Land needed per MW of ground-mounted PV, roughly",
-"地上設置型太陽光 1 MW あたりに必要な土地面積の目安"
-],
-"說明：本集為教育用途示意動畫，高度與距離比例經過調整。樁長、傾角、串列片數、電壓等級與用地面積為典型範例，實際依地質調查、結構計算、設備規格與台電併聯審查結果而定。": [
-"Note: this episode is an educational schematic; heights and distances are not to scale. Pile length, tilt, modules per string, voltage levels and land area are typical examples; real values depend on the geotechnical survey, structural calculations, equipment specifications and Taipower's grid-connection review.",
-"注：本エピソードは教育用の模式アニメーションで、高さと距離の縮尺は調整しています。杭長、傾斜角、ストリングの枚数、電圧階級、用地面積は典型的な例で、実際は地盤調査、構造計算、機器仕様、台湾電力の系統連系審査の結果によって異なります。"
-],
-"整地與放樣": [
-"Site preparation and setting out",
-"整地と墨出し"
-],
-"取得施工許可後，工程從整地開始。挖土機把高低起伏的地面整平，並依水土保持計畫挖設排水溝，讓大雨時的逕流有路可走。接著測量人員以衛星定位（GNSS RTK）依設計圖逐點放樣，在每一支樁的位置插上標樁，誤差控制在公分等級。最後沿著案場邊界架設施工圍籬，管制人車進出。": [
-"Once the construction permit is granted, work begins with site preparation. Excavators level the uneven ground and dig drainage ditches according to the soil and water conservation plan, so that runoff has somewhere to go in heavy rain. Surveyors then use satellite positioning (GNSS RTK) to set out every point from the design drawings, marking each pile position with a stake to within centimetres. Finally a construction fence goes up around the site boundary to control access.",
-"施工許可を取得すると、工事は整地から始まります。油圧ショベルが起伏のある地面を平らにし、水土保持計画に従って排水溝を掘り、大雨のときの雨水の流れ道をつくります。次に測量担当者が衛星測位（GNSS RTK）で設計図に基づき1点ずつ墨出しを行い、杭の位置ごとに測量杭を打ち、誤差をセンチ単位に抑えます。最後にサイトの境界に沿って仮囲いを設置し、人や車両の出入りを管理します。"
-],
-"挖土機把起伏的地面整平": [
-"Excavators level the uneven ground",
-"油圧ショベルが起伏のある地面を平らにする"
-],
-"整平後的場地，為打樁做準備": [
-"The levelled site is ready for piling",
-"整地した敷地で杭打ちの準備"
-],
-"測量人員以 GNSS 逐點放樣，標出每一支樁的位置": [
-"Surveyors set out each pile position point by point with GNSS",
-"測量担当者が GNSS で1点ずつ墨出しし、各杭の位置を示す"
-],
-"挖設排水溝、架設施工圍籬": [
-"Drainage ditches are dug and a construction fence goes up",
-"排水溝を掘り、仮囲いを設置"
-],
-"挖土機整地": [
-"Excavator levelling",
-"ショベルで整地"
-],
-"整平後的場地": [
-"Levelled site",
-"整地済みの敷地"
-],
-"GNSS RTK 放樣": [
-"GNSS RTK setting out",
-"GNSS RTK 墨出し"
-],
-"標樁：每一支樁的位置": [
-"Stakes: every pile position",
-"測量杭：各杭の位置"
-],
-"排水溝": [
-"Drainage ditch",
-"排水溝"
-],
-"施工圍籬": [
-"Construction fence",
-"仮囲い"
-],
-"整地進度": [
-"Levelling",
-"整地の進捗"
-],
-"放樣點": [
-"Points set out",
-"墨出し点"
-],
-"打樁：鋼樁基礎": [
-"Driving the steel piles",
-"杭打ち：鋼製杭基礎"
-],
-"地面型光電多半不用混凝土基礎，而是以打樁機把熱浸鍍鋅的 H 型鋼或 C 型鋼樁直接打進地面。打樁機沿著放樣點逐支施打，入土深度常在 1.5 到 3 公尺，依地質調查結果決定；石塊多的地層需先引孔。每一支樁打完要量測頂部高程、位置與垂直度，因為上面的支架要靠它們對齊，誤差太大就裝不上去。": [
-"Most ground-mounted solar farms skip concrete foundations. Instead, a pile driver hammers hot-dip galvanised H-section or C-section steel piles straight into the ground. The rig works along the set-out points one pile at a time, driving them typically 1.5 to 3 m deep depending on the ground; stony layers need pre-drilling. Each pile's top level, position and verticality are measured afterwards, because the racking above has to line up on them and large errors mean it won't fit.",
-"地上設置型の太陽光発電所の多くはコンクリート基礎を使わず、杭打ち機で溶融亜鉛めっきの H 形鋼や C 形鋼の杭を直接地面に打ち込みます。杭打ち機は墨出し点に沿って1本ずつ打設し、根入れ深さは地盤調査の結果に応じて一般に 1.5〜3 m です。石の多い地層では先行削孔が必要です。打設後は杭頭の高さ、位置、鉛直度を測ります。上の架台はこれらの杭にそろえて取り付けるため、誤差が大きいと取り付けられません。"
-],
-"打樁機移到第一個標樁位置": [
-"The pile driver moves to the first stake",
-"杭打ち機が最初の測量杭の位置へ移動"
-],
-"液壓錘把鍍鋅鋼樁打入地面": [
-"A hydraulic hammer drives the galvanised steel pile into the ground",
-"油圧ハンマーで亜鉛めっき鋼製杭を地中へ打ち込む"
-],
-"剖面：鋼樁入土約 1.8 公尺": [
-"Cross-section: the pile is embedded about 1.8 m",
-"断面：杭の根入れは約 1.8 m"
-],
-"逐支量測頂部高程與垂直度": [
-"Each pile's top level and verticality are measured",
-"1本ずつ杭頭の高さと鉛直度を計測"
-],
-"打樁機": [
-"Pile driver",
-"杭打ち機"
-],
-"熱浸鍍鋅鋼樁": [
-"Hot-dip galvanised steel pile",
-"溶融亜鉛めっき鋼製杭"
-],
-"入土約 1.8 m": [
-"Embedded about 1.8 m",
-"根入れ 約 1.8 m"
-],
-"地下": [
-"Below ground",
-"地下"
-],
-"量測高程與垂直度": [
-"Level and verticality check",
-"高さと鉛直度の計測"
-],
-"打樁紀錄": [
-"Piling log",
-"杭打ち記録"
-],
-"已完成": [
-"Completed",
-"完了"
-],
-"{k} / 12 支": [
-"{k} / 12 piles",
-"{k} / 12 本"
-],
-"入土深度": [
-"Embedment",
-"根入れ深さ"
-],
-"垂直度偏差": [
-"Verticality error",
-"鉛直度の誤差"
-],
-"基樁為什麼怕「拔」": [
-"Why piles are tested for uplift",
-"杭はなぜ「引抜き」に弱いのか"
-],
-"太陽能板像一面斜放的大板子，颱風吹過時，板下的氣流會產生向上的「上拔力」，同時還有側向推力。鋼樁靠著與土壤之間的摩擦與側向土壓抵抗這些力。因此施工前會在現場做拉拔試驗：用千斤頂把樁往上拉，記錄載重與位移，確認在設計載重的倍數下，位移仍在容許範圍內，才決定整區的樁長。": [
-"A solar panel is like a large board set at an angle. When a typhoon blows across it, the airflow beneath creates an upward uplift force, along with a sideways push. Steel piles resist these forces through friction with the soil and lateral earth pressure. So before construction, pull-out tests are done on site: a jack pulls a pile upward while load and displacement are logged, to confirm that at a multiple of the design load the displacement stays within limits. Only then is the pile length for the area decided.",
-"太陽光パネルは斜めに置いた大きな板のようなものです。台風が吹くとパネルの下の気流が上向きの「揚力（引抜き力）」を生み、同時に横からの力も加わります。鋼製杭は土との摩擦と横方向の土圧でこれらの力に抵抗します。そのため施工前に現地で引抜き試験を行い、ジャッキで杭を引き上げながら荷重と変位を記録し、設計荷重の数倍でも変位が許容範囲内であることを確かめてから、区域全体の杭長を決めます。"
-],
-"颱風時，板下氣流產生向上的上拔力": [
-"In a typhoon, air under the panels creates an upward uplift force",
-"台風時、パネル下の気流が上向きの引抜き力を生む"
-],
-"加上側向風力，都由鋼樁傳給土壤": [
-"Add the sideways wind force: the piles pass both to the soil",
-"横方向の風力も加わり、いずれも杭から地盤へ伝わる"
-],
-"土壤摩擦力抵抗上拔": [
-"Soil friction resists the uplift",
-"土の摩擦力が引抜きに抵抗"
-],
-"現場拉拔試驗：記錄載重與上拔位移": [
-"On-site pull-out test: logging load and uplift displacement",
-"現地の引抜き試験：荷重と引抜き変位を記録"
-],
-"達到試驗載重、位移仍在容許值內：合格": [
-"Test load reached with displacement within limits: pass",
-"試験荷重に達しても変位は許容値内：合格"
-],
-"作用在樁上的力": [
-"Forces on a pile",
-"杭に作用する力"
-],
-"上拔力（風吸力）": [
-"Uplift (wind suction)",
-"引抜き力（風による吸上げ）"
-],
-"側向風力": [
-"Lateral wind force",
-"横方向の風力"
-],
-"土壤摩擦阻抗": [
-"Soil friction",
-"土の摩擦抵抗"
-],
-"入土深度決定阻抗大小": [
-"Deeper embedment, more resistance",
-"根入れ深さで抵抗の大きさが決まる"
-],
-"拉拔試驗：載重與上拔位移（示例）": [
-"Pull-out test: load vs. uplift (example)",
-"引抜き試験：荷重と引抜き変位（例）"
-],
-"拉拔載重（kN）": [
-"Pull-out load (kN)",
-"引抜き荷重（kN）"
-],
-"位移（mm）": [
-"Displacement (mm)",
-"変位（mm）"
-],
-"設計上拔力 12 kN": [
-"Design uplift 12 kN",
-"設計引抜き力 12 kN"
-],
-"容許位移 20 mm": [
-"Allowable 20 mm",
-"許容変位 20 mm"
-],
-"試驗載重＝2 倍": [
-"Test load = 2×",
-"試験荷重＝2 倍"
-],
-"位移在容許值內：合格": [
-"Within limits: pass",
-"許容値内：合格"
-],
-"支架與模組安裝": [
-"Racking and module installation",
-"架台とモジュールの取付"
-],
-"樁位確認後，工班在樁頂鎖上斜樑，再橫向架設檁條，形成固定傾角的支架。台灣常見傾角約 10 到 15 度，面向南方；角度太大會增加受風面積，太小則不利雨水沖刷灰塵。接著兩人一組把模組抬上支架，以直立兩排（2P）的方式排列，再用壓塊鎖在檁條上。每片模組的背面有接線盒與快速接頭，裝好後就能開始配線。": [
-"With the piles checked, the crew bolts rafters to the pile heads and fixes purlins across them, forming racks at a fixed tilt. In Taiwan the tilt is usually about 10 to 15 degrees, facing south; a steeper tilt catches more wind, while a flatter one lets rain wash off less dust. Then pairs of workers lift the modules onto the racks, two in portrait (2P), and clamp them to the purlins. Each module has a junction box and quick connectors on the back, so wiring can start as soon as they are in place.",
-"杭の確認が終わると、作業班は杭頭に斜材（ラフター）を取り付け、その上に横方向の母屋材を架けて、一定の傾斜角の架台をつくります。台湾では一般に傾斜角 10〜15 度で南向きです。角度が大きすぎると受風面積が増え、小さすぎると雨でほこりが流れにくくなります。次に2人1組でモジュールを架台に載せ、縦置き2段（2P）に並べてクランプで母屋材に固定します。各モジュールの裏面には接続箱とコネクターがあり、取り付けが終わればすぐに配線を始められます。"
-],
-"樁頂鎖上斜樑與檁條，組成固定傾角的支架": [
-"Rafters and purlins are bolted to the piles, forming fixed-tilt racks",
-"杭頭に斜材と母屋材を取り付け、固定傾斜の架台を組む"
-],
-"模組以直立兩排（2P）排列，傾角約 12°": [
-"Modules sit two in portrait (2P) at about 12°",
-"モジュールを縦置き2段（2P）で配置、傾斜角は約 12°"
-],
-"兩人一組把模組抬上支架，壓塊鎖固": [
-"Workers lift the modules on in pairs and clamp them down",
-"2人1組でモジュールを架台に載せ、クランプで固定"
-],
-"一排排完成，準備配線": [
-"Row after row is finished, ready for wiring",
-"1列ずつ完成し、配線の準備"
-],
-"斜樑與檁條": [
-"Rafters and purlins",
-"斜材と母屋材"
-],
-"傾角約 12°": [
-"Tilt about 12°",
-"傾斜角 約 12°"
-],
-"模組直立兩排（2P）": [
-"Two in portrait (2P)",
-"縦置き2段（2P）"
-],
-"壓塊固定": [
-"Clamps",
-"クランプ固定"
-],
-"兩人一組抬運模組": [
-"Modules carried in pairs",
-"2人1組でモジュールを運ぶ"
-],
-"本區安裝進度": [
-"Installation progress",
-"この区画の取付状況"
-],
-"支架": [
-"Racks",
-"架台"
-],
-"{k} / 6 排": [
-"{k} / 6 rows",
-"{k} / 6 列"
-],
-"模組": [
-"Modules",
-"モジュール"
-],
-"{k} / 12 片": [
-"{k} / 12",
-"{k} / 12 枚"
-],
-"組串：直流怎麼串": [
-"Stringing the DC side",
-"ストリング：直流のつなぎ方"
-],
-"一片模組的電壓只有數十伏特，要把許多片串聯成一「串」，電壓才夠讓變流器有效率地工作。串接的片數有上限：模組在低溫時電壓會升高，整串的開路電壓必須低於系統上限 1,500 V。以單片開路電壓約 50 V 為例，一串約可接 26 片。多串模組再並聯接到組串式變流器，由它追蹤最大功率點，把直流轉成交流。": [
-"One module produces only a few tens of volts, so many are connected in series into a string to reach a voltage the inverter can work with efficiently. There is a limit to how many: module voltage rises in cold weather, and the string's open-circuit voltage must stay below the 1,500 V system limit. With about 50 V open-circuit per module, a string can take about 26 modules. Several strings are then connected in parallel to a string inverter, which tracks the maximum power point and converts DC into AC.",
-"モジュール1枚の電圧は数十ボルトしかないため、多数を直列につないで「ストリング」にし、パワーコンディショナーが効率よく動作できる電圧にします。直列枚数には上限があります。モジュールの電圧は低温で上がるため、ストリング全体の開放電圧はシステム上限の 1,500 V 未満でなければなりません。1枚の開放電圧を約 50 V とすると、1ストリングは約 26 枚です。複数のストリングを並列にしてストリング型パワーコンディショナーに接続し、最大電力点を追従しながら直流を交流に変換します。"
-],
-"模組一片接一片串聯，電壓逐片相加": [
-"Modules are linked in series and their voltages add up",
-"モジュールを1枚ずつ直列接続し、電圧が加算される"
-],
-"26 片約 1,300 V；低溫時電壓再升高": [
-"26 modules give about 1,300 V; cold weather raises it further",
-"26 枚で約 1,300 V。低温時はさらに上昇"
-],
-"整串電壓必須低於系統上限 1,500 V": [
-"The string voltage must stay below the 1,500 V system limit",
-"ストリング電圧はシステム上限 1,500 V 未満に"
-],
-"多串並聯接到組串式變流器，直流轉成交流": [
-"Strings are paralleled into a string inverter, which turns DC into AC",
-"複数ストリングを並列にしてパワーコンディショナーへ、直流を交流に変換"
-],
-"一串模組（串聯）": [
-"One string (in series)",
-"1ストリング（直列）"
-],
-"{n} 片 × 約 50 V ＝ {v} V": [
-"{n} × about 50 V = {v} V",
-"{n} 枚 × 約 50 V ＝ {v} V"
-],
-"串接片數與整串開路電壓": [
-"Modules in series vs. open-circuit voltage",
-"直列枚数とストリング開放電圧"
-],
-"串接片數": [
-"Modules in series",
-"直列枚数"
-],
-"系統上限 1,500 V": [
-"System limit 1,500 V",
-"システム上限 1,500 V"
-],
-"低溫時約 1,390 V": [
-"About 1,390 V when cold",
-"低温時 約 1,390 V"
-],
-"多串並聯 → 組串式變流器": [
-"Strings in parallel → string inverter",
-"ストリングの並列 → ストリング型パワコン"
-],
-"第 {n} 串": [
-"String {n}",
-"ストリング {n}"
-],
-"變流器": [
-"Inverter",
-"パワコン"
-],
-"交流": [
-"AC",
-"交流"
-],
-"MPPT：隨日照調整工作點，取得最大功率": [
-"MPPT: follows the sunlight to get maximum power",
-"MPPT：日射に合わせて動作点を調整し、最大電力を得る"
-],
-"變流器、升壓與併網": [
-"From inverter to the grid",
-"パワコン、昇圧、系統連系"
-],
-"變流器輸出的低壓交流電，先在場內的箱式變電站升到 22.8 kV，再由集電線路匯集到升壓站。小型案場可以直接併入台電的 22.8 kV 饋線；大型案場則自建或共用升壓站，把電壓升到 161 kV 或 69 kV 後併入輸電網。電壓越高，同樣的功率所需電流越小，線路損失也越低。": [
-"The low-voltage AC from the inverters is first stepped up to 22.8 kV by compact substations on site, then gathered by collection lines to the step-up substation. Small sites can connect directly to a Taipower 22.8 kV feeder; large sites build or share a step-up substation that raises the voltage to 161 kV or 69 kV before joining the transmission grid. The higher the voltage, the less current the same power needs and the lower the line losses.",
-"パワーコンディショナーが出力する低圧の交流は、まず場内のキュービクル式変電設備で 22.8 kV に昇圧され、集電線路で昇圧変電所に集められます。小規模サイトは台湾電力の 22.8 kV 配電線に直接連系できます。大規模サイトは昇圧変電所を自ら建設または共用し、161 kV または 69 kV に昇圧してから送電網に連系します。電圧が高いほど同じ電力に必要な電流は小さくなり、送電損失も下がります。"
-],
-"模組串列的直流電進入組串式變流器": [
-"DC from the module strings enters the string inverters",
-"ストリングの直流がストリング型パワコンに入る"
-],
-"箱式變電站把低壓交流升到 22.8 kV": [
-"A compact substation steps the low-voltage AC up to 22.8 kV",
-"キュービクル式変電設備が低圧交流を 22.8 kV に昇圧"
-],
-"集電線路匯集各區的電力到升壓站": [
-"Collection lines gather power from each block to the substation",
-"集電線路で各区画の電力を昇圧変電所に集める"
-],
-"升壓到 161 kV，併入台電輸電網": [
-"Stepped up to 161 kV and into Taipower's transmission grid",
-"161 kV に昇圧し、台湾電力の送電網に連系"
-],
-"模組串列": [
-"Module strings",
-"ストリング"
-],
-"1,500 V 以下 DC": [
-"DC up to 1,500 V",
-"直流 1,500 V 以下"
-],
-"組串式變流器": [
-"String inverter",
-"ストリング型パワコン"
-],
-"約 800 V AC": [
-"about 800 V AC",
-"約 800 V AC"
-],
-"箱式變電站": [
-"Compact substation",
-"キュービクル式変電設備"
-],
-"22.8 kV 集電線路": [
-"22.8 kV collection line",
-"22.8 kV 集電線路"
-],
-"地下電纜": [
-"Underground cable",
-"地中ケーブル"
-],
-"升壓站": [
-"Step-up substation",
-"昇圧変電所"
-],
-"台電電網": [
-"Taipower grid",
-"台湾電力系統"
-],
-"直流": [
-"DC",
-"直流"
-],
-"直流 → 交流": [
-"DC → AC",
-"直流 → 交流"
-],
-"兩種併網方式": [
-"Two ways to connect",
-"2つの連系方式"
-],
-"小型案場": [
-"Small sites",
-"小規模サイト"
-],
-"直接併入台電 22.8 kV 饋線": [
-"Connect directly to a Taipower 22.8 kV feeder",
-"台湾電力の 22.8 kV 配電線に直接連系"
-],
-"大型案場": [
-"Large sites",
-"大規模サイト"
-],
-"自建或共用升壓站，升到 161 kV 或 69 kV 併入輸電網": [
-"Build or share a step-up substation; up to 161 kV or 69 kV into the transmission grid",
-"昇圧変電所を建設または共用し、161 kV か 69 kV で送電網へ"
-],
-"竣工查驗與併聯運轉": [
-"Commissioning and first power",
-"竣工検査と系統連系運転"
-],
-"設備全部裝好後，先由電機技師與施工團隊做竣工檢查：量測每一串的開路電壓與絕緣電阻、確認模組與支架確實接地，並以 I-V 曲線量測找出異常的組串。接著向台電申請併聯試運轉，保護電驛與通訊都確認正常後正式送電；最後向能源署辦理設備登記，案場才進入商轉，開始二十年的發電與維運。": [
-"With everything installed, the electrical engineer and construction team carry out completion checks: measuring each string's open-circuit voltage and insulation resistance, confirming that modules and racks are properly earthed, and using I-V curve tracing to find faulty strings. Next comes Taipower's grid-connection trial: once protection relays and communications check out, the site is energised. Finally, equipment registration with the Energy Administration puts the site into commercial operation for twenty years of generation and maintenance.",
-"すべての設備を取り付けたら、まず電気技術士と施工チームが竣工検査を行います。各ストリングの開放電圧と絶縁抵抗を測定し、モジュールと架台が確実に接地されているか確認し、I-V カーブ測定で異常なストリングを見つけます。次に台湾電力に系統連系の試運転を申請し、保護リレーと通信が正常であることを確認してから送電を開始します。最後にエネルギー署で設備登録を行うと、サイトは商業運転に入り、20年にわたる発電と保守が始まります。"
-],
-"竣工檢查：開路電壓、絕緣電阻與接地": [
-"Completion checks: open-circuit voltage, insulation and earthing",
-"竣工検査：開放電圧、絶縁抵抗、接地"
-],
-"I-V 曲線量測，找出異常組串": [
-"I-V curve tracing finds faulty strings",
-"I-V カーブ測定で異常なストリングを見つける"
-],
-"台電併聯試運轉，正式送電": [
-"Taipower grid-connection trial: the site is energised",
-"台湾電力の連系試運転で送電開始"
-],
-"辦理設備登記後進入商轉": [
-"Equipment registration, then commercial operation",
-"設備登録を経て商業運転へ"
-],
-"I-V 曲線量測": [
-"I-V curve tracing",
-"I-V カーブ測定"
-],
-"併入台電電網": [
-"Into the Taipower grid",
-"台湾電力系統へ連系"
-],
-"設備登記完成，進入商轉": [
-"Registered and in commercial operation",
-"設備登録完了、商業運転へ"
-],
-"案場即時狀態": [
-"Live site status",
-"サイトのリアルタイム状態"
-],
-"絕緣電阻": [
-"Insulation resistance",
-"絶縁抵抗"
-],
-"併聯狀態": [
-"Grid status",
-"連系状態"
-],
-"併聯中": [
-"Connected",
-"連系中"
-],
-"待併聯": [
-"Awaiting connection",
-"連系待ち"
-],
-"發電功率（示例）": [
-"Output (example)",
-"発電出力（例）"
-]
+"太陽光電系列":["Solar PV Series","太陽光発電シリーズ"],
+"太陽電池怎麼發電":["How a solar cell makes electricity","太陽電池はどうやって発電するのか"],
+"陽光照在一片深藍色的板子上，為什麼就有電流流出？這一集從矽原子與光子談起，看 PN 接面如何把電子推向同一個方向，再從一片電池片組成模組，最後用 I-V 曲線理解最大功率點與溫度的影響。":["Why does current flow out of a dark blue panel when sunlight falls on it? This episode starts with silicon atoms and photons, shows how the PN junction pushes electrons in one direction, builds a module from individual cells, and finally uses the I-V curve to explain the maximum power point and the effect of temperature.","濃い青色のパネルに日が当たると、なぜ電流が流れ出すのでしょうか。このエピソードでは、シリコン原子と光子から話を始め、PN 接合が電子を一方向へ押し出す仕組み、セルからモジュールを組み立てる構造を見たうえで、I-V カーブを使って最大電力点と温度の影響を解説します。"],
+"矽的能隙：光子能量要高於這個值，才能把電子從鍵結中釋放":["Band gap of silicon: a photon needs more energy than this to free an electron from its bond","シリコンのバンドギャップ。光子のエネルギーがこれを上回らないと電子を結合から解放できない"],
+"約 0.7":["about 0.7","約 0.7"],
+"一片矽晶電池的開路電壓，與面積無關；面積決定電流大小":["Open-circuit voltage of one silicon cell, whatever its size; the area sets the current","シリコンセル1枚の開放電圧。面積には依存せず、面積は電流の大きさを決める"],
+"片":["cells","枚"],
+"常見 182 mm 半片模組的電池數，分成兩半各 72 片串聯後並聯":["Cells in a common 182 mm half-cut module: two halves of 72 in series, connected in parallel","一般的な 182 mm ハーフカットモジュールのセル数。72 枚直列の2グループを並列接続"],
+"標準測試條件（STC）的日照強度，另規定電池溫度 25°C 與 AM1.5 光譜":["Irradiance under Standard Test Conditions (STC), together with a 25°C cell temperature and the AM1.5 spectrum","標準試験条件（STC）の日射強度。セル温度 25°C と AM1.5 スペクトルも規定"],
+"常見矽晶模組的功率溫度係數，溫度每升 1°C 功率約少這麼多":["Power temperature coefficient of common silicon modules: the output lost for each 1°C rise","一般的なシリコンモジュールの出力温度係数。温度が 1°C 上がるごとに出力がこれだけ下がる"],
+"約 22–23":["about 22–23","約 22–23"],
+"目前常見商用矽晶模組的轉換效率範圍（示例）":["Typical efficiency range of today's commercial silicon modules (example)","現在の一般的な市販シリコンモジュールの変換効率（例）"],
+"說明：本集為教育用途示意動畫，原子、電池與模組的比例經過放大調整。I-V 曲線以 580 W 級半片模組為示例參數（開路電壓 51.6 V、短路電流 13.9 A）計算，溫度影響以功率溫度係數約 −0.3%/°C 估算；實際數值依各廠牌規格書與現場條件而定。":["Note: this episode is an educational schematic; atoms, cells and modules are enlarged and not to scale. The I-V curves are calculated from example parameters for a 580 W-class half-cut module (open-circuit voltage 51.6 V, short-circuit current 13.9 A), and the temperature effect is estimated with a power temperature coefficient of about −0.3%/°C. Actual values depend on each manufacturer's datasheet and site conditions.","注：本エピソードは教育用の模式アニメーションで、原子・セル・モジュールの縮尺は拡大・調整しています。I-V カーブは 580 W 級ハーフカットモジュールの例示パラメータ（開放電圧 51.6 V、短絡電流 13.9 A）で計算し、温度の影響は出力温度係数約 −0.3%/°C で見積もっています。実際の値は各メーカーの仕様書と現地条件によって異なります。"],
+"陽光照在模組上":["Sunlight on a solar module","モジュールに日が当たる"],
+"太陽光電模組沒有會轉動的零件，也不燃燒任何東西。陽光可以看成一顆顆帶有能量的「光子」，打在模組表面的電池片上，就直接在材料內部產生電流，從接線盒以直流電的形式流出。晴天中午，照到地面的日照強度大約每平方公尺 1,000 瓦；一片常見的模組把其中約兩成多轉換成電，其餘多半變成熱。":["A solar module has no moving parts and burns nothing. Sunlight can be thought of as a stream of photons, each carrying energy. When they strike the cells on the module's surface, they generate a current directly inside the material, which leaves the junction box as direct current. At midday on a clear day about 1,000 watts of sunlight reach each square metre of ground; a typical module converts a little over a fifth of it into electricity, and most of the rest becomes heat.","太陽光発電モジュールには回転する部品がなく、何も燃やしません。太陽光はエネルギーを持った「光子」の粒の流れと考えることができ、モジュール表面のセルに当たると材料の内部で直接電流が生まれ、接続箱から直流として流れ出します。晴れた日の正午、地上に届く日射強度は1平方メートルあたり約 1,000 ワットで、一般的なモジュールはその2割あまりを電気に変え、残りの多くは熱になります。"],
+"陽光由一顆顆帶有能量的光子組成":["Sunlight is made of photons, each carrying energy","太陽光はエネルギーを持つ光子の集まり"],
+"光子打在模組表面的電池片上":["Photons strike the cells on the module's surface","光子がモジュール表面のセルに当たる"],
+"材料內部直接產生電流，沒有轉動零件":["Current forms right inside the material, with no moving parts","材料の内部で直接電流が生まれ、回転部品はない"],
+"直流電從接線盒流出，送往變流器":["DC flows out of the junction box to the inverter","直流が接続箱から流れ出し、パワコンへ送られる"],
+"光子":["Photons","光子"],
+"太陽光電模組":["Solar module","太陽光発電モジュール"],
+"電池片直接把光變成電":["Cells turn light into power","セルが光を直接電気に"],
+"變流器":["Inverter","パワコン"],
+"直流電":["DC","直流"],
+"晴天中午（示例）":["Clear midday (example)","晴天の正午（例）"],
+"日照強度":["Irradiance","日射強度"],
+"轉成電的比例":["Converted","変換効率"],
+"約 22%":["about 22%","約 22%"],
+"光子打出電子":["Photons free electrons","光子が電子をたたき出す"],
+"矽原子最外層有四個電子，和相鄰原子兩兩共用，排成整齊的晶格。光子打進矽裡，若能量大於矽的能隙 1.12 電子伏特，就能把一個電子從鍵結中「踢」出來，成為可以自由移動的電子，原位置留下一個帶正電的空位，稱為電洞。紅外光能量不足，會直接穿過；藍紫光能量太多，多出來的部分變成熱。這是矽晶電池效率有上限的主要原因。":["A silicon atom has four outer electrons, which it shares in pairs with its neighbours to form a regular crystal lattice. When a photon enters the silicon with more energy than silicon's band gap of 1.12 electron volts, it can knock an electron out of its bond. The electron is now free to move, and it leaves behind a positively charged vacancy called a hole. Infrared light lacks the energy and passes straight through; blue and violet light carry too much, and the excess becomes heat. This is the main reason silicon cells have an efficiency ceiling.","シリコン原子は最外殻に4個の電子を持ち、隣の原子と2個ずつ共有して規則正しい結晶格子を作っています。シリコンに入った光子のエネルギーがバンドギャップの 1.12 電子ボルトより大きければ、電子を結合から「はじき出し」、自由に動ける電子にします。元の場所には正の電荷を持つ空席が残り、これを正孔と呼びます。赤外光はエネルギーが足りずそのまま透過し、青紫の光はエネルギーが多すぎて余りが熱になります。これがシリコンセルの効率に上限がある主な理由です。"],
+"矽原子共用電子，排成整齊的晶格":["Silicon atoms share electrons in a regular lattice","シリコン原子が電子を共有し、規則正しい格子を作る"],
+"光子打進來，把電子從鍵結中釋放":["A photon arrives and frees an electron from its bond","光子が入射し、電子を結合から解放する"],
+"能帶圖：能量要跨過 1.12 eV 的能隙":["Band diagram: the energy must clear the 1.12 eV gap","バンド図：1.12 eV のバンドギャップを越える必要がある"],
+"藍紫光能量太多，多出的部分變成熱":["Blue-violet light has too much energy; the excess becomes heat","青紫の光はエネルギー過剰で、余りが熱になる"],
+"紅外光能量不足，直接穿過":["Infrared lacks the energy and passes straight through","赤外光はエネルギー不足でそのまま透過"],
+"矽晶格（示意）":["Silicon lattice (schematic)","シリコン結晶格子（模式図）"],
+"自由電子":["Free electron","自由電子"],
+"電洞":["Hole","正孔"],
+"光子能量夠大，才能打斷鍵結":["Only an energetic enough photon can break a bond","光子のエネルギーが十分なときだけ結合を切れる"],
+"能帶圖：跨過能隙才算數":["Band diagram: only crossing the gap counts","バンド図：ギャップを越えてはじめて有効"],
+"導帶":["Conduction band","伝導帯"],
+"價帶":["Valence band","価電子帯"],
+"能隙":["Band gap","バンドギャップ"],
+"可見光":["Visible","可視光"],
+"產生電子電洞對":["Electron–hole pair","電子・正孔対"],
+"藍紫光":["Blue-violet","青紫光"],
+"多餘能量變成熱":["Excess becomes heat","余剰分は熱に"],
+"紅外光":["Infrared","赤外光"],
+"能量不足，穿過":["Too weak, passes","不足で透過"],
+"PN 接面：把電子推往同一邊":["The PN junction","PN 接合：電子を一方向へ"],
+"只把電子打出來還不夠，它們很快又會和電洞重新結合。電池片的關鍵是 PN 接面：在矽裡摻入磷，形成電子較多的 N 型層；摻入硼，形成電洞較多的 P 型層。兩層接觸處形成一道內建電場，像一道單向的坡，光產生的電子被推向 N 型層，電洞被推向 P 型層。只要用導線把兩邊接起來，電子就會繞經外部電路流動，點亮燈泡，這就是光電流。":["Freeing electrons is not enough on its own, because they would soon recombine with holes. The key to a cell is the PN junction. Doping silicon with phosphorus creates an N-type layer rich in electrons; doping with boron creates a P-type layer rich in holes. Where the two meet, a built-in electric field forms, acting like a one-way slope: electrons created by light are pushed into the N layer and holes into the P layer. Connect the two sides with a wire and the electrons flow around the external circuit and light a bulb. This is the photocurrent.","電子をはじき出すだけでは不十分で、電子はすぐに正孔と再結合してしまいます。セルの要は PN 接合です。シリコンにリンを添加すると電子の多い N 型層、ホウ素を添加すると正孔の多い P 型層ができます。両者が接する所には内蔵電界が生まれ、一方通行の坂のように働いて、光で生まれた電子を N 型層へ、正孔を P 型層へ押しやります。両側を導線でつなげば、電子は外部回路を回って電球を灯します。これが光電流です。"],
+"N 型層（摻磷）電子較多，P 型層（摻硼）電洞較多":["The N layer (phosphorus) is rich in electrons, the P layer (boron) in holes","N 型層（リン添加）は電子が多く、P 型層（ホウ素添加）は正孔が多い"],
+"兩層交界處形成內建電場":["A built-in electric field forms where the layers meet","2つの層の境界に内蔵電界ができる"],
+"光產生的電子被推向 N 層，電洞被推向 P 層":["Light-generated electrons are pushed to N, holes to P","光で生まれた電子は N 層へ、正孔は P 層へ押しやられる"],
+"接上外部電路，電子繞一圈點亮燈泡":["Close the circuit and electrons loop round to light a bulb","外部回路をつなぐと、電子が一周して電球が灯る"],
+"N 型矽（摻磷）":["N-type Si (phosphorus)","N 型シリコン（リン添加）"],
+"P 型矽（摻硼）":["P-type Si (boron)","P 型シリコン（ホウ素添加）"],
+"內建電場":["Built-in field","内蔵電界"],
+"燈泡":["Bulb","電球"],
+"亮起":["On","点灯"],
+"電子流出 N 層":["Electrons leave N","電子が N 層から流出"],
+"回到 P 層與電洞結合":["Back to P, meeting holes","P 層に戻り正孔と結合"],
+"電池片剖面（示意）":["Cell cross-section (schematic)","セルの断面（模式図）"],
+"電池片的構造":["Inside a solar cell","セルの構造"],
+"一片矽晶電池片約 0.15 至 0.2 毫米厚，現在常見的邊長是 182 毫米，常再切成兩半使用。正面的細柵線負責收集電流，再匯到較粗的主柵線；表面的抗反射膜讓電池片呈深藍或黑色，減少陽光被反射。背面是另一個電極。不論電池片多大，單片的開路電壓都只有約 0.7 伏特，面積越大，產生的電流越多。":["A silicon cell is about 0.15 to 0.2 millimetres thick. A common size today is 182 millimetres square, often cut in half before use. Thin fingers on the front collect the current and feed it to the wider busbars, and an anti-reflective coating gives the cell its dark blue or black colour by reflecting less sunlight. The back carries the other electrode. However large the cell, its open-circuit voltage is only about 0.7 volts; a larger area simply produces more current.","シリコンセルの厚さは約 0.15〜0.2 ミリで、現在は一辺 182 ミリが一般的です。多くは半分に切って使われます。表面の細いフィンガー電極が電流を集め、太いバスバーに送ります。表面の反射防止膜が太陽光の反射を減らし、セルを濃い青や黒に見せています。裏面にはもう一方の電極があります。セルの大きさにかかわらず、1枚の開放電圧は約 0.7 ボルトで、面積が大きいほど電流が増えます。"],
+"正面：細柵線收集電流，匯到主柵線":["Front: fingers collect current and feed the busbars","表面：フィンガーが電流を集め、バスバーへ送る"],
+"剖面：抗反射膜、N 型層、P 型基板與背電極":["Cross-section: coating, N layer, P base and rear contact","断面：反射防止膜、N 型層、P 型基板、裏面電極"],
+"電池片常切成兩半，降低電流與電阻損失":["Cells are often cut in half to cut current and resistive loss","セルは半分に切って電流と抵抗損失を減らす"],
+"單片約 0.7 V，面積決定電流大小":["About 0.7 V per cell; the area sets the current","1枚約 0.7 V、面積が電流を決める"],
+"正面（182 mm 電池片）":["Front (182 mm cell)","表面（182 mm セル）"],
+"切成半片":["Cut in half","ハーフカット"],
+"細柵線：收集電流":["Fingers: collect current","フィンガー：電流を集める"],
+"主柵線：把電流匯出":["Busbars: carry current out","バスバー：電流を取り出す"],
+"剖面（厚度放大示意）":["Cross-section (thickness exaggerated)","断面（厚さは拡大）"],
+"抗反射膜":["Anti-reflective coating","反射防止膜"],
+"N 型層（射極）":["N layer (emitter)","N 型層（エミッタ）"],
+"P 型矽基板":["P-type Si base","P 型シリコン基板"],
+"背面電極":["Rear contact","裏面電極"],
+"正面柵線":["Front fingers","表面電極"],
+"PN 接面":["PN junction","PN 接合"],
+"厚度約 0.15–0.2 mm":["About 0.15–0.2 mm thick","厚さ約 0.15–0.2 mm"],
+"單片開路電壓":["Open-circuit voltage per cell","セル1枚の開放電圧"],
+"約 0.7 V":["about 0.7 V","約 0.7 V"],
+"電壓與面積無關；面積越大，電流越大":["Voltage does not depend on area; more area, more current","電圧は面積に依存せず、面積が大きいほど電流が大きい"],
+"從電池片到模組":["From cells to a module","セルからモジュールへ"],
+"一片電池片的電壓太低，也經不起風雨，所以要串聯並封裝成模組。常見的 182 毫米半片模組有 144 片電池，分成兩半各 72 片串聯，再彼此並聯，開路電壓約 50 伏特。電池片夾在兩層封裝膠膜（EVA 或 POE）之間，前面是強化玻璃、背面是背板或第二片玻璃，經層壓後裝上鋁框。接線盒裡的三顆旁路二極體，讓局部被遮蔭的電池串可以被繞過。":["A single cell's voltage is too low and it cannot stand up to the weather, so cells are wired in series and sealed into a module. A common 182 mm half-cut module holds 144 cells in two halves of 72 in series, connected in parallel, for an open-circuit voltage of about 50 volts. The cells sit between two layers of encapsulant (EVA or POE), with tempered glass in front and a backsheet or second pane of glass behind; the stack is laminated and fitted with an aluminium frame. Three bypass diodes in the junction box let current skip a partly shaded group of cells.","セル1枚では電圧が低く、風雨にも耐えられないため、直列につないでモジュールに封止します。一般的な 182 ミリのハーフカットモジュールには 144 枚のセルがあり、72 枚ずつ直列にした2グループを並列につなぎ、開放電圧は約 50 ボルトになります。セルは2層の封止材（EVA または POE）で挟まれ、前面は強化ガラス、裏面はバックシートまたは2枚目のガラスで、ラミネート加工後にアルミフレームを取り付けます。接続箱の中の3個のバイパスダイオードにより、部分的に影になったセル列を迂回できます。"],
+"封裝結構：玻璃、膠膜、電池片、膠膜、背板":["Layers: glass, encapsulant, cells, encapsulant, backsheet","構成：ガラス、封止材、セル、封止材、バックシート"],
+"層壓成一體，再裝上鋁框":["Laminated into one piece, then framed","ラミネートで一体化し、フレームを取り付け"],
+"144 片半片電池：分成兩半，各 72 片串聯":["144 half cells: two halves of 72 in series","144 枚のハーフセル：72 枚直列の2グループ"],
+"接線盒內的旁路二極體，讓遮蔭的部分被繞過":["Bypass diodes in the junction box route around shading","接続箱のバイパスダイオードが影の部分を迂回させる"],
+"模組封裝結構":["Module layers","モジュールの構造"],
+"強化玻璃":["Tempered glass","強化ガラス"],
+"封裝膠膜（EVA）":["Encapsulant (EVA)","封止材（EVA）"],
+"電池片":["Cells","セル"],
+"背板":["Backsheet","バックシート"],
+"層壓成一體":["Laminated","ラミネート"],
+"裝上鋁框":["Aluminium frame","アルミフレーム"],
+"前玻璃約 3.2 mm":["Front glass about 3.2 mm","前面ガラス約 3.2 mm"],
+"為什麼要封裝":["Why encapsulate","なぜ封止するのか"],
+"電池片很薄很脆，怕水氣與撞擊":["Cells are thin and brittle, vulnerable to moisture and impact","セルは薄く割れやすく、湿気と衝撃に弱い"],
+"層壓：加熱並抽真空，讓膠膜熔合":["Lamination: heat and vacuum fuse the encapsulant","ラミネート：加熱と真空で封止材を融着"],
+"玻璃透光、背板絕緣，鋁框提供強度":["Glass lets light in, backsheet insulates, frame adds strength","ガラスは光を通し、バックシートは絶縁、フレームは強度"],
+"144 片半片電池的串接":["Wiring 144 half cells","144 枚のハーフセルの接続"],
+"左半 72 片串聯":["72 in series (left)","左半分 72 枚直列"],
+"右半 72 片串聯":["72 in series (right)","右半分 72 枚直列"],
+"接線盒":["Junction box","接続箱"],
+"{n} 片 × 約 0.7 V ≈ {v} V":["{n} cells × about 0.7 V ≈ {v} V","{n} 枚 × 約 0.7 V ≈ {v} V"],
+"兩半並聯：電壓不變、電流相加":["Halves in parallel: same voltage, currents add","2グループを並列：電圧は同じ、電流は加算"],
+"遮蔭":["Shade","影"],
+"3 顆旁路二極體":["3 bypass diodes","バイパスダイオード 3 個"],
+"每顆負責 1/3 的電池串":["Each covers one third of the cells","それぞれがセル列の 1/3 を担当"],
+"局部遮蔭時電流從二極體繞過，":["When part is shaded, current takes the diode,","部分的に影になると電流はダイオードを迂回し、"],
+"只損失被遮的那 1/3，不會整片停擺":["so only that third is lost, not the whole module","失うのはその 1/3 だけで、全体は止まらない"],
+"I-V 曲線與最大功率點":["The I-V curve and maximum power point","I-V カーブと最大電力点"],
+"模組的「體檢表」是 I-V 曲線：橫軸是電壓、縱軸是電流。短路時電流最大，稱為短路電流 Isc；斷路時電壓最高，稱為開路電壓 Voc，但這兩點的功率都是零。功率等於電壓乘電流，在曲線轉彎的「膝點」附近最大，稱為最大功率點（MPP）。變流器的 MPPT 功能會隨日照變化，不斷調整工作電壓，讓模組一直停在這一點附近。":["A module's health report is its I-V curve, with voltage on the horizontal axis and current on the vertical. Current is highest when the module is short-circuited, the short-circuit current Isc; voltage is highest when the circuit is open, the open-circuit voltage Voc. At both points the power is zero. Power is voltage times current, and it peaks near the knee of the curve, at the maximum power point (MPP). The inverter's MPPT function keeps adjusting the operating voltage as sunlight changes so the module stays close to this point.","モジュールの「健康診断書」が I-V カーブです。横軸は電圧、縦軸は電流です。短絡したときに電流は最大で、これを短絡電流 Isc と呼びます。開放したときに電圧は最大で、開放電圧 Voc と呼びますが、どちらの点でも電力はゼロです。電力は電圧と電流の積で、カーブが折れ曲がる「ひざ」の付近で最大になり、これを最大電力点（MPP）と呼びます。パワコンの MPPT 機能は日射の変化に合わせて動作電圧を調整し続け、モジュールをこの点の近くに保ちます。"],
+"I-V 曲線：電壓越高，電流先持平再急降":["I-V curve: current holds steady, then falls sharply","I-V カーブ：電流はほぼ一定の後、急に下がる"],
+"兩端點：短路電流 Isc 與開路電壓 Voc":["The two ends: short-circuit current Isc and open-circuit voltage Voc","両端：短絡電流 Isc と開放電圧 Voc"],
+"功率＝電壓 × 電流，在膝點附近最大":["Power = voltage × current, highest near the knee","電力＝電圧 × 電流、ひざ付近で最大"],
+"變流器的 MPPT 持續追蹤最大功率點":["The inverter's MPPT keeps tracking the maximum power point","パワコンの MPPT が最大電力点を追い続ける"],
+"I-V 曲線（580 W 級模組示例）":["I-V curve (580 W-class module, example)","I-V カーブ（580 W 級モジュールの例）"],
+"電壓（V）":["Voltage (V)","電圧（V）"],
+"電流（A）":["Current (A)","電流（A）"],
+"P-V 曲線：功率＝電壓 × 電流":["P-V curve: power = voltage × current","P-V カーブ：電力＝電圧 × 電流"],
+"功率（W）":["Power (W)","電力（W）"],
+"短路電流 Isc 13.9 A":["Short-circuit current Isc 13.9 A","短絡電流 Isc 13.9 A"],
+"開路電壓":["Open-circuit voltage","開放電圧"],
+"兩端的功率都是 0":["Zero power at both ends","両端では電力は 0"],
+"最大功率點":["Maximum power point","最大電力点"],
+"Pmax 約 580 W":["Pmax about 580 W","Pmax 約 580 W"],
+"MPPT：來回微調電壓，找出最高點":["MPPT: nudges the voltage to find the peak","MPPT：電圧を微調整して頂点を探す"],
+"溫度越高，功率越低":["Heat lowers the output","温度が上がると出力が下がる"],
+"模組的標示功率是在電池溫度 25°C 的標準條件下量測。台灣夏天中午，模組溫度常達 60 至 70°C，電壓會明顯下降，常見矽晶模組的功率溫度係數約為每度 −0.3% 至 −0.4%，比 25°C 時少了一成以上。所以日照最強的正午不一定效率最好；支架架高、保留背面通風、選用溫度係數較低的模組，都能減少這部分損失。":["A module's rated power is measured under standard conditions with the cells at 25°C. At midday in a Taiwanese summer, modules often reach 60 to 70°C and their voltage drops noticeably. Common silicon modules have a power temperature coefficient of about −0.3% to −0.4% per degree, so they deliver over a tenth less than at 25°C. The sunniest hour is therefore not always the most efficient one; raising the racking, leaving space for air behind the modules and choosing modules with a lower temperature coefficient all reduce this loss.","モジュールの定格出力は、セル温度 25°C の標準条件で測定されています。台湾の夏の正午にはモジュール温度が 60〜70°C に達することが多く、電圧がはっきり下がります。一般的なシリコンモジュールの出力温度係数は1度あたり約 −0.3〜−0.4% で、25°C のときより1割以上少なくなります。そのため日射が最も強い正午が最も効率が良いとは限りません。架台を高くする、裏面の通風を確保する、温度係数の小さいモジュールを選ぶことで、この損失を減らせます。"],
+"夏天中午日照最強，模組也跟著升溫":["Midsummer noon: the strongest sun, and the modules heat up","夏の正午、日射が最も強くモジュールも熱くなる"],
+"模組溫度可達 65°C，電壓明顯下降":["Modules can reach 65°C, and the voltage drops","モジュール温度は 65°C に達し、電圧が下がる"],
+"溫度每升 1°C，功率約少 0.3–0.4%":["Each 1°C rise costs about 0.3–0.4% of power","1°C 上がるごとに出力は約 0.3–0.4% 低下"],
+"架高與背面通風，幫助模組散熱":["Raised racking and airflow behind help cool the modules","架台を高くし裏面を通風させて放熱を助ける"],
+"I-V 曲線：25°C 與 65°C":["I-V curve: 25°C vs 65°C","I-V カーブ：25°C と 65°C"],
+"25°C：約 580 W":["25°C: about 580 W","25°C：約 580 W"],
+"65°C：約 510 W":["65°C: about 510 W","65°C：約 510 W"],
+"模組溫度":["Module temp.","モジュール温度"],
+"電壓下降、功率變低":["Lower voltage and power","電圧と出力が低下"],
+"背面通風散熱":["Airflow behind","裏面の通風で放熱"],
+"支架架高":["Raised racking","架台を高く"],
+"模組狀態（示例）":["Module status (example)","モジュールの状態（例）"],
+"輸出功率":["Output","出力"]
 });
 
 /* ================= episode engine ================= */

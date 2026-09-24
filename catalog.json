@@ -306,6 +306,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "原理",
+            "en": "Principles",
+            "ja": "原理"
+          },
+          "episodes": [
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "太陽電池怎麼發電",
+                "en": "How a solar cell makes electricity",
+                "ja": "太陽電池はどうやって発電するのか"
+              },
+              "sub": {
+                "zh": "光電效應、PN 接面、電池片到模組、I-V 曲線與溫度",
+                "en": "Photoelectric effect, PN junction, cells to modules, the I-V curve and temperature",
+                "ja": "光電効果、PN 接合、セルからモジュール、I-V カーブと温度"
+              }
+            }
+          ]
         }
       ]
     }
