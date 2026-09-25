@@ -331,6 +331,49 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "energy-storage",
+      "title": {
+        "zh": "儲能",
+        "en": "Energy Storage",
+        "ja": "エネルギー貯蔵"
+      },
+      "summary": {
+        "zh": "電池儲能、抽蓄水力與電力市場：把電留到需要的時候",
+        "en": "Battery storage, pumped hydro and power markets: keeping electricity for when it is needed",
+        "ja": "蓄電池、揚水発電、電力市場。必要なときのために電気を蓄える"
+      },
+      "lede": {
+        "zh": "再生能源越多，電網越需要能「存電」的設備。這個系列從貨櫃式電池儲能談起，看儲能如何充放電、如何保持安全，又如何幫台灣電網穩住頻率。",
+        "en": "The more renewables on the grid, the more it needs ways to store electricity. This series starts with containerized battery storage: how it charges and discharges, how it is kept safe, and how it helps Taiwan's grid hold its frequency.",
+        "ja": "再生可能エネルギーが増えるほど、電力系統には電気を蓄える設備が必要になります。本シリーズはコンテナ型蓄電池から始め、充放電の仕組み、安全の確保、そして台湾の電力系統の周波数を支える役割を解説します。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "設備與原理",
+            "en": "Equipment and principles",
+            "ja": "設備と原理"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "貨櫃式電池儲能系統",
+                "en": "Containerized battery energy storage",
+                "ja": "コンテナ型蓄電池システム"
+              },
+              "sub": {
+                "zh": "電池芯到貨櫃、BMS／PCS／EMS、液冷與消防、調頻輔助服務",
+                "en": "Cells to containers, BMS/PCS/EMS, liquid cooling and fire safety, frequency regulation",
+                "ja": "セルからコンテナ、BMS／PCS／EMS、液冷と防火、周波数調整"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
