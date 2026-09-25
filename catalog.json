@@ -417,6 +417,49 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "hydrogen",
+      "title": {
+        "zh": "氫能",
+        "en": "Hydrogen",
+        "ja": "水素エネルギー"
+      },
+      "summary": {
+        "zh": "電解產氫、燃料電池與氫的儲運：零碳燃料怎麼來、怎麼用",
+        "en": "Electrolysis, fuel cells, storage and transport: where a zero-carbon fuel comes from and how it is used",
+        "ja": "水電解、燃料電池、貯蔵と輸送。ゼロカーボン燃料のつくり方と使い方"
+      },
+      "lede": {
+        "zh": "氫氣使用時只產生水，被視為鋼鐵、化工與發電減碳的重要選項。這個系列從電解水產氫談起，再看燃料電池如何發電，以及氫氣如何儲存與運輸。",
+        "en": "Hydrogen leaves only water when it is used, making it a key option for cutting emissions in steel, chemicals and power generation. This series starts with making hydrogen by electrolysis, then looks at how fuel cells generate electricity and how hydrogen is stored and transported.",
+        "ja": "水素は使っても水しか出さないため、鉄鋼、化学、発電の脱炭素に向けた重要な選択肢とされています。本シリーズは水電解による水素製造から始め、燃料電池の発電の仕組み、水素の貯蔵と輸送を解説します。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "製造",
+            "en": "Production",
+            "ja": "製造"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "電解水產氫",
+                "en": "Making hydrogen by splitting water",
+                "ja": "水電解による水素製造"
+              },
+              "sub": {
+                "zh": "電解原理與電壓、鹼性與 PEM 電解槽、每公斤氫的耗電、灰氫與綠氫、壓縮儲存",
+                "en": "How electrolysis works, alkaline and PEM electrolysers, electricity per kilogram, grey vs green hydrogen, compression and storage",
+                "ja": "電解の原理と電圧、アルカリ形と PEM 形、水素 1 kg の電力量、グレーとグリーン水素、圧縮と貯蔵"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
