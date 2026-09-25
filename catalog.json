@@ -333,6 +333,49 @@
       ]
     },
     {
+      "slug": "onshore-wind",
+      "title": {
+        "zh": "陸域風電",
+        "en": "Onshore Wind",
+        "ja": "陸上風力"
+      },
+      "summary": {
+        "zh": "葉片運輸、基礎、吊裝、發電原理到風場運維",
+        "en": "Blade transport, foundations, erection, how turbines generate and wind farm operations",
+        "ja": "ブレード輸送、基礎、据付、発電の原理から風力発電所の運用まで"
+      },
+      "lede": {
+        "zh": "台灣西部沿海的強勁季風，讓陸域風機成為最早發展的再生能源之一。這個系列從一部風機怎麼運進來、立起來談起，再看它如何把風變成電、又如何長期運轉。",
+        "en": "The strong monsoon winds along Taiwan's west coast made onshore wind one of the island's earliest renewables. This series starts with how a turbine is brought in and erected, then looks at how it turns wind into electricity and how it is kept running for decades.",
+        "ja": "台湾西部沿岸の強い季節風により、陸上風力は台湾で最も早く発展した再生可能エネルギーの一つです。本シリーズは風車の搬入と据付から始め、風を電気に変える仕組み、そして長期の運用までを解説します。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "施工",
+            "en": "Construction",
+            "ja": "施工"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "陸域風機運輸與吊裝",
+                "en": "Transporting and erecting an onshore wind turbine",
+                "ja": "陸上風車の輸送と据付"
+              },
+              "sub": {
+                "zh": "葉片夜間運輸、擴展式基礎、主吊機與輔助吊機、塔架機艙葉片吊裝",
+                "en": "Night-time blade transport, spread foundations, main and tailing cranes, erecting tower, nacelle and blades",
+                "ja": "ブレードの夜間輸送、拡底式基礎、メインと補助クレーン、タワー・ナセル・ブレードの据付"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "energy-storage",
       "title": {
         "zh": "儲能",
