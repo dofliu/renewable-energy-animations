@@ -460,6 +460,49 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "geothermal",
+      "title": {
+        "zh": "地熱",
+        "en": "Geothermal",
+        "ja": "地熱"
+      },
+      "summary": {
+        "zh": "從地底取熱發電：儲集層、生產井與回注井、閃化式與雙循環",
+        "en": "Power from the Earth's heat: reservoirs, production and injection wells, flash and binary plants",
+        "ja": "地下の熱で発電：貯留層、生産井と還元井、フラッシュ方式とバイナリー方式"
+      },
+      "lede": {
+        "zh": "地熱不受晝夜與天氣影響，是能提供基載電力的再生能源。台灣位在板塊交界，地熱資源豐富。這個系列從地熱電廠怎麼運作談起，介紹地下的熱從哪裡來、如何鑽井取熱，以及台灣的地熱開發。",
+        "en": "Geothermal energy is unaffected by day, night or weather, making it a renewable that can supply baseload power. Taiwan sits on a plate boundary and is rich in geothermal resources. This series starts with how a geothermal plant works, then explains where underground heat comes from, how wells tap it, and how Taiwan is developing it.",
+        "ja": "地熱は昼夜や天候に左右されず、ベースロード電源となる再生可能エネルギーです。台湾はプレート境界に位置し、地熱資源が豊富です。本シリーズは地熱発電所の仕組みから始め、地下の熱の由来、井戸による採熱、台湾の地熱開発を紹介します。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "發電原理",
+            "en": "How it works",
+            "ja": "発電の仕組み"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "地熱發電廠",
+                "en": "Inside a geothermal power plant",
+                "ja": "地熱発電所"
+              },
+              "sub": {
+                "zh": "地熱儲集層、生產井與回注井、閃化式與雙循環、宜蘭清水與大屯火山",
+                "en": "Geothermal reservoirs, production and injection wells, flash and binary cycles, Qingshui and Tatun",
+                "ja": "地熱貯留層、生産井と還元井、フラッシュとバイナリー、清水と大屯火山"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
