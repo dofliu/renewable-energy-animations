@@ -304,6 +304,20 @@
                 "en": "Setting out, piling, racking, stringing and grid connection",
                 "ja": "墨出し、杭打ち、架台とモジュール、ストリング、系統連系"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "屋頂型太陽光電安裝",
+                "en": "Installing rooftop solar",
+                "ja": "屋根置き太陽光発電の設置"
+              },
+              "sub": {
+                "zh": "屋頂勘查、支架固定與防水、防墜、抗風設計、接取台電低壓",
+                "en": "Roof survey, mounting and waterproofing, fall protection, wind design, low-voltage connection",
+                "ja": "屋根調査、架台固定と防水、墜落防止、耐風設計、低圧連系"
+              }
             }
           ]
         },
