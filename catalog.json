@@ -427,6 +427,20 @@
                 "en": "Cells to containers, BMS/PCS/EMS, liquid cooling and fire safety, frequency regulation",
                 "ja": "セルからコンテナ、BMS／PCS／EMS、液冷と防火、周波数調整"
               }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "抽蓄水力",
+                "en": "Pumped-storage hydropower",
+                "ja": "揚水発電"
+              },
+              "sub": {
+                "zh": "上下水庫、可逆式機組、往返效率、明湖與明潭電廠",
+                "en": "Upper and lower reservoirs, reversible pump-turbines, round-trip efficiency, Minghu and Mingtan",
+                "ja": "上池と下池、可逆式ポンプ水車、往復効率、明湖・明潭発電所"
+              }
             }
           ]
         }
