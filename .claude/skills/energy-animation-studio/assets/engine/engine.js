@@ -3,6 +3,9 @@ const hn=(i,j)=>{const s=Math.sin(i*127.1+j*311.7)*43758.5453;return s-Math.floo
 const SH=EP.shots,SS=[];let TOTAL=0;SH.forEach((s,i)=>{SS[i]=TOTAL;TOTAL+=s.dur;});
 let SI=0;
 const P2=n=>String(n).padStart(2,'0');
+/* optional brand theme (theme-<name>.js, added by build.py --theme): {opening(a), overlay(), titleFont(), fonts:[...]} */
+const THM=typeof THEME!=='undefined'?THEME:{};
+const TFONT=()=>THM.titleFont?THM.titleFont():FONT;
 
 /* world-space text with a minimum on-screen size */
 function wt(x,y,t,size,col,weight,align,font,base){
@@ -66,7 +69,8 @@ function renderFrame(){
   const tin=T-SS[SI],tout=SS[SI]+sh.dur-T;let fa=0;
   if(SI>0)fa=Math.max(fa,1-tin/.45);if(SI<SH.length-1)fa=Math.max(fa,1-tout/.45);
   if(fa>0){screenSpace();ctx.fillStyle=`rgba(4,14,22,${clamp(fa)*.92})`;ctx.fillRect(0,0,cssW,cssH);}
-  if(T<3.2){ // opening title
+  if(T<3.2&&THM.opening){THM.opening(T<2.3?1:1-(T-2.3)/.9);}
+  else if(T<3.2){ // opening title
     const a=T<2.3?1:1-(T-2.3)/.9;screenSpace();ctx.fillStyle=`rgba(5,22,32,${.82*a})`;ctx.fillRect(0,0,cssW,cssH);
     ctx.globalAlpha=a;const fs=clamp(cssW/20,22,64),mw=cssW*.9;ctx.textAlign='center';ctx.textBaseline='alphabetic';
     ctx.font=`700 ${fs*1.3}px ${COND}`;ctx.fillStyle='#f2c230';ctx.fillText(P2(EP.no),cssW/2,cssH*.43);
@@ -90,6 +94,7 @@ function ensureFonts(){
   for(const w of [400,500,700,900])jobs.push(document.fonts.load(`${w} 16px ${fam}`,txt));
   if(LANG==='ja')for(const w of [500,700])jobs.push(document.fonts.load(`${w} 16px "Noto Sans TC"`,txt));
   for(const w of [500,600,700])jobs.push(document.fonts.load(`${w} 16px "Barlow Condensed"`,'0123456789 MWkV'));
+  if(THM.fonts)THM.fonts().forEach(f=>jobs.push(document.fonts.load(f,txt)));
   return Promise.all(jobs).then(()=>document.fonts.ready).catch(()=>{});
 }
 
@@ -227,11 +232,12 @@ function ensureFonts(){
       ctx.font=`600 ${nS*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(sub,x0+nw+4,y0+nS*.78);const sw=ctx.measureText(sub).width;
       const bx=x0+nw+sw+14;ctx.shadowColor='transparent';ctx.fillStyle='#f2c230';ctx.fillRect(bx,y0,3,bh);
       const tx=bx+15,ty=y0+(bh-inner)/2;
-      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
+      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${TFONT()}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
       ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.6);
       ctx.restore();
     }
     if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('credit')+' · '+ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    if(THM.overlay)THM.overlay();
     if(T<3.2)return;
     let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
     const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
