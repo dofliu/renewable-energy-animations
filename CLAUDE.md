@@ -24,3 +24,4 @@ QA 需要 `pip install playwright pillow` 與 `python -m playwright install --wi
 - `catalog.json` 所有顯示文字用 `{"zh":…,"en":…,"ja":…}`。
 - 數字以台灣情境為主並查證；無法查證的寫成「典型範例」並在 note 註明。
 - `qa/` 是暫存輸出，不要提交。
+- 署名（國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室）已內建：動畫片頭與右上角由引擎 `i18n.js` 的 `credit`／`creditFull` 產生，頁面頁尾由 `catalog.json` 的 `credit` 產生。不要移除；修改引擎後要用 `src/` 重建所有集數。

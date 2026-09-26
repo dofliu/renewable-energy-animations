@@ -14,6 +14,11 @@
     "en": "Educational schematic animations; figures are typical examples. Actual values depend on each project's design and the authorities' approvals.",
     "ja": "教育用の模式アニメーションです。数値は典型的な例で、実際は各案件の設計と主管機関の承認内容によります。"
   },
+  "credit": {
+    "zh": "© 2026 國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作",
+    "en": "© 2026 Produced by Prof. Liu's Lab, Department of Intelligent Automation Engineering, National Chin-Yi University of Technology",
+    "ja": "© 2026 制作：国立勤益科技大学 スマートオートメーション工学科 劉瑞弘研究室"
+  },
   "topics": [
     {
       "slug": "offshore-wind",

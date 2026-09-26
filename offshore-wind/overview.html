@@ -175,7 +175,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   .rec-opts .seg{margin-bottom:8px}
 }
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
 <nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="01 風況量測 →" data-en="01 Wind resource assessment →" data-ja="01 風況観測 →">01 風況量測 →</span></a></nav>
@@ -1958,6 +1958,7 @@ function ensureFonts(){
   requestAnimationFrame(loop);
 })();
 </script>
+<p class="site-credit" data-zh="© 2026 國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作" data-en="© 2026 Produced by Prof. Liu&#x27;s Lab, Department of Intelligent Automation Engineering, National Chin-Yi University of Technology" data-ja="© 2026 制作：国立勤益科技大学 スマートオートメーション工学科 劉瑞弘研究室">© 2026 國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作</p>
 <script id="topnav-js">(function(){var K='rea-lang',LS=['zh','en','ja'];
 function cur(){try{var q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();if(LS.indexOf(q)>=0)return q;var s=localStorage.getItem(K)||localStorage.getItem('owf-lang');if(LS.indexOf(s)>=0)return s;var n=(navigator.language||'').toLowerCase();return n.indexOf('ja')==0?'ja':n.indexOf('en')==0?'en':'zh';}catch(e){return 'zh';}}
 function apply(l){document.querySelectorAll('[data-zh]').forEach(function(el){var v=el.getAttribute('data-'+l);el.textContent=v||el.getAttribute('data-zh');});

@@ -33,7 +33,7 @@ document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.targe
 document.addEventListener('langchange',function(ev){apply(ev.detail);});
 apply(cur());})();</script>'''
 ICON='<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E">'
-NAVCSS='<style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style>'
+NAVCSS='<style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style>'
 BASECSS=''':root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#e7eeec;--surface:#f6f9f8;--ink:#13232e;--muted:#4f6470;--line:#c5d3d2;--sea:#1f7f99;--signal:#f2c230;--chart:#0e2a3b;--sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow",sans-serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--sea:#58b8d0}}
 :root[data-theme="dark"]{--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--sea:#58b8d0}
@@ -64,12 +64,16 @@ def inject(path,nav):
     s=re.sub(r'<nav class="topnav".*?</nav>\n?','',s,flags=re.S)
     s=re.sub(r'<style(?: id="topnav-css")?>\.topnav.*?</style>','',s,flags=re.S)
     s=re.sub(r'<script id="topnav-js">.*?</script>','',s,flags=re.S)
+    s=re.sub(r'<p class="site-credit"[^>]*>.*?</p>\n?','',s,flags=re.S)
     s=s.replace("'owf-lang'","'rea-lang'")  # one language setting for the whole site
     if 'rel="icon"' not in s:s=s.replace('</head>',ICON+'</head>',1)
     s=s.replace('</head>',NAVCSS+'</head>',1).replace('<div class="wrap">','<div class="wrap">\n'+nav,1)
+    if CREDIT:s=s.replace('</body>',CREDIT_P+'\n</body>',1)
     s=s.replace('</body>',LANGJS.replace('<script>','<script id="topnav-js">',1)+'</body>',1)
     open(path,'w',encoding='utf-8').write(s)
 SITE=L(cat.get('siteTitle','再生能源動畫館'));cards=''
+CREDIT=cat.get('credit');CREDIT_P=T(CREDIT,'p','site-credit') if CREDIT else ''
+FOOT=lambda:T(cat.get('disclaimer',''),'p','foot')+(T(CREDIT,'p','foot') if CREDIT else '')
 UIT={'series':{'zh':'{t}系列','en':'{t} series','ja':'{t}シリーズ'},'first':{'zh':'先看全貌','en':'Start with the overview','ja':'まずは全体像'},
  'topics':{'zh':'主題','en':'Topics','ja':'テーマ'},'back':{'zh':'回到本系列 →','en':'Back to the series →','ja':'シリーズへ戻る →'},
  'meta':{'zh':'{o}{n} 集','en':'{o}{n} episodes','ja':'{o}全 {n} 話'},'ov':{'zh':'1 支總覽＋','en':'overview + ','ja':'総集編＋'}}
@@ -110,13 +114,13 @@ for tp in cat['topics']:
             d=x.get('dur') or dur_of(os.path.join(D,x['file'])) or ''
             n=f'{x["no"]:02d}' if 'no' in x else '▶'
             rows+=f'<a class="ep" href="{x["file"]}"><span class="n">{n}</span><span class="t">{T(x["title"],"b")}{T(x.get("sub",""),"i")}</span><span class="d">{d}</span></a>\n'
-    page=head2(cat_(ST,cat_({l:"｜" for l in LANGS},SITE))).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><p class="crumb"><a href="../index.html">← {T(SITE)}</a></p>{LANGSW}</div><h1>{T(ST)}</h1>{T(tp.get("lede",""),"p","lede")}\n{rows}{T(cat.get("disclaimer",""),"p","foot")}</div>{LANGJS}</body></html>'
+    page=head2(cat_(ST,cat_({l:"｜" for l in LANGS},SITE))).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><p class="crumb"><a href="../index.html">← {T(SITE)}</a></p>{LANGSW}</div><h1>{T(ST)}</h1>{T(tp.get("lede",""),"p","lede")}\n{rows}{FOOT()}</div>{LANGJS}</body></html>'
     open(os.path.join(D,'index.html'),'w',encoding='utf-8').write(page)
     th=os.path.join(D,'thumb.svg')
     thumb=open(th,encoding='utf-8').read() if os.path.exists(th) else f'<span class="ph">{T(TT)}</span>'
     meta=fmt('meta',o=(UIT['ov'] if tp.get('overview') else {l:'' for l in LANGS}),n=len(eps))
     cards+=f'<a class="topic" href="{slug}/index.html"><span class="th" aria-hidden="true">{thumb}</span><span class="body">{T(TT,"b")}{T(tp.get("summary",""),"p")}{T(meta,"span","meta")}</span></a>\n'
-portal=head2(SITE).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><h1>{T(SITE)}</h1>{LANGSW}</div>{T(cat.get("siteLede",""),"p","lede")}<h2>{T(UIT["topics"])}</h2><div class="topics">\n{cards}</div>{T(cat.get("disclaimer",""),"p","foot")}</div>{LANGJS}</body></html>'
+portal=head2(SITE).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><h1>{T(SITE)}</h1>{LANGSW}</div>{T(cat.get("siteLede",""),"p","lede")}<h2>{T(UIT["topics"])}</h2><div class="topics">\n{cards}</div>{FOOT()}</div>{LANGJS}</body></html>'
 open(os.path.join(R,'index.html'),'w',encoding='utf-8').write(portal)
 if not os.path.exists(os.path.join(R,'.nojekyll')):open(os.path.join(R,'.nojekyll'),'w').close()
 print(f'site rebuilt: {len(cat["topics"])} topic(s)')

@@ -73,6 +73,7 @@ function renderFrame(){
     const tt=epT(),tfs=LANG==='en'&&tt.length>26?fs*.8:fs;
     ctx.font=`900 ${tfs}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(tt,cssW/2,cssH*.43+fs*1.2,mw);
     ctx.font=`500 ${fs*.42}px ${LANG==='en'?FONT:COND}`;ctx.fillStyle='rgba(255,255,255,.8)';ctx.fillText(epSub(),cssW/2,cssH*.43+fs*1.85,mw);
+    ctx.font=`500 ${clamp(cssW/70,11,20)}px ${FONT}`;ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('creditFull'),cssW/2,cssH*.9,mw);
     ctx.globalAlpha=1;ctx.textAlign='left';
   }
 }
@@ -230,7 +231,7 @@ function ensureFonts(){
       ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.6);
       ctx.restore();
     }
-    if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('credit')+' · '+ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
     if(T<3.2)return;
     let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
     const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
