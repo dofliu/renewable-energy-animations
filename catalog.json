@@ -579,6 +579,49 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "power-grid",
+      "title": {
+        "zh": "電網與能源轉型",
+        "en": "Power Grid",
+        "ja": "電力系統"
+      },
+      "summary": {
+        "zh": "頻率、調度與鴨子曲線：再生能源越多，電網如何保持平衡",
+        "en": "Frequency, dispatch and the duck curve: how the grid stays balanced as renewables grow",
+        "ja": "周波数、給電指令、ダックカーブ：再エネが増えても系統が釣り合う仕組み"
+      },
+      "lede": {
+        "zh": "發電廠、太陽光電與風機的電，最後都要經過電網才能送到用戶。這個系列從電網如何隨時平衡供需談起，介紹頻率與調頻、中央調度，以及虛擬電廠、輸變電設備等能源轉型中的電網課題。",
+        "en": "Electricity from power plants, solar farms and wind turbines all reaches customers through the grid. This series starts with how the grid balances supply and demand moment by moment, then covers frequency control, central dispatch, virtual power plants, transmission and substations — the grid challenges of the energy transition.",
+        "ja": "発電所、太陽光、風力の電気は、すべて電力系統を通って需要家に届きます。本シリーズは系統が刻々と需給を合わせる仕組みから始め、周波数調整、中央給電、仮想発電所、送変電設備など、エネルギー転換における系統の課題を紹介します。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "系統運作",
+            "en": "System operation",
+            "ja": "系統運用"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "電網如何平衡供需",
+                "en": "How the grid balances supply and demand",
+                "ja": "電力系統はどう需給を合わせるか"
+              },
+              "sub": {
+                "zh": "60 Hz 頻率、轉動慣量、一次與二次調頻、中央調度、鴨子曲線",
+                "en": "60 Hz frequency, inertia, primary and secondary control, central dispatch, the duck curve",
+                "ja": "60 Hz の周波数、慣性、一次・二次調整、中央給電、ダックカーブ"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

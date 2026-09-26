@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ep01.js｜電網系列</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#e7eeec;
+  --surface:#f6f9f8;
+  --ink:#13232e;
+  --muted:#4f6470;
+  --line:#c5d3d2;
+  --chart:#0e2a3b;
+  --signal:#f2c230;
+  --alert:#e8572a;
+  --sea:#1f7f99;
+  --stepdone:#1f7f99;
+  --sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow","Noto Sans TC","PingFang TC",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--stepdone:#58b8d0;--sea:#58b8d0;
+  }
+}
+:root[data-theme="dark"]{--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--stepdone:#58b8d0;--sea:#58b8d0;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:18px clamp(12px,3vw,32px) 48px}
+
+/* ---------- title ---------- */
+.masthead{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:end;margin:6px 0 16px}
+.masthead .mark{grid-row:span 2;width:58px;height:58px;border-radius:14px;background:var(--chart);display:grid;place-items:center}
+.masthead .mark svg{width:40px;height:40px}
+.masthead h1{margin:0;font-size:clamp(24px,3.4vw,38px);font-weight:900;letter-spacing:.02em;line-height:1.15}
+.masthead p{margin:0;color:var(--muted);font-size:clamp(13px,1.5vw,15px);max-width:62ch}
+
+/* ---------- stage ---------- */
+.stage{position:relative;width:100%;aspect-ratio:16/9;background:var(--chart);border-radius:16px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -24px rgba(8,32,45,.55)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center;background:#051620}
+.stage:fullscreen canvas{position:relative;inset:auto;width:min(100vw,calc(100vh*16/9));height:min(100vh,calc(100vw*9/16))}
+.chapcard{position:absolute;left:clamp(10px,2vw,22px);top:clamp(10px,2vw,20px);display:flex;align-items:stretch;gap:12px;pointer-events:none;opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .5s}
+.chapcard.show{opacity:1;transform:none}
+.chapcard .no{font-family:var(--cond);font-weight:700;font-size:clamp(30px,4.6vw,58px);line-height:.9;color:var(--signal);text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.chapcard .tt{display:flex;flex-direction:column;justify-content:center;padding-left:12px;border-left:3px solid var(--signal)}
+.chapcard b{font-size:clamp(15px,2.1vw,26px);font-weight:900;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45);line-height:1.2}
+.chapcard i{font-style:normal;font-family:var(--cond);font-weight:500;font-size:clamp(12px,1.35vw,17px);color:rgba(255,255,255,.82);letter-spacing:.02em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.caption{position:absolute;left:50%;bottom:clamp(8px,1.8vw,20px);transform:translateX(-50%);max-width:min(88%,760px);background:rgba(7,26,37,.78);color:#f2f6f7;border-radius:10px;padding:7px 16px;font-size:clamp(12px,1.5vw,17px);font-weight:500;text-align:center;pointer-events:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:opacity .35s}
+.caption:empty{opacity:0}
+.caption .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:middle;transform:translateY(-1px)}
+.scale-note{position:absolute;right:12px;top:10px;font-size:11px;color:rgba(255,255,255,.62);pointer-events:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);height:40px;min-width:40px;border-radius:10px;display:inline-grid;place-items:center;cursor:pointer;font:inherit;font-size:14px;padding:0 10px}
+.btn:hover{border-color:var(--sea)}
+.btn:focus-visible,.seg button:focus-visible,.chap:focus-visible,.timeline:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.btn svg{width:18px;height:18px}
+.btn.play{background:var(--chart);color:#fff;border-color:var(--chart);min-width:48px}
+.timeline{position:relative;flex:1 1 320px;height:40px;display:flex;align-items:center;cursor:pointer;touch-action:none;border-radius:8px}
+.tl-track{position:relative;display:flex;width:100%;height:12px;border-radius:3px;overflow:hidden;background:var(--line)}
+.tl-seg{height:100%;border-right:2px solid var(--bg);position:relative}
+.tl-seg:nth-child(odd){background:rgba(19,35,46,.10)}
+.tl-seg:last-child{border-right:0}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;background:var(--chart);pointer-events:none}
+:root[data-theme="dark"] .tl-fill{background:var(--sea)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tl-fill{background:var(--sea)}}
+.tl-head{position:absolute;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--signal);border:3px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.35);pointer-events:none}
+.time{font-family:var(--cond);font-weight:600;font-size:16px;color:var(--muted);min-width:92px;text-align:right;font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:40px;background:var(--surface)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font-family:var(--cond);font-weight:600;font-size:15px;padding:0 10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--chart);color:#fff}
+.btn.toggle[aria-pressed="false"]{color:var(--muted)}
+
+/* ---------- info ---------- */
+.info{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;margin-top:22px;align-items:start}
+.info h2{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:900;line-height:1.25;display:flex;align-items:baseline;gap:12px}
+.info h2 .n{font-family:var(--cond);font-weight:700;color:var(--sea);font-size:1.15em}
+.info .en{margin:2px 0 12px;font-family:var(--cond);font-size:18px;font-weight:500;color:var(--muted)}
+.info .desc{margin:0;font-size:16px;line-height:1.85;max-width:44em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding:0;list-style:none}
+.chips li{font-size:13px;padding:4px 10px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;counter-reset:s}
+.steps h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.steps li{position:relative;padding:8px 0 8px 34px;font-size:15px;color:var(--muted);border-top:1px dashed var(--line);counter-increment:s;transition:color .3s}
+.steps li:first-of-type{border-top:0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:13px;color:var(--muted);background:var(--surface)}
+.steps li.done{color:var(--ink)}
+.steps li.done::before{content:"✓";background:var(--stepdone);border-color:var(--stepdone);color:#fff}
+.steps li.now{color:var(--ink);font-weight:700}
+.steps li.now::before{background:var(--signal);border-color:var(--signal);color:#13232e}
+
+/* ---------- chapter index ---------- */
+.chapters{margin-top:28px}
+.chapters h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.chap{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer;font:inherit;display:flex;gap:10px;align-items:center;min-height:48px}
+.chap .n{font-family:var(--cond);font-weight:700;font-size:20px;color:var(--muted);min-width:24px}
+.chap .t{font-size:14px;line-height:1.3}
+.chap:hover{border-color:var(--sea)}
+.chap.active{background:var(--chart);border-color:var(--chart);color:#fff}
+.chap.active .n{color:var(--signal)}
+.chap.past .n{color:var(--sea)}
+.foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:80ch;line-height:1.7}
+
+@media (max-width:820px){
+  .info{grid-template-columns:1fr;gap:18px}
+  .masthead .mark{width:46px;height:46px;border-radius:12px}
+  .masthead .mark svg{width:32px;height:32px}
+  .scale-note{display:none}
+  .stage{border-radius:12px}
+}
+@media (max-width:560px){
+  .chapcard{gap:8px}
+  .chapcard .tt{padding-left:8px;border-left-width:2px}
+  .caption{padding:5px 10px;border-radius:8px}
+  .time{min-width:0;font-size:14px}
+  .seg button{padding:0 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .chapcard,.caption{transition:none}
+}
+/* ---------- i18n ---------- */
+:root[lang="ja"]{--sans:"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow","Noto Sans JP","Noto Sans TC",sans-serif}
+.masthead{grid-template-columns:auto 1fr auto}
+.langsw{grid-column:3;grid-row:1 / span 2;align-self:start;display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:36px;background:var(--surface)}
+.langsw button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500;padding:0 12px;cursor:pointer;white-space:nowrap}
+.langsw button+button{border-left:1px solid var(--line)}
+.langsw button[aria-pressed="true"]{background:var(--chart);color:#fff}
+.langsw button:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}
+:root[data-theme="dark"] .seg button[aria-pressed="true"],:root[data-theme="dark"] .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"],:root:not([data-theme="light"]) .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}}
+
+/* ---------- video export ---------- */
+.btn.rec{display:inline-flex;align-items:center;gap:8px;padding:0 13px}
+.btn.rec .rdot{width:10px;height:10px;border-radius:50%;background:var(--alert);box-shadow:0 0 0 3px rgba(232,87,42,.2)}
+.recdlg{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:20px clamp(16px,3vw,26px);width:min(540px,calc(100vw - 24px));max-height:calc(100vh - 24px);box-shadow:0 30px 60px -30px rgba(5,22,32,.65)}
+.recdlg::backdrop{background:rgba(5,22,32,.55)}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rec-head h2{margin:0;font-size:20px;font-weight:900;line-height:1.3}
+.rec-head .btn{height:36px;min-width:36px}
+.rec-intro{margin:8px 0 18px;color:var(--muted);font-size:14px;line-height:1.75}
+.rec-opts{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:center}
+.rec-opts>span{font-size:14px;font-weight:700;color:var(--muted)}
+.rec-opts .seg{justify-self:start;height:36px}
+.rec-opts .seg button{min-width:54px}
+.seg button.tx{font-family:var(--sans);font-size:13px;font-weight:500;padding:0 12px}
+.recdlg.busy .rec-opts{opacity:.5;pointer-events:none}
+.rec-sum{margin:16px 0 0;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rec-prog{margin-top:14px}
+.rec-prog canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;background:var(--chart)}
+.rec-bar{margin-top:10px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.rec-bar i{display:block;height:100%;width:0;background:var(--signal)}
+.rec-stat{margin:8px 0 0;font-size:14px;min-height:1.6em}
+.rec-stat.err{color:var(--alert);font-weight:500}
+.rec-note{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.rec-act{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn.primary{background:var(--chart);color:#fff;border-color:var(--chart);padding:0 18px;font-weight:700}
+.btn.primary:disabled{opacity:.5;cursor:default}
+a.btn{text-decoration:none;display:inline-flex;align-items:center}
+[hidden]{display:none!important}
+@media (max-width:560px){
+  .masthead{grid-template-columns:auto 1fr}
+  .langsw{grid-column:1 / -1;grid-row:auto;justify-self:start;margin-top:4px}
+  .rec-opts{grid-template-columns:1fr;gap:4px}
+  .rec-opts .seg{margin-bottom:8px}
+}
+.masthead .series{grid-column:2;margin:0;font-size:13px;color:var(--muted);font-weight:500}
+.masthead .series a{color:inherit}
+.shots{margin-top:28px}
+.shots h3,.facts h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.shot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.facts{margin-top:28px}
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:0}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.fact dt{font-family:var(--cond);font-weight:700;font-size:26px;line-height:1.1;color:var(--ink)}
+.fact dt small{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--sea);margin-left:4px}
+.fact dd{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
+.chapcard .no small{font-size:.45em;color:rgba(255,255,255,.75);margin-left:4px;font-weight:600}
+
+/* ---------- theme: journal（DOF LAB 品牌層） ---------- */
+:root{--bg:#FAFAF7;--surface:#FFFFFF;--ink:#1E2326;--muted:#68737A;--line:#D8DDDE;--chart:#1b2126;--signal:#B85C38;--alert:#a8432c;--sea:#193A5A;--stepdone:#2F7F7A;--accent-dk:#e08a5f;--serif:"Noto Serif TC","Noto Serif JP",serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--stepdone:#6fb5ad;--sea:#9dbad6;--signal:#e08a5f}}
+:root[data-theme="dark"]{--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--stepdone:#6fb5ad;--sea:#9dbad6;--signal:#e08a5f}
+:root[lang="ja"]{--serif:"Noto Serif JP","Noto Serif TC",serif}
+.masthead h1,.info h2{font-family:var(--serif);font-weight:900;letter-spacing:.01em}
+.masthead .mark{background:transparent;border-radius:6px;overflow:hidden}
+.masthead .mark svg{width:100%;height:100%}
+.stage{border-radius:3px;box-shadow:none}
+.stage:fullscreen{background:#101315}
+.chapcard .no{color:var(--accent-dk)}
+.chapcard .tt{border-left:2px solid var(--accent-dk)}
+.chapcard b{font-family:var(--serif)}
+.caption{border-radius:2px;background:rgba(30,35,38,.84)}
+.caption .dot{background:var(--accent-dk);border-radius:0;width:7px;height:7px}
+.scale-note::before{content:"";display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-2px;background:url("data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"%3E%3Crect width="128" height="128" rx="14" fill="%23202124"/%3E%3Cpath d="M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z" fill="%23F47A20" fill-rule="evenodd"/%3E%3C/svg%3E") center/contain no-repeat}
+.btn,.seg,.langsw,.chap,.chips li,.steps,.fact,.timeline{border-radius:3px}
+.tl-track{border-radius:0}
+.tl-seg:nth-child(odd){background:rgba(30,35,38,.07)}
+.tl-head{border-radius:0;width:6px;height:22px;margin:-11px 0 0 -3px;border:0;box-shadow:none;background:var(--signal)}
+.steps li::before{border-radius:0}
+.steps li.now::before{color:#fff}
+.chap.active .n{color:var(--accent-dk)}
+.fact dt small{color:var(--signal)}
+.info h2 .n{color:var(--signal)}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
+<body>
+<div class="wrap">
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="電網與能源轉型系列" data-en="Power Grid series" data-ja="電力系統シリーズ">電網與能源轉型系列</span></a><span class="sp"></span><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
+  <header class="masthead">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
+    </div>
+    <h1><span id="mNo"></span> <span id="mT"></span></h1>
+    <p id="mLede"></p>
+    <div class="langsw" role="group" data-i18n-aria="langGroup" aria-label="介面語言"><button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="true">中文</button><button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button><button type="button" data-lang="ja" lang="ja" aria-pressed="false">日本語</button></div>
+    <p class="series" id="mSeries"></p>
+  </header>
+  <section aria-label="動畫" data-i18n-aria="secAnim">
+    <div class="stage" id="stage">
+      <canvas id="cv" role="img" aria-label="ep01.js｜電網系列"></canvas>
+      <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
+      <div class="caption" id="caption" aria-live="polite"></div>
+      <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="bPrev" data-i18n-aria="prev" aria-label="上一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="btn play" id="bPlay" aria-label="暫停"><svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+      <button class="btn" id="bNext" data-i18n-aria="next" aria-label="下一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      <div class="timeline" id="timeline" tabindex="0" role="slider" data-i18n-aria="progress" aria-label="播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="tl-track" id="tlTrack"><div class="tl-fill" id="tlFill"></div></div>
+        <div class="tl-head" id="tlHead"></div>
+      </div>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seg" role="group" data-i18n-aria="speed" aria-label="播放速度">
+        <button data-speed="0.5" aria-pressed="false">0.5×</button>
+        <button data-speed="1" aria-pressed="true">1×</button>
+        <button data-speed="2" aria-pressed="false">2×</button>
+      </div>
+      <button class="btn toggle" id="bLabels" aria-pressed="true" data-i18n-title="labelsTip" data-i18n="labels" title="顯示／隱藏標註">標註</button>
+      <button class="btn" id="bFull" data-i18n-aria="full" aria-label="全螢幕"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="btn rec" id="bRec" type="button" aria-haspopup="dialog"><span class="rdot" aria-hidden="true"></span><span data-i18n="rec">匯出影片</span></button>
+    </div>
+  </section>
+  <section class="info" aria-live="polite">
+    <div>
+      <h2><span class="n" id="iNo">1</span><span id="iT"></span></h2>
+      <p class="en" id="iE"></p>
+      <p class="desc" id="iD"></p>
+    </div>
+    <ol class="steps" id="iS"></ol>
+  </section>
+  <nav class="shots" data-i18n-aria="chapNav" aria-label="分鏡">
+    <h3 data-i18n="chapHead">本集分鏡</h3>
+    <div class="shot-grid" id="shotGrid"></div>
+  </nav>
+  <section class="facts" data-i18n-aria="factsAria" aria-label="重點數字">
+    <h3 data-i18n="factsHead">本集重點數字</h3>
+    <dl class="fact-grid" id="facts"></dl>
+  </section>
+  <p class="foot" id="foot"></p>
+</div>
+<dialog class="recdlg" id="recDlg" aria-labelledby="recTitle">
+  <div class="rec-head">
+    <h2 id="recTitle" data-i18n="recTitle">錄製 MP4 影片</h2>
+    <button class="btn" id="recX" type="button" data-i18n-aria="close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <p class="rec-intro" data-i18n="recIntro"></p>
+  <div class="rec-opts">
+    <span id="oSpeed" data-i18n="optSpeed">影片速度</span>
+    <div class="seg" role="group" aria-labelledby="oSpeed" data-opt="speed"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="2" aria-pressed="false">2×</button></div>
+    <span id="oRange" data-i18n="optRange">範圍</span>
+    <div class="seg" role="group" aria-labelledby="oRange" data-opt="range"><button type="button" class="tx" data-v="all" aria-pressed="true" data-i18n="rangeAll">全片</button><button type="button" class="tx" data-v="chap" aria-pressed="false" data-i18n="rangeChap">目前分鏡</button></div>
+    <span id="oRes" data-i18n="optRes">解析度</span>
+    <div class="seg" role="group" aria-labelledby="oRes" data-opt="res"><button type="button" data-v="720" aria-pressed="false">720p</button><button type="button" data-v="1080" aria-pressed="true">1080p</button></div>
+    <span id="oFps" data-i18n="optFps">影格率</span>
+    <div class="seg" role="group" aria-labelledby="oFps" data-opt="fps"><button type="button" data-v="30" aria-pressed="true">30 fps</button><button type="button" data-v="60" aria-pressed="false">60 fps</button></div>
+  </div>
+  <p class="rec-sum" id="recSum"></p>
+  <div class="rec-prog" id="recProg" hidden>
+    <canvas id="recPrev" width="640" height="360" aria-hidden="true"></canvas>
+    <div class="rec-bar"><i id="recBar"></i></div>
+    <p class="rec-stat" id="recStat" aria-live="polite"></p>
+    <p class="rec-note" id="recNote" data-i18n="keepTab"></p>
+  </div>
+  <div class="rec-act">
+    <button class="btn" id="recCancel" type="button" hidden data-i18n="cancel">取消</button>
+    <a class="btn primary" id="recDl" hidden data-i18n="download">下載 MP4</a>
+    <button class="btn primary" id="recGo" type="button" data-i18n="start">開始錄製</button>
+  </div>
+</dialog>
+<script>
+/*! mp4-muxer v5.2.2 | MIT License | (c) 2023 Vanilagy | https://github.com/Vanilagy/mp4-muxer */
+"use strict";var Mp4Muxer=(()=>{var e=Object.defineProperty,t=Object.getOwnPropertyDescriptor,i=Object.getOwnPropertyNames,s=Object.prototype.hasOwnProperty,a=(e,t,i)=>{if(!t.has(e))throw TypeError("Cannot "+i)},r=(e,t,i)=>(a(e,t,"read from private field"),i?i.call(e):t.get(e)),n=(e,t,i)=>{if(t.has(e))throw TypeError("Cannot add the same private member more than once");t instanceof WeakSet?t.add(e):t.set(e,i)},o=(e,t,i,s)=>(a(e,t,"write to private field"),s?s.call(e,i):t.set(e,i),i),h=(e,t,i)=>(a(e,t,"access private method"),i),l={};((t,i)=>{for(var s in i)e(t,s,{get:i[s],enumerable:!0})})(l,{ArrayBufferTarget:()=>Me,FileSystemWritableFileStreamTarget:()=>Oe,Muxer:()=>Rt,StreamTarget:()=>We});var d,f,u,m,p,c,w,g,b=new Uint8Array(8),y=new DataView(b.buffer),k=e=>[(e%256+256)%256],T=e=>(y.setUint16(0,e,!1),[b[0],b[1]]),C=e=>(y.setUint32(0,e,!1),[b[1],b[2],b[3]]),v=e=>(y.setUint32(0,e,!1),[b[0],b[1],b[2],b[3]]),S=e=>(y.setUint32(0,Math.floor(e/2**32),!1),y.setUint32(4,e,!1),[b[0],b[1],b[2],b[3],b[4],b[5],b[6],b[7]]),x=e=>(y.setInt16(0,256*e,!1),[b[0],b[1]]),z=e=>(y.setInt32(0,65536*e,!1),[b[0],b[1],b[2],b[3]]),E=e=>(y.setInt32(0,2**30*e,!1),[b[0],b[1],b[2],b[3]]),A=(e,t=!1)=>{let i=Array(e.length).fill(null).map((t,i)=>e.charCodeAt(i));return t&&i.push(0),i},M=e=>e&&e[e.length-1],W=e=>{let t;for(let i of e)(!t||i.presentationTimestamp>t.presentationTimestamp)&&(t=i);return t},O=(e,t,i=!0)=>{let s=e*t;return i?Math.round(s):s},B=e=>{let t=e*(Math.PI/180),i=Math.cos(t),s=Math.sin(t);return[i,s,0,-s,i,0,0,0,1]},U=B(0),D=e=>[z(e[0]),z(e[1]),E(e[2]),z(e[3]),z(e[4]),E(e[5]),z(e[6]),z(e[7]),E(e[8])],j=e=>e?"object"!=typeof e?e:Array.isArray(e)?e.map(j):Object.fromEntries(Object.entries(e).map(([e,t])=>[e,j(t)])):e,R=e=>e>=0&&e<2**32,I=(e,t,i)=>({type:e,contents:t&&new Uint8Array(t.flat(10)),children:i}),N=(e,t,i,s,a)=>I(e,[k(t),C(i),s??[]],a),V=e=>({type:"mdat",largeSize:e}),F=(e,t,i=!1)=>I("moov",null,[L(t,e),...e.map(e=>$(e,t)),i?me(e):null]),L=(e,t)=>{let i=O(Math.max(0,...t.filter(e=>e.samples.length>0).map(e=>{const t=W(e.samples);return t.presentationTimestamp+t.duration})),Bt),s=Math.max(...t.map(e=>e.id))+1,a=!R(e)||!R(i),r=a?S:v;return N("mvhd",+a,0,[r(e),r(e),v(Bt),r(i),z(1),x(1),Array(10).fill(0),D(U),Array(24).fill(0),v(s)])},$=(e,t)=>I("trak",null,[P(e,t),H(e,t)]),P=(e,t)=>{let i,s=W(e.samples),a=O(s?s.presentationTimestamp+s.duration:0,Bt),r=!R(t)||!R(a),n=r?S:v;return i="video"===e.info.type?"number"==typeof e.info.rotation?B(e.info.rotation):e.info.rotation:U,N("tkhd",+r,3,[n(t),n(t),v(e.id),v(0),n(a),Array(8).fill(0),T(0),T(0),x("audio"===e.info.type?1:0),T(0),D(i),z("video"===e.info.type?e.info.width:0),z("video"===e.info.type?e.info.height:0)])},H=(e,t)=>I("mdia",null,[_(e,t),q("video"===e.info.type?"vide":"soun"),G(e)]),_=(e,t)=>{let i=W(e.samples),s=O(i?i.presentationTimestamp+i.duration:0,e.timescale),a=!R(t)||!R(s),r=a?S:v;return N("mdhd",+a,0,[r(t),r(t),v(e.timescale),r(s),T(21956),T(0)])},q=e=>N("hdlr",0,0,[A("mhlr"),A(e),v(0),v(0),v(0),A("mp4-muxer-hdlr",!0)]),G=e=>I("minf",null,["video"===e.info.type?J():K(),Q(),Z(e)]),J=()=>N("vmhd",0,1,[T(0),T(0),T(0),T(0)]),K=()=>N("smhd",0,0,[T(0),T(0)]),Q=()=>I("dinf",null,[X()]),X=()=>N("dref",0,0,[v(1)],[Y()]),Y=()=>N("url ",0,1),Z=e=>{const t=e.compositionTimeOffsetTable.length>1||e.compositionTimeOffsetTable.some(e=>0!==e.sampleCompositionTimeOffset);return I("stbl",null,[ee(e),oe(e),he(e),le(e),de(e),fe(e),t?ue(e):null])},ee=e=>N("stsd",0,0,[v(1)],["video"===e.info.type?te(Se[e.info.codec],e):ne(ze[e.info.codec],e)]),te=(e,t)=>{return I(e,[Array(6).fill(0),T(1),T(0),T(0),Array(12).fill(0),T(t.info.width),T(t.info.height),v(4718592),v(4718592),v(0),T(1),Array(32).fill(0),T(24),(i=65535,y.setInt16(0,i,!1),[b[0],b[1]])],[xe[t.info.codec](t),t.info.decoderConfig.colorSpace?re(t):null]);var i},ie={bt709:1,bt470bg:5,smpte170m:6},se={bt709:1,smpte170m:6,"iec61966-2-1":13},ae={rgb:0,bt709:1,bt470bg:5,smpte170m:6},re=e=>I("colr",[A("nclx"),T(ie[e.info.decoderConfig.colorSpace.primaries]),T(se[e.info.decoderConfig.colorSpace.transfer]),T(ae[e.info.decoderConfig.colorSpace.matrix]),k((e.info.decoderConfig.colorSpace.fullRange?1:0)<<7)]),ne=(e,t)=>I(e,[Array(6).fill(0),T(1),T(0),T(0),v(0),T(t.info.numberOfChannels),T(16),T(0),T(0),z(t.info.sampleRate)],[Ee[t.info.codec](t)]),oe=e=>N("stts",0,0,[v(e.timeToSampleTable.length),e.timeToSampleTable.map(e=>[v(e.sampleCount),v(e.sampleDelta)])]),he=e=>{if(e.samples.every(e=>"key"===e.type))return null;let t=[...e.samples.entries()].filter(([,e])=>"key"===e.type);return N("stss",0,0,[v(t.length),t.map(([e])=>v(e+1))])},le=e=>N("stsc",0,0,[v(e.compactlyCodedChunkTable.length),e.compactlyCodedChunkTable.map(e=>[v(e.firstChunk),v(e.samplesPerChunk),v(1)])]),de=e=>N("stsz",0,0,[v(0),v(e.samples.length),e.samples.map(e=>v(e.size))]),fe=e=>e.finalizedChunks.length>0&&M(e.finalizedChunks).offset>=2**32?N("co64",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>S(e.offset))]):N("stco",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>v(e.offset))]),ue=e=>N("ctts",0,0,[v(e.compositionTimeOffsetTable.length),e.compositionTimeOffsetTable.map(e=>[v(e.sampleCount),v(e.sampleCompositionTimeOffset)])]),me=e=>I("mvex",null,e.map(pe)),pe=e=>N("trex",0,0,[v(e.id),v(1),v(0),v(0),v(0)]),ce=(e,t)=>I("moof",null,[we(e),...t.map(be)]),we=e=>N("mfhd",0,0,[v(e)]),ge=e=>{let t=0,i=0,s="delta"===e.type;return i|=+s,t|=s?1:2,t<<24|i<<16},be=e=>I("traf",null,[ye(e),ke(e),Te(e)]),ye=e=>{let t=0;t|=8,t|=16,t|=32,t|=131072;let i=e.currentChunk.samples[1]??e.currentChunk.samples[0],s={duration:i.timescaleUnitsToNextSample,size:i.size,flags:ge(i)};return N("tfhd",0,131128,[v(e.id),v(s.duration),v(s.size),v(s.flags)])},ke=e=>N("tfdt",1,0,[S(O(e.currentChunk.startTimestamp,e.timescale))]),Te=e=>{let t=e.currentChunk.samples.map(e=>e.timescaleUnitsToNextSample),i=e.currentChunk.samples.map(e=>e.size),s=e.currentChunk.samples.map(ge),a=e.currentChunk.samples.map(t=>O(t.presentationTimestamp-t.decodeTimestamp,e.timescale)),r=new Set(t),n=new Set(i),o=new Set(s),h=new Set(a),l=2===o.size&&s[0]!==s[1],d=r.size>1,f=n.size>1,u=!l&&o.size>1,m=h.size>1||[...h].some(e=>0!==e),p=0;return p|=1,p|=4*+l,p|=256*+d,p|=512*+f,p|=1024*+u,p|=2048*+m,N("trun",1,p,[v(e.currentChunk.samples.length),v(e.currentChunk.offset-e.currentChunk.moofOffset||0),l?v(s[0]):[],e.currentChunk.samples.map((e,r)=>{return[d?v(t[r]):[],f?v(i[r]):[],u?v(s[r]):[],m?(n=a[r],y.setInt32(0,n,!1),[b[0],b[1],b[2],b[3]]):[]];var n})])},Ce=(e,t)=>N("tfra",1,0,[v(e.id),v(63),v(e.finalizedChunks.length),e.finalizedChunks.map(i=>[S(O(i.startTimestamp,e.timescale)),S(i.moofOffset),v(t+1),v(1),v(1)])]),ve=()=>N("mfro",0,0,[v(0)]),Se={avc:"avc1",hevc:"hvc1",vp9:"vp09",av1:"av01"},xe={avc:e=>e.info.decoderConfig&&I("avcC",[...new Uint8Array(e.info.decoderConfig.description)]),hevc:e=>e.info.decoderConfig&&I("hvcC",[...new Uint8Array(e.info.decoderConfig.description)]),vp9:e=>{if(!e.info.decoderConfig)return null;let t=e.info.decoderConfig;if(!t.colorSpace)throw new Error("'colorSpace' is required in the decoder config for VP9.");let i=t.codec.split("."),s=Number(i[1]),a=Number(i[2]),r=0+(Number(i[3])<<4)+Number(t.colorSpace.fullRange);return N("vpcC",1,0,[k(s),k(a),k(r),k(2),k(2),k(2),T(0)])},av1:()=>I("av1C",[129,0,0,0])},ze={aac:"mp4a",opus:"Opus"},Ee={aac:e=>{let t=new Uint8Array(e.info.decoderConfig.description);return N("esds",0,0,[v(58753152),k(32+t.byteLength),T(1),k(0),v(75530368),k(18+t.byteLength),k(64),k(21),C(0),v(130071),v(130071),v(92307584),k(t.byteLength),...t,v(109084800),k(1),k(2)])},opus:e=>{let t=3840,i=0;const s=e.info.decoderConfig?.description;if(s){if(s.byteLength<18)throw new TypeError("Invalid decoder description provided for Opus; must be at least 18 bytes long.");const e=ArrayBuffer.isView(s)?new DataView(s.buffer,s.byteOffset,s.byteLength):new DataView(s);t=e.getUint16(10,!0),i=e.getInt16(14,!0)}return I("dOps",[k(0),k(e.info.numberOfChannels),T(t),v(e.info.sampleRate),x(i),k(0)])}},Ae=(Symbol("isTarget"),class{}),Me=class extends Ae{constructor(){super(...arguments),this.buffer=null}},We=class extends Ae{constructor(e){if(super(),this.options=e,"object"!=typeof e)throw new TypeError("StreamTarget requires an options object to be passed to its constructor.");if(e.onData){if("function"!=typeof e.onData)throw new TypeError("options.onData, when provided, must be a function.");if(e.onData.length<2)throw new TypeError("options.onData, when provided, must be a function that takes in at least two arguments (data and position). Ignoring the position argument, which specifies the byte offset at which the data is to be written, can lead to broken outputs.")}if(void 0!==e.chunked&&"boolean"!=typeof e.chunked)throw new TypeError("options.chunked, when provided, must be a boolean.");if(void 0!==e.chunkSize&&(!Number.isInteger(e.chunkSize)||e.chunkSize<1024))throw new TypeError("options.chunkSize, when provided, must be an integer and not smaller than 1024.")}},Oe=class extends Ae{constructor(e,t){if(super(),this.stream=e,this.options=t,!(e instanceof FileSystemWritableFileStream))throw new TypeError("FileSystemWritableFileStreamTarget requires a FileSystemWritableFileStream instance.");if(void 0!==t&&"object"!=typeof t)throw new TypeError("FileSystemWritableFileStreamTarget's options, when provided, must be an object.");if(t&&void 0!==t.chunkSize&&(!Number.isInteger(t.chunkSize)||t.chunkSize<=0))throw new TypeError("options.chunkSize, when provided, must be a positive integer")}},Be=class{constructor(){this.pos=0,n(this,d,new Uint8Array(8)),n(this,f,new DataView(r(this,d).buffer)),this.offsets=new WeakMap}seek(e){this.pos=e}writeU32(e){r(this,f).setUint32(0,e,!1),this.write(r(this,d).subarray(0,4))}writeU64(e){r(this,f).setUint32(0,Math.floor(e/2**32),!1),r(this,f).setUint32(4,e,!1),this.write(r(this,d).subarray(0,8))}writeAscii(e){for(let t=0;t<e.length;t++)r(this,f).setUint8(t%8,e.charCodeAt(t)),t%8==7&&this.write(r(this,d));e.length%8!=0&&this.write(r(this,d).subarray(0,e.length%8))}writeBox(e){if(this.offsets.set(e,this.pos),e.contents&&!e.children)this.writeBoxHeader(e,e.size??e.contents.byteLength+8),this.write(e.contents);else{let t=this.pos;if(this.writeBoxHeader(e,0),e.contents&&this.write(e.contents),e.children)for(let t of e.children)t&&this.writeBox(t);let i=this.pos,s=e.size??i-t;this.seek(t),this.writeBoxHeader(e,s),this.seek(i)}}writeBoxHeader(e,t){this.writeU32(e.largeSize?1:t),this.writeAscii(e.type),e.largeSize&&this.writeU64(t)}measureBoxHeader(e){return 8+(e.largeSize?8:0)}patchBox(e){let t=this.pos;this.seek(this.offsets.get(e)),this.writeBox(e),this.seek(t)}measureBox(e){if(e.contents&&!e.children){return this.measureBoxHeader(e)+e.contents.byteLength}{let t=this.measureBoxHeader(e);if(e.contents&&(t+=e.contents.byteLength),e.children)for(let i of e.children)i&&(t+=this.measureBox(i));return t}}};d=new WeakMap,f=new WeakMap;var Ue=class extends Be{constructor(e){super(),n(this,w),n(this,u,void 0),n(this,m,new ArrayBuffer(65536)),n(this,p,new Uint8Array(r(this,m))),n(this,c,0),o(this,u,e)}write(e){h(this,w,g).call(this,this.pos+e.byteLength),r(this,p).set(e,this.pos),this.pos+=e.byteLength,o(this,c,Math.max(r(this,c),this.pos))}finalize(){h(this,w,g).call(this,this.pos),r(this,u).buffer=r(this,m).slice(0,Math.max(r(this,c),this.pos))}};u=new WeakMap,m=new WeakMap,p=new WeakMap,c=new WeakMap,w=new WeakSet,g=function(e){let t=r(this,m).byteLength;for(;t<e;)t*=2;if(t===r(this,m).byteLength)return;let i=new ArrayBuffer(t),s=new Uint8Array(i);s.set(r(this,p),0),o(this,m,i),o(this,p,s)};var De,je,Re,Ie,Ne,Ve,Fe,Le,$e,Pe,He,_e,qe,Ge=class extends Be{constructor(e){super(),n(this,Ve),n(this,Le),n(this,Pe),n(this,_e),n(this,De,void 0),n(this,je,[]),n(this,Re,void 0),n(this,Ie,void 0),n(this,Ne,[]),o(this,De,e),o(this,Re,e.options?.chunked??!1),o(this,Ie,e.options?.chunkSize??16777216)}write(e){r(this,je).push({data:e.slice(),start:this.pos}),this.pos+=e.byteLength}flush(){if(0===r(this,je).length)return;let e=[],t=[...r(this,je)].sort((e,t)=>e.start-t.start);e.push({start:t[0].start,size:t[0].data.byteLength});for(let i=1;i<t.length;i++){let s=e[e.length-1],a=t[i];a.start<=s.start+s.size?s.size=Math.max(s.size,a.start+a.data.byteLength-s.start):e.push({start:a.start,size:a.data.byteLength})}for(let t of e){t.data=new Uint8Array(t.size);for(let e of r(this,je))t.start<=e.start&&e.start<t.start+t.size&&t.data.set(e.data,e.start-t.start);r(this,Re)?(h(this,Ve,Fe).call(this,t.data,t.start),h(this,_e,qe).call(this)):r(this,De).options.onData?.(t.data,t.start)}r(this,je).length=0}finalize(){r(this,Re)&&h(this,_e,qe).call(this,!0)}};De=new WeakMap,je=new WeakMap,Re=new WeakMap,Ie=new WeakMap,Ne=new WeakMap,Ve=new WeakSet,Fe=function(e,t){let i=r(this,Ne).findIndex(e=>e.start<=t&&t<e.start+r(this,Ie));-1===i&&(i=h(this,Pe,He).call(this,t));let s=r(this,Ne)[i],a=t-s.start,n=e.subarray(0,Math.min(r(this,Ie)-a,e.byteLength));s.data.set(n,a);let o={start:a,end:a+n.byteLength};if(h(this,Le,$e).call(this,s,o),0===s.written[0].start&&s.written[0].end===r(this,Ie)&&(s.shouldFlush=!0),r(this,Ne).length>2){for(let e=0;e<r(this,Ne).length-1;e++)r(this,Ne)[e].shouldFlush=!0;h(this,_e,qe).call(this)}n.byteLength<e.byteLength&&h(this,Ve,Fe).call(this,e.subarray(n.byteLength),t+n.byteLength)},Le=new WeakSet,$e=function(e,t){let i=0,s=e.written.length-1,a=-1;for(;i<=s;){let r=Math.floor(i+(s-i+1)/2);e.written[r].start<=t.start?(i=r+1,a=r):s=r-1}for(e.written.splice(a+1,0,t),(-1===a||e.written[a].end<t.start)&&a++;a<e.written.length-1&&e.written[a].end>=e.written[a+1].start;)e.written[a].end=Math.max(e.written[a].end,e.written[a+1].end),e.written.splice(a+1,1)},Pe=new WeakSet,He=function(e){let t={start:Math.floor(e/r(this,Ie))*r(this,Ie),data:new Uint8Array(r(this,Ie)),written:[],shouldFlush:!1};return r(this,Ne).push(t),r(this,Ne).sort((e,t)=>e.start-t.start),r(this,Ne).indexOf(t)},_e=new WeakSet,qe=function(e=!1){for(let t=0;t<r(this,Ne).length;t++){let i=r(this,Ne)[t];if(i.shouldFlush||e){for(let e of i.written)r(this,De).options.onData?.(i.data.subarray(e.start,e.end),i.start+e.start);r(this,Ne).splice(t--,1)}}};var Je,Ke,Qe,Xe,Ye,Ze,et,tt,it,st,at,rt,nt,ot,ht,lt,dt,ft,ut,mt,pt,ct,wt,gt,bt,yt,kt,Tt,Ct,vt,St,xt,zt,Et,At,Mt,Wt,Ot=class extends Ge{constructor(e){super(new We({onData:(t,i)=>e.stream.write({type:"write",data:t,position:i}),chunked:!0,chunkSize:e.options?.chunkSize}))}},Bt=1e3,Ut=["avc","hevc","vp9","av1"],Dt=["aac","opus"],jt=["strict","offset","cross-track-offset"],Rt=class{constructor(e){if(n(this,nt),n(this,ht),n(this,dt),n(this,ut),n(this,pt),n(this,wt),n(this,bt),n(this,kt),n(this,Ct),n(this,St),n(this,zt),n(this,At),n(this,Je,void 0),n(this,Ke,void 0),n(this,Qe,void 0),n(this,Xe,void 0),n(this,Ye,null),n(this,Ze,null),n(this,et,Math.floor(Date.now()/1e3)+2082844800),n(this,tt,[]),n(this,it,1),n(this,st,[]),n(this,at,[]),n(this,rt,!1),h(this,nt,ot).call(this,e),e.video=j(e.video),e.audio=j(e.audio),e.fastStart=j(e.fastStart),this.target=e.target,o(this,Je,{firstTimestampBehavior:"strict",...e}),e.target instanceof Me)o(this,Ke,new Ue(e.target));else if(e.target instanceof We)o(this,Ke,new Ge(e.target));else{if(!(e.target instanceof Oe))throw new Error(`Invalid target: ${e.target}`);o(this,Ke,new Ot(e.target))}h(this,ut,mt).call(this),h(this,ht,lt).call(this)}addVideoChunk(e,t,i,s){if(!(e instanceof EncodedVideoChunk))throw new TypeError("addVideoChunk's first argument (sample) must be of type EncodedVideoChunk.");if(t&&"object"!=typeof t)throw new TypeError("addVideoChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addVideoChunk's third argument (timestamp), when provided, must be a non-negative real number.");if(void 0!==s&&!Number.isFinite(s))throw new TypeError("addVideoChunk's fourth argument (compositionTimeOffset), when provided, must be a real number.");let a=new Uint8Array(e.byteLength);e.copyTo(a),this.addVideoChunkRaw(a,e.type,i??e.timestamp,e.duration,t,s)}addVideoChunkRaw(e,t,i,s,a,n){if(!(e instanceof Uint8Array))throw new TypeError("addVideoChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addVideoChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addVideoChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addVideoChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addVideoChunkRaw's fifth argument (meta), when provided, must be an object.");if(void 0!==n&&!Number.isFinite(n))throw new TypeError("addVideoChunkRaw's sixth argument (compositionTimeOffset), when provided, must be a real number.");if(h(this,At,Mt).call(this),!r(this,Je).video)throw new Error("No video track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ye).samples.length===r(this,Je).fastStart.expectedVideoChunks)throw new Error(`Cannot add more video chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedVideoChunks}).`);let o=h(this,wt,gt).call(this,r(this,Ye),e,t,i,s,a,n);if("fragmented"===r(this,Je).fastStart&&r(this,Ze)){for(;r(this,at).length>0&&r(this,at)[0].decodeTimestamp<=o.decodeTimestamp;){let e=r(this,at).shift();h(this,bt,yt).call(this,r(this,Ze),e)}o.decodeTimestamp<=r(this,Ze).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ye),o):r(this,st).push(o)}else h(this,bt,yt).call(this,r(this,Ye),o)}addAudioChunk(e,t,i){if(!(e instanceof EncodedAudioChunk))throw new TypeError("addAudioChunk's first argument (sample) must be of type EncodedAudioChunk.");if(t&&"object"!=typeof t)throw new TypeError("addAudioChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addAudioChunk's third argument (timestamp), when provided, must be a non-negative real number.");let s=new Uint8Array(e.byteLength);e.copyTo(s),this.addAudioChunkRaw(s,e.type,i??e.timestamp,e.duration,t)}addAudioChunkRaw(e,t,i,s,a){if(!(e instanceof Uint8Array))throw new TypeError("addAudioChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addAudioChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addAudioChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addAudioChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addAudioChunkRaw's fifth argument (meta), when provided, must be an object.");if(h(this,At,Mt).call(this),!r(this,Je).audio)throw new Error("No audio track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ze).samples.length===r(this,Je).fastStart.expectedAudioChunks)throw new Error(`Cannot add more audio chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedAudioChunks}).`);let n=h(this,wt,gt).call(this,r(this,Ze),e,t,i,s,a);if("fragmented"===r(this,Je).fastStart&&r(this,Ye)){for(;r(this,st).length>0&&r(this,st)[0].decodeTimestamp<=n.decodeTimestamp;){let e=r(this,st).shift();h(this,bt,yt).call(this,r(this,Ye),e)}n.decodeTimestamp<=r(this,Ye).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ze),n):r(this,at).push(n)}else h(this,bt,yt).call(this,r(this,Ze),n)}finalize(){if(r(this,rt))throw new Error("Cannot finalize a muxer more than once.");if("fragmented"===r(this,Je).fastStart){for(let e of r(this,st))h(this,bt,yt).call(this,r(this,Ye),e);for(let e of r(this,at))h(this,bt,yt).call(this,r(this,Ze),e);h(this,St,xt).call(this,!1)}else r(this,Ye)&&h(this,Ct,vt).call(this,r(this,Ye)),r(this,Ze)&&h(this,Ct,vt).call(this,r(this,Ze));let e=[r(this,Ye),r(this,Ze)].filter(Boolean);if("in-memory"===r(this,Je).fastStart){let t;for(let i=0;i<2;i++){let i=F(e,r(this,et)),s=r(this,Ke).measureBox(i);t=r(this,Ke).measureBox(r(this,Xe));let a=r(this,Ke).pos+s+t;for(let e of r(this,tt)){e.offset=a;for(let{data:i}of e.samples)a+=i.byteLength,t+=i.byteLength}if(a<2**32)break;t>=2**32&&(r(this,Xe).largeSize=!0)}let i=F(e,r(this,et));r(this,Ke).writeBox(i),r(this,Xe).size=t,r(this,Ke).writeBox(r(this,Xe));for(let e of r(this,tt))for(let t of e.samples)r(this,Ke).write(t.data),t.data=null}else if("fragmented"===r(this,Je).fastStart){let t=r(this,Ke).pos,i=(e=>I("mfra",null,[...e.map(Ce),ve()]))(e);r(this,Ke).writeBox(i);let s=r(this,Ke).pos-t;r(this,Ke).seek(r(this,Ke).pos-4),r(this,Ke).writeU32(s)}else{let t=r(this,Ke).offsets.get(r(this,Xe)),i=r(this,Ke).pos-t;r(this,Xe).size=i,r(this,Xe).largeSize=i>=2**32,r(this,Ke).patchBox(r(this,Xe));let s=F(e,r(this,et));if("object"==typeof r(this,Je).fastStart){r(this,Ke).seek(r(this,Qe)),r(this,Ke).writeBox(s);let e=t-r(this,Ke).pos;r(this,Ke).writeBox({type:"free",size:e})}else r(this,Ke).writeBox(s)}h(this,zt,Et).call(this),r(this,Ke).finalize(),o(this,rt,!0)}};return Je=new WeakMap,Ke=new WeakMap,Qe=new WeakMap,Xe=new WeakMap,Ye=new WeakMap,Ze=new WeakMap,et=new WeakMap,tt=new WeakMap,it=new WeakMap,st=new WeakMap,at=new WeakMap,rt=new WeakMap,nt=new WeakSet,ot=function(e){if("object"!=typeof e)throw new TypeError("The muxer requires an options object to be passed to its constructor.");if(!(e.target instanceof Ae))throw new TypeError("The target must be provided and an instance of Target.");if(e.video){if(!Ut.includes(e.video.codec))throw new TypeError(`Unsupported video codec: ${e.video.codec}`);if(!Number.isInteger(e.video.width)||e.video.width<=0)throw new TypeError(`Invalid video width: ${e.video.width}. Must be a positive integer.`);if(!Number.isInteger(e.video.height)||e.video.height<=0)throw new TypeError(`Invalid video height: ${e.video.height}. Must be a positive integer.`);const t=e.video.rotation;if("number"==typeof t&&![0,90,180,270].includes(t))throw new TypeError(`Invalid video rotation: ${t}. Has to be 0, 90, 180 or 270.`);if(Array.isArray(t)&&(9!==t.length||t.some(e=>"number"!=typeof e)))throw new TypeError(`Invalid video transformation matrix: ${t.join()}`);if(void 0!==e.video.frameRate&&(!Number.isInteger(e.video.frameRate)||e.video.frameRate<=0))throw new TypeError(`Invalid video frame rate: ${e.video.frameRate}. Must be a positive integer.`)}if(e.audio){if(!Dt.includes(e.audio.codec))throw new TypeError(`Unsupported audio codec: ${e.audio.codec}`);if(!Number.isInteger(e.audio.numberOfChannels)||e.audio.numberOfChannels<=0)throw new TypeError(`Invalid number of audio channels: ${e.audio.numberOfChannels}. Must be a positive integer.`);if(!Number.isInteger(e.audio.sampleRate)||e.audio.sampleRate<=0)throw new TypeError(`Invalid audio sample rate: ${e.audio.sampleRate}. Must be a positive integer.`)}if(e.firstTimestampBehavior&&!jt.includes(e.firstTimestampBehavior))throw new TypeError(`Invalid first timestamp behavior: ${e.firstTimestampBehavior}`);if("object"==typeof e.fastStart){if(e.video){if(void 0===e.fastStart.expectedVideoChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedVideoChunks'.");if(!Number.isInteger(e.fastStart.expectedVideoChunks)||e.fastStart.expectedVideoChunks<0)throw new TypeError("'expectedVideoChunks' must be a non-negative integer.")}if(e.audio){if(void 0===e.fastStart.expectedAudioChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedAudioChunks'.");if(!Number.isInteger(e.fastStart.expectedAudioChunks)||e.fastStart.expectedAudioChunks<0)throw new TypeError("'expectedAudioChunks' must be a non-negative integer.")}}else if(![!1,"in-memory","fragmented"].includes(e.fastStart))throw new TypeError("'fastStart' option must be false, 'in-memory', 'fragmented' or an object.");if(void 0!==e.minFragmentDuration&&(!Number.isFinite(e.minFragmentDuration)||e.minFragmentDuration<0))throw new TypeError("'minFragmentDuration' must be a non-negative number.")},ht=new WeakSet,lt=function(){var e;if(r(this,Ke).writeBox((e={holdsAvc:"avc"===r(this,Je).video?.codec,fragmented:"fragmented"===r(this,Je).fastStart}).fragmented?I("ftyp",[A("iso5"),v(512),A("iso5"),A("iso6"),A("mp41")]):I("ftyp",[A("isom"),v(512),A("isom"),e.holdsAvc?A("avc1"):[],A("mp41")])),o(this,Qe,r(this,Ke).pos),"in-memory"===r(this,Je).fastStart)o(this,Xe,V(!1));else if("fragmented"===r(this,Je).fastStart);else{if("object"==typeof r(this,Je).fastStart){let e=h(this,dt,ft).call(this);r(this,Ke).seek(r(this,Ke).pos+e)}o(this,Xe,V(!0)),r(this,Ke).writeBox(r(this,Xe))}h(this,zt,Et).call(this)},dt=new WeakSet,ft=function(){if("object"!=typeof r(this,Je).fastStart)return;let e=0,t=[r(this,Je).fastStart.expectedVideoChunks,r(this,Je).fastStart.expectedAudioChunks];for(let i of t)i&&(e+=8*Math.ceil(2/3*i),e+=4*i,e+=12*Math.ceil(2/3*i),e+=4*i,e+=8*i);return e+=4096,e},ut=new WeakSet,mt=function(){if(r(this,Je).video&&o(this,Ye,{id:1,info:{type:"video",codec:r(this,Je).video.codec,width:r(this,Je).video.width,height:r(this,Je).video.height,rotation:r(this,Je).video.rotation??0,decoderConfig:null},timescale:r(this,Je).video.frameRate??57600,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),r(this,Je).audio&&(o(this,Ze,{id:r(this,Je).video?2:1,info:{type:"audio",codec:r(this,Je).audio.codec,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate,decoderConfig:null},timescale:r(this,Je).audio.sampleRate,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),"aac"===r(this,Je).audio.codec)){let e=h(this,pt,ct).call(this,2,r(this,Je).audio.sampleRate,r(this,Je).audio.numberOfChannels);r(this,Ze).info.decoderConfig={codec:r(this,Je).audio.codec,description:e,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate}}},pt=new WeakSet,ct=function(e,t,i){let s=[96e3,88200,64e3,48e3,44100,32e3,24e3,22050,16e3,12e3,11025,8e3,7350].indexOf(t),a=i,r="";r+=e.toString(2).padStart(5,"0"),r+=s.toString(2).padStart(4,"0"),15===s&&(r+=t.toString(2).padStart(24,"0")),r+=a.toString(2).padStart(4,"0");let n=8*Math.ceil(r.length/8);r=r.padEnd(n,"0");let o=new Uint8Array(r.length/8);for(let e=0;e<r.length;e+=8)o[e/8]=parseInt(r.slice(e,e+8),2);return o},wt=new WeakSet,gt=function(e,t,i,s,a,r,n){let o=s/1e6,l=(s-(n??0))/1e6,d=a/1e6,f=h(this,kt,Tt).call(this,o,l,e);return o=f.presentationTimestamp,l=f.decodeTimestamp,r?.decoderConfig&&(null===e.info.decoderConfig?e.info.decoderConfig=r.decoderConfig:Object.assign(e.info.decoderConfig,r.decoderConfig)),{presentationTimestamp:o,decodeTimestamp:l,duration:d,data:t,size:t.byteLength,type:i,timescaleUnitsToNextSample:O(d,e.timescale)}},bt=new WeakSet,yt=function(e,t){"fragmented"!==r(this,Je).fastStart&&e.samples.push(t);const i=O(t.presentationTimestamp-t.decodeTimestamp,e.timescale);if(null!==e.lastTimescaleUnits){let s=O(t.decodeTimestamp,e.timescale,!1),a=Math.round(s-e.lastTimescaleUnits);if(e.lastTimescaleUnits+=a,e.lastSample.timescaleUnitsToNextSample=a,"fragmented"!==r(this,Je).fastStart){let t=M(e.timeToSampleTable);1===t.sampleCount?(t.sampleDelta=a,t.sampleCount++):t.sampleDelta===a?t.sampleCount++:(t.sampleCount--,e.timeToSampleTable.push({sampleCount:2,sampleDelta:a}));const s=M(e.compositionTimeOffsetTable);s.sampleCompositionTimeOffset===i?s.sampleCount++:e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i})}}else e.lastTimescaleUnits=0,"fragmented"!==r(this,Je).fastStart&&(e.timeToSampleTable.push({sampleCount:1,sampleDelta:O(t.duration,e.timescale)}),e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i}));e.lastSample=t;let s=!1;if(e.currentChunk){let i=t.presentationTimestamp-e.currentChunk.startTimestamp;if("fragmented"===r(this,Je).fastStart){let a=r(this,Ye)??r(this,Ze);const n=r(this,Je).minFragmentDuration??1;e===a&&"key"===t.type&&i>=n&&(s=!0,h(this,St,xt).call(this))}else s=i>=.5}else s=!0;s&&(e.currentChunk&&h(this,Ct,vt).call(this,e),e.currentChunk={startTimestamp:t.presentationTimestamp,samples:[]}),e.currentChunk.samples.push(t)},kt=new WeakSet,Tt=function(e,t,i){const s="strict"===r(this,Je).firstTimestampBehavior,a=-1===i.lastDecodeTimestamp;if(s&&a&&0!==t)throw new Error(`The first chunk for your media track must have a timestamp of 0 (received DTS=${t}).Non-zero first timestamps are often caused by directly piping frames or audio data from a MediaStreamTrack into the encoder. Their timestamps are typically relative to the age of thedocument, which is probably what you want.\n\nIf you want to offset all timestamps of a track such that the first one is zero, set firstTimestampBehavior: 'offset' in the options.\n`);if("offset"===r(this,Je).firstTimestampBehavior||"cross-track-offset"===r(this,Je).firstTimestampBehavior){let s;void 0===i.firstDecodeTimestamp&&(i.firstDecodeTimestamp=t),s="offset"===r(this,Je).firstTimestampBehavior?i.firstDecodeTimestamp:Math.min(r(this,Ye)?.firstDecodeTimestamp??1/0,r(this,Ze)?.firstDecodeTimestamp??1/0),t-=s,e-=s}if(t<i.lastDecodeTimestamp)throw new Error(`Timestamps must be monotonically increasing (DTS went from ${1e6*i.lastDecodeTimestamp} to ${1e6*t}).`);return i.lastDecodeTimestamp=t,{presentationTimestamp:e,decodeTimestamp:t}},Ct=new WeakSet,vt=function(e){if("fragmented"===r(this,Je).fastStart)throw new Error("Can't finalize individual chunks if 'fastStart' is set to 'fragmented'.");if(e.currentChunk)if(e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),0!==e.compactlyCodedChunkTable.length&&M(e.compactlyCodedChunkTable).samplesPerChunk===e.currentChunk.samples.length||e.compactlyCodedChunkTable.push({firstChunk:e.finalizedChunks.length,samplesPerChunk:e.currentChunk.samples.length}),"in-memory"!==r(this,Je).fastStart){e.currentChunk.offset=r(this,Ke).pos;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null;h(this,zt,Et).call(this)}else e.currentChunk.offset=0},St=new WeakSet,xt=function(e=!0){if("fragmented"!==r(this,Je).fastStart)throw new Error("Can't finalize a fragment unless 'fastStart' is set to 'fragmented'.");let t=[r(this,Ye),r(this,Ze)].filter(e=>e&&e.currentChunk);if(0===t.length)return;let i=(s=this,a=it,{set _(e){o(s,a,e,n)},get _(){return r(s,a,l)}})._++;var s,a,n,l;if(1===i){let e=F(t,r(this,et),!0);r(this,Ke).writeBox(e)}let d=r(this,Ke).pos,f=ce(i,t);r(this,Ke).writeBox(f);{let e=V(!1),i=0;for(let e of t)for(let t of e.currentChunk.samples)i+=t.size;let s=r(this,Ke).measureBox(e)+i;s>=2**32&&(e.largeSize=!0,s=r(this,Ke).measureBox(e)+i),e.size=s,r(this,Ke).writeBox(e)}for(let e of t){e.currentChunk.offset=r(this,Ke).pos,e.currentChunk.moofOffset=d;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null}let u=r(this,Ke).pos;r(this,Ke).seek(r(this,Ke).offsets.get(f));let m=ce(i,t);r(this,Ke).writeBox(m),r(this,Ke).seek(u);for(let e of t)e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),e.currentChunk=null;e&&h(this,zt,Et).call(this)},zt=new WeakSet,Et=function(){r(this,Ke)instanceof Ge&&r(this,Ke).flush()},At=new WeakSet,Mt=function(){if(r(this,rt))throw new Error("Cannot add new video or audio chunks after the file has been finalized.")},Wt=l,((a,r,n,o)=>{if(r&&"object"==typeof r||"function"==typeof r)for(let h of i(r))s.call(a,h)||h===n||e(a,h,{get:()=>r[h],enumerable:!(o=t(r,h))||o.enumerable});return a})(e({},"__esModule",{value:!0}),Wt)})();"object"==typeof module&&"object"==typeof module.exports&&Object.assign(module.exports,Mp4Muxer);
+</script>
+<script>
+/* ================= utilities ================= */
+const clamp=(v,a=0,b=1)=>v<a?a:v>b?b:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const ease=t=>{t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;};
+const easeOut=t=>{t=clamp(t);return 1-Math.pow(1-t,3);};
+const easeIn=t=>{t=clamp(t);return t*t*t;};
+const seg=(u,a,b)=>clamp((u-a)/(b-a));
+const lerpPt=(a,b,t)=>({x:lerp(a.x,b.x,t),y:lerp(a.y,b.y,t)});
+function kf(u,pts){
+  if(u<=pts[0][0]) return {x:pts[0][1],y:pts[0][2]};
+  for(let i=1;i<pts.length;i++){
+    if(u<=pts[i][0]){const a=pts[i-1],b=pts[i];const t=ease((u-a[0])/(b[0]-a[0]||1));return {x:lerp(a[1],b[1],t),y:lerp(a[2],b[2],t)};}
+  }
+  const l=pts[pts.length-1];return {x:l[1],y:l[2]};
+}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const nz=x=>Math.sin(x*1.7)*.5+Math.sin(x*3.1+1.3)*.3+Math.sin(x*7.3+.7)*.2;
+
+const W=1600,H=900;
+/* ================= canvas, camera, labels ================= */
+const cv=document.getElementById('cv');let ctx=cv.getContext('2d');
+let dpr=1,cssW=960,cssH=540,fit=.6;
+let cam={x:800,y:450,s:1},VX0=0,VX1=W,VY0=0,VY1=H;
+let T=0,TT=0,CUR=0,U=0,SHOWLAB=true;
+let FONT='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+let COND='"Barlow Condensed","Arial Narrow","Noto Sans TC","Noto Sans CJK TC",sans-serif';
+const TAU=Math.PI*2;
+
+function applyCam(c){
+  cam=c;const k=fit*c.s;
+  ctx.setTransform(dpr*k,0,0,dpr*k,dpr*(cssW/2-c.x*k),dpr*(cssH/2-c.y*k));
+  VX0=c.x-cssW/2/k-6;VX1=c.x+cssW/2/k+6;VY0=c.y-cssH/2/k-6;VY1=c.y+cssH/2/k+6;
+}
+function toScreen(x,y){const k=fit*cam.s;return {x:cssW/2+(x-cam.x)*k,y:cssH/2+(y-cam.y)*k};}
+function screenSpace(){ctx.setTransform(dpr,0,0,dpr,0,0);}
+
+const LQ=[];
+function lab(x,y,text,o){
+  o=o||{};if(!SHOWLAB)return;const a=o.a===undefined?1:o.a;if(a<=.01)return;
+  LQ.push({x,y,text:tr(text),dx:o.dx===undefined?0:o.dx,dy:o.dy===undefined?-40:o.dy,a,st:o.st||'n',minor:!!o.minor});
+}
+function drawLabels(){
+  screenSpace();
+  const f=clamp(cssW/100,10,13.5),sc=clamp(cssW/1100,.6,1.15);
+  ctx.font=`500 ${f}px ${FONT}`;ctx.textBaseline='middle';ctx.textAlign='left';
+  for(const L of LQ){
+    if(L.minor&&cssW<760)continue;
+    const p=toScreen(L.x,L.y),qx=p.x+L.dx*sc,qy=p.y+L.dy*sc;
+    if(p.x<-8||p.x>cssW+8||p.y<-8||p.y>cssH+8)continue;
+    ctx.globalAlpha=L.a;
+    const tw=ctx.measureText(L.text).width,ph=f*1.8,pw=tw+f*1.2;
+    let bx,by;
+    if(L.dy===0){bx=L.dx>=0?qx:qx-pw;by=qy-ph/2;}
+    else{bx=qx-pw/2;by=L.dy<0?qy-ph:qy;}
+    bx=clamp(bx,4,cssW-pw-4);by=clamp(by,4,cssH-ph-4);
+    if(L.dx||L.dy){
+      const ex=clamp(qx,bx,bx+pw),ey=clamp(qy,by,by+ph);
+      ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.3;
+      ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(ex,ey);ctx.stroke();
+      ctx.beginPath();ctx.arc(p.x,p.y,2.6,0,TAU);ctx.fillStyle='#fff';ctx.fill();
+      ctx.lineWidth=1;ctx.strokeStyle='rgba(8,32,45,.8)';ctx.stroke();
+    }
+    let bg='rgba(9,31,44,.88)',fg='#fff';
+    if(L.st==='w'){bg='#e8572a';}
+    else if(L.st==='s'){bg='#f2c230';fg='#13232e';}
+    else if(L.st==='l'){bg='rgba(255,255,255,.93)';fg='#13232e';}
+    else if(L.st==='g'){bg='#1f7f5c';}
+    rrp(bx,by,pw,ph,ph/2);ctx.fillStyle=bg;ctx.fill();
+    ctx.fillStyle=fg;ctx.fillText(L.text,bx+f*.6,by+ph/2+.5);
+  }
+  ctx.globalAlpha=1;LQ.length=0;
+}
+
+/* ================= small helpers ================= */
+function rrp(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function box(x,y,w,h,f,s,lw){ctx.fillStyle=f;ctx.fillRect(x,y,w,h);if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.strokeRect(x,y,w,h);}}
+function ln(p,s,lw){ctx.beginPath();ctx.moveTo(p[0],p[1]);for(let i=2;i<p.length;i+=2)ctx.lineTo(p[i],p[i+1]);ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}
+function poly(p,f,s,lw){ctx.beginPath();ctx.moveTo(p[0],p[1]);for(let i=2;i<p.length;i+=2)ctx.lineTo(p[i],p[i+1]);ctx.closePath();if(f){ctx.fillStyle=f;ctx.fill();}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}}
+function circ(x,y,r,f,s,lw){ctx.beginPath();ctx.arc(x,y,Math.max(.1,r),0,TAU);if(f){ctx.fillStyle=f;ctx.fill();}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}}
+function wins(x,y,n,dx,w,h,col){ctx.fillStyle=col||'#1c3444';for(let i=0;i<n;i++)ctx.fillRect(x+i*dx,y,w,h);}
+function rail(x0,x1,y,h,col){ctx.strokeStyle=col||'rgba(40,50,60,.8)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(x0,y-h);ctx.lineTo(x1,y-h);for(let x=x0;x<=x1+.1;x+=6){ctx.moveTo(x,y);ctx.lineTo(x,y-h);}ctx.stroke();}
+function person(x,y,col,s){s=s||1;ctx.fillStyle=col||'#e8572a';ctx.fillRect(x-1.6*s,y-7*s,3.2*s,5*s);ctx.fillStyle='#223';ctx.fillRect(x-1.4*s,y-2*s,1.1*s,2*s);ctx.fillRect(x+.3*s,y-2*s,1.1*s,2*s);circ(x,y-8.6*s,1.6*s,'#f0c9a0');ctx.fillStyle='#fff';ctx.fillRect(x-1.8*s,y-10.6*s,3.6*s,1.2*s);}
+function alphaDo(a,fn){if(a<=.001)return;const g=ctx.globalAlpha;ctx.globalAlpha=g*clamp(a);fn();ctx.globalAlpha=g;}
+function bez(p0,p1,p2,p3,t){const m=1-t;return {x:m*m*m*p0.x+3*m*m*t*p1.x+3*m*t*t*p2.x+t*t*t*p3.x,y:m*m*m*p0.y+3*m*m*t*p1.y+3*m*t*t*p2.y+t*t*t*p3.y};}
+
+/* ================= crane ================= */
+function crane(px,py,L,hx,hy,o){
+  o=o||{};const col=o.col||'#e9b21f';
+  let dx=hx-px;const m=L*.985;dx=clamp(dx,-m,m);
+  const tx=px+dx,ty=py-Math.sqrt(L*L-dx*dx);hy=Math.max(hy,ty+14);
+  const w=o.w||Math.max(4,L*.028),ang=Math.atan2(ty-py,tx-px),nx=-Math.sin(ang)*w/2,ny=Math.cos(ang)*w/2;
+  const back=dx>=0?-1:1,ax=px+back*w*2,ay=py-w*3.4;
+  ln([px,py,ax,ay],'#3d4750',2);ln([ax,ay,tx,ty],'rgba(30,35,40,.75)',.9);ln([ax,ay,tx+nx*.3,ty+ny*.3],'rgba(30,35,40,.5)',.7);
+  if(o.solid){poly([px+nx,py+ny,tx+nx*.4,ty+ny*.4,tx-nx*.4,ty-ny*.4,px-nx,py-ny],col,'rgba(0,0,0,.35)',1);}
+  else{
+    const len=Math.hypot(tx-px,ty-py),n=Math.max(3,Math.floor(len/(w*1.3)));
+    ctx.strokeStyle=col;ctx.lineWidth=Math.max(1.4,w*.3);ctx.beginPath();
+    ctx.moveTo(px+nx,py+ny);ctx.lineTo(tx+nx*.35,ty+ny*.35);ctx.moveTo(px-nx,py-ny);ctx.lineTo(tx-nx*.35,ty-ny*.35);ctx.stroke();
+    ctx.lineWidth=.8;ctx.beginPath();
+    for(let i=0;i<n;i++){const k0=i/n,k1=(i+1)/n,s0=lerp(1,.35,k0),s1=lerp(1,.35,k1);
+      const a={x:lerp(px,tx,k0)+nx*s0*(i%2?1:-1),y:lerp(py,ty,k0)+ny*s0*(i%2?1:-1)},b={x:lerp(px,tx,k1)+nx*s1*(i%2?-1:1),y:lerp(py,ty,k1)+ny*s1*(i%2?-1:1)};
+      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+    ctx.stroke();
+  }
+  circ(tx,ty,w*.45,'#3d4750');
+  ln([tx,ty,tx,hy-8],'rgba(25,28,32,.9)',1.1);
+  box(tx-4.5,hy-11,9,7,'#2b3137');ctx.strokeStyle='#2b3137';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(tx,hy-4);ctx.lineTo(tx,hy-1);ctx.arc(tx-2,hy-1,2,0,Math.PI);ctx.stroke();
+  return {x:tx,y:ty,hy};
+}
+function slings(hx,hy,pts){ctx.strokeStyle='rgba(30,30,30,.8)';ctx.lineWidth=.8;ctx.beginPath();for(let i=0;i<pts.length;i+=2){ctx.moveTo(hx,hy);ctx.lineTo(pts[i],pts[i+1]);}ctx.stroke();}
+
+/* ================= scene helpers ================= */
+let SC=0,SU=0;
+const uc=i=>SC>i?1:SC<i?0:SU;
+const band=(u,a,b,f)=>{f=f||.03;return seg(u,a,a+f)*(1-seg(u,b-f,b));};
+const TQ=[];
+function tick(x,y,t,al){TQ.push({x,y,t,al:al||'left'});}
+function drawTicks(){
+  screenSpace();const f=clamp(cssW/105,9,13);ctx.font=`600 ${f}px ${COND}`;ctx.textBaseline='middle';
+  for(const q of TQ){const p=toScreen(q.x,q.y),t=tr(q.t);ctx.textAlign=q.al;ctx.fillStyle='rgba(8,32,45,.7)';ctx.fillText(t,p.x+1,p.y+1);ctx.fillStyle='#fff';ctx.fillText(t,p.x,p.y);}
+  TQ.length=0;ctx.textAlign='left';
+}
+function arrowR(x,y,L,col){ln([x,y,x+L,y],col,2);poly([x+L+6,y,x+L-1,y-4,x+L-1,y+4],col);}
+function partial(P,f){
+  if(f>=1)return P.slice();if(f<=0)return [P[0]];
+  let tot=0;const d=[];for(let i=1;i<P.length;i++){const l=Math.hypot(P[i].x-P[i-1].x,P[i].y-P[i-1].y);d.push(l);tot+=l;}
+  let want=tot*f;const out=[P[0]];
+  for(let i=1;i<P.length;i++){if(want>=d[i-1]){out.push(P[i]);want-=d[i-1];}else{const t=want/d[i-1];out.push({x:lerp(P[i-1].x,P[i].x,t),y:lerp(P[i-1].y,P[i].y,t)});break;}}
+  return out;
+}
+function pathLine(P,col,lw,dash){if(!P||P.length<2)return;ctx.beginPath();ctx.moveTo(P[0].x,P[0].y);for(let i=1;i<P.length;i++)ctx.lineTo(P[i].x,P[i].y);if(dash)ctx.setLineDash(dash);ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineJoin='round';ctx.stroke();ctx.setLineDash([]);}
+function drawCable(P){if(!P||P.length<2)return;pathLine(P,'#121416',3.6);pathLine(P,'#e8a33a',.9,[6,8]);}
+function ring(x,y,r,col,lw){ctx.beginPath();ctx.arc(x,y,Math.max(.1,r),0,TAU);ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.stroke();}
+
+/* ================= HUD ================= */
+const HK=()=>clamp(cssW/1200,.62,1.15);
+let HUDW=0;
+function hudPanel(w,h,title,a,fn){
+  if(cssW<600||a<=.01||!SHOWLAB)return;
+  const k=HK(),x=cssW-(w+14)*k,y=34*k;
+  screenSpace();ctx.save();ctx.globalAlpha=clamp(a);ctx.translate(x,y);ctx.scale(k,k);
+  rrp(0,0,w,h,10);ctx.fillStyle='rgba(7,27,39,.86)';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='#f2c230';ctx.font=`700 13px ${FONT}`;ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.fillText(tr(title),14,23,w-28);
+  HUDW=w;try{fn(w,h);}finally{HUDW=0;}ctx.restore();
+}
+function hrow(y,label,val,w,col){label=tr(label);val=tr(val);ctx.textBaseline='alphabetic';ctx.font=`700 17px ${COND}`;const vw=ctx.measureText(val).width;ctx.textAlign='left';ctx.font=`500 12px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.78)';ctx.fillText(label,14,y,Math.max(24,w-36-vw));ctx.textAlign='right';ctx.font=`700 17px ${COND}`;ctx.fillStyle=col||'#fff';ctx.fillText(val,w-14,y);ctx.textAlign='left';}
+function hbar(x,y,w,f,col){rrp(x,y,w,6,3);ctx.fillStyle='rgba(255,255,255,.14)';ctx.fill();if(f>0){rrp(x,y,Math.max(6,w*clamp(f)),6,3);ctx.fillStyle=col||'#f2c230';ctx.fill();}}
+function htext(x,y,t,size,col,weight,font,align){t=tr(t);const al=align||'left';ctx.textBaseline='alphabetic';ctx.textAlign=al;ctx.font=`${weight||500} ${size}px ${font||FONT}`;ctx.fillStyle=col||'#fff';
+  if(HUDW){const mw=al==='left'?HUDW-x-10:al==='right'?x-10:Math.min(x,HUDW-x)*2-10;if(mw>8){ctx.fillText(t,x,y,mw);ctx.textAlign='left';return;}}
+  ctx.fillText(t,x,y);ctx.textAlign='left';}
+
+/* ================= i18n =================
+   Every visible string is written in Traditional Chinese in the episode code and translated at draw time.
+   DICT maps the Chinese string to [English, Japanese]; kits and episode files add entries with
+   Object.assign(DICT,{...}). trf() handles strings with changing numbers: trf('第 {n} 天',{n:3}).
+   UI holds interface strings as [zh, en, ja]. */
+const LANGS=['zh','en','ja'];
+let LANG='zh',LI=-1;
+const DICT={};
+const UI={"secAnim": ["動畫", "Animation", "アニメーション"], "scaleNote": ["示意圖：比例經過調整", "Schematic: not to scale", "模式図：縮尺は調整しています"], "credit": ["勤益科大 劉瑞弘老師研究室", "NCUT · Prof. Liu's Lab", "勤益科技大学 劉瑞弘研究室"], "creditFull": ["國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作", "Produced by Prof. Liu's Lab, Department of Intelligent Automation Engineering, National Chin-Yi University of Technology", "制作：国立勤益科技大学 スマートオートメーション工学科 劉瑞弘研究室"], "prev": ["上一個分鏡", "Previous shot", "前のシーン"], "next": ["下一個分鏡", "Next shot", "次のシーン"], "play": ["播放", "Play", "再生"], "pause": ["暫停", "Pause", "一時停止"], "replay": ["重新播放", "Replay", "もう一度再生"], "progress": ["播放進度", "Playback position", "再生位置"], "speed": ["播放速度", "Playback speed", "再生速度"], "labels": ["標註", "Labels", "ラベル"], "labelsTip": ["顯示／隱藏標註", "Show or hide labels", "ラベルの表示／非表示"], "full": ["全螢幕", "Full screen", "全画面"], "chapNav": ["分鏡", "Shots", "シーン"], "chapHead": ["本集分鏡", "Shots in this episode", "このエピソードのシーン"], "langGroup": ["介面語言", "Interface language", "表示言語"], "sep": ["，", ", ", "、"], "rec": ["匯出影片", "Export video", "動画を書き出す"], "recTitle": ["錄製 MP4 影片", "Record an MP4 video", "MP4 動画を書き出す"], "recIntro": ["逐格離線算繪，不會掉格，也不必等動畫即時播完。語言與標註設定沿用目前畫面。", "Frames are rendered offline one at a time, so nothing drops and you don't wait for real-time playback. Language and label settings follow the current view.", "フレームを1枚ずつオフラインで描画するため、コマ落ちがなく、リアルタイム再生を待つ必要もありません。言語とラベルの設定は現在の表示に従います。"], "optSpeed": ["影片速度", "Video speed", "再生速度"], "optRange": ["範圍", "Range", "範囲"], "rangeAll": ["全片", "Whole animation", "全編"], "rangeChap": ["目前分鏡", "Current shot", "現在のシーン"], "optRes": ["解析度", "Resolution", "解像度"], "optFps": ["影格率", "Frame rate", "フレームレート"], "sum": ["影片長度 {d}，共 {f} 格，檔案最多約 {m} MB", "Length {d}, {f} frames, up to about {m} MB", "長さ {d}、{f} フレーム、最大約 {m} MB"], "sumChap": ["（{c}）", " ({c})", "（{c}）"], "start": ["開始錄製", "Start recording", "書き出し開始"], "again": ["再錄一次", "Record again", "もう一度書き出す"], "cancel": ["取消", "Cancel", "キャンセル"], "close": ["關閉", "Close", "閉じる"], "download": ["下載 MP4", "Download MP4", "MP4 をダウンロード"], "stPrep": ["準備編碼器…", "Preparing the encoder…", "エンコーダーを準備中…"], "stRun": ["算繪中 {p}%，剩餘約 {e}", "Rendering {p}%, about {e} left", "描画中 {p}%、残り約 {e}"], "stFin": ["封裝 MP4…", "Writing the MP4…", "MP4 を生成中…"], "stDone": ["完成：{s} MB，已開始下載。", "Done: {s} MB. The download has started.", "完了：{s} MB。ダウンロードを開始しました。"], "stCancel": ["已取消錄製。", "Recording cancelled.", "書き出しをキャンセルしました。"], "stNoSup": ["這個瀏覽器不支援 WebCodecs 影片編碼，請改用最新版的 Chrome、Edge 或 Safari。", "This browser does not support WebCodecs video encoding. Please use a recent Chrome, Edge or Safari.", "このブラウザーは WebCodecs による動画エンコードに対応していません。最新版の Chrome、Edge、Safari をご利用ください。"], "stNoCodec": ["找不到可用的影片編碼設定，請試試較低的解析度或影格率，或改用最新版 Chrome、Edge、Safari。", "No usable video encoder setting was found. Try a lower resolution or frame rate, or a recent Chrome, Edge or Safari.", "使用できる動画エンコード設定が見つかりません。解像度やフレームレートを下げるか、最新版の Chrome、Edge、Safari をお試しください。"], "stAlt": ["（此瀏覽器沒有 H.264 編碼器，改以 {c} 編碼；Chrome、Firefox、VLC 可播放，QuickTime 可能無法播放。）", "(This browser has no H.264 encoder, so the video uses {c}. It plays in Chrome, Firefox and VLC, but possibly not in QuickTime.)", "（このブラウザーには H.264 エンコーダーがないため {c} で書き出しました。Chrome、Firefox、VLC では再生できますが、QuickTime では再生できない場合があります。）"], "stErr": ["錄製失敗：", "Recording failed: ", "書き出しに失敗しました："], "keepTab": ["錄製期間請保持此分頁開啟。", "Keep this tab open while recording.", "書き出し中はこのタブを開いたままにしてください。"], "factsAria": ["重點數字", "Key figures", "主な数字"], "factsHead": ["本集重點數字", "Key figures", "このエピソードの主な数字"], "series": ["{s} 第 {n} 集（共 {t} 集）", "{s}, episode {n} of {t}", "{s} 第 {n} 話（全 {t} 話）"], "seriesOne": ["{s} 第 {n} 集", "{s}, episode {n}", "{s} 第 {n} 話"], "shotOf": ["{i}／{n}", "{i}/{n}", "{i}／{n}"]};
+const CJK_RE=/[\u3000-\u9fff\uff00-\uffef]/;
+const TPAT=[
+  [/^量測第 (\d+) 天$/,m=>[`Day ${m[1]}`,`計測 ${m[1]} 日目`]],
+  [/^第 (\d+) 段塔架$/,m=>[`Tower section ${m[1]}`,`タワー第 ${m[1]} 段`]],
+  [/^第 (\d+) 支葉片$/,m=>[`Blade ${m[1]}`,`ブレード ${m[1]} 枚目`]]
+];
+function tr(s){
+  if(LI<0||typeof s!=='string'||!CJK_RE.test(s))return s;
+  const d=DICT[s];if(d)return d[LI];
+  for(const [re,f] of TPAT){const m=s.match(re);if(m)return f(m)[LI];}
+  if(s.indexOf('\u3000')>=0)return s.split('\u3000').map(tr).join('   ');
+  return s;
+}
+function trf(k,v){let s=tr(k);for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+function ui(k,vars){const a=UI[k];let s=a?a[LI+1]:k;if(vars)for(const v in vars)s=s.split('{'+v+'}').join(vars[v]);return s;}
+const FONT_TC='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+const FONT_JP='"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif';
+const LANG_KEY='rea-lang';
+/* strings intentionally shown in Chinese in other languages (e.g. bilingual subtitles); qa.py ignores them */
+const QA_KEEP=[];
+
+/* ================= LAND & OPEN-SEA KIT =================
+   Generic backgrounds for topics that are not the offshore-wind coastal section:
+   solar farms, onshore wind, storage, hydrogen, wave/tidal energy.
+   World is 1600×900; GY is the default ground line. */
+const GY=600;
+const LCLOUDS=(()=>{const r=rng(17),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*200,s:.5+r()*.8,sp:3+r()*5});return a;})();
+function lcloud(x,y,s){ctx.beginPath();[[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});ctx.fillStyle='rgba(255,255,255,.9)';ctx.fill();}
+/* sky down to horizon hy; o.sun={x,y}; o.dusk 0..1 warms the colours */
+function landSky(hy,o){
+  hy=hy||GY;o=o||{};const k=o.dusk||0;
+  const g=ctx.createLinearGradient(0,VY0,0,hy);
+  g.addColorStop(0,k?`rgb(${lerp(79,60,k)|0},${lerp(143,70,k)|0},${lerp(196,130,k)|0})`:'#4f8fc4');
+  g.addColorStop(.6,k?`rgb(${lerp(156,220,k)|0},${lerp(198,130,k)|0},${lerp(223,110,k)|0})`:'#9cc6df');
+  g.addColorStop(1,k?`rgb(${lerp(226,250,k)|0},${lerp(239,190,k)|0},${lerp(242,120,k)|0})`:'#e2eff2');
+  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,hy-VY0+2);
+  const sn=o.sun||{x:1280,y:120};const rg=ctx.createRadialGradient(sn.x,sn.y,8,sn.x,sn.y,220);rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(1,'rgba(255,244,214,0)');ctx.fillStyle=rg;ctx.fillRect(sn.x-230,sn.y-230,460,460);circ(sn.x,sn.y,20,'#fff8e2');
+  if(o.clouds!==false)for(const c of LCLOUDS){const x=((c.x+TT*c.sp+400)%2400)-400;if(c.y>hy-40)continue;lcloud(x,c.y,c.s);}
+}
+const groundY=x=>GY+6*Math.sin(x*.004)+3*Math.sin(x*.013);
+const LAND_LAY=[{d:0,c:'#7a9a55',n:'表土'},{d:16,c:'#a4876a',n:'黏土層'},{d:110,c:'#c4a678',n:'砂礫層'},{d:230,c:'#6d6862',n:'岩盤'}];
+/* layered ground below groundY; o.layers overrides LAND_LAY; o.grass=false hides grass */
+function drawGround(o){
+  o=o||{};const Ls=o.layers||LAND_LAY;
+  Ls.forEach((L,i)=>{ctx.beginPath();ctx.moveTo(VX0,groundY(VX0)+L.d);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,groundY(x)+L.d+(i?nz(x*.01+i)*4:0));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=L.c;ctx.fill();});
+  if(o.grass!==false){ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=Math.floor(VX0);x<=VX1;x+=5){const y=groundY(x);ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%4));}ctx.stroke();}
+}
+function landBase(){landSky();drawGround();}
+function landEnd(){}
+/* open-sea swell for wave / tidal topics: o={y:mean level,A:amplitude,L:wavelength,sp:speed,bed:seabed y} */
+function swellY(x,o){o=o||{};const A=o.A===undefined?18:o.A,L=o.L||260,sp=o.sp||1.2,y0=o.y||420;return y0+A*Math.sin(TAU*(x/L)-TT*sp)+A*.22*Math.sin(TAU*(x/(L*.43))-TT*sp*1.7);}
+function drawSwell(o){
+  o=o||{};const bed=o.bed||820;const g=ctx.createLinearGradient(0,(o.y||420)-40,0,bed);g.addColorStop(0,'#3b93bb');g.addColorStop(.5,'#1d6690');g.addColorStop(1,'#0b3858');
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.8;ctx.stroke();
+  box(VX0,bed,VX1-VX0,VY1-bed+20,'#b59a6a');ln([VX0,bed,VX1,bed],'#a98a58',2);
+}
+function seaBase(){landSky(420,{});drawSwell();}
+/* ---- objects ---- */
+/* PV module on a post: base (x,y) on ground, panel width w, tilt in degrees facing right→left sun */
+function solarPanel(x,y,w,tilt,o){
+  o=o||{};const h=o.h||w*.45,a=-(tilt||20)*Math.PI/180;ln([x,y,x,y-h],'#8a99a3',Math.max(2,w*.05));
+  ctx.save();ctx.translate(x,y-h);ctx.rotate(a);const t=w*.06;box(-w/2,-t,w,t,'#1f3f66');
+  ctx.strokeStyle='rgba(160,200,240,.55)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(-w/2+w*i/6,-t);ctx.lineTo(-w/2+w*i/6,0);}ctx.stroke();
+  box(-w/2,-t,w,1.5,'#9fc3e6');if(o.glint)box(-w/2+w*.2,-t,w*.25,1.5,'#fff');ctx.restore();
+}
+function pvRow(x0,y,n,gap,w,tilt){for(let i=0;i<n;i++)solarPanel(x0+i*gap,y,w,tilt);}
+/* side-view truck; flip=true faces left */
+function truck(x,y,flip,col,load){ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);
+  box(0,-34,90,26,col||'#e8572a');box(92,-40,34,32,'#f4f6f7');box(100,-36,18,12,'#2a3a46');box(0,-10,126,6,'#2b3137');
+  if(load)load();for(const wx of [18,44,108])circ(wx,-3,8,'#222','#555',2);ctx.restore();}
+function fence(x0,x1,y){ctx.strokeStyle='rgba(60,70,75,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,y-18);ctx.lineTo(x1,y-18);ctx.moveTo(x0,y-9);ctx.lineTo(x1,y-9);for(let x=x0;x<=x1;x+=16){ctx.moveTo(x,y);ctx.lineTo(x,y-20);}ctx.stroke();}
+function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.strokeRect(x,y-h,w,h);ctx.fillStyle='rgba(0,0,0,.25)';for(let i=0;i<3;i++)ctx.fillRect(x+w*.15,y-h+h*(.2+i*.22),w*.7,h*.08);}
+/* pile-driving rig for ground-mounted PV or onshore foundations */
+function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
+
+// KITS: land
+/* 電網系列 第 1 集：電網如何平衡供需 */
+const gyy=x=>groundY(x);
+const PX1=800,PX2=1060;                                   // 兩座輸電鐵塔
+const BTX=[590,670];                                      // 儲能貨櫃左緣
+const CITY=(()=>{const r=rng(9),a=[];let x=1172;while(x<1560){const w=40+r()*44,h=80+r()*170;a.push({x,w,h,s:r()*1000|0});x+=w+6+r()*10;}return a;})();
+/* 沿折線 P 取比例 f 的點 */
+function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
+  let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
+function flowDots(P,n,col,a,sp){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],4.5,col));}}
+function wire(x0,y0,x1,y1,col){ctx.strokeStyle=col||'#394650';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo((x0+x1)/2,(y0+y1)/2+18,x1,y1);ctx.stroke();}
+function pylon(x,y){ctx.strokeStyle='#5c6770';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-34,y);ctx.lineTo(x-6,y-230);ctx.lineTo(x+6,y-230);ctx.lineTo(x+34,y);
+  for(let k=0;k<6;k++){const t=k/6,t2=(k+1)/6;ctx.moveTo(lerp(x-34,x-6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x+34,x+6,t2),lerp(y,y-230,t2));ctx.moveTo(lerp(x+34,x+6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x-34,x-6,t2),lerp(y,y-230,t2));}
+  ctx.moveTo(x-60,y-200);ctx.lineTo(x+60,y-200);ctx.moveTo(x-46,y-170);ctx.lineTo(x+46,y-170);ctx.stroke();}
+/* 燃氣複循環電廠：k 為出力比例（0–1），影響煙羽 */
+function gasPlant(x,y,k){
+  box(x,y-100,160,100,'#c9d1d6','rgba(0,0,0,.25)',1);poly([x-6,y-100,x+80,y-128,x+166,y-100],'#aeb8be');
+  wins(x+14,y-80,6,24,14,20,'#5e6d76');
+  box(x+160,y-130,60,130,'#b3bdc3','rgba(0,0,0,.25)',1);for(let i=0;i<4;i++)box(x+168,y-120+i*28,44,4,'#8d989f');
+  box(x+186,y-240,22,110,'#8d989f');box(x+184,y-244,26,6,'#6f7a80');box(x+186,y-222,22,6,'#e8572a');
+  for(let q=0;q<5;q++){const p=(TT*.35+q/5)%1;alphaDo((.2+.6*k)*(1-p),()=>circ(x+197+p*60+8*Math.sin(p*6+q),y-250-p*90,8+p*18*(.5+k),'rgba(245,245,245,.8)'));}
+  box(x+226,y-60,50,60,'#dfe5e8','rgba(0,0,0,.25)',1);for(let i=0;i<3;i++)box(x+232+i*15,y-86,6,26,'#c9a38c');
+}
+function battSmall(x,y){box(x,y-38,70,38,'#e3e8ec','rgba(0,0,0,.3)',1);ctx.strokeStyle='rgba(0,0,0,.12)';ctx.beginPath();for(let i=1;i<9;i++){ctx.moveTo(x+i*7.8,y-35);ctx.lineTo(x+i*7.8,y-3);}ctx.stroke();box(x+6,y-30,16,5,'#2d8f5a');box(x-2,y-40,74,3,'#aeb8be');}
+function dispatchCenter(x,y){box(x,y-110,130,110,'#dfe5e8','rgba(0,0,0,.3)',1);for(let r=0;r<3;r++)wins(x+12,y-96+r*30,5,22,14,16,'#3d6f8e');box(x+50,y-26,30,26,'#5e6d76');
+  ln([x+110,y-110,x+110,y-176],'#5c6770',3);circ(x+110,y-180,6,'#e8572a');}
+function substation(x,y){box(x,y-60,52,60,'#8d989f');for(let i=0;i<3;i++){box(x+8+i*14,y-86,6,26,'#c9a38c');}}
+/* 城市：lit 0–1 表示夜間點燈比例 */
+function city(lit){for(const b of CITY){const y=gyy(b.x+b.w/2);box(b.x,y-b.h,b.w,b.h+10,'#6f7f89','rgba(0,0,0,.25)',1);const r=rng(b.s);
+  for(let yy=y-b.h+10;yy<y-12;yy+=16)for(let xx=b.x+6;xx<b.x+b.w-8;xx+=12){const on=r()<lit*.85;box(xx,yy,7,9,on?'#ffd98a':'#2c3e4a');}}}
+/* 場景：燃氣電廠、光電、儲能、鐵塔、調度中心、城市 */
+function scene(o){
+  o=o||{};const k=o.k===undefined?.6:o.k;
+  gasPlant(70,gyy(180),k);
+  for(let i=0;i<5;i++){const x=350+i*46;solarPanel(x,gyy(x),42,22,{h:32,glint:o.glint});}
+  BTX.forEach(x=>battSmall(x,gyy(x+35)));
+  pylon(PX1,gyy(PX1));pylon(PX2,gyy(PX2));
+  dispatchCenter(880,gyy(945));substation(1110,gyy(1136));
+  city(o.lit||0);
+  wire(346,gyy(346)-120,PX1-60,gyy(PX1)-200);wire(PX1+60,gyy(PX1)-200,PX2-60,gyy(PX2)-200);wire(PX2+60,gyy(PX2)-200,1136,gyy(1136)-86);
+  wire(545,gyy(545)-40,PX1-46,gyy(PX1)-170,'rgba(57,70,80,.7)');wire(740,gyy(740)-30,PX1-46,gyy(PX1)-170,'rgba(57,70,80,.7)');
+  wire(PX1+46,gyy(PX1)-170,PX2-46,gyy(PX2)-170,'rgba(57,70,80,.7)');
+}
+const PMAIN=()=>[[346,gyy(346)-120],[PX1,gyy(PX1)-200],[PX2,gyy(PX2)-200],[1136,gyy(1136)-86]];
+const PSOL=()=>[[545,gyy(545)-40],[PX1-46,gyy(PX1)-170],[PX2-46,gyy(PX2)-170]];
+const PBAT=()=>[[740,gyy(740)-30],[PX1-46,gyy(PX1)-170],[PX2-46,gyy(PX2)-170]];
+/* 頻率事件曲線 */
+const fHi=t=>{const s=t-1;return s<=0?60:60-.45*(1-Math.exp(-s/2.5))+.25*(1-Math.exp(-s/6));};
+const fLo=t=>{const s=t-1;return s<=0?60:60-.7*(1-Math.exp(-s/1.1))+.35*(1-Math.exp(-s/3));};
+const fEv=t=>{const D=.1*(1-Math.exp(-t/3)),O=.12*(t/5)*Math.exp(1-t/5),R=Math.exp(-Math.max(0,t-30)/90);return 60-(D+O)*R;};
+const LX=Math.log10(601),xm=t=>Math.log10(1+t)/LX;
+/* 典型夏季平日負載與光電（GW，示意） */
+const LOADP=[[0,31],[3,28],[5,27.5],[7,30],[9,35],[11,38.5],[13,40],[14.5,40.5],[16,39.5],[18,38],[19.5,38.5],[21,37],[23,33],[24,31]];
+const loadAt=h=>{const P=LOADP,n=P.length;for(let i=1;i<n;i++)if(h<=P[i][0]){const a=P[i-1],b=P[i],t=(h-a[0])/(b[0]-a[0]),y0=(P[i-2]||a)[1],y3=(P[i+1]||b)[1];
+  return .5*((2*a[1])+(-y0+b[1])*t+(2*y0-5*a[1]+4*b[1]-y3)*t*t+(-y0+3*a[1]-3*b[1]+y3)*t*t*t);}return 31;};  // Catmull-Rom
+const solarAt=h=>h>5.8&&h<18.4?11*Math.sin(Math.PI*(h-5.8)/12.6):0;
+const netAt=h=>loadAt(h)-solarAt(h);
+
+const EP={no:1,slug:'power-grid',seriesName:'電網系列',t:'電網如何平衡供需',en:'How the grid balances supply and demand',
+lede:'電無法大量儲存在電線裡，發多少電就要同時用掉多少。這一集從台灣電網的 60 Hz 頻率談起，看轉動慣量、一次調頻與二次調頻如何在幾秒到幾分鐘內接力穩住電網，以及太陽光電增加之後，傍晚的「鴨子曲線」帶來什麼挑戰。',
+facts:[['60','Hz','台灣電網的標準頻率；台電正常運轉範圍為 59.9–60.1 Hz'],
+['59.5','Hz','台電系統安全運轉的頻率下限，再往下會由低頻電驛自動卸載'],
+['約 4,100','萬瓩','台灣電網近年的夏季尖峰負載，約 41 GW'],
+['5','%','調速機常見的速度調定率（示例）：頻率變化 5% 時，機組出力變化 100%'],
+['1','秒','儲能參與台電調頻備轉（dReg）要求的反應時間'],
+['約 15.7','GW','截至 2026 年 3 月底，台灣太陽光電累計裝置容量']],
+note:'說明：本集為教育用途示意動畫，電廠、城市與設備比例經過調整。頻率範圍依台電「電力調度要點」（正常 59.9–60.1 Hz、電源不足時 59.8–60.2 Hz）與台電說明的安全運轉下限 59.5 Hz；頻率事件曲線、轉動慣量比較、調速機速度調定率 5% 與調度指令功率皆為典型範例；一日負載與光電曲線為依台電公開用電曲線形狀繪製的示意，並非特定日期資料；光電裝置容量引自經濟部能源署統計。實際數值依系統狀況與台電規範而定。',
+base:()=>{landSky(GY,{sun:{x:1300,y:120},clouds:false});drawGround();},
+shots:[
+{t:'一張隨時平衡的網',en:'A network in constant balance',dur:12,side:true,
+ d:'電網把發電廠、太陽光電、儲能與千萬用戶連在一起。電無法大量存在電線裡，每一秒發出來的電，都要同時被用掉。早上工廠開工、午後冷氣全開，用電不斷變化，發電端就得跟著增減。台灣電網近年夏季尖峰負載約 4,100 萬瓩（41 GW），而且是一個與其他國家不相連的獨立電網，所有的平衡都要靠自己完成。',
+ s:[[0,'電廠、光電與儲能，透過輸電線送電到城市'],[.28,'每一秒發出的電，都要同時被用掉'],[.55,'用電增加，發電端就得跟著增加'],[.78,'台灣是獨立電網，平衡只能靠自己']],
+ cam:u=>camMix({x:800,y:440,s:1.02},{x:800,y:445,s:1.08},ease(seg(u,.1,.6))),
+ draw(u){
+  const k=lerp(.55,.85,ease(seg(u,.55,.75)));
+  scene({k,glint:true,lit:.15});
+  flowDots(PMAIN(),10,'#f2c230',seg(u,.08,.16),.25);
+  flowDots(PSOL(),5,'#7dffc4',seg(u,.12,.2),.3);
+  lab(250,gyy(250)-130,'燃氣電廠',{dx:-30,dy:-90,st:'s',a:band(u,.04,.5)});
+  lab(440,gyy(440)-40,'太陽光電',{dx:-20,dy:-110,a:band(u,.08,.5)});
+  lab(630,gyy(630)-38,'儲能',{dx:10,dy:-80,a:band(u,.12,.5)});
+  lab(PX2,gyy(PX2)-200,'輸電線路',{dx:30,dy:-50,a:band(u,.16,.5)});
+  lab(1330,gyy(1330)-160,'城市用電',{dx:-20,dy:-70,st:'l',a:band(u,.2,1)});
+  lab(250,gyy(250)-240,'增加出力',{dx:60,dy:-40,st:'g',a:band(u,.58,1)});
+ },
+ hud(u){hudPanel(240,150,'電網即時狀態（示例）',seg(u,.05,.1),w=>{const d=lerp(34.2,36.8,ease(seg(u,.5,.72))),g=lerp(34.2,36.8,ease(seg(u,.56,.78)));const f=60-(d-g)*.05;
+  hrow(56,'用電',d.toFixed(1)+' GW',w,'#fff');hrow(88,'發電',g.toFixed(1)+' GW',w,'#f2c230');hrow(120,'頻率',f.toFixed(2)+' Hz',w,Math.abs(f-60)>.05?'#ff8a60':'#7dffc4');});}},
+
+{t:'頻率：供需的溫度計',en:'Frequency: the thermometer of balance',dur:13,
+ d:'電網的頻率就像供需的溫度計。台灣的交流電每秒正負交替 60 次，也就是 60 Hz。發電大於用電，發電機轉得更快，頻率上升；用電大於發電，發電機被拖慢，頻率下降。台電規定正常運轉範圍為 59.9 至 60.1 Hz，電源不足時放寬到 59.8 至 60.2 Hz；59.5 Hz 是安全運轉的下限，再往下就會由低頻電驛自動切斷部分用戶，避免全面停電。',
+ s:[[0,'發電與用電平衡時，頻率維持 60 Hz'],[.3,'用電大於發電，頻率往下掉'],[.58,'發電大於用電，頻率往上升'],[.86,'調整發電，頻率回到 60 Hz']],
+ draw(u){
+  diagBG();
+  const p1=ease(seg(u,.3,.42)),p2=ease(seg(u,.58,.7)),p3=ease(seg(u,.86,.95));
+  const G=4+2*p2,L=4+p1+p3,tl=L-G,f=60-.15*tl,ang=tl*.1;
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'供給與需求的蹺蹺板',20,'#f2c230',700);
+  poly([410,560,370,640,450,640],'#c9d1d6');
+  ctx.save();ctx.translate(410,560);ctx.rotate(ang);box(-270,-8,540,12,'#c9d1d6');
+  const stack=(x0,n,col)=>{for(let i=0;i<Math.ceil(n-.001);i++){const fr=clamp(n-i);alphaDo(fr,()=>box(x0,-10-34*(i+1),110,30,col,'rgba(255,255,255,.4)',1));}};
+  stack(-260,G,'#f2c230');stack(150,L,'#7dc8dc');ctx.restore();
+  wt(155,690,'發電（供給）',20,'#f2c230',700,'center');wt(665,690,'用電（需求）',20,'#7dc8dc',700,'center');
+  const msg=tl>.5?['用電大於發電：頻率下降','#ff9d7a']:tl<-.5?['發電大於用電：頻率上升','#ff9d7a']:['供需平衡：60 Hz','#7dffc4'];
+  alphaDo(seg(u,.04,.1),()=>tag(410,750,msg[0],{size:18,bg:msg[1],align:'center'}));
+  /* 右：頻率計 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'頻率計',20,'#f2c230',700);
+  const cx=1010,cy=480,R=160,A0=Math.PI*5/6,SW=Math.PI*4/3,va=v=>A0+clamp((v-59.4)/1.2)*SW;
+  const arc=(v0,v1,col,lw)=>{ctx.beginPath();ctx.arc(cx,cy,R,va(v0),va(v1));ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();};
+  arc(59.4,60.6,'rgba(255,255,255,.12)',22);arc(59.4,59.5,'#e8572a',22);arc(60.5,60.6,'#e8572a',22);arc(59.8,60.2,'rgba(242,194,48,.8)',22);arc(59.9,60.1,'#7dffc4',22);
+  [59.5,60,60.5].forEach(v=>{const a=va(v);ln([cx+Math.cos(a)*(R-16),cy+Math.sin(a)*(R-16),cx+Math.cos(a)*(R-34),cy+Math.sin(a)*(R-34)],'#fff',2);wt(cx+Math.cos(a)*(R-58),cy+Math.sin(a)*(R-58)+6,String(v),17,'rgba(227,236,238,.9)',700,'center',COND);});
+  const na=va(f);ln([cx,cy,cx+Math.cos(na)*(R-20),cy+Math.sin(na)*(R-20)],'#fff',4);circ(cx,cy,10,'#fff');
+  wt(cx,cy+96,f.toFixed(2)+' Hz',40,Math.abs(f-60)>.1?'#ff9d7a':'#7dffc4',700,'center',COND);
+  const LG=[['#7dffc4','59.9–60.1 Hz','正常運轉範圍'],['rgba(242,194,48,.8)','59.8–60.2 Hz','電源不足時的範圍'],['#e8572a','59.5 Hz','安全下限','再低即自動卸載']];
+  LG.forEach(([c,v,t1,t2],i)=>alphaDo(seg(u,.12+i*.05,.18+i*.05),()=>{const y=330+i*110;box(1224,y-16,18,18,c);wt(1254,y,v,20,'#fff',700,'left',COND);wt(1254,y+28,t1,16,'rgba(227,236,238,.85)',500);if(t2)wt(1254,y+52,t2,16,'rgba(227,236,238,.85)',500);}));
+ }},
+
+{t:'轉動慣量：第一道緩衝',en:'Inertia: the first cushion',dur:13,
+ d:'火力、水力與核能電廠的發電機是數十到數百公噸的旋轉機械，與電網同步轉動，2 極機組在 60 Hz 下每分鐘轉 3,600 圈。一部機組突然跳脫時，其他機組的轉子會自動釋放旋轉動能補上缺口，讓頻率不會瞬間崩落，這就是轉動慣量。慣量越大，頻率下降越慢，調度與控制系統越有時間反應。太陽光電與風機經變流器併網，本身不提供慣量，需要靠電網構建型變流器或儲能提供「合成慣量」。',
+ s:[[0,'發電機轉子與電網同步旋轉，儲存大量動能'],[.3,'一部機組跳脫，轉子釋放動能補上缺口'],[.55,'慣量越小，頻率下降得越快、越深'],[.78,'變流器併網的電源，需要另外提供合成慣量']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'旋轉中的發電機組',20,'#f2c230',700);
+  const cx=410,cy=410,sl=u<.3?1:1-.06*ease(seg(u,.3,.6)),rot=TT*2.2*sl;
+  circ(cx,cy,150,'#1c3144','#c9d1d6',3);circ(cx,cy,118,'#23405a');
+  for(let i=0;i<6;i++){const a=rot+i*Math.PI/3;ln([cx+Math.cos(a)*30,cy+Math.sin(a)*30,cx+Math.cos(a)*140,cy+Math.sin(a)*140],'#7dc8dc',6);}
+  circ(cx,cy,30,'#c9d1d6');
+  for(let i=0;i<3;i++){const a=rot+i*TAU/3;alphaDo(.8,()=>circ(cx+Math.cos(a)*134,cy+Math.sin(a)*134,7,'#f2c230'));}
+  alphaDo(seg(u,.04,.1),()=>{wt(cx,612,'E = ½ J ω²',30,'#fff',700,'center',COND);wt(cx,650,'轉子儲存的旋轉動能',17,'rgba(227,236,238,.85)',500,'center');});
+  alphaDo(seg(u,.1,.16),()=>wt(cx,238,'60 Hz · 3,600 rpm（2 極）',18,'#7dffc4',700,'center',COND));
+  alphaDo(seg(u,.32,.38)*(1-seg(u,.74,.78)),()=>tag(cx,700,'釋放動能，補上缺口',{size:17,bg:'#f2c230',align:'center'}));
+  alphaDo(seg(u,.78,.84),()=>{tag(84,700,'同步機組：自帶慣量',{size:16,bg:'#7dffc4'});tag(84,752,'光電與風機：需合成慣量',{size:16,bg:'#dfe5e8'});});
+  const C=chartBox(800,160,740,640,{title:'失去一部機組後的頻率（示意）',x0:0,x1:10,y0:59.3,y1:60.05,xt:[0,2,4,6,8,10],yt:[59.4,59.6,59.8,60],xl:'秒',yl:'Hz',pl:84,pt:60,pb:56,gx:5,gy:3});
+  ctx.setLineDash([8,6]);ln([C.px,C.Y(59.5),C.px+C.pw,C.Y(59.5)],'#e8572a',2);ctx.setLineDash([]);
+  wt(C.px+C.pw-8,C.Y(59.5)+24,'59.5 Hz 安全下限',16,'#ff9d7a',700,'right');
+  const tE=10*seg(u,.3,.92);
+  const curve=(fn,col,lw)=>{if(tE<=0)return;ctx.beginPath();for(let t=0;t<=tE;t+=.05){const x=C.X(t),y=C.Y(fn(t));t?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();};
+  curve(fHi,'#7dffc4',3.5);
+  alphaDo(seg(u,.55,.6),()=>curve(fLo,'#ff8a60',3.5));
+  alphaDo(seg(u,.32,.38),()=>{ctx.setLineDash([4,5]);ln([C.X(1),C.py,C.X(1),C.py+C.ph],'rgba(255,255,255,.5)',1.5);ctx.setLineDash([]);wt(C.X(1)+10,C.py+24,'機組跳脫',16,'#fff',600);});
+  alphaDo(seg(u,.45,.5),()=>wt(C.X(9.8),C.Y(fHi(9))-16,'慣量大：下降較慢',17,'#7dffc4',700,'right'));
+  alphaDo(seg(u,.62,.68),()=>wt(C.X(9.8),C.Y(59.62)+34,'慣量小：下降較快、較深',17,'#ff9d7a',700,'right'));
+  alphaDo(seg(u,.66,.72),()=>{ln([C.X(1),C.Y(60),C.X(2.1),C.Y(59.42)],'rgba(255,255,255,.7)',2);wt(C.X(2.25),C.Y(59.42)+4,'頻率變化率（RoCoF）',16,'#fff',600);});
+ }},
+
+{t:'一次調頻與二次調頻',en:'Primary and secondary frequency control',dur:14,
+ d:'慣量只能爭取幾秒鐘，接下來由三道防線接手。一次調頻：每部機組的調速機感測到頻率下降，就依速度調定率自動增加出力，常見設定為 5%，也就是頻率變化 5% 時出力變化 100%；它能在數秒到數十秒內止住頻率下滑，但會停在略低於 60 Hz 的位置。二次調頻：中央調度中心的自動發電控制（AGC）計算缺口，在數分鐘內調整頻控機組出力，把頻率拉回 60 Hz。之後再由調度員重新安排機組與備轉容量。',
+ s:[[0,'機組跳脫後，頻率在數秒內下滑'],[.22,'慣量先緩衝，爭取幾秒鐘'],[.42,'一次調頻：調速機自動增加出力，止住下滑'],[.66,'二次調頻：AGC 在數分鐘內拉回 60 Hz']],
+ draw(u){
+  diagBG();
+  const C=chartBox(60,160,1480,400,{title:'機組跳脫後，三道防線依序接手（示意）',x0:0,x1:1,y0:59.76,y1:60.04,xt:[],yt:[59.8,59.9,60],yl:'Hz',pl:92,pt:58,pb:50,gx:0,gy:3});
+  box(C.px,C.Y(60.04),C.pw,C.Y(59.9)-C.Y(60.04),'rgba(125,255,196,.07)');
+  [[0,'0'],[1,'1 秒'],[10,'10 秒'],[30,'30 秒'],[60,'1 分'],[300,'5 分'],[600,'10 分']].forEach(([t,s])=>{const x=C.X(xm(t));ln([x,C.py+C.ph,x,C.py+C.ph+6],'rgba(255,255,255,.5)',1.5);wt(x,C.py+C.ph+28,s,16,'rgba(227,236,238,.85)',600,'center',COND);});
+  const sR=seg(u,.06,.9);
+  if(sR>0){ctx.beginPath();for(let i=0;i<=400*sR;i++){const t=Math.pow(10,i/400*LX)-1,x=C.X(xm(t)),y=C.Y(fEv(t));i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#fff';ctx.lineWidth=3.5;ctx.stroke();}
+  alphaDo(seg(u,.3,.36),()=>{const x=C.X(xm(6)),y=C.Y(fEv(6));circ(x,y,7,'#ff9d7a');wt(x+14,y+24,trf('最低點 {f} Hz',{f:fEv(6).toFixed(2)}),16,'#ff9d7a',700,'left');});
+  alphaDo(seg(u,.56,.62),()=>{const x=C.X(xm(40)),y=C.Y(fEv(40));circ(x,y,7,'#f2c230');wt(x-14,y-14,'一次調頻穩住',16,'#f2c230',700,'right');});
+  alphaDo(seg(u,.86,.9),()=>{const x=C.X(xm(560)),y=C.Y(fEv(560));circ(x,y,7,'#7dffc4');wt(x-10,y-16,'回到 60 Hz',16,'#7dffc4',700,'right');});
+  const RW=[[0,6,'慣量響應','旋轉動能自然釋放','#7dc8dc',.2],[2,60,'一次調頻','調速機依頻差自動增加出力','#f2c230',.42],[30,600,'二次調頻（AGC）','調度中心自動拉回 60 Hz','#7dffc4',.66]];
+  RW.forEach(([t0,t1,n,ds,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const x0=C.X(xm(t0)),x1=C.X(xm(t1)),y=596+i*70;
+   rrp(x0,y,x1-x0,60,6);ctx.fillStyle='rgba(7,27,39,.8)';ctx.fill();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.stroke();box(x0,y,6,60,c);
+   wt(x0+18,y+26,n,18,c,700);wt(x0+18,y+50,ds,16,'rgba(227,236,238,.9)',500);}));
+  alphaDo(seg(u,.2,.26),()=>wt(60,628,'時間',16,'rgba(227,236,238,.7)',600));
+ }},
+
+{t:'中央調度中心',en:'The central dispatch center',dur:12,side:true,
+ d:'台電中央調度中心 24 小時監看全台的頻率、負載與每一部機組。它依用電預測事先排定機組，保留足夠的備轉容量；AGC 每隔幾秒送出指令，調整頻控機組出力。近年台電也透過電力交易平台採購輔助服務，讓電池儲能、抽蓄水力與需量反應參與調頻與備轉。儲能反應最快，1 秒內就能動作，燃氣機組則在數分鐘內升載接手。',
+ s:[[0,'調度中心 24 小時監看頻率與負載'],[.3,'AGC 每隔幾秒送出調整指令'],[.52,'儲能 1 秒內放電，先頂住缺口'],[.72,'燃氣機組在數分鐘內升載接手']],
+ cam:u=>camMix({x:800,y:440,s:1.02},{x:780,y:450,s:1.1},ease(seg(u,.05,.4))),
+ draw(u){
+  const k=lerp(.55,.95,ease(seg(u,.72,.95))),b=band(u,.52,.9);
+  scene({k,glint:true,lit:.2});
+  const sig=seg(u,.3,.36);
+  if(sig>0){const ax=990,ay=gyy(945)-180;ctx.save();ctx.setLineDash([10,8]);ctx.lineDashOffset=-TT*40;
+   alphaDo(sig,()=>{ctx.strokeStyle='#e8572a';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(600,ay-150,290,gyy(180)-250);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(820,ay-40,705,gyy(705)-50);ctx.stroke();});ctx.restore();ctx.setLineDash([]);}
+  flowDots(PBAT(),5,'#f2c230',b,.45);
+  flowDots(PMAIN(),10,'#f2c230',seg(u,.72,.8),.25+.15*k);
+  lab(945,gyy(945)-110,'中央調度中心',{dx:30,dy:-120,st:'s',a:band(u,.02,1)});
+  lab(990,gyy(945)-180,'AGC 指令',{dx:80,dy:-30,st:'w',a:band(u,.3,.6)});
+  lab(670,gyy(670)-40,'儲能：放電',{dx:-30,dy:-120,st:'g',a:band(u,.52,1)});
+  lab(250,gyy(250)-240,'燃氣機組：升載',{dx:40,dy:-40,st:'s',a:band(u,.72,1)});
+ },
+ hud(u){hudPanel(240,150,'調度資訊（示例）',seg(u,.05,.1),w=>{const r=ease(seg(u,.52,.95));const f=lerp(59.9,60,r),p=Math.round(300*ease(seg(u,.3,.5)));
+  hrow(56,'系統頻率',f.toFixed(2)+' Hz',w,f<59.97?'#ff8a60':'#7dffc4');hrow(88,'AGC 指令','+'+p+' MW',w,'#f2c230');hrow(120,'備轉容量率','≥ 10%',w,'#7dffc4');});}},
+
+{t:'一天的負載與鴨子曲線',en:'The daily load and the duck curve',dur:14,
+ d:'用電一天之中起伏明顯：清晨最低，午後冷氣全開時達到高峰，晚上仍維持高檔。太陽光電中午發電最多，把其他電廠需要供應的「淨負載」壓低；太陽下山後光電歸零，淨負載在傍晚快速上升。畫成圖時，中午凹下像鴨肚、傍晚翹起像鴨頭，稱為鴨子曲線。電網必須在兩、三個小時內升載數百萬瓩，這需要燃氣機組、抽蓄水力與儲能一起接力。',
+ s:[[0,'一天的用電：清晨最低，午後最高'],[.28,'太陽光電中午發電最多'],[.5,'扣掉光電後的淨負載，形狀像一隻鴨子'],[.74,'傍晚太陽下山，淨負載快速上升']],
+ draw(u){
+  diagBG();
+  const C=chartBox(60,160,1060,640,{title:'夏季平日的負載與光電（示意）',x0:0,x1:24,y0:0,y1:45,xt:[0,6,12,18,24],yt:[0,10,20,30,40],xl:'時',yl:'GW',pl:76,pt:60,pb:56,gx:4,gy:4});
+  const line=(fn,H,col,lw,dash)=>{if(H<=0)return;ctx.beginPath();for(let h=0;h<=H;h+=.1){const x=C.X(h),y=C.Y(fn(h));h?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;if(dash)ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);};
+  const s1=seg(u,.02,.25),s2=seg(u,.28,.46),s3=seg(u,.5,.7);
+  if(s2>0){ctx.beginPath();ctx.moveTo(C.X(0),C.Y(0));for(let h=0;h<=24*s2;h+=.1)ctx.lineTo(C.X(h),C.Y(solarAt(h)));ctx.lineTo(C.X(24*s2),C.Y(0));ctx.closePath();ctx.fillStyle='rgba(242,194,48,.35)';ctx.fill();line(solarAt,24*s2,'#f2c230',2.5);}
+  line(loadAt,24*s1,'rgba(227,236,238,.9)',3,s3>0?[8,6]:null);
+  line(netAt,24*s3,'#ff8a60',4);
+  alphaDo(band(u,.14,.7),()=>wt(C.X(14.5),C.Y(loadAt(14.5))-14,'總用電',17,'#fff',700,'center'));
+  alphaDo(seg(u,.4,.46),()=>wt(C.X(12),C.Y(solarAt(12))-14,'太陽光電',17,'#f2c230',700,'center'));
+  alphaDo(seg(u,.62,.68),()=>wt(C.X(12.5),C.Y(netAt(12.5))+32,'淨負載',17,'#ff9d7a',700,'center'));
+  const rp=seg(u,.74,.8);
+  alphaDo(rp,()=>{const a=netAt(16),b=netAt(19.5);box(C.X(16),C.py,C.X(19.5)-C.X(16),C.ph,'rgba(232,87,42,.12)');arrow(C.X(17.7),C.Y(a)+10,C.X(17.7),C.Y(b)+6,'#e8572a',3);
+   tag(C.X(17.7),C.Y(b)-34,trf('約 {n} 小時升載 {g} GW',{n:'3.5',g:(b-a).toFixed(1)}),{size:16,bg:'#e8572a',align:'center',fg:'#fff'});});
+  /* 右：說明卡 */
+  card(1160,160,380,640,{bg:'rgba(7,27,39,.75)'});wt(1184,200,'為什麼像鴨子？',20,'#f2c230',700);
+  const T=[['中午','光電大量發電','淨負載凹下＝鴨肚','#f2c230',.5],['傍晚','光電歸零、用電仍高','淨負載翹起＝鴨頭','#ff9d7a',.74],['對策','燃氣、抽蓄、儲能','快速升載接力','#7dffc4',.86]];
+  T.forEach(([h,l1,l2,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const y=250+i*170;card(1184,y,332,146,{bg:'rgba(255,255,255,.04)',st:c});wt(1206,y+38,h,20,c,700);wt(1206,y+76,l1,17,'#fff',600);wt(1206,y+110,l2,17,'rgba(227,236,238,.85)',500);}));
+ }},
+
+{t:'傍晚的接力',en:'The evening relay',dur:13,side:true,
+ d:'傍晚是電網最忙碌的時段。太陽光電出力在一、兩個小時內從數百萬瓩降到零，城市的燈光卻一盞盞亮起。調度中心讓燃氣機組逐步升載、抽蓄水力轉為發電，儲能把中午存下的電放出來，全程維持頻率在 60 Hz 附近。再生能源越多，電網越需要這種靈活的資源；下一集將介紹虛擬電廠與需量反應，看用戶端如何一起幫忙平衡供需。',
+ s:[[0,'下午四點，光電仍在發電'],[.3,'太陽西下，光電出力快速減少'],[.55,'燃氣升載、儲能放電，一起補上缺口'],[.8,'城市亮燈，頻率仍穩在 60 Hz']],
+ base:u=>{const k=seg(u,.25,.85);landSky(GY,{sun:{x:lerp(1100,1480,seg(u,0,.85)),y:lerp(200,600,ease(seg(u,.05,.85)))},dusk:k,clouds:false});drawGround();},
+ cam:u=>({x:800,y:440,s:1.02}),
+ draw(u){
+  const h=lerp(16,20,seg(u,.02,.95)),pv=solarAt(h)/11,k=lerp(.55,1,ease(seg(u,.4,.8))),dk=seg(u,.25,.85);
+  scene({k,glint:pv>.3,lit:ease(seg(u,.5,.95))});
+  alphaDo(dk*.3,()=>box(VX0,VY0,VX1-VX0,VY1-VY0,'#0e1a2a'));
+  flowDots(PSOL(),5,'#7dffc4',clamp(pv*1.5),.3);
+  flowDots(PBAT(),5,'#f2c230',seg(u,.55,.62),.45);
+  flowDots(PMAIN(),10,'#f2c230',1,.25+.15*k);
+  lab(440,gyy(440)-40,'光電出力下降',{dx:-20,dy:-110,st:'w',a:band(u,.3,.62)});
+  lab(250,gyy(250)-240,'燃氣升載',{dx:50,dy:-40,st:'s',a:band(u,.55,1)});
+  lab(670,gyy(670)-40,'儲能放電',{dx:10,dy:-110,st:'g',a:band(u,.58,1)});
+  lab(1330,gyy(1330)-160,'城市亮燈',{dx:-20,dy:-70,st:'l',a:band(u,.8,1)});
+ },
+ hud(u){hudPanel(240,182,'傍晚供電（示意）',seg(u,.05,.1),w=>{const h=lerp(16,20,seg(u,.02,.95)),s=solarAt(h),bt=2*ease(seg(u,.55,.75));
+  hrow(56,'時間',trf('{h}:{m}',{h:Math.floor(h),m:String(Math.floor((h%1)*60)).padStart(2,'0')}),w,'#fff');hrow(86,'太陽光電',s.toFixed(1)+' GW',w,'#f2c230');hrow(116,'儲能',bt.toFixed(1)+' GW',w,'#7dffc4');hrow(146,'其他電廠',(loadAt(h)-s-bt).toFixed(1)+' GW',w,'#ff9d7a');hrow(172,'頻率','60.00 Hz',w,'#7dffc4');});}}
+]};
+
+/* 電網如何平衡供需 translations: Traditional Chinese → [English, Japanese] */
+Object.assign(DICT,{
+"電網系列":["Power Grid Series","電力系統シリーズ"],
+"電網如何平衡供需":["How the grid balances supply and demand","電力系統はどう需給を合わせるか"],
+"電無法大量儲存在電線裡，發多少電就要同時用掉多少。這一集從台灣電網的 60 Hz 頻率談起，看轉動慣量、一次調頻與二次調頻如何在幾秒到幾分鐘內接力穩住電網，以及太陽光電增加之後，傍晚的「鴨子曲線」帶來什麼挑戰。":["Electricity cannot be stored in the wires, so every unit generated must be used at the same moment. This episode starts from the 60 Hz frequency of Taiwan's grid and shows how inertia, primary control and secondary control take turns to steady the grid within seconds to minutes, and what challenge the evening \"duck curve\" brings as solar power grows.","電気は電線の中にためておけないため、発電した分をその瞬間に使い切る必要があります。本エピソードでは台湾の電力系統の 60 Hz という周波数から出発し、慣性、一次調整、二次調整が数秒から数分のあいだにリレーで系統を安定させる仕組みと、太陽光発電の増加で夕方に生じる「ダックカーブ」の課題を解説します。"],
+"台灣電網的標準頻率；台電正常運轉範圍為 59.9–60.1 Hz":["Standard frequency of Taiwan's grid; Taipower's normal operating range is 59.9–60.1 Hz","台湾の電力系統の標準周波数。台電の通常運用範囲は 59.9–60.1 Hz"],
+"台電系統安全運轉的頻率下限，再往下會由低頻電驛自動卸載":["Taipower's lower frequency limit for safe operation; below it, under-frequency relays shed load automatically","台電系統の安全運用の下限周波数。これを下回ると周波数低下リレーが自動で負荷を遮断"],
+"約 4,100":["about 41,000","約 4,100"],
+"萬瓩":["MW","万kW"],
+"台灣電網近年的夏季尖峰負載，約 41 GW":["Recent summer peak load on Taiwan's grid, about 41 GW","近年の台湾の夏季ピーク負荷、約 41 GW"],
+"調速機常見的速度調定率（示例）：頻率變化 5% 時，機組出力變化 100%":["Typical governor droop (example): a 5% change in frequency moves unit output by 100%","ガバナの一般的な速度調定率（例）：周波数が 5% 変化すると出力が 100% 変化"],
+"秒":["s","秒"],
+"儲能參與台電調頻備轉（dReg）要求的反應時間":["Response time required of storage in Taipower's frequency regulation reserve (dReg)","台電の周波数調整予備力（dReg）で蓄電池に求められる応答時間"],
+"約 15.7":["about 15.7","約 15.7"],
+"截至 2026 年 3 月底，台灣太陽光電累計裝置容量":["Taiwan's cumulative installed solar PV capacity as of the end of March 2026","2026 年 3 月末時点の台湾の太陽光発電累計設備容量"],
+"說明：本集為教育用途示意動畫，電廠、城市與設備比例經過調整。頻率範圍依台電「電力調度要點」（正常 59.9–60.1 Hz、電源不足時 59.8–60.2 Hz）與台電說明的安全運轉下限 59.5 Hz；頻率事件曲線、轉動慣量比較、調速機速度調定率 5% 與調度指令功率皆為典型範例；一日負載與光電曲線為依台電公開用電曲線形狀繪製的示意，並非特定日期資料；光電裝置容量引自經濟部能源署統計。實際數值依系統狀況與台電規範而定。":["Note: this is an illustrative educational animation; the scale of power plants, the city and equipment has been adjusted. Frequency ranges follow Taipower's Power Dispatching Guidelines (normal 59.9–60.1 Hz, 59.8–60.2 Hz when supply is short) and the 59.5 Hz safe-operation floor described by Taipower. The frequency event curves, the inertia comparison, the 5% governor droop and the dispatch power are typical examples. The daily load and solar curves are sketches based on the shape of Taipower's published load curves, not data from a specific day. Solar capacity is from Energy Administration (MOEA) statistics. Actual values depend on system conditions and Taipower rules.","説明：本作は教育用の模式アニメーションで、発電所・都市・設備の縮尺は調整しています。周波数範囲は台電「電力調度要点」（通常 59.9–60.1 Hz、供給力不足時 59.8–60.2 Hz）と台電が示す安全運用の下限 59.5 Hz に基づきます。周波数変動の曲線、慣性の比較、ガバナ速度調定率 5%、給電指令の出力はいずれも典型例です。1 日の負荷と太陽光の曲線は台電が公開する需要曲線の形をもとにした模式図で、特定日のデータではありません。太陽光の設備容量は経済部エネルギー署の統計によります。実際の値は系統の状況と台電の規定により異なります。"],
+/* 分鏡 1 */
+"一張隨時平衡的網":["A network in constant balance","常に釣り合う電力網"],
+"電網把發電廠、太陽光電、儲能與千萬用戶連在一起。電無法大量存在電線裡，每一秒發出來的電，都要同時被用掉。早上工廠開工、午後冷氣全開，用電不斷變化，發電端就得跟著增減。台灣電網近年夏季尖峰負載約 4,100 萬瓩（41 GW），而且是一個與其他國家不相連的獨立電網，所有的平衡都要靠自己完成。":["The grid links power plants, solar farms, storage and millions of customers. Electricity cannot be stored in the wires in bulk, so every second the power generated must be consumed at the same moment. Factories start up in the morning and air conditioners run at full tilt in the afternoon; as demand changes, generation must follow. Taiwan's recent summer peak load is about 41 GW, and it is an isolated grid with no links to other countries, so it must keep the balance entirely on its own.","電力系統は発電所、太陽光発電、蓄電池、そして数千万の需要家を結んでいます。電気は電線に大量にためられないため、毎秒発電した電気をその瞬間に使い切る必要があります。朝は工場が動き出し、午後は冷房がフル稼働するなど需要は刻々と変わり、発電側はそれに合わせて増減しなければなりません。台湾の近年の夏季ピーク負荷は約 4,100 万 kW（41 GW）で、他国と連系していない独立系統のため、需給の釣り合いはすべて自力で保つ必要があります。"],
+"電廠、光電與儲能，透過輸電線送電到城市":["Power plants, solar and storage send power to the city over transmission lines","発電所・太陽光・蓄電池から送電線で都市へ送電"],
+"每一秒發出的電，都要同時被用掉":["Every second, the power generated must be used at once","毎秒、発電した電気はその場で使い切られる"],
+"用電增加，發電端就得跟著增加":["When demand rises, generation has to rise with it","需要が増えれば、発電も合わせて増やす"],
+"台灣是獨立電網，平衡只能靠自己":["Taiwan is an isolated grid and must balance on its own","台湾は独立系統、需給調整は自力で行う"],
+"燃氣電廠":["Gas power plant","ガス火力発電所"],
+"太陽光電":["Solar PV","太陽光発電"],
+"儲能":["Storage","蓄電池"],
+"輸電線路":["Transmission line","送電線"],
+"城市用電":["City demand","都市の電力需要"],
+"增加出力":["Output up","出力増加"],
+"電網即時狀態（示例）":["Grid status (example)","系統の状態（例）"],
+"用電":["Demand","需要"],
+"發電":["Generation","発電"],
+"頻率":["Frequency","周波数"],
+/* 分鏡 2 */
+"頻率：供需的溫度計":["Frequency: the thermometer of balance","周波数：需給の温度計"],
+"電網的頻率就像供需的溫度計。台灣的交流電每秒正負交替 60 次，也就是 60 Hz。發電大於用電，發電機轉得更快，頻率上升；用電大於發電，發電機被拖慢，頻率下降。台電規定正常運轉範圍為 59.9 至 60.1 Hz，電源不足時放寬到 59.8 至 60.2 Hz；59.5 Hz 是安全運轉的下限，再往下就會由低頻電驛自動切斷部分用戶，避免全面停電。":["Grid frequency works like a thermometer for the balance of supply and demand. Taiwan's alternating current reverses 60 times a second: 60 Hz. When generation exceeds demand, generators spin faster and frequency rises; when demand exceeds generation, generators are dragged down and frequency falls. Taipower's normal operating range is 59.9 to 60.1 Hz, widened to 59.8 to 60.2 Hz when supply is short. 59.5 Hz is the floor for safe operation; below it, under-frequency relays automatically disconnect some customers to avoid a total blackout.","系統周波数は需給バランスの温度計のようなものです。台湾の交流電気は 1 秒間に 60 回プラスとマイナスが入れ替わり、これが 60 Hz です。発電が需要を上回ると発電機の回転が速まり周波数が上がり、需要が発電を上回ると発電機が引き戻されて周波数が下がります。台電の通常運用範囲は 59.9～60.1 Hz、供給力不足時は 59.8～60.2 Hz に広げられます。59.5 Hz は安全運用の下限で、これを下回ると周波数低下リレーが一部の需要家を自動で切り離し、全域停電を防ぎます。"],
+"發電與用電平衡時，頻率維持 60 Hz":["With supply and demand balanced, frequency stays at 60 Hz","需給が釣り合うと、周波数は 60 Hz を維持"],
+"用電大於發電，頻率往下掉":["Demand exceeds supply, so frequency drops","需要が発電を上回り、周波数が低下"],
+"發電大於用電，頻率往上升":["Supply exceeds demand, so frequency rises","発電が需要を上回り、周波数が上昇"],
+"調整發電，頻率回到 60 Hz":["Generation is adjusted and frequency returns to 60 Hz","発電を調整し、周波数は 60 Hz に戻る"],
+"供給與需求的蹺蹺板":["The supply–demand seesaw","供給と需要のシーソー"],
+"發電（供給）":["Generation (supply)","発電（供給）"],
+"用電（需求）":["Consumption (demand)","消費（需要）"],
+"用電大於發電：頻率下降":["Demand > supply: frequency falls","需要＞発電：周波数低下"],
+"發電大於用電：頻率上升":["Supply > demand: frequency rises","発電＞需要：周波数上昇"],
+"供需平衡：60 Hz":["Balanced: 60 Hz","需給均衡：60 Hz"],
+"頻率計":["Frequency meter","周波数計"],
+"正常運轉範圍":["Normal operating range","通常運用範囲"],
+"電源不足時的範圍":["Range when supply is short","供給力不足時の範囲"],
+"安全下限":["Safety floor","安全運用の下限"],
+"再低即自動卸載":["Load shedding below this","下回ると自動負荷遮断"],
+/* 分鏡 3 */
+"轉動慣量：第一道緩衝":["Inertia: the first cushion","慣性：最初の緩衝"],
+"火力、水力與核能電廠的發電機是數十到數百公噸的旋轉機械，與電網同步轉動，2 極機組在 60 Hz 下每分鐘轉 3,600 圈。一部機組突然跳脫時，其他機組的轉子會自動釋放旋轉動能補上缺口，讓頻率不會瞬間崩落，這就是轉動慣量。慣量越大，頻率下降越慢，調度與控制系統越有時間反應。太陽光電與風機經變流器併網，本身不提供慣量，需要靠電網構建型變流器或儲能提供「合成慣量」。":["Generators in thermal, hydro and nuclear plants are rotating machines weighing tens to hundreds of tonnes, spinning in step with the grid; a two-pole unit turns 3,600 times a minute at 60 Hz. When one unit trips suddenly, the rotors of the others automatically release kinetic energy to fill the gap, so frequency does not collapse instantly. This is inertia. The greater the inertia, the slower frequency falls and the more time controls and dispatchers have to respond. Solar and wind connect through inverters and provide no inertia of their own; grid-forming inverters or storage must supply \"synthetic inertia\".","火力・水力・原子力発電所の発電機は数十～数百トンの回転機械で、系統と同期して回っています。2 極機は 60 Hz で毎分 3,600 回転します。1 台が突然脱落すると、ほかの発電機の回転子が自然に回転エネルギーを放出して不足を補い、周波数が一気に崩れるのを防ぎます。これが慣性です。慣性が大きいほど周波数の低下は緩やかになり、制御や給電の対応時間を稼げます。太陽光や風力はインバータを介して連系するため自ら慣性を持たず、グリッドフォーミングインバータや蓄電池による「疑似慣性」が必要です。"],
+"發電機轉子與電網同步旋轉，儲存大量動能":["Generator rotors spin in step with the grid, storing kinetic energy","発電機の回転子は系統と同期し、大きな運動エネルギーを持つ"],
+"一部機組跳脫，轉子釋放動能補上缺口":["A unit trips; rotors release energy to fill the gap","1 台が脱落、回転子がエネルギーを放出して補う"],
+"慣量越小，頻率下降得越快、越深":["With less inertia, frequency falls faster and deeper","慣性が小さいほど、周波数は速く深く下がる"],
+"變流器併網的電源，需要另外提供合成慣量":["Inverter-based sources need to provide synthetic inertia","インバータ電源には疑似慣性の付与が必要"],
+"旋轉中的發電機組":["A spinning generator","回転する発電機"],
+"轉子儲存的旋轉動能":["Kinetic energy stored in the rotor","回転子に蓄えられた回転エネルギー"],
+"60 Hz · 3,600 rpm（2 極）":["60 Hz · 3,600 rpm (2-pole)","60 Hz · 3,600 rpm（2 極）"],
+"釋放動能，補上缺口":["Releases energy to fill the gap","エネルギーを放出して補う"],
+"同步機組：自帶慣量":["Synchronous units: built-in inertia","同期発電機：慣性を持つ"],
+"光電與風機：需合成慣量":["Solar and wind: need synthetic inertia","太陽光・風力：疑似慣性が必要"],
+"失去一部機組後的頻率（示意）":["Frequency after losing a unit (illustrative)","発電機脱落後の周波数（模式図）"],
+"59.5 Hz 安全下限":["59.5 Hz safety floor","59.5 Hz 安全下限"],
+"機組跳脫":["Unit trips","発電機脱落"],
+"慣量大：下降較慢":["High inertia: slower fall","慣性大：低下が緩やか"],
+"慣量小：下降較快、較深":["Low inertia: faster, deeper fall","慣性小：低下が速く深い"],
+"頻率變化率（RoCoF）":["Rate of change (RoCoF)","周波数変化率（RoCoF）"],
+/* 分鏡 4 */
+"一次調頻與二次調頻":["Primary and secondary frequency control","一次調整と二次調整"],
+"慣量只能爭取幾秒鐘，接下來由三道防線接手。一次調頻：每部機組的調速機感測到頻率下降，就依速度調定率自動增加出力，常見設定為 5%，也就是頻率變化 5% 時出力變化 100%；它能在數秒到數十秒內止住頻率下滑，但會停在略低於 60 Hz 的位置。二次調頻：中央調度中心的自動發電控制（AGC）計算缺口，在數分鐘內調整頻控機組出力，把頻率拉回 60 Hz。之後再由調度員重新安排機組與備轉容量。":["Inertia buys only a few seconds; after that, layered defenses take over. Primary control: each unit's governor senses the frequency drop and raises output automatically according to its droop, commonly set at 5%, meaning a 5% change in frequency moves output by 100%. It halts the decline within seconds to tens of seconds, but settles slightly below 60 Hz. Secondary control: automatic generation control (AGC) at the central dispatch center calculates the shortfall and adjusts regulating units over several minutes, bringing frequency back to 60 Hz. Dispatchers then rearrange units and reserves.","慣性が稼げるのは数秒だけで、その後は段階的な防御が引き継ぎます。一次調整：各発電機のガバナが周波数低下を検知し、速度調定率に従って自動で出力を増やします。一般的な設定は 5% で、周波数が 5% 変化すると出力が 100% 変化します。数秒～数十秒で低下を止めますが、60 Hz よりやや低い位置で落ち着きます。二次調整：中央給電指令所の自動発電制御（AGC）が不足量を計算し、数分かけて調整用発電機の出力を変えて周波数を 60 Hz に戻します。その後、給電員が発電機と予備力を組み直します。"],
+"機組跳脫後，頻率在數秒內下滑":["After a unit trips, frequency slides within seconds","発電機脱落後、周波数は数秒で低下"],
+"慣量先緩衝，爭取幾秒鐘":["Inertia cushions first, buying a few seconds","まず慣性が緩衝し、数秒を稼ぐ"],
+"一次調頻：調速機自動增加出力，止住下滑":["Primary control: governors raise output and stop the fall","一次調整：ガバナが出力を増やし低下を止める"],
+"二次調頻：AGC 在數分鐘內拉回 60 Hz":["Secondary control: AGC restores 60 Hz within minutes","二次調整：AGC が数分で 60 Hz に戻す"],
+"機組跳脫後，三道防線依序接手（示意）":["After a unit trip, three defenses take over in turn (illustrative)","発電機脱落後、3 段の防御が順に引き継ぐ（模式図）"],
+"1 秒":["1 s","1 秒"],"10 秒":["10 s","10 秒"],"30 秒":["30 s","30 秒"],"1 分":["1 min","1 分"],"5 分":["5 min","5 分"],"10 分":["10 min","10 分"],
+"最低點 {f} Hz":["Nadir {f} Hz","最低点 {f} Hz"],
+"一次調頻穩住":["Primary control holds","一次調整で安定"],
+"回到 60 Hz":["Back to 60 Hz","60 Hz に復帰"],
+"慣量響應":["Inertial response","慣性応答"],
+"旋轉動能自然釋放":["Rotating mass releases energy","回転エネルギーを自然に放出"],
+"一次調頻":["Primary control","一次調整"],
+"調速機依頻差自動增加出力":["Governors raise output on frequency error","ガバナが周波数偏差に応じ出力増"],
+"二次調頻（AGC）":["Secondary control (AGC)","二次調整（AGC）"],
+"調度中心自動拉回 60 Hz":["Dispatch center restores 60 Hz","給電指令所が 60 Hz に戻す"],
+"時間":["Time","時刻"],
+/* 分鏡 5 */
+"中央調度中心":["Central dispatch center","中央給電指令所"],
+"台電中央調度中心 24 小時監看全台的頻率、負載與每一部機組。它依用電預測事先排定機組，保留足夠的備轉容量；AGC 每隔幾秒送出指令，調整頻控機組出力。近年台電也透過電力交易平台採購輔助服務，讓電池儲能、抽蓄水力與需量反應參與調頻與備轉。儲能反應最快，1 秒內就能動作，燃氣機組則在數分鐘內升載接手。":["Taipower's central dispatch center monitors frequency, load and every generating unit across Taiwan around the clock. It schedules units in advance from demand forecasts and keeps enough operating reserve, while AGC sends commands every few seconds to adjust regulating units. In recent years Taipower has also procured ancillary services through its power trading platform, letting battery storage, pumped hydro and demand response provide regulation and reserves. Storage responds fastest, within 1 second, while gas units ramp up and take over within minutes.","台電の中央給電指令所は、全台湾の周波数・負荷・すべての発電機を 24 時間監視しています。需要予測に基づいて発電機を事前に計画し、十分な運転予備力を確保します。AGC は数秒ごとに指令を送り、調整用発電機の出力を変えます。近年は電力取引プラットフォームでアンシラリーサービスを調達し、蓄電池、揚水発電、デマンドレスポンスも周波数調整や予備力に参加しています。蓄電池は 1 秒以内に最も速く応答し、ガス火力は数分で出力を上げて引き継ぎます。"],
+"調度中心 24 小時監看頻率與負載":["The dispatch center watches frequency and load 24/7","給電指令所が周波数と負荷を 24 時間監視"],
+"AGC 每隔幾秒送出調整指令":["AGC sends adjustment commands every few seconds","AGC が数秒ごとに調整指令を送信"],
+"儲能 1 秒內放電，先頂住缺口":["Storage discharges within 1 s to hold the gap","蓄電池が 1 秒以内に放電し不足を支える"],
+"燃氣機組在數分鐘內升載接手":["Gas units ramp up and take over within minutes","ガス火力が数分で出力を上げ引き継ぐ"],
+"AGC 指令":["AGC command","AGC 指令"],
+"儲能：放電":["Storage: discharging","蓄電池：放電"],
+"燃氣機組：升載":["Gas unit: ramping up","ガス火力：出力上昇"],
+"調度資訊（示例）":["Dispatch data (example)","給電情報（例）"],
+"系統頻率":["System frequency","系統周波数"],
+"備轉容量率":["Reserve margin","予備率"],
+/* 分鏡 6 */
+"一天的負載與鴨子曲線":["The daily load and the duck curve","1 日の負荷とダックカーブ"],
+"用電一天之中起伏明顯：清晨最低，午後冷氣全開時達到高峰，晚上仍維持高檔。太陽光電中午發電最多，把其他電廠需要供應的「淨負載」壓低；太陽下山後光電歸零，淨負載在傍晚快速上升。畫成圖時，中午凹下像鴨肚、傍晚翹起像鴨頭，稱為鴨子曲線。電網必須在兩、三個小時內升載數百萬瓩，這需要燃氣機組、抽蓄水力與儲能一起接力。":["Demand swings through the day: lowest before dawn, peaking in the afternoon when air conditioners run flat out, and staying high into the night. Solar output peaks at noon and pushes down the \"net load\" that other plants must supply; after sunset solar drops to zero and net load climbs quickly in the evening. Plotted, the midday dip looks like a duck's belly and the evening rise like its head, hence the duck curve. The grid must ramp up several gigawatts within two to three hours, which takes gas units, pumped hydro and storage working in relay.","電力需要は 1 日のうちに大きく変動します。明け方が最も低く、冷房がフル稼働する午後にピークを迎え、夜も高い水準が続きます。太陽光は正午に最も多く発電し、ほかの電源が賄う「正味負荷（ネットロード）」を押し下げます。日没後に太陽光がゼロになると、夕方に正味負荷が急上昇します。グラフにすると昼のくぼみがアヒルの腹、夕方の立ち上がりが頭のように見えるため、ダックカーブと呼ばれます。系統は 2～3 時間で数百万 kW の出力増加が必要で、ガス火力、揚水発電、蓄電池のリレーが欠かせません。"],
+"一天的用電：清晨最低，午後最高":["Daily demand: lowest at dawn, highest in the afternoon","1 日の需要：明け方が最低、午後が最高"],
+"太陽光電中午發電最多":["Solar output peaks at noon","太陽光は正午に発電量が最大"],
+"扣掉光電後的淨負載，形狀像一隻鴨子":["Net load after solar is shaped like a duck","太陽光を差し引いた正味負荷はアヒルの形"],
+"傍晚太陽下山，淨負載快速上升":["At sunset, net load climbs quickly","日没とともに正味負荷が急上昇"],
+"夏季平日的負載與光電（示意）":["Summer weekday load and solar (illustrative)","夏の平日の負荷と太陽光（模式図）"],
+"時":["h","時"],
+"總用電":["Total demand","総需要"],
+"淨負載":["Net load","正味負荷"],
+"約 {n} 小時升載 {g} GW":["+{g} GW in about {n} h","約 {n} 時間で {g} GW 増"],
+"為什麼像鴨子？":["Why a duck?","なぜアヒル？"],
+"中午":["Midday","昼"],
+"光電大量發電":["Solar output is high","太陽光が大量に発電"],
+"淨負載凹下＝鴨肚":["Net load dips = belly","正味負荷のくぼみ＝腹"],
+"傍晚":["Evening","夕方"],
+"光電歸零、用電仍高":["Solar gone, demand still high","太陽光ゼロ、需要は高いまま"],
+"淨負載翹起＝鴨頭":["Net load rises = head","正味負荷の立ち上がり＝頭"],
+"對策":["Response","対策"],
+"燃氣、抽蓄、儲能":["Gas, pumped hydro, storage","ガス火力・揚水・蓄電池"],
+"快速升載接力":["Ramp up fast in relay","リレーで素早く出力増"],
+/* 分鏡 7 */
+"傍晚的接力":["The evening relay","夕方のリレー"],
+"傍晚是電網最忙碌的時段。太陽光電出力在一、兩個小時內從數百萬瓩降到零，城市的燈光卻一盞盞亮起。調度中心讓燃氣機組逐步升載、抽蓄水力轉為發電，儲能把中午存下的電放出來，全程維持頻率在 60 Hz 附近。再生能源越多，電網越需要這種靈活的資源；下一集將介紹虛擬電廠與需量反應，看用戶端如何一起幫忙平衡供需。":["Evening is the grid's busiest time. Within an hour or two, solar output falls from several gigawatts to zero, just as city lights come on one by one. The dispatch center ramps up gas units, switches pumped hydro to generating, and has storage release the energy it saved at noon, keeping frequency near 60 Hz throughout. The more renewables there are, the more the grid needs flexible resources like these. The next episode looks at virtual power plants and demand response, and how customers can help balance supply and demand.","夕方は系統が最も忙しい時間帯です。太陽光の出力は 1～2 時間で数百万 kW からゼロまで下がり、その一方で都市の明かりが次々と灯ります。給電指令所はガス火力の出力を段階的に上げ、揚水発電を発電運転に切り替え、蓄電池に昼にためた電気を放出させて、周波数を 60 Hz 付近に保ち続けます。再生可能エネルギーが増えるほど、こうした柔軟な資源が必要になります。次回は仮想発電所（VPP）とデマンドレスポンスを取り上げ、需要家が需給調整にどう参加するかを紹介します。"],
+"下午四點，光電仍在發電":["At 4 p.m., solar is still generating","午後 4 時、太陽光はまだ発電中"],
+"太陽西下，光電出力快速減少":["As the sun sets, solar output falls fast","日が傾き、太陽光の出力が急減"],
+"燃氣升載、儲能放電，一起補上缺口":["Gas ramps up and storage discharges to fill the gap","ガス火力の出力増と蓄電池の放電で不足を補う"],
+"城市亮燈，頻率仍穩在 60 Hz":["City lights come on; frequency holds at 60 Hz","街に明かりが灯り、周波数は 60 Hz を維持"],
+"光電出力下降":["Solar output falling","太陽光出力低下"],
+"燃氣升載":["Gas ramping up","ガス火力出力増"],
+"儲能放電":["Storage discharging","蓄電池放電"],
+"城市亮燈":["City lights on","街の点灯"],
+"傍晚供電（示意）":["Evening supply (illustrative)","夕方の供給（模式）"],
+"其他電廠":["Other plants","その他電源"],
+"{h}:{m}":["{h}:{m}","{h}:{m}"]
+});
+
+/* ================= theme: journal（DOF LAB 品牌層） =================
+   依劉老師簡報設計系統的 Journal 主題延伸：畫布維持深色，強調色改為鏽紅、資料色改為青綠，
+   標題用 Noto Serif，近直角圓角，片頭改為編輯式排版並放入 D 字標。只改品牌層，不改各集內容。 */
+const THEME=(()=>{
+  /* 畫布配色對照：經典色 → Journal 深色版 */
+  const MAP={'#f2c230':'#e08a5f','#13232e':'#1e2326','#0e2a3b':'#1b2126','#7dffc4':'#7cc7bd','#1f7f5c':'#2f7f7a',
+    '#e8572a':'#c8553d','#ff8a60':'#e0957a','#ff9d7a':'#e8a58c','#58b8d0':'#7ea9cc','#7dc8dc':'#9dbdd8','#f2f6f7':'#f1f0ec'};
+  const RGBA=[['242,194,48','224,138,95'],['7,27,39','40,46,51'],['7,26,37','30,35,38'],['9,31,44','30,35,38'],['8,32,45','30,35,38'],
+    ['4,14,22','16,19,21'],['5,22,32','20,24,27'],['125,255,196','124,199,189'],['31,127,92','47,127,122'],['227,236,238','226,228,224']];
+  const cache=new Map();
+  function mapc(v){
+    if(typeof v!=='string')return v;
+    let r=cache.get(v);if(r!==undefined)return r;
+    const k=v.toLowerCase();r=MAP[k]||v;
+    if(r===v&&k.startsWith('rgba(')){const n=k.slice(5).replace(/\s+/g,'');for(const [a,b] of RGBA)if(n.startsWith(a+',')){r='rgba('+b+n.slice(a.length);break;}}
+    if(cache.size<4000)cache.set(v,r);return r;
+  }
+  const P=CanvasRenderingContext2D.prototype;
+  for(const prop of ['fillStyle','strokeStyle','shadowColor']){
+    const d=Object.getOwnPropertyDescriptor(P,prop);
+    Object.defineProperty(P,prop,{configurable:true,get(){return d.get.call(this);},set(v){d.set.call(this,mapc(v));}});
+  }
+  const acs=CanvasGradient.prototype.addColorStop;CanvasGradient.prototype.addColorStop=function(o,c){return acs.call(this,o,mapc(c));};
+  /* Journal：接近直角 */
+  const rrp0=rrp;rrp=function(x,y,w,h,r){return rrp0(x,y,w,h,Math.min(r,3));};
+
+  /* D 字標（monogram-d.svg） */
+  const DP=new Path2D('M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z');
+  function mono(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s/128,s/128);rrp0(0,0,128,128,14);ctx.fillStyle='#202124';ctx.fill();ctx.fillStyle='#f47a20';ctx.fill(DP,'evenodd');ctx.restore();}
+  const SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="14" fill="#202124"/><path d="M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z" fill="#F47A20" fill-rule="evenodd"/></svg>';
+  const mk=document.querySelector('.masthead .mark');if(mk)mk.innerHTML=SVG;
+  const serif=()=>LANG==='ja'?'"Noto Serif JP","Noto Serif TC",serif':'"Noto Serif TC","Noto Serif JP",serif';
+
+  return {
+    titleFont:serif,
+    fonts:()=>['700 32px "Noto Serif TC"','900 32px "Noto Serif TC"'].concat(LANG==='ja'?['700 32px "Noto Serif JP"','900 32px "Noto Serif JP"']:[]),
+    /* 片頭：左對齊的編輯式版面 */
+    opening(a){
+      screenSpace();ctx.fillStyle=`rgba(21,25,28,${.9*a})`;ctx.fillRect(0,0,cssW,cssH);
+      ctx.save();ctx.globalAlpha=a;ctx.textAlign='left';
+      const u=cssW/100,x=cssW*.08,w=cssW*.84;
+      /* 標題區：眉題（系列與集數）＋襯線大標＋副標 */
+      const fs=clamp(cssW/17,22,76),tt=epT(),tfs=LANG==='en'&&tt.length>26?fs*.8:fs,y0=cssH*.5;
+      ctx.textBaseline='alphabetic';
+      ctx.font=`600 ${clamp(u*1.7,12,26)}px ${FONT}`;ctx.fillStyle='#e08a5f';ctx.fillText(seriesLine()||P2(EP.no),x,y0-tfs*.95,w);
+      ctx.fillStyle='#e08a5f';ctx.fillRect(x,y0-tfs*.95-clamp(u*1.7,12,26)-u*1.4,u*5,3);
+      ctx.font=`900 ${tfs}px ${serif()}`;ctx.fillStyle='#fbfaf6';ctx.fillText(tt,x,y0+tfs*.35,w);
+      ctx.font=`500 ${fs*.4}px ${LANG==='en'?FONT:COND}`;ctx.fillStyle='rgba(236,234,228,.72)';ctx.fillText(epSub(),x,y0+tfs*.35+fs*.8,w);
+      /* 底部品牌列：細線、D 字標＋DOF LAB、署名 */
+      const yf=cssH*.78,m=clamp(u*2.6,16,46),ym=yf+u*1.6;
+      ctx.fillStyle='rgba(236,234,228,.22)';ctx.fillRect(x,yf,w,1);
+      mono(x,ym,m);
+      ctx.textBaseline='middle';ctx.font=`700 ${clamp(u*1.4,10,22)}px ${COND}`;ctx.fillStyle='rgba(236,234,228,.92)';
+      if('letterSpacing' in ctx)ctx.letterSpacing=`${(u*.3).toFixed(1)}px`;ctx.fillText('DOF LAB',x+m+u*1.1,ym+m/2);if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+      ctx.font=`500 ${clamp(u*1.15,10,18)}px ${FONT}`;ctx.fillStyle='rgba(236,234,228,.66)';ctx.textAlign='right';ctx.fillText(ui('creditFull'),x+w,ym+m/2,w*.62);
+      ctx.restore();ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    },
+    /* 匯出影片的右上角署名前加上 D 字標 */
+    overlay(){ctx.font=`400 11px ${FONT}`;const tw=ctx.measureText(ui('credit')+' · '+ui('scaleNote')).width;mono(cssW-12-tw-19,8,14);}
+  };
+})();
+
+/* ================= episode engine ================= */
+const hn=(i,j)=>{const s=Math.sin(i*127.1+j*311.7)*43758.5453;return s-Math.floor(s);};
+const SH=EP.shots,SS=[];let TOTAL=0;SH.forEach((s,i)=>{SS[i]=TOTAL;TOTAL+=s.dur;});
+let SI=0;
+const P2=n=>String(n).padStart(2,'0');
+/* optional brand theme (theme-<name>.js, added by build.py --theme): {opening(a), overlay(), titleFont(), fonts:[...]} */
+const THM=typeof THEME!=='undefined'?THEME:{};
+const TFONT=()=>THM.titleFont?THM.titleFont():FONT;
+
+/* world-space text with a minimum on-screen size */
+function wt(x,y,t,size,col,weight,align,font,base){
+  t=tr(t);const k=fit*cam.s,sz=Math.max(size,9.5/k);
+  ctx.font=`${weight||500} ${sz}px ${font||FONT}`;ctx.textAlign=align||'left';ctx.textBaseline=base||'alphabetic';
+  ctx.fillStyle=col||'#fff';ctx.fillText(t,x,y);ctx.textAlign='left';ctx.textBaseline='alphabetic';
+}
+function wtw(t,size,weight,font){t=tr(t);const k=fit*cam.s,sz=Math.max(size,9.5/k);ctx.font=`${weight||500} ${sz}px ${font||FONT}`;return ctx.measureText(t).width;}
+function arrow(x0,y0,x1,y1,col,lw,hs){
+  lw=lw||2;hs=hs||lw*4+2;const a=Math.atan2(y1-y0,x1-x0);
+  ln([x0,y0,x1-Math.cos(a)*hs*.6,y1-Math.sin(a)*hs*.6],col,lw);
+  poly([x1,y1,x1-Math.cos(a-.42)*hs,y1-Math.sin(a-.42)*hs,x1-Math.cos(a+.42)*hs,y1-Math.sin(a+.42)*hs],col);
+}
+function tag(x,y,t,o){ // filled pill in world coords
+  o=o||{};const size=o.size||20,pad=size*.55,w=wtw(t,size,o.weight||700)+pad*2,h=size*1.75;
+  let bx=o.align==='center'?x-w/2:o.align==='right'?x-w:x;
+  rrp(bx,y-h/2,w,h,o.r===undefined?h/2:o.r);ctx.fillStyle=o.bg||'#f2c230';ctx.fill();
+  wt(bx+pad,y+1,t,size,o.fg||'#13232e',o.weight||700,'left',FONT,'middle');return w;
+}
+function card(x,y,w,h,o){o=o||{};rrp(x,y,w,h,o.r||14);ctx.fillStyle=o.bg||'rgba(255,255,255,.06)';ctx.fill();if(o.st!==false){ctx.strokeStyle=o.st||'rgba(255,255,255,.16)';ctx.lineWidth=o.lw||1.4;ctx.stroke();}}
+function diagBG(){
+  applyCam({x:800,y:450,s:1});
+  ctx.fillStyle='#0e2a3b';ctx.fillRect(VX0,VY0,VX1-VX0,VY1-VY0);
+  ctx.strokeStyle='rgba(255,255,255,.04)';ctx.lineWidth=1;ctx.beginPath();
+  for(let x=0;x<=W;x+=50){ctx.moveTo(x,VY0);ctx.lineTo(x,VY1);}for(let y=0;y<=H;y+=50){ctx.moveTo(VX0,y);ctx.lineTo(VX1,y);}ctx.stroke();
+}
+function camMix(a,b,k){return {x:lerp(a.x,b.x,k),y:lerp(a.y,b.y,k),s:lerp(a.s,b.s,k)};}
+/* chart helper in world coords: axes box, returns mapper */
+function chartBox(x,y,w,h,o){
+  o=o||{};card(x,y,w,h,{bg:'rgba(7,27,39,.75)',r:12});
+  const px=x+(o.pl||64),py=y+(o.pt||46),pw=w-(o.pl||64)-(o.pr||24),ph=h-(o.pt||46)-(o.pb||46);
+  if(o.title)wt(x+18,y+32,o.title,20,'#f2c230',700);
+  ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=1;ctx.beginPath();
+  const gx=o.gx||5,gy=o.gy||4;for(let i=0;i<=gx;i++){ctx.moveTo(px+pw*i/gx,py);ctx.lineTo(px+pw*i/gx,py+ph);}for(let i=0;i<=gy;i++){ctx.moveTo(px,py+ph*i/gy);ctx.lineTo(px+pw,py+ph*i/gy);}ctx.stroke();
+  ln([px,py,px,py+ph,px+pw,py+ph],'rgba(255,255,255,.5)',1.4);
+  const X=v=>px+pw*(v-o.x0)/(o.x1-o.x0),Y=v=>py+ph-ph*(v-o.y0)/(o.y1-o.y0);
+  if(o.xl)wt(px+pw,py+ph+36,o.xl,16,'rgba(227,236,238,.7)',500,'right');
+  if(o.yl)wt(px,py-12,o.yl,16,'rgba(227,236,238,.7)',500,'left');
+  if(o.xt)o.xt.forEach(v=>wt(X(v),py+ph+20,String(v),16,'rgba(227,236,238,.75)',600,'center',COND));
+  if(o.yt)o.yt.forEach(v=>wt(px-10,Y(v)+5,String(v),16,'rgba(227,236,238,.75)',600,'right',COND));
+  return {X,Y,px,py,pw,ph};
+}
+
+/* ================= localisation of episode data ================= */
+function epT(){return LANG==='en'?(EP.en||EP.t):tr(EP.t);}
+function epSub(){return LANG==='en'?EP.t:(EP.en||'');}
+function loc(i){const s=SH[i];
+  if(LANG==='zh')return {t:s.t,sub:s.en||'',d:s.d,s:s.s};
+  return {t:LANG==='en'?(s.en||tr(s.t)):tr(s.t),sub:LANG==='en'?s.t:(s.en||''),d:tr(s.d),s:s.s.map(x=>[x[0],tr(x[1])])};}
+function seriesLine(){if(!EP.seriesName)return '';return ui(EP.total?'series':'seriesOne',{s:tr(EP.seriesName),n:EP.no,t:EP.total||''});}
+function docTitle(){return EP.seriesName?`${P2(EP.no)} ${epT()}｜${tr(EP.seriesName)}`:epT();}
+
+/* ================= frame ================= */
+function renderFrame(){
+  SI=0;while(SI<SH.length-1&&T>=SS[SI+1])SI++;
+  const sh=SH[SI],u=clamp((T-SS[SI])/sh.dur);U=u;TT=T;
+  screenSpace();ctx.clearRect(0,0,cssW,cssH);
+  if(sh.side){applyCam(sh.cam?sh.cam(u):{x:800,y:450,s:1});(sh.base||EP.base||(typeof sideBase==='function'?sideBase:()=>{}))(u);if(sh.draw)sh.draw(u);(sh.end||EP.end||(typeof sideEnd==='function'?sideEnd:()=>{}))(u);if(sh.fx)sh.fx(u);}
+  else{if(sh.cam)applyCam(sh.cam(u));else applyCam({x:800,y:450,s:1});sh.draw(u);}
+  drawTicks();drawLabels();if(sh.hud)sh.hud(u);
+  const tin=T-SS[SI],tout=SS[SI]+sh.dur-T;let fa=0;
+  if(SI>0)fa=Math.max(fa,1-tin/.45);if(SI<SH.length-1)fa=Math.max(fa,1-tout/.45);
+  if(fa>0){screenSpace();ctx.fillStyle=`rgba(4,14,22,${clamp(fa)*.92})`;ctx.fillRect(0,0,cssW,cssH);}
+  if(T<3.2&&THM.opening){THM.opening(T<2.3?1:1-(T-2.3)/.9);}
+  else if(T<3.2){ // opening title
+    const a=T<2.3?1:1-(T-2.3)/.9;screenSpace();ctx.fillStyle=`rgba(5,22,32,${.82*a})`;ctx.fillRect(0,0,cssW,cssH);
+    ctx.globalAlpha=a;const fs=clamp(cssW/20,22,64),mw=cssW*.9;ctx.textAlign='center';ctx.textBaseline='alphabetic';
+    ctx.font=`700 ${fs*1.3}px ${COND}`;ctx.fillStyle='#f2c230';ctx.fillText(P2(EP.no),cssW/2,cssH*.43);
+    const tt=epT(),tfs=LANG==='en'&&tt.length>26?fs*.8:fs;
+    ctx.font=`900 ${tfs}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(tt,cssW/2,cssH*.43+fs*1.2,mw);
+    ctx.font=`500 ${fs*.42}px ${LANG==='en'?FONT:COND}`;ctx.fillStyle='rgba(255,255,255,.8)';ctx.fillText(epSub(),cssW/2,cssH*.43+fs*1.85,mw);
+    ctx.font=`500 ${clamp(cssW/70,11,20)}px ${FONT}`;ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('creditFull'),cssW/2,cssH*.9,mw);
+    ctx.globalAlpha=1;ctx.textAlign='left';
+  }
+}
+function langText(){
+  let s='0123456789 MWkVm/s%°→';
+  for(const k in DICT)s+=LI<0?k:DICT[k][LI];
+  SH.forEach((c,i)=>{const l=loc(i);s+=l.t+l.sub+l.d+l.s.map(x=>x[1]).join('');});
+  EP.facts.forEach(f=>{s+=tr(f[0])+tr(f[1])+tr(f[2]);});s+=epT()+tr(EP.lede)+tr(EP.note)+seriesLine();
+  for(const k in UI)s+=UI[k][LI+1];return s;
+}
+function ensureFonts(){
+  if(!document.fonts||!document.fonts.load)return Promise.resolve();
+  const fam=LANG==='ja'?'"Noto Sans JP"':'"Noto Sans TC"',txt=langText(),jobs=[];
+  for(const w of [400,500,700,900])jobs.push(document.fonts.load(`${w} 16px ${fam}`,txt));
+  if(LANG==='ja')for(const w of [500,700])jobs.push(document.fonts.load(`${w} 16px "Noto Sans TC"`,txt));
+  for(const w of [500,600,700])jobs.push(document.fonts.load(`${w} 16px "Barlow Condensed"`,'0123456789 MWkV'));
+  if(THM.fonts)THM.fonts().forEach(f=>jobs.push(document.fonts.load(f,txt)));
+  return Promise.all(jobs).then(()=>document.fonts.ready).catch(()=>{});
+}
+
+/* ================= UI controller ================= */
+(function(){
+  const $=id=>document.getElementById(id);
+  const stage=$('stage'),tl=$('timeline'),track=$('tlTrack'),fill=$('tlFill'),head=$('tlHead'),timeEl=$('time');
+  const bPlay=$('bPlay'),playIcon=$('playIcon'),cap=$('caption'),cardEl=$('chapcard');
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing=!reduce,speed=1,last=0,dirty=true,ended=false,prevC=-1,prevStep=-2,dragging=false,wasPlaying=false;
+  const fmt=t=>{t=Math.max(0,Math.floor(t));return Math.floor(t/60)+':'+P2(t%60);};
+  $('mNo').textContent=P2(EP.no);
+  SH.forEach(c=>{const d=document.createElement('div');d.className='tl-seg';d.style.flex=c.dur+' 0 0';track.insertBefore(d,fill);});
+  const grid=$('shotGrid');
+  SH.forEach((c,i)=>{const b=document.createElement('button');b.className='chap';b.type='button';b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span>`;b.addEventListener('click',()=>jump(SS[i]+.001));grid.appendChild(b);});
+  const btns=[...grid.children];
+  function fillStatic(){
+    $('mT').textContent=epT();$('mLede').textContent=tr(EP.lede);$('mSeries').textContent=seriesLine();
+    $('facts').innerHTML='';EP.facts.forEach(f=>{const d=document.createElement('div');d.className='fact';const dt=document.createElement('dt');dt.textContent=tr(f[0]);const sm=document.createElement('small');sm.textContent=tr(f[1]);dt.appendChild(sm);const dd=document.createElement('dd');dd.textContent=tr(f[2]);d.append(dt,dd);$('facts').appendChild(d);});
+    $('foot').textContent=tr(EP.note);$('cv').setAttribute('aria-label',docTitle());
+    btns.forEach((b,i)=>{b.querySelector('.t').textContent=loc(i).t;});
+  }
+  function resize(){const r=cv.getBoundingClientRect();if(r.width<2)return;cssW=r.width;cssH=r.height;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(cssW*dpr);cv.height=Math.round(cssH*dpr);fit=cssW/W;dirty=true;}
+  if(window.ResizeObserver)new ResizeObserver(resize).observe(cv);else window.addEventListener('resize',resize);
+  resize();
+  function setPlayIcon(){
+    playIcon.innerHTML=playing?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':(ended?'<path d="M12 5a7 7 0 1 1-6.6 4.7l1.9.7A5 5 0 1 0 12 7v3L7.5 6 12 2z"/>':'<path d="M7 4.5v15l12-7.5z"/>');
+    bPlay.setAttribute('aria-label',playing?ui('pause'):(ended?ui('replay'):ui('play')));
+  }
+  function jump(t){T=clamp(t,0,TOTAL-.001);ended=false;dirty=true;setPlayIcon();}
+  function togglePlay(){if(ended){T=0;ended=false;playing=true;}else playing=!playing;setPlayIcon();dirty=true;}
+  bPlay.addEventListener('click',togglePlay);
+  const idx=()=>{let c=0;while(c<SH.length-1&&T>=SS[c+1])c++;return c;};
+  $('bPrev').addEventListener('click',()=>{const c=idx();jump(T-SS[c]>1.5?SS[c]+.001:SS[Math.max(0,c-1)]+.001);});
+  $('bNext').addEventListener('click',()=>{const c=idx();if(c<SH.length-1)jump(SS[c+1]+.001);else jump(TOTAL-.01);});
+  document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',()=>{speed=+b.dataset.speed;document.querySelectorAll('[data-speed]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));}));
+  const bLab=$('bLabels');bLab.addEventListener('click',()=>{SHOWLAB=!SHOWLAB;bLab.setAttribute('aria-pressed',SHOWLAB?'true':'false');dirty=true;});
+  $('bFull').addEventListener('click',()=>{const d=document;if(d.fullscreenElement||d.webkitFullscreenElement){(d.exitFullscreen||d.webkitExitFullscreen).call(d);}else{const f=stage.requestFullscreen||stage.webkitRequestFullscreen;if(f)f.call(stage);}});
+  document.addEventListener('fullscreenchange',()=>setTimeout(resize,60));
+  function tlFrac(e){const r=track.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width);}
+  tl.addEventListener('pointerdown',e=>{dragging=true;wasPlaying=playing;playing=false;tl.setPointerCapture(e.pointerId);jump(tlFrac(e)*TOTAL);});
+  tl.addEventListener('pointermove',e=>{if(dragging)jump(tlFrac(e)*TOTAL);});
+  const endDrag=()=>{if(!dragging)return;dragging=false;playing=wasPlaying;setPlayIcon();};
+  tl.addEventListener('pointerup',endDrag);tl.addEventListener('pointercancel',endDrag);
+  tl.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){jump(T-5);e.preventDefault();e.stopPropagation();}
+    else if(e.key==='ArrowRight'){jump(T+5);e.preventDefault();e.stopPropagation();}
+    else if(e.key==='Home'){jump(0);e.preventDefault();}else if(e.key==='End'){jump(TOTAL-.01);e.preventDefault();}
+  });
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target.tagName||'').toLowerCase();if($('recDlg').open)return;if(tag==='input'||tag==='textarea')return;
+    if(e.key===' '||e.code==='Space'){if(tag==='button')return;e.preventDefault();togglePlay();}
+    else if(e.key==='ArrowLeft'&&e.target!==tl){$('bPrev').click();}else if(e.key==='ArrowRight'&&e.target!==tl){$('bNext').click();}
+  });
+  function updateUI(){
+    const c=SI,L=loc(c),f=T/TOTAL*100;
+    fill.style.width=f+'%';head.style.left=f+'%';
+    tl.setAttribute('aria-valuenow',Math.round(f));tl.setAttribute('aria-valuetext',`${c+1} ${L.t}${ui('sep')}${fmt(T)}`);
+    timeEl.textContent=fmt(T)+' / '+fmt(TOTAL);
+    if(c!==prevC){
+      prevC=c;prevStep=-2;cardEl.classList.remove('show');
+      setTimeout(()=>{$('ccNo').innerHTML=`${P2(EP.no)}<small>${ui('shotOf',{i:c+1,n:SH.length})}</small>`;$('ccT').textContent=L.t;$('ccE').textContent=L.sub;cardEl.classList.add('show');},reduce?0:180);
+      $('iNo').textContent=c+1;$('iT').textContent=L.t;$('iE').textContent=L.sub;$('iD').textContent=L.d;
+      $('iS').innerHTML='';L.s.forEach(s=>{const li=document.createElement('li');li.textContent=s[1];$('iS').appendChild(li);});
+      btns.forEach((b,i)=>{b.classList.toggle('active',i===c);b.classList.toggle('past',i<c);if(i===c)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+    }
+    let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
+    if(si!==prevStep){prevStep=si;cap.innerHTML='<span class="dot"></span>';cap.appendChild(document.createTextNode(L.s[si][1]));[...$('iS').children].forEach((li,i)=>{li.className=i<si?'done':i===si?'now':'';});}
+  }
+
+  /* ---------- language ---------- */
+  function setLang(l,save){
+    LANG=LANGS.includes(l)?l:'zh';LI=LANG==='zh'?-1:LANG==='en'?0:1;
+    document.documentElement.lang=LANG==='zh'?'zh-Hant-TW':LANG;
+    FONT=LANG==='ja'?FONT_JP:FONT_TC;
+    COND='"Barlow Condensed","Arial Narrow",'+(LANG==='ja'?'"Noto Sans JP",':'')+'"Noto Sans TC","Noto Sans CJK TC",sans-serif';
+    document.title=docTitle();
+    document.querySelectorAll('[data-i18n]').forEach(e=>{e.textContent=ui(e.dataset.i18n);});
+    document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',ui(e.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-title]').forEach(e=>{e.title=ui(e.dataset.i18nTitle);});
+    document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG?'true':'false'));
+    fillStatic();prevC=-1;prevStep=-2;setPlayIcon();dirty=true;
+    if(recDlg.open)recSummary();
+    if(save){try{localStorage.setItem(LANG_KEY,LANG);}catch(e){}}
+    document.dispatchEvent(new CustomEvent('langchange',{detail:LANG}));
+    ensureFonts().then(()=>{dirty=true;});
+  }
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{if(!recBusy)setLang(b.dataset.lang,true);}));
+
+  /* ---------- MP4 export (offline, frame-accurate: WebCodecs + mp4-muxer) ---------- */
+  const recDlg=$('recDlg'),recGo=$('recGo'),recCancel=$('recCancel'),recDl=$('recDl'),recSum=$('recSum'),recProg=$('recProg'),recBar=$('recBar'),recStat=$('recStat'),recPrev=$('recPrev'),recNote=$('recNote');
+  const REC={speed:1,range:'all',res:1080,fps:30};
+  let recBusy=false,recAbort=false,recUrl=null,recChap=0;
+  const LW=1280,LH=720;
+  recDlg.querySelectorAll('[data-opt]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    if(recBusy)return;const k=g.dataset.opt;REC[k]=k==='range'?b.dataset.v:+b.dataset.v;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));recSummary();})));
+  function recSpan(){return REC.range==='chap'?[SS[recChap],SS[recChap]+SH[recChap].dur]:[0,TOTAL];}
+  function recBitrate(){return (REC.res>=1080?8e6:5e6)*(REC.fps>30?1.5:1);}
+  function recSummary(){
+    const [t0,t1]=recSpan(),d=(t1-t0)/REC.speed,f=Math.ceil(d*REC.fps),m=Math.ceil(recBitrate()*d/8/1e6);
+    let s=ui('sum',{d:fmt(d),f:f.toLocaleString('en-US'),m:m});
+    if(REC.range==='chap')s+=ui('sumChap',{c:(recChap+1)+' '+loc(recChap).t});
+    recSum.textContent=s;
+  }
+  function recStatus(msg,err){recStat.textContent=msg;recStat.classList.toggle('err',!!err);}
+  $('bRec').addEventListener('click',()=>{
+    recChap=idx();playing=false;setPlayIcon();
+    if(!recBusy){recProg.hidden=true;recDl.hidden=true;recStatus('');recGo.textContent=ui('start');}
+    recSummary();if(recDlg.showModal)recDlg.showModal();else recDlg.setAttribute('open','');
+  });
+  $('recX').addEventListener('click',()=>{if(recBusy)recAbort=true;recDlg.close();});
+  recDlg.addEventListener('cancel',e=>{if(recBusy)e.preventDefault();});
+  recCancel.addEventListener('click',()=>{recAbort=true;});
+  recGo.addEventListener('click',()=>{if(!recBusy)recordVideo();});
+  const mch=new MessageChannel(),mq=[];mch.port1.onmessage=()=>{const f=mq.shift();if(f)f();};
+  const yieldNow=()=>new Promise(r=>{mq.push(r);mch.port2.postMessage(0);});
+  const breathe=()=>document.hidden?yieldNow():new Promise(r=>setTimeout(r,0));
+  function wrapLines(text,maxW){
+    const toks=text.match(/[A-Za-z0-9À-ÿ().,:;'’"%°–\-\/+&]+\s*|\s+|\S/g)||[];
+    const out=[];let cur='';
+    for(const t of toks){const next=cur+t;if(cur.trim()&&ctx.measureText(next.trimEnd()).width>maxW){out.push(cur.trimEnd());cur=t.trimStart();}else cur=next;}
+    if(cur.trim())out.push(cur.trimEnd());return out.length?out:[''];
+  }
+  /* the chapter card, caption and scale note live in HTML on the page, so the video draws them onto the canvas */
+  function drawOverlays(spd){
+    screenSpace();const c=SI,L=loc(c);
+    const vt=(T-SS[c])/spd,a=clamp((vt-.18)/.5);
+    if(a>0&&T>=3.2){
+      ctx.save();ctx.globalAlpha=a;ctx.translate(0,-6*(1-a));
+      const x0=clamp(cssW*.02,10,22),y0=clamp(cssW*.02,10,20),nS=clamp(cssW*.046,30,58),tS=clamp(cssW*.021,15,26),eS=clamp(cssW*.0135,12,17);
+      const inner=tS*1.2+eS*1.6,bh=Math.max(nS*.9,inner),no=P2(EP.no),sub=ui('shotOf',{i:c+1,n:SH.length});
+      ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.font=`700 ${nS}px ${COND}`;const nw=ctx.measureText(no).width;
+      ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=12;ctx.shadowOffsetY=2;ctx.fillStyle='#f2c230';ctx.fillText(no,x0,y0+nS*.78);
+      ctx.font=`600 ${nS*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(sub,x0+nw+4,y0+nS*.78);const sw=ctx.measureText(sub).width;
+      const bx=x0+nw+sw+14;ctx.shadowColor='transparent';ctx.fillStyle='#f2c230';ctx.fillRect(bx,y0,3,bh);
+      const tx=bx+15,ty=y0+(bh-inner)/2;
+      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${TFONT()}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
+      ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.6);
+      ctx.restore();
+    }
+    if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('credit')+' · '+ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    if(THM.overlay)THM.overlay();
+    if(T<3.2)return;
+    let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
+    const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
+    ctx.font=`500 ${fs}px ${FONT}`;
+    const lines=wrapLines(L.s[si][1],maxBox-px*2-dotW);
+    const tw=Math.max(...lines.map((l,i)=>ctx.measureText(l).width+(i?0:dotW)));
+    const bw=Math.min(maxBox,tw+px*2),bh=lines.length*lh+py*2,bx=(cssW-bw)/2,by=cssH-clamp(cssW*.018,8,20)-bh;
+    rrp(bx,by,bw,bh,10);ctx.fillStyle='rgba(7,26,37,.78)';ctx.fill();
+    ctx.textBaseline='middle';ctx.textAlign='left';
+    lines.forEach((l,i)=>{const w=ctx.measureText(l).width+(i?0:dotW),lx=(cssW-w)/2,ly=by+py+lh*(i+.5);
+      if(!i){circ(lx+4,ly,4,'#f2c230');}ctx.fillStyle='#f2f6f7';ctx.fillText(l,lx+(i?0:dotW),ly+.5);});
+  }
+  function renderExportFrame(ectx,t,spd,d){
+    const sv={ctx,cssW,cssH,dpr,fit,T};
+    ctx=ectx;cssW=LW;cssH=LH;dpr=d;fit=cssW/W;T=t;
+    try{renderFrame();drawOverlays(spd);}
+    finally{ctx=sv.ctx;cssW=sv.cssW;cssH=sv.cssH;dpr=sv.dpr;fit=sv.fit;T=sv.T;}
+  }
+  async function pickConfig(w,h,fps,br){
+    const list=[['avc','avc1.640033'],['avc','avc1.64002A'],['avc','avc1.640028'],['avc','avc1.4D4033'],['avc','avc1.4D402A'],['avc','avc1.4D4028'],['avc','avc1.42E033'],['avc','avc1.42E02A'],['avc','avc1.42E028'],['avc','avc1.42001F'],
+      ['vp9','vp09.00.40.08'],['vp9','vp09.00.31.08'],['av1','av01.0.08M.08'],['av1','av01.0.05M.08']];
+    for(const [mux,codec] of list){const cfg={codec,width:w,height:h,bitrate:br,framerate:fps};if(mux==='avc')cfg.avc={format:'avc'};
+      try{const r=await VideoEncoder.isConfigSupported(cfg);if(r&&r.supported)return {mux,cfg};}catch(e){}}
+    return null;
+  }
+  async function recordVideo(){
+    recProg.hidden=false;recDl.hidden=true;recBar.style.width='0%';
+    if(typeof VideoEncoder==='undefined'||typeof VideoFrame==='undefined'||typeof Mp4Muxer==='undefined'){recNote.hidden=true;recStatus(ui('stNoSup'),true);return;}
+    recBusy=true;recAbort=false;recNote.hidden=false;recGo.disabled=true;recCancel.hidden=false;recDlg.classList.add('busy');
+    if(recUrl){URL.revokeObjectURL(recUrl);recUrl=null;}
+    recStatus(ui('stPrep'));
+    const d=REC.res/720,VW=Math.round(LW*d/2)*2,VH=Math.round(LH*d/2)*2,fps=REC.fps,spd=REC.speed,[t0,t1]=recSpan();
+    const n=Math.ceil((t1-t0)/spd*fps),us=1e6/fps,keyEvery=fps*2;
+    let enc=null,encErr=null;
+    try{
+      await ensureFonts();
+      const pick=await pickConfig(VW,VH,fps,recBitrate());
+      if(!pick)throw new Error('__nocodec');const cfg=pick.cfg;
+      const muxer=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:pick.mux,width:VW,height:VH,frameRate:fps},fastStart:'in-memory',firstTimestampBehavior:'offset'});
+      enc=new VideoEncoder({output:(chunk,meta)=>muxer.addVideoChunk(chunk,meta),error:e=>{encErr=e;}});
+      enc.configure(cfg);
+      const ec=document.createElement('canvas');ec.width=VW;ec.height=VH;
+      const ectx=ec.getContext('2d',{alpha:false}),pctx=recPrev.getContext('2d');
+      const t0ms=performance.now();let lastUI=0;
+      for(let i=0;i<n;i++){
+        if(recAbort||encErr)break;
+        const t=Math.min(t0+i/fps*spd,t1-.001);
+        renderExportFrame(ectx,t,spd,d);
+        const fr=new VideoFrame(ec,{timestamp:Math.round(i*us),duration:Math.round(us)});
+        enc.encode(fr,{keyFrame:i%keyEvery===0});fr.close();
+        while(enc.encodeQueueSize>6&&!encErr&&!recAbort)await yieldNow();
+        const now=performance.now();
+        if(now-lastUI>150||i===n-1){lastUI=now;const p=(i+1)/n,el=(now-t0ms)/1000;recBar.style.width=(p*100).toFixed(1)+'%';recStatus(ui('stRun',{p:Math.floor(p*100),e:fmt(el/p-el)}));pctx.drawImage(ec,0,0,recPrev.width,recPrev.height);await breathe();}
+      }
+      if(encErr)throw encErr;
+      if(recAbort){try{enc.close();}catch(e){}recBar.style.width='0%';recStatus(ui('stCancel'));return;}
+      recStatus(ui('stFin'));await breathe();
+      await enc.flush();if(encErr)throw encErr;enc.close();
+      muxer.finalize();
+      const blob=new Blob([muxer.target.buffer],{type:'video/mp4'});
+      recUrl=URL.createObjectURL(blob);recDl.href=recUrl;
+      recDl.download=`${EP.slug||'episode'}-${P2(EP.no)}_${LANG}_${REC.range==='chap'?'shot'+P2(recChap+1)+'_':''}${spd}x_${REC.res}p${fps}.mp4`;
+      recDl.hidden=false;recDl.click();
+      recStatus(ui('stDone',{s:(blob.size/1048576).toFixed(1)})+(pick.mux==='avc'?'':' '+ui('stAlt',{c:pick.mux.toUpperCase()})));recGo.textContent=ui('again');
+    }catch(e){
+      const msg=e&&e.message;recStatus(msg==='__nocodec'?ui('stNoCodec'):ui('stErr')+(msg||String(e)),true);
+      try{if(enc&&enc.state!=='closed')enc.close();}catch(_){}
+    }finally{
+      recBusy=false;recGo.disabled=false;recCancel.hidden=true;recNote.hidden=true;recDlg.classList.remove('busy');dirty=true;
+    }
+  }
+
+  function loop(ts){
+    const dt=last?Math.min(.1,(ts-last)/1000):0;last=ts;
+    if(playing&&!ended){T+=dt*speed;if(T>=TOTAL){T=TOTAL-.001;ended=true;playing=false;setPlayIcon();}dirty=true;}
+    if(dirty&&cssW>2){renderFrame();updateUI();dirty=false;}
+    requestAnimationFrame(loop);
+  }
+  let initLang='zh';
+  try{const q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase(),sv=localStorage.getItem(LANG_KEY)||localStorage.getItem('rea-lang'),nv=(navigator.language||'').toLowerCase();
+    initLang=LANGS.includes(q)?q:LANGS.includes(sv)?sv:nv.startsWith('ja')?'ja':nv.startsWith('zh')?'zh':nv.startsWith('en')?'en':'zh';}catch(e){}
+  setLang(initLang,false);
+  setPlayIcon();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{dirty=true;});
+  window.__ow={seek:t=>{T=t;dirty=true;},pause:()=>{playing=false;setPlayIcon();},shot:i=>{T=SS[i]+.5;dirty=true;},setLang:l=>setLang(l,false),keep:()=>[EP.t,...SH.map(s=>s.t),...QA_KEEP],get T(){return T;},SS,TOTAL};
+  requestAnimationFrame(loop);
+})();
+
+</script>
+<p class="site-credit" data-zh="© 2026 國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作" data-en="© 2026 Produced by Prof. Liu&#x27;s Lab, Department of Intelligent Automation Engineering, National Chin-Yi University of Technology" data-ja="© 2026 制作：国立勤益科技大学 スマートオートメーション工学科 劉瑞弘研究室">© 2026 國立勤益科技大學 智慧自動化工程系 劉瑞弘老師研究室 製作</p>
+<script id="topnav-js">(function(){var K='rea-lang',LS=['zh','en','ja'];
+function cur(){try{var q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();if(LS.indexOf(q)>=0)return q;var s=localStorage.getItem(K)||localStorage.getItem('owf-lang');if(LS.indexOf(s)>=0)return s;var n=(navigator.language||'').toLowerCase();return n.indexOf('ja')==0?'ja':n.indexOf('en')==0?'en':'zh';}catch(e){return 'zh';}}
+function apply(l){document.querySelectorAll('[data-zh]').forEach(function(el){var v=el.getAttribute('data-'+l);el.textContent=v||el.getAttribute('data-zh');});
+ var t=document.querySelector('title[data-zh]');if(t)document.title=t.getAttribute('data-'+l)||t.getAttribute('data-zh');
+ if(!document.getElementById('cv'))document.documentElement.lang=l==='zh'?'zh-Hant-TW':l;
+ document.querySelectorAll('.langsw [data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');});}
+document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-lang]');if(!b)return;var l=b.getAttribute('data-lang');try{localStorage.setItem(K,l);}catch(e){}setTimeout(function(){apply(l);},0);});
+document.addEventListener('langchange',function(ev){apply(ev.detail);});
+apply(cur());})();</script></body>
+</html>
