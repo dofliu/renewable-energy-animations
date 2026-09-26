@@ -32,31 +32,31 @@ function apply(l){document.querySelectorAll('[data-zh]').forEach(function(el){va
 document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-lang]');if(!b)return;var l=b.getAttribute('data-lang');try{localStorage.setItem(K,l);}catch(e){}setTimeout(function(){apply(l);},0);});
 document.addEventListener('langchange',function(ev){apply(ev.detail);});
 apply(cur());})();</script>'''
-ICON='<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E">'
+ICON='<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E">'
 NAVCSS='<style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style>'
-BASECSS=''':root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#e7eeec;--surface:#f6f9f8;--ink:#13232e;--muted:#4f6470;--line:#c5d3d2;--sea:#1f7f99;--signal:#f2c230;--chart:#0e2a3b;--sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow",sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--sea:#58b8d0}}
-:root[data-theme="dark"]{--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--sea:#58b8d0}
+BASECSS=''':root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#FAFAF7;--surface:#FFFFFF;--ink:#1E2326;--muted:#68737A;--line:#D8DDDE;--sea:#193A5A;--signal:#B85C38;--chart:#1b2126;--serif:"Noto Serif TC","Noto Serif JP",serif;--sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--sea:#9dbad6;--signal:#e08a5f}}
+:root[data-theme="dark"]{--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--sea:#9dbad6;--signal:#e08a5f}
 *,*::before,*::after{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:900px;margin:0 auto;padding:28px clamp(14px,4vw,32px) 56px}a:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
-h1{font-size:clamp(30px,5.5vw,48px);font-weight:900;margin:0 0 10px;line-height:1.2}.lede{color:var(--muted);max-width:60ch;margin:0 0 28px;font-size:16px}
+h1{font-family:var(--serif);font-size:clamp(30px,5.5vw,48px);font-weight:900;margin:0 0 10px;line-height:1.2}.lede{color:var(--muted);max-width:60ch;margin:0 0 28px;font-size:16px}
 h2{font-size:14px;color:var(--muted);font-weight:700;margin:30px 0 10px}.foot{margin-top:36px;font-size:13px;color:var(--muted);max-width:70ch}
 .crumb{font-size:14px;margin:0 0 14px}.crumb a{color:var(--sea);font-weight:700;text-decoration:none}
-.ep,.hero{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:14px;padding:12px 16px;margin-bottom:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;color:inherit;text-decoration:none}
-.ep:hover,.hero:hover,.topic:hover{border-color:var(--sea)}.n{font-family:var(--cond);font-weight:700;font-size:30px;color:var(--sea);line-height:1}
+.ep,.hero{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:14px;padding:12px 16px;margin-bottom:8px;background:var(--surface);border:1px solid var(--line);border-radius:3px;color:inherit;text-decoration:none}
+.ep:hover,.hero:hover,.topic:hover{border-color:var(--sea)}.n{font-family:var(--cond);font-weight:700;font-size:30px;color:var(--signal);line-height:1}
 .t b{display:block;font-size:17px}.t i{font-style:normal;font-size:14px;color:var(--muted)}.d{font-family:var(--cond);font-weight:600;font-size:16px;color:var(--muted);font-variant-numeric:tabular-nums}
-.hero{background:var(--chart);border-color:var(--chart);color:#fff;padding:18px}.hero .n{color:var(--signal)}.hero .t i,.hero .d{color:rgba(255,255,255,.75)}
+.hero{background:var(--chart);border-color:var(--chart);color:#fff;padding:18px}.hero .n{color:#e08a5f}.hero .t i,.hero .d{color:rgba(255,255,255,.75)}
 .topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:8px}
-.topic{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
+.topic{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;color:inherit;text-decoration:none}
 .topic .th{display:block;aspect-ratio:320/150;background:var(--chart);overflow:hidden}.topic .th svg,.topic .th img{display:block;width:100%;height:100%;object-fit:cover}
-.topic .th .ph{display:grid;place-items:center;height:100%;color:#f2c230;font-weight:900;font-size:34px}
-.topic .body{padding:14px 16px 16px}.topic b{font-size:20px;display:block}.topic p{margin:4px 0 10px;color:var(--muted);font-size:14px}.topic .meta{font-family:var(--cond);font-weight:600;color:var(--sea);font-size:15px}'''
-def head(t):return f'<!DOCTYPE html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>{e(t)}</title>{ICON}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet"><style>{BASECSS}</style></head><body><div class="wrap">'
+.topic .th .ph{display:grid;place-items:center;height:100%;color:#e08a5f;font-weight:900;font-size:34px}
+.topic .body{padding:14px 16px 16px}.topic b{font-family:var(--serif);font-size:20px;display:block}.topic p{margin:4px 0 10px;color:var(--muted);font-size:14px}.topic .meta{font-family:var(--cond);font-weight:600;color:var(--signal);font-size:15px}'''
+def head(t):return f'<!DOCTYPE html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>{e(t)}</title>{ICON}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet"><style>{BASECSS}</style></head><body><div class="wrap">'
 def dur_of(path):
     try:s=open(path,encoding='utf-8').read()
     except FileNotFoundError:return None
-    ds=[int(x) for x in re.findall(r"\{t:'[^']*',en:'[^']*',dur:(\d+)",s)]
+    ds=[int(x) for x in re.findall(r"""\{t:'[^']*',en:(?:'[^']*'|"[^"]*"),dur:(\d+)""",s)]
     if not ds:return None
     t=sum(ds);return f'{t//60}:{t%60:02d}'
 def inject(path,nav):
@@ -66,7 +66,8 @@ def inject(path,nav):
     s=re.sub(r'<script id="topnav-js">.*?</script>','',s,flags=re.S)
     s=re.sub(r'<p class="site-credit"[^>]*>.*?</p>\n?','',s,flags=re.S)
     s=s.replace("'owf-lang'","'rea-lang'")  # one language setting for the whole site
-    if 'rel="icon"' not in s:s=s.replace('</head>',ICON+'</head>',1)
+    s=re.sub(r'<link rel="icon"[^>]*>','',s)
+    s=s.replace('</head>',ICON+'</head>',1)
     s=s.replace('</head>',NAVCSS+'</head>',1).replace('<div class="wrap">','<div class="wrap">\n'+nav,1)
     if CREDIT:s=s.replace('</body>',CREDIT_P+'\n</body>',1)
     s=s.replace('</body>',LANGJS.replace('<script>','<script id="topnav-js">',1)+'</body>',1)
@@ -87,7 +88,8 @@ def fmt(key,**kw):
 def cat_(a,b):return {l:a[l]+b[l] for l in LANGS}
 def titleTag(v):d=L(v);return f'<title data-zh="{e(d["zh"])}" data-en="{e(d["en"])}" data-ja="{e(d["ja"])}">{e(d["zh"])}</title>'
 def head2(v):return head(L(v)['zh']).replace(f'<title>{e(L(v)["zh"])}</title>',titleTag(v),1)
-HEADCSS='.masthead2{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}.langsw{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:36px;background:var(--surface)}.langsw button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500;padding:0 12px;cursor:pointer}.langsw button+button{border-left:1px solid var(--line)}.langsw button[aria-pressed="true"]{background:var(--chart);color:#fff}.langsw button:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}'
+SVGMARK='<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="14" fill="#202124"/><path d="M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z" fill="#F47A20" fill-rule="evenodd"/></svg>'
+HEADCSS='.brand{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-family:var(--cond);font-weight:700;letter-spacing:.22em;font-size:14px;color:var(--muted)}.brand svg{width:30px;height:30px;display:block}.masthead2{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}.langsw{display:inline-flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;height:36px;background:var(--surface)}.langsw button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500;padding:0 12px;cursor:pointer}.langsw button+button{border-left:1px solid var(--line)}.langsw button[aria-pressed="true"]{background:var(--chart);color:#fff}.langsw button:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}'
 missing=[]
 for tp in cat['topics']:
     slug=tp['slug'];D=os.path.join(R,slug);eps=[x for g in tp.get('groups',[]) for x in g['episodes']]
@@ -120,7 +122,7 @@ for tp in cat['topics']:
     thumb=open(th,encoding='utf-8').read() if os.path.exists(th) else f'<span class="ph">{T(TT)}</span>'
     meta=fmt('meta',o=(UIT['ov'] if tp.get('overview') else {l:'' for l in LANGS}),n=len(eps))
     cards+=f'<a class="topic" href="{slug}/index.html"><span class="th" aria-hidden="true">{thumb}</span><span class="body">{T(TT,"b")}{T(tp.get("summary",""),"p")}{T(meta,"span","meta")}</span></a>\n'
-portal=head2(SITE).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><h1>{T(SITE)}</h1>{LANGSW}</div>{T(cat.get("siteLede",""),"p","lede")}<h2>{T(UIT["topics"])}</h2><div class="topics">\n{cards}</div>{FOOT()}</div>{LANGJS}</body></html>'
+portal=head2(SITE).replace('</style>',HEADCSS+'</style>',1)+f'<div class="masthead2"><div><p class="brand">{SVGMARK}<span>DOF LAB</span></p><h1>{T(SITE)}</h1></div>{LANGSW}</div>{T(cat.get("siteLede",""),"p","lede")}<h2>{T(UIT["topics"])}</h2><div class="topics">\n{cards}</div>{FOOT()}</div>{LANGJS}</body></html>'
 open(os.path.join(R,'index.html'),'w',encoding='utf-8').write(portal)
 if not os.path.exists(os.path.join(R,'.nojekyll')):open(os.path.join(R,'.nojekyll'),'w').close()
 print(f'site rebuilt: {len(cat["topics"])} topic(s)')

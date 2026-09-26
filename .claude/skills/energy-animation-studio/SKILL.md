@@ -17,6 +17,7 @@ assets/engine/        播放器與繪圖引擎（build.py 會自動組合）
   kit-land.js         陸地／開闊海面：天空、地層、湧浪、太陽光電板、卡車、圍籬、機櫃、打樁機
   kit-offshore-*.js   離岸風電系列專用的整段施工動作與風場全景（續做離岸風電時才用）
   template.html, style.css
+  theme-journal.*    預設品牌主題（DOF LAB Journal：配色對應、直角、襯線標題、片頭、D 字標）；build.py --theme classic 可關閉
 assets/episode-starter.js   新集數的起始檔（兩種分鏡各一個範例）
 scripts/build.py      episode.js → 單一 HTML
 scripts/qa.py         以三種語言掃描整條時間軸：錯誤、漏翻字串、截圖與總覽圖

@@ -187,8 +187,35 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 .fact dd{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
 .chapcard .no small{font-size:.45em;color:rgba(255,255,255,.75);margin-left:4px;font-weight:600}
 
+/* ---------- theme: journal（DOF LAB 品牌層） ---------- */
+:root{--bg:#FAFAF7;--surface:#FFFFFF;--ink:#1E2326;--muted:#68737A;--line:#D8DDDE;--chart:#1b2126;--signal:#B85C38;--alert:#a8432c;--sea:#193A5A;--stepdone:#2F7F7A;--accent-dk:#e08a5f;--serif:"Noto Serif TC","Noto Serif JP",serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--stepdone:#6fb5ad;--sea:#9dbad6;--signal:#e08a5f}}
+:root[data-theme="dark"]{--bg:#15191c;--surface:#1e2326;--ink:#e6e5e0;--muted:#9aa3a8;--line:#30383d;--stepdone:#6fb5ad;--sea:#9dbad6;--signal:#e08a5f}
+:root[lang="ja"]{--serif:"Noto Serif JP","Noto Serif TC",serif}
+.masthead h1,.info h2{font-family:var(--serif);font-weight:900;letter-spacing:.01em}
+.masthead .mark{background:transparent;border-radius:6px;overflow:hidden}
+.masthead .mark svg{width:100%;height:100%}
+.stage{border-radius:3px;box-shadow:none}
+.stage:fullscreen{background:#101315}
+.chapcard .no{color:var(--accent-dk)}
+.chapcard .tt{border-left:2px solid var(--accent-dk)}
+.chapcard b{font-family:var(--serif)}
+.caption{border-radius:2px;background:rgba(30,35,38,.84)}
+.caption .dot{background:var(--accent-dk);border-radius:0;width:7px;height:7px}
+.scale-note::before{content:"";display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-2px;background:url("data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"%3E%3Crect width="128" height="128" rx="14" fill="%23202124"/%3E%3Cpath d="M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z" fill="%23F47A20" fill-rule="evenodd"/%3E%3C/svg%3E") center/contain no-repeat}
+.btn,.seg,.langsw,.chap,.chips li,.steps,.fact,.timeline{border-radius:3px}
+.tl-track{border-radius:0}
+.tl-seg:nth-child(odd){background:rgba(30,35,38,.07)}
+.tl-head{border-radius:0;width:6px;height:22px;margin:-11px 0 0 -3px;border:0;box-shadow:none;background:var(--signal)}
+.steps li::before{border-radius:0}
+.steps li.now::before{color:#fff}
+.chap.active .n{color:var(--accent-dk)}
+.fact dt small{color:var(--signal)}
+.info h2 .n{color:var(--signal)}
+
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
 <nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="← 02 地球物理調查" data-en="← 02 Geophysical survey" data-ja="← 02 物理探査">← 02 地球物理調查</span></a><a href="ep04.html"><span data-zh="04 環境影響評估 →" data-en="04 Environmental impact assessment →" data-ja="04 環境影響評価 →">04 環境影響評估 →</span></a></nav>
@@ -1466,11 +1493,76 @@ Object.assign(DICT,{
 });
 Object.assign(DICT,{"細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に締まった層"]});
 
+/* ================= theme: journal（DOF LAB 品牌層） =================
+   依劉老師簡報設計系統的 Journal 主題延伸：畫布維持深色，強調色改為鏽紅、資料色改為青綠，
+   標題用 Noto Serif，近直角圓角，片頭改為編輯式排版並放入 D 字標。只改品牌層，不改各集內容。 */
+const THEME=(()=>{
+  /* 畫布配色對照：經典色 → Journal 深色版 */
+  const MAP={'#f2c230':'#e08a5f','#13232e':'#1e2326','#0e2a3b':'#1b2126','#7dffc4':'#7cc7bd','#1f7f5c':'#2f7f7a',
+    '#e8572a':'#c8553d','#ff8a60':'#e0957a','#ff9d7a':'#e8a58c','#58b8d0':'#7ea9cc','#7dc8dc':'#9dbdd8','#f2f6f7':'#f1f0ec'};
+  const RGBA=[['242,194,48','224,138,95'],['7,27,39','40,46,51'],['7,26,37','30,35,38'],['9,31,44','30,35,38'],['8,32,45','30,35,38'],
+    ['4,14,22','16,19,21'],['5,22,32','20,24,27'],['125,255,196','124,199,189'],['31,127,92','47,127,122'],['227,236,238','226,228,224']];
+  const cache=new Map();
+  function mapc(v){
+    if(typeof v!=='string')return v;
+    let r=cache.get(v);if(r!==undefined)return r;
+    const k=v.toLowerCase();r=MAP[k]||v;
+    if(r===v&&k.startsWith('rgba(')){const n=k.slice(5).replace(/\s+/g,'');for(const [a,b] of RGBA)if(n.startsWith(a+',')){r='rgba('+b+n.slice(a.length);break;}}
+    if(cache.size<4000)cache.set(v,r);return r;
+  }
+  const P=CanvasRenderingContext2D.prototype;
+  for(const prop of ['fillStyle','strokeStyle','shadowColor']){
+    const d=Object.getOwnPropertyDescriptor(P,prop);
+    Object.defineProperty(P,prop,{configurable:true,get(){return d.get.call(this);},set(v){d.set.call(this,mapc(v));}});
+  }
+  const acs=CanvasGradient.prototype.addColorStop;CanvasGradient.prototype.addColorStop=function(o,c){return acs.call(this,o,mapc(c));};
+  /* Journal：接近直角 */
+  const rrp0=rrp;rrp=function(x,y,w,h,r){return rrp0(x,y,w,h,Math.min(r,3));};
+
+  /* D 字標（monogram-d.svg） */
+  const DP=new Path2D('M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z');
+  function mono(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s/128,s/128);rrp0(0,0,128,128,14);ctx.fillStyle='#202124';ctx.fill();ctx.fillStyle='#f47a20';ctx.fill(DP,'evenodd');ctx.restore();}
+  const SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="14" fill="#202124"/><path d="M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z" fill="#F47A20" fill-rule="evenodd"/></svg>';
+  const mk=document.querySelector('.masthead .mark');if(mk)mk.innerHTML=SVG;
+  const serif=()=>LANG==='ja'?'"Noto Serif JP","Noto Serif TC",serif':'"Noto Serif TC","Noto Serif JP",serif';
+
+  return {
+    titleFont:serif,
+    fonts:()=>['700 32px "Noto Serif TC"','900 32px "Noto Serif TC"'].concat(LANG==='ja'?['700 32px "Noto Serif JP"','900 32px "Noto Serif JP"']:[]),
+    /* 片頭：左對齊的編輯式版面 */
+    opening(a){
+      screenSpace();ctx.fillStyle=`rgba(21,25,28,${.9*a})`;ctx.fillRect(0,0,cssW,cssH);
+      ctx.save();ctx.globalAlpha=a;ctx.textAlign='left';
+      const u=cssW/100,x=cssW*.08,w=cssW*.84;
+      /* 標題區：眉題（系列與集數）＋襯線大標＋副標 */
+      const fs=clamp(cssW/17,22,76),tt=epT(),tfs=LANG==='en'&&tt.length>26?fs*.8:fs,y0=cssH*.5;
+      ctx.textBaseline='alphabetic';
+      ctx.font=`600 ${clamp(u*1.7,12,26)}px ${FONT}`;ctx.fillStyle='#e08a5f';ctx.fillText(seriesLine()||P2(EP.no),x,y0-tfs*.95,w);
+      ctx.fillStyle='#e08a5f';ctx.fillRect(x,y0-tfs*.95-clamp(u*1.7,12,26)-u*1.4,u*5,3);
+      ctx.font=`900 ${tfs}px ${serif()}`;ctx.fillStyle='#fbfaf6';ctx.fillText(tt,x,y0+tfs*.35,w);
+      ctx.font=`500 ${fs*.4}px ${LANG==='en'?FONT:COND}`;ctx.fillStyle='rgba(236,234,228,.72)';ctx.fillText(epSub(),x,y0+tfs*.35+fs*.8,w);
+      /* 底部品牌列：細線、D 字標＋DOF LAB、署名 */
+      const yf=cssH*.78,m=clamp(u*2.6,16,46),ym=yf+u*1.6;
+      ctx.fillStyle='rgba(236,234,228,.22)';ctx.fillRect(x,yf,w,1);
+      mono(x,ym,m);
+      ctx.textBaseline='middle';ctx.font=`700 ${clamp(u*1.4,10,22)}px ${COND}`;ctx.fillStyle='rgba(236,234,228,.92)';
+      if('letterSpacing' in ctx)ctx.letterSpacing=`${(u*.3).toFixed(1)}px`;ctx.fillText('DOF LAB',x+m+u*1.1,ym+m/2);if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+      ctx.font=`500 ${clamp(u*1.15,10,18)}px ${FONT}`;ctx.fillStyle='rgba(236,234,228,.66)';ctx.textAlign='right';ctx.fillText(ui('creditFull'),x+w,ym+m/2,w*.62);
+      ctx.restore();ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    },
+    /* 匯出影片的右上角署名前加上 D 字標 */
+    overlay(){ctx.font=`400 11px ${FONT}`;const tw=ctx.measureText(ui('credit')+' · '+ui('scaleNote')).width;mono(cssW-12-tw-19,8,14);}
+  };
+})();
+
 /* ================= episode engine ================= */
 const hn=(i,j)=>{const s=Math.sin(i*127.1+j*311.7)*43758.5453;return s-Math.floor(s);};
 const SH=EP.shots,SS=[];let TOTAL=0;SH.forEach((s,i)=>{SS[i]=TOTAL;TOTAL+=s.dur;});
 let SI=0;
 const P2=n=>String(n).padStart(2,'0');
+/* optional brand theme (theme-<name>.js, added by build.py --theme): {opening(a), overlay(), titleFont(), fonts:[...]} */
+const THM=typeof THEME!=='undefined'?THEME:{};
+const TFONT=()=>THM.titleFont?THM.titleFont():FONT;
 
 /* world-space text with a minimum on-screen size */
 function wt(x,y,t,size,col,weight,align,font,base){
@@ -1534,7 +1626,8 @@ function renderFrame(){
   const tin=T-SS[SI],tout=SS[SI]+sh.dur-T;let fa=0;
   if(SI>0)fa=Math.max(fa,1-tin/.45);if(SI<SH.length-1)fa=Math.max(fa,1-tout/.45);
   if(fa>0){screenSpace();ctx.fillStyle=`rgba(4,14,22,${clamp(fa)*.92})`;ctx.fillRect(0,0,cssW,cssH);}
-  if(T<3.2){ // opening title
+  if(T<3.2&&THM.opening){THM.opening(T<2.3?1:1-(T-2.3)/.9);}
+  else if(T<3.2){ // opening title
     const a=T<2.3?1:1-(T-2.3)/.9;screenSpace();ctx.fillStyle=`rgba(5,22,32,${.82*a})`;ctx.fillRect(0,0,cssW,cssH);
     ctx.globalAlpha=a;const fs=clamp(cssW/20,22,64),mw=cssW*.9;ctx.textAlign='center';ctx.textBaseline='alphabetic';
     ctx.font=`700 ${fs*1.3}px ${COND}`;ctx.fillStyle='#f2c230';ctx.fillText(P2(EP.no),cssW/2,cssH*.43);
@@ -1558,6 +1651,7 @@ function ensureFonts(){
   for(const w of [400,500,700,900])jobs.push(document.fonts.load(`${w} 16px ${fam}`,txt));
   if(LANG==='ja')for(const w of [500,700])jobs.push(document.fonts.load(`${w} 16px "Noto Sans TC"`,txt));
   for(const w of [500,600,700])jobs.push(document.fonts.load(`${w} 16px "Barlow Condensed"`,'0123456789 MWkV'));
+  if(THM.fonts)THM.fonts().forEach(f=>jobs.push(document.fonts.load(f,txt)));
   return Promise.all(jobs).then(()=>document.fonts.ready).catch(()=>{});
 }
 
@@ -1695,11 +1789,12 @@ function ensureFonts(){
       ctx.font=`600 ${nS*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(sub,x0+nw+4,y0+nS*.78);const sw=ctx.measureText(sub).width;
       const bx=x0+nw+sw+14;ctx.shadowColor='transparent';ctx.fillStyle='#f2c230';ctx.fillRect(bx,y0,3,bh);
       const tx=bx+15,ty=y0+(bh-inner)/2;
-      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
+      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${TFONT()}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
       ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.6);
       ctx.restore();
     }
     if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('credit')+' · '+ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    if(THM.overlay)THM.overlay();
     if(T<3.2)return;
     let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
     const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
