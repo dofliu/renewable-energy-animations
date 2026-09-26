@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ep01.js｜海洋能系列</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#e7eeec;
+  --surface:#f6f9f8;
+  --ink:#13232e;
+  --muted:#4f6470;
+  --line:#c5d3d2;
+  --chart:#0e2a3b;
+  --signal:#f2c230;
+  --alert:#e8572a;
+  --sea:#1f7f99;
+  --stepdone:#1f7f99;
+  --sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow","Noto Sans TC","PingFang TC",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--stepdone:#58b8d0;--sea:#58b8d0;
+  }
+}
+:root[data-theme="dark"]{--bg:#08202d;--surface:#0e2a3b;--ink:#e3ecee;--muted:#93aab4;--line:#1f4254;--stepdone:#58b8d0;--sea:#58b8d0;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:18px clamp(12px,3vw,32px) 48px}
+
+/* ---------- title ---------- */
+.masthead{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:end;margin:6px 0 16px}
+.masthead .mark{grid-row:span 2;width:58px;height:58px;border-radius:14px;background:var(--chart);display:grid;place-items:center}
+.masthead .mark svg{width:40px;height:40px}
+.masthead h1{margin:0;font-size:clamp(24px,3.4vw,38px);font-weight:900;letter-spacing:.02em;line-height:1.15}
+.masthead p{margin:0;color:var(--muted);font-size:clamp(13px,1.5vw,15px);max-width:62ch}
+
+/* ---------- stage ---------- */
+.stage{position:relative;width:100%;aspect-ratio:16/9;background:var(--chart);border-radius:16px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -24px rgba(8,32,45,.55)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center;background:#051620}
+.stage:fullscreen canvas{position:relative;inset:auto;width:min(100vw,calc(100vh*16/9));height:min(100vh,calc(100vw*9/16))}
+.chapcard{position:absolute;left:clamp(10px,2vw,22px);top:clamp(10px,2vw,20px);display:flex;align-items:stretch;gap:12px;pointer-events:none;opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .5s}
+.chapcard.show{opacity:1;transform:none}
+.chapcard .no{font-family:var(--cond);font-weight:700;font-size:clamp(30px,4.6vw,58px);line-height:.9;color:var(--signal);text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.chapcard .tt{display:flex;flex-direction:column;justify-content:center;padding-left:12px;border-left:3px solid var(--signal)}
+.chapcard b{font-size:clamp(15px,2.1vw,26px);font-weight:900;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45);line-height:1.2}
+.chapcard i{font-style:normal;font-family:var(--cond);font-weight:500;font-size:clamp(12px,1.35vw,17px);color:rgba(255,255,255,.82);letter-spacing:.02em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.caption{position:absolute;left:50%;bottom:clamp(8px,1.8vw,20px);transform:translateX(-50%);max-width:min(88%,760px);background:rgba(7,26,37,.78);color:#f2f6f7;border-radius:10px;padding:7px 16px;font-size:clamp(12px,1.5vw,17px);font-weight:500;text-align:center;pointer-events:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:opacity .35s}
+.caption:empty{opacity:0}
+.caption .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:middle;transform:translateY(-1px)}
+.scale-note{position:absolute;right:12px;top:10px;font-size:11px;color:rgba(255,255,255,.62);pointer-events:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);height:40px;min-width:40px;border-radius:10px;display:inline-grid;place-items:center;cursor:pointer;font:inherit;font-size:14px;padding:0 10px}
+.btn:hover{border-color:var(--sea)}
+.btn:focus-visible,.seg button:focus-visible,.chap:focus-visible,.timeline:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.btn svg{width:18px;height:18px}
+.btn.play{background:var(--chart);color:#fff;border-color:var(--chart);min-width:48px}
+.timeline{position:relative;flex:1 1 320px;height:40px;display:flex;align-items:center;cursor:pointer;touch-action:none;border-radius:8px}
+.tl-track{position:relative;display:flex;width:100%;height:12px;border-radius:3px;overflow:hidden;background:var(--line)}
+.tl-seg{height:100%;border-right:2px solid var(--bg);position:relative}
+.tl-seg:nth-child(odd){background:rgba(19,35,46,.10)}
+.tl-seg:last-child{border-right:0}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;background:var(--chart);pointer-events:none}
+:root[data-theme="dark"] .tl-fill{background:var(--sea)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tl-fill{background:var(--sea)}}
+.tl-head{position:absolute;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--signal);border:3px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.35);pointer-events:none}
+.time{font-family:var(--cond);font-weight:600;font-size:16px;color:var(--muted);min-width:92px;text-align:right;font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:40px;background:var(--surface)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font-family:var(--cond);font-weight:600;font-size:15px;padding:0 10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--chart);color:#fff}
+.btn.toggle[aria-pressed="false"]{color:var(--muted)}
+
+/* ---------- info ---------- */
+.info{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;margin-top:22px;align-items:start}
+.info h2{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:900;line-height:1.25;display:flex;align-items:baseline;gap:12px}
+.info h2 .n{font-family:var(--cond);font-weight:700;color:var(--sea);font-size:1.15em}
+.info .en{margin:2px 0 12px;font-family:var(--cond);font-size:18px;font-weight:500;color:var(--muted)}
+.info .desc{margin:0;font-size:16px;line-height:1.85;max-width:44em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding:0;list-style:none}
+.chips li{font-size:13px;padding:4px 10px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;counter-reset:s}
+.steps h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.steps li{position:relative;padding:8px 0 8px 34px;font-size:15px;color:var(--muted);border-top:1px dashed var(--line);counter-increment:s;transition:color .3s}
+.steps li:first-of-type{border-top:0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:13px;color:var(--muted);background:var(--surface)}
+.steps li.done{color:var(--ink)}
+.steps li.done::before{content:"✓";background:var(--stepdone);border-color:var(--stepdone);color:#fff}
+.steps li.now{color:var(--ink);font-weight:700}
+.steps li.now::before{background:var(--signal);border-color:var(--signal);color:#13232e}
+
+/* ---------- chapter index ---------- */
+.chapters{margin-top:28px}
+.chapters h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.chap{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer;font:inherit;display:flex;gap:10px;align-items:center;min-height:48px}
+.chap .n{font-family:var(--cond);font-weight:700;font-size:20px;color:var(--muted);min-width:24px}
+.chap .t{font-size:14px;line-height:1.3}
+.chap:hover{border-color:var(--sea)}
+.chap.active{background:var(--chart);border-color:var(--chart);color:#fff}
+.chap.active .n{color:var(--signal)}
+.chap.past .n{color:var(--sea)}
+.foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:80ch;line-height:1.7}
+
+@media (max-width:820px){
+  .info{grid-template-columns:1fr;gap:18px}
+  .masthead .mark{width:46px;height:46px;border-radius:12px}
+  .masthead .mark svg{width:32px;height:32px}
+  .scale-note{display:none}
+  .stage{border-radius:12px}
+}
+@media (max-width:560px){
+  .chapcard{gap:8px}
+  .chapcard .tt{padding-left:8px;border-left-width:2px}
+  .caption{padding:5px 10px;border-radius:8px}
+  .time{min-width:0;font-size:14px}
+  .seg button{padding:0 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .chapcard,.caption{transition:none}
+}
+/* ---------- i18n ---------- */
+:root[lang="ja"]{--sans:"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif;--cond:"Barlow Condensed","Arial Narrow","Noto Sans JP","Noto Sans TC",sans-serif}
+.masthead{grid-template-columns:auto 1fr auto}
+.langsw{grid-column:3;grid-row:1 / span 2;align-self:start;display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:36px;background:var(--surface)}
+.langsw button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500;padding:0 12px;cursor:pointer;white-space:nowrap}
+.langsw button+button{border-left:1px solid var(--line)}
+.langsw button[aria-pressed="true"]{background:var(--chart);color:#fff}
+.langsw button:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}
+:root[data-theme="dark"] .seg button[aria-pressed="true"],:root[data-theme="dark"] .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"],:root:not([data-theme="light"]) .langsw button[aria-pressed="true"]{background:var(--sea);color:#08202d}}
+
+/* ---------- video export ---------- */
+.btn.rec{display:inline-flex;align-items:center;gap:8px;padding:0 13px}
+.btn.rec .rdot{width:10px;height:10px;border-radius:50%;background:var(--alert);box-shadow:0 0 0 3px rgba(232,87,42,.2)}
+.recdlg{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:20px clamp(16px,3vw,26px);width:min(540px,calc(100vw - 24px));max-height:calc(100vh - 24px);box-shadow:0 30px 60px -30px rgba(5,22,32,.65)}
+.recdlg::backdrop{background:rgba(5,22,32,.55)}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rec-head h2{margin:0;font-size:20px;font-weight:900;line-height:1.3}
+.rec-head .btn{height:36px;min-width:36px}
+.rec-intro{margin:8px 0 18px;color:var(--muted);font-size:14px;line-height:1.75}
+.rec-opts{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:center}
+.rec-opts>span{font-size:14px;font-weight:700;color:var(--muted)}
+.rec-opts .seg{justify-self:start;height:36px}
+.rec-opts .seg button{min-width:54px}
+.seg button.tx{font-family:var(--sans);font-size:13px;font-weight:500;padding:0 12px}
+.recdlg.busy .rec-opts{opacity:.5;pointer-events:none}
+.rec-sum{margin:16px 0 0;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rec-prog{margin-top:14px}
+.rec-prog canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;background:var(--chart)}
+.rec-bar{margin-top:10px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.rec-bar i{display:block;height:100%;width:0;background:var(--signal)}
+.rec-stat{margin:8px 0 0;font-size:14px;min-height:1.6em}
+.rec-stat.err{color:var(--alert);font-weight:500}
+.rec-note{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.rec-act{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn.primary{background:var(--chart);color:#fff;border-color:var(--chart);padding:0 18px;font-weight:700}
+.btn.primary:disabled{opacity:.5;cursor:default}
+a.btn{text-decoration:none;display:inline-flex;align-items:center}
+[hidden]{display:none!important}
+@media (max-width:560px){
+  .masthead{grid-template-columns:auto 1fr}
+  .langsw{grid-column:1 / -1;grid-row:auto;justify-self:start;margin-top:4px}
+  .rec-opts{grid-template-columns:1fr;gap:4px}
+  .rec-opts .seg{margin-bottom:8px}
+}
+.masthead .series{grid-column:2;margin:0;font-size:13px;color:var(--muted);font-weight:500}
+.masthead .series a{color:inherit}
+.shots{margin-top:28px}
+.shots h3,.facts h3{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--muted)}
+.shot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.facts{margin-top:28px}
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:0}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.fact dt{font-family:var(--cond);font-weight:700;font-size:26px;line-height:1.1;color:var(--ink)}
+.fact dt small{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--sea);margin-left:4px}
+.fact dd{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
+.chapcard .no small{font-size:.45em;color:rgba(255,255,255,.75);margin-left:4px;font-weight:600}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌊%3C/text%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}</style></head>
+<body>
+<div class="wrap">
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="海洋能系列" data-en="Ocean Energy series" data-ja="海洋エネルギーシリーズ">海洋能系列</span></a><span class="sp"></span><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
+  <header class="masthead">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
+    </div>
+    <h1><span id="mNo"></span> <span id="mT"></span></h1>
+    <p id="mLede"></p>
+    <div class="langsw" role="group" data-i18n-aria="langGroup" aria-label="介面語言"><button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="true">中文</button><button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button><button type="button" data-lang="ja" lang="ja" aria-pressed="false">日本語</button></div>
+    <p class="series" id="mSeries"></p>
+  </header>
+  <section aria-label="動畫" data-i18n-aria="secAnim">
+    <div class="stage" id="stage">
+      <canvas id="cv" role="img" aria-label="ep01.js｜海洋能系列"></canvas>
+      <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
+      <div class="caption" id="caption" aria-live="polite"></div>
+      <div class="scale-note" data-i18n="scaleNote">示意圖：比例經過調整</div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="bPrev" data-i18n-aria="prev" aria-label="上一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="btn play" id="bPlay" aria-label="暫停"><svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+      <button class="btn" id="bNext" data-i18n-aria="next" aria-label="下一個分鏡"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      <div class="timeline" id="timeline" tabindex="0" role="slider" data-i18n-aria="progress" aria-label="播放進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="tl-track" id="tlTrack"><div class="tl-fill" id="tlFill"></div></div>
+        <div class="tl-head" id="tlHead"></div>
+      </div>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seg" role="group" data-i18n-aria="speed" aria-label="播放速度">
+        <button data-speed="0.5" aria-pressed="false">0.5×</button>
+        <button data-speed="1" aria-pressed="true">1×</button>
+        <button data-speed="2" aria-pressed="false">2×</button>
+      </div>
+      <button class="btn toggle" id="bLabels" aria-pressed="true" data-i18n-title="labelsTip" data-i18n="labels" title="顯示／隱藏標註">標註</button>
+      <button class="btn" id="bFull" data-i18n-aria="full" aria-label="全螢幕"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="btn rec" id="bRec" type="button" aria-haspopup="dialog"><span class="rdot" aria-hidden="true"></span><span data-i18n="rec">匯出影片</span></button>
+    </div>
+  </section>
+  <section class="info" aria-live="polite">
+    <div>
+      <h2><span class="n" id="iNo">1</span><span id="iT"></span></h2>
+      <p class="en" id="iE"></p>
+      <p class="desc" id="iD"></p>
+    </div>
+    <ol class="steps" id="iS"></ol>
+  </section>
+  <nav class="shots" data-i18n-aria="chapNav" aria-label="分鏡">
+    <h3 data-i18n="chapHead">本集分鏡</h3>
+    <div class="shot-grid" id="shotGrid"></div>
+  </nav>
+  <section class="facts" data-i18n-aria="factsAria" aria-label="重點數字">
+    <h3 data-i18n="factsHead">本集重點數字</h3>
+    <dl class="fact-grid" id="facts"></dl>
+  </section>
+  <p class="foot" id="foot"></p>
+</div>
+<dialog class="recdlg" id="recDlg" aria-labelledby="recTitle">
+  <div class="rec-head">
+    <h2 id="recTitle" data-i18n="recTitle">錄製 MP4 影片</h2>
+    <button class="btn" id="recX" type="button" data-i18n-aria="close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <p class="rec-intro" data-i18n="recIntro"></p>
+  <div class="rec-opts">
+    <span id="oSpeed" data-i18n="optSpeed">影片速度</span>
+    <div class="seg" role="group" aria-labelledby="oSpeed" data-opt="speed"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="2" aria-pressed="false">2×</button></div>
+    <span id="oRange" data-i18n="optRange">範圍</span>
+    <div class="seg" role="group" aria-labelledby="oRange" data-opt="range"><button type="button" class="tx" data-v="all" aria-pressed="true" data-i18n="rangeAll">全片</button><button type="button" class="tx" data-v="chap" aria-pressed="false" data-i18n="rangeChap">目前分鏡</button></div>
+    <span id="oRes" data-i18n="optRes">解析度</span>
+    <div class="seg" role="group" aria-labelledby="oRes" data-opt="res"><button type="button" data-v="720" aria-pressed="false">720p</button><button type="button" data-v="1080" aria-pressed="true">1080p</button></div>
+    <span id="oFps" data-i18n="optFps">影格率</span>
+    <div class="seg" role="group" aria-labelledby="oFps" data-opt="fps"><button type="button" data-v="30" aria-pressed="true">30 fps</button><button type="button" data-v="60" aria-pressed="false">60 fps</button></div>
+  </div>
+  <p class="rec-sum" id="recSum"></p>
+  <div class="rec-prog" id="recProg" hidden>
+    <canvas id="recPrev" width="640" height="360" aria-hidden="true"></canvas>
+    <div class="rec-bar"><i id="recBar"></i></div>
+    <p class="rec-stat" id="recStat" aria-live="polite"></p>
+    <p class="rec-note" id="recNote" data-i18n="keepTab"></p>
+  </div>
+  <div class="rec-act">
+    <button class="btn" id="recCancel" type="button" hidden data-i18n="cancel">取消</button>
+    <a class="btn primary" id="recDl" hidden data-i18n="download">下載 MP4</a>
+    <button class="btn primary" id="recGo" type="button" data-i18n="start">開始錄製</button>
+  </div>
+</dialog>
+<script>
+/*! mp4-muxer v5.2.2 | MIT License | (c) 2023 Vanilagy | https://github.com/Vanilagy/mp4-muxer */
+"use strict";var Mp4Muxer=(()=>{var e=Object.defineProperty,t=Object.getOwnPropertyDescriptor,i=Object.getOwnPropertyNames,s=Object.prototype.hasOwnProperty,a=(e,t,i)=>{if(!t.has(e))throw TypeError("Cannot "+i)},r=(e,t,i)=>(a(e,t,"read from private field"),i?i.call(e):t.get(e)),n=(e,t,i)=>{if(t.has(e))throw TypeError("Cannot add the same private member more than once");t instanceof WeakSet?t.add(e):t.set(e,i)},o=(e,t,i,s)=>(a(e,t,"write to private field"),s?s.call(e,i):t.set(e,i),i),h=(e,t,i)=>(a(e,t,"access private method"),i),l={};((t,i)=>{for(var s in i)e(t,s,{get:i[s],enumerable:!0})})(l,{ArrayBufferTarget:()=>Me,FileSystemWritableFileStreamTarget:()=>Oe,Muxer:()=>Rt,StreamTarget:()=>We});var d,f,u,m,p,c,w,g,b=new Uint8Array(8),y=new DataView(b.buffer),k=e=>[(e%256+256)%256],T=e=>(y.setUint16(0,e,!1),[b[0],b[1]]),C=e=>(y.setUint32(0,e,!1),[b[1],b[2],b[3]]),v=e=>(y.setUint32(0,e,!1),[b[0],b[1],b[2],b[3]]),S=e=>(y.setUint32(0,Math.floor(e/2**32),!1),y.setUint32(4,e,!1),[b[0],b[1],b[2],b[3],b[4],b[5],b[6],b[7]]),x=e=>(y.setInt16(0,256*e,!1),[b[0],b[1]]),z=e=>(y.setInt32(0,65536*e,!1),[b[0],b[1],b[2],b[3]]),E=e=>(y.setInt32(0,2**30*e,!1),[b[0],b[1],b[2],b[3]]),A=(e,t=!1)=>{let i=Array(e.length).fill(null).map((t,i)=>e.charCodeAt(i));return t&&i.push(0),i},M=e=>e&&e[e.length-1],W=e=>{let t;for(let i of e)(!t||i.presentationTimestamp>t.presentationTimestamp)&&(t=i);return t},O=(e,t,i=!0)=>{let s=e*t;return i?Math.round(s):s},B=e=>{let t=e*(Math.PI/180),i=Math.cos(t),s=Math.sin(t);return[i,s,0,-s,i,0,0,0,1]},U=B(0),D=e=>[z(e[0]),z(e[1]),E(e[2]),z(e[3]),z(e[4]),E(e[5]),z(e[6]),z(e[7]),E(e[8])],j=e=>e?"object"!=typeof e?e:Array.isArray(e)?e.map(j):Object.fromEntries(Object.entries(e).map(([e,t])=>[e,j(t)])):e,R=e=>e>=0&&e<2**32,I=(e,t,i)=>({type:e,contents:t&&new Uint8Array(t.flat(10)),children:i}),N=(e,t,i,s,a)=>I(e,[k(t),C(i),s??[]],a),V=e=>({type:"mdat",largeSize:e}),F=(e,t,i=!1)=>I("moov",null,[L(t,e),...e.map(e=>$(e,t)),i?me(e):null]),L=(e,t)=>{let i=O(Math.max(0,...t.filter(e=>e.samples.length>0).map(e=>{const t=W(e.samples);return t.presentationTimestamp+t.duration})),Bt),s=Math.max(...t.map(e=>e.id))+1,a=!R(e)||!R(i),r=a?S:v;return N("mvhd",+a,0,[r(e),r(e),v(Bt),r(i),z(1),x(1),Array(10).fill(0),D(U),Array(24).fill(0),v(s)])},$=(e,t)=>I("trak",null,[P(e,t),H(e,t)]),P=(e,t)=>{let i,s=W(e.samples),a=O(s?s.presentationTimestamp+s.duration:0,Bt),r=!R(t)||!R(a),n=r?S:v;return i="video"===e.info.type?"number"==typeof e.info.rotation?B(e.info.rotation):e.info.rotation:U,N("tkhd",+r,3,[n(t),n(t),v(e.id),v(0),n(a),Array(8).fill(0),T(0),T(0),x("audio"===e.info.type?1:0),T(0),D(i),z("video"===e.info.type?e.info.width:0),z("video"===e.info.type?e.info.height:0)])},H=(e,t)=>I("mdia",null,[_(e,t),q("video"===e.info.type?"vide":"soun"),G(e)]),_=(e,t)=>{let i=W(e.samples),s=O(i?i.presentationTimestamp+i.duration:0,e.timescale),a=!R(t)||!R(s),r=a?S:v;return N("mdhd",+a,0,[r(t),r(t),v(e.timescale),r(s),T(21956),T(0)])},q=e=>N("hdlr",0,0,[A("mhlr"),A(e),v(0),v(0),v(0),A("mp4-muxer-hdlr",!0)]),G=e=>I("minf",null,["video"===e.info.type?J():K(),Q(),Z(e)]),J=()=>N("vmhd",0,1,[T(0),T(0),T(0),T(0)]),K=()=>N("smhd",0,0,[T(0),T(0)]),Q=()=>I("dinf",null,[X()]),X=()=>N("dref",0,0,[v(1)],[Y()]),Y=()=>N("url ",0,1),Z=e=>{const t=e.compositionTimeOffsetTable.length>1||e.compositionTimeOffsetTable.some(e=>0!==e.sampleCompositionTimeOffset);return I("stbl",null,[ee(e),oe(e),he(e),le(e),de(e),fe(e),t?ue(e):null])},ee=e=>N("stsd",0,0,[v(1)],["video"===e.info.type?te(Se[e.info.codec],e):ne(ze[e.info.codec],e)]),te=(e,t)=>{return I(e,[Array(6).fill(0),T(1),T(0),T(0),Array(12).fill(0),T(t.info.width),T(t.info.height),v(4718592),v(4718592),v(0),T(1),Array(32).fill(0),T(24),(i=65535,y.setInt16(0,i,!1),[b[0],b[1]])],[xe[t.info.codec](t),t.info.decoderConfig.colorSpace?re(t):null]);var i},ie={bt709:1,bt470bg:5,smpte170m:6},se={bt709:1,smpte170m:6,"iec61966-2-1":13},ae={rgb:0,bt709:1,bt470bg:5,smpte170m:6},re=e=>I("colr",[A("nclx"),T(ie[e.info.decoderConfig.colorSpace.primaries]),T(se[e.info.decoderConfig.colorSpace.transfer]),T(ae[e.info.decoderConfig.colorSpace.matrix]),k((e.info.decoderConfig.colorSpace.fullRange?1:0)<<7)]),ne=(e,t)=>I(e,[Array(6).fill(0),T(1),T(0),T(0),v(0),T(t.info.numberOfChannels),T(16),T(0),T(0),z(t.info.sampleRate)],[Ee[t.info.codec](t)]),oe=e=>N("stts",0,0,[v(e.timeToSampleTable.length),e.timeToSampleTable.map(e=>[v(e.sampleCount),v(e.sampleDelta)])]),he=e=>{if(e.samples.every(e=>"key"===e.type))return null;let t=[...e.samples.entries()].filter(([,e])=>"key"===e.type);return N("stss",0,0,[v(t.length),t.map(([e])=>v(e+1))])},le=e=>N("stsc",0,0,[v(e.compactlyCodedChunkTable.length),e.compactlyCodedChunkTable.map(e=>[v(e.firstChunk),v(e.samplesPerChunk),v(1)])]),de=e=>N("stsz",0,0,[v(0),v(e.samples.length),e.samples.map(e=>v(e.size))]),fe=e=>e.finalizedChunks.length>0&&M(e.finalizedChunks).offset>=2**32?N("co64",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>S(e.offset))]):N("stco",0,0,[v(e.finalizedChunks.length),e.finalizedChunks.map(e=>v(e.offset))]),ue=e=>N("ctts",0,0,[v(e.compositionTimeOffsetTable.length),e.compositionTimeOffsetTable.map(e=>[v(e.sampleCount),v(e.sampleCompositionTimeOffset)])]),me=e=>I("mvex",null,e.map(pe)),pe=e=>N("trex",0,0,[v(e.id),v(1),v(0),v(0),v(0)]),ce=(e,t)=>I("moof",null,[we(e),...t.map(be)]),we=e=>N("mfhd",0,0,[v(e)]),ge=e=>{let t=0,i=0,s="delta"===e.type;return i|=+s,t|=s?1:2,t<<24|i<<16},be=e=>I("traf",null,[ye(e),ke(e),Te(e)]),ye=e=>{let t=0;t|=8,t|=16,t|=32,t|=131072;let i=e.currentChunk.samples[1]??e.currentChunk.samples[0],s={duration:i.timescaleUnitsToNextSample,size:i.size,flags:ge(i)};return N("tfhd",0,131128,[v(e.id),v(s.duration),v(s.size),v(s.flags)])},ke=e=>N("tfdt",1,0,[S(O(e.currentChunk.startTimestamp,e.timescale))]),Te=e=>{let t=e.currentChunk.samples.map(e=>e.timescaleUnitsToNextSample),i=e.currentChunk.samples.map(e=>e.size),s=e.currentChunk.samples.map(ge),a=e.currentChunk.samples.map(t=>O(t.presentationTimestamp-t.decodeTimestamp,e.timescale)),r=new Set(t),n=new Set(i),o=new Set(s),h=new Set(a),l=2===o.size&&s[0]!==s[1],d=r.size>1,f=n.size>1,u=!l&&o.size>1,m=h.size>1||[...h].some(e=>0!==e),p=0;return p|=1,p|=4*+l,p|=256*+d,p|=512*+f,p|=1024*+u,p|=2048*+m,N("trun",1,p,[v(e.currentChunk.samples.length),v(e.currentChunk.offset-e.currentChunk.moofOffset||0),l?v(s[0]):[],e.currentChunk.samples.map((e,r)=>{return[d?v(t[r]):[],f?v(i[r]):[],u?v(s[r]):[],m?(n=a[r],y.setInt32(0,n,!1),[b[0],b[1],b[2],b[3]]):[]];var n})])},Ce=(e,t)=>N("tfra",1,0,[v(e.id),v(63),v(e.finalizedChunks.length),e.finalizedChunks.map(i=>[S(O(i.startTimestamp,e.timescale)),S(i.moofOffset),v(t+1),v(1),v(1)])]),ve=()=>N("mfro",0,0,[v(0)]),Se={avc:"avc1",hevc:"hvc1",vp9:"vp09",av1:"av01"},xe={avc:e=>e.info.decoderConfig&&I("avcC",[...new Uint8Array(e.info.decoderConfig.description)]),hevc:e=>e.info.decoderConfig&&I("hvcC",[...new Uint8Array(e.info.decoderConfig.description)]),vp9:e=>{if(!e.info.decoderConfig)return null;let t=e.info.decoderConfig;if(!t.colorSpace)throw new Error("'colorSpace' is required in the decoder config for VP9.");let i=t.codec.split("."),s=Number(i[1]),a=Number(i[2]),r=0+(Number(i[3])<<4)+Number(t.colorSpace.fullRange);return N("vpcC",1,0,[k(s),k(a),k(r),k(2),k(2),k(2),T(0)])},av1:()=>I("av1C",[129,0,0,0])},ze={aac:"mp4a",opus:"Opus"},Ee={aac:e=>{let t=new Uint8Array(e.info.decoderConfig.description);return N("esds",0,0,[v(58753152),k(32+t.byteLength),T(1),k(0),v(75530368),k(18+t.byteLength),k(64),k(21),C(0),v(130071),v(130071),v(92307584),k(t.byteLength),...t,v(109084800),k(1),k(2)])},opus:e=>{let t=3840,i=0;const s=e.info.decoderConfig?.description;if(s){if(s.byteLength<18)throw new TypeError("Invalid decoder description provided for Opus; must be at least 18 bytes long.");const e=ArrayBuffer.isView(s)?new DataView(s.buffer,s.byteOffset,s.byteLength):new DataView(s);t=e.getUint16(10,!0),i=e.getInt16(14,!0)}return I("dOps",[k(0),k(e.info.numberOfChannels),T(t),v(e.info.sampleRate),x(i),k(0)])}},Ae=(Symbol("isTarget"),class{}),Me=class extends Ae{constructor(){super(...arguments),this.buffer=null}},We=class extends Ae{constructor(e){if(super(),this.options=e,"object"!=typeof e)throw new TypeError("StreamTarget requires an options object to be passed to its constructor.");if(e.onData){if("function"!=typeof e.onData)throw new TypeError("options.onData, when provided, must be a function.");if(e.onData.length<2)throw new TypeError("options.onData, when provided, must be a function that takes in at least two arguments (data and position). Ignoring the position argument, which specifies the byte offset at which the data is to be written, can lead to broken outputs.")}if(void 0!==e.chunked&&"boolean"!=typeof e.chunked)throw new TypeError("options.chunked, when provided, must be a boolean.");if(void 0!==e.chunkSize&&(!Number.isInteger(e.chunkSize)||e.chunkSize<1024))throw new TypeError("options.chunkSize, when provided, must be an integer and not smaller than 1024.")}},Oe=class extends Ae{constructor(e,t){if(super(),this.stream=e,this.options=t,!(e instanceof FileSystemWritableFileStream))throw new TypeError("FileSystemWritableFileStreamTarget requires a FileSystemWritableFileStream instance.");if(void 0!==t&&"object"!=typeof t)throw new TypeError("FileSystemWritableFileStreamTarget's options, when provided, must be an object.");if(t&&void 0!==t.chunkSize&&(!Number.isInteger(t.chunkSize)||t.chunkSize<=0))throw new TypeError("options.chunkSize, when provided, must be a positive integer")}},Be=class{constructor(){this.pos=0,n(this,d,new Uint8Array(8)),n(this,f,new DataView(r(this,d).buffer)),this.offsets=new WeakMap}seek(e){this.pos=e}writeU32(e){r(this,f).setUint32(0,e,!1),this.write(r(this,d).subarray(0,4))}writeU64(e){r(this,f).setUint32(0,Math.floor(e/2**32),!1),r(this,f).setUint32(4,e,!1),this.write(r(this,d).subarray(0,8))}writeAscii(e){for(let t=0;t<e.length;t++)r(this,f).setUint8(t%8,e.charCodeAt(t)),t%8==7&&this.write(r(this,d));e.length%8!=0&&this.write(r(this,d).subarray(0,e.length%8))}writeBox(e){if(this.offsets.set(e,this.pos),e.contents&&!e.children)this.writeBoxHeader(e,e.size??e.contents.byteLength+8),this.write(e.contents);else{let t=this.pos;if(this.writeBoxHeader(e,0),e.contents&&this.write(e.contents),e.children)for(let t of e.children)t&&this.writeBox(t);let i=this.pos,s=e.size??i-t;this.seek(t),this.writeBoxHeader(e,s),this.seek(i)}}writeBoxHeader(e,t){this.writeU32(e.largeSize?1:t),this.writeAscii(e.type),e.largeSize&&this.writeU64(t)}measureBoxHeader(e){return 8+(e.largeSize?8:0)}patchBox(e){let t=this.pos;this.seek(this.offsets.get(e)),this.writeBox(e),this.seek(t)}measureBox(e){if(e.contents&&!e.children){return this.measureBoxHeader(e)+e.contents.byteLength}{let t=this.measureBoxHeader(e);if(e.contents&&(t+=e.contents.byteLength),e.children)for(let i of e.children)i&&(t+=this.measureBox(i));return t}}};d=new WeakMap,f=new WeakMap;var Ue=class extends Be{constructor(e){super(),n(this,w),n(this,u,void 0),n(this,m,new ArrayBuffer(65536)),n(this,p,new Uint8Array(r(this,m))),n(this,c,0),o(this,u,e)}write(e){h(this,w,g).call(this,this.pos+e.byteLength),r(this,p).set(e,this.pos),this.pos+=e.byteLength,o(this,c,Math.max(r(this,c),this.pos))}finalize(){h(this,w,g).call(this,this.pos),r(this,u).buffer=r(this,m).slice(0,Math.max(r(this,c),this.pos))}};u=new WeakMap,m=new WeakMap,p=new WeakMap,c=new WeakMap,w=new WeakSet,g=function(e){let t=r(this,m).byteLength;for(;t<e;)t*=2;if(t===r(this,m).byteLength)return;let i=new ArrayBuffer(t),s=new Uint8Array(i);s.set(r(this,p),0),o(this,m,i),o(this,p,s)};var De,je,Re,Ie,Ne,Ve,Fe,Le,$e,Pe,He,_e,qe,Ge=class extends Be{constructor(e){super(),n(this,Ve),n(this,Le),n(this,Pe),n(this,_e),n(this,De,void 0),n(this,je,[]),n(this,Re,void 0),n(this,Ie,void 0),n(this,Ne,[]),o(this,De,e),o(this,Re,e.options?.chunked??!1),o(this,Ie,e.options?.chunkSize??16777216)}write(e){r(this,je).push({data:e.slice(),start:this.pos}),this.pos+=e.byteLength}flush(){if(0===r(this,je).length)return;let e=[],t=[...r(this,je)].sort((e,t)=>e.start-t.start);e.push({start:t[0].start,size:t[0].data.byteLength});for(let i=1;i<t.length;i++){let s=e[e.length-1],a=t[i];a.start<=s.start+s.size?s.size=Math.max(s.size,a.start+a.data.byteLength-s.start):e.push({start:a.start,size:a.data.byteLength})}for(let t of e){t.data=new Uint8Array(t.size);for(let e of r(this,je))t.start<=e.start&&e.start<t.start+t.size&&t.data.set(e.data,e.start-t.start);r(this,Re)?(h(this,Ve,Fe).call(this,t.data,t.start),h(this,_e,qe).call(this)):r(this,De).options.onData?.(t.data,t.start)}r(this,je).length=0}finalize(){r(this,Re)&&h(this,_e,qe).call(this,!0)}};De=new WeakMap,je=new WeakMap,Re=new WeakMap,Ie=new WeakMap,Ne=new WeakMap,Ve=new WeakSet,Fe=function(e,t){let i=r(this,Ne).findIndex(e=>e.start<=t&&t<e.start+r(this,Ie));-1===i&&(i=h(this,Pe,He).call(this,t));let s=r(this,Ne)[i],a=t-s.start,n=e.subarray(0,Math.min(r(this,Ie)-a,e.byteLength));s.data.set(n,a);let o={start:a,end:a+n.byteLength};if(h(this,Le,$e).call(this,s,o),0===s.written[0].start&&s.written[0].end===r(this,Ie)&&(s.shouldFlush=!0),r(this,Ne).length>2){for(let e=0;e<r(this,Ne).length-1;e++)r(this,Ne)[e].shouldFlush=!0;h(this,_e,qe).call(this)}n.byteLength<e.byteLength&&h(this,Ve,Fe).call(this,e.subarray(n.byteLength),t+n.byteLength)},Le=new WeakSet,$e=function(e,t){let i=0,s=e.written.length-1,a=-1;for(;i<=s;){let r=Math.floor(i+(s-i+1)/2);e.written[r].start<=t.start?(i=r+1,a=r):s=r-1}for(e.written.splice(a+1,0,t),(-1===a||e.written[a].end<t.start)&&a++;a<e.written.length-1&&e.written[a].end>=e.written[a+1].start;)e.written[a].end=Math.max(e.written[a].end,e.written[a+1].end),e.written.splice(a+1,1)},Pe=new WeakSet,He=function(e){let t={start:Math.floor(e/r(this,Ie))*r(this,Ie),data:new Uint8Array(r(this,Ie)),written:[],shouldFlush:!1};return r(this,Ne).push(t),r(this,Ne).sort((e,t)=>e.start-t.start),r(this,Ne).indexOf(t)},_e=new WeakSet,qe=function(e=!1){for(let t=0;t<r(this,Ne).length;t++){let i=r(this,Ne)[t];if(i.shouldFlush||e){for(let e of i.written)r(this,De).options.onData?.(i.data.subarray(e.start,e.end),i.start+e.start);r(this,Ne).splice(t--,1)}}};var Je,Ke,Qe,Xe,Ye,Ze,et,tt,it,st,at,rt,nt,ot,ht,lt,dt,ft,ut,mt,pt,ct,wt,gt,bt,yt,kt,Tt,Ct,vt,St,xt,zt,Et,At,Mt,Wt,Ot=class extends Ge{constructor(e){super(new We({onData:(t,i)=>e.stream.write({type:"write",data:t,position:i}),chunked:!0,chunkSize:e.options?.chunkSize}))}},Bt=1e3,Ut=["avc","hevc","vp9","av1"],Dt=["aac","opus"],jt=["strict","offset","cross-track-offset"],Rt=class{constructor(e){if(n(this,nt),n(this,ht),n(this,dt),n(this,ut),n(this,pt),n(this,wt),n(this,bt),n(this,kt),n(this,Ct),n(this,St),n(this,zt),n(this,At),n(this,Je,void 0),n(this,Ke,void 0),n(this,Qe,void 0),n(this,Xe,void 0),n(this,Ye,null),n(this,Ze,null),n(this,et,Math.floor(Date.now()/1e3)+2082844800),n(this,tt,[]),n(this,it,1),n(this,st,[]),n(this,at,[]),n(this,rt,!1),h(this,nt,ot).call(this,e),e.video=j(e.video),e.audio=j(e.audio),e.fastStart=j(e.fastStart),this.target=e.target,o(this,Je,{firstTimestampBehavior:"strict",...e}),e.target instanceof Me)o(this,Ke,new Ue(e.target));else if(e.target instanceof We)o(this,Ke,new Ge(e.target));else{if(!(e.target instanceof Oe))throw new Error(`Invalid target: ${e.target}`);o(this,Ke,new Ot(e.target))}h(this,ut,mt).call(this),h(this,ht,lt).call(this)}addVideoChunk(e,t,i,s){if(!(e instanceof EncodedVideoChunk))throw new TypeError("addVideoChunk's first argument (sample) must be of type EncodedVideoChunk.");if(t&&"object"!=typeof t)throw new TypeError("addVideoChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addVideoChunk's third argument (timestamp), when provided, must be a non-negative real number.");if(void 0!==s&&!Number.isFinite(s))throw new TypeError("addVideoChunk's fourth argument (compositionTimeOffset), when provided, must be a real number.");let a=new Uint8Array(e.byteLength);e.copyTo(a),this.addVideoChunkRaw(a,e.type,i??e.timestamp,e.duration,t,s)}addVideoChunkRaw(e,t,i,s,a,n){if(!(e instanceof Uint8Array))throw new TypeError("addVideoChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addVideoChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addVideoChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addVideoChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addVideoChunkRaw's fifth argument (meta), when provided, must be an object.");if(void 0!==n&&!Number.isFinite(n))throw new TypeError("addVideoChunkRaw's sixth argument (compositionTimeOffset), when provided, must be a real number.");if(h(this,At,Mt).call(this),!r(this,Je).video)throw new Error("No video track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ye).samples.length===r(this,Je).fastStart.expectedVideoChunks)throw new Error(`Cannot add more video chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedVideoChunks}).`);let o=h(this,wt,gt).call(this,r(this,Ye),e,t,i,s,a,n);if("fragmented"===r(this,Je).fastStart&&r(this,Ze)){for(;r(this,at).length>0&&r(this,at)[0].decodeTimestamp<=o.decodeTimestamp;){let e=r(this,at).shift();h(this,bt,yt).call(this,r(this,Ze),e)}o.decodeTimestamp<=r(this,Ze).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ye),o):r(this,st).push(o)}else h(this,bt,yt).call(this,r(this,Ye),o)}addAudioChunk(e,t,i){if(!(e instanceof EncodedAudioChunk))throw new TypeError("addAudioChunk's first argument (sample) must be of type EncodedAudioChunk.");if(t&&"object"!=typeof t)throw new TypeError("addAudioChunk's second argument (meta), when provided, must be an object.");if(void 0!==i&&(!Number.isFinite(i)||i<0))throw new TypeError("addAudioChunk's third argument (timestamp), when provided, must be a non-negative real number.");let s=new Uint8Array(e.byteLength);e.copyTo(s),this.addAudioChunkRaw(s,e.type,i??e.timestamp,e.duration,t)}addAudioChunkRaw(e,t,i,s,a){if(!(e instanceof Uint8Array))throw new TypeError("addAudioChunkRaw's first argument (data) must be an instance of Uint8Array.");if("key"!==t&&"delta"!==t)throw new TypeError("addAudioChunkRaw's second argument (type) must be either 'key' or 'delta'.");if(!Number.isFinite(i)||i<0)throw new TypeError("addAudioChunkRaw's third argument (timestamp) must be a non-negative real number.");if(!Number.isFinite(s)||s<0)throw new TypeError("addAudioChunkRaw's fourth argument (duration) must be a non-negative real number.");if(a&&"object"!=typeof a)throw new TypeError("addAudioChunkRaw's fifth argument (meta), when provided, must be an object.");if(h(this,At,Mt).call(this),!r(this,Je).audio)throw new Error("No audio track declared.");if("object"==typeof r(this,Je).fastStart&&r(this,Ze).samples.length===r(this,Je).fastStart.expectedAudioChunks)throw new Error(`Cannot add more audio chunks than specified in 'fastStart' (${r(this,Je).fastStart.expectedAudioChunks}).`);let n=h(this,wt,gt).call(this,r(this,Ze),e,t,i,s,a);if("fragmented"===r(this,Je).fastStart&&r(this,Ye)){for(;r(this,st).length>0&&r(this,st)[0].decodeTimestamp<=n.decodeTimestamp;){let e=r(this,st).shift();h(this,bt,yt).call(this,r(this,Ye),e)}n.decodeTimestamp<=r(this,Ye).lastDecodeTimestamp?h(this,bt,yt).call(this,r(this,Ze),n):r(this,at).push(n)}else h(this,bt,yt).call(this,r(this,Ze),n)}finalize(){if(r(this,rt))throw new Error("Cannot finalize a muxer more than once.");if("fragmented"===r(this,Je).fastStart){for(let e of r(this,st))h(this,bt,yt).call(this,r(this,Ye),e);for(let e of r(this,at))h(this,bt,yt).call(this,r(this,Ze),e);h(this,St,xt).call(this,!1)}else r(this,Ye)&&h(this,Ct,vt).call(this,r(this,Ye)),r(this,Ze)&&h(this,Ct,vt).call(this,r(this,Ze));let e=[r(this,Ye),r(this,Ze)].filter(Boolean);if("in-memory"===r(this,Je).fastStart){let t;for(let i=0;i<2;i++){let i=F(e,r(this,et)),s=r(this,Ke).measureBox(i);t=r(this,Ke).measureBox(r(this,Xe));let a=r(this,Ke).pos+s+t;for(let e of r(this,tt)){e.offset=a;for(let{data:i}of e.samples)a+=i.byteLength,t+=i.byteLength}if(a<2**32)break;t>=2**32&&(r(this,Xe).largeSize=!0)}let i=F(e,r(this,et));r(this,Ke).writeBox(i),r(this,Xe).size=t,r(this,Ke).writeBox(r(this,Xe));for(let e of r(this,tt))for(let t of e.samples)r(this,Ke).write(t.data),t.data=null}else if("fragmented"===r(this,Je).fastStart){let t=r(this,Ke).pos,i=(e=>I("mfra",null,[...e.map(Ce),ve()]))(e);r(this,Ke).writeBox(i);let s=r(this,Ke).pos-t;r(this,Ke).seek(r(this,Ke).pos-4),r(this,Ke).writeU32(s)}else{let t=r(this,Ke).offsets.get(r(this,Xe)),i=r(this,Ke).pos-t;r(this,Xe).size=i,r(this,Xe).largeSize=i>=2**32,r(this,Ke).patchBox(r(this,Xe));let s=F(e,r(this,et));if("object"==typeof r(this,Je).fastStart){r(this,Ke).seek(r(this,Qe)),r(this,Ke).writeBox(s);let e=t-r(this,Ke).pos;r(this,Ke).writeBox({type:"free",size:e})}else r(this,Ke).writeBox(s)}h(this,zt,Et).call(this),r(this,Ke).finalize(),o(this,rt,!0)}};return Je=new WeakMap,Ke=new WeakMap,Qe=new WeakMap,Xe=new WeakMap,Ye=new WeakMap,Ze=new WeakMap,et=new WeakMap,tt=new WeakMap,it=new WeakMap,st=new WeakMap,at=new WeakMap,rt=new WeakMap,nt=new WeakSet,ot=function(e){if("object"!=typeof e)throw new TypeError("The muxer requires an options object to be passed to its constructor.");if(!(e.target instanceof Ae))throw new TypeError("The target must be provided and an instance of Target.");if(e.video){if(!Ut.includes(e.video.codec))throw new TypeError(`Unsupported video codec: ${e.video.codec}`);if(!Number.isInteger(e.video.width)||e.video.width<=0)throw new TypeError(`Invalid video width: ${e.video.width}. Must be a positive integer.`);if(!Number.isInteger(e.video.height)||e.video.height<=0)throw new TypeError(`Invalid video height: ${e.video.height}. Must be a positive integer.`);const t=e.video.rotation;if("number"==typeof t&&![0,90,180,270].includes(t))throw new TypeError(`Invalid video rotation: ${t}. Has to be 0, 90, 180 or 270.`);if(Array.isArray(t)&&(9!==t.length||t.some(e=>"number"!=typeof e)))throw new TypeError(`Invalid video transformation matrix: ${t.join()}`);if(void 0!==e.video.frameRate&&(!Number.isInteger(e.video.frameRate)||e.video.frameRate<=0))throw new TypeError(`Invalid video frame rate: ${e.video.frameRate}. Must be a positive integer.`)}if(e.audio){if(!Dt.includes(e.audio.codec))throw new TypeError(`Unsupported audio codec: ${e.audio.codec}`);if(!Number.isInteger(e.audio.numberOfChannels)||e.audio.numberOfChannels<=0)throw new TypeError(`Invalid number of audio channels: ${e.audio.numberOfChannels}. Must be a positive integer.`);if(!Number.isInteger(e.audio.sampleRate)||e.audio.sampleRate<=0)throw new TypeError(`Invalid audio sample rate: ${e.audio.sampleRate}. Must be a positive integer.`)}if(e.firstTimestampBehavior&&!jt.includes(e.firstTimestampBehavior))throw new TypeError(`Invalid first timestamp behavior: ${e.firstTimestampBehavior}`);if("object"==typeof e.fastStart){if(e.video){if(void 0===e.fastStart.expectedVideoChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedVideoChunks'.");if(!Number.isInteger(e.fastStart.expectedVideoChunks)||e.fastStart.expectedVideoChunks<0)throw new TypeError("'expectedVideoChunks' must be a non-negative integer.")}if(e.audio){if(void 0===e.fastStart.expectedAudioChunks)throw new TypeError("'fastStart' is an object but is missing property 'expectedAudioChunks'.");if(!Number.isInteger(e.fastStart.expectedAudioChunks)||e.fastStart.expectedAudioChunks<0)throw new TypeError("'expectedAudioChunks' must be a non-negative integer.")}}else if(![!1,"in-memory","fragmented"].includes(e.fastStart))throw new TypeError("'fastStart' option must be false, 'in-memory', 'fragmented' or an object.");if(void 0!==e.minFragmentDuration&&(!Number.isFinite(e.minFragmentDuration)||e.minFragmentDuration<0))throw new TypeError("'minFragmentDuration' must be a non-negative number.")},ht=new WeakSet,lt=function(){var e;if(r(this,Ke).writeBox((e={holdsAvc:"avc"===r(this,Je).video?.codec,fragmented:"fragmented"===r(this,Je).fastStart}).fragmented?I("ftyp",[A("iso5"),v(512),A("iso5"),A("iso6"),A("mp41")]):I("ftyp",[A("isom"),v(512),A("isom"),e.holdsAvc?A("avc1"):[],A("mp41")])),o(this,Qe,r(this,Ke).pos),"in-memory"===r(this,Je).fastStart)o(this,Xe,V(!1));else if("fragmented"===r(this,Je).fastStart);else{if("object"==typeof r(this,Je).fastStart){let e=h(this,dt,ft).call(this);r(this,Ke).seek(r(this,Ke).pos+e)}o(this,Xe,V(!0)),r(this,Ke).writeBox(r(this,Xe))}h(this,zt,Et).call(this)},dt=new WeakSet,ft=function(){if("object"!=typeof r(this,Je).fastStart)return;let e=0,t=[r(this,Je).fastStart.expectedVideoChunks,r(this,Je).fastStart.expectedAudioChunks];for(let i of t)i&&(e+=8*Math.ceil(2/3*i),e+=4*i,e+=12*Math.ceil(2/3*i),e+=4*i,e+=8*i);return e+=4096,e},ut=new WeakSet,mt=function(){if(r(this,Je).video&&o(this,Ye,{id:1,info:{type:"video",codec:r(this,Je).video.codec,width:r(this,Je).video.width,height:r(this,Je).video.height,rotation:r(this,Je).video.rotation??0,decoderConfig:null},timescale:r(this,Je).video.frameRate??57600,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),r(this,Je).audio&&(o(this,Ze,{id:r(this,Je).video?2:1,info:{type:"audio",codec:r(this,Je).audio.codec,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate,decoderConfig:null},timescale:r(this,Je).audio.sampleRate,samples:[],finalizedChunks:[],currentChunk:null,firstDecodeTimestamp:void 0,lastDecodeTimestamp:-1,timeToSampleTable:[],compositionTimeOffsetTable:[],lastTimescaleUnits:null,lastSample:null,compactlyCodedChunkTable:[]}),"aac"===r(this,Je).audio.codec)){let e=h(this,pt,ct).call(this,2,r(this,Je).audio.sampleRate,r(this,Je).audio.numberOfChannels);r(this,Ze).info.decoderConfig={codec:r(this,Je).audio.codec,description:e,numberOfChannels:r(this,Je).audio.numberOfChannels,sampleRate:r(this,Je).audio.sampleRate}}},pt=new WeakSet,ct=function(e,t,i){let s=[96e3,88200,64e3,48e3,44100,32e3,24e3,22050,16e3,12e3,11025,8e3,7350].indexOf(t),a=i,r="";r+=e.toString(2).padStart(5,"0"),r+=s.toString(2).padStart(4,"0"),15===s&&(r+=t.toString(2).padStart(24,"0")),r+=a.toString(2).padStart(4,"0");let n=8*Math.ceil(r.length/8);r=r.padEnd(n,"0");let o=new Uint8Array(r.length/8);for(let e=0;e<r.length;e+=8)o[e/8]=parseInt(r.slice(e,e+8),2);return o},wt=new WeakSet,gt=function(e,t,i,s,a,r,n){let o=s/1e6,l=(s-(n??0))/1e6,d=a/1e6,f=h(this,kt,Tt).call(this,o,l,e);return o=f.presentationTimestamp,l=f.decodeTimestamp,r?.decoderConfig&&(null===e.info.decoderConfig?e.info.decoderConfig=r.decoderConfig:Object.assign(e.info.decoderConfig,r.decoderConfig)),{presentationTimestamp:o,decodeTimestamp:l,duration:d,data:t,size:t.byteLength,type:i,timescaleUnitsToNextSample:O(d,e.timescale)}},bt=new WeakSet,yt=function(e,t){"fragmented"!==r(this,Je).fastStart&&e.samples.push(t);const i=O(t.presentationTimestamp-t.decodeTimestamp,e.timescale);if(null!==e.lastTimescaleUnits){let s=O(t.decodeTimestamp,e.timescale,!1),a=Math.round(s-e.lastTimescaleUnits);if(e.lastTimescaleUnits+=a,e.lastSample.timescaleUnitsToNextSample=a,"fragmented"!==r(this,Je).fastStart){let t=M(e.timeToSampleTable);1===t.sampleCount?(t.sampleDelta=a,t.sampleCount++):t.sampleDelta===a?t.sampleCount++:(t.sampleCount--,e.timeToSampleTable.push({sampleCount:2,sampleDelta:a}));const s=M(e.compositionTimeOffsetTable);s.sampleCompositionTimeOffset===i?s.sampleCount++:e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i})}}else e.lastTimescaleUnits=0,"fragmented"!==r(this,Je).fastStart&&(e.timeToSampleTable.push({sampleCount:1,sampleDelta:O(t.duration,e.timescale)}),e.compositionTimeOffsetTable.push({sampleCount:1,sampleCompositionTimeOffset:i}));e.lastSample=t;let s=!1;if(e.currentChunk){let i=t.presentationTimestamp-e.currentChunk.startTimestamp;if("fragmented"===r(this,Je).fastStart){let a=r(this,Ye)??r(this,Ze);const n=r(this,Je).minFragmentDuration??1;e===a&&"key"===t.type&&i>=n&&(s=!0,h(this,St,xt).call(this))}else s=i>=.5}else s=!0;s&&(e.currentChunk&&h(this,Ct,vt).call(this,e),e.currentChunk={startTimestamp:t.presentationTimestamp,samples:[]}),e.currentChunk.samples.push(t)},kt=new WeakSet,Tt=function(e,t,i){const s="strict"===r(this,Je).firstTimestampBehavior,a=-1===i.lastDecodeTimestamp;if(s&&a&&0!==t)throw new Error(`The first chunk for your media track must have a timestamp of 0 (received DTS=${t}).Non-zero first timestamps are often caused by directly piping frames or audio data from a MediaStreamTrack into the encoder. Their timestamps are typically relative to the age of thedocument, which is probably what you want.\n\nIf you want to offset all timestamps of a track such that the first one is zero, set firstTimestampBehavior: 'offset' in the options.\n`);if("offset"===r(this,Je).firstTimestampBehavior||"cross-track-offset"===r(this,Je).firstTimestampBehavior){let s;void 0===i.firstDecodeTimestamp&&(i.firstDecodeTimestamp=t),s="offset"===r(this,Je).firstTimestampBehavior?i.firstDecodeTimestamp:Math.min(r(this,Ye)?.firstDecodeTimestamp??1/0,r(this,Ze)?.firstDecodeTimestamp??1/0),t-=s,e-=s}if(t<i.lastDecodeTimestamp)throw new Error(`Timestamps must be monotonically increasing (DTS went from ${1e6*i.lastDecodeTimestamp} to ${1e6*t}).`);return i.lastDecodeTimestamp=t,{presentationTimestamp:e,decodeTimestamp:t}},Ct=new WeakSet,vt=function(e){if("fragmented"===r(this,Je).fastStart)throw new Error("Can't finalize individual chunks if 'fastStart' is set to 'fragmented'.");if(e.currentChunk)if(e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),0!==e.compactlyCodedChunkTable.length&&M(e.compactlyCodedChunkTable).samplesPerChunk===e.currentChunk.samples.length||e.compactlyCodedChunkTable.push({firstChunk:e.finalizedChunks.length,samplesPerChunk:e.currentChunk.samples.length}),"in-memory"!==r(this,Je).fastStart){e.currentChunk.offset=r(this,Ke).pos;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null;h(this,zt,Et).call(this)}else e.currentChunk.offset=0},St=new WeakSet,xt=function(e=!0){if("fragmented"!==r(this,Je).fastStart)throw new Error("Can't finalize a fragment unless 'fastStart' is set to 'fragmented'.");let t=[r(this,Ye),r(this,Ze)].filter(e=>e&&e.currentChunk);if(0===t.length)return;let i=(s=this,a=it,{set _(e){o(s,a,e,n)},get _(){return r(s,a,l)}})._++;var s,a,n,l;if(1===i){let e=F(t,r(this,et),!0);r(this,Ke).writeBox(e)}let d=r(this,Ke).pos,f=ce(i,t);r(this,Ke).writeBox(f);{let e=V(!1),i=0;for(let e of t)for(let t of e.currentChunk.samples)i+=t.size;let s=r(this,Ke).measureBox(e)+i;s>=2**32&&(e.largeSize=!0,s=r(this,Ke).measureBox(e)+i),e.size=s,r(this,Ke).writeBox(e)}for(let e of t){e.currentChunk.offset=r(this,Ke).pos,e.currentChunk.moofOffset=d;for(let t of e.currentChunk.samples)r(this,Ke).write(t.data),t.data=null}let u=r(this,Ke).pos;r(this,Ke).seek(r(this,Ke).offsets.get(f));let m=ce(i,t);r(this,Ke).writeBox(m),r(this,Ke).seek(u);for(let e of t)e.finalizedChunks.push(e.currentChunk),r(this,tt).push(e.currentChunk),e.currentChunk=null;e&&h(this,zt,Et).call(this)},zt=new WeakSet,Et=function(){r(this,Ke)instanceof Ge&&r(this,Ke).flush()},At=new WeakSet,Mt=function(){if(r(this,rt))throw new Error("Cannot add new video or audio chunks after the file has been finalized.")},Wt=l,((a,r,n,o)=>{if(r&&"object"==typeof r||"function"==typeof r)for(let h of i(r))s.call(a,h)||h===n||e(a,h,{get:()=>r[h],enumerable:!(o=t(r,h))||o.enumerable});return a})(e({},"__esModule",{value:!0}),Wt)})();"object"==typeof module&&"object"==typeof module.exports&&Object.assign(module.exports,Mp4Muxer);
+</script>
+<script>
+/* ================= utilities ================= */
+const clamp=(v,a=0,b=1)=>v<a?a:v>b?b:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const ease=t=>{t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;};
+const easeOut=t=>{t=clamp(t);return 1-Math.pow(1-t,3);};
+const easeIn=t=>{t=clamp(t);return t*t*t;};
+const seg=(u,a,b)=>clamp((u-a)/(b-a));
+const lerpPt=(a,b,t)=>({x:lerp(a.x,b.x,t),y:lerp(a.y,b.y,t)});
+function kf(u,pts){
+  if(u<=pts[0][0]) return {x:pts[0][1],y:pts[0][2]};
+  for(let i=1;i<pts.length;i++){
+    if(u<=pts[i][0]){const a=pts[i-1],b=pts[i];const t=ease((u-a[0])/(b[0]-a[0]||1));return {x:lerp(a[1],b[1],t),y:lerp(a[2],b[2],t)};}
+  }
+  const l=pts[pts.length-1];return {x:l[1],y:l[2]};
+}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const nz=x=>Math.sin(x*1.7)*.5+Math.sin(x*3.1+1.3)*.3+Math.sin(x*7.3+.7)*.2;
+
+const W=1600,H=900;
+/* ================= canvas, camera, labels ================= */
+const cv=document.getElementById('cv');let ctx=cv.getContext('2d');
+let dpr=1,cssW=960,cssH=540,fit=.6;
+let cam={x:800,y:450,s:1},VX0=0,VX1=W,VY0=0,VY1=H;
+let T=0,TT=0,CUR=0,U=0,SHOWLAB=true;
+let FONT='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+let COND='"Barlow Condensed","Arial Narrow","Noto Sans TC","Noto Sans CJK TC",sans-serif';
+const TAU=Math.PI*2;
+
+function applyCam(c){
+  cam=c;const k=fit*c.s;
+  ctx.setTransform(dpr*k,0,0,dpr*k,dpr*(cssW/2-c.x*k),dpr*(cssH/2-c.y*k));
+  VX0=c.x-cssW/2/k-6;VX1=c.x+cssW/2/k+6;VY0=c.y-cssH/2/k-6;VY1=c.y+cssH/2/k+6;
+}
+function toScreen(x,y){const k=fit*cam.s;return {x:cssW/2+(x-cam.x)*k,y:cssH/2+(y-cam.y)*k};}
+function screenSpace(){ctx.setTransform(dpr,0,0,dpr,0,0);}
+
+const LQ=[];
+function lab(x,y,text,o){
+  o=o||{};if(!SHOWLAB)return;const a=o.a===undefined?1:o.a;if(a<=.01)return;
+  LQ.push({x,y,text:tr(text),dx:o.dx===undefined?0:o.dx,dy:o.dy===undefined?-40:o.dy,a,st:o.st||'n',minor:!!o.minor});
+}
+function drawLabels(){
+  screenSpace();
+  const f=clamp(cssW/100,10,13.5),sc=clamp(cssW/1100,.6,1.15);
+  ctx.font=`500 ${f}px ${FONT}`;ctx.textBaseline='middle';ctx.textAlign='left';
+  for(const L of LQ){
+    if(L.minor&&cssW<760)continue;
+    const p=toScreen(L.x,L.y),qx=p.x+L.dx*sc,qy=p.y+L.dy*sc;
+    if(p.x<-8||p.x>cssW+8||p.y<-8||p.y>cssH+8)continue;
+    ctx.globalAlpha=L.a;
+    const tw=ctx.measureText(L.text).width,ph=f*1.8,pw=tw+f*1.2;
+    let bx,by;
+    if(L.dy===0){bx=L.dx>=0?qx:qx-pw;by=qy-ph/2;}
+    else{bx=qx-pw/2;by=L.dy<0?qy-ph:qy;}
+    bx=clamp(bx,4,cssW-pw-4);by=clamp(by,4,cssH-ph-4);
+    if(L.dx||L.dy){
+      const ex=clamp(qx,bx,bx+pw),ey=clamp(qy,by,by+ph);
+      ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.3;
+      ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(ex,ey);ctx.stroke();
+      ctx.beginPath();ctx.arc(p.x,p.y,2.6,0,TAU);ctx.fillStyle='#fff';ctx.fill();
+      ctx.lineWidth=1;ctx.strokeStyle='rgba(8,32,45,.8)';ctx.stroke();
+    }
+    let bg='rgba(9,31,44,.88)',fg='#fff';
+    if(L.st==='w'){bg='#e8572a';}
+    else if(L.st==='s'){bg='#f2c230';fg='#13232e';}
+    else if(L.st==='l'){bg='rgba(255,255,255,.93)';fg='#13232e';}
+    else if(L.st==='g'){bg='#1f7f5c';}
+    rrp(bx,by,pw,ph,ph/2);ctx.fillStyle=bg;ctx.fill();
+    ctx.fillStyle=fg;ctx.fillText(L.text,bx+f*.6,by+ph/2+.5);
+  }
+  ctx.globalAlpha=1;LQ.length=0;
+}
+
+/* ================= small helpers ================= */
+function rrp(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function box(x,y,w,h,f,s,lw){ctx.fillStyle=f;ctx.fillRect(x,y,w,h);if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.strokeRect(x,y,w,h);}}
+function ln(p,s,lw){ctx.beginPath();ctx.moveTo(p[0],p[1]);for(let i=2;i<p.length;i+=2)ctx.lineTo(p[i],p[i+1]);ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}
+function poly(p,f,s,lw){ctx.beginPath();ctx.moveTo(p[0],p[1]);for(let i=2;i<p.length;i+=2)ctx.lineTo(p[i],p[i+1]);ctx.closePath();if(f){ctx.fillStyle=f;ctx.fill();}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}}
+function circ(x,y,r,f,s,lw){ctx.beginPath();ctx.arc(x,y,Math.max(.1,r),0,TAU);if(f){ctx.fillStyle=f;ctx.fill();}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1;ctx.stroke();}}
+function wins(x,y,n,dx,w,h,col){ctx.fillStyle=col||'#1c3444';for(let i=0;i<n;i++)ctx.fillRect(x+i*dx,y,w,h);}
+function rail(x0,x1,y,h,col){ctx.strokeStyle=col||'rgba(40,50,60,.8)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(x0,y-h);ctx.lineTo(x1,y-h);for(let x=x0;x<=x1+.1;x+=6){ctx.moveTo(x,y);ctx.lineTo(x,y-h);}ctx.stroke();}
+function person(x,y,col,s){s=s||1;ctx.fillStyle=col||'#e8572a';ctx.fillRect(x-1.6*s,y-7*s,3.2*s,5*s);ctx.fillStyle='#223';ctx.fillRect(x-1.4*s,y-2*s,1.1*s,2*s);ctx.fillRect(x+.3*s,y-2*s,1.1*s,2*s);circ(x,y-8.6*s,1.6*s,'#f0c9a0');ctx.fillStyle='#fff';ctx.fillRect(x-1.8*s,y-10.6*s,3.6*s,1.2*s);}
+function alphaDo(a,fn){if(a<=.001)return;const g=ctx.globalAlpha;ctx.globalAlpha=g*clamp(a);fn();ctx.globalAlpha=g;}
+function bez(p0,p1,p2,p3,t){const m=1-t;return {x:m*m*m*p0.x+3*m*m*t*p1.x+3*m*t*t*p2.x+t*t*t*p3.x,y:m*m*m*p0.y+3*m*m*t*p1.y+3*m*t*t*p2.y+t*t*t*p3.y};}
+
+/* ================= crane ================= */
+function crane(px,py,L,hx,hy,o){
+  o=o||{};const col=o.col||'#e9b21f';
+  let dx=hx-px;const m=L*.985;dx=clamp(dx,-m,m);
+  const tx=px+dx,ty=py-Math.sqrt(L*L-dx*dx);hy=Math.max(hy,ty+14);
+  const w=o.w||Math.max(4,L*.028),ang=Math.atan2(ty-py,tx-px),nx=-Math.sin(ang)*w/2,ny=Math.cos(ang)*w/2;
+  const back=dx>=0?-1:1,ax=px+back*w*2,ay=py-w*3.4;
+  ln([px,py,ax,ay],'#3d4750',2);ln([ax,ay,tx,ty],'rgba(30,35,40,.75)',.9);ln([ax,ay,tx+nx*.3,ty+ny*.3],'rgba(30,35,40,.5)',.7);
+  if(o.solid){poly([px+nx,py+ny,tx+nx*.4,ty+ny*.4,tx-nx*.4,ty-ny*.4,px-nx,py-ny],col,'rgba(0,0,0,.35)',1);}
+  else{
+    const len=Math.hypot(tx-px,ty-py),n=Math.max(3,Math.floor(len/(w*1.3)));
+    ctx.strokeStyle=col;ctx.lineWidth=Math.max(1.4,w*.3);ctx.beginPath();
+    ctx.moveTo(px+nx,py+ny);ctx.lineTo(tx+nx*.35,ty+ny*.35);ctx.moveTo(px-nx,py-ny);ctx.lineTo(tx-nx*.35,ty-ny*.35);ctx.stroke();
+    ctx.lineWidth=.8;ctx.beginPath();
+    for(let i=0;i<n;i++){const k0=i/n,k1=(i+1)/n,s0=lerp(1,.35,k0),s1=lerp(1,.35,k1);
+      const a={x:lerp(px,tx,k0)+nx*s0*(i%2?1:-1),y:lerp(py,ty,k0)+ny*s0*(i%2?1:-1)},b={x:lerp(px,tx,k1)+nx*s1*(i%2?-1:1),y:lerp(py,ty,k1)+ny*s1*(i%2?-1:1)};
+      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+    ctx.stroke();
+  }
+  circ(tx,ty,w*.45,'#3d4750');
+  ln([tx,ty,tx,hy-8],'rgba(25,28,32,.9)',1.1);
+  box(tx-4.5,hy-11,9,7,'#2b3137');ctx.strokeStyle='#2b3137';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(tx,hy-4);ctx.lineTo(tx,hy-1);ctx.arc(tx-2,hy-1,2,0,Math.PI);ctx.stroke();
+  return {x:tx,y:ty,hy};
+}
+function slings(hx,hy,pts){ctx.strokeStyle='rgba(30,30,30,.8)';ctx.lineWidth=.8;ctx.beginPath();for(let i=0;i<pts.length;i+=2){ctx.moveTo(hx,hy);ctx.lineTo(pts[i],pts[i+1]);}ctx.stroke();}
+
+/* ================= scene helpers ================= */
+let SC=0,SU=0;
+const uc=i=>SC>i?1:SC<i?0:SU;
+const band=(u,a,b,f)=>{f=f||.03;return seg(u,a,a+f)*(1-seg(u,b-f,b));};
+const TQ=[];
+function tick(x,y,t,al){TQ.push({x,y,t,al:al||'left'});}
+function drawTicks(){
+  screenSpace();const f=clamp(cssW/105,9,13);ctx.font=`600 ${f}px ${COND}`;ctx.textBaseline='middle';
+  for(const q of TQ){const p=toScreen(q.x,q.y),t=tr(q.t);ctx.textAlign=q.al;ctx.fillStyle='rgba(8,32,45,.7)';ctx.fillText(t,p.x+1,p.y+1);ctx.fillStyle='#fff';ctx.fillText(t,p.x,p.y);}
+  TQ.length=0;ctx.textAlign='left';
+}
+function arrowR(x,y,L,col){ln([x,y,x+L,y],col,2);poly([x+L+6,y,x+L-1,y-4,x+L-1,y+4],col);}
+function partial(P,f){
+  if(f>=1)return P.slice();if(f<=0)return [P[0]];
+  let tot=0;const d=[];for(let i=1;i<P.length;i++){const l=Math.hypot(P[i].x-P[i-1].x,P[i].y-P[i-1].y);d.push(l);tot+=l;}
+  let want=tot*f;const out=[P[0]];
+  for(let i=1;i<P.length;i++){if(want>=d[i-1]){out.push(P[i]);want-=d[i-1];}else{const t=want/d[i-1];out.push({x:lerp(P[i-1].x,P[i].x,t),y:lerp(P[i-1].y,P[i].y,t)});break;}}
+  return out;
+}
+function pathLine(P,col,lw,dash){if(!P||P.length<2)return;ctx.beginPath();ctx.moveTo(P[0].x,P[0].y);for(let i=1;i<P.length;i++)ctx.lineTo(P[i].x,P[i].y);if(dash)ctx.setLineDash(dash);ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineJoin='round';ctx.stroke();ctx.setLineDash([]);}
+function drawCable(P){if(!P||P.length<2)return;pathLine(P,'#121416',3.6);pathLine(P,'#e8a33a',.9,[6,8]);}
+function ring(x,y,r,col,lw){ctx.beginPath();ctx.arc(x,y,Math.max(.1,r),0,TAU);ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.stroke();}
+
+/* ================= HUD ================= */
+const HK=()=>clamp(cssW/1200,.62,1.15);
+let HUDW=0;
+function hudPanel(w,h,title,a,fn){
+  if(cssW<600||a<=.01||!SHOWLAB)return;
+  const k=HK(),x=cssW-(w+14)*k,y=34*k;
+  screenSpace();ctx.save();ctx.globalAlpha=clamp(a);ctx.translate(x,y);ctx.scale(k,k);
+  rrp(0,0,w,h,10);ctx.fillStyle='rgba(7,27,39,.86)';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.14)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='#f2c230';ctx.font=`700 13px ${FONT}`;ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.fillText(tr(title),14,23,w-28);
+  HUDW=w;try{fn(w,h);}finally{HUDW=0;}ctx.restore();
+}
+function hrow(y,label,val,w,col){label=tr(label);val=tr(val);ctx.textBaseline='alphabetic';ctx.font=`700 17px ${COND}`;const vw=ctx.measureText(val).width;ctx.textAlign='left';ctx.font=`500 12px ${FONT}`;ctx.fillStyle='rgba(227,236,238,.78)';ctx.fillText(label,14,y,Math.max(24,w-36-vw));ctx.textAlign='right';ctx.font=`700 17px ${COND}`;ctx.fillStyle=col||'#fff';ctx.fillText(val,w-14,y);ctx.textAlign='left';}
+function hbar(x,y,w,f,col){rrp(x,y,w,6,3);ctx.fillStyle='rgba(255,255,255,.14)';ctx.fill();if(f>0){rrp(x,y,Math.max(6,w*clamp(f)),6,3);ctx.fillStyle=col||'#f2c230';ctx.fill();}}
+function htext(x,y,t,size,col,weight,font,align){t=tr(t);const al=align||'left';ctx.textBaseline='alphabetic';ctx.textAlign=al;ctx.font=`${weight||500} ${size}px ${font||FONT}`;ctx.fillStyle=col||'#fff';
+  if(HUDW){const mw=al==='left'?HUDW-x-10:al==='right'?x-10:Math.min(x,HUDW-x)*2-10;if(mw>8){ctx.fillText(t,x,y,mw);ctx.textAlign='left';return;}}
+  ctx.fillText(t,x,y);ctx.textAlign='left';}
+
+/* ================= i18n =================
+   Every visible string is written in Traditional Chinese in the episode code and translated at draw time.
+   DICT maps the Chinese string to [English, Japanese]; kits and episode files add entries with
+   Object.assign(DICT,{...}). trf() handles strings with changing numbers: trf('第 {n} 天',{n:3}).
+   UI holds interface strings as [zh, en, ja]. */
+const LANGS=['zh','en','ja'];
+let LANG='zh',LI=-1;
+const DICT={};
+const UI={"secAnim": ["動畫", "Animation", "アニメーション"], "scaleNote": ["示意圖：比例經過調整", "Schematic: not to scale", "模式図：縮尺は調整しています"], "prev": ["上一個分鏡", "Previous shot", "前のシーン"], "next": ["下一個分鏡", "Next shot", "次のシーン"], "play": ["播放", "Play", "再生"], "pause": ["暫停", "Pause", "一時停止"], "replay": ["重新播放", "Replay", "もう一度再生"], "progress": ["播放進度", "Playback position", "再生位置"], "speed": ["播放速度", "Playback speed", "再生速度"], "labels": ["標註", "Labels", "ラベル"], "labelsTip": ["顯示／隱藏標註", "Show or hide labels", "ラベルの表示／非表示"], "full": ["全螢幕", "Full screen", "全画面"], "chapNav": ["分鏡", "Shots", "シーン"], "chapHead": ["本集分鏡", "Shots in this episode", "このエピソードのシーン"], "langGroup": ["介面語言", "Interface language", "表示言語"], "sep": ["，", ", ", "、"], "rec": ["匯出影片", "Export video", "動画を書き出す"], "recTitle": ["錄製 MP4 影片", "Record an MP4 video", "MP4 動画を書き出す"], "recIntro": ["逐格離線算繪，不會掉格，也不必等動畫即時播完。語言與標註設定沿用目前畫面。", "Frames are rendered offline one at a time, so nothing drops and you don't wait for real-time playback. Language and label settings follow the current view.", "フレームを1枚ずつオフラインで描画するため、コマ落ちがなく、リアルタイム再生を待つ必要もありません。言語とラベルの設定は現在の表示に従います。"], "optSpeed": ["影片速度", "Video speed", "再生速度"], "optRange": ["範圍", "Range", "範囲"], "rangeAll": ["全片", "Whole animation", "全編"], "rangeChap": ["目前分鏡", "Current shot", "現在のシーン"], "optRes": ["解析度", "Resolution", "解像度"], "optFps": ["影格率", "Frame rate", "フレームレート"], "sum": ["影片長度 {d}，共 {f} 格，檔案最多約 {m} MB", "Length {d}, {f} frames, up to about {m} MB", "長さ {d}、{f} フレーム、最大約 {m} MB"], "sumChap": ["（{c}）", " ({c})", "（{c}）"], "start": ["開始錄製", "Start recording", "書き出し開始"], "again": ["再錄一次", "Record again", "もう一度書き出す"], "cancel": ["取消", "Cancel", "キャンセル"], "close": ["關閉", "Close", "閉じる"], "download": ["下載 MP4", "Download MP4", "MP4 をダウンロード"], "stPrep": ["準備編碼器…", "Preparing the encoder…", "エンコーダーを準備中…"], "stRun": ["算繪中 {p}%，剩餘約 {e}", "Rendering {p}%, about {e} left", "描画中 {p}%、残り約 {e}"], "stFin": ["封裝 MP4…", "Writing the MP4…", "MP4 を生成中…"], "stDone": ["完成：{s} MB，已開始下載。", "Done: {s} MB. The download has started.", "完了：{s} MB。ダウンロードを開始しました。"], "stCancel": ["已取消錄製。", "Recording cancelled.", "書き出しをキャンセルしました。"], "stNoSup": ["這個瀏覽器不支援 WebCodecs 影片編碼，請改用最新版的 Chrome、Edge 或 Safari。", "This browser does not support WebCodecs video encoding. Please use a recent Chrome, Edge or Safari.", "このブラウザーは WebCodecs による動画エンコードに対応していません。最新版の Chrome、Edge、Safari をご利用ください。"], "stNoCodec": ["找不到可用的影片編碼設定，請試試較低的解析度或影格率，或改用最新版 Chrome、Edge、Safari。", "No usable video encoder setting was found. Try a lower resolution or frame rate, or a recent Chrome, Edge or Safari.", "使用できる動画エンコード設定が見つかりません。解像度やフレームレートを下げるか、最新版の Chrome、Edge、Safari をお試しください。"], "stAlt": ["（此瀏覽器沒有 H.264 編碼器，改以 {c} 編碼；Chrome、Firefox、VLC 可播放，QuickTime 可能無法播放。）", "(This browser has no H.264 encoder, so the video uses {c}. It plays in Chrome, Firefox and VLC, but possibly not in QuickTime.)", "（このブラウザーには H.264 エンコーダーがないため {c} で書き出しました。Chrome、Firefox、VLC では再生できますが、QuickTime では再生できない場合があります。）"], "stErr": ["錄製失敗：", "Recording failed: ", "書き出しに失敗しました："], "keepTab": ["錄製期間請保持此分頁開啟。", "Keep this tab open while recording.", "書き出し中はこのタブを開いたままにしてください。"], "factsAria": ["重點數字", "Key figures", "主な数字"], "factsHead": ["本集重點數字", "Key figures", "このエピソードの主な数字"], "series": ["{s} 第 {n} 集（共 {t} 集）", "{s}, episode {n} of {t}", "{s} 第 {n} 話（全 {t} 話）"], "seriesOne": ["{s} 第 {n} 集", "{s}, episode {n}", "{s} 第 {n} 話"], "shotOf": ["{i}／{n}", "{i}/{n}", "{i}／{n}"]};
+const CJK_RE=/[\u3000-\u9fff\uff00-\uffef]/;
+const TPAT=[
+  [/^量測第 (\d+) 天$/,m=>[`Day ${m[1]}`,`計測 ${m[1]} 日目`]],
+  [/^第 (\d+) 段塔架$/,m=>[`Tower section ${m[1]}`,`タワー第 ${m[1]} 段`]],
+  [/^第 (\d+) 支葉片$/,m=>[`Blade ${m[1]}`,`ブレード ${m[1]} 枚目`]]
+];
+function tr(s){
+  if(LI<0||typeof s!=='string'||!CJK_RE.test(s))return s;
+  const d=DICT[s];if(d)return d[LI];
+  for(const [re,f] of TPAT){const m=s.match(re);if(m)return f(m)[LI];}
+  if(s.indexOf('\u3000')>=0)return s.split('\u3000').map(tr).join('   ');
+  return s;
+}
+function trf(k,v){let s=tr(k);for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+function ui(k,vars){const a=UI[k];let s=a?a[LI+1]:k;if(vars)for(const v in vars)s=s.split('{'+v+'}').join(vars[v]);return s;}
+const FONT_TC='"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif';
+const FONT_JP='"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans TC",system-ui,sans-serif';
+const LANG_KEY='rea-lang';
+/* strings intentionally shown in Chinese in other languages (e.g. bilingual subtitles); qa.py ignores them */
+const QA_KEEP=[];
+
+/* ================= LAND & OPEN-SEA KIT =================
+   Generic backgrounds for topics that are not the offshore-wind coastal section:
+   solar farms, onshore wind, storage, hydrogen, wave/tidal energy.
+   World is 1600×900; GY is the default ground line. */
+const GY=600;
+const LCLOUDS=(()=>{const r=rng(17),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*200,s:.5+r()*.8,sp:3+r()*5});return a;})();
+function lcloud(x,y,s){ctx.beginPath();[[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});ctx.fillStyle='rgba(255,255,255,.9)';ctx.fill();}
+/* sky down to horizon hy; o.sun={x,y}; o.dusk 0..1 warms the colours */
+function landSky(hy,o){
+  hy=hy||GY;o=o||{};const k=o.dusk||0;
+  const g=ctx.createLinearGradient(0,VY0,0,hy);
+  g.addColorStop(0,k?`rgb(${lerp(79,60,k)|0},${lerp(143,70,k)|0},${lerp(196,130,k)|0})`:'#4f8fc4');
+  g.addColorStop(.6,k?`rgb(${lerp(156,220,k)|0},${lerp(198,130,k)|0},${lerp(223,110,k)|0})`:'#9cc6df');
+  g.addColorStop(1,k?`rgb(${lerp(226,250,k)|0},${lerp(239,190,k)|0},${lerp(242,120,k)|0})`:'#e2eff2');
+  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,hy-VY0+2);
+  const sn=o.sun||{x:1280,y:120};const rg=ctx.createRadialGradient(sn.x,sn.y,8,sn.x,sn.y,220);rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(1,'rgba(255,244,214,0)');ctx.fillStyle=rg;ctx.fillRect(sn.x-230,sn.y-230,460,460);circ(sn.x,sn.y,20,'#fff8e2');
+  if(o.clouds!==false)for(const c of LCLOUDS){const x=((c.x+TT*c.sp+400)%2400)-400;if(c.y>hy-40)continue;lcloud(x,c.y,c.s);}
+}
+const groundY=x=>GY+6*Math.sin(x*.004)+3*Math.sin(x*.013);
+const LAND_LAY=[{d:0,c:'#7a9a55',n:'表土'},{d:16,c:'#a4876a',n:'黏土層'},{d:110,c:'#c4a678',n:'砂礫層'},{d:230,c:'#6d6862',n:'岩盤'}];
+/* layered ground below groundY; o.layers overrides LAND_LAY; o.grass=false hides grass */
+function drawGround(o){
+  o=o||{};const Ls=o.layers||LAND_LAY;
+  Ls.forEach((L,i)=>{ctx.beginPath();ctx.moveTo(VX0,groundY(VX0)+L.d);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,groundY(x)+L.d+(i?nz(x*.01+i)*4:0));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=L.c;ctx.fill();});
+  if(o.grass!==false){ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=Math.floor(VX0);x<=VX1;x+=5){const y=groundY(x);ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%4));}ctx.stroke();}
+}
+function landBase(){landSky();drawGround();}
+function landEnd(){}
+/* open-sea swell for wave / tidal topics: o={y:mean level,A:amplitude,L:wavelength,sp:speed,bed:seabed y} */
+function swellY(x,o){o=o||{};const A=o.A===undefined?18:o.A,L=o.L||260,sp=o.sp||1.2,y0=o.y||420;return y0+A*Math.sin(TAU*(x/L)-TT*sp)+A*.22*Math.sin(TAU*(x/(L*.43))-TT*sp*1.7);}
+function drawSwell(o){
+  o=o||{};const bed=o.bed||820;const g=ctx.createLinearGradient(0,(o.y||420)-40,0,bed);g.addColorStop(0,'#3b93bb');g.addColorStop(.5,'#1d6690');g.addColorStop(1,'#0b3858');
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.8;ctx.stroke();
+  box(VX0,bed,VX1-VX0,VY1-bed+20,'#b59a6a');ln([VX0,bed,VX1,bed],'#a98a58',2);
+}
+function seaBase(){landSky(420,{});drawSwell();}
+/* ---- objects ---- */
+/* PV module on a post: base (x,y) on ground, panel width w, tilt in degrees facing right→left sun */
+function solarPanel(x,y,w,tilt,o){
+  o=o||{};const h=o.h||w*.45,a=-(tilt||20)*Math.PI/180;ln([x,y,x,y-h],'#8a99a3',Math.max(2,w*.05));
+  ctx.save();ctx.translate(x,y-h);ctx.rotate(a);const t=w*.06;box(-w/2,-t,w,t,'#1f3f66');
+  ctx.strokeStyle='rgba(160,200,240,.55)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(-w/2+w*i/6,-t);ctx.lineTo(-w/2+w*i/6,0);}ctx.stroke();
+  box(-w/2,-t,w,1.5,'#9fc3e6');if(o.glint)box(-w/2+w*.2,-t,w*.25,1.5,'#fff');ctx.restore();
+}
+function pvRow(x0,y,n,gap,w,tilt){for(let i=0;i<n;i++)solarPanel(x0+i*gap,y,w,tilt);}
+/* side-view truck; flip=true faces left */
+function truck(x,y,flip,col,load){ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);
+  box(0,-34,90,26,col||'#e8572a');box(92,-40,34,32,'#f4f6f7');box(100,-36,18,12,'#2a3a46');box(0,-10,126,6,'#2b3137');
+  if(load)load();for(const wx of [18,44,108])circ(wx,-3,8,'#222','#555',2);ctx.restore();}
+function fence(x0,x1,y){ctx.strokeStyle='rgba(60,70,75,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,y-18);ctx.lineTo(x1,y-18);ctx.moveTo(x0,y-9);ctx.lineTo(x1,y-9);for(let x=x0;x<=x1;x+=16){ctx.moveTo(x,y);ctx.lineTo(x,y-20);}ctx.stroke();}
+function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.strokeRect(x,y-h,w,h);ctx.fillStyle='rgba(0,0,0,.25)';for(let i=0;i<3;i++)ctx.fillRect(x+w*.15,y-h+h*(.2+i*.22),w*.7,h*.08);}
+/* pile-driving rig for ground-mounted PV or onshore foundations */
+function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
+
+// KITS: land
+/* 海洋能系列 第 1 集：波浪發電：點吸收式浮標 */
+const SW={y:430,A:24,L:380,sp:1.1,bed:820};          // 湧浪參數
+const BX=560,BED=820,CX=1400;                        // 主浮標位置、海床、海岸線
+const PWR='#f2c230',WAV='#58b8d0',OIL='#ff8a60',MAG='#b37cff';
+const fyAt=x=>swellY(x,SW);
+function pl(P,col,lw){const a=[];P.forEach(p=>a.push(p[0],p[1]));ln(a,col,lw);}
+function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
+  let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
+function flowDots(P,n,col,a,sp,r){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],r||4.5,col));}}
+/* 浮體（世界座標，中心 x,y，縮放 s） */
+function floatBody(x,y,s,tilt,cut){ctx.save();ctx.translate(x,y);ctx.rotate(tilt||0);ctx.scale(s,s);
+  rrp(-56,-30,112,58,16);ctx.fillStyle='#e3b53a';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.stroke();
+  box(-56,-6,112,8,'#2a3a46');ln([0,-30,0,-78],'#5c6770',3);box(-10,-60,20,6,'#5c6770');
+  circ(0,-80,5,Math.sin(TT*3)>0?'#fff4c0':'#8d7a3a');
+  if(cut){box(-20,-24,40,46,'#2a3a46');box(-14,-20,28,20,'#1f7f99');ln([0,0,0,26],'#c9d1d6',5);}
+  ctx.restore();}
+function anchorBlock(x){box(x-44,BED-26,88,26,'#6a747a','rgba(0,0,0,.35)',1);box(x-10,BED-40,20,16,'#8d989f');}
+/* 一座浮標：回傳浮體底部座標 */
+function wec(x,s,cut){const y=fyAt(x)-6*s,t=Math.atan((fyAt(x+30)-fyAt(x-30))/60)*.6;
+  ln([x,y+28*s,x,BED-40],'#2a3a46',Math.max(2,3*s));floatBody(x,y,s,t,cut);anchorBlock(x);return [x,y+28*s];}
+/* 海岸與岸上變電站 */
+function coast(){poly([CX,1000,CX,770,CX+40,560,CX+70,450,CX+110,420,1800,410,1800,1000],'#8c7a5e');
+  poly([CX+70,450,CX+110,420,1800,410,1800,432,CX+120,440],'#7a9a55');
+  const x=CX+180,g=412;fence(x-10,x+120,g+2);box(x+14,g-50,74,46,'#8d989f','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++){box(x+24+i*22,g-72,6,22,'#c9d1d6');circ(x+27+i*22,g-74,4,'#e3e8ec');}}
+const P_CAB=()=>[[BX+30,BED-12],[900,BED-4],[1200,BED-4],[CX+10,780],[CX+50,560],[CX+90,450],[CX+226,405]];
+function bubbles(){const R=rng(5);for(let i=0;i<18;i++){const x=R()*1400,p=(TT*.15+R())%1,y=BED-20-p*340;alphaDo(.4*(1-p),()=>circ(x+6*Math.sin(TT+i),y,2+R()*2,'rgba(255,255,255,.5)'));}}
+function fishes(){for(let i=0;i<5;i++){const x=((TT*30+i*260)%1700)-50,y=640+40*Math.sin(i*2.1)+8*Math.sin(TT+i);poly([x,y,x-22,y-7,x-22,y+7],'rgba(20,50,70,.6)');poly([x-22,y,x-32,y-6,x-32,y+6],'rgba(20,50,70,.6)');}}
+function seaScene(o){o=o||{};landSky(SW.y,{clouds:true,dusk:o.dusk||0});drawSwell(SW);bubbles();fishes();
+  pl(P_CAB(),'#1a1a1a',4);coast();
+  wec(1020,.55);wec(1200,.45);return wec(BX,1,o.cut);}
+function wavePower(H,T){return .49*H*H*T;}
+/* 台灣輪廓（經緯度） */
+const TW=[[121.5,25.3],[121.9,25.12],[122.0,25.0],[121.85,24.6],[121.8,24.3],[121.6,23.9],[121.5,23.4],[121.3,22.9],[121.0,22.6],[120.85,21.92],[120.7,22.0],[120.6,22.3],[120.3,22.55],[120.15,22.9],[120.1,23.1],[120.15,23.5],[120.3,23.9],[120.6,24.3],[120.8,24.6],[121.0,24.9],[121.2,25.1],[121.4,25.25]];
+
+const EP={no:1,slug:'ocean-energy',seriesName:'海洋能系列',t:'波浪發電：點吸收式浮標',en:'Wave power: the point absorber buoy',
+lede:'海浪是風把能量交給海面的結果，一波接一波把能量送到岸邊。這一集從波浪能量的大小怎麼算談起，看點吸收式浮標如何隨浪上下運動，比較液壓與直驅線性發電機兩種動力擷取方式，再介紹錨繫、海纜與颱風海況的挑戰，以及台灣的波浪能潛力。',
+facts:[['0.49','kW/m','每公尺波峰寬的波能流係數：P ≈ 0.49 × H² × T'],
+['15–20','kW/m','台灣東北部、澎湖西側與巴士海峽的波能流密度'],
+['約 10','GW','台灣周邊海域波浪能蘊藏量估計'],
+['3','處','蘇澳港規劃的離岸式波浪發電試驗區'],
+['50–100','MW','業界預估 2030 年前的波浪能裝置容量'],
+['300','kW','國外直徑 9 m 點吸收式浮標的單機容量（示例）']],
+note:'說明：本集為教育用途示意動畫，浮標外觀、水深與波浪比例經過壓縮調整。波能流公式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m，H 為示性波高、T 為能量週期）為海洋工程通用式；台灣波能流密度 15–20 kW/m 與蘊藏量約 10 GW 取自國科會科技大觀園與中央氣象署科普資料；蘇澳港 3 處試驗區與 2030 年 50–100 MW 預估取自 Reccessary 專家觀點；直徑 9 m、300 kW 浮標與水深約 45 m 參考 CorPower C4 在葡萄牙的公開資料。每月波能、張力、出力與颱風存活模式等數值為典型範例。',
+base:()=>seaScene(),
+shots:[
+{t:'海上的點吸收式浮標',en:'A point absorber at sea',dur:13,side:true,
+ d:'點吸收式浮標是最常見的波浪發電裝置之一。浮體漂在海面上，湧浪通過時跟著上下起伏；浮體透過繫纜連到海床基礎，海床幾乎不動，兩者之間的相對運動就由浮體裡的動力擷取系統（PTO）轉成電力。電力經動態海纜與海底電纜送到岸上變電站併網。一座浮標容量約數十到數百瓩，實際案場會把多座浮標排成陣列，共用海纜與併網設備。',
+ s:[[0,'湧浪一波接一波通過浮標'],[.26,'浮體隨浪起伏，繫纜連到海床基礎'],[.52,'浮體與海床的相對運動轉成電力'],[.76,'電力經海底電纜送上岸併網']],
+ cam:u=>camMix({x:800,y:480,s:1},{x:700,y:500,s:1.12},ease(seg(u,.1,.6))),
+ draw(u){},
+ fx(u){
+  flowDots(P_CAB(),8,PWR,band(u,.74,1),.25,4);
+  const y=fyAt(BX);
+  lab(BX,y-40,'浮體',{dx:-60,dy:-90,st:'s',a:band(u,.24,.52)});
+  lab(BX,640,'繫纜',{dx:70,dy:-20,a:band(u,.26,.52)});
+  lab(BX,BED-30,'海床基礎',{dx:-90,dy:-40,a:band(u,.26,.52)});
+  lab(BX,y,'動力擷取（PTO）',{dx:110,dy:-80,st:'s',a:band(u,.5,.76)});
+  lab(1100,BED-4,'海底電纜',{dx:0,dy:-60,st:'s',a:band(u,.74,1)});
+  lab(CX+226,360,'岸上變電站',{dx:-40,dy:-40,st:'g',a:band(u,.78,1),minor:true});
+ },
+ hud(u){hudPanel(240,150,'海況與出力（示例）',seg(u,.05,.1),w=>{const p=Math.max(0,120+90*Math.sin(TT*1.1))*ease(seg(u,.48,.6));
+  hrow(56,'示性波高','2.0 m',w,WAV);hrow(88,'週期','8 s',w,'#fff');hrow(120,'輸出',Math.round(p)+' kW',w,PWR);});}},
+
+{t:'波浪能量從哪裡來',en:'Where wave energy comes from',dur:13,
+ d:'風吹過海面，把能量傳給海水形成波浪；風越強、吹得越久、吹過的距離越遠，波浪就越大。波浪能用每公尺波峰寬度的功率表示，稱為波能流密度，約等於 0.49 乘上波高的平方再乘上週期，單位是 kW/m。波高加倍，能量變成四倍，所以選址時最看重波高。示性波高 2 m、週期 8 s 的湧浪，每公尺波峰約帶有 16 kW 的功率。',
+ s:[[0,'風把能量交給海面，形成波浪'],[.26,'波高 H 與週期 T 決定波浪的能量'],[.5,'波能流：P ≈ 0.49 × H² × T'],[.74,'波高加倍，能量變成四倍']],
+ draw(u){
+  diagBG();
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'波高與週期',20,'#f2c230',700);
+  /* 風 */
+  const wa=seg(u,.02,.1);for(let i=0;i<4;i++){const p=(TT*.6+i/4)%1;alphaDo(wa*(1-Math.abs(p-.5)*2),()=>arrow(120+p*400,260+i*26,180+p*400,260+i*26,'rgba(227,236,238,.8)',2.5));}
+  alphaDo(wa,()=>wt(640,290,'風',20,'#fff',700,'center'));
+  /* 波形 */
+  const Y0=500,A=60,L=380,X0=100,X1=740,ph=TT*1.4,wy=x=>Y0-A*Math.sin(TAU*(x-X0)/L-ph);
+  ctx.beginPath();ctx.moveTo(X0,720);for(let x=X0;x<=X1;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(X1,720);ctx.closePath();ctx.fillStyle='rgba(88,184,208,.35)';ctx.fill();
+  ctx.beginPath();for(let x=X0;x<=X1;x+=4)ctx.lineTo(x,wy(x));ctx.strokeStyle='#7dc8dc';ctx.lineWidth=3;ctx.stroke();
+  const ha=band(u,.24,1);if(ha>0)alphaDo(ha,()=>{ctx.setLineDash([6,6]);ln([X0,Y0-A,X1,Y0-A],'rgba(242,194,48,.7)',1.5);ln([X0,Y0+A,X1,Y0+A],'rgba(242,194,48,.7)',1.5);ctx.setLineDash([]);
+   arrow(180,Y0,180,Y0-A+4,PWR,2.5);arrow(180,Y0,180,Y0+A-4,PWR,2.5);wt(196,Y0+8,'波高 H',19,PWR,700,'left');
+   arrow(330,640,330+L,640,'#7dffc4',2.5);arrow(330+L,640,330,640,'#7dffc4',2.5);wt(330+L/2,680,'一個週期 T 通過一個波長',18,'#7dffc4',700,'center');});
+  /* 公式 */
+  alphaDo(seg(u,.5,.56),()=>{card(90,720,660,64,{bg:'rgba(242,194,48,.12)',st:'rgba(242,194,48,.6)'});wt(420,762,'P ≈ 0.49 × H² × T（kW/m）',22,PWR,700,'center',COND);});
+  /* 右：圖表 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'波能流密度與波高',20,'#f2c230',700);
+  const c=chartBox(840,220,680,520,{x0:0,x1:4,y0:0,y1:80,xt:[0,1,2,3,4],yt:[0,20,40,60,80],xl:'示性波高 H（m）',yl:'kW/m'});
+  const S=[[6,'rgba(227,236,238,.9)','T = 6 s',.3],[8,'#7dffc4','T = 8 s',.4],[10,'#ff8a60','T = 10 s',.5]];
+  S.forEach(([T,col,n,t0])=>{const f=ease(seg(u,t0,t0+.2));if(f<=0)return;const P=[];for(let i=0;i<=40;i++){const H=4*i/40;P.push({x:c.X(H),y:c.Y(wavePower(H,T))});}
+   pathLine(partial(P,f),col,3);alphaDo(seg(u,t0+.16,t0+.22),()=>wt(c.X(4)-6,c.Y(wavePower(4,T))-10,n,17,col,700,'right',COND));});
+  const ka=seg(u,.72,.78);if(ka>0)alphaDo(ka,()=>{const x=c.X(2),y=c.Y(wavePower(2,8));circ(x,y,7,PWR);ln([x,y,x,c.Y(0)],'rgba(242,194,48,.5)',1.5);
+   const qx=c.X(.2)+150,qy=c.Y(62);ln([x,y,qx,qy+45],'rgba(242,194,48,.6)',1.5);card(qx-150,qy-45,300,90,{bg:'rgba(7,27,39,.92)',st:PWR});wt(qx,qy-9,'H 2 m、T 8 s',18,'#fff',700,'center');wt(qx,qy+25,trf('約 {n} kW/m',{n:wavePower(2,8).toFixed(1)}),20,PWR,700,'center',COND);});
+ }},
+
+{t:'點吸收式浮標怎麼運作',en:'How a point absorber works',dur:14,
+ d:'點吸收式浮標的直徑通常只有數公尺，比波長小得多，因此不論波浪從哪個方向來，都能從四周吸收能量，好像一個「點」。浮體受浮力推動上下運動，繫纜另一端固定在海床，動力擷取系統就在兩者之間拉伸與收縮。若讓浮體的運動節奏和波浪同步，形成共振，位移可以比波高大好幾倍；國外業者以相位控制讓浮體在 1 m 的浪中上下移動約 3 m，吸收更多能量。',
+ s:[[0,'浮體直徑遠小於波長，像一個點'],[.24,'四面八方來的波浪都能吸收'],[.48,'浮體與海床之間的相對運動推動 PTO'],[.72,'共振與相位控制，讓浮體動得比浪更大']],
+ draw(u){
+  diagBG();
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'側視：浮體、PTO 與繫纜',20,'#f2c230',700);
+  const Y0=380,A=40,L=520,ph=TT*1.4,wy=x=>Y0-A*Math.sin(TAU*(x-80)/L-ph),X=420;
+  ctx.beginPath();ctx.moveTo(80,760);for(let x=80;x<=760;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(760,760);ctx.closePath();ctx.fillStyle='rgba(29,102,144,.55)';ctx.fill();
+  ctx.beginPath();for(let x=80;x<=760;x+=4)ctx.lineTo(x,wy(x));ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2.5;ctx.stroke();
+  box(80,740,680,40,'#b59a6a');
+  const amp=lerp(1,1.8,ease(seg(u,.72,.8))),fy=Y0-A*amp*Math.sin(TAU*(X-80)/L-ph-.3*amp);
+  ln([X,fy+60,X,712],'#e3e8ec',3);box(X-50,712,100,28,'#6a747a');
+  /* 浮體剖面：PTO 缸體 */
+  rrp(X-80,fy-40,160,80,20);ctx.fillStyle='#e3b53a';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.stroke();
+  const pa=band(u,.46,1);box(X-22,fy-30,44,72,pa>0?'rgba(242,194,48,'+(.25+.5*pa)+')':'#2a3a46','rgba(0,0,0,.4)',1);
+  const rod=clamp((fy-Y0)/(A*1.8),-1,1);box(X-16,fy-10+rod*14,32,10,'#c9d1d6');ln([X,fy+rod*14,X,fy+60],'#c9d1d6',5);
+  const aa=band(u,.46,1);if(aa>0)alphaDo(aa,()=>{arrow(X+120,Y0,X+120,Y0-60,'#7dffc4',3);arrow(X+120,Y0,X+120,Y0+60,'#7dffc4',3);wt(X+140,Y0+8,'相對運動',18,'#7dffc4',700,'left');});
+  wt(X-100,fy+6,'浮體',18,'#fff',700,'right');alphaDo(pa,()=>wt(X,fy-52,'PTO',18,PWR,700,'center',COND));
+  wt(X+30,650,'繫纜',17,'rgba(227,236,238,.9)',600,'left');wt(X+64,732,'海床基礎',17,'rgba(227,236,238,.9)',600,'left');
+  /* 右上：俯視 */
+  card(820,150,720,310,{bg:'rgba(7,27,39,.75)'});wt(844,196,'俯視：從各方向吸收',20,'#f2c230',700);
+  const cx=1180,cy=320,da=seg(u,.2,.3);
+  for(let i=0;i<3;i++){const p=(TT*.35+i/3)%1;ring(cx,cy,20+p*110,'rgba(125,200,220,'+(.6*(1-p))+')',2);}
+  if(da>0)alphaDo(da,()=>{for(let k=0;k<6;k++){const a=k*TAU/6+.3,r=120;arrow(cx+Math.cos(a)*r,cy+Math.sin(a)*r*.9,cx+Math.cos(a)*40,cy+Math.sin(a)*36,'#7dc8dc',2.5);}});
+  circ(cx,cy,18,'#e3b53a','rgba(0,0,0,.4)',1.5);wt(1510,440,'直徑數公尺，遠小於波長',17,'rgba(227,236,238,.85)',600,'right');
+  /* 右下：共振 */
+  card(820,490,720,310,{bg:'rgba(7,27,39,.75)'});wt(844,536,'共振與相位控制（示例）',20,'#f2c230',700);
+  const gx0=860,gx1=1500,gy=660;ln([gx0,gy,gx1,gy],'rgba(255,255,255,.15)',1);
+  const curve=(am,col,lw,f,sh)=>{const P=[];for(let i=0;i<=80;i++){const x=gx0+(gx1-gx0)*i/80;P.push({x,y:gy-am*Math.sin(i/80*TAU*2-TT*1.4+sh)});}pathLine(partial(P,f),col,lw);};
+  curve(26,'#7dc8dc',2.5,1,0);const ra=ease(seg(u,.72,.84));if(ra>0)curve(26+52*ra,PWR,3,1,-.4);
+  wt(gx0,776,'波浪 1 m',17,'#7dc8dc',700,'left');alphaDo(ra,()=>wt(gx1,776,'浮體位移 約 3 m',17,PWR,700,'right'));
+ }},
+
+{t:'動力擷取：液壓與直驅',en:'Power take-off: hydraulic vs direct drive',dur:14,
+ d:'浮體的運動慢而有力，每秒只有一兩公尺，方向還不斷反轉，動力擷取系統要把它變成穩定的電力。液壓式用活塞把油壓進蓄壓器，再以固定壓力推動液壓馬達與發電機，能平滑波浪起伏、承受很大的力，但油路元件多、需要定期保養。直驅線性發電機讓裝有磁鐵的動子直接在線圈中往復移動發電，零件少、效率高，但低速大推力使發電機又大又重，輸出電壓與頻率不斷變化，要靠變流器整理後才能併網。',
+ s:[[0,'浮體運動慢、力量大，方向不斷反轉'],[.24,'液壓式：活塞壓油，蓄壓器平滑出力'],[.52,'直驅式：磁鐵在線圈中往復，直接發電'],[.78,'變流器把變動的電整理成穩定的交流電']],
+ draw(u){
+  diagBG();
+  const L=band(u,.2,1),R=band(u,.5,1),hl=(k,on)=>on?'rgba(242,194,48,.7)':'rgba(255,255,255,.12)';
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(0,u>=.24&&u<.52)});wt(84,196,'液壓式 PTO',20,'#f2c230',700);
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(1,u>=.52)});wt(844,196,'直驅線性發電機',20,'#f2c230',700);
+  const st=Math.sin(TT*1.6);
+  /* 液壓：活塞缸 → 蓄壓器 → 馬達 → 發電機 */
+  box(110,250,70,220,'#44535c','rgba(255,255,255,.3)',1);const py=330+st*50;box(114,py,62,16,'#c9d1d6');ln([145,py,145,240],'#c9d1d6',6);
+  alphaDo(.8,()=>box(114,py+16,62,454-py,'rgba(255,138,96,.45)'));
+  wt(145,500,'活塞缸',17,'#fff',700,'center');
+  rrp(270,270,70,170,34);ctx.fillStyle='#8d989f';ctx.fill();wt(305,470,'蓄壓器',17,'#fff',700,'center');
+  circ(470,350,44,'#5c6770','rgba(255,255,255,.3)',1);for(let i=0;i<4;i++){const a=TT*3*L+i*TAU/4;ln([470,350,470+Math.cos(a)*36,350+Math.sin(a)*36],'#c9d1d6',4);}wt(470,430,'液壓馬達',17,'#fff',700,'center');
+  ln([514,350,580,350],'#8d989f',8);box(580,300,130,100,'#1f7f99','rgba(255,255,255,.3)',1);wt(645,430,'發電機',17,'#fff',700,'center');
+  const Po=[[180,440],[230,440],[230,400],[270,400]],Pa=[[340,350],[426,350]],Pr=[[470,394],[470,450],[180,450]];
+  [Po,Pa,Pr].forEach(P=>pl(P,'rgba(141,152,159,.8)',5));flowDots(Po,3,OIL,L,.6,5);flowDots(Pa,3,OIL,L,.6,5);flowDots(Pr,5,'#ff9d7a',L*.6,.3,4);
+  alphaDo(L,()=>{for(let i=0;i<3;i++){const p=(TT*1.2+i/3)%1;ln([712,340+i*12,712+30*p,340+i*12],PWR,3);}});
+  /* 右：線性發電機 */
+  const cx=1000,cy=280;for(let i=0;i<8;i++)box(cx-60,cy+i*24,20,18,'#c77d3a','rgba(0,0,0,.3)',1);for(let i=0;i<8;i++)box(cx+40,cy+i*24,20,18,'#c77d3a','rgba(0,0,0,.3)',1);
+  const my=cy-30+st*50;for(let i=0;i<6;i++)box(cx-30,my+i*30,60,28,i%2?'#e8572a':'#58b8d0','rgba(0,0,0,.35)',1);ln([cx,my,cx,cy-60],'#c9d1d6',6);
+  wt(cx,cy+230,'線圈（定子）＋磁鐵（動子）',17,'#fff',700,'center');
+  /* 輸出波形 */
+  const ox=1120,oy=340;ln([ox,oy,1500,oy],'rgba(255,255,255,.15)',1);
+  if(R>0)alphaDo(R,()=>{const P=[];for(let i=0;i<=120;i++){const t=i/120,env=Math.abs(Math.sin(t*TAU*1-TT*1.6));P.push({x:ox+380*t,y:oy-60*env*Math.sin(t*TAU*9-TT*8)});}pathLine(P,MAG,2);wt(1310,440,'電壓與頻率不斷變化',17,MAG,700,'center');});
+  const ia=seg(u,.78,.84);if(ia>0)alphaDo(ia,()=>{box(1120,470,160,60,'#44535c','rgba(255,255,255,.3)',1);wt(1200,508,'變流器',18,'#fff',700,'center');arrow(1290,500,1340,500,PWR,3);
+   const P=[];for(let i=0;i<=60;i++){const t=i/60;P.push({x:1350+150*t,y:500-26*Math.sin(t*TAU*3-TT*4)});}pathLine(P,'#7dffc4',2.5);});
+  /* 優缺點 */
+  const pc=(x,y,good,bad,a)=>alphaDo(a,()=>{tag(x,y,'優點',{bg:'rgba(125,255,196,.2)',fg:'#7dffc4',size:16});wt(x+60,y+6,good,18,'#fff',600,'left');
+   tag(x,y+54,'限制',{bg:'rgba(232,87,42,.2)',fg:'#ff8a60',size:16});wt(x+60,y+60,bad,18,'#fff',600,'left');});
+  pc(100,640,'出力平滑、承受大力量','油路元件多、需定期保養',L);
+  pc(860,640,'零件少、效率高','體積大且重、需要變流器',R);
+ }},
+
+{t:'錨繫與海纜',en:'Moorings and cables',dur:13,side:true,
+ d:'浮標要在大浪中留在原地，錨繫系統是關鍵。張力式繫纜把浮體拉向海床基礎，基礎可用重力式混凝土塊、樁或吸力式沉箱，視海床是砂、泥或岩盤而定。浮標上下起伏，電纜不能繃直，所以從浮體到海床之間用帶浮力模組的動態海纜，彎成緩和的 S 形吸收運動，再接到固定在海床上的海底電纜送往岸邊。國外試驗案例多設在離岸數公里、水深約 40 到 50 m 的海域。',
+ s:[[0,'鏡頭潛入水下，看浮標怎麼固定'],[.24,'張力式繫纜把浮體拉向海床基礎'],[.5,'動態海纜彎成 S 形，吸收浮體起伏'],[.76,'海底電纜沿海床送往岸上變電站']],
+ cam:u=>camMix({x:800,y:480,s:1},{x:720,y:600,s:1.4},ease(seg(u,.02,.2))),
+ draw(u){
+  const y=fyAt(BX)+22,a=band(u,.46,1);
+  if(a>0)alphaDo(a,()=>{const P=[];for(let i=0;i<=30;i++){const t=i/30;P.push({x:BX+20+t*180,y:lerp(y,BED-10,t)-90*Math.sin(t*Math.PI)*(1-t*.3)+(1-t)*(fyAt(BX)-SW.y)*.3});}
+   pathLine(P,'#1a1a1a',4);for(let k=0;k<4;k++){const p=P[10+k*2];circ(p.x,p.y,7,'#e3b53a','rgba(0,0,0,.4)',1);}});
+ },
+ fx(u){
+  flowDots(P_CAB(),8,PWR,band(u,.74,1),.25,4);
+  lab(BX,700,'張力式繫纜',{dx:-110,dy:-30,st:'s',a:band(u,.22,.5)});
+  lab(BX,BED-26,'海床基礎',{dx:-80,dy:-50,a:band(u,.22,.5)});
+  lab(BX+110,fyAt(BX)+60,'動態海纜',{dx:90,dy:-40,st:'s',a:band(u,.5,.78)});
+  lab(BX+100,540,'浮力模組',{dx:110,dy:30,a:band(u,.52,.78),minor:true});
+  lab(900,BED-4,'海底電纜',{dx:40,dy:-50,st:'g',a:band(u,.76,1)});
+ },
+ hud(u){hudPanel(240,150,'錨繫（示例）',seg(u,.05,.1),w=>{const t=Math.round(600+300*Math.sin(TT*1.1));
+  hrow(56,'水深','約 45 m',w,WAV);hrow(88,'繫纜張力',trf('{n} kN',{n:t}),w,'#fff');hbar(14,100,w-28,t/1000,PWR);hrow(136,'離岸距離','約 4 km',w,'#7dffc4');});}},
+
+{t:'海況與颱風',en:'Sea states and typhoons',dur:13,
+ d:'波浪能隨季節變化很大。台灣東北部每年有半年以上吹東北季風，秋冬的波浪能明顯較高，夏季風浪較小，卻可能遇上颱風。浮標的設計要在兩件事之間取得平衡：一般海況盡量多發電，極端海況則要活下來。浪太大時控制系統會限制出力與衝程；颱風來襲時進入存活模式，例如把浮體鎖定或壓入水中，讓巨浪從上方通過。颱風期間的示性波高可超過 10 m，是設計的最大考驗。',
+ s:[[0,'東北季風季節，波浪能明顯較高'],[.26,'夏季風浪較小，但有颱風威脅'],[.5,'一般海況發電，大浪時限制出力'],[.74,'颱風來襲：進入存活模式，讓巨浪通過']],
+ draw(u){
+  diagBG();
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'台灣東北部每月波能（示意）',20,'#f2c230',700);
+  const M=[22,20,15,10,7,5,5,6,9,16,22,24],c=chartBox(80,220,680,520,{x0:.5,x1:12.5,y0:0,y1:30,xt:[1,2,3,4,5,6,7,8,9,10,11,12],yt:[0,10,20,30],xl:'月份',yl:'kW/m'});
+  M.forEach((v,i)=>{const f=ease(seg(u,.02+i*.02,.12+i*.02)),x=c.X(i+1),w=c.pw/12*.62,win=i>=9||i<=2;box(x-w/2,c.Y(v*f),w,c.Y(0)-c.Y(v*f),win?'#58b8d0':'rgba(88,184,208,.45)');});
+  alphaDo(seg(u,.02,.1),()=>wt(c.X(1.5),c.Y(27.5),'東北季風',17,'#7dc8dc',700,'center'));
+  alphaDo(seg(u,.26,.32),()=>{for(let m=7;m<=9;m++){const x=c.X(m);ring(x,c.Y(12),10,'#ff8a60',2);}wt(c.X(8),c.Y(16),'颱風',17,'#ff8a60',700,'center');});
+  /* 右：運轉模式 */
+  const modes=[['一般海況','發電','#7dffc4',.5,1],['大浪','限制出力與衝程','#f2c230',.6,1.8],['颱風','存活模式','#ff8a60',.74,3]];
+  modes.forEach(([t,s,col,t0,H],i)=>{const a=seg(u,t0,t0+.06),y=160+i*214;alphaDo(Math.max(.25,a),()=>{
+   card(820,y,720,196,{bg:'rgba(7,27,39,.75)',st:a>0?col:'rgba(255,255,255,.12)'});wt(844,y+42,t,20,col,700);wt(844,y+78,s,18,'#fff',600);
+   const A=10*H,x0=1120,x1=1510,wy=x=>y+110-A*Math.sin(TAU*(x-x0)/200-TT*1.3);ctx.beginPath();ctx.moveTo(x0,y+186);for(let x=x0;x<=x1;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(x1,y+186);ctx.closePath();ctx.fillStyle='rgba(29,102,144,.6)';ctx.fill();
+   const bx=1300,by=i===2?y+150:wy(bx)-(i===1?4:0);ln([bx,by+14,bx,y+186],'#e3e8ec',2);rrp(bx-26,by-12,52,26,8);ctx.fillStyle='#e3b53a';ctx.fill();
+   if(i===2)wt(844,y+150,'示性波高可超過 10 m',17,'#ff9d7a',600);});});
+ }},
+
+{t:'台灣的波浪能',en:'Wave energy in Taiwan',dur:14,
+ d:'台灣四面環海，波浪能資源以東北部、東部外海、澎湖西側與巴士海峽較佳，波能流密度約 15 到 20 kW/m；西岸與西南沿海多在 10 kW/m 以下。估計周邊海域的蘊藏量約 10 GW。颱風與地震頻繁，國外機組不一定適合台灣，國內正發展適合在地海況的技術。蘇澳港已規劃 3 處離岸式波浪發電試驗區，業界預估 2030 年前裝置容量可達 50 到 100 MW。',
+ s:[[0,'東北部與東部外海的波浪能較佳'],[.24,'高能海域約 15–20 kW/m'],[.48,'周邊海域蘊藏量估計約 10 GW'],[.72,'蘇澳港規劃 3 處離岸式試驗區']],
+ draw(u){
+  diagBG();
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'波能流密度分布（示意）',20,'#f2c230',700);
+  const MX=l=>180+(l-119)*170,MY=a=>190+(25.6-a)*140;
+  const ka=seg(u,.02,.1),kb=seg(u,.24,.32);
+  const blob=(l,b,rx,ry,col,a)=>{if(a<=0)return;const x=MX(l),y=MY(b);ctx.save();ctx.translate(x,y);ctx.scale(1,ry/rx);const g=ctx.createRadialGradient(0,0,0,0,0,rx);g.addColorStop(0,col+'.55)');g.addColorStop(1,col+'0)');
+   alphaDo(a,()=>{ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,rx,0,TAU);ctx.fill();});ctx.restore();};
+  blob(122.15,24.9,120,150,'rgba(255,138,96,',kb);blob(121.9,23.5,90,150,'rgba(255,138,96,',kb);blob(119.4,23.6,90,90,'rgba(255,138,96,',kb);blob(120.9,21.6,110,70,'rgba(255,138,96,',kb);
+  blob(119.95,23.2,70,200,'rgba(125,200,220,',ka);
+  const pts=[];TW.forEach(([l,a])=>pts.push(MX(l),MY(a)));poly(pts,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',2);
+  circ(MX(119.6),MY(23.55),10,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',1.5);
+  alphaDo(kb,()=>{wt(MX(122.2),MY(25.55),'15–20 kW/m',18,'#ff9d7a',700,'center',COND);wt(MX(119.3),MY(24.15),'澎湖西側',16,'#ff9d7a',700,'center');wt(MX(121.55),MY(21.6),'巴士海峽',16,'#ff9d7a',700,'left');});
+  alphaDo(ka,()=>wt(MX(119.85),MY(22.3),'西南沿海 <10 kW/m',16,'#7dc8dc',700,'center'));
+  const sa=seg(u,.72,.78);if(sa>0){const x=MX(121.87),y=MY(24.6),p=(TT*.8)%1;alphaDo(sa,()=>{alphaDo(1-p,()=>ring(x,y,8+16*p,PWR,2));circ(x,y,8,PWR);wt(x-16,y+6,'蘇澳港',18,PWR,700,'right');});}
+  /* 右：數字卡 */
+  const R=[['高能海域波能流','15–20 kW/m','東北部、澎湖西側、巴士海峽',.24,'#ff8a60'],['周邊海域蘊藏量','約 10 GW','理論估計值',.48,'#7dc8dc'],['蘇澳港試驗區','3 處','離岸式波浪發電',.72,'#f2c230'],['2030 年預估','50–100 MW','業界預估裝置容量',.84,'#7dffc4']];
+  R.forEach(([t,v,s,t0,col],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*162;card(820,y,720,146,{bg:'rgba(7,27,39,.75)'});box(820,y,8,146,col);wt(850,y+44,t,19,'rgba(227,236,238,.9)',600);
+   wt(850,y+106,v,40,col,700,'left',COND);wt(1510,y+106,s,17,'rgba(227,236,238,.8)',500,'right');}));
+ }}
+]};
+
+/* 波浪發電：點吸收式浮標 translations: Traditional Chinese → [English, Japanese] */
+Object.assign(DICT,{
+"海洋能系列":["Ocean Energy Series","海洋エネルギーシリーズ"],
+"波浪發電：點吸收式浮標":["Wave power: the point absorber buoy","波力発電：ポイントアブソーバー型ブイ"],
+"海浪是風把能量交給海面的結果，一波接一波把能量送到岸邊。這一集從波浪能量的大小怎麼算談起，看點吸收式浮標如何隨浪上下運動，比較液壓與直驅線性發電機兩種動力擷取方式，再介紹錨繫、海纜與颱風海況的挑戰，以及台灣的波浪能潛力。":["Ocean waves are energy handed from the wind to the sea surface, carried toward the coast one wave after another. This episode starts with how wave energy is calculated, shows how a point absorber buoy rides up and down on the swell, compares hydraulic and direct-drive linear generator power take-off, then looks at moorings, cables and the challenge of typhoon sea states, and finally Taiwan's wave energy potential.","海の波は、風が海面に渡したエネルギーが一波ずつ岸へ運ばれてくるものです。このエピソードでは波のエネルギーの大きさの求め方から始め、ポイントアブソーバー型ブイが波に合わせて上下する仕組みを見たうえで、油圧式と直動リニア発電機の二つの動力変換方式を比較し、係留・海底ケーブル・台風時の海象という課題、そして台湾の波力エネルギーの可能性を紹介します。"],
+"每公尺波峰寬的波能流係數：P ≈ 0.49 × H² × T":["Wave power per metre of crest: P ≈ 0.49 × H² × T","波峰幅 1 m あたりの波パワー係数：P ≈ 0.49 × H² × T"],
+"台灣東北部、澎湖西側與巴士海峽的波能流密度":["Wave power density off NE Taiwan, west of Penghu and in the Bashi Channel","台湾北東部・澎湖西側・バシー海峡の波パワー密度"],
+"約 10":["About 10","約 10"],
+"台灣周邊海域波浪能蘊藏量估計":["Estimated wave energy resource around Taiwan","台湾周辺海域の波力エネルギー賦存量の推計"],
+"處":["sites","か所"],
+"蘇澳港規劃的離岸式波浪發電試驗區":["Offshore wave energy test zones planned at Su'ao Port","蘇澳港で計画された沖合波力発電の試験区域"],
+"業界預估 2030 年前的波浪能裝置容量":["Industry estimate of installed wave capacity by 2030","業界が見込む 2030 年までの波力発電の設備容量"],
+"國外直徑 9 m 點吸收式浮標的單機容量（示例）":["Rating of a 9 m diameter point absorber abroad (example)","海外の直径 9 m ポイントアブソーバーの単機容量（例）"],
+"說明：本集為教育用途示意動畫，浮標外觀、水深與波浪比例經過壓縮調整。波能流公式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m，H 為示性波高、T 為能量週期）為海洋工程通用式；台灣波能流密度 15–20 kW/m 與蘊藏量約 10 GW 取自國科會科技大觀園與中央氣象署科普資料；蘇澳港 3 處試驗區與 2030 年 50–100 MW 預估取自 Reccessary 專家觀點；直徑 9 m、300 kW 浮標與水深約 45 m 參考 CorPower C4 在葡萄牙的公開資料。每月波能、張力、出力與颱風存活模式等數值為典型範例。":["Note: this is an illustrative educational animation; buoy appearance, water depth and wave proportions are compressed. The wave power formula P ≈ ρg²H²T/64π (about 0.49 H²T kW/m, with H the significant wave height and T the energy period) is standard in ocean engineering. Taiwan's wave power density of 15–20 kW/m and resource of about 10 GW come from NSTC Science and Technology Vista and Central Weather Administration outreach material; the three Su'ao Port test zones and the 50–100 MW estimate for 2030 come from a Reccessary expert column; the 9 m, 300 kW buoy and about 45 m water depth refer to public information on the CorPower C4 in Portugal. Monthly wave power, tension, output and typhoon survival mode values are typical examples.","説明：本エピソードは教育用の模式アニメーションで、ブイの外観、水深、波の比率は圧縮して描いています。波パワーの式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m、H は有義波高、T はエネルギー周期）は海洋工学の一般式です。台湾の波パワー密度 15–20 kW/m と賦存量約 10 GW は国家科学及技術委員会「科技大観園」と中央気象署の解説資料、蘇澳港の試験区域 3 か所と 2030 年 50–100 MW の見込みは Reccessary の専門家コラム、直径 9 m・300 kW のブイと水深約 45 m はポルトガルの CorPower C4 の公開資料を参考にしています。月別の波パワー、張力、出力、台風時のサバイバルモードの数値は典型的な例です。"],
+"海上的點吸收式浮標":["A point absorber at sea","海上のポイントアブソーバー"],
+"點吸收式浮標是最常見的波浪發電裝置之一。浮體漂在海面上，湧浪通過時跟著上下起伏；浮體透過繫纜連到海床基礎，海床幾乎不動，兩者之間的相對運動就由浮體裡的動力擷取系統（PTO）轉成電力。電力經動態海纜與海底電纜送到岸上變電站併網。一座浮標容量約數十到數百瓩，實際案場會把多座浮標排成陣列，共用海纜與併網設備。":["The point absorber is one of the most common wave energy devices. A float sits on the sea surface and rises and falls as the swell passes. It is tethered to a foundation on the seabed, which barely moves, and the power take-off (PTO) inside the float turns the relative motion between the two into electricity. Power travels through a dynamic cable and a subsea export cable to an onshore substation and the grid. A single buoy is rated from tens to hundreds of kilowatts, so real projects arrange many buoys in an array that shares cables and grid connection equipment.","ポイントアブソーバーは最も一般的な波力発電装置の一つです。浮体は海面に浮かび、うねりが通過するたびに上下します。浮体は係留索で海底基礎につながっており、ほとんど動かない海底との相対運動を、浮体内の動力変換装置（PTO）が電力に変えます。電力はダイナミックケーブルと海底ケーブルで陸上変電所へ送られ、系統に連系されます。ブイ 1 基の容量は数十〜数百 kW 程度のため、実際の発電所では多数のブイをアレイ状に並べ、ケーブルと連系設備を共用します。"],
+"湧浪一波接一波通過浮標":["Swells roll past the buoy one after another","うねりが次々とブイを通過する"],
+"浮體隨浪起伏，繫纜連到海床基礎":["The float rides the waves, tethered to a seabed foundation","浮体は波に合わせて上下し、係留索で海底基礎につながる"],
+"浮體與海床的相對運動轉成電力":["Relative motion between float and seabed becomes electricity","浮体と海底の相対運動を電力に変える"],
+"電力經海底電纜送上岸併網":["Power goes ashore by subsea cable to the grid","電力は海底ケーブルで陸へ送られ系統に連系"],
+"浮體":["Float","浮体"],
+"繫纜":["Tether","係留索"],
+"海床基礎":["Seabed foundation","海底基礎"],
+"動力擷取（PTO）":["Power take-off (PTO)","動力変換装置（PTO）"],
+"海底電纜":["Export cable","海底ケーブル"],
+"岸上變電站":["Onshore substation","陸上変電所"],
+"海況與出力（示例）":["Sea state (example)","海象と出力（例）"],
+"示性波高":["Sig. wave height","有義波高"],
+"週期":["Period","周期"],
+"輸出":["Output","出力"],
+"波浪能量從哪裡來":["Where wave energy comes from","波のエネルギーはどこから来るのか"],
+"風吹過海面，把能量傳給海水形成波浪；風越強、吹得越久、吹過的距離越遠，波浪就越大。波浪能用每公尺波峰寬度的功率表示，稱為波能流密度，約等於 0.49 乘上波高的平方再乘上週期，單位是 kW/m。波高加倍，能量變成四倍，所以選址時最看重波高。示性波高 2 m、週期 8 s 的湧浪，每公尺波峰約帶有 16 kW 的功率。":["Wind blowing across the sea hands its energy to the water and builds waves; the stronger the wind, the longer it blows and the farther it travels over open water, the bigger the waves. Wave energy is expressed as power per metre of wave crest, called wave power density, roughly 0.49 times the wave height squared times the period, in kW/m. Doubling the wave height quadruples the energy, which is why wave height matters most when choosing a site. A swell with a significant wave height of 2 m and a period of 8 s carries about 16 kW per metre of crest.","風が海面を吹き渡るとエネルギーが海水に伝わり、波ができます。風が強く、長く、遠くまで吹くほど波は大きくなります。波のエネルギーは波峰幅 1 m あたりのパワーで表し、波パワー密度と呼びます。およそ 0.49 × 波高の二乗 × 周期で、単位は kW/m です。波高が 2 倍になるとエネルギーは 4 倍になるため、立地選定では波高が最も重視されます。有義波高 2 m、周期 8 s のうねりは、波峰 1 m あたり約 16 kW のパワーを運びます。"],
+"風把能量交給海面，形成波浪":["Wind hands its energy to the sea, making waves","風が海面にエネルギーを渡し、波ができる"],
+"波高 H 與週期 T 決定波浪的能量":["Wave height H and period T set the energy","波高 H と周期 T が波のエネルギーを決める"],
+"波能流：P ≈ 0.49 × H² × T":["Wave power: P ≈ 0.49 × H² × T","波パワー：P ≈ 0.49 × H² × T"],
+"波高加倍，能量變成四倍":["Double the height and the energy quadruples","波高が 2 倍ならエネルギーは 4 倍"],
+"波高與週期":["Wave height and period","波高と周期"],
+"H 2 m、T 8 s":["H 2 m, T 8 s","H 2 m・T 8 s"],
+"P ≈ 0.49 × H² × T（kW/m）":["P ≈ 0.49 × H² × T (kW/m)","P ≈ 0.49 × H² × T（kW/m）"],
+"風":["Wind","風"],
+"波高 H":["Height H","波高 H"],
+"一個週期 T 通過一個波長":["One wavelength passes in one period T","周期 T で 1 波長が通過"],
+"波能流密度與波高":["Wave power vs wave height","波パワー密度と波高"],
+"示性波高 H（m）":["Significant wave height H (m)","有義波高 H（m）"],
+"約 {n} kW/m":["About {n} kW/m","約 {n} kW/m"],
+"點吸收式浮標怎麼運作":["How a point absorber works","ポイントアブソーバーの仕組み"],
+"點吸收式浮標的直徑通常只有數公尺，比波長小得多，因此不論波浪從哪個方向來，都能從四周吸收能量，好像一個「點」。浮體受浮力推動上下運動，繫纜另一端固定在海床，動力擷取系統就在兩者之間拉伸與收縮。若讓浮體的運動節奏和波浪同步，形成共振，位移可以比波高大好幾倍；國外業者以相位控制讓浮體在 1 m 的浪中上下移動約 3 m，吸收更多能量。":["A point absorber is usually only a few metres across, much smaller than a wavelength, so it can absorb energy from waves arriving from any direction, as if it were a single point. Buoyancy drives the float up and down, the far end of the tether is fixed to the seabed, and the power take-off stretches and contracts between the two. If the float's motion is timed to match the waves and resonates with them, its travel can be several times the wave height; one developer abroad uses phase control to move the float about 3 m up and down in a 1 m wave, capturing more energy.","ポイントアブソーバーの直径は通常数 m と波長よりずっと小さいため、波がどの方向から来ても周囲からエネルギーを吸収でき、まるで一つの「点」のように働きます。浮体は浮力で上下し、係留索の反対側は海底に固定され、その間で動力変換装置が伸び縮みします。浮体の動きを波と同調させて共振させると、変位は波高の数倍になります。海外のメーカーは位相制御により、1 m の波で浮体を約 3 m 上下させ、より多くのエネルギーを吸収しています。"],
+"浮體直徑遠小於波長，像一個點":["Much smaller than a wavelength, like a point","浮体は波長よりずっと小さく、点のように働く"],
+"四面八方來的波浪都能吸收":["It absorbs waves from every direction","あらゆる方向からの波を吸収できる"],
+"浮體與海床之間的相對運動推動 PTO":["Float–seabed relative motion drives the PTO","浮体と海底の相対運動で PTO を駆動"],
+"共振與相位控制，讓浮體動得比浪更大":["Resonance and phase control amplify the motion","共振と位相制御で浮体を波より大きく動かす"],
+"側視：浮體、PTO 與繫纜":["Side view: float, PTO, tether","側面：浮体・PTO・係留索"],
+"相對運動":["Relative motion","相対運動"],
+"俯視：從各方向吸收":["Top view: any direction","上から：全方向から吸収"],
+"直徑數公尺，遠小於波長":["A few metres wide, far below a wavelength","直径数 m、波長よりずっと小さい"],
+"共振與相位控制（示例）":["Resonance and phase control (example)","共振と位相制御（例）"],
+"波浪 1 m":["Wave 1 m","波 1 m"],
+"浮體位移 約 3 m":["Float travel about 3 m","浮体の変位 約 3 m"],
+"動力擷取：液壓與直驅":["Power take-off: hydraulic vs direct drive","動力変換：油圧式と直動式"],
+"浮體的運動慢而有力，每秒只有一兩公尺，方向還不斷反轉，動力擷取系統要把它變成穩定的電力。液壓式用活塞把油壓進蓄壓器，再以固定壓力推動液壓馬達與發電機，能平滑波浪起伏、承受很大的力，但油路元件多、需要定期保養。直驅線性發電機讓裝有磁鐵的動子直接在線圈中往復移動發電，零件少、效率高，但低速大推力使發電機又大又重，輸出電壓與頻率不斷變化，要靠變流器整理後才能併網。":["The float moves slowly but with great force, only a metre or two per second, and keeps reversing direction; the power take-off has to turn this into steady electricity. A hydraulic PTO uses a piston to pump oil into an accumulator, which then drives a hydraulic motor and generator at constant pressure, smoothing out the waves and handling very large forces, but it has many hydraulic parts that need regular maintenance. A direct-drive linear generator moves a translator carrying magnets back and forth through coils to generate power directly, with few parts and high efficiency, but the low speed and high force make the generator large and heavy, and its voltage and frequency vary constantly, so a power converter must condition the output before it reaches the grid.","浮体の動きは遅く力強く、毎秒 1〜2 m ほどで、向きも絶えず反転します。動力変換装置はこれを安定した電力に変えなければなりません。油圧式はピストンで油をアキュムレータに押し込み、一定の圧力で油圧モータと発電機を回すため、波の変動を平滑化でき大きな力にも耐えますが、油圧部品が多く定期的な保守が必要です。直動リニア発電機は磁石を載せた可動子をコイルの中で往復させて直接発電し、部品が少なく効率も高い一方、低速・大推力のため発電機が大きく重くなり、電圧と周波数も絶えず変わるので、電力変換器で整えてから系統に連系します。"],
+"浮體運動慢、力量大，方向不斷反轉":["Slow, powerful motion that keeps reversing","浮体の動きは遅く力強く、向きが絶えず反転"],
+"液壓式：活塞壓油，蓄壓器平滑出力":["Hydraulic: piston pumps oil, accumulator smooths","油圧式：ピストンで油を圧送、アキュムレータで平滑化"],
+"直驅式：磁鐵在線圈中往復，直接發電":["Direct drive: magnets move through coils","直動式：磁石がコイル内を往復し直接発電"],
+"變流器把變動的電整理成穩定的交流電":["A converter turns it into steady AC","電力変換器で安定した交流に整える"],
+"液壓式 PTO":["Hydraulic PTO","油圧式 PTO"],
+"直驅線性發電機":["Direct-drive linear generator","直動リニア発電機"],
+"活塞缸":["Cylinder","油圧シリンダ"],
+"蓄壓器":["Accumulator","アキュムレータ"],
+"液壓馬達":["Hydraulic motor","油圧モータ"],
+"發電機":["Generator","発電機"],
+"線圈（定子）＋磁鐵（動子）":["Coils (stator) + magnets (translator)","コイル（固定子）＋磁石（可動子）"],
+"電壓與頻率不斷變化":["Voltage and frequency vary","電圧と周波数が変動"],
+"變流器":["Converter","電力変換器"],
+"優點":["Pros","長所"],
+"限制":["Cons","制約"],
+"出力平滑、承受大力量":["Smooth output, high force","出力が滑らか、大きな力に耐える"],
+"油路元件多、需定期保養":["Many parts, regular upkeep","部品が多く定期保守が必要"],
+"零件少、效率高":["Few parts, efficient","部品が少なく高効率"],
+"體積大且重、需要變流器":["Large, heavy, needs converter","大きく重く、変換器が必要"],
+"錨繫與海纜":["Moorings and cables","係留と海底ケーブル"],
+"浮標要在大浪中留在原地，錨繫系統是關鍵。張力式繫纜把浮體拉向海床基礎，基礎可用重力式混凝土塊、樁或吸力式沉箱，視海床是砂、泥或岩盤而定。浮標上下起伏，電纜不能繃直，所以從浮體到海床之間用帶浮力模組的動態海纜，彎成緩和的 S 形吸收運動，再接到固定在海床上的海底電纜送往岸邊。國外試驗案例多設在離岸數公里、水深約 40 到 50 m 的海域。":["The mooring system is what keeps a buoy on station in heavy seas. A taut tether pulls the float toward a seabed foundation, which may be a gravity concrete block, a pile or a suction caisson depending on whether the seabed is sand, mud or rock. Because the buoy keeps rising and falling, the cable cannot be pulled tight, so a dynamic cable fitted with buoyancy modules runs from the float to the seabed in a gentle S-shape that absorbs the motion, then joins a subsea export cable fixed to the seabed that carries power ashore. Test sites abroad are typically a few kilometres offshore in water about 40 to 50 m deep.","荒天の中でブイをその場にとどめるには係留システムが鍵となります。緊張係留索が浮体を海底基礎へ引き寄せ、基礎には海底が砂・泥・岩盤のどれかに応じて重力式コンクリートブロック、杭、サクションバケットを使います。ブイは上下し続けるためケーブルを張り詰めることはできず、浮体から海底までは浮力モジュール付きのダイナミックケーブルを緩やかな S 字に曲げて動きを吸収し、海底に固定した海底ケーブルにつないで陸へ送ります。海外の試験サイトの多くは、離岸数 km、水深約 40〜50 m の海域にあります。"],
+"鏡頭潛入水下，看浮標怎麼固定":["Diving below to see how the buoy is held","水中に潜り、ブイの固定方法を見る"],
+"張力式繫纜把浮體拉向海床基礎":["A taut tether pulls the float to its foundation","緊張係留索が浮体を海底基礎へ引き寄せる"],
+"動態海纜彎成 S 形，吸收浮體起伏":["A dynamic cable in an S-shape absorbs motion","S 字のダイナミックケーブルが上下動を吸収"],
+"海底電纜沿海床送往岸上變電站":["The export cable runs along the seabed ashore","海底ケーブルが海底を通って陸上変電所へ"],
+"張力式繫纜":["Taut tether","緊張係留索"],
+"動態海纜":["Dynamic cable","ダイナミックケーブル"],
+"浮力模組":["Buoyancy modules","浮力モジュール"],
+"錨繫（示例）":["Mooring (example)","係留（例）"],
+"水深":["Water depth","水深"],
+"約 45 m":["About 45 m","約 45 m"],
+"繫纜張力":["Tether tension","係留張力"],
+"離岸距離":["Offshore","離岸距離"],
+"約 4 km":["About 4 km","約 4 km"],
+"海況與颱風":["Sea states and typhoons","海象と台風"],
+"波浪能隨季節變化很大。台灣東北部每年有半年以上吹東北季風，秋冬的波浪能明顯較高，夏季風浪較小，卻可能遇上颱風。浮標的設計要在兩件事之間取得平衡：一般海況盡量多發電，極端海況則要活下來。浪太大時控制系統會限制出力與衝程；颱風來襲時進入存活模式，例如把浮體鎖定或壓入水中，讓巨浪從上方通過。颱風期間的示性波高可超過 10 m，是設計的最大考驗。":["Wave energy varies greatly with the seasons. Northeastern Taiwan has the northeast monsoon for more than half the year, so wave energy is clearly higher in autumn and winter; summer seas are calmer but typhoons may strike. A buoy's design has to balance two goals: generate as much as possible in normal seas and survive extreme ones. When waves grow too large, the control system limits output and stroke; when a typhoon arrives the buoy enters survival mode, for example locking the float or pulling it underwater so the huge waves pass over it. Significant wave heights during typhoons can exceed 10 m, the toughest test for the design.","波力エネルギーは季節によって大きく変わります。台湾北東部では一年の半分以上北東季節風が吹き、秋冬は波のエネルギーが明らかに大きく、夏は波が穏やかな一方で台風に見舞われることがあります。ブイの設計では、通常の海象ではできるだけ多く発電し、極端な海象では生き残るという二つの目標のバランスを取ります。波が大きすぎると制御システムが出力とストロークを制限し、台風が来るとサバイバルモードに入り、浮体をロックしたり水中に沈めたりして大波を上に通します。台風時の有義波高は 10 m を超えることがあり、設計上の最大の試練です。"],
+"東北季風季節，波浪能明顯較高":["Monsoon season brings much higher wave energy","北東季節風の季節は波力エネルギーが大きい"],
+"夏季風浪較小，但有颱風威脅":["Summer seas are calmer, but typhoons threaten","夏は波が穏やかだが、台風の脅威がある"],
+"一般海況發電，大浪時限制出力":["Generate normally, limit output in big waves","通常は発電し、高波時は出力を制限"],
+"颱風來襲：進入存活模式，讓巨浪通過":["Typhoon: survival mode lets huge waves pass","台風時はサバイバルモードで大波をやり過ごす"],
+"台灣東北部每月波能（示意）":["Monthly wave power, NE Taiwan (illustrative)","台湾北東部の月別波パワー（模式）"],
+"月份":["Month","月"],
+"東北季風":["NE monsoon","北東季節風"],
+"颱風":["Typhoon","台風"],
+"一般海況":["Normal seas","通常の海象"],
+"發電":["Generating","発電"],
+"大浪":["Large waves","高波"],
+"限制出力與衝程":["Limit output and stroke","出力とストロークを制限"],
+"存活模式":["Survival mode","サバイバルモード"],
+"示性波高可超過 10 m":["Sig. wave height can exceed 10 m","有義波高は 10 m を超えることも"],
+"台灣的波浪能":["Wave energy in Taiwan","台湾の波力エネルギー"],
+"台灣四面環海，波浪能資源以東北部、東部外海、澎湖西側與巴士海峽較佳，波能流密度約 15 到 20 kW/m；西岸與西南沿海多在 10 kW/m 以下。估計周邊海域的蘊藏量約 10 GW。颱風與地震頻繁，國外機組不一定適合台灣，國內正發展適合在地海況的技術。蘇澳港已規劃 3 處離岸式波浪發電試驗區，業界預估 2030 年前裝置容量可達 50 到 100 MW。":["Taiwan is surrounded by sea. The best wave resources are off the northeast and east coasts, west of Penghu and in the Bashi Channel, with wave power densities of about 15 to 20 kW/m, while the west and southwest coasts are mostly below 10 kW/m. The resource around Taiwan is estimated at about 10 GW. With frequent typhoons and earthquakes, devices developed abroad do not always suit Taiwan, so local teams are developing technology for local sea conditions. Su'ao Port has planned three offshore wave energy test zones, and industry expects installed capacity to reach 50 to 100 MW by 2030.","台湾は四方を海に囲まれています。波力資源は北東部・東部沖、澎湖西側、バシー海峡が良好で、波パワー密度は約 15〜20 kW/m、西岸と南西沿岸は多くが 10 kW/m 以下です。周辺海域の賦存量は約 10 GW と推計されています。台風や地震が多いため海外の装置が台湾に適するとは限らず、国内では地元の海象に合った技術の開発が進められています。蘇澳港では沖合波力発電の試験区域が 3 か所計画され、業界は 2030 年までに設備容量が 50〜100 MW に達すると見込んでいます。"],
+"東北部與東部外海的波浪能較佳":["The NE and east coasts have the best waves","北東部と東部沖の波力資源が良好"],
+"高能海域約 15–20 kW/m":["High-energy waters: about 15–20 kW/m","高エネルギー海域は約 15–20 kW/m"],
+"周邊海域蘊藏量估計約 10 GW":["The resource around Taiwan: about 10 GW","周辺海域の賦存量は約 10 GW と推計"],
+"蘇澳港規劃 3 處離岸式試驗區":["Su'ao Port plans three offshore test zones","蘇澳港に沖合試験区域を 3 か所計画"],
+"波能流密度分布（示意）":["Wave power density (illustrative)","波パワー密度の分布（模式）"],
+"澎湖西側":["West of Penghu","澎湖西側"],
+"巴士海峽":["Bashi Channel","バシー海峡"],
+"西南沿海 <10 kW/m":["SW coast <10 kW/m","南西沿岸 <10 kW/m"],
+"蘇澳港":["Su'ao Port","蘇澳港"],
+"東北部、澎湖西側、巴士海峽":["NE, W of Penghu, Bashi","北東部・澎湖西側・バシー海峡"],
+"高能海域波能流":["High-energy waters","高エネルギー海域"],
+"周邊海域蘊藏量":["Resource around Taiwan","周辺海域の賦存量"],
+"約 10 GW":["About 10 GW","約 10 GW"],
+"理論估計值":["Theoretical estimate","理論推計値"],
+"蘇澳港試驗區":["Su'ao Port test zones","蘇澳港の試験区域"],
+"3 處":["3 sites","3 か所"],
+"離岸式波浪發電":["Offshore wave energy","沖合波力発電"],
+"2030 年預估":["2030 estimate","2030 年の見込み"],
+"業界預估裝置容量":["Industry estimate","業界の見込み容量"]
+});
+
+/* ================= episode engine ================= */
+const hn=(i,j)=>{const s=Math.sin(i*127.1+j*311.7)*43758.5453;return s-Math.floor(s);};
+const SH=EP.shots,SS=[];let TOTAL=0;SH.forEach((s,i)=>{SS[i]=TOTAL;TOTAL+=s.dur;});
+let SI=0;
+const P2=n=>String(n).padStart(2,'0');
+
+/* world-space text with a minimum on-screen size */
+function wt(x,y,t,size,col,weight,align,font,base){
+  t=tr(t);const k=fit*cam.s,sz=Math.max(size,9.5/k);
+  ctx.font=`${weight||500} ${sz}px ${font||FONT}`;ctx.textAlign=align||'left';ctx.textBaseline=base||'alphabetic';
+  ctx.fillStyle=col||'#fff';ctx.fillText(t,x,y);ctx.textAlign='left';ctx.textBaseline='alphabetic';
+}
+function wtw(t,size,weight,font){t=tr(t);const k=fit*cam.s,sz=Math.max(size,9.5/k);ctx.font=`${weight||500} ${sz}px ${font||FONT}`;return ctx.measureText(t).width;}
+function arrow(x0,y0,x1,y1,col,lw,hs){
+  lw=lw||2;hs=hs||lw*4+2;const a=Math.atan2(y1-y0,x1-x0);
+  ln([x0,y0,x1-Math.cos(a)*hs*.6,y1-Math.sin(a)*hs*.6],col,lw);
+  poly([x1,y1,x1-Math.cos(a-.42)*hs,y1-Math.sin(a-.42)*hs,x1-Math.cos(a+.42)*hs,y1-Math.sin(a+.42)*hs],col);
+}
+function tag(x,y,t,o){ // filled pill in world coords
+  o=o||{};const size=o.size||20,pad=size*.55,w=wtw(t,size,o.weight||700)+pad*2,h=size*1.75;
+  let bx=o.align==='center'?x-w/2:o.align==='right'?x-w:x;
+  rrp(bx,y-h/2,w,h,o.r===undefined?h/2:o.r);ctx.fillStyle=o.bg||'#f2c230';ctx.fill();
+  wt(bx+pad,y+1,t,size,o.fg||'#13232e',o.weight||700,'left',FONT,'middle');return w;
+}
+function card(x,y,w,h,o){o=o||{};rrp(x,y,w,h,o.r||14);ctx.fillStyle=o.bg||'rgba(255,255,255,.06)';ctx.fill();if(o.st!==false){ctx.strokeStyle=o.st||'rgba(255,255,255,.16)';ctx.lineWidth=o.lw||1.4;ctx.stroke();}}
+function diagBG(){
+  applyCam({x:800,y:450,s:1});
+  ctx.fillStyle='#0e2a3b';ctx.fillRect(VX0,VY0,VX1-VX0,VY1-VY0);
+  ctx.strokeStyle='rgba(255,255,255,.04)';ctx.lineWidth=1;ctx.beginPath();
+  for(let x=0;x<=W;x+=50){ctx.moveTo(x,VY0);ctx.lineTo(x,VY1);}for(let y=0;y<=H;y+=50){ctx.moveTo(VX0,y);ctx.lineTo(VX1,y);}ctx.stroke();
+}
+function camMix(a,b,k){return {x:lerp(a.x,b.x,k),y:lerp(a.y,b.y,k),s:lerp(a.s,b.s,k)};}
+/* chart helper in world coords: axes box, returns mapper */
+function chartBox(x,y,w,h,o){
+  o=o||{};card(x,y,w,h,{bg:'rgba(7,27,39,.75)',r:12});
+  const px=x+(o.pl||64),py=y+(o.pt||46),pw=w-(o.pl||64)-(o.pr||24),ph=h-(o.pt||46)-(o.pb||46);
+  if(o.title)wt(x+18,y+32,o.title,20,'#f2c230',700);
+  ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=1;ctx.beginPath();
+  const gx=o.gx||5,gy=o.gy||4;for(let i=0;i<=gx;i++){ctx.moveTo(px+pw*i/gx,py);ctx.lineTo(px+pw*i/gx,py+ph);}for(let i=0;i<=gy;i++){ctx.moveTo(px,py+ph*i/gy);ctx.lineTo(px+pw,py+ph*i/gy);}ctx.stroke();
+  ln([px,py,px,py+ph,px+pw,py+ph],'rgba(255,255,255,.5)',1.4);
+  const X=v=>px+pw*(v-o.x0)/(o.x1-o.x0),Y=v=>py+ph-ph*(v-o.y0)/(o.y1-o.y0);
+  if(o.xl)wt(px+pw,py+ph+36,o.xl,16,'rgba(227,236,238,.7)',500,'right');
+  if(o.yl)wt(px,py-12,o.yl,16,'rgba(227,236,238,.7)',500,'left');
+  if(o.xt)o.xt.forEach(v=>wt(X(v),py+ph+20,String(v),16,'rgba(227,236,238,.75)',600,'center',COND));
+  if(o.yt)o.yt.forEach(v=>wt(px-10,Y(v)+5,String(v),16,'rgba(227,236,238,.75)',600,'right',COND));
+  return {X,Y,px,py,pw,ph};
+}
+
+/* ================= localisation of episode data ================= */
+function epT(){return LANG==='en'?(EP.en||EP.t):tr(EP.t);}
+function epSub(){return LANG==='en'?EP.t:(EP.en||'');}
+function loc(i){const s=SH[i];
+  if(LANG==='zh')return {t:s.t,sub:s.en||'',d:s.d,s:s.s};
+  return {t:LANG==='en'?(s.en||tr(s.t)):tr(s.t),sub:LANG==='en'?s.t:(s.en||''),d:tr(s.d),s:s.s.map(x=>[x[0],tr(x[1])])};}
+function seriesLine(){if(!EP.seriesName)return '';return ui(EP.total?'series':'seriesOne',{s:tr(EP.seriesName),n:EP.no,t:EP.total||''});}
+function docTitle(){return EP.seriesName?`${P2(EP.no)} ${epT()}｜${tr(EP.seriesName)}`:epT();}
+
+/* ================= frame ================= */
+function renderFrame(){
+  SI=0;while(SI<SH.length-1&&T>=SS[SI+1])SI++;
+  const sh=SH[SI],u=clamp((T-SS[SI])/sh.dur);U=u;TT=T;
+  screenSpace();ctx.clearRect(0,0,cssW,cssH);
+  if(sh.side){applyCam(sh.cam?sh.cam(u):{x:800,y:450,s:1});(sh.base||EP.base||(typeof sideBase==='function'?sideBase:()=>{}))(u);if(sh.draw)sh.draw(u);(sh.end||EP.end||(typeof sideEnd==='function'?sideEnd:()=>{}))(u);if(sh.fx)sh.fx(u);}
+  else{if(sh.cam)applyCam(sh.cam(u));else applyCam({x:800,y:450,s:1});sh.draw(u);}
+  drawTicks();drawLabels();if(sh.hud)sh.hud(u);
+  const tin=T-SS[SI],tout=SS[SI]+sh.dur-T;let fa=0;
+  if(SI>0)fa=Math.max(fa,1-tin/.45);if(SI<SH.length-1)fa=Math.max(fa,1-tout/.45);
+  if(fa>0){screenSpace();ctx.fillStyle=`rgba(4,14,22,${clamp(fa)*.92})`;ctx.fillRect(0,0,cssW,cssH);}
+  if(T<3.2){ // opening title
+    const a=T<2.3?1:1-(T-2.3)/.9;screenSpace();ctx.fillStyle=`rgba(5,22,32,${.82*a})`;ctx.fillRect(0,0,cssW,cssH);
+    ctx.globalAlpha=a;const fs=clamp(cssW/20,22,64),mw=cssW*.9;ctx.textAlign='center';ctx.textBaseline='alphabetic';
+    ctx.font=`700 ${fs*1.3}px ${COND}`;ctx.fillStyle='#f2c230';ctx.fillText(P2(EP.no),cssW/2,cssH*.43);
+    const tt=epT(),tfs=LANG==='en'&&tt.length>26?fs*.8:fs;
+    ctx.font=`900 ${tfs}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(tt,cssW/2,cssH*.43+fs*1.2,mw);
+    ctx.font=`500 ${fs*.42}px ${LANG==='en'?FONT:COND}`;ctx.fillStyle='rgba(255,255,255,.8)';ctx.fillText(epSub(),cssW/2,cssH*.43+fs*1.85,mw);
+    ctx.globalAlpha=1;ctx.textAlign='left';
+  }
+}
+function langText(){
+  let s='0123456789 MWkVm/s%°→';
+  for(const k in DICT)s+=LI<0?k:DICT[k][LI];
+  SH.forEach((c,i)=>{const l=loc(i);s+=l.t+l.sub+l.d+l.s.map(x=>x[1]).join('');});
+  EP.facts.forEach(f=>{s+=tr(f[0])+tr(f[1])+tr(f[2]);});s+=epT()+tr(EP.lede)+tr(EP.note)+seriesLine();
+  for(const k in UI)s+=UI[k][LI+1];return s;
+}
+function ensureFonts(){
+  if(!document.fonts||!document.fonts.load)return Promise.resolve();
+  const fam=LANG==='ja'?'"Noto Sans JP"':'"Noto Sans TC"',txt=langText(),jobs=[];
+  for(const w of [400,500,700,900])jobs.push(document.fonts.load(`${w} 16px ${fam}`,txt));
+  if(LANG==='ja')for(const w of [500,700])jobs.push(document.fonts.load(`${w} 16px "Noto Sans TC"`,txt));
+  for(const w of [500,600,700])jobs.push(document.fonts.load(`${w} 16px "Barlow Condensed"`,'0123456789 MWkV'));
+  return Promise.all(jobs).then(()=>document.fonts.ready).catch(()=>{});
+}
+
+/* ================= UI controller ================= */
+(function(){
+  const $=id=>document.getElementById(id);
+  const stage=$('stage'),tl=$('timeline'),track=$('tlTrack'),fill=$('tlFill'),head=$('tlHead'),timeEl=$('time');
+  const bPlay=$('bPlay'),playIcon=$('playIcon'),cap=$('caption'),cardEl=$('chapcard');
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing=!reduce,speed=1,last=0,dirty=true,ended=false,prevC=-1,prevStep=-2,dragging=false,wasPlaying=false;
+  const fmt=t=>{t=Math.max(0,Math.floor(t));return Math.floor(t/60)+':'+P2(t%60);};
+  $('mNo').textContent=P2(EP.no);
+  SH.forEach(c=>{const d=document.createElement('div');d.className='tl-seg';d.style.flex=c.dur+' 0 0';track.insertBefore(d,fill);});
+  const grid=$('shotGrid');
+  SH.forEach((c,i)=>{const b=document.createElement('button');b.className='chap';b.type='button';b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span>`;b.addEventListener('click',()=>jump(SS[i]+.001));grid.appendChild(b);});
+  const btns=[...grid.children];
+  function fillStatic(){
+    $('mT').textContent=epT();$('mLede').textContent=tr(EP.lede);$('mSeries').textContent=seriesLine();
+    $('facts').innerHTML='';EP.facts.forEach(f=>{const d=document.createElement('div');d.className='fact';const dt=document.createElement('dt');dt.textContent=tr(f[0]);const sm=document.createElement('small');sm.textContent=tr(f[1]);dt.appendChild(sm);const dd=document.createElement('dd');dd.textContent=tr(f[2]);d.append(dt,dd);$('facts').appendChild(d);});
+    $('foot').textContent=tr(EP.note);$('cv').setAttribute('aria-label',docTitle());
+    btns.forEach((b,i)=>{b.querySelector('.t').textContent=loc(i).t;});
+  }
+  function resize(){const r=cv.getBoundingClientRect();if(r.width<2)return;cssW=r.width;cssH=r.height;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(cssW*dpr);cv.height=Math.round(cssH*dpr);fit=cssW/W;dirty=true;}
+  if(window.ResizeObserver)new ResizeObserver(resize).observe(cv);else window.addEventListener('resize',resize);
+  resize();
+  function setPlayIcon(){
+    playIcon.innerHTML=playing?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':(ended?'<path d="M12 5a7 7 0 1 1-6.6 4.7l1.9.7A5 5 0 1 0 12 7v3L7.5 6 12 2z"/>':'<path d="M7 4.5v15l12-7.5z"/>');
+    bPlay.setAttribute('aria-label',playing?ui('pause'):(ended?ui('replay'):ui('play')));
+  }
+  function jump(t){T=clamp(t,0,TOTAL-.001);ended=false;dirty=true;setPlayIcon();}
+  function togglePlay(){if(ended){T=0;ended=false;playing=true;}else playing=!playing;setPlayIcon();dirty=true;}
+  bPlay.addEventListener('click',togglePlay);
+  const idx=()=>{let c=0;while(c<SH.length-1&&T>=SS[c+1])c++;return c;};
+  $('bPrev').addEventListener('click',()=>{const c=idx();jump(T-SS[c]>1.5?SS[c]+.001:SS[Math.max(0,c-1)]+.001);});
+  $('bNext').addEventListener('click',()=>{const c=idx();if(c<SH.length-1)jump(SS[c+1]+.001);else jump(TOTAL-.01);});
+  document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',()=>{speed=+b.dataset.speed;document.querySelectorAll('[data-speed]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));}));
+  const bLab=$('bLabels');bLab.addEventListener('click',()=>{SHOWLAB=!SHOWLAB;bLab.setAttribute('aria-pressed',SHOWLAB?'true':'false');dirty=true;});
+  $('bFull').addEventListener('click',()=>{const d=document;if(d.fullscreenElement||d.webkitFullscreenElement){(d.exitFullscreen||d.webkitExitFullscreen).call(d);}else{const f=stage.requestFullscreen||stage.webkitRequestFullscreen;if(f)f.call(stage);}});
+  document.addEventListener('fullscreenchange',()=>setTimeout(resize,60));
+  function tlFrac(e){const r=track.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width);}
+  tl.addEventListener('pointerdown',e=>{dragging=true;wasPlaying=playing;playing=false;tl.setPointerCapture(e.pointerId);jump(tlFrac(e)*TOTAL);});
+  tl.addEventListener('pointermove',e=>{if(dragging)jump(tlFrac(e)*TOTAL);});
+  const endDrag=()=>{if(!dragging)return;dragging=false;playing=wasPlaying;setPlayIcon();};
+  tl.addEventListener('pointerup',endDrag);tl.addEventListener('pointercancel',endDrag);
+  tl.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){jump(T-5);e.preventDefault();e.stopPropagation();}
+    else if(e.key==='ArrowRight'){jump(T+5);e.preventDefault();e.stopPropagation();}
+    else if(e.key==='Home'){jump(0);e.preventDefault();}else if(e.key==='End'){jump(TOTAL-.01);e.preventDefault();}
+  });
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target.tagName||'').toLowerCase();if($('recDlg').open)return;if(tag==='input'||tag==='textarea')return;
+    if(e.key===' '||e.code==='Space'){if(tag==='button')return;e.preventDefault();togglePlay();}
+    else if(e.key==='ArrowLeft'&&e.target!==tl){$('bPrev').click();}else if(e.key==='ArrowRight'&&e.target!==tl){$('bNext').click();}
+  });
+  function updateUI(){
+    const c=SI,L=loc(c),f=T/TOTAL*100;
+    fill.style.width=f+'%';head.style.left=f+'%';
+    tl.setAttribute('aria-valuenow',Math.round(f));tl.setAttribute('aria-valuetext',`${c+1} ${L.t}${ui('sep')}${fmt(T)}`);
+    timeEl.textContent=fmt(T)+' / '+fmt(TOTAL);
+    if(c!==prevC){
+      prevC=c;prevStep=-2;cardEl.classList.remove('show');
+      setTimeout(()=>{$('ccNo').innerHTML=`${P2(EP.no)}<small>${ui('shotOf',{i:c+1,n:SH.length})}</small>`;$('ccT').textContent=L.t;$('ccE').textContent=L.sub;cardEl.classList.add('show');},reduce?0:180);
+      $('iNo').textContent=c+1;$('iT').textContent=L.t;$('iE').textContent=L.sub;$('iD').textContent=L.d;
+      $('iS').innerHTML='';L.s.forEach(s=>{const li=document.createElement('li');li.textContent=s[1];$('iS').appendChild(li);});
+      btns.forEach((b,i)=>{b.classList.toggle('active',i===c);b.classList.toggle('past',i<c);if(i===c)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+    }
+    let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
+    if(si!==prevStep){prevStep=si;cap.innerHTML='<span class="dot"></span>';cap.appendChild(document.createTextNode(L.s[si][1]));[...$('iS').children].forEach((li,i)=>{li.className=i<si?'done':i===si?'now':'';});}
+  }
+
+  /* ---------- language ---------- */
+  function setLang(l,save){
+    LANG=LANGS.includes(l)?l:'zh';LI=LANG==='zh'?-1:LANG==='en'?0:1;
+    document.documentElement.lang=LANG==='zh'?'zh-Hant-TW':LANG;
+    FONT=LANG==='ja'?FONT_JP:FONT_TC;
+    COND='"Barlow Condensed","Arial Narrow",'+(LANG==='ja'?'"Noto Sans JP",':'')+'"Noto Sans TC","Noto Sans CJK TC",sans-serif';
+    document.title=docTitle();
+    document.querySelectorAll('[data-i18n]').forEach(e=>{e.textContent=ui(e.dataset.i18n);});
+    document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',ui(e.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-title]').forEach(e=>{e.title=ui(e.dataset.i18nTitle);});
+    document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG?'true':'false'));
+    fillStatic();prevC=-1;prevStep=-2;setPlayIcon();dirty=true;
+    if(recDlg.open)recSummary();
+    if(save){try{localStorage.setItem(LANG_KEY,LANG);}catch(e){}}
+    document.dispatchEvent(new CustomEvent('langchange',{detail:LANG}));
+    ensureFonts().then(()=>{dirty=true;});
+  }
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{if(!recBusy)setLang(b.dataset.lang,true);}));
+
+  /* ---------- MP4 export (offline, frame-accurate: WebCodecs + mp4-muxer) ---------- */
+  const recDlg=$('recDlg'),recGo=$('recGo'),recCancel=$('recCancel'),recDl=$('recDl'),recSum=$('recSum'),recProg=$('recProg'),recBar=$('recBar'),recStat=$('recStat'),recPrev=$('recPrev'),recNote=$('recNote');
+  const REC={speed:1,range:'all',res:1080,fps:30};
+  let recBusy=false,recAbort=false,recUrl=null,recChap=0;
+  const LW=1280,LH=720;
+  recDlg.querySelectorAll('[data-opt]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    if(recBusy)return;const k=g.dataset.opt;REC[k]=k==='range'?b.dataset.v:+b.dataset.v;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));recSummary();})));
+  function recSpan(){return REC.range==='chap'?[SS[recChap],SS[recChap]+SH[recChap].dur]:[0,TOTAL];}
+  function recBitrate(){return (REC.res>=1080?8e6:5e6)*(REC.fps>30?1.5:1);}
+  function recSummary(){
+    const [t0,t1]=recSpan(),d=(t1-t0)/REC.speed,f=Math.ceil(d*REC.fps),m=Math.ceil(recBitrate()*d/8/1e6);
+    let s=ui('sum',{d:fmt(d),f:f.toLocaleString('en-US'),m:m});
+    if(REC.range==='chap')s+=ui('sumChap',{c:(recChap+1)+' '+loc(recChap).t});
+    recSum.textContent=s;
+  }
+  function recStatus(msg,err){recStat.textContent=msg;recStat.classList.toggle('err',!!err);}
+  $('bRec').addEventListener('click',()=>{
+    recChap=idx();playing=false;setPlayIcon();
+    if(!recBusy){recProg.hidden=true;recDl.hidden=true;recStatus('');recGo.textContent=ui('start');}
+    recSummary();if(recDlg.showModal)recDlg.showModal();else recDlg.setAttribute('open','');
+  });
+  $('recX').addEventListener('click',()=>{if(recBusy)recAbort=true;recDlg.close();});
+  recDlg.addEventListener('cancel',e=>{if(recBusy)e.preventDefault();});
+  recCancel.addEventListener('click',()=>{recAbort=true;});
+  recGo.addEventListener('click',()=>{if(!recBusy)recordVideo();});
+  const mch=new MessageChannel(),mq=[];mch.port1.onmessage=()=>{const f=mq.shift();if(f)f();};
+  const yieldNow=()=>new Promise(r=>{mq.push(r);mch.port2.postMessage(0);});
+  const breathe=()=>document.hidden?yieldNow():new Promise(r=>setTimeout(r,0));
+  function wrapLines(text,maxW){
+    const toks=text.match(/[A-Za-z0-9À-ÿ().,:;'’"%°–\-\/+&]+\s*|\s+|\S/g)||[];
+    const out=[];let cur='';
+    for(const t of toks){const next=cur+t;if(cur.trim()&&ctx.measureText(next.trimEnd()).width>maxW){out.push(cur.trimEnd());cur=t.trimStart();}else cur=next;}
+    if(cur.trim())out.push(cur.trimEnd());return out.length?out:[''];
+  }
+  /* the chapter card, caption and scale note live in HTML on the page, so the video draws them onto the canvas */
+  function drawOverlays(spd){
+    screenSpace();const c=SI,L=loc(c);
+    const vt=(T-SS[c])/spd,a=clamp((vt-.18)/.5);
+    if(a>0&&T>=3.2){
+      ctx.save();ctx.globalAlpha=a;ctx.translate(0,-6*(1-a));
+      const x0=clamp(cssW*.02,10,22),y0=clamp(cssW*.02,10,20),nS=clamp(cssW*.046,30,58),tS=clamp(cssW*.021,15,26),eS=clamp(cssW*.0135,12,17);
+      const inner=tS*1.2+eS*1.6,bh=Math.max(nS*.9,inner),no=P2(EP.no),sub=ui('shotOf',{i:c+1,n:SH.length});
+      ctx.textBaseline='alphabetic';ctx.textAlign='left';ctx.font=`700 ${nS}px ${COND}`;const nw=ctx.measureText(no).width;
+      ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=12;ctx.shadowOffsetY=2;ctx.fillStyle='#f2c230';ctx.fillText(no,x0,y0+nS*.78);
+      ctx.font=`600 ${nS*.42}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(sub,x0+nw+4,y0+nS*.78);const sw=ctx.measureText(sub).width;
+      const bx=x0+nw+sw+14;ctx.shadowColor='transparent';ctx.fillStyle='#f2c230';ctx.fillRect(bx,y0,3,bh);
+      const tx=bx+15,ty=y0+(bh-inner)/2;
+      ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.font=`900 ${tS}px ${FONT}`;ctx.fillStyle='#fff';ctx.fillText(L.t,tx,ty+tS*.98,cssW*.6);
+      ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=6;ctx.shadowOffsetY=1;ctx.font=`500 ${eS}px ${COND}`;ctx.fillStyle='rgba(255,255,255,.82)';ctx.fillText(L.sub,tx,ty+tS*1.2+eS*1.12,cssW*.6);
+      ctx.restore();
+    }
+    if(cssW>=820){ctx.font=`400 11px ${FONT}`;ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,.62)';ctx.fillText(ui('scaleNote'),cssW-12,10);ctx.textAlign='left';}
+    if(T<3.2)return;
+    let si=0;L.s.forEach((s,i)=>{if(U>=s[0])si=i;});
+    const fs=clamp(cssW*.015,12,17),lh=fs*1.6,px=16,py=7,dotW=16,maxBox=Math.min(cssW*.88,760);
+    ctx.font=`500 ${fs}px ${FONT}`;
+    const lines=wrapLines(L.s[si][1],maxBox-px*2-dotW);
+    const tw=Math.max(...lines.map((l,i)=>ctx.measureText(l).width+(i?0:dotW)));
+    const bw=Math.min(maxBox,tw+px*2),bh=lines.length*lh+py*2,bx=(cssW-bw)/2,by=cssH-clamp(cssW*.018,8,20)-bh;
+    rrp(bx,by,bw,bh,10);ctx.fillStyle='rgba(7,26,37,.78)';ctx.fill();
+    ctx.textBaseline='middle';ctx.textAlign='left';
+    lines.forEach((l,i)=>{const w=ctx.measureText(l).width+(i?0:dotW),lx=(cssW-w)/2,ly=by+py+lh*(i+.5);
+      if(!i){circ(lx+4,ly,4,'#f2c230');}ctx.fillStyle='#f2f6f7';ctx.fillText(l,lx+(i?0:dotW),ly+.5);});
+  }
+  function renderExportFrame(ectx,t,spd,d){
+    const sv={ctx,cssW,cssH,dpr,fit,T};
+    ctx=ectx;cssW=LW;cssH=LH;dpr=d;fit=cssW/W;T=t;
+    try{renderFrame();drawOverlays(spd);}
+    finally{ctx=sv.ctx;cssW=sv.cssW;cssH=sv.cssH;dpr=sv.dpr;fit=sv.fit;T=sv.T;}
+  }
+  async function pickConfig(w,h,fps,br){
+    const list=[['avc','avc1.640033'],['avc','avc1.64002A'],['avc','avc1.640028'],['avc','avc1.4D4033'],['avc','avc1.4D402A'],['avc','avc1.4D4028'],['avc','avc1.42E033'],['avc','avc1.42E02A'],['avc','avc1.42E028'],['avc','avc1.42001F'],
+      ['vp9','vp09.00.40.08'],['vp9','vp09.00.31.08'],['av1','av01.0.08M.08'],['av1','av01.0.05M.08']];
+    for(const [mux,codec] of list){const cfg={codec,width:w,height:h,bitrate:br,framerate:fps};if(mux==='avc')cfg.avc={format:'avc'};
+      try{const r=await VideoEncoder.isConfigSupported(cfg);if(r&&r.supported)return {mux,cfg};}catch(e){}}
+    return null;
+  }
+  async function recordVideo(){
+    recProg.hidden=false;recDl.hidden=true;recBar.style.width='0%';
+    if(typeof VideoEncoder==='undefined'||typeof VideoFrame==='undefined'||typeof Mp4Muxer==='undefined'){recNote.hidden=true;recStatus(ui('stNoSup'),true);return;}
+    recBusy=true;recAbort=false;recNote.hidden=false;recGo.disabled=true;recCancel.hidden=false;recDlg.classList.add('busy');
+    if(recUrl){URL.revokeObjectURL(recUrl);recUrl=null;}
+    recStatus(ui('stPrep'));
+    const d=REC.res/720,VW=Math.round(LW*d/2)*2,VH=Math.round(LH*d/2)*2,fps=REC.fps,spd=REC.speed,[t0,t1]=recSpan();
+    const n=Math.ceil((t1-t0)/spd*fps),us=1e6/fps,keyEvery=fps*2;
+    let enc=null,encErr=null;
+    try{
+      await ensureFonts();
+      const pick=await pickConfig(VW,VH,fps,recBitrate());
+      if(!pick)throw new Error('__nocodec');const cfg=pick.cfg;
+      const muxer=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:pick.mux,width:VW,height:VH,frameRate:fps},fastStart:'in-memory',firstTimestampBehavior:'offset'});
+      enc=new VideoEncoder({output:(chunk,meta)=>muxer.addVideoChunk(chunk,meta),error:e=>{encErr=e;}});
+      enc.configure(cfg);
+      const ec=document.createElement('canvas');ec.width=VW;ec.height=VH;
+      const ectx=ec.getContext('2d',{alpha:false}),pctx=recPrev.getContext('2d');
+      const t0ms=performance.now();let lastUI=0;
+      for(let i=0;i<n;i++){
+        if(recAbort||encErr)break;
+        const t=Math.min(t0+i/fps*spd,t1-.001);
+        renderExportFrame(ectx,t,spd,d);
+        const fr=new VideoFrame(ec,{timestamp:Math.round(i*us),duration:Math.round(us)});
+        enc.encode(fr,{keyFrame:i%keyEvery===0});fr.close();
+        while(enc.encodeQueueSize>6&&!encErr&&!recAbort)await yieldNow();
+        const now=performance.now();
+        if(now-lastUI>150||i===n-1){lastUI=now;const p=(i+1)/n,el=(now-t0ms)/1000;recBar.style.width=(p*100).toFixed(1)+'%';recStatus(ui('stRun',{p:Math.floor(p*100),e:fmt(el/p-el)}));pctx.drawImage(ec,0,0,recPrev.width,recPrev.height);await breathe();}
+      }
+      if(encErr)throw encErr;
+      if(recAbort){try{enc.close();}catch(e){}recBar.style.width='0%';recStatus(ui('stCancel'));return;}
+      recStatus(ui('stFin'));await breathe();
+      await enc.flush();if(encErr)throw encErr;enc.close();
+      muxer.finalize();
+      const blob=new Blob([muxer.target.buffer],{type:'video/mp4'});
+      recUrl=URL.createObjectURL(blob);recDl.href=recUrl;
+      recDl.download=`${EP.slug||'episode'}-${P2(EP.no)}_${LANG}_${REC.range==='chap'?'shot'+P2(recChap+1)+'_':''}${spd}x_${REC.res}p${fps}.mp4`;
+      recDl.hidden=false;recDl.click();
+      recStatus(ui('stDone',{s:(blob.size/1048576).toFixed(1)})+(pick.mux==='avc'?'':' '+ui('stAlt',{c:pick.mux.toUpperCase()})));recGo.textContent=ui('again');
+    }catch(e){
+      const msg=e&&e.message;recStatus(msg==='__nocodec'?ui('stNoCodec'):ui('stErr')+(msg||String(e)),true);
+      try{if(enc&&enc.state!=='closed')enc.close();}catch(_){}
+    }finally{
+      recBusy=false;recGo.disabled=false;recCancel.hidden=true;recNote.hidden=true;recDlg.classList.remove('busy');dirty=true;
+    }
+  }
+
+  function loop(ts){
+    const dt=last?Math.min(.1,(ts-last)/1000):0;last=ts;
+    if(playing&&!ended){T+=dt*speed;if(T>=TOTAL){T=TOTAL-.001;ended=true;playing=false;setPlayIcon();}dirty=true;}
+    if(dirty&&cssW>2){renderFrame();updateUI();dirty=false;}
+    requestAnimationFrame(loop);
+  }
+  let initLang='zh';
+  try{const q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase(),sv=localStorage.getItem(LANG_KEY)||localStorage.getItem('rea-lang'),nv=(navigator.language||'').toLowerCase();
+    initLang=LANGS.includes(q)?q:LANGS.includes(sv)?sv:nv.startsWith('ja')?'ja':nv.startsWith('zh')?'zh':nv.startsWith('en')?'en':'zh';}catch(e){}
+  setLang(initLang,false);
+  setPlayIcon();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{dirty=true;});
+  window.__ow={seek:t=>{T=t;dirty=true;},pause:()=>{playing=false;setPlayIcon();},shot:i=>{T=SS[i]+.5;dirty=true;},setLang:l=>setLang(l,false),keep:()=>[EP.t,...SH.map(s=>s.t),...QA_KEEP],get T(){return T;},SS,TOTAL};
+  requestAnimationFrame(loop);
+})();
+
+</script>
+<script id="topnav-js">(function(){var K='rea-lang',LS=['zh','en','ja'];
+function cur(){try{var q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();if(LS.indexOf(q)>=0)return q;var s=localStorage.getItem(K)||localStorage.getItem('owf-lang');if(LS.indexOf(s)>=0)return s;var n=(navigator.language||'').toLowerCase();return n.indexOf('ja')==0?'ja':n.indexOf('en')==0?'en':'zh';}catch(e){return 'zh';}}
+function apply(l){document.querySelectorAll('[data-zh]').forEach(function(el){var v=el.getAttribute('data-'+l);el.textContent=v||el.getAttribute('data-zh');});
+ var t=document.querySelector('title[data-zh]');if(t)document.title=t.getAttribute('data-'+l)||t.getAttribute('data-zh');
+ if(!document.getElementById('cv'))document.documentElement.lang=l==='zh'?'zh-Hant-TW':l;
+ document.querySelectorAll('.langsw [data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');});}
+document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('[data-lang]');if(!b)return;var l=b.getAttribute('data-lang');try{localStorage.setItem(K,l);}catch(e){}setTimeout(function(){apply(l);},0);});
+document.addEventListener('langchange',function(ev){apply(ev.detail);});
+apply(cur());})();</script></body>
+</html>
