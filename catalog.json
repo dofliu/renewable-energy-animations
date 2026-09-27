@@ -414,6 +414,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "原理",
+            "en": "Principles",
+            "ja": "原理"
+          },
+          "episodes": [
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "風機如何把風變成電",
+                "en": "How a wind turbine turns wind into electricity",
+                "ja": "風車はどうやって風を電気に変えるのか"
+              },
+              "sub": {
+                "zh": "風的功率與 v³、貝茲極限、升力與葉尖速比、變槳與偏航、功率曲線",
+                "en": "Wind power and v³, the Betz limit, lift and tip speed ratio, pitch and yaw, the power curve",
+                "ja": "風のパワーと v³、ベッツの限界、揚力と周速比、ピッチとヨー、パワーカーブ"
+              }
+            }
+          ]
         }
       ]
     },

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep01.js｜陸域風電系列</title>
+<title>ep02.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 風機如何把風變成電 →" data-en="02 How a wind turbine turns wind into electricity →" data-ja="02 風車はどうやって風を電気に変えるのか →">02 風機如何把風變成電 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 陸域風機運輸與吊裝" data-en="← 01 Transporting and erecting an onshore wind turbine" data-ja="← 01 陸上風車の輸送と据付">← 01 陸域風機運輸與吊裝</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep01.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,445 +543,363 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 1 集：陸域風機運輸與吊裝 */
-const M=3.5;                                   // 吊裝分鏡的比例：每公尺 3.5 px（世界座標）
-const TX=820;                                  // 風機位置
-const SEC=[22,24,25,26];                       // 塔架四段高度（m，示例，合計 97 m）
-const DIA=[4.4,4.1,3.8,3.4,3.0];               // 各段接縫處直徑（m，示例）
-const BL=67*M;                                 // 葉片長 67 m
-const MCX=1040;                                // 主吊機（履帶式）位置
-const TCX=470;                                 // 輔助吊機（輪式）位置
+/* 陸域風電系列 第 2 集：風機如何把風變成電 */
 const gyy=x=>groundY(x);
-const secBase=i=>gyy(TX)-M*SEC.slice(0,i).reduce((a,b)=>a+b,0);
-const TOPY=()=>secBase(4);                     // 塔頂 y
-const HUBY=()=>TOPY()-11;                      // 輪轂中心 y
-/* 由 B（底）到 T（頂）的錐形塔架段，w0/w1 為兩端寬度 */
-function secQuad(bx,by,tx,ty,w0,w1){
-  const L=Math.hypot(tx-bx,ty-by)||1,nx=-(ty-by)/L,ny=(tx-bx)/L;
-  poly([bx+nx*w0/2,by+ny*w0/2,tx+nx*w1/2,ty+ny*w1/2,tx-nx*w1/2,ty-ny*w1/2,bx-nx*w0/2,by-ny*w0/2],'#eef2f4','rgba(0,0,0,.35)',1);
-  ln([bx+nx*w0/2,by+ny*w0/2,bx-nx*w0/2,by-ny*w0/2],'#8d989f',2);ln([tx+nx*w1/2,ty+ny*w1/2,tx-nx*w1/2,ty-ny*w1/2],'#8d989f',2);
-}
-function towerUpTo(n){for(let i=0;i<n;i++)secQuad(TX,secBase(i),TX,secBase(i+1),DIA[i]*M,DIA[i+1]*M);}
-function pedestal(){box(TX-16,gyy(TX)-4,32,8,'#9aa3a8','rgba(0,0,0,.3)',1);}
-/* 正視的葉片：中心 (cx,cy)，角度 a，葉根距中心 7 px */
-function bladeFront(cx,cy,a,L){ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
-  poly([7,-4,7+L*.2,-7,7+L,-1,7+L,1,7+L*.2,6,7,4],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
-/* 正視的機艙與輪轂：(x,y) 為塔頂 */
-function nacFront(x,y){box(x-11,y-20,22,18,'#e3e8ec','rgba(0,0,0,.35)',1);circ(x,y-11,7,'#dfe5e8','rgba(0,0,0,.4)',1);circ(x,y-11,2.5,'#8d989f');}
-/* 履帶式主吊機（吊臂向左）；回傳吊臂支點 */
-function crawler(px){const g=gyy(px);box(px-62,g-16,124,16,'#2b3137');for(let i=0;i<6;i++)circ(px-50+i*20,g-8,6,'#555','#222',1);
-  box(px-40,g-44,92,28,'#e9b21f','rgba(0,0,0,.3)',1);box(px+30,g-62,36,46,'#c99a16','rgba(0,0,0,.3)',1);box(px-46,g-62,26,22,'#f4f6f7');box(px-42,g-58,16,11,'#2a3a46');return {x:px-10,y:g-44};}
-/* 輪式輔助吊機（吊臂向右）；回傳支點 */
-function truckCrane(px){const g=gyy(px);box(px-62,g-30,124,20,'#e9b21f','rgba(0,0,0,.3)',1);box(px-70,g-44,26,34,'#f4f6f7');box(px-66,g-40,16,12,'#2a3a46');
-  for(const wx of [-50,-26,20,44])circ(px+wx,g-8,8,'#222','#555',2);box(px-10,g-42,40,14,'#c99a16');return {x:px+14,y:g-40};}
-/* 側視的葉片（平放，葉根在右）*/
-function bladeSide(x0,y,L){poly([x0,y-24,x0-L*.08,y-26,x0-L*.28,y-32,x0-L,y-13,x0-L,y-9,x0-L*.28,y-5,x0-L*.08,y-3,x0,y-3],'#eef2f4','rgba(0,0,0,.4)',1);ln([x0,y-24,x0,y-3],'#8d989f',3);}
-/* 夜間運輸車隊：xf 為曳引車車頭 */
-const RY=GY+14;
-function escortCar(x){box(x-34,RY-20,68,14,'#dfe5e8');box(x-20,RY-30,36,11,'#c9d1d6');circ(x-20,RY-5,6,'#222');circ(x+20,RY-5,6,'#222');
-  const f=.5+.5*Math.sin(TT*9);alphaDo(f,()=>{circ(x-2,RY-33,4,'#f2c230');const g=ctx.createRadialGradient(x-2,RY-33,2,x-2,RY-33,40);g.addColorStop(0,'rgba(242,194,48,.5)');g.addColorStop(1,'rgba(242,194,48,0)');ctx.fillStyle=g;ctx.fillRect(x-42,RY-73,80,80);});}
-function convoy(xf){
-  poly([xf,RY-26,xf+260,RY-60,xf+260,RY+6,xf,RY-12],'rgba(255,244,200,.12)');
-  box(xf-80,RY-10,80,6,'#2b3137');box(xf-46,RY-50,44,40,'#e8572a');box(xf-38,RY-44,26,14,'#2a3a46');box(xf-80,RY-22,34,12,'#394650');
-  for(const wx of [-66,-50,-12])circ(xf+wx,RY-4,8,'#222','#555',2);
-  box(xf-360,RY-16,300,5,'#6f7a80');
-  box(xf-130,RY-22,50,12,'#394650');for(const wx of [-122,-104,-88])circ(xf+wx,RY-4,7,'#222','#555',2);
-  box(xf-380,RY-22,70,12,'#394650');for(const wx of [-372,-356,-340,-324])circ(xf+wx,RY-4,7,'#222','#555',2);
-  box(xf-112,RY-34,14,12,'#8d989f');box(xf-356,RY-34,14,12,'#8d989f');
-  bladeSide(xf-88,RY-22,420);
-  alphaDo(.5+.5*Math.sin(TT*9+1.5),()=>circ(xf-506,RY-34,3.5,'#e8572a'));
-}
-function nightBase(){
-  const g=ctx.createLinearGradient(0,VY0,0,GY);g.addColorStop(0,'#071424');g.addColorStop(1,'#1c3551');ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,GY-VY0+20);
-  const r=rng(5);for(let i=0;i<90;i++){const x=r()*2800-500,y=VY0+r()*380,s=r();circ(x,y,.8+s*1.2,`rgba(255,255,255,${.3+.5*s})`);}
-  ctx.beginPath();ctx.moveTo(VX0,GY);for(let x=VX0;x<=VX1;x+=10)ctx.lineTo(x,GY-60-40*nz(x*.004)-20*nz(x*.013+3));ctx.lineTo(VX1,GY);ctx.closePath();ctx.fillStyle='#10233a';ctx.fill();
-  drawGround();box(VX0,GY-20,VX1-VX0,VY1-GY+40,'rgba(4,12,24,.55)');
-  box(VX0,GY+2,VX1-VX0,16,'#2a2f35');ctx.setLineDash([22,18]);ln([VX0,GY+10,VX1,GY+10],'rgba(255,255,255,.5)',1.5);ctx.setLineDash([]);
-  for(let x=Math.floor((VX0+400)/300)*300-400;x<VX1+300;x+=300){ln([x,GY+2,x,GY-150,x+26,GY-150],'#4a5560',3);
-   const q=ctx.createRadialGradient(x+26,GY-146,2,x+26,GY-146,120);q.addColorStop(0,'rgba(255,220,150,.35)');q.addColorStop(1,'rgba(255,220,150,0)');ctx.fillStyle=q;ctx.fillRect(x-94,GY-266,240,240);circ(x+26,GY-147,4,'#ffe7b0');}
-}
-/* 轉彎路徑（俯視）：s 為沿中心線距離 */
-const RC={x:760,y:720,r:400};
-function roadPt(s){if(s<80)return {x:360,y:800-s,a:-Math.PI/2};const A=RC.r*Math.PI/2;
-  if(s<80+A){const a=Math.PI+(s-80)/RC.r;return {x:RC.x+RC.r*Math.cos(a),y:RC.y+RC.r*Math.sin(a),a:a+Math.PI/2};}
-  return {x:RC.x+(s-80-A),y:RC.y-RC.r,a:0};}
-function bladeTop(F,R,col,st){const L=Math.hypot(R.x-F.x,R.y-F.y)||1,dx=(R.x-F.x)/L,dy=(R.y-F.y)/L,nx=-dy,ny=dx;
-  const p=(t,w)=>[F.x+dx*t+nx*w,F.y+dy*t+ny*w];const pts=[p(20,-8),p(95,-11),p(320,-2),p(320,2),p(95,11),p(20,8)].flat();poly(pts,col,st,1);}
-/* 基礎剖面（側視）*/
-const FG=()=>gyy(800);
-function footPoly(){const g=FG(),b=g+90;return [600,b,1000,b,1000,b-30,860,b-70,860,g-8,740,g-8,740,b-70,600,b-30];}
-function excavator(x,dig){const g=gyy(x);box(x-50,g-14,100,14,'#2b3137');for(let i=0;i<5;i++)circ(x-40+i*20,g-7,5,'#555');box(x-40,g-50,70,36,'#e9b21f','rgba(0,0,0,.3)',1);box(x-36,g-46,20,16,'#2a3a46');
-  const sx=x+30,sy=g-40,ex=x+110,ey=g-110,bx=x+150+20*Math.sin(dig*TAU),by=g+20+40*(.5+.5*Math.cos(dig*TAU));
-  ln([sx,sy,ex,ey],'#e9b21f',9);ln([ex,ey,bx,by],'#e9b21f',6);poly([bx-10,by-6,bx+12,by-2,bx+8,by+14,bx-8,by+12],'#394650');}
-function pumpTruck(x,a){const g=gyy(x);truck(x,g,true,'#dfe5e8');const b0={x:x-60,y:g-44},p1={x:x-120,y:g-230},p2={x:880,y:g-250},p3={x:820,y:g-60};
-  alphaDo(a,()=>{ln([b0.x,b0.y,p1.x,p1.y,p2.x,p2.y,p3.x,p3.y],'#e8572a',6);circ(p1.x,p1.y,5,'#394650');circ(p2.x,p2.y,5,'#394650');});return p3;}
-/* 輪轂高度風速（示意，m/s）*/
-const wnd=h=>8.6+3.6*Math.sin(h/7+.6)+1.8*Math.sin(h/2.3)+1.0*Math.sin(h/1.1+2);
-const hubWind=()=>6.4+1.2*nz(TT*.4)+.4*Math.sin(TT*2.3);
+const VR=10,VIN=3,VOUT=25;                               // 功率曲線參數（m/s，典型範例）
+/* 4.2 MW 級風機的功率曲線（MW，示意）：切入後約與 v³ 成正比，接近額定時平滑收斂 */
+const pwr=v=>{if(v<VIN||v>VOUT)return 0;const x=(v*v*v-27)/(VR*VR*VR-27);return 4.2*x/Math.pow(1+Math.pow(x,10),.1);};
+const rpmAt=v=>v<VIN||v>VOUT?0:Math.min(11,9*v/8);         // 轉速（rpm）：λ≈8，葉尖速度上限約 78 m/s
+const pitchAt=v=>v>VOUT?90:v<11?0:Math.min(25,(v-11)*1.8); // 槳距角（度）
+/* Cp–λ 經驗式（β=0） */
+const cpL=l=>{if(l<=.2)return 0;const li=1/(1/l-.035);return Math.max(0,.5176*(116/li-5)*Math.exp(-21/li)+.0068*l);};
+/* 正視的葉片：w 為寬度比例（順槳時變窄） */
+function bladeF(cx,cy,a,L,w){w=w===undefined?1:w;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+  const k=Math.max(.18,w);poly([8,-5*k,8+L*.2,-10*k,8+L,-1.5*k,8+L,1.5*k,8+L*.2,8*k,8,5*k],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
+/* 正視的風機：底 (x,gy)，輪轂高 H，葉片長 R，轉角 rot */
+function turbine(x,gy,H,R,rot,o){o=o||{};const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
+  poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],'#eef2f4','rgba(0,0,0,.3)',1);
+  box(x-R*.1,hy-R*.08,R*.2,R*.13,'#e3e8ec','rgba(0,0,0,.3)',1);
+  for(let i=0;i<3;i++)bladeF(x,hy,rot+i*TAU/3-Math.PI/2,R,o.w);
+  circ(x,hy,Math.max(3,R*.07),'#dfe5e8','rgba(0,0,0,.4)',1);return {x,y:hy};}
+/* 風線：由左向右流動 */
+function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
+  for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
+   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
+function farTurbines(){[[1090,110,34],[1240,130,40],[1400,100,30],[1520,120,36]].forEach(([x,h,r],i)=>alphaDo(.75,()=>turbine(x,gyy(x),h,r,TT*1.1+i*1.7)));}
+/* 流管：風速比例 vr(x)，半徑 rt(x) */
+const SCX=410,SCY=470,SRR=110;
+const vr=x=>1-(1/3)*(1+Math.tanh((x-SCX)/70));
+const rt=x=>SRR*Math.sqrt((2/3)/vr(x));
+const STT=(()=>{const a=[[90,0]];let t=0;for(let x=92;x<=730;x+=2){t+=2/vr(x-1);a.push([x,t]);}return a;})();
+function stX(p){const T=STT[STT.length-1][1]*p;let lo=0,hi=STT.length-1;while(hi-lo>1){const m=(lo+hi)>>1;STT[m][1]<T?lo=m:hi=m;}return STT[hi][0];}
+/* 翼型：中心 (cx,cy)、弦長 c、弦向單位向量 d（前緣→後緣）、吸力面法向 n */
+function airfoil(cx,cy,c,d,n,fill){const P=[],N=40,th=.15,cam=.03;
+  const pt=(s,side)=>{const yt=5*th*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s),yc=cam*4*s*(1-s),o=(yc+side*yt)*c,a=(s-.35)*c;return [cx+d[0]*a+n[0]*o,cy+d[1]*a+n[1]*o];};
+  for(let i=0;i<=N;i++){const s=1-Math.cos(Math.PI*i/N)*.5-.5;P.push(...pt(1-s,1));}
+  for(let i=0;i<=N;i++){const s=1-Math.cos(Math.PI*i/N)*.5-.5;P.push(...pt(s,-1));}
+  poly(P,fill||'#eef2f4','rgba(0,0,0,.4)',1.5);}
+const unit=(x,y)=>{const L=Math.hypot(x,y)||1;return [x/L,y/L];};
+/* 角度積分：dur 秒的分鏡中，角速度 f(u)（rad/s）累積到 u 的轉角 */
+function spin(u,dur,f){let a=0;const N=120;for(let i=0;i<N;i++){const x=u*(i+.5)/N;a+=f(x);}return a*u*dur/N;}
+const lamAt=u=>u<.26?8:u<.46?lerp(8,2.5,ease(seg(u,.26,.34))):u<.7?lerp(2.5,13.5,ease(seg(u,.46,.58))):lerp(13.5,8,ease(seg(u,.7,.8)));
+const vAt=u=>u<.05?1.5:u<.86?lerp(1.5,27,seg(u,.05,.86)):27;
+function vec(x,y,d,L,col,lw,a){if(a<=0)return;alphaDo(a,()=>arrow(x,y,x+d[0]*L,y+d[1]*L,col,lw||4));}
 
-const EP={no:1,slug:'onshore-wind',seriesName:'陸域風電系列',t:'陸域風機運輸與吊裝',en:'Transporting and erecting an onshore wind turbine',
-lede:'一支 67 公尺長的葉片，要怎麼從港口開上鄉間道路？一座將近 100 公尺高的風機，又是怎麼一段一段疊起來的？這一集跟著陸域風機從夜間運輸、基礎開挖澆置，到主吊機與輔助吊機合作吊裝塔架、機艙與葉片。',
-facts:[['67','m','4.2 MW 級陸域風機常見的葉片長度，需以伸縮式拖板車夜間運輸（示例）'],
-['約 99','m','這類機型的輪轂高度；加上葉片，葉尖最高約 166 m'],
-['600–1,000','m³','一座擴展式基礎常見的混凝土用量（示例）'],
-['約 180','支','基礎內錨栓籠常見的錨栓數量，把塔架鎖在基礎上（示例）'],
-['600–800','t','吊裝 3–5 MW 級風機常用的履帶式主吊機等級'],
-['約 10','m/s','葉片吊裝常見的風速上限；實際依製造商規定（示例）']],
-note:'說明：本集為教育用途示意動畫，車輛、吊機與風機比例經過調整。風機尺寸以台灣已設置的 4.2 MW 級陸域風機（葉片約 67 m、輪轂高度約 99 m、總高約 166 m）為典型範例；塔架分段、各段重量、基礎尺寸（直徑約 20 m）、混凝土量、錨栓數量與吊裝風速上限皆為產業常見的典型範例，實際依各機型、地質鑽探結果、製造商吊裝手冊與主管機關核定內容而定。超長貨物上路需依規定申請臨時通行許可，本集路線與時間為示意情境。',
-base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:false});drawGround();},
+const EP={no:2,slug:'onshore-wind',seriesName:'陸域風電系列',t:'風機如何把風變成電',en:'How a wind turbine turns wind into electricity',
+lede:'風機的葉片不是被風推著轉，而是像飛機機翼一樣靠升力。這一集從風中的能量談起，看貝茲極限、升力與葉尖速比，以及風機如何靠變槳與偏航隨風調整，畫出一條功率曲線。',
+facts:[['59.3','%','貝茲極限：理論上風機最多能擷取通過轉子的風能比例（16/27）'],
+['0.45–0.50','Cp','現代三葉片風機在最佳狀態的功率係數'],
+['8','倍','風速加倍，風中的功率變為 8 倍（與風速三次方成正比）'],
+['7–9','λ','三葉片風機效率最高的葉尖速比範圍'],
+['3 / 11 / 25','m/s','切入、額定、切出風速的典型範例'],
+['約 94','萬瓩','台灣陸域風電累計裝置容量（能源署統計，2026 年）']],
+note:'說明：本集為教育用途示意動畫，風機與地景比例經過調整。風機以台灣常見的 4.2 MW 級陸域機型為典型範例（葉片約 67 m、轉子直徑約 136 m、輪轂高度約 99 m）；風中功率以空氣密度 1.225 kg/m³ 計算；貝茲極限 16/27 為理論值；Cp–λ 曲線採用文獻常用的經驗式，功率曲線、轉速、槳距角、切入 3 m/s／額定 11 m/s／切出 25 m/s 與偏航損失皆為典型範例，實際依各機型製造商規格而定（部分機型的切出風速更高或採逐步降載）。台灣陸域風電裝置容量引自經濟部能源署能源統計。',
+base:()=>{landSky(GY,{sun:{x:1260,y:130},clouds:false});drawGround();},
 shots:[
-{t:'夜間的超長貨物',en:'Oversized cargo at night',dur:12,side:true,
- d:'陸域風機的葉片、塔架與機艙多由國外製造，海運到台中港等港口卸船後，再走公路運到風場。一支 67 公尺的葉片放在伸縮式拖板車上，整個車隊長度可達 80 公尺左右，比一般聯結車長好幾倍。為了減少對交通的衝擊，超長貨物通常在深夜分段通行，由前導車與後衛車護送，車速很慢，遇到彎道或路口還要停下來調整。',
- s:[[0,'深夜，一支 67 公尺的葉片駛上道路'],[.3,'伸縮式拖板車把葉片架在前後兩組車軸上'],[.55,'前導車與後衛車閃著黃燈護送'],[.78,'車速很慢，避開白天的車流']],
- base:()=>nightBase(),
- cam:u=>({x:lerp(560,1180,u),y:470,s:1.1}),
- draw(u){const xf=lerp(760,1460,u);
-  escortCar(xf+170);convoy(xf);escortCar(xf-620);
-  lab(xf-300,RY-50,'葉片長 67 m',{dx:-20,dy:-90,st:'s',a:band(u,.04,.5)});
-  lab(xf-240,RY-14,'伸縮式拖板車',{dx:40,dy:80,a:band(u,.3,.75)});
-  lab(xf+170,RY-34,'前導車',{dx:30,dy:-70,st:'l',a:band(u,.55,1)});
-  lab(xf-620,RY-34,'後衛車',{dx:-20,dy:-70,st:'l',a:band(u,.58,1)});
+{t:'風中的風機',en:'A turbine in the wind',dur:12,side:true,
+ d:'台灣西部沿海每年秋冬吹起強勁的東北季風，是陸域風機最早落腳的地方。一部 4.2 MW 級的陸域風機，輪轂高度約 99 公尺，三支葉片各長約 67 公尺，轉動時掃過的圓面積約 1.45 萬平方公尺，大約是兩座足球場。風讓葉片轉動，轉軸帶動機艙裡的發電機，再經變流器與變壓器送上電網。這一集從風的能量談起，看葉片為什麼會轉、風機最多能擷取多少風能，以及它如何隨風速調整。',
+ s:[[0,'海岸邊的風機，三支葉片迎著季風轉動'],[.28,'葉片轉動，帶動機艙裡的發電機'],[.55,'葉片長 67 公尺，掃過約兩座足球場的面積'],[.8,'風是怎麼變成電的？先從風的能量看起']],
+ cam:u=>camMix({x:800,y:440,s:1.02},{x:760,y:420,s:1.1},ease(seg(u,.1,.7))),
+ draw(u){
+  farTurbines();
+  const T=turbine(640,gyy(640),300,160,TT*8.8*TAU/60*1.6);
+  windLines(160,560,26,260,1,4,70);
+  alphaDo(band(u,.55,.85),()=>{ctx.setLineDash([8,7]);ring(T.x,T.y,168,'rgba(242,194,48,.9)',2.5);ctx.setLineDash([]);});
+  lab(T.x+80,T.y-110,'葉片',{dx:70,dy:-40,st:'l',a:band(u,.04,.5)});
+  lab(T.x,T.y,'輪轂與機艙',{dx:130,dy:-20,st:'s',a:band(u,.08,.5)});
+  lab(T.x,gyy(640)-120,'塔架',{dx:90,dy:10,a:band(u,.12,.5)});
+  lab(T.x,T.y+168,'掃掠面積 約 1.45 萬 m²',{dx:150,dy:60,st:'s',a:band(u,.55,.85)});
+  lab(300,300,'東北季風',{dx:0,dy:-60,st:'g',a:band(u,.78,1)});
  },
- hud(u){hudPanel(240,150,'運輸車隊（示例）',seg(u,.05,.1),w=>{const h=23+3*u;
-  hrow(56,'時間',trf('{h}:{m}',{h:Math.floor(h)%24,m:String(Math.floor((h%1)*60)).padStart(2,'0')}),w,'#fff');
-  hrow(88,'車速',trf('{v} km/h',{v:Math.round(12+4*Math.sin(TT*.7))}),w,'#f2c230');hrow(120,'車隊總長','約 80 m',w,'#7dffc4');});}},
+ hud(u){hudPanel(240,150,'風機即時數據（示例）',seg(u,.05,.1),w=>{const v=7.8+.6*nz(TT*.3);
+  hrow(56,'輪轂風速',trf('{v} m/s',{v:v.toFixed(1)}),w,'#fff');hrow(88,'轉子轉速',trf('{r} rpm',{r:rpmAt(v).toFixed(1)}),w,'#7dc8dc');hrow(120,'輸出功率',trf('{p} MW',{p:pwr(v).toFixed(2)}),w,'#f2c230');});}},
 
-{t:'轉彎需要多大空間',en:'How much room a turn takes',dur:13,
- d:'長貨物轉彎時，車頭與後車軸走的路線不同：兩者之間的葉片會切向彎道內側，而伸出後車軸之外的葉尖則往外側甩出。從上方看，整支葉片掃過的範圍遠大於道路本身。因此運輸前要逐段檢討路線：轉彎半徑與路寬是否足夠、橋梁能否承重、架空線與號誌是否擋路，必要時臨時拓寬或移除護欄。山區窄路也可以改用葉片舉升車，把葉片斜舉起來通過。',
- s:[[0,'從上方看，葉片在彎道上掃過的範圍'],[.3,'車身中段切向內側，葉尖往外側甩出'],[.55,'路寬、轉彎半徑與障礙物都要事先檢討'],[.78,'必要時臨時拓寬路面、移除護欄']],
+{t:'風裡有多少能量',en:'How much energy the wind carries',dur:13,
+ d:'風機能發多少電，要先看通過葉片掃掠面的風帶著多少能量。風的功率 P = ½ρAv³：ρ 是空氣密度，海平面約 1.225 kg/m³；A 是葉片掃過的圓面積，與葉片長度的平方成正比；v 是風速，而且是三次方。以直徑約 136 公尺的轉子為例，風速 4 m/s 時風中功率約 0.6 MW，8 m/s 時約 4.6 MW，12 m/s 時超過 15 MW。這就是風機越做越大、塔架越蓋越高，並且選在風大地點的原因。',
+ s:[[0,'風的功率取決於空氣密度、掃掠面積與風速'],[.28,'葉片越長，掃掠面積按半徑平方增加'],[.5,'風速加倍，風中的功率變成 8 倍'],[.78,'所以風機要蓋得高，設在風大的地方']],
  draw(u){
   diagBG();
-  card(60,160,800,640,{bg:'rgba(7,27,39,.75)'});
-  ctx.save();ctx.beginPath();ctx.rect(62,162,796,636);ctx.clip();
-  const road=w=>{ctx.beginPath();for(let s=-40;s<=860;s+=6){const p=roadPt(s);s>-40?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);}ctx.lineWidth=w;ctx.lineCap='butt';};
-  road(52);ctx.strokeStyle='rgba(227,236,238,.7)';ctx.stroke();road(48);ctx.strokeStyle='#3a4148';ctx.stroke();
-  ctx.setLineDash([12,10]);road(1.5);ctx.strokeStyle='rgba(255,255,255,.55)';ctx.stroke();ctx.setLineDash([]);
-  const s1=lerp(240,820,ease(seg(u,.06,.8)));
-  for(let k=0;k<=36;k++){const s=lerp(240,s1,k/36);bladeTop(roadPt(s),roadPt(s-230),'rgba(232,87,42,.07)');}
-  const F=roadPt(s1),R=roadPt(s1-230);
-  bladeTop(F,R,'#eef2f4','rgba(0,0,0,.4)');
-  ctx.save();ctx.translate(F.x,F.y);ctx.rotate(F.a);box(-6,-11,40,22,'#e8572a');box(22,-9,10,18,'#2a3a46');ctx.restore();
-  circ(R.x,R.y,6,'#f2c230');
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'風的功率公式',20,'#f2c230',700);
+  alphaDo(seg(u,.02,.08),()=>wt(410,290,'P = ½ ρ A v³',48,'#fff',700,'center',COND));
+  const cx=230,cy=530,R=140;
+  alphaDo(seg(u,.28,.34),()=>{circ(cx,cy,R,'rgba(242,194,48,.14)','#f2c230',2.5);turbine(cx,cy+R+70,70+R,R*.93,TT*.8);
+   ln([cx,cy,cx+R*Math.cos(-.5),cy+R*Math.sin(-.5)],'#f2c230',2);wt(cx,cy-R-14,'r = 68 m',17,'#f2c230',700,'center',COND);});
+  const TM=[['ρ　空氣密度','1.225 kg/m³','#7dc8dc',.1],['A　掃掠面積','π r² ≈ 14,500 m²','#f2c230',.28],['v　風速','功率與 v³ 成正比','#ff9d7a',.5]];
+  TM.forEach(([a,b,c,t0],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=410+i*110;box(420,y-26,5,64,c);wt(440,y,a,19,'#fff',700);wt(440,y+32,b,19,c,700,'left',COND);}));
+  const C=chartBox(800,160,740,640,{title:'轉子掃掠面內的風功率（示例）',x0:0,x1:3,y0:0,y1:16,yt:[0,4,8,12,16],yl:'MW',pl:76,pt:70,pb:70,gx:3,gy:4});
+  const B=[[4,.57,'×1',.14],[8,4.56,'×8',.5],[12,15.4,'×27',.62]];
+  B.forEach(([v,p,k,t0],i)=>{const g=ease(seg(u,t0,t0+.1)),x0=C.X(i+.25),x1=C.X(i+.75);
+   wt((x0+x1)/2,C.py+C.ph+30,trf('{v} m/s',{v}),18,'rgba(227,236,238,.9)',700,'center',COND);
+   if(g<=0)return;box(x0,C.Y(p*g),x1-x0,C.Y(0)-C.Y(p*g),i===1?'#f2c230':'#7dc8dc');
+   alphaDo(seg(u,t0+.08,t0+.12),()=>{wt((x0+x1)/2,C.Y(p)-40,trf('{p} MW',{p:p.toFixed(1)}),20,'#fff',700,'center',COND);wt((x0+x1)/2,C.Y(p)-14,k,18,'#7dffc4',700,'center',COND);});});
+  alphaDo(seg(u,.52,.58),()=>tag(C.X(.9),C.py+40,'風速加倍，功率變 8 倍',{size:17,bg:'#f2c230',align:'center'}));
+  wt(C.px+C.pw,C.py+C.ph+58,'輪轂高度風速',16,'rgba(227,236,238,.7)',500,'right');
+ }},
+
+{t:'貝茲極限',en:'The Betz limit',dur:13,
+ d:'風機擷取能量，就是讓風減速。但風不能被完全擋住，否則後面的空氣流不走，風也不再通過轉子。1919 年德國物理學家貝茲（Albert Betz）證明，當轉子處的風速降為上游的三分之二、下游再降到三分之一時，擷取的比例最高，為 16/27，也就是 59.3%，稱為貝茲極限。實際風機還有葉片阻力、葉尖渦流與尾流旋轉等損失，現代三葉片風機的功率係數 Cp 約為 0.45 到 0.50。',
+ s:[[0,'風通過轉子被減速，流管向外擴張'],[.28,'把風完全擋住，風就不再流過轉子'],[.52,'風速減慢三分之一時，擷取比例最高'],[.78,'理論上限 59.3%，現代風機約可達 45–50%']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'通過轉子的流管',20,'#f2c230',700);
+  const up=[],dn=[];for(let x=90;x<=730;x+=8){up.push(x,SCY-rt(x));dn.push(x,SCY+rt(x));}
+  alphaDo(.9,()=>{ctx.setLineDash([6,6]);ln(up,'rgba(125,200,220,.8)',2);ln(dn,'rgba(125,200,220,.8)',2);ctx.setLineDash([]);});
+  for(let k=0;k<36;k++){const lane=((k%6)-2.5)/2.9,p=(TT*.16+Math.floor(k/6)/6+(k%6)*.037)%1,x=stX(p);circ(x,SCY+lane*rt(x)*.95,3.5,'rgba(255,255,255,.85)');}
+  box(SCX-5,SCY-SRR,10,SRR*2,'rgba(242,194,48,.85)');circ(SCX,SCY,9,'#fff');
+  const A=[[140,1,'上游風速 100%','#7dc8dc'],[SCX,2/3,'轉子處 67%','#f2c230'],[650,1/3,'下游 33%','#ff9d7a']];
+  A.forEach(([x,f,t,c],i)=>alphaDo(seg(u,.04+i*.06,.1+i*.06),()=>{const y=i===1?SCY+SRR+60:SCY+rt(x)+40;arrow(x-f*55,y,x+f*55,y,c,4);wt(x,y+34,t,17,c,700,'center');}));
+  alphaDo(seg(u,.02,.08),()=>wt(SCX,SCY-SRR-24,'轉子',17,'#f2c230',700,'center'));
+  const C=chartBox(800,160,740,640,{title:'擷取比例與風速減慢的關係',x0:0,x1:.6,y0:0,y1:.7,yt:[],pl:80,pt:70,pb:70,gx:6,gy:7});
+  [0,.1,.2,.3,.4,.5,.6].forEach(v=>wt(C.X(v),C.py+C.ph+22,Math.round(v*100)+'%',16,'rgba(227,236,238,.75)',600,'center',COND));
+  [0,.2,.4,.6].forEach(v=>wt(C.px-10,C.Y(v)+5,Math.round(v*100)+'%',16,'rgba(227,236,238,.75)',600,'right',COND));
+  wt(C.px+C.pw,C.py+C.ph+54,'轉子處風速減慢的比例',16,'rgba(227,236,238,.7)',500,'right');
+  wt(C.px,C.py-14,'功率係數 Cp',16,'rgba(227,236,238,.7)',500,'left');
+  const cp=a=>4*a*(1-a)*(1-a),aE=.6*seg(u,.1,.5);
+  if(aE>0){ctx.beginPath();for(let a=0;a<=aE;a+=.005){const x=C.X(a),y=C.Y(cp(a));a?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3.5;ctx.stroke();}
+  alphaDo(band(u,.3,.7),()=>{const x=C.X(.58),y=C.Y(cp(.58));circ(x,y,6,'#ff9d7a');wt(x-8,y-14,'擋得太多',16,'#ff9d7a',700,'right');});
+  alphaDo(seg(u,.52,.58),()=>{const x=C.X(1/3),y=C.Y(16/27);ctx.setLineDash([6,6]);ln([C.px,y,C.px+C.pw,y],'#f2c230',2);ln([x,y,x,C.py+C.ph],'rgba(242,194,48,.6)',1.5);ctx.setLineDash([]);
+   circ(x,y,8,'#f2c230');wt(C.px+C.pw-8,y-12,'貝茲極限 59.3%',19,'#f2c230',700,'right');wt(x+10,C.py+C.ph-12,'減慢 1/3',16,'#f2c230',700,'left');});
+  alphaDo(seg(u,.78,.84),()=>{box(C.px,C.Y(.5),C.pw,C.Y(.45)-C.Y(.5),'rgba(125,200,220,.25)');wt(C.px+12,C.Y(.45)+26,'現代風機 45–50%',17,'#7dc8dc',700,'left');});
+ }},
+
+{t:'升力讓葉片轉動',en:'Lift turns the blades',dur:14,
+ d:'葉片不是被風推著轉，而是像飛機機翼一樣靠升力。把葉片切開，剖面是一個翼型。葉片本身在轉動，所以它感受到的是「相對風」：由真實的風與葉片運動速度合成，越靠近葉尖，葉片速度越快，相對風就越斜。氣流流過翼型，上下表面的壓力差產生垂直於相對風的升力。升力沿轉動方向的分量產生扭力讓轉子旋轉，沿風向的分量則成為推力，由塔架與基礎承受。',
+ s:[[0,'把葉片切開，剖面就像一片機翼'],[.25,'葉片在轉動，迎面而來的相對風變成斜的'],[.5,'氣流產生升力，方向與相對風垂直'],[.74,'升力沿轉動方向的分量，推動轉子旋轉']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'正面看轉子',20,'#f2c230',700);
+  const hx=410,hy=500,R=240,rot=TT*.35;
+  for(let i=0;i<3;i++)bladeF(hx,hy,rot+i*TAU/3-Math.PI/2,R);circ(hx,hy,16,'#dfe5e8','rgba(0,0,0,.4)',1);
+  alphaDo(seg(u,.04,.1),()=>{const a=rot-Math.PI/2,r=R*.72,px=hx+Math.cos(a)*r,py=hy+Math.sin(a)*r,nx=-Math.sin(a),ny=Math.cos(a);
+   ln([px-nx*28,py-ny*28,px+nx*28,py+ny*28],'#e8572a',4);circ(px,py,5,'#e8572a');});
+  alphaDo(seg(u,.2,.26),()=>{ctx.beginPath();ctx.arc(hx,hy,R+22,-2.4,-1.2);ctx.strokeStyle='#7dc8dc';ctx.lineWidth=3;ctx.stroke();
+   const a=-1.2;arrow(hx+Math.cos(a-.08)*(R+22),hy+Math.sin(a-.08)*(R+22),hx+Math.cos(a)*(R+22),hy+Math.sin(a)*(R+22),'#7dc8dc',3);});
+  alphaDo(seg(u,.04,.1),()=>tag(84,760,'紅線：取一段葉片剖面',{size:16,bg:'#ff9d7a'}));
+  alphaDo(seg(u,.2,.26),()=>tag(736,760,'風從畫面正面吹入',{size:16,bg:'#dfe5e8',align:'right'}));
+  /* 右：翼型與速度三角形 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'葉片剖面上的力',20,'#f2c230',700);
+  const cx=1180,cy=500,W=unit(1,2.4),L=[W[1],-W[0]],al=.12,d=[Math.cos(al)*W[0]-Math.sin(al)*L[0],Math.cos(al)*W[1]-Math.sin(al)*L[1]],n=[-d[1],d[0]];
+  const nn=n[0]*L[0]+n[1]*L[1]<0?[-n[0],-n[1]]:n;
+  ctx.setLineDash([6,6]);ln([cx,230,cx,770],'rgba(255,255,255,.3)',1.5);ctx.setLineDash([]);wt(cx+8,250,'轉動平面',15,'rgba(227,236,238,.7)',500,'left');
+  airfoil(cx,cy,200,d,nn);
+  vec(880,cy-10,[1,0],150,'#7dc8dc',5,seg(u,.06,.12));alphaDo(seg(u,.06,.12),()=>wt(880,cy-26,'風',18,'#7dc8dc',700));
+  vec(cx-150,cy+200,[0,-1],180,'#dfe5e8',5,seg(u,.18,.24));alphaDo(seg(u,.18,.24),()=>wt(cx-164,cy+190,'葉片運動',17,'#dfe5e8',700,'right'));
+  const Ws=[cx-W[0]*260,cy-W[1]*260];vec(Ws[0],Ws[1],W,170,'#f2c230',5,seg(u,.28,.34));
+  alphaDo(seg(u,.28,.34),()=>wt(Ws[0]+14,Ws[1]+4,'相對風',18,'#f2c230',700,'left'));
+  vec(cx,cy,L,280,'#7dffc4',6,seg(u,.5,.56));alphaDo(seg(u,.5,.56),()=>wt(cx+L[0]*286+8,cy+L[1]*286-8,'升力',19,'#7dffc4',700,'left'));
+  vec(cx,cy,W,150,'#ff8a60',4,seg(u,.58,.62));alphaDo(seg(u,.58,.62),()=>wt(cx+W[0]*150+14,cy+W[1]*150+10,'阻力',17,'#ff9d7a',700,'left'));
+  const k=seg(u,.74,.8);if(k>0){const Lx=L[0]*280,Ly=L[1]*280;alphaDo(k,()=>{ctx.setLineDash([6,5]);ln([cx+Lx,cy+Ly,cx+Lx,cy],'rgba(255,255,255,.6)',1.5);ln([cx+Lx,cy+Ly,cx,cy+Ly],'rgba(255,255,255,.6)',1.5);ctx.setLineDash([]);
+   arrow(cx,cy,cx,cy+Ly,'#f2c230',5);arrow(cx,cy,cx+Lx,cy,'#b37cff',4);
+   wt(cx-12,cy+Ly-14,'驅動力 → 扭力',17,'#f2c230',700,'right');wt(cx+Lx+10,cy+30,'推力',17,'#b37cff',700,'left');});}
+ }},
+
+{t:'葉尖速比',en:'Tip speed ratio',dur:13,
+ d:'葉尖速比（TSR，λ）是葉尖線速度除以風速。直徑 136 公尺的轉子每分鐘轉 9 圈時，葉尖速度約 64 m/s；若風速為 8 m/s，葉尖速比就是 8。轉得太慢，大部分氣流從葉片之間穿過而沒被利用；轉得太快，轉子對氣流而言像一面牆，風會繞開。三葉片風機的最佳葉尖速比通常在 7 到 9 之間，控制系統在額定風速以下調整發電機扭力，讓轉速跟著風速變化，盡量維持在最佳點。葉尖速度也受噪音限制，大型陸域風機約 80 m/s。',
+ s:[[0,'葉尖速比：葉尖速度與風速的比值'],[.28,'轉太慢，風從葉片之間溜走'],[.5,'轉太快，轉子像一面牆，把風擋開'],[.74,'三葉片風機在葉尖速比約 7–9 時效率最高']],
+ draw(u){
+  diagBG();
+  const lam=lamAt(u);
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'λ = 葉尖速度 ÷ 風速',22,'#f2c230',700);
+  const hx=300,hy=500,R=200;const w=lam*.9;
+  const rot=spin(u,13,x=>lamAt(x)*.15);
+  for(let i=0;i<3;i++)bladeF(hx,hy,rot+i*TAU/3-Math.PI/2,R);circ(hx,hy,14,'#dfe5e8','rgba(0,0,0,.4)',1);
+  const a=rot-Math.PI/2,tx=hx+Math.cos(a)*(R+8),ty=hy+Math.sin(a)*(R+8);arrow(tx,ty,tx-Math.sin(a)*lam*14,ty+Math.cos(a)*lam*14,'#f2c230',4);
+  arrow(560,300,560+8*14,300,'#7dc8dc',4);wt(560,286,'風速 8 m/s',17,'#7dc8dc',700);
+  wt(560,390,'葉尖速度',17,'#f2c230',700);wt(560,426,trf('{v} m/s',{v:Math.round(lam*8)}),30,'#f2c230',700,'left',COND);
+  wt(560,500,'葉尖速比',17,'#fff',700);wt(560,546,'λ = '+lam.toFixed(1),36,'#fff',700,'left',COND);
+  const st=lam<5?['轉太慢：風從葉片間溜走','#ff9d7a']:lam>11?['轉太快：轉子像一面牆','#ff9d7a']:['接近最佳效率','#7dffc4'];
+  alphaDo(seg(u,.04,.1),()=>tag(410,750,st[0],{size:18,bg:st[1],align:'center'}));
+  const C=chartBox(800,160,740,640,{title:'功率係數與葉尖速比（示意）',x0:0,x1:14,y0:0,y1:.65,xt:[0,2,4,6,8,10,12,14],yt:[0,.2,.4,.6],xl:'葉尖速比 λ',yl:'Cp',pl:76,pt:70,pb:70,gx:7,gy:3});
+  ctx.setLineDash([6,6]);ln([C.px,C.Y(16/27),C.px+C.pw,C.Y(16/27)],'#e8572a',2);ctx.setLineDash([]);wt(C.px+C.pw-8,C.Y(16/27)-10,'貝茲極限 0.593',16,'#ff9d7a',700,'right');
+  alphaDo(seg(u,.74,.8),()=>box(C.X(7),C.py,C.X(9)-C.X(7),C.ph,'rgba(125,255,196,.12)'));
+  const lE=14*seg(u,.04,.24);if(lE>0){ctx.beginPath();for(let l=.3;l<=lE;l+=.05){const x=C.X(l),y=C.Y(cpL(l));l>.3?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3.5;ctx.stroke();}
+  alphaDo(seg(u,.24,.28),()=>{const x=C.X(lam),y=C.Y(cpL(lam));circ(x,y,9,'#fff','#13232e',2);wt(x,y-18,'Cp = '+cpL(lam).toFixed(2),17,'#fff',700,'center',COND);});
+  alphaDo(seg(u,.8,.86),()=>wt(C.X(8),C.py+C.ph-16,'最佳範圍 7–9',17,'#7dffc4',700,'center'));
+ }},
+
+{t:'變槳與偏航',en:'Pitch and yaw control',dur:14,
+ d:'風機要發得多，先要正對著風。機艙頂端的風向計與風速計持續量測，當風向偏離一段時間，偏航系統就啟動塔頂的多組偏航馬達，帶動齒輪環慢慢轉動機艙，每秒約轉零點幾度。變槳系統則在輪轂內轉動每一支葉片的角度：風速低於額定時，葉片保持在最佳角度；超過額定後逐步加大槳距角、減少升力，讓出力維持在額定值；風速超過切出值或需要緊急停機時，葉片轉到約 90 度的順槳位置，不再產生驅動力。',
+ s:[[0,'風向改變，機艙頂上的風向計立刻察覺'],[.25,'偏航馬達轉動機艙，讓轉子重新正對來風'],[.5,'風速超過額定，葉片轉向，洩掉多餘的風'],[.78,'強風時葉片順槳約 90 度，風機停機保護']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'偏航：對準風向（俯視）',20,'#f2c230',700);
+  const cx=410,cy=500,wd=-32*ease(seg(u,.04,.12)),yw=-32*ease(seg(u,.28,.46)),er=Math.abs(wd-yw);
+  const wr=wd*Math.PI/180,yr=yw*Math.PI/180;
+  for(let j=-2;j<=2;j++){const ox=cx-260*Math.cos(wr)-j*60*Math.sin(wr),oy=cy-260*Math.sin(wr)+j*60*Math.cos(wr),f=(TT*.6+j*.2)%1;alphaDo(.7,()=>arrow(ox+Math.cos(wr)*f*50,oy+Math.sin(wr)*f*50,ox+Math.cos(wr)*(f*50+60),oy+Math.sin(wr)*(f*50+60),'#7dc8dc',3));}
+  circ(cx,cy,44,'rgba(255,255,255,.06)','rgba(242,194,48,.7)',3);
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(yr);
+  box(-40,-30,150,60,'#e3e8ec','rgba(0,0,0,.4)',1.5);circ(-52,0,20,'#dfe5e8','rgba(0,0,0,.4)',1);box(-62,-230,14,460,'#f4f6f7','rgba(0,0,0,.35)',1);
   ctx.restore();
-  wt(84,200,'轉彎時的掃掠範圍（俯視示意）',20,'#f2c230',700);
-  alphaDo(seg(u,.3,.36),()=>{wt(560,560,'內側掃掠',18,'#ff9d7a',700,'center');wt(180,470,'外側懸伸',18,'#ff9d7a',700,'center');});
-  alphaDo(seg(u,.08,.14),()=>{circ(104,760,6,'#f2c230');wt(120,766,'後車軸',16,'rgba(227,236,238,.9)',600);box(220,752,26,14,'#e8572a');wt(256,766,'曳引車',16,'rgba(227,236,238,.9)',600);box(350,753,26,12,'rgba(232,87,42,.5)');wt(386,766,'葉片掃過的範圍',16,'rgba(227,236,238,.9)',600);});
-  /* 右：路線檢討 */
-  card(900,160,640,640,{bg:'rgba(7,27,39,.75)'});wt(924,200,'運輸前的路線檢討',20,'#f2c230',700);
-  const L=[['轉彎半徑與路寬','不足時臨時拓寬、移除護欄'],['坡度與橋梁承載','確認車重與坡度可以通行'],['架空線、號誌與路樹','事先移設、升高或修剪'],['夜間分段通行','申請臨時通行許可，減少交通衝擊']];
-  L.forEach(([t,s],i)=>{const a=seg(u,.5+i*.07,.56+i*.07);if(a<=0)return;alphaDo(a,()=>{const y=230+i*112;card(924,y,592,96,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});
-   circ(966,y+48,22,'#7dffc4');wt(966,y+49,String(i+1),22,'#0e2a3b',700,'center',COND,'middle');wt(1004,y+40,t,20,'#fff',700);wt(1004,y+72,s,17,'rgba(227,236,238,.85)',500);});});
-  alphaDo(seg(u,.82,.88),()=>wt(924,712+60,'山區窄路可改用葉片舉升車斜舉通過',17,'#7dffc4',600));
+  ctx.save();ctx.translate(cx+70*Math.cos(yr),cy+70*Math.sin(yr));ctx.rotate(wr);ln([-22,0,22,0],'#e8572a',3);poly([22,0,10,-8,10,8],'#e8572a');ctx.restore();
+  alphaDo(seg(u,.04,.1),()=>wt(700,300,trf('偏差角 {a}°',{a:Math.round(er)}),22,er>3?'#ff9d7a':'#7dffc4',700,'right',COND));
+  lab(cx+70*Math.cos(yr),cy+70*Math.sin(yr),'風向計',{dx:80,dy:-90,st:'w',a:band(u,.06,.3)});
+  lab(cx+44,cy,'偏航馬達與齒輪環',{dx:150,dy:90,st:'s',a:band(u,.28,.47)});
+  alphaDo(seg(u,.48,.54),()=>tag(410,760,'偏差 10° 約損失 3–5% 發電量（示例）',{size:16,bg:'#dfe5e8',align:'center'}));
+  /* 右：變槳 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'變槳：調整葉片角度（剖面）',20,'#f2c230',700);
+  const v=u<.5?9:u<.75?lerp(9,18,ease(seg(u,.5,.62))):lerp(18,27,ease(seg(u,.78,.84)));
+  const b=u<.78?pitchAt(Math.min(v,24)):lerp(pitchAt(18),90,ease(seg(u,.78,.88))),br=(b+6)*Math.PI/180;
+  const px=1250,py=470,d=[Math.sin(br),Math.cos(br)],n=[-d[1],d[0]];
+  ctx.setLineDash([6,6]);ln([px,250,px,690],'rgba(255,255,255,.3)',1.5);ctx.setLineDash([]);wt(px+8,270,'轉動平面',15,'rgba(227,236,238,.7)',500,'left');
+  airfoil(px,py,230,d,n[0]>0?n:[-n[0],-n[1]]);
+  const wl=40+v*5;arrow(880,py-110,880+wl,py-110,'#7dc8dc',5);wt(880,py-130,trf('風速 {v} m/s',{v:Math.round(v)}),18,'#7dc8dc',700,'left',COND);
+  ctx.beginPath();ctx.arc(px,py,150,-Math.PI/2,-Math.PI/2-b*Math.PI/180,true);ctx.strokeStyle='#f2c230';ctx.lineWidth=3;ctx.stroke();
+  wt(1500,340,trf('槳距角 {b}°',{b:Math.round(b)}),24,'#f2c230',700,'right',COND);
+  const ST=[['全力擷取','#7dffc4',0,.5],['洩掉多餘的風，維持額定','#f2c230',.5,.78],['順槳停機','#ff9d7a',.78,1.01]];
+  ST.forEach(([t,c,a0,a1])=>{if(u>=a0&&u<a1)alphaDo(seg(u,a0+.02,a0+.06)||(a0===0?seg(u,.04,.1):0),()=>tag(1170,740,t,{size:18,bg:c,align:'center'}));});
  }},
 
-{t:'基礎開挖與澆置',en:'Excavating and pouring the foundation',dur:14,side:true,
- d:'風機蓋在一座大型鋼筋混凝土基礎上。常見的擴展式基礎直徑約 20 公尺、深約 3 公尺：先開挖並鋪一層墊層混凝土，再綁紮上下兩層放射狀與環狀鋼筋，中央放入錨栓籠。錨栓籠由上百支高強度錨栓與上下錨板組成，日後塔架底部法蘭就鎖在這些錨栓上。混凝土常需連續澆置十幾個小時，用量約 600 至 1,000 立方公尺，最後回填覆土增加壓重。',
- s:[[0,'怪手開挖直徑約 20 公尺的基坑'],[.26,'鋪墊層、綁鋼筋，中央放入錨栓籠'],[.46,'泵浦車連續澆置數百立方公尺混凝土'],[.74,'回填覆土，只留下中央的基座與錨栓']],
- cam:u=>camMix({x:800,y:520,s:1.05},{x:810,y:600,s:1.55},ease(seg(u,.02,.2))),
+{t:'功率曲線',en:'The power curve',dur:14,side:true,
+ d:'把風速與出力畫成圖，就是風機的功率曲線。風速低於約 3 m/s 的切入風速時，風機不發電；切入後，控制系統讓轉子維持在最佳葉尖速比，出力隨風速約三次方上升；到達約 11 m/s 的額定風速後，變槳系統開始作用，出力維持在額定 4.2 MW；風速超過約 25 m/s 的切出風速，葉片順槳停機，等風變小再啟動。台灣陸域風電累計約 94 萬瓩，多數位於西部沿海，秋冬東北季風期間是全年發電最多的季節。',
+ s:[[0,'風速低於 3 m/s，風機靜止等待'],[.2,'切入後，出力隨風速快速增加'],[.5,'到達額定風速，變槳把出力維持在 4.2 MW'],[.8,'超過 25 m/s，順槳停機，等風變小再啟動']],
+ cam:u=>({x:800,y:450,s:1}),
  draw(u){
-  const g=FG(),b=g+90,dig=seg(u,.04,.24),P=footPoly();
-  const d=90*dig;
-  /* 基坑 */
-  if(dig>0){poly([560,g,1040,g,1040-40*dig,g+d,560+40*dig,g+d],'#5e4a38');poly([560,g,1040,g,1040-40*dig,g+d,560+40*dig,g+d],null,'rgba(0,0,0,.35)',1.5);}
-  const lean=seg(u,.25,.3),reb=seg(u,.29,.42),cage=seg(u,.34,.44),pour=seg(u,.47,.72),back=seg(u,.75,.9);
-  alphaDo(lean,()=>box(596,b,408,8,'#b7bcbf'));
-  alphaDo(cage,()=>{for(let i=0;i<9;i++){const x=752+i*12;ln([x,b-4,x,g-24],'#c9d1d6',2);}box(746,b-10,108,6,'#8d989f');box(746,g-30,108,6,'#8d989f');});
-  if(reb>0){ctx.strokeStyle='#b5653a';ctx.lineWidth=2;ctx.beginPath();const n=Math.floor(30*reb);for(let i=0;i<=n;i++){const x=606+i*13;ctx.moveTo(x,b-6);ctx.lineTo(x,b-26);}ctx.moveTo(606,b-8);ctx.lineTo(606+13*n,b-8);ctx.moveTo(606,b-24);ctx.lineTo(606+13*n,b-24);ctx.stroke();}
-  if(pour>0){const lv=lerp(b,g-8,pour);ctx.save();ctx.beginPath();ctx.rect(560,lv,500,b-lv+2);ctx.clip();poly(P,'#b9bec2','rgba(0,0,0,.35)',1.5);ctx.restore();}
-  if(back>0)alphaDo(back,()=>{poly([560,g,740,g,740,b-70,600,b-30,560+40,b-30],'#8a6f55');poly([860,g,1040,g,1000,b-30,1000,b-30,860,b-70],'#8a6f55');ln([560,g,1040,g],'#5c8a3f',3);});
-  if(pour>=1){box(740,g-8,120,8,'#b9bec2','rgba(0,0,0,.35)',1);for(let i=0;i<9;i++){const x=752+i*12;ln([x,g-8,x,g-20],'#c9d1d6',2.5);}}
-  /* 機具 */
-  alphaDo(1-seg(u,.3,.38),()=>excavator(450,TT*.35));
-  const pa=seg(u,.42,.48)*(1-seg(u,.74,.8));
-  if(pa>0)alphaDo(pa,()=>{const e=pumpTruck(1250,1);const lv=lerp(b,g-8,pour);for(let k=0;k<6;k++){const f=(TT*1.4+k/6)%1;circ(e.x+3*Math.sin(k),lerp(e.y,lv,f),3.5,'#9aa3a8');}});
-  lab(800,g+d-10,'基坑 深約 3 m',{dx:-60,dy:-120,st:'n',a:band(u,.08,.28)});
-  lab(700,b-16,'上下兩層鋼筋',{dx:-80,dy:80,st:'w',a:band(u,.3,.47)});
-  lab(800,g-28,'錨栓籠',{dx:40,dy:-110,st:'s',a:band(u,.36,.5)});
-  lab(920,b-40,'混凝土',{dx:60,dy:90,st:'g',a:band(u,.52,.76)});
-  lab(650,g,'回填覆土',{dx:-60,dy:-80,st:'n',a:band(u,.82,1)});
-  lab(800,g-18,'基座與錨栓',{dx:60,dy:-90,st:'s',a:band(u,.84,1)});
- },
- hud(u){hudPanel(240,150,'基礎工程（示例）',seg(u,.05,.1),w=>{const st=u<.25?'開挖':u<.46?'綁紮鋼筋':u<.74?'澆置混凝土':'回填';
-  hrow(56,'工項',st,w,'#f2c230');hrow(88,'開挖深度',trf('{d} m',{d:(3*seg(u,.04,.24)).toFixed(1)}),w,'#fff');
-  const c=Math.round(750*seg(u,.47,.72));hrow(120,'混凝土',trf('{c} m³',{c:c.toLocaleString('en-US')}),w,'#7dffc4');hbar(14,132,w-28,c/750,'#7dffc4');});}},
-
-{t:'基礎為什麼不會倒',en:'Why the foundation does not tip over',dur:12,
- d:'風吹在葉片上，會在輪轂高度產生很大的推力。推力乘上將近 100 公尺的力臂，在塔底形成巨大的傾倒力矩。擴展式基礎靠兩件事抵抗：一是基礎本身與上方覆土的重量，二是寬大的底面把力分散到地盤。風越大，下風側的地盤反力越高、上風側越低，設計時要確保底面不會翹起、地盤不會被壓壞。基礎型式由地質鑽探決定，軟弱地盤常改用樁基礎。',
- s:[[0,'風的推力作用在將近 100 公尺高的輪轂'],[.3,'推力乘上高度，在塔底形成傾倒力矩'],[.55,'基礎與覆土的重量把風機壓住'],[.75,'寬大的底面把力分散給地盤']],
- draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'基礎受力（示意）',20,'#f2c230',700);
-  const k=ease(seg(u,.08,.5)),X=410;
-  box(80,600,660,120,'rgba(164,135,106,.35)');ln([80,600,740,600],'#7a9a55',3);
-  poly([230,660,590,660,590,630,440,610,440,600,380,600,380,610,230,630],'#b9bec2','rgba(0,0,0,.4)',1.5);
-  alphaDo(seg(u,.55,.6),()=>{poly([230,630,380,610,380,600,230,600],'rgba(138,111,85,.9)');poly([590,630,440,610,440,600,590,600],'rgba(138,111,85,.9)');});
-  secQuad(X,600,X,256,14,9);box(X-24,238,58,18,'#e3e8ec','rgba(0,0,0,.35)',1);circ(X-28,247,7,'#dfe5e8');ln([X-30,170,X-30,324],'#f4f6f7',5);
-  for(let i=0;i<4;i++){const y=190+i*40,f=(TT*.8+i*.27)%1;alphaDo(.4+.6*k,()=>arrow(90+f*40,y,190+f*40,y,'#7dc8dc',2.5));}
-  alphaDo(seg(u,.06,.12),()=>{arrow(X+40,247,X+40+70+80*k,247,'#e8572a',4);wt(X+60+80*k,232,'推力',18,'#ff9d7a',700);});
-  alphaDo(seg(u,.3,.36),()=>{ctx.strokeStyle='#e8572a';ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(X,630,70,-Math.PI*.85,-Math.PI*.15);ctx.stroke();const a=-Math.PI*.15;poly([X+70*Math.cos(a)+8,630+70*Math.sin(a)-2,X+70*Math.cos(a)-8,630+70*Math.sin(a)-10,X+70*Math.cos(a)-4,630+70*Math.sin(a)+10],'#e8572a');
-   wt(X+86,560,'傾倒力矩',18,'#ff9d7a',700);ctx.setLineDash([5,5]);ln([X+120,247,X+120,600],'rgba(255,157,122,.6)',1.5);ctx.setLineDash([]);wt(X+130,420,'約 99 m',17,'#ff9d7a',700,'left',COND);});
-  alphaDo(seg(u,.55,.6),()=>{arrow(X,560,X,650,'#7dffc4',4);wt(X-14,546,'自重',18,'#7dffc4',700,'right');arrow(300,585,300,628,'#7dffc4',3);arrow(520,585,520,628,'#7dffc4',3);wt(300,576,'覆土',17,'#7dffc4',700,'center');});
-  const pr=seg(u,.72,.78);
-  if(pr>0)alphaDo(pr,()=>{const kk=ease(seg(u,.72,.95)),hl=30-20*kk,hr=30+20*kk;poly([230,662,590,662,590,662+hr,230,662+hl],'rgba(125,200,220,.4)','#7dc8dc',1.5);
-   for(let i=0;i<6;i++){const x=250+i*64,h=lerp(hl,hr,(x-230)/360);arrow(x,662+h,x,666,'#7dc8dc',1.8);}wt(610,700,'地盤反力',17,'#7dc8dc',700);});
-  alphaDo(seg(u,.36,.42),()=>wt(84,752,'推力 × 高度 ＝ 傾倒力矩',19,'#ff9d7a',700));
-  alphaDo(seg(u,.6,.66),()=>wt(84,784,'（自重 ＋ 覆土）× 力臂 ＝ 抵抗力矩',19,'#7dffc4',700));
-  /* 右：基礎規格 */
-  card(820,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(844,200,'擴展式基礎（示例）',20,'#f2c230',700);
-  const R=[['直徑約 20 m、深約 3 m','以寬大的底面分散載重'],['混凝土 600–1,000 m³','重量本身就是抵抗力矩'],['錨栓約 180 支','把塔架底部法蘭鎖在基礎上'],['先做地質鑽探','軟弱地盤改用樁基礎']];
-  R.forEach(([t,s],i)=>{const a=seg(u,.12+i*.14,.18+i*.14);if(a<=0)return;alphaDo(a,()=>{const y=232+i*138;card(844,y,672,118,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});
-   wt(872,y+50,t,24,'#fff',700,'left',COND);wt(872,y+88,s,18,'rgba(227,236,238,.85)',500);});});
- }},
-
-{t:'主吊機與輔助吊機',en:'Main crane and tailing crane',dur:14,side:true,
- d:'混凝土養護到設計強度後才能吊裝塔架。塔架分成數段運到現場，平躺在地上，要先把它「立起來」：履帶式主吊機勾住上端，輪式輔助吊機勾住下端，兩部吊機一起抬離地面；主吊機持續往上吊，輔助吊機則跟著往前送，讓塔架從水平慢慢轉成垂直，避免底部法蘭拖地受損。立直後輔助吊機脫鉤，主吊機把塔架移到基礎上方，對準錨栓降下並鎖上螺栓，其餘各段依序往上疊。',
- s:[[0,'主吊機勾上端、輔助吊機勾下端，一起抬起'],[.26,'主吊機往上吊，輔助吊機往前送'],[.54,'塔架立直後，對準錨栓放上基礎'],[.7,'第二到第四段依序往上疊，鎖緊法蘭螺栓']],
- cam:u=>camMix({x:700,y:470,s:1.55},{x:800,y:420,s:1},ease(seg(u,.6,.7))),
- draw(u){
-  const G0=gyy(600),GT=gyy(TX),Ls=M*SEC[0],hB=G0-30;
-  pedestal();
-  const a=ease(seg(u,.06,.2)),r=ease(seg(u,.24,.52)),c=ease(seg(u,.54,.64));
-  let B,T;
-  if(u<.24){B={x:560,y:G0-8-22*a};T={x:637,y:B.y};}
-  else if(u<.54){const th=r*Math.PI/2;B={x:637-Ls*Math.cos(th),y:hB};T={x:637,y:hB-Ls*Math.sin(th)};}
-  else{B={x:lerp(637,TX,c),y:lerp(hB,GT-4,c)};T={x:B.x,y:B.y-Ls};}
-  box(566,G0-8,14,8,'#6f7a80');box(620,G0-8,14,8,'#6f7a80');
-  /* 已完成的上方各段 */
-  const iv=[[.66,.76],[.76,.86],[.86,.96]];
-  let hook=T,hookY=T.y-16;
-  for(let i=1;i<4;i++){const [t0,t1]=iv[i-1];if(u<t0)break;const dd=80*(1-ease(seg(u,t0,t0+.08)));
-   const yb=secBase(i)-dd,yt=secBase(i+1)-dd;secQuad(TX,yb,TX,yt,DIA[i]*M,DIA[i+1]*M);if(u<t1){hook={x:TX,y:yt};hookY=yt-16;}}
-  secQuad(B.x,B.y,T.x,T.y,DIA[0]*M,DIA[1]*M);
-  if(u>=.96){hook={x:TX,y:TOPY()};hookY=TOPY()-40*seg(u,.96,1)-16;}
-  const mp=crawler(MCX);const mh=crane(mp.x,mp.y,520,hook.x,hookY,{col:'#e9b21f'});
-  if(u<.96&&(u<.64||u>=.66)){slings(mh.x,mh.hy,[hook.x-5,hook.y,hook.x+5,hook.y]);}
-  const tp=truckCrane(TCX);
-  if(u<.56){const th=crane(tp.x,tp.y,200,B.x,B.y-18,{col:'#e9b21f'});slings(th.x,th.hy,[B.x-5,B.y,B.x+5,B.y]);}
-  else{const k=seg(u,.56,.64);crane(tp.x,tp.y,200,lerp(637,580,k),lerp(hB-18,hB-70,k),{col:'#e9b21f'});}
-  person(530,gyy(530),'#e8572a',2.2);person(700,gyy(700),'#f2c230',2.2);
-  if(u<.54&&u>.06)ln([B.x,B.y,530,gyy(530)-18],'rgba(255,255,255,.55)',1);
-  lab(MCX,gyy(MCX)-44,'主吊機（履帶式）',{dx:40,dy:-60,st:'s',a:band(u,.04,.3)});
-  lab(TCX,gyy(TCX)-30,'輔助吊機',{dx:-30,dy:-80,st:'n',a:band(u,.04,.36)});
-  lab((B.x+T.x)/2,(B.y+T.y)/2,'塔架第一段',{dx:60,dy:-60,st:'l',a:band(u,.1,.5)});
-  lab(TX,GT-4,'對準錨栓',{dx:70,dy:40,st:'g',a:band(u,.56,.68)});
-  lab(TX,secBase(2),'法蘭螺栓',{dx:-90,dy:-20,st:'g',a:band(u,.72,.95)});
- },
- hud(u){hudPanel(240,150,'吊裝狀態（示例）',seg(u,.05,.1),w=>{const n=u<.66?1:u<.76?2:u<.86?3:4;const wt_=[60,55,50,45][n-1];
-  hrow(56,'吊掛物',trf('塔架第 {n} 段',{n}),w,'#f2c230');hrow(88,'吊重',trf('約 {t} t',{t:wt_}),w,'#fff');hrow(120,'風速',trf('{v} m/s',{v:hubWind().toFixed(1)}),w,'#7dffc4');});}},
-
-{t:'機艙與葉片上高空',en:'Nacelle and blades go up',dur:15,side:true,
- d:'塔架完成後，主吊機把機艙與輪轂吊到將近 100 公尺的塔頂，這是整部風機最重的一吊。接著是葉片：陸域常見兩種做法，一是在地面把三支葉片裝上輪轂，整組轉子一次吊上；二是像這裡的單支吊裝，用專用吊具水平夾住葉片，由地面人員拉住導引繩控制方向，把葉根插進輪轂鎖上螺栓。裝好一支，轉動輪轂 120 度，再裝下一支，重複三次。',
- s:[[0,'主吊機把機艙與輪轂吊上塔頂'],[.28,'機艙對準塔頂法蘭，鎖上螺栓'],[.42,'葉片以專用吊具水平吊起，地面拉住導引繩'],[.62,'葉根對準輪轂，插入並鎖緊'],[.8,'輪轂轉動 120 度，重複裝上三支葉片']],
- cam:u=>camMix({x:800,y:430,s:1},{x:760,y:300,s:1.45},ease(seg(u,.5,.64))),
- draw(u){
-  const GT=gyy(TX),top=TOPY(),hy=HUBY();
-  pedestal();towerUpTo(4);
-  /* 機艙 */
-  const n1=ease(seg(u,.05,.2)),n2=ease(seg(u,.2,.3));const ng=gyy(930);
-  let nx=930,ny=lerp(ng,top-40,n1);if(u>=.2){nx=lerp(930,TX,n2);ny=lerp(top-40,top,n2);}
-  const rot=2*Math.PI/3*(ease(seg(u,.8,.85))+ease(seg(u,.89,.94)));
-  /* 葉片 */
-  const b1=ease(seg(u,.42,.6)),b2=ease(seg(u,.62,.74));const bg=gyy(800)-6;
-  let vx=900,vy=lerp(bg,hy,b1);if(u>=.62)vx=lerp(900,TX,b2);
-  if(u>=.74){bladeFront(TX,hy,Math.PI+rot,BL);
-   if(u>=.855)alphaDo(seg(u,.855,.87),()=>bladeFront(TX,hy,Math.PI+rot-2*Math.PI/3,BL));
-   if(u>=.945)alphaDo(seg(u,.945,.96),()=>bladeFront(TX,hy,Math.PI+rot-4*Math.PI/3,BL));}
-  else bladeFront(vx,vy,Math.PI,BL);
-  nacFront(nx,ny);
-  /* 吊鉤 */
-  const mp=crawler(MCX);let hk,hkY,sl=null;
-  if(u<.32){hk=nx;hkY=ny-20-22;sl=[nx-9,ny-20,nx+9,ny-20];}
-  else if(u<.42){const k=ease(seg(u,.32,.36)),k2=ease(seg(u,.36,.42));hk=lerp(TX,vx-7-.33*BL,k);hkY=lerp(top-60,vy-34,k2);}
-  else if(u<.74){hk=vx-7-.33*BL;hkY=vy-34;sl=[hk-30,vy-4,hk+30,vy-4];box(hk-34,vy-12,68,8,'#394650');}
-  else{hk=lerp(vx-7-.33*BL,TX-160,seg(u,.74,.82));hkY=hy-60;}
-  const mh=crane(mp.x,mp.y,520,hk,hkY,{col:'#e9b21f'});if(sl)slings(mh.x,mh.hy,sl);
-  if(u>=.42&&u<.76){const tip=vx-7-BL;ln([tip+6,vy,560,gyy(560)-18],'rgba(255,255,255,.6)',1);ln([vx-30,vy,980,gyy(980)-18],'rgba(255,255,255,.6)',1);}
-  person(560,gyy(560),'#e8572a',2.2);person(980,gyy(980),'#f2c230',2.2);
-  lab(nx,ny-12,'機艙與輪轂',{dx:70,dy:-50,st:'s',a:band(u,.04,.36)});
-  tick(TX+30,top,'約 99 m','left');
-  lab(vx-7-BL*.5,vy,'葉片 67 m',{dx:-40,dy:-80,st:'l',a:band(u,.42,.62)});
-  lab(560,gyy(560)-18,'導引繩',{dx:-40,dy:-60,st:'n',a:band(u,.44,.7)});
-  lab(TX,hy,'葉根插入輪轂',{dx:90,dy:60,st:'g',a:band(u,.66,.82)});
-  lab(TX,hy,'轉動 120 度',{dx:90,dy:60,st:'s',a:band(u,.84,1)});
- },
- hud(u){hudPanel(240,150,'吊裝狀態（示例）',seg(u,.05,.1),w=>{const nb=u<.74?1:u<.855?1:u<.945?2:3;
-  const it=u<.32?'機艙與輪轂':trf('葉片 {n}/3',{n:nb});
-  const top=TOPY(),ng=gyy(930),bg=gyy(800)-6;let y;if(u<.2)y=lerp(ng,top-40,ease(seg(u,.05,.2)));else if(u<.32)y=lerp(top-40,top,ease(seg(u,.2,.3)));else if(u<.42)y=bg;else y=lerp(bg,HUBY(),ease(seg(u,.42,.6)));
-  hrow(56,'吊掛物',it,w,'#f2c230');hrow(88,'吊高',trf('{h} m',{h:Math.max(0,Math.round((gyy(TX)-y)/M))}),w,'#fff');hrow(120,'輪轂風速',trf('{v} m/s',{v:hubWind().toFixed(1)}),w,hubWind()<10?'#7dffc4':'#ff8a60');});}},
-
-{t:'等待風速窗口',en:'Waiting for a weather window',dur:13,
- d:'吊裝最大的變數是風。葉片面積大、重量相對輕，被風一吹就會擺動，因此各製造商都訂有吊裝風速上限，葉片常見約 10 m/s，塔架與機艙略高。現場以輪轂高度的風速計持續監測，超過就暫停等待。台灣西部沿海冬季東北季風強勁，夏秋又有颱風，工程團隊要依氣象預報挑選風小的時段。一部風機從塔架到葉片完成，順利時約需數天；之後還要完成內部配線、螺栓複鎖與試運轉，才能併網發電。',
- s:[[0,'輪轂高度的風速隨時在變'],[.3,'低於上限的時段，才是可以吊裝的窗口'],[.55,'依序完成塔架、機艙與三支葉片'],[.8,'配線、複鎖螺栓、試運轉後併網發電']],
- draw(u){
-  diagBG();
-  const c=chartBox(60,160,860,640,{title:'輪轂高度風速（示意）',x0:0,x1:72,y0:0,y1:16,xt:[0,24,48,72],yt:[0,4,8,12,16],xl:'小時',yl:'m/s',pt:70,pb:60,pl:70,gx:3,gy:4});
-  const T=72*seg(u,.03,.6);
-  const win=seg(u,.3,.36);
-  if(win>0)alphaDo(win,()=>{for(let h=0;h<T;h+=.5)if(wnd(h+.25)<10)box(c.X(h),c.py,c.X(.5)-c.X(0)+.5,c.ph,'rgba(125,255,196,.14)');});
-  ctx.setLineDash([8,6]);ln([c.X(0),c.Y(10),c.X(72),c.Y(10)],'#e8572a',2);ln([c.X(0),c.Y(13),c.X(72),c.Y(13)],'rgba(255,157,122,.6)',1.5);ctx.setLineDash([]);
-  wt(c.X(71),c.Y(10)-8,'葉片吊裝上限（示例）',16,'#ff9d7a',700,'right');wt(c.X(71),c.Y(13)-8,'塔架與機艙上限（示例）',15,'rgba(255,157,122,.85)',600,'right');
-  if(T>0){ctx.beginPath();for(let h=0;h<=T;h+=.2){const x=c.X(h),y=c.Y(wnd(h));h?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#7dc8dc';ctx.lineWidth=3;ctx.stroke();
-   circ(c.X(T),c.Y(wnd(T)),6,'#fff','#13232e',2);}
-  alphaDo(win,()=>tag(c.X(38),c.Y(2.2),'可吊裝的窗口',{size:17,bg:'#7dffc4',align:'center'}));
-  /* 右：吊裝順序 */
-  card(960,160,580,640,{bg:'rgba(7,27,39,.75)'});wt(984,200,'吊裝順序',20,'#f2c230',700);
-  const S=[['塔架第一段','立起並鎖在基礎錨栓上'],['塔架第二至四段','逐段往上疊'],['機艙與輪轂','最重的一吊'],['三支葉片','單支吊裝，轉動輪轂 120 度'],['配線與螺栓複鎖','塔內電纜、全部螺栓複查'],['試運轉與併網','測試完成後開始發電']];
-  S.forEach(([t,s],i)=>{const t0=.4+i*.08,a=seg(u,t0,t0+.05);const y=226+i*94;const on=a>0;
-   alphaDo(.3+.7*a,()=>{card(984,y,532,80,{bg:on?'rgba(125,255,196,.08)':'rgba(255,255,255,.03)',st:on?'rgba(125,255,196,.4)':'rgba(255,255,255,.12)'});
-    circ(1020,y+40,19,on?'#7dffc4':'rgba(255,255,255,.25)');wt(1020,y+41,String(i+1),20,'#0e2a3b',700,'center',COND,'middle');wt(1054,y+34,t,19,'#fff',700);wt(1054,y+62,s,16,'rgba(227,236,238,.85)',500);});});
+  const v=vAt(u),b=pitchAt(v),w=Math.cos(Math.min(89,b*1.1)*Math.PI/180);
+  const rot=spin(u,14,x=>rpmAt(vAt(x))*TAU/60*1.6);
+  farTurbines();
+  const T=turbine(360,gyy(360),220,130,rot,{w});
+  windLines(180,560,Math.round(8+v*1.2),60+v*28,.9,7,30+v*3);
+  lab(T.x,T.y,trf('槳距角 {b}°',{b:Math.round(b)}),{dx:110,dy:40,st:b>1?'s':'n',a:band(u,.5,1)});
+  const C=chartBox(700,160,840,430,{title:'4.2 MW 級風機的功率曲線（示例）',x0:0,x1:30,y0:0,y1:5,xt:[0,5,10,15,20,25,30],yt:[0,1,2,3,4,5],xl:'風速 m/s',yl:'MW',pl:70,pt:62,pb:58,gx:6,gy:5});
+  const Z=[[0,VIN,'不發電','rgba(255,255,255,.04)','rgba(227,236,238,.75)'],[VIN,11,'追隨最佳效率','rgba(125,255,196,.08)','#7dffc4'],[11,VOUT,'變槳維持額定','rgba(242,194,48,.08)','#f2c230'],[VOUT,30,'停機','rgba(232,87,42,.1)','#ff9d7a']];
+  Z.forEach(([a,bb,t,bg,c],i)=>alphaDo(seg(u,.05+i*.2,.1+i*.2),()=>{box(C.X(a),C.py,C.X(bb)-C.X(a),C.ph,bg);if(i>0)wt((C.X(a)+C.X(bb))/2,C.py+(i===3?40:C.ph-14),t,16,c,700,'center');}));
+  ctx.setLineDash([5,5]);ln([C.px,C.Y(4.2),C.px+C.pw,C.Y(4.2)],'rgba(242,194,48,.5)',1.5);ctx.setLineDash([]);
+  ctx.beginPath();let first=true;for(let s=0;s<=Math.min(v,30);s+=.1){const y=C.Y(pwr(s)),x=C.X(s);first?ctx.moveTo(x,y):ctx.lineTo(x,y);first=false;}ctx.strokeStyle='#fff';ctx.lineWidth=3.5;ctx.stroke();
+  const P=pwr(v);circ(C.X(v),C.Y(P),9,'#f2c230','#13232e',2);
+  card(720,610,300,150,{bg:'rgba(7,27,39,.8)'});
+  wt(740,650,'風速',17,'rgba(227,236,238,.85)',600);wt(1000,650,trf('{v} m/s',{v:v.toFixed(1)}),20,'#7dc8dc',700,'right',COND);
+  wt(740,690,'轉速',17,'rgba(227,236,238,.85)',600);wt(1000,690,trf('{r} rpm',{r:rpmAt(v).toFixed(1)}),20,'#fff',700,'right',COND);
+  wt(740,730,'出力',17,'rgba(227,236,238,.85)',600);wt(1000,730,trf('{p} MW',{p:P.toFixed(2)}),20,'#f2c230',700,'right',COND);
  }}
 ]};
 
-/* 陸域風機運輸與吊裝 translations: Traditional Chinese → [English, Japanese] */
+/* 風機如何把風變成電 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"陸域風電系列":["Onshore Wind Series","陸上風力シリーズ"],
-"陸域風機運輸與吊裝":["Transporting and erecting an onshore wind turbine","陸上風車の輸送と据付"],
-"一支 67 公尺長的葉片，要怎麼從港口開上鄉間道路？一座將近 100 公尺高的風機，又是怎麼一段一段疊起來的？這一集跟著陸域風機從夜間運輸、基礎開挖澆置，到主吊機與輔助吊機合作吊裝塔架、機艙與葉片。":["How does a 67-metre blade get from the port onto country roads? And how is a turbine almost 100 metres tall stacked up piece by piece? This episode follows an onshore wind turbine from night-time transport and the excavation and pouring of its foundation to the main crane and tailing crane working together to erect the tower, nacelle and blades.","長さ 67 メートルのブレードは、港からどうやって地方の道路を走るのでしょうか。高さ 100 メートル近い風車は、どのように一段ずつ積み上げられるのでしょうか。このエピソードでは、夜間輸送、基礎の掘削とコンクリート打設、そしてメインクレーンと補助クレーンが協力してタワー・ナセル・ブレードを据え付けるまでを追います。"],
-"4.2 MW 級陸域風機常見的葉片長度，需以伸縮式拖板車夜間運輸（示例）":["A common blade length for 4.2 MW-class onshore turbines; carried at night on an extendable trailer (example)","4.2 MW 級陸上風車で一般的なブレード長。伸縮式トレーラーで夜間に輸送（例）"],
-"約 99":["about 99","約 99"],
-"這類機型的輪轂高度；加上葉片，葉尖最高約 166 m":["Hub height of this class of turbine; with the blades, the tip reaches about 166 m","この機種のハブ高さ。ブレードを含めると翼端の最高点は約 166 m"],
-"一座擴展式基礎常見的混凝土用量（示例）":["Typical concrete volume of one spread foundation (example)","拡底式（直接）基礎 1 基の一般的なコンクリート量（例）"],
-"約 180":["about 180","約 180"],
-"支":["bolts","本"],
-"基礎內錨栓籠常見的錨栓數量，把塔架鎖在基礎上（示例）":["Typical number of bolts in the anchor cage that fixes the tower to the foundation (example)","タワーを基礎に固定するアンカーケージの一般的なボルト本数（例）"],
-"吊裝 3–5 MW 級風機常用的履帶式主吊機等級":["Typical capacity class of the crawler main crane used for 3–5 MW turbines","3〜5 MW 級風車の据付に使われるクローラー式メインクレーンの能力"],
-"約 10":["about 10","約 10"],
-"葉片吊裝常見的風速上限；實際依製造商規定（示例）":["A common wind speed limit for blade lifts; the manufacturer's rules apply (example)","ブレード吊り上げの一般的な風速上限。実際はメーカー規定による（例）"],
-"說明：本集為教育用途示意動畫，車輛、吊機與風機比例經過調整。風機尺寸以台灣已設置的 4.2 MW 級陸域風機（葉片約 67 m、輪轂高度約 99 m、總高約 166 m）為典型範例；塔架分段、各段重量、基礎尺寸（直徑約 20 m）、混凝土量、錨栓數量與吊裝風速上限皆為產業常見的典型範例，實際依各機型、地質鑽探結果、製造商吊裝手冊與主管機關核定內容而定。超長貨物上路需依規定申請臨時通行許可，本集路線與時間為示意情境。":["Note: this is an illustrative educational animation; the proportions of the vehicles, cranes and turbine have been adjusted. Turbine dimensions are a typical example based on the 4.2 MW-class onshore turbines already installed in Taiwan (blades about 67 m, hub height about 99 m, total height about 166 m). The tower sections, section weights, foundation size (about 20 m in diameter), concrete volume, bolt count and lifting wind limits are typical industry examples; actual values depend on the turbine model, geotechnical borings, the manufacturer's installation manual and the authorities' approvals. Oversized loads require a temporary road permit; the route and times in this episode are illustrative.","説明：本エピソードは教育用の説明アニメーションで、車両・クレーン・風車の比率は調整しています。風車の寸法は台湾で設置済みの 4.2 MW 級陸上風車（ブレード約 67 m、ハブ高さ約 99 m、全高約 166 m）を代表例としています。タワーの分割、各段の重量、基礎寸法（直径約 20 m）、コンクリート量、アンカーボルト本数、吊り上げ風速上限はいずれも業界で一般的な代表例で、実際は機種、地質ボーリングの結果、メーカーの据付マニュアル、主管機関の承認内容によります。特殊車両の通行には臨時の通行許可が必要で、本エピソードのルートと時刻は説明用の想定です。"],
-"夜間的超長貨物":["Oversized cargo at night","夜間の特殊輸送"],
-"陸域風機的葉片、塔架與機艙多由國外製造，海運到台中港等港口卸船後，再走公路運到風場。一支 67 公尺的葉片放在伸縮式拖板車上，整個車隊長度可達 80 公尺左右，比一般聯結車長好幾倍。為了減少對交通的衝擊，超長貨物通常在深夜分段通行，由前導車與後衛車護送，車速很慢，遇到彎道或路口還要停下來調整。":["The blades, tower sections and nacelles of onshore turbines are mostly made abroad. They are shipped to ports such as Taichung, unloaded, and then driven by road to the wind farm. A 67 m blade on an extendable trailer makes a convoy about 80 m long, several times longer than an ordinary semi-trailer. To limit the impact on traffic, oversized loads usually travel late at night in stages, escorted by pilot and rear escort vehicles; they move slowly and stop to adjust at bends and junctions.","陸上風車のブレード、タワー、ナセルの多くは海外で製造され、台中港などで荷揚げされたあと、道路で風力発電所まで運ばれます。67 メートルのブレードを伸縮式トレーラーに載せると、車列の長さは 80 メートル前後になり、一般的なセミトレーラーの数倍です。交通への影響を減らすため、特殊車両は通常深夜に区間ごとに通行し、先導車と後方警戒車が伴走します。速度はごく遅く、カーブや交差点では停車して調整します。"],
-"深夜，一支 67 公尺的葉片駛上道路":["Late at night, a 67 m blade takes to the road","深夜、67 m のブレードが道路を進む"],
-"伸縮式拖板車把葉片架在前後兩組車軸上":["The extendable trailer carries it on front and rear axle groups","伸縮式トレーラーが前後の車軸でブレードを支える"],
-"前導車與後衛車閃著黃燈護送":["Escort vehicles with amber beacons lead and follow","黄色灯を点けた先導車と後方警戒車が伴走"],
-"車速很慢，避開白天的車流":["It moves slowly, away from daytime traffic","低速で走り、昼間の交通を避ける"],
-"葉片長 67 m":["Blade 67 m","ブレード長 67 m"],
-"伸縮式拖板車":["Extendable trailer","伸縮式トレーラー"],
-"前導車":["Pilot car","先導車"],
-"後衛車":["Rear escort","後方警戒車"],
-"運輸車隊（示例）":["Convoy (example)","輸送車列（例）"],
-"時間":["Time","時刻"],
-"車速":["Speed","速度"],
-"車隊總長":["Length","車列全長"],
-"約 80 m":["about 80 m","約 80 m"],
-"轉彎需要多大空間":["How much room a turn takes","カーブに必要な空間"],
-"長貨物轉彎時，車頭與後車軸走的路線不同：兩者之間的葉片會切向彎道內側，而伸出後車軸之外的葉尖則往外側甩出。從上方看，整支葉片掃過的範圍遠大於道路本身。因此運輸前要逐段檢討路線：轉彎半徑與路寬是否足夠、橋梁能否承重、架空線與號誌是否擋路，必要時臨時拓寬或移除護欄。山區窄路也可以改用葉片舉升車，把葉片斜舉起來通過。":["When a long load turns, the tractor and the rear axles follow different paths: the middle of the blade cuts across the inside of the bend, while the tip overhanging the rear axles swings out to the outside. Seen from above, the area swept by the blade is far wider than the road itself. The route is therefore checked section by section before transport: turning radius and road width, bridge load capacity, and overhead lines or signals in the way, with temporary widening or guardrail removal where needed. On narrow mountain roads a blade lifter can tilt the blade up to get through.","長い積荷がカーブを曲がるとき、トラクターと後部車軸は異なる軌跡を通ります。その間のブレードはカーブの内側を横切り、後部車軸から張り出した翼端は外側へ振り出されます。上から見ると、ブレードが掃く範囲は道路よりはるかに広くなります。そのため輸送前に区間ごとにルートを検討します。回転半径と道路幅、橋の耐荷重、架空線や信号の支障を確認し、必要に応じて一時的な拡幅やガードレールの撤去を行います。山間部の狭い道では、ブレードを斜めに持ち上げるブレードリフターを使うこともあります。"],
-"從上方看，葉片在彎道上掃過的範圍":["From above: the area the blade sweeps on a bend","上から見た、カーブでブレードが掃く範囲"],
-"車身中段切向內側，葉尖往外側甩出":["The middle cuts inside while the tip swings outside","中央部は内側を横切り、翼端は外側へ振り出す"],
-"路寬、轉彎半徑與障礙物都要事先檢討":["Road width, bends and obstacles are checked first","道路幅、回転半径、支障物を事前に検討"],
-"必要時臨時拓寬路面、移除護欄":["Roads are widened or guardrails removed where needed","必要に応じて一時的に拡幅、ガードレールを撤去"],
-"轉彎時的掃掠範圍（俯視示意）":["Swept path on a bend (plan view)","カーブでの掃過範囲（平面図）"],
-"內側掃掠":["Inner sweep","内側の掃過"],
-"外側懸伸":["Outer overhang","外側の張り出し"],
-"後車軸":["Rear axles","後部車軸"],
-"曳引車":["Tractor","トラクター"],
-"葉片掃過的範圍":["Swept area","ブレードの掃過範囲"],
-"運輸前的路線檢討":["Route survey before transport","輸送前のルート検討"],
-"轉彎半徑與路寬":["Turning radius and width","回転半径と道路幅"],
-"不足時臨時拓寬、移除護欄":["Widen or remove guardrails if short","不足なら一時拡幅、ガードレール撤去"],
-"坡度與橋梁承載":["Gradients and bridges","勾配と橋の耐荷重"],
-"確認車重與坡度可以通行":["Confirm weight and slopes are passable","車両重量と勾配で通行できるか確認"],
-"架空線、號誌與路樹":["Overhead lines, signals, trees","架空線、信号、街路樹"],
-"事先移設、升高或修剪":["Relocate, raise or trim in advance","事前に移設、かさ上げ、剪定"],
-"夜間分段通行":["Night travel in stages","夜間の区間通行"],
-"申請臨時通行許可，減少交通衝擊":["Temporary permits, less traffic impact","臨時通行許可を取得し交通影響を抑える"],
-"山區窄路可改用葉片舉升車斜舉通過":["Narrow mountain roads: a blade lifter tilts it up","山間部の狭い道はブレードリフターで斜めに通過"],
-"基礎開挖與澆置":["Excavating and pouring the foundation","基礎の掘削と打設"],
-"風機蓋在一座大型鋼筋混凝土基礎上。常見的擴展式基礎直徑約 20 公尺、深約 3 公尺：先開挖並鋪一層墊層混凝土，再綁紮上下兩層放射狀與環狀鋼筋，中央放入錨栓籠。錨栓籠由上百支高強度錨栓與上下錨板組成，日後塔架底部法蘭就鎖在這些錨栓上。混凝土常需連續澆置十幾個小時，用量約 600 至 1,000 立方公尺，最後回填覆土增加壓重。":["The turbine stands on a large reinforced concrete foundation. A common spread foundation is about 20 m across and 3 m deep. The pit is excavated and lined with a layer of blinding concrete, then top and bottom mats of radial and ring rebar are tied, and an anchor cage is set in the centre. The cage consists of more than a hundred high-strength anchor bolts with top and bottom anchor plates; the flange at the base of the tower will later be bolted onto them. The concrete, about 600 to 1,000 cubic metres, is often poured continuously for more than ten hours, and the foundation is finally backfilled with soil for extra weight.","風車は大きな鉄筋コンクリート基礎の上に建ちます。一般的な拡底式基礎は直径約 20 メートル、深さ約 3 メートルです。まず掘削して均しコンクリートを打ち、上下二層の放射状と環状の鉄筋を組み、中央にアンカーケージを据えます。アンカーケージは百本を超える高強度アンカーボルトと上下のアンカープレートでできており、のちにタワー下部のフランジをこれに締結します。コンクリートは約 600〜1,000 立方メートルで、十数時間の連続打設になることが多く、最後に埋め戻して重しを加えます。"],
-"怪手開挖直徑約 20 公尺的基坑":["An excavator digs a pit about 20 m across","掘削機が直径約 20 m の基礎穴を掘る"],
-"鋪墊層、綁鋼筋，中央放入錨栓籠":["Blinding, rebar mats and a central anchor cage","均しコンクリート、配筋、中央にアンカーケージ"],
-"泵浦車連續澆置數百立方公尺混凝土":["A pump truck pours hundreds of cubic metres","ポンプ車で数百立方メートルを連続打設"],
-"回填覆土，只留下中央的基座與錨栓":["Backfill leaves only the pedestal and bolts","埋め戻し、中央の台座とボルトだけが残る"],
-"基坑 深約 3 m":["Pit about 3 m deep","基礎穴 深さ約 3 m"],
-"上下兩層鋼筋":["Top and bottom rebar","上下二層の鉄筋"],
-"錨栓籠":["Anchor cage","アンカーケージ"],
-"混凝土":["Concrete","コンクリート"],
-"回填覆土":["Backfill","埋め戻し土"],
-"基座與錨栓":["Pedestal and bolts","台座とアンカーボルト"],
-"基礎工程（示例）":["Foundation works (example)","基礎工事（例）"],
-"開挖":["Excavation","掘削"],
-"綁紮鋼筋":["Rebar","配筋"],
-"澆置混凝土":["Pouring","打設"],
-"回填":["Backfill","埋め戻し"],
-"工項":["Stage","工程"],
-"開挖深度":["Depth","掘削深さ"],
-"基礎為什麼不會倒":["Why the foundation does not tip over","基礎はなぜ倒れないか"],
-"風吹在葉片上，會在輪轂高度產生很大的推力。推力乘上將近 100 公尺的力臂，在塔底形成巨大的傾倒力矩。擴展式基礎靠兩件事抵抗：一是基礎本身與上方覆土的重量，二是寬大的底面把力分散到地盤。風越大，下風側的地盤反力越高、上風側越低，設計時要確保底面不會翹起、地盤不會被壓壞。基礎型式由地質鑽探決定，軟弱地盤常改用樁基礎。":["Wind on the blades produces a large thrust at hub height. Multiplied by a lever arm of almost 100 m, it creates a huge overturning moment at the base of the tower. A spread foundation resists it in two ways: the weight of the foundation and the soil above it, and a wide base that spreads the load into the ground. The stronger the wind, the higher the ground pressure on the downwind side and the lower on the upwind side; the design must ensure that the base never lifts off and the ground is never overloaded. The foundation type is chosen from geotechnical borings, and piled foundations are common on soft ground.","風がブレードに当たると、ハブの高さに大きなスラストが生じます。これに 100 メートル近い腕の長さを掛けると、タワー基部に巨大な転倒モーメントが生まれます。拡底式基礎はこれに二つの方法で抵抗します。一つは基礎自体と上の土の重さ、もう一つは広い底面で力を地盤に分散させることです。風が強いほど風下側の地盤反力は高く、風上側は低くなり、底面が浮き上がらず地盤が破壊されないよう設計します。基礎の形式は地質ボーリングで決め、軟弱地盤では杭基礎がよく使われます。"],
-"風的推力作用在將近 100 公尺高的輪轂":["Wind thrust acts at a hub almost 100 m up","風のスラストが高さ 100 m 近いハブに作用"],
-"推力乘上高度，在塔底形成傾倒力矩":["Thrust times height gives an overturning moment","スラスト×高さでタワー基部に転倒モーメント"],
-"基礎與覆土的重量把風機壓住":["The weight of concrete and soil holds it down","基礎と土の重さが風車を押さえる"],
-"寬大的底面把力分散給地盤":["A wide base spreads the load into the ground","広い底面が力を地盤に分散"],
-"基礎受力（示意）":["Foundation forces (schematic)","基礎に働く力（模式図）"],
-"推力":["Thrust","スラスト"],
-"傾倒力矩":["Overturning moment","転倒モーメント"],
-"約 99 m":["about 99 m","約 99 m"],
-"自重":["Self-weight","自重"],
-"覆土":["Soil cover","土かぶり"],
-"地盤反力":["Ground pressure","地盤反力"],
-"推力 × 高度 ＝ 傾倒力矩":["Thrust × height = overturning moment","スラスト × 高さ ＝ 転倒モーメント"],
-"（自重 ＋ 覆土）× 力臂 ＝ 抵抗力矩":["(Self-weight + soil) × lever arm = resisting moment","（自重 ＋ 土かぶり）× 腕の長さ ＝ 抵抗モーメント"],
-"擴展式基礎（示例）":["Spread foundation (example)","拡底式基礎（例）"],
-"直徑約 20 m、深約 3 m":["About 20 m wide, 3 m deep","直径約 20 m、深さ約 3 m"],
-"以寬大的底面分散載重":["A wide base spreads the load","広い底面で荷重を分散"],
-"混凝土 600–1,000 m³":["Concrete 600–1,000 m³","コンクリート 600–1,000 m³"],
-"重量本身就是抵抗力矩":["Its weight provides the resisting moment","重さそのものが抵抗モーメント"],
-"錨栓約 180 支":["About 180 anchor bolts","アンカーボルト約 180 本"],
-"把塔架底部法蘭鎖在基礎上":["Bolt the tower base flange to the foundation","タワー下部フランジを基礎に締結"],
-"先做地質鑽探":["Geotechnical borings first","まず地質ボーリング"],
-"軟弱地盤改用樁基礎":["Piled foundations on soft ground","軟弱地盤では杭基礎"],
-"主吊機與輔助吊機":["Main crane and tailing crane","メインクレーンと補助クレーン"],
-"混凝土養護到設計強度後才能吊裝塔架。塔架分成數段運到現場，平躺在地上，要先把它「立起來」：履帶式主吊機勾住上端，輪式輔助吊機勾住下端，兩部吊機一起抬離地面；主吊機持續往上吊，輔助吊機則跟著往前送，讓塔架從水平慢慢轉成垂直，避免底部法蘭拖地受損。立直後輔助吊機脫鉤，主吊機把塔架移到基礎上方，對準錨栓降下並鎖上螺栓，其餘各段依序往上疊。":["Tower erection starts only after the concrete has cured to its design strength. The tower arrives in several sections that lie on the ground, so each must first be stood upright: the crawler main crane hooks the upper end and the wheeled tailing crane the lower end, and both lift it off the ground together. The main crane keeps hoisting while the tailing crane feeds the lower end forward, so the section rotates slowly from horizontal to vertical without the base flange dragging on the ground. Once it is upright the tailing crane releases, and the main crane swings the section over the foundation, lowers it onto the anchor bolts and it is bolted down. The remaining sections are stacked on top in turn.","タワーの据付は、コンクリートが設計強度に達してからです。タワーは数段に分けて運ばれ、地面に横たえられているので、まず立て起こします。クローラー式メインクレーンが上端を、ホイール式補助クレーンが下端を吊り、二台で地面から持ち上げます。メインクレーンが巻き上げを続け、補助クレーンは下端を前へ送り、タワーを水平からゆっくり垂直に回転させて、下部フランジが地面に擦れないようにします。立ち上がったら補助クレーンが外れ、メインクレーンがタワーを基礎の上へ移し、アンカーボルトに合わせて降ろして締結します。残りの段も順に積み上げます。"],
-"主吊機勾上端、輔助吊機勾下端，一起抬起":["Main crane on top, tailing crane below, lift together","メインが上端、補助が下端を吊り、一緒に持ち上げ"],
-"主吊機往上吊，輔助吊機往前送":["The main crane hoists; the tailing crane feeds forward","メインは巻き上げ、補助は前へ送る"],
-"塔架立直後，對準錨栓放上基礎":["Upright, it is lowered onto the anchor bolts","立ち上がったタワーをアンカーボルトに合わせて据える"],
-"第二到第四段依序往上疊，鎖緊法蘭螺栓":["Sections 2 to 4 are stacked and flange-bolted","2〜4 段目を順に積み、フランジボルトを締結"],
-"主吊機（履帶式）":["Main crane (crawler)","メインクレーン（クローラー）"],
-"輔助吊機":["Tailing crane","補助クレーン"],
-"塔架第一段":["Bottom section","タワー 1 段目"],
-"對準錨栓":["Onto anchor bolts","アンカーボルトに合わせる"],
-"法蘭螺栓":["Flange bolts","フランジボルト"],
-"吊裝狀態（示例）":["Lift status (example)","吊り上げ状況（例）"],
-"吊掛物":["Load","吊り荷"],
-"塔架第 {n} 段":["Tower section {n}","タワー {n} 段目"],
-"吊重":["Weight","吊り荷重"],
-"約 {t} t":["about {t} t","約 {t} t"],
-"風速":["Wind","風速"],
-"機艙與葉片上高空":["Nacelle and blades go up","ナセルとブレードを高所へ"],
-"塔架完成後，主吊機把機艙與輪轂吊到將近 100 公尺的塔頂，這是整部風機最重的一吊。接著是葉片：陸域常見兩種做法，一是在地面把三支葉片裝上輪轂，整組轉子一次吊上；二是像這裡的單支吊裝，用專用吊具水平夾住葉片，由地面人員拉住導引繩控制方向，把葉根插進輪轂鎖上螺栓。裝好一支，轉動輪轂 120 度，再裝下一支，重複三次。":["With the tower complete, the main crane lifts the nacelle and hub to the top, almost 100 m up; this is the heaviest lift of the whole turbine. Then come the blades. Onshore there are two common methods: assembling all three blades on the hub on the ground and lifting the whole rotor at once, or single-blade installation as shown here, where a special yoke holds the blade horizontally, ground crew steer it with tag lines, and the blade root is inserted into the hub and bolted. After each blade the hub is turned 120 degrees for the next, three times in all.","タワーが完成すると、メインクレーンがナセルとハブを高さ 100 メートル近いタワー頂部へ吊り上げます。これが風車全体で最も重い吊り作業です。次はブレードです。陸上では二つの方法が一般的で、一つは地上で三枚のブレードをハブに取り付けてロータごと一度に吊る方法、もう一つはここで示すシングルブレード据付です。専用の吊り具でブレードを水平につかみ、地上の作業員が介錯ロープで向きを制御し、翼根をハブに差し込んでボルトで締結します。一枚取り付けるごとにハブを 120 度回し、これを三回繰り返します。"],
-"主吊機把機艙與輪轂吊上塔頂":["The main crane lifts the nacelle and hub to the top","メインクレーンがナセルとハブを頂部へ吊り上げ"],
-"機艙對準塔頂法蘭，鎖上螺栓":["The nacelle is aligned with the top flange and bolted","ナセルを頂部フランジに合わせてボルト締結"],
-"葉片以專用吊具水平吊起，地面拉住導引繩":["A yoke lifts the blade level; tag lines steer it","専用吊り具でブレードを水平に吊り、介錯ロープで制御"],
-"葉根對準輪轂，插入並鎖緊":["The root is aligned, inserted and bolted","翼根をハブに合わせて差し込み、締結"],
-"輪轂轉動 120 度，重複裝上三支葉片":["The hub turns 120° and it repeats for three blades","ハブを 120 度回し、三枚のブレードを順に取り付け"],
-"機艙與輪轂":["Nacelle and hub","ナセルとハブ"],
-"葉片 67 m":["Blade 67 m","ブレード 67 m"],
-"導引繩":["Tag line","介錯ロープ"],
-"葉根插入輪轂":["Root into hub","翼根をハブへ"],
-"轉動 120 度":["Turn 120°","120 度回転"],
-"葉片 {n}/3":["Blade {n}/3","ブレード {n}/3"],
-"吊高":["Height","吊り高さ"],
-"輪轂風速":["Hub wind","ハブ風速"],
-"等待風速窗口":["Waiting for a weather window","風の穏やかな時間を待つ"],
-"吊裝最大的變數是風。葉片面積大、重量相對輕，被風一吹就會擺動，因此各製造商都訂有吊裝風速上限，葉片常見約 10 m/s，塔架與機艙略高。現場以輪轂高度的風速計持續監測，超過就暫停等待。台灣西部沿海冬季東北季風強勁，夏秋又有颱風，工程團隊要依氣象預報挑選風小的時段。一部風機從塔架到葉片完成，順利時約需數天；之後還要完成內部配線、螺栓複鎖與試運轉，才能併網發電。":["The biggest variable in lifting is the wind. A blade has a large area and is relatively light, so it swings in a gust; every manufacturer therefore sets wind speed limits for lifting, commonly about 10 m/s for blades and somewhat higher for tower sections and nacelles. An anemometer at hub height is watched continuously, and work stops when the limit is exceeded. Taiwan's west coast has strong northeast monsoon winds in winter and typhoons in summer and autumn, so crews pick calm periods from the weather forecast. When all goes well a turbine takes a few days from tower to blades; internal cabling, re-torquing of the bolts and commissioning then follow before it is connected to the grid.","据付で最大の不確定要素は風です。ブレードは面積が大きく比較的軽いため、風を受けると揺れます。そのため各メーカーは吊り上げの風速上限を定めており、ブレードでは約 10 m/s が一般的で、タワーやナセルはやや高めです。現場ではハブ高さの風速計で常時監視し、上限を超えれば作業を中断して待ちます。台湾西部の沿岸は冬に北東季節風が強く、夏から秋には台風もあるため、工事チームは気象予報をもとに風の弱い時間帯を選びます。順調ならタワーからブレードまで数日で完了し、その後に内部配線、ボルトの増し締め、試運転を経て系統連系します。"],
-"輪轂高度的風速隨時在變":["Wind at hub height changes all the time","ハブ高さの風速は刻々と変わる"],
-"低於上限的時段，才是可以吊裝的窗口":["Only periods below the limit are lifting windows","上限を下回る時間帯だけが作業可能な窓"],
-"依序完成塔架、機艙與三支葉片":["Tower, nacelle and three blades go up in order","タワー、ナセル、三枚のブレードを順に据付"],
-"配線、複鎖螺栓、試運轉後併網發電":["Cabling, re-torquing and commissioning, then grid","配線、増し締め、試運転を経て系統連系"],
-"輪轂高度風速（示意）":["Wind speed at hub height (schematic)","ハブ高さの風速（模式図）"],
-"小時":["Hours","時間"],
-"葉片吊裝上限（示例）":["Blade lift limit (example)","ブレード吊り上げ上限（例）"],
-"塔架與機艙上限（示例）":["Tower and nacelle limit (example)","タワー・ナセル上限（例）"],
-"可吊裝的窗口":["Lifting window","作業可能な窓"],
-"吊裝順序":["Installation sequence","据付の順序"],
-"立起並鎖在基礎錨栓上":["Stood up and bolted to the anchors","立て起こしてアンカーボルトに締結"],
-"塔架第二至四段":["Tower sections 2 to 4","タワー 2〜4 段目"],
-"逐段往上疊":["Stacked one by one","一段ずつ積み上げ"],
-"最重的一吊":["The heaviest lift","最も重い吊り作業"],
-"三支葉片":["Three blades","ブレード 3 枚"],
-"單支吊裝，轉動輪轂 120 度":["Single-blade lifts, hub turned 120°","一枚ずつ吊り、ハブを 120 度回す"],
-"配線與螺栓複鎖":["Cabling and re-torquing","配線とボルト増し締め"],
-"塔內電纜、全部螺栓複查":["Tower cables, every bolt rechecked","タワー内ケーブル、全ボルトを再確認"],
-"試運轉與併網":["Commissioning and grid","試運転と系統連系"],
-"測試完成後開始發電":["Generation begins after tests","試験完了後に発電開始"]
+"陸域風電系列":["Onshore Wind Series", "陸上風力シリーズ"],
+"風機如何把風變成電":["How a wind turbine turns wind into electricity", "風車はどうやって風を電気に変えるのか"],
+"風機的葉片不是被風推著轉，而是像飛機機翼一樣靠升力。這一集從風中的能量談起，看貝茲極限、升力與葉尖速比，以及風機如何靠變槳與偏航隨風調整，畫出一條功率曲線。":["A turbine's blades are not simply pushed around by the wind; like an aircraft wing, they rely on lift. This episode starts with the energy in the wind, then looks at the Betz limit, lift and the tip speed ratio, and at how pitch and yaw control let a turbine follow the wind to trace out its power curve.", "風車のブレードは風に押されて回るのではなく、飛行機の翼と同じく揚力で回ります。このエピソードでは風のエネルギーから始め、ベッツの限界、揚力、周速比、そしてピッチ制御とヨー制御で風に合わせながら描くパワーカーブを見ていきます。"],
+"貝茲極限：理論上風機最多能擷取通過轉子的風能比例（16/27）":["The Betz limit: the theoretical maximum share of the wind energy passing through a rotor that a turbine can capture (16/27)", "ベッツの限界：ロータを通過する風のエネルギーのうち、理論上取り出せる最大の割合（16/27）"],
+"現代三葉片風機在最佳狀態的功率係數":["Power coefficient of a modern three-bladed turbine at its best operating point", "現代の 3 枚翼風車が最適状態で達するパワー係数"],
+"倍":["times", "倍"],
+"風速加倍，風中的功率變為 8 倍（與風速三次方成正比）":["Double the wind speed and the power in the wind rises eightfold (it scales with the cube of wind speed)", "風速が 2 倍になると風のパワーは 8 倍（風速の 3 乗に比例）"],
+"三葉片風機效率最高的葉尖速比範圍":["Tip speed ratio range at which a three-bladed turbine is most efficient", "3 枚翼風車の効率が最も高くなる周速比の範囲"],
+"切入、額定、切出風速的典型範例":["Typical cut-in, rated and cut-out wind speeds", "カットイン・定格・カットアウト風速の代表例"],
+"約 94":["about 940", "約 94"],
+"萬瓩":["MW", "万 kW"],
+"台灣陸域風電累計裝置容量（能源署統計，2026 年）":["Cumulative installed onshore wind capacity in Taiwan (Energy Administration statistics, 2026)", "台湾の陸上風力の累計設備容量（エネルギー署統計、2026 年）"],
+"說明：本集為教育用途示意動畫，風機與地景比例經過調整。風機以台灣常見的 4.2 MW 級陸域機型為典型範例（葉片約 67 m、轉子直徑約 136 m、輪轂高度約 99 m）；風中功率以空氣密度 1.225 kg/m³ 計算；貝茲極限 16/27 為理論值；Cp–λ 曲線採用文獻常用的經驗式，功率曲線、轉速、槳距角、切入 3 m/s／額定 11 m/s／切出 25 m/s 與偏航損失皆為典型範例，實際依各機型製造商規格而定（部分機型的切出風速更高或採逐步降載）。台灣陸域風電裝置容量引自經濟部能源署能源統計。":["Note: this is an illustrative educational animation; the proportions of the turbine and landscape have been adjusted. The turbine is a typical example based on the 4.2 MW-class onshore models common in Taiwan (blades about 67 m, rotor diameter about 136 m, hub height about 99 m). Wind power is calculated with an air density of 1.225 kg/m³; the Betz limit of 16/27 is a theoretical value. The Cp–λ curve uses an empirical formula widely used in the literature; the power curve, rotor speed, pitch angle, cut-in 3 m/s, rated 11 m/s and cut-out 25 m/s, and the yaw misalignment loss are typical examples, and actual values depend on each manufacturer's specifications (some models cut out at higher wind speeds or reduce output gradually). Taiwan's installed onshore wind capacity is taken from the energy statistics of the Energy Administration, Ministry of Economic Affairs.", "説明：本エピソードは教育用の説明アニメーションで、風車と地形の比率は調整しています。風車は台湾で一般的な 4.2 MW 級陸上機種を代表例としています（ブレード約 67 m、ロータ直径約 136 m、ハブ高さ約 99 m）。風のパワーは空気密度 1.225 kg/m³ で計算し、ベッツの限界 16/27 は理論値です。Cp–λ 曲線は文献で広く使われる経験式を用い、パワーカーブ、回転数、ピッチ角、カットイン 3 m/s・定格 11 m/s・カットアウト 25 m/s、ヨー偏差による損失はいずれも代表例で、実際は各メーカーの仕様によります（カットアウト風速がより高い機種や、段階的に出力を下げる機種もあります）。台湾の陸上風力の設備容量は経済部エネルギー署のエネルギー統計によります。"],
+"風中的風機":["A turbine in the wind", "風の中の風車"],
+"台灣西部沿海每年秋冬吹起強勁的東北季風，是陸域風機最早落腳的地方。一部 4.2 MW 級的陸域風機，輪轂高度約 99 公尺，三支葉片各長約 67 公尺，轉動時掃過的圓面積約 1.45 萬平方公尺，大約是兩座足球場。風讓葉片轉動，轉軸帶動機艙裡的發電機，再經變流器與變壓器送上電網。這一集從風的能量談起，看葉片為什麼會轉、風機最多能擷取多少風能，以及它如何隨風速調整。":["Every autumn and winter, strong northeast monsoon winds sweep Taiwan's west coast, which is where onshore turbines first took root. A 4.2 MW-class onshore turbine has a hub height of about 99 m and three blades about 67 m long; as they turn they sweep a circle of about 14,500 m², roughly two football pitches. The wind turns the blades, the shaft drives the generator in the nacelle, and the power passes through a converter and transformer to the grid. This episode starts with the energy in the wind, then asks why the blades turn, how much of the wind's energy a turbine can capture, and how it adjusts to the wind speed.", "台湾西部の沿岸では毎年秋から冬にかけて強い北東季節風が吹き、陸上風車が最初に建てられた場所です。4.2 MW 級の陸上風車はハブ高さ約 99 メートル、3 枚のブレードはそれぞれ約 67 メートルで、回転すると約 1.45 万平方メートル、サッカー場およそ 2 面分の円を掃きます。風がブレードを回し、主軸がナセル内の発電機を駆動し、コンバータと変圧器を経て電力系統に送ります。このエピソードでは風のエネルギーから始め、ブレードが回る理由、風車が取り出せるエネルギーの上限、そして風速に合わせた調整の仕組みを見ていきます。"],
+"海岸邊的風機，三支葉片迎著季風轉動":["On the coast, three blades turn in the monsoon wind", "海岸の風車、3 枚のブレードが季節風を受けて回る"],
+"葉片轉動，帶動機艙裡的發電機":["The turning blades drive the generator in the nacelle", "ブレードの回転がナセル内の発電機を駆動"],
+"葉片長 67 公尺，掃過約兩座足球場的面積":["Each 67 m blade sweeps an area of about two football pitches", "長さ 67 m のブレードがサッカー場約 2 面分を掃く"],
+"風是怎麼變成電的？先從風的能量看起":["How does wind become electricity? Start with its energy", "風はどうやって電気になるのか。まず風のエネルギーから"],
+"葉片":["Blade", "ブレード"],
+"輪轂與機艙":["Hub and nacelle", "ハブとナセル"],
+"塔架":["Tower", "タワー"],
+"掃掠面積 約 1.45 萬 m²":["Swept area ~14,500 m²", "受風面積 約 1.45 万 m²"],
+"東北季風":["NE monsoon", "北東季節風"],
+"風機即時數據（示例）":["Turbine data (example)", "風車データ（例）"],
+"輪轂風速":["Hub wind", "ハブ風速"],
+"轉子轉速":["Rotor speed", "ロータ回転数"],
+"輸出功率":["Output", "出力"],
+"風裡有多少能量":["How much energy the wind carries", "風にはどれだけのエネルギーがあるか"],
+"風機能發多少電，要先看通過葉片掃掠面的風帶著多少能量。風的功率 P = ½ρAv³：ρ 是空氣密度，海平面約 1.225 kg/m³；A 是葉片掃過的圓面積，與葉片長度的平方成正比；v 是風速，而且是三次方。以直徑約 136 公尺的轉子為例，風速 4 m/s 時風中功率約 0.6 MW，8 m/s 時約 4.6 MW，12 m/s 時超過 15 MW。這就是風機越做越大、塔架越蓋越高，並且選在風大地點的原因。":["How much electricity a turbine can make depends first on how much energy the wind passing through its swept area carries. Wind power is P = ½ρAv³: ρ is air density, about 1.225 kg/m³ at sea level; A is the area swept by the blades, which grows with the square of blade length; and v is wind speed, raised to the third power. For a rotor about 136 m across, the wind carries about 0.6 MW at 4 m/s, about 4.6 MW at 8 m/s and more than 15 MW at 12 m/s. That is why turbines keep getting bigger, towers keep getting taller, and sites are chosen where the wind is strong.", "風車がどれだけ発電できるかは、まずブレードの受風面を通る風がどれだけのエネルギーを持つかで決まります。風のパワーは P = ½ρAv³ です。ρ は空気密度で海面付近では約 1.225 kg/m³、A はブレードが掃く円の面積でブレード長の 2 乗に比例し、v は風速で、しかも 3 乗で効きます。直径約 136 メートルのロータでは、風速 4 m/s で風のパワーは約 0.6 MW、8 m/s で約 4.6 MW、12 m/s では 15 MW を超えます。風車が大型化し、タワーが高くなり、風の強い場所が選ばれるのはこのためです。"],
+"風的功率取決於空氣密度、掃掠面積與風速":["Wind power depends on air density, swept area and wind speed", "風のパワーは空気密度・受風面積・風速で決まる"],
+"葉片越長，掃掠面積按半徑平方增加":["Longer blades: swept area grows with the radius squared", "ブレードが長いほど受風面積は半径の 2 乗で増える"],
+"風速加倍，風中的功率變成 8 倍":["Double the wind speed, and its power rises eightfold", "風速が 2 倍なら、風のパワーは 8 倍"],
+"所以風機要蓋得高，設在風大的地方":["So turbines are built tall, in windy places", "だから風車は高く、風の強い場所に建てる"],
+"風的功率公式":["Wind power formula", "風のパワーの式"],
+"空氣密度":["Air density", "空気密度"],
+"掃掠面積":["Swept area", "受風面積"],
+"風速":["Wind speed", "風速"],
+"功率與 v³ 成正比":["Power scales with v³", "パワーは v³ に比例"],
+"轉子掃掠面內的風功率（示例）":["Wind power through the rotor (example)", "ロータ受風面の風のパワー（例）"],
+"風速加倍，功率變 8 倍":["2× wind speed = 8× power", "風速 2 倍でパワー 8 倍"],
+"輪轂高度風速":["Wind speed at hub height", "ハブ高さの風速"],
+"貝茲極限":["The Betz limit", "ベッツの限界"],
+"風機擷取能量，就是讓風減速。但風不能被完全擋住，否則後面的空氣流不走，風也不再通過轉子。1919 年德國物理學家貝茲（Albert Betz）證明，當轉子處的風速降為上游的三分之二、下游再降到三分之一時，擷取的比例最高，為 16/27，也就是 59.3%，稱為貝茲極限。實際風機還有葉片阻力、葉尖渦流與尾流旋轉等損失，現代三葉片風機的功率係數 Cp 約為 0.45 到 0.50。":["A turbine captures energy by slowing the wind down. But it cannot stop the wind completely, or the air behind would have nowhere to go and the wind would no longer pass through the rotor. In 1919 the German physicist Albert Betz showed that the share captured is greatest when the wind at the rotor slows to two-thirds of its upstream speed and to one-third downstream; that maximum is 16/27, or 59.3%, known as the Betz limit. Real turbines also lose energy to blade drag, tip vortices and wake rotation, so modern three-bladed turbines reach a power coefficient Cp of about 0.45 to 0.50.", "風車がエネルギーを取り出すとは、風を減速させることです。しかし風を完全に止めることはできません。止めると後ろの空気が流れ去れず、風はロータを通らなくなります。1919 年、ドイツの物理学者ベッツ（Albert Betz）は、ロータ位置の風速が上流の 3 分の 2、下流でさらに 3 分の 1 に下がるときに取り出せる割合が最大となり、その値が 16/27、すなわち 59.3% であることを示しました。これがベッツの限界です。実際の風車にはブレードの抗力、翼端渦、後流の旋回などの損失もあり、現代の 3 枚翼風車のパワー係数 Cp は約 0.45〜0.50 です。"],
+"風通過轉子被減速，流管向外擴張":["The wind slows through the rotor and the stream tube widens", "風はロータで減速し、流管が外側に広がる"],
+"把風完全擋住，風就不再流過轉子":["Block the wind completely and it stops flowing through", "風を完全にせき止めると、ロータを通らなくなる"],
+"風速減慢三分之一時，擷取比例最高":["Capture peaks when the wind slows by one-third", "風速が 3 分の 1 減るとき、取り出す割合が最大"],
+"理論上限 59.3%，現代風機約可達 45–50%":["The theoretical limit is 59.3%; modern turbines reach about 45–50%", "理論上限は 59.3%、現代の風車は約 45〜50%"],
+"通過轉子的流管":["Stream tube through the rotor", "ロータを通る流管"],
+"上游風速 100%":["Upstream 100%", "上流の風速 100%"],
+"轉子處 67%":["At rotor 67%", "ロータ位置 67%"],
+"下游 33%":["Downstream 33%", "下流 33%"],
+"轉子":["Rotor", "ロータ"],
+"擷取比例與風速減慢的關係":["Power captured vs slowdown", "取り出す割合と減速の関係"],
+"轉子處風速減慢的比例":["Wind slowdown at the rotor", "ロータ位置での風速の減少率"],
+"功率係數 Cp":["Power coefficient Cp", "パワー係数 Cp"],
+"擋得太多":["Blocking too much", "せき止めすぎ"],
+"貝茲極限 59.3%":["Betz limit 59.3%", "ベッツの限界 59.3%"],
+"減慢 1/3":["Slowed by 1/3", "1/3 減速"],
+"現代風機 45–50%":["Modern turbines 45–50%", "現代の風車 45〜50%"],
+"升力讓葉片轉動":["Lift turns the blades", "揚力がブレードを回す"],
+"葉片不是被風推著轉，而是像飛機機翼一樣靠升力。把葉片切開，剖面是一個翼型。葉片本身在轉動，所以它感受到的是「相對風」：由真實的風與葉片運動速度合成，越靠近葉尖，葉片速度越快，相對風就越斜。氣流流過翼型，上下表面的壓力差產生垂直於相對風的升力。升力沿轉動方向的分量產生扭力讓轉子旋轉，沿風向的分量則成為推力，由塔架與基礎承受。":["The blades are not pushed around by the wind; like an aircraft wing, they rely on lift. Cut through a blade and the section is an airfoil. Because the blade itself is moving, it feels a relative wind that combines the real wind with the blade's own speed; towards the tip the blade moves faster, so the relative wind comes in at a flatter angle. Air flowing over the airfoil creates a pressure difference between its two surfaces, producing lift perpendicular to the relative wind. The part of the lift along the direction of rotation produces torque that turns the rotor, while the part along the wind becomes thrust, carried by the tower and foundation.", "ブレードは風に押されて回るのではなく、飛行機の翼と同じく揚力で回ります。ブレードを切ると、断面は翼型になっています。ブレード自体が動いているため、ブレードが感じるのは実際の風とブレードの移動速度を合成した「相対風」で、翼端に近いほどブレードの速度が大きく、相対風はより斜めになります。翼型の上下面の圧力差によって、相対風に垂直な揚力が生じます。揚力のうち回転方向の成分がトルクとなってロータを回し、風向きの成分はスラストとなってタワーと基礎が受け止めます。"],
+"把葉片切開，剖面就像一片機翼":["Cut through a blade and the section looks like a wing", "ブレードを切ると、断面は翼のような形"],
+"葉片在轉動，迎面而來的相對風變成斜的":["As the blade moves, the relative wind arrives at an angle", "ブレードが動くため、相対風は斜めから当たる"],
+"氣流產生升力，方向與相對風垂直":["The airflow creates lift, perpendicular to the relative wind", "気流が相対風に垂直な揚力を生む"],
+"升力沿轉動方向的分量，推動轉子旋轉":["The part of the lift along the rotation turns the rotor", "揚力の回転方向の成分がロータを回す"],
+"正面看轉子":["Rotor seen from the front", "正面から見たロータ"],
+"紅線：取一段葉片剖面":["Red line: blade section", "赤線：ブレード断面の位置"],
+"風從畫面正面吹入":["Wind blows into the screen", "風は画面の手前から吹き込む"],
+"葉片剖面上的力":["Forces on a blade section", "ブレード断面に働く力"],
+"轉動平面":["Rotor plane", "回転面"],
+"風":["Wind", "風"],
+"葉片運動":["Blade motion", "ブレードの動き"],
+"相對風":["Relative wind", "相対風"],
+"升力":["Lift", "揚力"],
+"阻力":["Drag", "抗力"],
+"驅動力 → 扭力":["Driving force → torque", "駆動力 → トルク"],
+"推力":["Thrust", "スラスト"],
+"葉尖速比":["Tip speed ratio", "周速比"],
+"葉尖速比（TSR，λ）是葉尖線速度除以風速。直徑 136 公尺的轉子每分鐘轉 9 圈時，葉尖速度約 64 m/s；若風速為 8 m/s，葉尖速比就是 8。轉得太慢，大部分氣流從葉片之間穿過而沒被利用；轉得太快，轉子對氣流而言像一面牆，風會繞開。三葉片風機的最佳葉尖速比通常在 7 到 9 之間，控制系統在額定風速以下調整發電機扭力，讓轉速跟著風速變化，盡量維持在最佳點。葉尖速度也受噪音限制，大型陸域風機約 80 m/s。":["The tip speed ratio (TSR, λ) is the blade tip's speed divided by the wind speed. A rotor 136 m across turning at 9 rpm has a tip speed of about 64 m/s; in an 8 m/s wind, the tip speed ratio is 8. Turn too slowly and most of the air slips between the blades unused; turn too fast and the rotor looks like a solid wall to the airflow, which goes around it. The best tip speed ratio for a three-bladed turbine is usually between 7 and 9, so below rated wind speed the control system adjusts generator torque to let rotor speed follow the wind and stay near that optimum. Tip speed is also limited by noise, to about 80 m/s on large onshore turbines.", "周速比（TSR、λ）は翼端の速度を風速で割った値です。直径 136 メートルのロータが毎分 9 回転すると翼端速度は約 64 m/s で、風速 8 m/s なら周速比は 8 になります。回転が遅すぎると、空気の大部分はブレードの間をすり抜けて利用されません。速すぎると、ロータは気流にとって壁のようになり、風はよけて流れます。3 枚翼風車の最適な周速比は通常 7〜9 で、定格風速以下では制御システムが発電機トルクを調整し、回転数を風速に合わせて最適点付近に保ちます。翼端速度は騒音によっても制限され、大型陸上風車では約 80 m/s です。"],
+"葉尖速比：葉尖速度與風速的比值":["Tip speed ratio: blade tip speed divided by wind speed", "周速比：翼端速度と風速の比"],
+"轉太慢，風從葉片之間溜走":["Too slow, and the wind slips between the blades", "遅すぎると、風はブレードの間をすり抜ける"],
+"轉太快，轉子像一面牆，把風擋開":["Too fast, and the rotor acts like a wall, deflecting the wind", "速すぎると、ロータは壁のように風を押しのける"],
+"三葉片風機在葉尖速比約 7–9 時效率最高":["Three-bladed turbines are most efficient at a TSR of about 7–9", "3 枚翼風車は周速比 7〜9 付近で効率が最も高い"],
+"λ = 葉尖速度 ÷ 風速":["λ = tip speed ÷ wind speed", "λ = 翼端速度 ÷ 風速"],
+"風速 8 m/s":["Wind 8 m/s", "風速 8 m/s"],
+"葉尖速度":["Tip speed", "翼端速度"],
+"轉太慢：風從葉片間溜走":["Too slow: wind slips through", "遅すぎ：風がすり抜ける"],
+"轉太快：轉子像一面牆":["Too fast: rotor acts like a wall", "速すぎ：ロータが壁になる"],
+"接近最佳效率":["Near peak efficiency", "最高効率付近"],
+"功率係數與葉尖速比（示意）":["Power coefficient vs TSR (illustrative)", "パワー係数と周速比（イメージ）"],
+"葉尖速比 λ":["Tip speed ratio λ", "周速比 λ"],
+"貝茲極限 0.593":["Betz limit 0.593", "ベッツの限界 0.593"],
+"最佳範圍 7–9":["Optimum 7–9", "最適範囲 7〜9"],
+"變槳與偏航":["Pitch and yaw control", "ピッチ制御とヨー制御"],
+"風機要發得多，先要正對著風。機艙頂端的風向計與風速計持續量測，當風向偏離一段時間，偏航系統就啟動塔頂的多組偏航馬達，帶動齒輪環慢慢轉動機艙，每秒約轉零點幾度。變槳系統則在輪轂內轉動每一支葉片的角度：風速低於額定時，葉片保持在最佳角度；超過額定後逐步加大槳距角、減少升力，讓出力維持在額定值；風速超過切出值或需要緊急停機時，葉片轉到約 90 度的順槳位置，不再產生驅動力。":["To produce as much as possible, a turbine must first face the wind. A wind vane and anemometer on top of the nacelle measure continuously; when the wind direction has drifted for a while, the yaw system starts several yaw motors at the tower top, which drive a large gear ring to turn the nacelle slowly, at a fraction of a degree per second. The pitch system, inside the hub, turns each blade about its own axis: below rated wind speed the blades stay at their best angle; above rated, the pitch angle increases step by step to reduce lift and hold output at the rated value; and when the wind exceeds the cut-out speed or an emergency stop is needed, the blades turn to a feathered position of about 90 degrees and stop producing driving force.", "風車がたくさん発電するには、まず風に正対する必要があります。ナセル上部の風向計と風速計が常に計測し、風向きのずれがしばらく続くと、ヨーシステムがタワー頂部の複数のヨーモーターを起動し、大きな歯車リングを介してナセルを毎秒 1 度未満の速さでゆっくり旋回させます。ピッチシステムはハブ内で各ブレードの角度を回転させます。定格風速以下ではブレードを最適な角度に保ち、定格を超えるとピッチ角を少しずつ大きくして揚力を減らし、出力を定格値に保ちます。カットアウト風速を超えたときや緊急停止のときは、ブレードを約 90 度のフェザー位置まで回し、駆動力を生まないようにします。"],
+"風向改變，機艙頂上的風向計立刻察覺":["The wind shifts, and the vane on the nacelle detects it", "風向きが変わり、ナセル上の風向計がすぐに検知"],
+"偏航馬達轉動機艙，讓轉子重新正對來風":["Yaw motors turn the nacelle to face the wind again", "ヨーモーターがナセルを旋回し、ロータを再び風に正対"],
+"風速超過額定，葉片轉向，洩掉多餘的風":["Above rated wind speed, the blades pitch to spill excess wind", "定格風速を超えると、ブレードを回して余分な風を逃がす"],
+"強風時葉片順槳約 90 度，風機停機保護":["In a gale the blades feather to about 90° and the turbine stops", "強風時はブレードを約 90 度フェザーにして停止"],
+"偏航：對準風向（俯視）":["Yaw: facing the wind (top view)", "ヨー：風向きに合わせる（上から見た図）"],
+"偏差角 {a}°":["Misalignment {a}°", "偏差角 {a}°"],
+"風向計":["Wind vane", "風向計"],
+"偏航馬達與齒輪環":["Yaw motors and gear ring", "ヨーモーターと歯車リング"],
+"偏差 10° 約損失 3–5% 發電量（示例）":["10° misalignment costs about 3–5% of output (example)", "偏差 10° で発電量が約 3〜5% 減少（例）"],
+"變槳：調整葉片角度（剖面）":["Pitch: adjusting blade angle (section)", "ピッチ：ブレード角度の調整（断面）"],
+"風速 {v} m/s":["Wind {v} m/s", "風速 {v} m/s"],
+"槳距角 {b}°":["Pitch {b}°", "ピッチ角 {b}°"],
+"全力擷取":["Full capture", "最大限に取り込む"],
+"洩掉多餘的風，維持額定":["Spill excess wind, hold rated", "余分な風を逃がし定格を維持"],
+"順槳停機":["Feathered and stopped", "フェザーで停止"],
+"功率曲線":["The power curve", "パワーカーブ"],
+"把風速與出力畫成圖，就是風機的功率曲線。風速低於約 3 m/s 的切入風速時，風機不發電；切入後，控制系統讓轉子維持在最佳葉尖速比，出力隨風速約三次方上升；到達約 11 m/s 的額定風速後，變槳系統開始作用，出力維持在額定 4.2 MW；風速超過約 25 m/s 的切出風速，葉片順槳停機，等風變小再啟動。台灣陸域風電累計約 94 萬瓩，多數位於西部沿海，秋冬東北季風期間是全年發電最多的季節。":["Plot output against wind speed and you get a turbine's power curve. Below the cut-in speed of about 3 m/s, the turbine does not generate; after cut-in, the control system keeps the rotor at its best tip speed ratio and output rises roughly with the cube of wind speed; at the rated wind speed of about 11 m/s, the pitch system takes over and holds output at the rated 4.2 MW; and above the cut-out speed of about 25 m/s, the blades feather and the turbine stops until the wind drops. Taiwan has about 940 MW of onshore wind, mostly along the west coast, and the autumn-winter northeast monsoon is the most productive season of the year.", "出力を風速に対して描くと、風車のパワーカーブになります。カットイン風速の約 3 m/s を下回ると発電しません。カットイン後は制御システムがロータを最適な周速比に保ち、出力は風速のほぼ 3 乗で増えます。定格風速の約 11 m/s に達するとピッチシステムが働き、出力を定格の 4.2 MW に保ちます。カットアウト風速の約 25 m/s を超えるとブレードをフェザーにして停止し、風が弱まるのを待って再起動します。台湾の陸上風力は累計約 94 万 kW で多くが西部沿岸にあり、秋冬の北東季節風の時期が一年で最も発電量の多い季節です。"],
+"風速低於 3 m/s，風機靜止等待":["Below 3 m/s, the turbine stands still and waits", "3 m/s 未満では風車は停止して待機"],
+"切入後，出力隨風速快速增加":["After cut-in, output climbs quickly with wind speed", "カットイン後、出力は風速とともに急増"],
+"到達額定風速，變槳把出力維持在 4.2 MW":["At rated wind speed, pitch control holds output at 4.2 MW", "定格風速でピッチ制御が出力を 4.2 MW に保つ"],
+"超過 25 m/s，順槳停機，等風變小再啟動":["Above 25 m/s, it feathers and stops until the wind drops", "25 m/s を超えるとフェザーで停止、風が弱まれば再起動"],
+"4.2 MW 級風機的功率曲線（示例）":["Power curve, 4.2 MW turbine (example)", "4.2 MW 級風車のパワーカーブ（例）"],
+"風速 m/s":["Wind speed m/s", "風速 m/s"],
+"不發電":["Idle", "発電なし"],
+"追隨最佳效率":["Optimal TSR", "最適効率を追従"],
+"變槳維持額定":["Pitch holds rated", "ピッチで定格維持"],
+"停機":["Stopped", "停止"],
+"轉速":["Rotor", "回転数"],
+"出力":["Output", "出力"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
