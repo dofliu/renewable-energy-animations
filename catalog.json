@@ -348,6 +348,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "應用型態",
+            "en": "Applications",
+            "ja": "応用形態"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "漁電共生",
+                "en": "Aquavoltaics: fish farms with solar",
+                "ja": "養殖池と太陽光発電の共生"
+              },
+              "sub": {
+                "zh": "設置型態、支架淨高與作業動線、遮蔽率 40%、養殖月曆、三方共同經營",
+                "en": "Layouts, rack clearance and work routes, the 40% coverage limit, farming calendar, shared operation",
+                "ja": "設置形態、架台高さと作業動線、設置率 40%、養殖カレンダー、三者による共同運営"
+              }
+            }
+          ]
         }
       ]
     },
