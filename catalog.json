@@ -607,6 +607,49 @@
       ]
     },
     {
+      "slug": "hydropower",
+      "title": {
+        "zh": "水力",
+        "en": "Hydropower",
+        "ja": "水力"
+      },
+      "summary": {
+        "zh": "攔水堰、壓力鋼管與水輪機：從川流式小水力到水庫式電廠",
+        "en": "Weirs, penstocks and turbines: from run-of-river small hydro to reservoir plants",
+        "ja": "取水堰、水圧管路、水車：流れ込み式小水力からダム式発電所まで"
+      },
+      "lede": {
+        "zh": "水力是最早被大規模利用的再生能源，關鍵只有落差與流量。這個系列從不必築大壩的川流式小水力談起，介紹取水設施、衝擊式與反擊式水輪機的原理與選型，再走進水庫式水力電廠，看台灣的水力如何為電網提供穩定的綠電。",
+        "en": "Hydropower was the first renewable energy used at scale, and it comes down to head and flow. This series starts with run-of-river small hydro that needs no big dam, explains intake works and how impulse and reaction turbines work and are chosen, then goes inside reservoir hydropower plants to see how Taiwan's hydro provides steady green power to the grid.",
+        "ja": "水力は最初に大規模利用された再生可能エネルギーで、鍵は落差と流量だけです。本シリーズは大きなダムのいらない流れ込み式小水力から始め、取水設備、衝動水車と反動水車の原理と選定を紹介し、さらにダム式水力発電所に入って、台湾の水力が系統に安定したグリーン電力を届ける仕組みを見ます。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "發電原理",
+            "en": "How it works",
+            "ja": "発電の原理"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "川流式小水力",
+                "en": "Run-of-river small hydropower",
+                "ja": "流れ込み式小水力"
+              },
+              "sub": {
+                "zh": "攔水堰與引水道、落差與流量、衝擊式與反擊式水輪機、選型與灌溉渠道小水力",
+                "en": "Weir and headrace, head and flow, impulse and reaction turbines, turbine selection and canal small hydro",
+                "ja": "取水堰と導水路、落差と流量、衝動水車と反動水車、機種選定と用水路の小水力"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "ocean-energy",
       "title": {
         "zh": "海洋能",
