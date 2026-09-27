@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep01.js｜氫能系列</title>
+<title>ep02.js｜氫能系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="氫能系列" data-en="Hydrogen series" data-ja="水素エネルギーシリーズ">氫能系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 燃料電池 →" data-en="02 How a fuel cell works →" data-ja="02 燃料電池のしくみ →">02 燃料電池 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="氫能系列" data-en="Hydrogen series" data-ja="水素エネルギーシリーズ">氫能系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 電解水產氫" data-en="← 01 Making hydrogen by splitting water" data-ja="← 01 水電解による水素製造">← 01 電解水產氫</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep01.js｜氫能系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜氫能系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,383 +543,395 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 氫能系列 第 1 集：電解水產氫 */
+/* 氫能系列 第 2 集：燃料電池 */
 const gyy=x=>groundY(x);
-const SUN={x:1000,y:110};
-const EX=560,EW=260,EH=112;                     // 電解槽貨櫃左緣、寬、高
-const SPX=860,CPX=990,TBX=1110,TRK=1330;          // 分離純化、壓縮機、儲氫管束、管束拖車
-const H2C='#7dffc4',O2C='#b37cff',WC='#58b8d0';   // 氫氣、氧氣、水的顏色
+const SUN={x:1180,y:120};
+const H2C='#7dffc4',O2C='#b37cff',WC='#58b8d0',EC='#f2c230',HC='#ff8a60';   // 氫氣、氧氣、水、電、熱
+const DSP=400;                                     // 加氫機位置
 /* 沿折線 P（[[x,y],…]）取比例 f 的點 */
 function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
   let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
 function flowDots(P,n,col,a,sp,r){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],r||4.5,col));}}
-/* 小型風機（側視，葉片旋轉） */
-function miniTurbine(x,h){const g=gyy(x),hy=g-h;poly([x-5,g,x-2.5,hy,x+2.5,hy,x+5,g],'#e3e8ec','rgba(0,0,0,.25)',1);box(x-4,hy-6,18,10,'#e3e8ec','rgba(0,0,0,.3)',1);
-  for(let k=0;k<3;k++){const a=TT*1.4+k*TAU/3;ctx.save();ctx.translate(x,hy-1);ctx.rotate(a);poly([0,-2,62,-3,70,0,62,3,0,2],'#f4f6f7','rgba(0,0,0,.3)',1);ctx.restore();}circ(x,hy-1,4,'#c9d1d6');}
-/* 電解槽貨櫃；open 0–1 為側牆透明度 */
-function elecContainer(open){const x=EX,y=gyy(EX+EW/2),w=EW,h=EH;open=open||0;
-  box(x,y-h,w,h,'#13232e');if(open>0)alphaDo(open,()=>elecInside(x,y));
-  alphaDo(1-open*.88,()=>{box(x,y-h,w,h,'#e3e8ec');ctx.strokeStyle='rgba(0,0,0,.13)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<26;i++){const xx=x+w*i/26;ctx.moveTo(xx,y-h+4);ctx.lineTo(xx,y-4);}ctx.stroke();
-   box(x+16,y-h+18,70,14,'#1f7f99');wt(x+51,y-h+28,'H₂',12,'#fff',700,'center',COND);});
-  ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.strokeRect(x,y-h,w,h);box(x-4,y-h-4,w+8,5,'#aeb8be');
-  box(x+30,y-h-30,10,26,'#8d989f');box(x+w-50,y-h-30,10,26,'#8d989f');
-}
-/* 貨櫃內部：整流器、電解槽堆、氫／氧氣液分離器、純水 */
-function elecInside(x,y){const h=EH;box(x+2,y-h+2,EW-4,h-4,'#0e2a3b');
-  box(x+8,y-h+12,36,h-20,'#44535c','rgba(255,255,255,.35)',1);for(let i=0;i<4;i++)box(x+13,y-h+22+i*18,26,8,'#2a3a46');
-  box(x+56,y-58,96,42,'#8d989f','rgba(255,255,255,.4)',1);for(let i=0;i<22;i++)ln([x+60+i*4.2,y-56,x+60+i*4.2,y-18],i%2?'#3f6f96':'#c9d1d6',2);
-  box(x+52,y-62,6,50,'#c9d1d6');box(x+150,y-62,6,50,'#c9d1d6');
-  rrp(x+170,y-h+14,26,70,10);ctx.fillStyle='#3a5a4c';ctx.fill();rrp(x+204,y-h+14,26,70,10);ctx.fillStyle='#4b3a66';ctx.fill();
-  box(x+168,y-24,64,16,'#1f5f7a','rgba(255,255,255,.3)',1);
-  ln([x+104,y-58,x+104,y-h+8,x+183,y-h+8,x+183,y-h+14],'rgba(125,255,196,.8)',2);ln([x+130,y-58,x+130,y-h+4,x+217,y-h+4,x+217,y-h+14],'rgba(179,124,255,.8)',2);
-}
-/* 氫氣純化乾燥塔 */
-function purifier(x){const g=gyy(x);for(let i=0;i<2;i++){rrp(x+i*34,g-104,26,100,12);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();}box(x-6,g-6,76,6,'#8d989f');}
-/* 壓縮機橇 */
-function compressor(x){const g=gyy(x);box(x,g-70,100,66,'#f2c230','rgba(0,0,0,.3)',1);box(x+10,g-60,40,34,'#d9ad2a');ring(x+74,g-40,16,'rgba(0,0,0,.35)',3);
-  const a=TT*4;ln([x+74,g-40,x+74+12*Math.cos(a),g-40+12*Math.sin(a)],'rgba(0,0,0,.5)',2);box(x-4,g-6,108,6,'#6a747a');}
-/* 儲氫管束（固定式高壓容器） */
-function tubeBank(x){const g=gyy(x);box(x+10,g-100,6,100,'#6a747a');box(x+184,g-100,6,100,'#6a747a');
-  for(let r=0;r<4;r++){rrp(x,g-96+r*22,200,18,9);ctx.fillStyle='#c9d1d6';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();}}
-/* 管束拖車 */
-function tubeTrailer(x){const g=gyy(x+100);ctx.save();ctx.translate(x,g);
-  box(0,-18,176,8,'#2b3137');for(let r=0;r<3;r++){rrp(4,-70+r*17,168,15,7);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();}
-  box(4,-72,10,56,'#1f7f99');box(180,-46,40,36,'#f4f6f7');box(190,-42,22,14,'#2a3a46');box(176,-12,48,4,'#2b3137');
-  for(const wx of [22,48,74,200])circ(wx,-5,8,'#222','#555',2);ctx.restore();}
-/* 管線 */
-const PV2E=()=>[[300,gyy(300)-30],[EX-20,gyy(300)-30],[EX-20,gyy(EX)-EH+30],[EX,gyy(EX)-EH+30]];
-const WT2E=()=>[[420,gyy(420)-150],[420,gyy(420)-20],[EX-20,gyy(420)-20]];
-const E2S=()=>[[EX+EW/2-80,gyy(EX)-EH],[EX+EW/2-80,gyy(EX)-EH-40],[SPX+13,gyy(EX)-EH-40],[SPX+13,gyy(SPX)-104]];
-const S2C=()=>[[SPX+47,gyy(SPX)-104],[SPX+47,gyy(SPX)-124],[CPX+50,gyy(SPX)-124],[CPX+50,gyy(CPX)-70]];
-const C2T=()=>[[CPX+100,gyy(CPX)-40],[TBX,gyy(TBX)-40]];
-const T2K=()=>[[TBX+200,gyy(TBX)-80],[TRK+10,gyy(TBX)-80],[TRK+10,gyy(TRK+100)-72]];
-function pipes(){[E2S(),S2C(),C2T(),T2K()].forEach(P=>pathLine2(P,'rgba(60,70,78,.6)',3));}
-function plantDraw(truckX){
-  fence(520,1560,gyy(1000)+4);
-  for(let i=0;i<5;i++)solarPanel(70+i*50,gyy(80+i*50),46,22,{h:30,glint:true});
-  miniTurbine(430,190);
-  ln([PV2E()[0][0],PV2E()[0][1],PV2E()[1][0],PV2E()[1][1],PV2E()[2][0],PV2E()[2][1],PV2E()[3][0],PV2E()[3][1]],'rgba(40,50,58,.5)',2);
-  pipes();elecContainer(0);purifier(SPX);compressor(CPX);tubeBank(TBX);tubeTrailer(truckX===undefined?TRK:truckX);
-  const wy=gyy(EX)-20;ln([EX+EW,wy,EX+EW+20,wy],WC,3);
-}
-/* 路徑轉 pathLine 用的平坦陣列 */
-function pathLine2(P,col,lw){const a=[];P.forEach(p=>a.push(p[0],p[1]));ln(a,col,lw);}
+function pl(P,col,lw){const a=[];P.forEach(p=>a.push(p[0],p[1]));ln(a,col,lw);}
+/* 道路 */
+function road(){ctx.beginPath();for(let x=-400;x<=2000;x+=20)ctx.lineTo(x,gyy(x)-2);for(let x=2000;x>=-400;x-=20)ctx.lineTo(x,gyy(x)+16);ctx.closePath();ctx.fillStyle='#3d4448';ctx.fill();
+  ctx.setLineDash([26,22]);ctx.beginPath();for(let x=-400;x<=2000;x+=20)ctx.lineTo(x,gyy(x)+8);ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);}
+/* 遠景建築 */
+function skyline(){const R=rng(21);for(let i=0;i<14;i++){const x=640+i*72+R()*20,h=60+R()*120,w=46+R()*24;box(x,gyy(x)-h-2,w,h,'rgba(120,140,150,.35)');}}
+/* 加氫站 */
+function station(){const g=gyy(DSP);
+  box(230,g-210,360,16,'#e3e8ec','rgba(0,0,0,.25)',1);box(230,g-196,360,6,'#1f7f99');
+  box(250,g-194,12,194,'#aeb8be');box(558,g-194,12,194,'#aeb8be');
+  box(DSP-22,g-96,44,96,'#f4f6f7','rgba(0,0,0,.3)',1);box(DSP-16,g-86,32,20,'#2a3a46');box(DSP-22,g-110,44,14,'#1f7f99');
+  wt(DSP,g-99,'H₂',11,'#fff',700,'center',COND);
+  box(120,g-80,70,80,'#dfe5e8','rgba(0,0,0,.25)',1);for(let r=0;r<3;r++){rrp(126,g-74+r*22,58,16,8);ctx.fillStyle='#c9d1d6';ctx.fill();}}
+/* 燃料電池車：x 為車中心，s 為縮放，cut 0–1 為剖面透明度 */
+function fcev(x,s,cut){const g=gyy(x);ctx.save();ctx.translate(x,g);ctx.scale(s,s);cut=cut||0;
+  const body=[-140,-26,-142,-50,-122,-62,-74,-67,-42,-98,38,-100,82,-68,128,-60,142,-44,140,-26];
+  alphaDo(1-cut*.82,()=>{poly(body,'#dfe6ea','rgba(0,0,0,.35)',1.2);poly([-62,-69,-36,-93,-2,-94,-2,-69],'#2a3a46');poly([4,-69,4,-94,34,-93,70,-69],'#2a3a46');
+   ln([-138,-40,138,-40],'rgba(31,127,153,.7)',2);box(128,-54,12,6,'#f2c230');box(-142,-52,6,8,'#e8572a');});
+  if(cut>0){alphaDo(cut,()=>{poly(body,'rgba(14,42,59,.55)','rgba(255,255,255,.6)',1.2);
+    rrp(-40,-44,100,15,7);ctx.fillStyle='#c9d1d6';ctx.fill();circ(-72,-40,13,'#c9d1d6','rgba(0,0,0,.3)',1);
+    box(72,-60,54,26,'#e3d27a','rgba(0,0,0,.35)',1);for(let i=0;i<10;i++)ln([76+i*5,-58,76+i*5,-36],'rgba(0,0,0,.35)',1);
+    box(-132,-66,30,16,'#1f7f99','rgba(255,255,255,.4)',1);box(-104,-38,22,14,'#8d989f','rgba(255,255,255,.4)',1);
+    box(40,-62,20,12,'#5c6770','rgba(255,255,255,.4)',1);});}
+  for(const wx of [-90,90]){circ(wx,-20,20,'#1d2226');circ(wx,-20,9,'#aeb8be');}
+  ctx.restore();}
+/* 車上座標 → 世界座標 */
+const CP=(x,s,lx,ly)=>[x+lx*s,gyy(x)+ly*s];
+/* 固定式燃料電池場景 */
+const FCX=620,BLX=980,TKX=840;
+function building(lit){const g=gyy(BLX+150);box(BLX,g-310,300,310,'#cfd8dc','rgba(0,0,0,.25)',1);box(BLX,g-322,300,12,'#aeb8be');
+  for(let r=0;r<7;r++)for(let c=0;c<6;c++)box(BLX+18+c*47,g-296+r*40,30,24,lit?'rgba(242,194,48,.75)':'#2a3a46');
+  box(BLX+124,g-50,52,50,'#2a3a46');}
+function fcCabinet(x){const g=gyy(x+75);box(x,g-120,150,120,'#e3e8ec','rgba(0,0,0,.3)',1);box(x,g-120,150,14,'#1f7f99');
+  for(let i=0;i<5;i++)ln([x+14,g-90+i*14,x+70,g-90+i*14],'rgba(0,0,0,.25)',2);box(x+88,g-94,48,60,'#e3d27a','rgba(0,0,0,.3)',1);box(x-4,g-4,158,4,'#6a747a');}
+function hwTank(x){const g=gyy(x);rrp(x,g-160,64,156,26);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();box(x-4,g-4,72,4,'#6a747a');}
+function pole(x,h){const g=gyy(x);box(x-3,g-h,6,h,'#6a5a48');box(x-22,g-h+8,44,4,'#6a5a48');}
+const FUEL=()=>[[120,gyy(120)-26],[FCX,gyy(FCX)-26]];
+const ELEC=()=>[[FCX+150,gyy(FCX)-70],[BLX,gyy(FCX)-70]];
+const HEAT1=()=>[[FCX+150,gyy(FCX)-30],[TKX,gyy(FCX)-30]];
+const HEAT2=()=>[[TKX+64,gyy(TKX)-130],[BLX,gyy(TKX)-130]];
+const GRID=()=>[[1640,gyy(1500)-236],[1500,gyy(1500)-236],[1380,gyy(1380)-236],[BLX+300,gyy(1280)-250]];
 
-const EP={no:1,slug:'hydrogen',seriesName:'氫能系列',t:'電解水產氫',en:'Making hydrogen by splitting water',
-lede:'氫氣燃燒或用在燃料電池時只產生水，但它在地球上幾乎都藏在水和天然氣裡。這一集走進一座電解產氫場，看電如何把水拆成氫和氧，比較鹼性與 PEM 兩種電解槽，算一算一公斤氫要多少度電，並說明綠氫、灰氫的差別，以及氫氣如何壓縮儲存。',
-facts:[['1.23','V','電解水的理論最低電壓；實際電解槽運轉約 1.8–2.0 V'],
-['39.4','kWh','產生 1 公斤氫的理論最低耗電（以高熱值計）'],
-['約 50–55','kWh','目前電解槽系統產生 1 公斤氫的典型耗電（示例）'],
-['約 9','公斤','產生 1 公斤氫理論上需要的水量'],
-['10–12','kg CO₂e','天然氣重組製造 1 公斤灰氫的排放（IEA）'],
-['9–12','%','台灣 2050 淨零路徑中，氫能發電在電力配比的占比']],
-note:'說明：本集為教育用途示意動畫，設備外觀與比例經過調整。電解電壓（1.23 V、1.48 V）為 25°C 標準狀態的熱力學值；鹼性與 PEM 電解槽的運轉電壓、電流密度與耗電為文獻常見範圍的典型範例；灰氫排放取自 IEA《Global Hydrogen Review 2024》；台灣電網電力排碳係數取經濟部能源署公告 113 年度 0.474 公斤 CO₂e/度；氫能占比取自國家發展委員會「臺灣 2050 淨零排放路徑」。產氫場配置、功率與儲存壓力為示意情境，實際數值依各案場設計而定。',
-base:()=>{landSky(GY,{sun:SUN,clouds:false});drawGround();},
+const EP={no:2,slug:'hydrogen',seriesName:'氫能系列',t:'燃料電池',en:'How a fuel cell works',
+lede:'燃料電池把氫氣和空氣中的氧氣送進一片薄膜的兩側，不經燃燒就直接產生電，排出的只有水和熱。這一集拆開質子交換膜燃料電池，看陽極與陰極各發生什麼反應、單電池如何疊成電堆，再走進燃料電池車與大樓旁的固定式發電機組。',
+facts:[['1.23','V','氫氧反應的理論電壓；運轉中的單電池約 0.6–0.8 V'],
+['330','片','第二代 Toyota Mirai 電堆的單電池數，最大輸出 128 kW'],
+['60–80','°C','質子交換膜燃料電池的典型運轉溫度'],
+['約 5.6','kg','Mirai 車上三支 700 bar 高壓氣瓶的儲氫量'],
+['約 60','%','燃料電池以純氫發電可達的電效率（示例）'],
+['5–7','萬元/kW','經濟部定置型燃料電池發電系統的設置補助額度']],
+note:'說明：本集為教育用途示意動畫，設備外觀與比例經過調整。1.23 V 為 25°C 標準狀態的熱力學值；單電池運轉電壓、運轉溫度與電效率為美國能源部（DOE）燃料電池技術資料與文獻常見範圍的典型範例；電堆單電池數、輸出與儲氫量取自 Toyota 公布的第二代 Mirai 技術規格；定置型燃料電池補助額度取自經濟部能源署「經濟部定置型燃料電池發電系統設置補助要點」；SOFC 能源效率參考工研院公開資料。加氫量、發電功率、熱電比例與汽油引擎效率為示意情境，實際數值依機型與運轉條件而定。',
+base:()=>{landSky(GY,{sun:SUN,clouds:true});drawGround();},
 shots:[
-{t:'一座綠氫產氫場',en:'A green hydrogen plant',dur:12,side:true,
- d:'氫是宇宙中最多的元素，但在地球上很少以氫氣單獨存在，大多和氧結合成水，或和碳結合成天然氣。電解產氫場的做法是用電把水拆開：太陽光電或風機送來的電進入電解槽，產出的氫氣經過分離、純化與乾燥，再由壓縮機打進高壓儲氫容器，最後用管束拖車或管線送到工廠、加氫站與電廠。若用的是再生能源電力，產出的就稱為綠氫。',
- s:[[0,'太陽光電與風機送來的電，進入電解槽'],[.28,'電解槽把水拆成氫氣與氧氣'],[.52,'氫氣經過純化乾燥，再進入壓縮機'],[.76,'高壓氫氣裝上管束拖車送出']],
- cam:u=>camMix({x:800,y:450,s:1},{x:860,y:470,s:1.1},ease(seg(u,.1,.5))),
+{t:'加氫三分鐘',en:'Refuelling a fuel cell car',dur:12,side:true,
+ d:'燃料電池車開進加氫站，加氫機把約 700 巴的高壓氫氣灌進車上的氣瓶，加滿約需 3 到 5 分鐘，和加油的時間差不多。車子本身其實是一輛電動車：它不在車上燃燒氫氣，而是用燃料電池把氫和空氣中的氧結合，產生電力推動馬達，排氣管排出的只有水。以第二代 Toyota Mirai 為例，三支氣瓶共可存約 5.6 公斤氫氣。',
+ s:[[0,'燃料電池車開進加氫站'],[.22,'加氫機灌入約 700 巴的高壓氫氣'],[.52,'加滿約 3 到 5 分鐘，和加油差不多'],[.76,'上路後，排氣管排出的只有水']],
+ cam:u=>camMix({x:700,y:470,s:1.35},{x:820,y:480,s:1.15},ease(seg(u,.72,.98))),
  draw(u){
-  plantDraw();
-  flowDots(PV2E(),6,'#f2c230',band(u,.02,1),.5);flowDots(WT2E(),5,'#f2c230',band(u,.02,1),.5);
-  flowDots(E2S(),6,H2C,seg(u,.28,.34),.35);flowDots(S2C(),6,H2C,seg(u,.52,.58),.35);flowDots(C2T(),3,H2C,seg(u,.56,.62),.35);flowDots(T2K(),4,H2C,seg(u,.76,.82),.35);
-  lab(180,gyy(180)-34,'太陽光電',{dx:0,dy:-80,st:'s',a:band(u,.02,.3)});
-  lab(430,gyy(430)-190,'風機',{dx:60,dy:-30,st:'s',a:band(u,.02,.3)});
-  lab(EX+EW/2,gyy(EX)-EH,'電解槽',{dx:0,dy:-120,st:'s',a:band(u,.26,.55)});
-  lab(SPX+30,gyy(SPX)-104,'純化乾燥',{dx:-10,dy:-90,a:band(u,.5,.75)});
-  lab(CPX+50,gyy(CPX)-70,'壓縮機',{dx:40,dy:-110,a:band(u,.52,.78)});
-  lab(TRK+90,gyy(TRK)-72,'管束拖車',{dx:-30,dy:-90,st:'g',a:band(u,.76,1)});
+  skyline();road();station();
+  const x=u<.2?lerp(-220,520,easeOut(seg(u,0,.2))):lerp(520,1500,easeIn(seg(u,.74,1)));
+  fcev(x,1,0);
+  const port=CP(x,1,-126,-50),g=gyy(DSP),hk=band(u,.2,.72);
+  if(hk>0)alphaDo(hk,()=>{ctx.beginPath();ctx.moveTo(DSP+22,g-60);ctx.quadraticCurveTo((DSP+port[0])/2+20,g-10,port[0],port[1]);ctx.strokeStyle='#1d2226';ctx.lineWidth=4;ctx.stroke();});
+  if(hk>.5)flowDots([[DSP+22,g-60],[(DSP+port[0])/2+20,g-26],port],3,H2C,1,.7,3.5);
+  if(u>.78)for(let k=0;k<6;k++){const f=((TT*.9)+k/6)%1,p=CP(x,1,-146-f*30,-26+f*26);alphaDo(1-f,()=>circ(p[0],p[1],3.2,WC));}
+  lab(DSP,g-96,'加氫機',{dx:-40,dy:-120,st:'s',a:band(u,.06,.5)});
+  lab(155,g-80,'儲氫槽',{dx:-10,dy:-70,a:band(u,.24,.6)});
+  lab(port[0],port[1],'加氫口',{dx:40,dy:-120,st:'g',a:band(u,.24,.6)});
+  const ex=CP(x,1,-150,-24);lab(ex[0],ex[1],'只排出水',{dx:-40,dy:-110,st:'g',a:band(u,.8,1)});
  },
- hud(u){hudPanel(240,150,'產氫場（示例）',seg(u,.05,.1),w=>{const p=10*ease(seg(u,.05,.3)),k=seg(u,.28,.4);
-  hrow(56,'電力',p.toFixed(1)+' MW',w,'#f2c230');hrow(88,'產氫',Math.round(192*k*p/10)+' kg/h',w,H2C);hrow(120,'狀態',k>.5?'產氫中':'啟動',w,'#fff');});}},
+ hud(u){hudPanel(240,160,'加氫（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.24,.7)),m=lerp(.8,5.6,k),p=lerp(120,700,k);
+  hrow(56,'車載氫氣',m.toFixed(1)+' kg',w,H2C);hbar(14,68,w-28,m/5.6,H2C);hrow(106,'氣瓶壓力',Math.round(p)+' bar',w,EC);hrow(138,'狀態',u<.2?'進站':u<.72?'加氫中':'行駛',w,'#fff');});}},
 
-{t:'用電把水拆開',en:'Splitting water with electricity',dur:14,
- d:'電解槽裡有兩片電極泡在水中，接上直流電後，負極（陰極）產生氫氣，正極（陽極）產生氧氣。反應式是 2H₂O → 2H₂ + O₂，所以氫氣的體積是氧氣的兩倍。拆開水分子需要能量：理論上電壓至少要 1.23 伏特；若連反應吸收的熱也由電供應，要 1.48 伏特。實際電解槽還要克服電極反應的過電位與電阻損失，一般運轉在 1.8 到 2.0 伏特，多出來的部分會變成熱。',
- s:[[0,'兩片電極泡在水中，接上直流電'],[.25,'電壓超過 1.23 V，電極開始冒出氣泡'],[.48,'負極產生氫氣，正極產生氧氣，體積 2 比 1'],[.72,'實際運轉約 1.8–2.0 V，多出的電壓變成熱']],
+{t:'電解的反方向',en:'Electrolysis in reverse',dur:13,
+ d:'上一集的電解槽用電把水拆成氫和氧；燃料電池做的是相反的事，讓氫和氧重新結合成水，同時放出電和熱。反應式是 H₂ + ½O₂ → H₂O，理論電壓同樣是 1.23 伏特。電解時要施加高於 1.23 伏特的電壓才拆得開，燃料電池輸出時則低於 1.23 伏特，實際約 0.7 伏特。和引擎或火力發電不同，燃料電池不經過燃燒、熱與轉動這些步驟，化學能直接變成電，因此少了中間的轉換損失。',
+ s:[[0,'電解：用電把水拆成氫和氧'],[.25,'燃料電池：氫和氧結合，產生電、水和熱'],[.5,'電解要高於 1.23 V，燃料電池輸出約 0.7 V'],[.72,'不經燃燒，化學能直接變成電']],
  draw(u){
   diagBG();
-  const V=u<.72?lerp(0,1.5,ease(seg(u,.05,.45))):lerp(1.5,1.9,ease(seg(u,.72,.82)));
-  const on=clamp((V-1.23)/.1),K=on*(V>1.5?1.6:1);
-  card(60,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'電解槽（示意）',20,'#f2c230',700);
-  /* 電源 */
-  box(330,230,180,70,'#1c3144','#c9d1d6',2);wt(420,276,trf('{v} V',{v:V.toFixed(2)}),32,V>=1.23?'#f2c230':'#fff',700,'center',COND);
-  ln([330,265,220,265,220,380],'#ff9d7a',3);ln([510,265,620,265,620,380],'#7dc8dc',3);
-  wt(214,252,'−',26,'#7dc8dc',700,'center');wt(626,252,'+',26,'#ff9d7a',700,'center');
-  /* 水槽 */
-  box(150,380,540,360,'rgba(88,184,208,.18)');ln([150,380,150,740,690,740,690,380],'#c9d1d6',3);box(150,420,540,2,'rgba(125,200,220,.6)');
-  box(206,370,28,330,'#8d989f');box(606,370,28,330,'#8d989f');
-  ctx.setLineDash([6,6]);ln([420,430,420,736],'rgba(227,236,238,.45)',2);ctx.setLineDash([]);
-  /* 氣泡 */
-  const R=rng(5),B=[];for(let i=0;i<40;i++)B.push([R(),R(),R()]);
-  if(K>0)B.forEach(([a,b,c],i)=>{const hy=i<27,xx=hy?240+a*70:540+a*60,sp=.35+c*.3,p=(TT*sp*K+b)%1,yy=lerp(700,425,p);if(!hy&&i%3===0)return;
-   alphaDo(on*(p<.95?1:0),()=>circ(xx+6*Math.sin(p*8+i),yy,hy?5:7,'rgba(255,255,255,.1)',hy?H2C:O2C,2));});
-  alphaDo(on,()=>{wt(270,790-20,'H₂ 氫氣',22,H2C,700,'center');wt(570,790-20,'O₂ 氧氣',22,O2C,700,'center');});
-  wt(220,360,'陰極',17,'rgba(227,236,238,.9)',600,'center');wt(620,360,'陽極',17,'rgba(227,236,238,.9)',600,'center');
-  /* 右：反應式與電壓階梯 */
-  alphaDo(seg(u,.45,.52),()=>{card(820,160,720,170,{bg:'rgba(7,27,39,.75)',st:'rgba(242,194,48,.5)'});wt(844,200,'反應式',20,'#f2c230',700);
-   wt(1180,268,'2H₂O  →  2H₂  +  O₂',40,'#fff',700,'center');wt(1180,312,'氫氣體積是氧氣的 2 倍',18,'rgba(227,236,238,.85)',500,'center');});
-  const c=chartBox(820,360,720,440,{title:'電解電壓',x0:0,x1:1,y0:0,y1:2.2,xt:[],yt:[0,1,2],yl:'V',pt:56,pb:30,pl:60,pr:20,gx:1,gy:2});
-  const L=[[1.23,'理論最低電壓','#7dffc4',.2],[1.48,'熱中性電壓（反應熱也由電供應）','#7dc8dc',.35],[1.9,'實際運轉約 1.8–2.0 V','#f2c230',.72]];
-  L.forEach(([v,n,col,t0])=>alphaDo(seg(u,t0,t0+.06),()=>{ctx.setLineDash([6,5]);ln([c.px,c.Y(v),c.px+c.pw,c.Y(v)],col,2);ctx.setLineDash([]);wt(c.px+70,c.Y(v)-10,n,17,col,700,'left');wt(c.px+14,c.Y(v)-10,v.toFixed(2),17,col,700,'left',COND);}));
-  box(c.X(.7),c.Y(V),c.X(.9)-c.X(.7),c.Y(0)-c.Y(V),V>=1.23?'rgba(242,194,48,.75)':'rgba(227,236,238,.4)');
-  alphaDo(seg(u,.78,.84),()=>{box(c.X(.7),c.Y(1.9),c.X(.9)-c.X(.7),c.Y(1.48)-c.Y(1.9),'rgba(255,138,96,.9)');wt(c.X(.8),c.Y(1.69)+6,'損失 → 熱',17,'#fff',700,'center');});
+  const a1=seg(u,.02,.08),a2=seg(u,.24,.3);
+  alphaDo(a1,()=>{card(60,160,720,400,{bg:'rgba(7,27,39,.75)'});wt(84,204,'電解（上一集）',22,'rgba(227,236,238,.85)',700);});
+  alphaDo(a2,()=>{card(820,160,720,400,{bg:'rgba(7,27,39,.75)',st:'rgba(242,194,48,.55)'});wt(844,204,'燃料電池',22,EC,700);});
+  const L=[['電','#f2c230'],['水 H₂O','#58b8d0'],['H₂ + O₂','#7dffc4']],R=[['H₂ + O₂','#7dffc4'],['燃料電池','#e3d27a'],['電 + 水 + 熱','#f2c230']];
+  const drawRow=(x0,items,t0,col)=>{let xx=x0;items.forEach(([t,bg],i)=>{const w=wtw(t,22,700)+24.2;alphaDo(seg(u,t0+i*.05,t0+i*.05+.05),()=>{tag(xx,330,t,{bg,size:22});if(i<items.length-1)arrow(xx+w+8,330,xx+w+46,330,col,3);});xx+=w+56;});};
+  drawRow(100,L,.04,'rgba(227,236,238,.8)');drawRow(860,R,.26,EC);
+  alphaDo(seg(u,.1,.16),()=>wt(420,420,'輸入電能，產出氫和氧',19,'rgba(227,236,238,.85)',500,'center'));
+  alphaDo(seg(u,.36,.42),()=>wt(1180,420,'輸出電能，只排出水',19,'rgba(227,236,238,.85)',500,'center'));
+  alphaDo(seg(u,.48,.54),()=>{tag(420,500,'施加電壓 > 1.23 V',{bg:'rgba(255,138,96,.9)',size:20,align:'center'});tag(1180,500,'輸出電壓 < 1.23 V（約 0.7 V）',{bg:'rgba(125,255,196,.9)',size:20,align:'center'});});
+  /* 下：轉換步驟比較 */
+  alphaDo(seg(u,.66,.72),()=>{card(60,590,1480,210,{bg:'rgba(7,27,39,.75)'});
+   wt(90,668,'引擎、火力發電',20,'rgba(227,236,238,.85)',700);wt(90,752,'燃料電池',20,EC,700);
+   let xx=420;['化學能','熱','轉動','電'].forEach((t,i)=>{const w=tag(xx,660,t,{bg:i===3?'#f2c230':'rgba(227,236,238,.75)',size:20});if(i<3)arrow(xx+w+8,660,xx+w+44,660,'rgba(227,236,238,.7)',2.5);xx+=w+56;});
+   alphaDo(seg(u,.74,.8),()=>{const w=tag(420,748,'化學能',{bg:'#7dffc4',size:20});arrow(420+w+8,748,420+w+44,748,EC,2.5);tag(420+w+56,748,'電',{bg:'#f2c230',size:20});
+    wt(1500,756,'少了中間的轉換損失',19,'#7dffc4',600,'right');});});
  }},
 
-{t:'鹼性與 PEM 電解槽',en:'Alkaline vs PEM electrolysers',dur:14,
- d:'目前商業化最多的是兩種電解槽。鹼性電解槽用濃度約 30% 的氫氧化鉀溶液當電解質，兩極之間用隔膜分開，由氫氧根離子（OH⁻）在溶液中移動；技術成熟、不需貴金屬，單位成本較低。質子交換膜（PEM）電解槽用純水和一片固態高分子膜，氫離子（H⁺）穿過膜到陰極；電流密度可達鹼性的數倍，設備較小巧，功率升降也快，適合搭配變動的風光電力，但需要鉑與銥等貴金屬觸媒。',
- s:[[0,'鹼性電解槽：氫氧化鉀溶液與隔膜'],[.25,'氫氧根離子從陰極移向陽極'],[.5,'PEM 電解槽：純水與固態質子交換膜'],[.72,'氫離子穿過膜，反應快，適合搭配風光']],
+{t:'薄膜兩側的反應',en:'Inside the membrane electrode assembly',dur:15,
+ d:'質子交換膜燃料電池（PEMFC）的核心是一片只有數十微米厚的高分子膜，兩側塗上含鉑的觸媒層。氫氣從陽極側的流道進來，在觸媒上分解成氫離子和電子：氫離子可以穿過膜，電子卻過不去，只能經由外部電路繞到陰極，這股電子流就是我們使用的電。在陰極，氧氣、穿過膜的氫離子和繞回來的電子結合成水。膜要保持濕潤才導得動氫離子，所以運轉溫度通常在 60 到 80°C。',
+ s:[[0,'氫氣從陽極流道進入，空氣從陰極進入'],[.25,'觸媒把氫分解成氫離子和電子'],[.48,'氫離子穿過膜，電子經外部電路點亮燈泡'],[.72,'在陰極，氧、氫離子和電子結合成水']],
  draw(u){
   diagBG();
-  const cellFig=(x,kind,a)=>{alphaDo(a,()=>{const y=250,w=640,h=280,pem=kind==='pem';
-   box(x,y,w,h,pem?'rgba(125,200,220,.12)':'rgba(88,184,208,.22)','#c9d1d6',2);
-   box(x+40,y+10,34,h-20,'#8d989f');box(x+w-74,y+10,34,h-20,'#8d989f');
-   wt(x+57,y-14,'陰極 −',17,'#7dc8dc',700,'center');wt(x+w-57,y-14,'陽極 +',17,'#ff9d7a',700,'center');
-   if(pem){box(x+w/2-10,y+10,20,h-20,'#e3d27a');box(x+w/2-16,y+10,6,h-20,'#5c6770');box(x+w/2+10,y+10,6,h-20,'#5c6770');}
-   else{ctx.setLineDash([8,6]);ln([x+w/2,y+10,x+w/2,y+h-10],'rgba(227,236,238,.8)',3);ctx.setLineDash([]);}
-   const R=rng(pem?9:3);for(let i=0;i<14;i++){const p=(TT*(.35+R()*.3)+R())%1,yy=lerp(y+h-20,y+20,p);circ(x+90+R()*60,yy,5,'rgba(255,255,255,.1)',H2C,2);if(i%2)circ(x+w-150+R()*60,yy,6,'rgba(255,255,255,.1)',O2C,2);}
-   const ion=pem?'H⁺':'OH⁻',dir=pem?-1:1,mv=seg(u,pem?.55:.25,pem?.62:.32);
-   for(let k=0;k<3;k++){const f=((TT*.28)+k/3)%1,xx=dir>0?lerp(x+120,x+w-130,f):lerp(x+w-130,x+120,f),yy=y+80+k*62;
-    alphaDo(mv,()=>{circ(xx,yy,17,pem?'#f2c230':'#58b8d0');wt(xx,yy+1,ion,15,'#0e2a3b',700,'center',COND,'middle');});}
-   alphaDo(mv,()=>arrow(dir>0?x+250:x+w-250,y+h+28,dir>0?x+w-250:x+250,y+h+28,pem?'#f2c230':'#58b8d0',3));
-   wt(x+w/2,y+h+62,pem?'固態質子交換膜':'氫氧化鉀溶液＋隔膜',17,'rgba(227,236,238,.9)',600,'center');});};
-  const a1=seg(u,.02,.08),a2=seg(u,.48,.54);
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)',st:a1>.5&&u<.48?'rgba(242,194,48,.55)':undefined});wt(84,196,'鹼性電解槽（AWE）',22,'#f2c230',700);
-  card(820,150,720,650,{bg:'rgba(7,27,39,.75)',st:a2>.5?'rgba(242,194,48,.55)':undefined});wt(844,196,'PEM 電解槽',22,a2>.5?'#f2c230':'rgba(227,236,238,.7)',700);
-  cellFig(100,'awe',a1);cellFig(860,'pem',a2);
-  const P1=[['電解質：約 30% 氫氧化鉀','#fff'],['電流密度約 0.2–0.4 A/cm²','#fff'],['技術成熟、不需貴金屬','#7dffc4']];
-  const P2=[['電解質：純水＋高分子膜','#fff'],['電流密度約 1–2 A/cm²','#fff'],['功率升降快，需要鉑與銥','#7dffc4']];
-  P1.forEach(([t,c],i)=>alphaDo(seg(u,.3+i*.05,.35+i*.05),()=>wt(100,672+i*38,t,19,c,600)));
-  P2.forEach(([t,c],i)=>alphaDo(seg(u,.66+i*.05,.71+i*.05),()=>wt(860,672+i*38,t,19,c,600)));
+  const y0=250,y1=640,M0=740,M1=860;
+  const LY=[[535,635,'#8d989f'],[635,715,'#5c6770'],[715,740,'#2b3137'],[M0,M1,'#e3d27a'],[860,885,'#2b3137'],[885,965,'#5c6770'],[965,1065,'#8d989f']];
+  LY.forEach(([a,b,c])=>box(a,y0,b-a,y1-y0,c));
+  for(let i=0;i<6;i++){box(560,y0+30+i*70,50,36,'rgba(125,255,196,.18)');box(990,y0+30+i*70,50,36,'rgba(179,124,255,.2)');}
+  wt(585,y0-14,'陽極 −',19,'#7dc8dc',700,'center');wt(1015,y0-14,'陰極 +',19,'#ff9d7a',700,'center');
+  /* 外部電路 */
+  const ea=seg(u,.46,.52),lit=ea*(.8+.2*Math.sin(TT*6));
+  ln([585,y0-40,585,190,1015,190,1015,y0-40],'#c9d1d6',3);
+  circ(800,190,24,lit>0?`rgba(242,194,48,${.25+.75*lit})`:'#2a3a46','#c9d1d6',2);
+  if(lit>0)alphaDo(lit*.35,()=>circ(800,190,46,'rgba(242,194,48,.4)'));
+  const eP=[[585,y0-40],[585,190],[1015,190],[1015,y0-40]];
+  flowDots(eP,8,'#7dc8dc',ea,.25,5);
+  /* 氫氣進、分解 */
+  const R=rng(7);
+  for(let k=0;k<7;k++){const f=((TT*.22)+k/7)%1,yy=lerp(y0+20,y1-20,(k*.37+R()*.2)%1);
+   const x=lerp(560,727,f);
+   if(f<.8)alphaDo(seg(u,.02,.08),()=>{circ(x-5,yy,6,H2C);circ(x+5,yy,6,H2C);});
+   else alphaDo(seg(u,.24,.3),()=>{circ(x,yy-10,4,'#7dc8dc');circ(x,yy+10,4,'#7dc8dc');});}
+  /* 氫離子穿膜 */
+  for(let k=0;k<8;k++){const f=((TT*.3)+k/8)%1,yy=y0+30+((k*53)%(y1-y0-60)),x=lerp(730,875,f);
+   alphaDo(seg(u,.3,.36)*(f<.95?1:0),()=>{circ(x,yy,9,EC);wt(x,yy+1,'H⁺',11,'#0e2a3b',700,'center',COND,'middle');});}
+  /* 氧氣進 */
+  for(let k=0;k<6;k++){const f=((TT*.2)+k/6)%1,yy=y0+40+((k*71)%(y1-y0-80)),x=lerp(1040,880,f);
+   alphaDo(seg(u,.02,.08)*(f<.9?1:0),()=>{circ(x-6,yy,7,O2C);circ(x+6,yy,7,O2C);});}
+  /* 水排出 */
+  for(let k=0;k<5;k++){const f=((TT*.25)+k/5)%1,x=lerp(900,1015,f*.5),yy=lerp(y0+80,y1+60,f);
+   alphaDo(seg(u,.72,.78)*(1-f*.5),()=>circ(x+20*Math.sin(k),yy,6,WC));}
+  alphaDo(seg(u,.72,.78),()=>{arrow(1015,y1+10,1015,y1+60,WC,3);wt(1040,y1+52,'H₂O',19,WC,700,'left',COND);});
+  alphaDo(seg(u,.02,.08),()=>{arrow(470,y0+60,540,y0+60,H2C,3);wt(460,y0+66,'H₂',22,H2C,700,'right',COND);arrow(1130,y0+60,1070,y0+60,O2C,3);wt(1140,y0+66,'O₂（空氣）',20,O2C,700,'left');});
+  /* 反應式 */
+  alphaDo(seg(u,.25,.31),()=>{card(60,470,400,150,{bg:'rgba(7,27,39,.8)'});wt(84,510,'陽極反應',19,'#7dc8dc',700);wt(84,572,'H₂ → 2H⁺ + 2e⁻',30,'#fff',700,'left',COND);});
+  alphaDo(seg(u,.72,.78),()=>{card(1110,470,430,150,{bg:'rgba(7,27,39,.8)'});wt(1134,510,'陰極反應',19,'#ff9d7a',700);wt(1134,572,'½O₂ + 2H⁺ + 2e⁻ → H₂O',26,'#fff',700,'left',COND);});
+  lab(585,y0+300,'雙極板（流道）',{dx:-150,dy:40,a:band(u,.06,.4),minor:true});
+  lab(727,y0+100,'觸媒層（鉑）',{dx:-260,dy:-60,a:band(u,.2,.46)});
+  lab(800,y1,'質子交換膜',{dx:0,dy:34,st:'s',a:band(u,.1,1)});
+  lab(800,190,'外部電路',{dx:170,dy:-20,st:'s',a:band(u,.5,.8)});
  }},
 
-{t:'打開電解槽貨櫃',en:'Inside an electrolyser container',dur:12,side:true,
- d:'一套電解產氫系統不只有電解槽。電網或再生能源的交流電先經過整流器變成直流電，送進由數十到數百片電解單元疊成的電解槽堆。產出的氫氣和氧氣各自帶著水，先進入氣液分離器，把水分回收再利用；氫氣接著通過純化與乾燥設備，去除微量氧氣和水氣，純度可達 99.97% 以上，符合燃料電池車的要求。系統還需要純水設備與冷卻系統，把電解產生的熱帶走。',
- s:[[0,'打開貨櫃：整流器、電解槽堆與分離器'],[.3,'整流器把交流電變成直流電'],[.5,'氫氣和氧氣分別進入氣液分離器'],[.72,'水回收再用，氫氣再經純化與乾燥']],
- cam:u=>camMix({x:800,y:450,s:1},{x:EX+EW/2+20,y:gyy(EX+EW/2)-EH/2-10,s:2.7},ease(seg(u,.02,.25))),
+{t:'從單電池到電堆',en:'From a single cell to a stack',dur:14,
+ d:'一片單電池在運轉時只有約 0.7 伏特，電壓太低，所以要把幾百片單電池用雙極板串起來疊成電堆，電壓就相加。第二代 Toyota Mirai 的電堆有 330 片單電池，最大輸出 128 kW。右邊的極化曲線說明電流愈大、電壓愈低：小電流時觸媒反應要克服活化損失，中段主要是膜與接觸的電阻損失，電流太大時氣體來不及送到觸媒，電壓急速下降。設計時通常讓單電池在 0.6 到 0.8 伏特之間運轉，兼顧功率與效率。',
+ s:[[0,'一片單電池只有約 0.7 V'],[.22,'幾百片串聯疊成電堆，電壓相加'],[.48,'電流愈大，電壓愈低：這是極化曲線'],[.74,'通常在 0.6–0.8 V 之間運轉，兼顧功率與效率']],
  draw(u){
-  const op=ease(seg(u,.12,.3));
-  fence(520,1560,gyy(1000)+4);pipes();purifier(SPX);compressor(CPX);tubeBank(TBX);
-  for(let i=0;i<5;i++)solarPanel(70+i*50,gyy(80+i*50),46,22,{h:30});
-  elecContainer(op);
-  const x=EX,y=gyy(EX+EW/2);
-  if(op>.5){const dc=[[x+44,y-60],[x+56,y-60]];flowDots(dc,2,'#f2c230',seg(u,.3,.36),.6,2.5);
-   const hP=[[x+104,y-58],[x+104,y-EH+8],[x+183,y-EH+8],[x+183,y-EH+14]],oP=[[x+130,y-58],[x+130,y-EH+4],[x+217,y-EH+4],[x+217,y-EH+14]];
-   flowDots(hP,5,H2C,seg(u,.48,.54),.4,2.4);flowDots(oP,4,O2C,seg(u,.48,.54),.4,2.4);
-   const wb=[[x+200,y-26],[x+100,y-26]];flowDots(wb,3,WC,seg(u,.7,.76),.4,2.2);}
-  lab(x+26,y-EH/2,'整流器',{dx:-60,dy:-80,st:'s',a:band(u,.24,.55)});
-  lab(x+104,y-38,'電解槽堆',{dx:-40,dy:90,st:'s',a:band(u,.2,1)});
-  lab(x+183,y-EH+40,'氫氣分離器',{dx:-20,dy:-110,st:'g',a:band(u,.48,1)});
-  lab(x+217,y-EH+50,'氧氣分離器',{dx:70,dy:-50,a:band(u,.5,1)});
-  lab(x+200,y-16,'純水',{dx:70,dy:60,a:band(u,.7,1)});
+  diagBG();
+  card(60,160,720,640,{bg:'rgba(7,27,39,.75)'});wt(84,204,'電堆（示意）',22,EC,700);
+  const n=u<.2?1:Math.round(lerp(1,330,ease(seg(u,.2,.44)))),vis=Math.min(26,Math.max(1,Math.round(n/12.7)));
+  box(150,280,26,380,'#8d989f');box(150+26+vis*8,280,26,380,'#8d989f');
+  for(let i=0;i<vis;i++){const x=176+i*8;box(x,300,6,340,'#e3d27a');box(x+6,300,3,340,'#5c6770');}
+  const sx=176+vis*8+26;
+  ln([163,280,163,250],'#7dc8dc',3);ln([sx-13,280,sx-13,250],'#ff9d7a',3);
+  wt(163,238,'−',24,'#7dc8dc',700,'center');wt(sx-13,238,'+',24,'#ff9d7a',700,'center');
+  wt(560,340,trf('{n} 片',{n}),40,'#fff',700,'center',COND);wt(560,372,'單電池',17,'rgba(227,236,238,.8)',500,'center');
+  wt(560,470,trf('約 {v} V',{v:Math.round(n*.7)}),40,EC,700,'center',COND);wt(560,502,'電堆電壓',17,'rgba(227,236,238,.8)',500,'center');
+  alphaDo(seg(u,.4,.46),()=>{wt(560,600,'128 kW',40,H2C,700,'center',COND);wt(560,632,'最大輸出（Mirai）',17,'rgba(227,236,238,.8)',500,'center');});
+  wt(120,730,'每片 × 0.7 V',19,'rgba(227,236,238,.85)',600);
+  /* 極化曲線 */
+  const c=chartBox(820,160,720,640,{title:'極化曲線（單電池，示例）',x0:0,x1:2,y0:0,y1:1.4,xt:[0,0.5,1,1.5,2],yt:[0,0.4,0.8,1.2],xl:'A/cm²',yl:'V',pt:70,pb:60,pl:64,gx:4,gy:7});
+  const V=i=>.98-.045*Math.log(1+i*200)-.12*i-.08*Math.pow(i/2,6);
+  alphaDo(seg(u,.46,.5),()=>{ctx.setLineDash([6,5]);ln([c.px,c.Y(1.23),c.px+c.pw,c.Y(1.23)],'#7dffc4',2);ctx.setLineDash([]);wt(c.px+c.pw-8,c.Y(1.23)-10,'理論 1.23 V',17,'#7dffc4',700,'right');});
+  const k=ease(seg(u,.48,.7));if(k>0){ctx.beginPath();for(let j=0;j<=80*k;j++){const i=j/40;j?ctx.lineTo(c.X(i),c.Y(V(i))):ctx.moveTo(c.X(i),c.Y(V(i)));}ctx.strokeStyle=EC;ctx.lineWidth=3.5;ctx.stroke();}
+  const zones=[[.03,'活化損失',.56],[.8,'電阻損失',.62],[1.78,'質傳損失',.68]];
+  zones.forEach(([i,t,t0])=>alphaDo(seg(u,t0,t0+.05),()=>{const yy=c.Y(V(i));wt(c.X(i)+(i>1.5?-14:14),i>1.5?yy-60:yy-26,t,17,HC,700,i>1.5?'right':'left');}));
+  alphaDo(seg(u,.74,.8),()=>{box(c.px,c.Y(.8),c.pw,c.Y(.6)-c.Y(.8),'rgba(125,255,196,.12)');circ(c.X(.6),c.Y(V(.6)),8,'#fff',EC,3);wt(c.X(.6)+16,c.Y(V(.6))+30,'常用運轉區 0.6–0.8 V',17,'#7dffc4',700,'left');});
+ }},
+
+{t:'燃料電池車裡有什麼',en:'Inside a fuel cell car',dur:13,side:true,
+ d:'打開燃料電池車，可以看到幾個主要部件。碳纖維纏繞的高壓氣瓶放在車身中段與後座下方，氫氣經減壓後送進前方的燃料電池堆；空氣壓縮機把空氣送到陰極。電堆產生的直流電經升壓轉換器提高電壓，驅動馬達。車上另有一顆小型驅動電池，起步加速時協助供電，煞車時回收動能，讓電堆能在較有效率的區間運轉。反應產生的水以水蒸氣和少量液態水從車尾排出。',
+ s:[[0,'打開車身：高壓氣瓶、電堆、電池與馬達'],[.26,'氫氣從氣瓶送進前方的燃料電池堆'],[.5,'電堆發電，驅動馬達，電池輔助加速'],[.76,'反應產生的水從車尾排出']],
+ cam:u=>camMix({x:800,y:480,s:1.1},{x:800,y:gyy(800)-110,s:2.4},ease(seg(u,.02,.22))),
+ draw(u){
+  skyline();road();
+  const S=1.9,x=800,cut=ease(seg(u,.1,.26));
+  fcev(x,S,cut);
+  if(cut>.5){
+   flowDots([CP(x,S,-72,-40),CP(x,S,-72,-50),CP(x,S,70,-50)],5,H2C,seg(u,.26,.32),.45,3.2);
+   flowDots([CP(x,S,72,-44),CP(x,S,50,-50),CP(x,S,-82,-50),CP(x,S,-100,-34)],6,EC,seg(u,.5,.56),.5,3.2);
+   flowDots([CP(x,S,-117,-58),CP(x,S,-117,-46),CP(x,S,-104,-32)],3,EC,seg(u,.56,.62),.6,3);
+   for(let k=0;k<6;k++){const f=((TT*.9)+k/6)%1,p=CP(x,S,-146-f*30,-26+f*24);alphaDo(seg(u,.76,.82)*(1-f),()=>circ(p[0],p[1],4,WC));}
+  }
+  const P=(lx,ly)=>CP(x,S,lx,ly);
+  let p=P(10,-40);lab(p[0],p[1],'高壓氫氣瓶',{dx:-10,dy:110,st:'g',a:band(u,.2,.5)});
+  p=P(99,-60);lab(p[0],p[1],'燃料電池堆',{dx:70,dy:150,st:'s',a:band(u,.2,1)});
+  p=P(50,-62);lab(p[0],p[1],'升壓轉換器',{dx:-30,dy:-150,a:band(u,.5,.76),minor:true});
+  p=P(-117,-66);lab(p[0],p[1],'驅動電池',{dx:-60,dy:-100,a:band(u,.5,1)});
+  p=P(-93,-31);lab(p[0],p[1],'馬達',{dx:-110,dy:60,a:band(u,.5,.76)});
+  p=P(-150,-22);lab(p[0],p[1],'水',{dx:-60,dy:40,st:'g',a:band(u,.78,1)});
  },
- hud(u){hudPanel(240,150,'電解槽（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.28,.5));
-  hrow(56,'單元電壓',(1.9*k).toFixed(2)+' V',w,'#f2c230');hrow(88,'溫度',Math.round(lerp(25,70,ease(seg(u,.3,.9))))+'°C',w,'#ff9d7a');hrow(120,'氫氣純度',k>.9&&u>.72?'99.97%':'—',w,H2C);});}},
+ hud(u){hudPanel(240,160,'行駛中（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.5,.7));
+  hrow(56,'電堆輸出',Math.round(lerp(8,62,k))+' kW',w,EC);hrow(88,'電池輔助',u>.55&&u<.8?'放電':'待命',w,'#7dc8dc');hrow(120,'車速',Math.round(lerp(30,80,k))+' km/h',w,'#fff');hrow(148,'排放','只有水',w,H2C);});}},
 
-{t:'一公斤氫要多少電',en:'How much electricity per kilogram',dur:13,
- d:'一公斤氫氣蘊含約 39.4 度電的能量（高熱值），這也是電解水產生一公斤氫的理論最低耗電。實際的電解槽系統還有過電位、電阻、整流與輔助設備的損失，目前典型耗電約 50 到 55 度，系統效率約七到八成；若要壓縮到加氫站使用的高壓，還要再加幾度電。同時也需要水：理論上每公斤氫約 9 公斤水，實際還要考慮純水處理的損耗。一公斤氫大約可讓一輛燃料電池車行駛 100 公里（示例）。',
- s:[[0,'一公斤氫的能量約 39.4 度電'],[.3,'實際電解還有損失，約 50–55 度'],[.55,'理論上還需要約 9 公斤的水'],[.75,'一公斤氫約可讓燃料電池車跑 100 公里']],
+{t:'大樓旁的燃料電池',en:'Stationary fuel cells',dur:12,side:true,
+ d:'燃料電池也可以放在地面上當發電機組，稱為定置型燃料電池。它可以直接用氫氣，也可以先把天然氣或沼氣重組成含氫的氣體再發電。機組就近設在工廠、醫院或大樓旁，發電的同時把反應熱回收成熱水，稱為熱電合併，總能源效率可達八成以上。停電時它能持續供電，適合當基地台、機房與醫院的備援電力。經濟部能源署對定置型燃料電池提供每 kW 新臺幣 5 到 7 萬元的設置補助。',
+ s:[[0,'燃料電池機組設在大樓旁'],[.26,'發電送進大樓，反應熱回收成熱水'],[.5,'熱電合併，總效率可達八成以上'],[.74,'電網停電時，機組持續供電']],
+ cam:u=>camMix({x:880,y:400,s:1.08},{x:920,y:400,s:1.02},ease(seg(u,.2,.9))),
  draw(u){
-  diagBG();
-  const c=chartBox(60,160,860,640,{title:'產生 1 公斤氫的耗電（示例）',x0:0,x1:4,y0:0,y1:70,xt:[],yt:[0,20,40,60],yl:'kWh',pt:70,pb:70,pl:70,gx:1,gy:3});
-  const bw=c.X(.7)-c.X(0);
-  const bar=(i,v0,v1,col,t0,t1,n,val)=>{const k=ease(seg(u,t0,t1));if(k<=0)return;const x=c.X(.35+i*1.2),v=lerp(v0,v0+(v1-v0),k);
-   box(x,c.Y(v),bw,c.Y(v0)-c.Y(v),col);alphaDo(seg(u,t1-.02,t1+.04),()=>{wt(x+bw/2,c.Y(v1)-14,val,26,'#fff',700,'center',COND);wt(x+bw/2,c.py+c.ph+34,n,18,'rgba(227,236,238,.9)',600,'center');});};
-  bar(0,0,39.4,'#7dffc4',.02,.2,'理論最低','39.4');
-  bar(1,0,39.4,'rgba(125,255,196,.45)',.28,.36,'電解槽系統','');bar(1,39.4,52,'#ff8a60',.34,.46,'電解槽系統','約 52');
-  bar(2,0,52,'rgba(125,255,196,.45)',.5,.56,'＋壓縮','');bar(2,52,55,'#f2c230',.54,.62,'＋壓縮','約 55');
-  alphaDo(seg(u,.44,.5),()=>{wt(c.X(1.55)+bw+12,c.Y(46)+6,'損失',18,'#ff9d7a',700,'left');});
-  alphaDo(seg(u,.3,.36),()=>{ctx.setLineDash([5,5]);ln([c.px,c.Y(39.4),c.px+c.pw,c.Y(39.4)],'rgba(125,255,196,.6)',1.5);ctx.setLineDash([]);});
-  /* 右：換算卡 */
-  const R=[['一公斤氫的體積','約 11 m³','常壓 0°C 時，約一個小房間',.08,'#7dc8dc'],['系統效率','約 75%','39.4 ÷ 52（示例）',.44,'#ff9d7a'],['需要的水','約 9 kg','每公斤氫的理論需水量',.55,'#58b8d0'],['燃料電池車','約 100 km','一公斤氫可行駛的距離（示例）',.75,'#7dffc4']];
-  R.forEach(([t,v,s,t0,col],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*162;card(960,y,580,146,{bg:'rgba(7,27,39,.75)'});wt(990,y+42,t,19,'rgba(227,236,238,.9)',600);wt(990,y+100,v,40,col,700,'left',COND);wt(1510,y+100,s,16,'rgba(227,236,238,.8)',500,'right');}));
-  /* 水滴計數 */
-  const wk=seg(u,.55,.72);if(wk>0){const n=Math.round(9*wk);for(let i=0;i<9;i++)alphaDo(i<n?1:.2,()=>circ(1215+i*20,160+2*162+42-6,7,'#58b8d0'));}
- }},
-
-{t:'灰氫、藍氫與綠氫',en:'Grey, blue and green hydrogen',dur:13,
- d:'氫氣本身沒有顏色，「灰、藍、綠」指的是製造方式與碳排放。目前世界上大部分的氫來自天然氣蒸汽重組，每產生一公斤氫約排放 10 到 12 公斤二氧化碳當量，稱為灰氫；台灣現有的氫氣也有九成以上來自天然氣重組。若把重組產生的二氧化碳捕捉封存，就是藍氫。用再生能源電解水產生的是綠氫。要注意電力來源：若以台灣電網平均電力電解，每公斤氫的間接排放約 25 公斤，反而比灰氫高。',
- s:[[0,'氫氣本身沒有顏色，顏色代表製造方式'],[.25,'灰氫：天然氣重組，每公斤排放 10–12 公斤'],[.5,'藍氫：重組並捕捉封存二氧化碳'],[.72,'綠氫：再生能源電解，排放接近零']],
- draw(u){
-  diagBG();
-  const c=chartBox(60,160,900,640,{title:'每公斤氫的碳排放（示例）',x0:0,x1:30,y0:0,y1:4,xt:[0,10,20,30],yt:[],xl:'kg CO₂e / kg H₂',pt:70,pb:64,pl:200,gx:3,gy:0});
-  const B=[['灰氫',11,'#8d989f','天然氣重組',.12,'10–12'],['藍氫',3,'#58b8d0','重組＋碳捕捉',.42,'約 1–4'],['綠氫',.5,'#7dffc4','再生能源電解',.66,'接近 0'],['電網電解',24.6,'#ff8a60','台灣電網平均電力',.8,'約 25']];
-  B.forEach(([n,v,col,s,t0,val],i)=>{const k=ease(seg(u,t0,t0+.1));if(k<=0)return;const y=c.Y(3.5-i),h=70;
-   alphaDo(seg(u,t0,t0+.04),()=>{wt(c.px-20,y-6,n,22,col,700,'right');wt(c.px-20,y+22,s,15,'rgba(227,236,238,.8)',500,'right');});
-   box(c.X(0),y-h/2,Math.max(4,c.X(v*k)-c.X(0)),h,col);
-   alphaDo(seg(u,t0+.08,t0+.12),()=>wt(c.X(v)+14,y+8,val,26,'#fff',700,'left',COND));});
-  /* 右：說明卡 */
-  const C=[['灰氫','CH₄ + 2H₂O → CO₂ + 4H₂','二氧化碳直接排放','#8d989f',.12],['藍氫','捕捉 CO₂ 並封存於地下','捕捉率決定排放','#58b8d0',.42],['綠氫','再生能源電力電解水','只產生氧氣','#7dffc4',.66]];
-  C.forEach(([n,a,b,col,t0],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*170;card(1000,y,540,150,{bg:'rgba(7,27,39,.75)'});box(1000,y,8,150,col);
-   wt(1030,y+44,n,22,col,700);wt(1030,y+88,a,19,'#fff',600);wt(1030,y+124,b,17,'rgba(227,236,238,.85)',500);}));
-  alphaDo(seg(u,.8,.86),()=>{card(1000,672,540,128,{bg:'rgba(232,87,42,.14)',st:'rgba(232,87,42,.6)'});wt(1030,716,'電力來源決定顏色',20,'#ff9d7a',700);wt(1030,756,'電網 0.474 kg/度 × 52 度 ≈ 25 kg',18,'#fff',600);});
- }},
-
-{t:'壓縮與儲存',en:'Compression and storage',dur:13,side:true,
- d:'氫氣是最輕的氣體，常壓下一公斤就有約 11 立方公尺，必須壓縮才方便儲存與運輸。電解槽出口壓力通常只有數十巴，壓縮機再把氫氣加壓到約 200 巴以上，存進固定式儲氫管束，或灌進管束拖車運到用戶。燃料電池車的車載氣瓶則用 350 或 700 巴。另一種方式是冷卻到 −253°C 成為液氫，或轉成氨等化學載體，後續集數會再介紹。',
- s:[[0,'電解槽出口的氫氣只有數十巴'],[.3,'壓縮機把氫氣加壓到約 200 巴'],[.55,'存進儲氫管束，再灌進管束拖車'],[.78,'拖車把高壓氫氣送到工廠與加氫站']],
- cam:u=>camMix({x:1060,y:460,s:1.5},{x:1180,y:470,s:1.3},ease(seg(u,.6,.95))),
- draw(u){
-  const tx=TRK+ease(seg(u,.82,1))*420;
-  plantDraw(tx);
-  flowDots(E2S(),6,H2C,band(u,0,1),.35);flowDots(S2C(),6,H2C,band(u,0,.8),.35);
-  flowDots(C2T(),3,H2C,band(u,.3,.8),.5,5.5);flowDots(T2K(),4,H2C,band(u,.55,.8),.4,5.5);
-  lab(SPX+47,gyy(SPX)-124,'約 30 bar',{dx:-30,dy:-70,st:'g',a:band(u,.02,.35)});
-  lab(CPX+50,gyy(CPX)-70,'壓縮機',{dx:0,dy:-100,st:'s',a:band(u,.28,.6)});
-  lab(TBX+100,gyy(TBX)-100,'儲氫管束',{dx:0,dy:-80,a:band(u,.5,.8)});
-  lab(tx+90,gyy(tx+100)-72,'管束拖車',{dx:20,dy:-90,st:'g',a:band(u,.6,1)});
+  const out=seg(u,.74,.8);
+  pole(1500,250);pole(1380,250);
+  const gp=GRID();if(out<.5)pl(gp,'rgba(40,50,58,.8)',2);else{ctx.setLineDash([8,8]);pl(gp,'#e8572a',2);ctx.setLineDash([]);}
+  building(true);
+  pl(FUEL(),'#8d989f',6);box(260,gyy(260)-40,26,28,'#dfe5e8','rgba(0,0,0,.3)',1);
+  fcCabinet(FCX);hwTank(TKX);
+  pl(ELEC(),'rgba(40,50,58,.8)',3);pl(HEAT1(),'#c96a4a',4);pl(HEAT2(),'#c96a4a',4);
+  flowDots(FUEL(),6,H2C,band(u,.02,1),.25,5);
+  flowDots(ELEC(),4,EC,band(u,.24,1),.45,5);
+  flowDots(HEAT1(),2,HC,band(u,.3,1),.4,5);flowDots(HEAT2(),3,HC,band(u,.34,1),.35,5);
+  if(out<.5)flowDots(gp,5,EC,band(u,0,.74),.3,4);
+  lab(FCX+75,gyy(FCX)-120,'燃料電池機組',{dx:-40,dy:-110,st:'s',a:band(u,.02,1)});
+  lab(200,gyy(200)-26,'氫氣或天然氣',{dx:0,dy:-90,st:'g',a:band(u,.04,.4)});
+  lab(TKX+32,gyy(TKX)-160,'熱水儲槽',{dx:20,dy:-70,a:band(u,.28,.72)});
+  lab(1440,gyy(1440)-240,'電網停電',{dx:0,dy:-60,st:'w',a:band(u,.76,1)});
  },
- hud(u){hudPanel(240,170,'壓縮與儲存（示例）',seg(u,.05,.1),w=>{const p=lerp(30,200,ease(seg(u,.3,.75))),m=Math.round(300*ease(seg(u,.55,.82)));
-  hrow(56,'壓力',Math.round(p)+' bar',w,'#f2c230');hrow(88,'拖車裝載',m+' kg',w,H2C);hbar(14,100,w-28,m/300,H2C);hrow(136,'狀態',u>.82?'出車':'充填中',w,'#fff');});}}
+ hud(u){hudPanel(240,160,'熱電合併（示例）',seg(u,.05,.1),w=>{const e=Math.round(50*ease(seg(u,.1,.3))),h=Math.round(35*ease(seg(u,.3,.5)));
+  hrow(56,'電效率',trf('約 {n}%',{n:e}),w,EC);hrow(88,'熱回收',trf('約 {n}%',{n:h}),w,HC);hrow(120,'總效率',trf('約 {n}%',{n:e+h}),w,H2C);hrow(150,'電網',u>.76?'停電':'正常',w,u>.76?'#ff9d7a':'#fff');});}},
+
+{t:'效率與兩種燃料電池',en:'Efficiency and fuel cell types',dur:12,
+ d:'同樣 100 份燃料的能量，汽油引擎通常只有約三成變成動力；燃料電池以純氫發電，電效率可達約五到六成，若再把熱回收利用，總效率可達八成以上。常見的燃料電池還有不同種類：質子交換膜燃料電池（PEMFC）在 60 到 80°C 運轉，啟動快、體積小，適合車輛與備援電力；固態氧化物燃料電池（SOFC）在 600 到 1000°C 運轉，可以直接使用天然氣或沼氣，適合固定式發電與熱電合併。',
+ s:[[0,'同樣 100 份燃料，能量去了哪裡'],[.3,'燃料電池發電約五到六成，回收熱後可達八成以上'],[.55,'PEMFC：低溫、啟動快，適合車輛'],[.76,'SOFC：高溫、可用天然氣，適合固定式發電']],
+ draw(u){
+  diagBG();
+  const c=chartBox(60,160,900,640,{title:'每 100 份燃料能量的去向（示例）',x0:0,x1:100,y0:0,y1:3,xt:[0,25,50,75,100],yt:[],xl:'%',pt:70,pb:64,pl:210,gx:4,gy:0});
+  const B=[['汽油引擎','車用（示例）',[[30,'動力',EC],[70,'損失','rgba(141,152,159,.55)']],.04],
+   ['燃料電池','僅發電',[[55,'電力',EC],[45,'損失','rgba(141,152,159,.55)']],.28],
+   ['燃料電池','熱電合併',[[50,'電力',EC],[35,'熱利用',HC],[15,'損失','rgba(141,152,159,.55)']],.4]];
+  B.forEach(([n,s,parts,t0],i)=>{const y=c.Y(2.5-i),h=86,k=ease(seg(u,t0,t0+.12));if(k<=0)return;
+   alphaDo(seg(u,t0,t0+.04),()=>{wt(c.px-20,y-6,n,22,i?H2C:'rgba(227,236,238,.9)',700,'right');wt(c.px-20,y+22,s,16,'rgba(227,236,238,.8)',500,'right');});
+   let v0=0;parts.forEach(([v,t,col])=>{const x0=c.X(v0*k),x1=c.X((v0+v)*k);box(x0,y-h/2,Math.max(0,x1-x0-2),h,col);
+    if(k>.95&&v>=15)wt((x0+x1)/2,y+7,trf('{t} {n}%',{t:tr(t),n:v}),v>=30?19:16,'#0e2a3b',700,'center');v0+=v;});});
+  const C=[['質子交換膜（PEMFC）',['運轉溫度約 60–80°C','啟動快、體積小','車輛、堆高機、備援電力'],'#f2c230',.55],
+   ['固態氧化物（SOFC）',['運轉溫度約 600–1000°C','可直接用天然氣、沼氣','固定式發電、熱電合併'],'#ff8a60',.76]];
+  C.forEach(([t,L,col,t0],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*330;card(1000,y,540,310,{bg:'rgba(7,27,39,.75)'});box(1000,y,8,310,col);
+   wt(1032,y+50,t,22,col,700);L.forEach((s,j)=>wt(1032,y+120+j*58,s,19,j===2?'#7dffc4':'#fff',600));}));
+ }}
 ]};
 
-/* 電解水產氫 translations: Traditional Chinese → [English, Japanese] */
+/* 燃料電池 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
 "氫能系列":["Hydrogen Series","水素エネルギーシリーズ"],
-"電解水產氫":["Making hydrogen by splitting water","水電解による水素製造"],
-"氫氣燃燒或用在燃料電池時只產生水，但它在地球上幾乎都藏在水和天然氣裡。這一集走進一座電解產氫場，看電如何把水拆成氫和氧，比較鹼性與 PEM 兩種電解槽，算一算一公斤氫要多少度電，並說明綠氫、灰氫的差別，以及氫氣如何壓縮儲存。":["Hydrogen produces only water when it is burned or used in a fuel cell, yet on Earth it is almost always locked up in water and natural gas. This episode visits an electrolysis plant to see how electricity splits water into hydrogen and oxygen, compares alkaline and PEM electrolysers, works out how much electricity one kilogram of hydrogen takes, explains the difference between green and grey hydrogen, and shows how the gas is compressed and stored.","水素は燃やしても燃料電池で使っても水しか出しませんが、地球上ではほとんどが水や天然ガスの中に閉じ込められています。このエピソードでは水電解プラントを訪ね、電気で水を水素と酸素に分ける仕組み、アルカリ形と PEM 形の電解槽の違い、水素 1 kg に必要な電力量、グリーン水素とグレー水素の違い、そして水素の圧縮と貯蔵を解説します。"],
-"電解水的理論最低電壓；實際電解槽運轉約 1.8–2.0 V":["Theoretical minimum voltage to split water; real electrolysers run at about 1.8–2.0 V","水の電気分解に必要な理論最低電圧。実際の電解槽は約 1.8–2.0 V で運転"],
-"產生 1 公斤氫的理論最低耗電（以高熱值計）":["Theoretical minimum electricity to produce 1 kg of hydrogen (higher heating value)","水素 1 kg を製造するための理論最小電力量（高位発熱量基準）"],
-"約 50–55":["about 50–55","約 50–55"],
-"目前電解槽系統產生 1 公斤氫的典型耗電（示例）":["Typical electricity use of today's electrolyser systems per kg of hydrogen (example)","現在の電解システムが水素 1 kg あたりに消費する代表的な電力量（例）"],
-"約 9":["about 9","約 9"],
-"公斤":["kg","kg"],
-"產生 1 公斤氫理論上需要的水量":["Water theoretically needed to produce 1 kg of hydrogen","水素 1 kg の製造に理論上必要な水の量"],
-"天然氣重組製造 1 公斤灰氫的排放（IEA）":["Emissions from making 1 kg of grey hydrogen by natural gas reforming (IEA)","天然ガス改質でグレー水素 1 kg を製造する際の排出量（IEA）"],
-"台灣 2050 淨零路徑中，氫能發電在電力配比的占比":["Share of hydrogen-fired power in Taiwan's 2050 net-zero power mix","台湾の 2050 年ネットゼロ経路で、水素発電が電源構成に占める割合"],
-"說明：本集為教育用途示意動畫，設備外觀與比例經過調整。電解電壓（1.23 V、1.48 V）為 25°C 標準狀態的熱力學值；鹼性與 PEM 電解槽的運轉電壓、電流密度與耗電為文獻常見範圍的典型範例；灰氫排放取自 IEA《Global Hydrogen Review 2024》；台灣電網電力排碳係數取經濟部能源署公告 113 年度 0.474 公斤 CO₂e/度；氫能占比取自國家發展委員會「臺灣 2050 淨零排放路徑」。產氫場配置、功率與儲存壓力為示意情境，實際數值依各案場設計而定。":["Note: this is an illustrative educational animation; the appearance and proportions of the equipment have been adjusted. The electrolysis voltages (1.23 V, 1.48 V) are thermodynamic values at standard conditions (25°C). Operating voltages, current densities and electricity use of alkaline and PEM electrolysers are typical examples within ranges commonly reported in the literature. Grey hydrogen emissions are from the IEA Global Hydrogen Review 2024; Taiwan's grid emission factor is the 2024 value of 0.474 kg CO₂e/kWh published by the Energy Administration, Ministry of Economic Affairs; the hydrogen share is from the National Development Council's Taiwan 2050 Net-Zero Pathway. The plant layout, power rating and storage pressures are an illustrative scenario; actual values depend on each project's design.","説明：本エピソードは教育用の説明アニメーションで、設備の外観と比率は調整しています。電解電圧（1.23 V、1.48 V）は 25°C 標準状態での熱力学的な値です。アルカリ形と PEM 形電解槽の運転電圧、電流密度、消費電力量は文献でよく示される範囲の代表例です。グレー水素の排出量は IEA「Global Hydrogen Review 2024」、台湾の電力排出係数は経済部エネルギー署が公表した 2024 年度の 0.474 kg CO₂e/kWh、水素の割合は国家発展委員会「台湾 2050 年ネットゼロ排出経路」によります。プラント構成、出力、貯蔵圧力は説明用の想定で、実際の数値は各案件の設計によります。"],
-"一座綠氫產氫場":["A green hydrogen plant","グリーン水素製造プラント"],
-"氫是宇宙中最多的元素，但在地球上很少以氫氣單獨存在，大多和氧結合成水，或和碳結合成天然氣。電解產氫場的做法是用電把水拆開：太陽光電或風機送來的電進入電解槽，產出的氫氣經過分離、純化與乾燥，再由壓縮機打進高壓儲氫容器，最後用管束拖車或管線送到工廠、加氫站與電廠。若用的是再生能源電力，產出的就稱為綠氫。":["Hydrogen is the most abundant element in the universe, but on Earth it rarely exists as a gas on its own: most of it is bound to oxygen as water or to carbon as natural gas. An electrolysis plant uses electricity to pull water apart. Power from solar panels or wind turbines feeds the electrolyser; the hydrogen it produces is separated, purified and dried, then compressed into high-pressure storage and delivered by tube trailer or pipeline to factories, refuelling stations and power plants. When the electricity is renewable, the product is called green hydrogen.","水素は宇宙で最も多い元素ですが、地球上で単独の気体として存在することはほとんどなく、多くは酸素と結びついて水に、炭素と結びついて天然ガスになっています。水電解プラントでは電気で水を分解します。太陽光発電や風車からの電気が電解槽に入り、生成した水素は分離・精製・乾燥されたあと圧縮機で高圧容器に貯められ、チューブトレーラーやパイプラインで工場、水素ステーション、発電所へ送られます。再生可能エネルギーの電気を使えば、それはグリーン水素と呼ばれます。"],
-"太陽光電與風機送來的電，進入電解槽":["Power from solar and wind feeds the electrolyser","太陽光と風力の電気が電解槽へ"],
-"電解槽把水拆成氫氣與氧氣":["The electrolyser splits water into hydrogen and oxygen","電解槽が水を水素と酸素に分解"],
-"氫氣經過純化乾燥，再進入壓縮機":["The hydrogen is purified and dried, then compressed","水素を精製・乾燥して圧縮機へ"],
-"高壓氫氣裝上管束拖車送出":["High-pressure hydrogen leaves by tube trailer","高圧水素をチューブトレーラーで出荷"],
-"太陽光電":["Solar PV","太陽光発電"],
-"風機":["Wind turbine","風車"],
-"電解槽":["Electrolyser","電解槽"],
-"純化乾燥":["Purifier and dryer","精製・乾燥"],
-"壓縮機":["Compressor","圧縮機"],
-"管束拖車":["Tube trailer","チューブトレーラー"],
-"產氫場（示例）":["H₂ plant (example)","水素プラント（例）"],
+"燃料電池":["Fuel cell","燃料電池"],
+"燃料電池把氫氣和空氣中的氧氣送進一片薄膜的兩側，不經燃燒就直接產生電，排出的只有水和熱。這一集拆開質子交換膜燃料電池，看陽極與陰極各發生什麼反應、單電池如何疊成電堆，再走進燃料電池車與大樓旁的固定式發電機組。":["A fuel cell feeds hydrogen and oxygen from the air to the two sides of a thin membrane and produces electricity directly, without combustion, giving off only water and heat. This episode takes apart a proton exchange membrane fuel cell to see the reactions at the anode and cathode and how single cells are stacked, then looks inside a fuel cell car and a stationary fuel cell unit beside a building.","燃料電池は、水素と空気中の酸素を薄い膜の両側に送り込み、燃焼させずに直接電気をつくります。排出されるのは水と熱だけです。このエピソードでは固体高分子形燃料電池を分解し、アノードとカソードで起きる反応、単セルをスタックに積み重ねる仕組みを見たうえで、燃料電池車とビル脇の定置用燃料電池を紹介します。"],
+"氫氧反應的理論電壓；運轉中的單電池約 0.6–0.8 V":["Theoretical voltage of the hydrogen–oxygen reaction; an operating cell gives about 0.6–0.8 V","水素と酸素の反応の理論電圧。運転中の単セルは約 0.6–0.8 V"],
+"片":["cells","セル"],
+"第二代 Toyota Mirai 電堆的單電池數，最大輸出 128 kW":["Cells in the second-generation Toyota Mirai stack, rated at 128 kW","2 代目トヨタ MIRAI の FC スタックのセル数。最高出力 128 kW"],
+"質子交換膜燃料電池的典型運轉溫度":["Typical operating temperature of a PEM fuel cell","固体高分子形燃料電池の代表的な運転温度"],
+"約 5.6":["about 5.6","約 5.6"],
+"Mirai 車上三支 700 bar 高壓氣瓶的儲氫量":["Hydrogen stored in the Mirai's three 700 bar tanks","MIRAI に搭載された 700 bar 高圧タンク 3 本の水素貯蔵量"],
+"約 60":["about 60","約 60"],
+"燃料電池以純氫發電可達的電效率（示例）":["Electrical efficiency a fuel cell can reach on pure hydrogen (example)","純水素で発電する燃料電池が達成できる発電効率（例）"],
+"萬元/kW":["NT$10k/kW","万台湾ドル/kW"],
+"經濟部定置型燃料電池發電系統的設置補助額度":["Installation subsidy for stationary fuel cell systems from Taiwan's Ministry of Economic Affairs (NT$50,000–70,000 per kW)","台湾経済部による定置用燃料電池発電システムの設置補助額"],
+"說明：本集為教育用途示意動畫，設備外觀與比例經過調整。1.23 V 為 25°C 標準狀態的熱力學值；單電池運轉電壓、運轉溫度與電效率為美國能源部（DOE）燃料電池技術資料與文獻常見範圍的典型範例；電堆單電池數、輸出與儲氫量取自 Toyota 公布的第二代 Mirai 技術規格；定置型燃料電池補助額度取自經濟部能源署「經濟部定置型燃料電池發電系統設置補助要點」；SOFC 能源效率參考工研院公開資料。加氫量、發電功率、熱電比例與汽油引擎效率為示意情境，實際數值依機型與運轉條件而定。":["Note: this is an illustrative educational animation; equipment shapes and proportions have been adjusted. 1.23 V is the thermodynamic value at 25°C standard conditions. Cell operating voltage, operating temperature and electrical efficiency are typical values from US Department of Energy (DOE) fuel cell resources and the literature. Cell count, power output and hydrogen storage come from Toyota's published specifications for the second-generation Mirai. The stationary fuel cell subsidy comes from the Energy Administration's installation subsidy guidelines for stationary fuel cell systems, and SOFC efficiency from public information by ITRI. Refuelling amounts, power output, heat-and-power split and petrol engine efficiency are illustrative; actual values depend on the model and operating conditions.","説明：本作は教育用の説明アニメーションで、設備の外観と比率は調整しています。1.23 V は 25°C 標準状態の熱力学値です。単セルの運転電圧、運転温度、発電効率は米国エネルギー省（DOE）の燃料電池資料と文献でよく見られる範囲の代表例です。セル数、出力、水素貯蔵量はトヨタが公表した 2 代目 MIRAI の技術仕様によります。定置用燃料電池の補助額は台湾経済部エネルギー署「定置用燃料電池発電システム設置補助要点」、SOFC の効率は工業技術研究院（ITRI）の公開資料を参考にしています。充填量、発電出力、熱と電気の比率、ガソリンエンジンの効率は説明用の想定で、実際の値は機種と運転条件によって異なります。"],
+"加氫三分鐘":["Three minutes to refuel","3 分で水素充填"],
+"燃料電池車開進加氫站，加氫機把約 700 巴的高壓氫氣灌進車上的氣瓶，加滿約需 3 到 5 分鐘，和加油的時間差不多。車子本身其實是一輛電動車：它不在車上燃燒氫氣，而是用燃料電池把氫和空氣中的氧結合，產生電力推動馬達，排氣管排出的只有水。以第二代 Toyota Mirai 為例，三支氣瓶共可存約 5.6 公斤氫氣。":["A fuel cell car pulls into a hydrogen station, and the dispenser fills the onboard tanks with hydrogen at about 700 bar. A full fill takes about 3 to 5 minutes, much like filling up with petrol. The car itself is really an electric vehicle: it does not burn hydrogen, but uses a fuel cell to combine hydrogen with oxygen from the air, producing electricity that drives the motor, and only water leaves the tailpipe. The second-generation Toyota Mirai, for example, stores about 5.6 kg of hydrogen in three tanks.","燃料電池車が水素ステーションに入り、ディスペンサーが約 700 bar の高圧水素を車載タンクに充填します。満タンまで約 3〜5 分で、給油とほぼ同じ時間です。車そのものは実は電気自動車です。車上で水素を燃やすのではなく、燃料電池で水素と空気中の酸素を反応させて電気をつくり、モーターを回します。排気管から出るのは水だけです。2 代目トヨタ MIRAI の場合、3 本のタンクに約 5.6 kg の水素を貯蔵できます。"],
+"燃料電池車開進加氫站":["A fuel cell car pulls into the hydrogen station","燃料電池車が水素ステーションに入る"],
+"加氫機灌入約 700 巴的高壓氫氣":["The dispenser fills it with hydrogen at about 700 bar","ディスペンサーが約 700 bar の水素を充填"],
+"加滿約 3 到 5 分鐘，和加油差不多":["A full fill takes 3 to 5 minutes, like filling up with petrol","満タンまで約 3〜5 分、給油とほぼ同じ"],
+"上路後，排氣管排出的只有水":["On the road, only water leaves the tailpipe","走行中、排気管から出るのは水だけ"],
+"加氫機":["Dispenser","ディスペンサー"],
+"儲氫槽":["Hydrogen storage","水素貯槽"],
+"加氫口":["Fuel inlet","充填口"],
+"只排出水":["Only water","水だけを排出"],
+"加氫（示例）":["Refuelling (example)","水素充填（例）"],
+"車載氫氣":["Onboard H₂","車載水素"],
+"氣瓶壓力":["Tank pressure","タンク圧力"],
+"狀態":["Status","状態"],
+"進站":["Arriving","入場"],
+"加氫中":["Filling","充填中"],
+"行駛":["Driving","走行"],
+"電解的反方向":["Electrolysis in reverse","電気分解の逆反応"],
+"上一集的電解槽用電把水拆成氫和氧；燃料電池做的是相反的事，讓氫和氧重新結合成水，同時放出電和熱。反應式是 H₂ + ½O₂ → H₂O，理論電壓同樣是 1.23 伏特。電解時要施加高於 1.23 伏特的電壓才拆得開，燃料電池輸出時則低於 1.23 伏特，實際約 0.7 伏特。和引擎或火力發電不同，燃料電池不經過燃燒、熱與轉動這些步驟，化學能直接變成電，因此少了中間的轉換損失。":["The electrolyser in the last episode used electricity to split water into hydrogen and oxygen. A fuel cell does the opposite: it recombines hydrogen and oxygen into water, releasing electricity and heat. The reaction is H₂ + ½O₂ → H₂O, and the theoretical voltage is again 1.23 volts. Electrolysis needs more than 1.23 V to split water, while a fuel cell delivers less than 1.23 V, about 0.7 V in practice. Unlike an engine or a thermal power plant, a fuel cell skips combustion, heat and rotation and turns chemical energy straight into electricity, avoiding the losses of those intermediate steps.","前回の電解槽は電気で水を水素と酸素に分けました。燃料電池はその逆で、水素と酸素を再び結びつけて水にし、同時に電気と熱を放出します。反応式は H₂ + ½O₂ → H₂O で、理論電圧は同じく 1.23 ボルトです。電気分解では 1.23 V より高い電圧をかけないと水は分かれず、燃料電池の出力は 1.23 V より低く、実際には約 0.7 V です。エンジンや火力発電と違い、燃焼、熱、回転という段階を経ずに化学エネルギーを直接電気に変えるため、途中の変換損失がありません。"],
+"電解：用電把水拆成氫和氧":["Electrolysis: electricity splits water into hydrogen and oxygen","電気分解：電気で水を水素と酸素に分ける"],
+"燃料電池：氫和氧結合，產生電、水和熱":["Fuel cell: hydrogen and oxygen combine to give power, water and heat","燃料電池：水素と酸素が結びつき、電気・水・熱を生む"],
+"電解要高於 1.23 V，燃料電池輸出約 0.7 V":["Electrolysis needs over 1.23 V; a fuel cell gives about 0.7 V","電気分解は 1.23 V 超、燃料電池の出力は約 0.7 V"],
+"不經燃燒，化學能直接變成電":["No combustion: chemical energy becomes electricity directly","燃焼なしで化学エネルギーを直接電気に"],
+"電解（上一集）":["Electrolysis (last episode)","電気分解（前回）"],
+"電":["Power","電気"],
+"水 H₂O":["Water H₂O","水 H₂O"],
+"電 + 水 + 熱":["Power + water + heat","電気 + 水 + 熱"],
+"輸入電能，產出氫和氧":["Electricity in, hydrogen and oxygen out","電気を入れて水素と酸素をつくる"],
+"輸出電能，只排出水":["Electricity out, only water released","電気を出し、排出は水だけ"],
+"施加電壓 > 1.23 V":["Applied voltage > 1.23 V","印加電圧 > 1.23 V"],
+"輸出電壓 < 1.23 V（約 0.7 V）":["Output voltage < 1.23 V (about 0.7 V)","出力電圧 < 1.23 V（約 0.7 V）"],
+"引擎、火力發電":["Engine, thermal plant","エンジン・火力発電"],
+"化學能":["Chemical","化学エネルギー"],
+"熱":["Heat","熱"],
+"轉動":["Rotation","回転"],
+"少了中間的轉換損失":["Fewer conversion losses","途中の変換損失がない"],
+"薄膜兩側的反應":["Reactions on either side of the membrane","膜の両側で起きる反応"],
+"質子交換膜燃料電池（PEMFC）的核心是一片只有數十微米厚的高分子膜，兩側塗上含鉑的觸媒層。氫氣從陽極側的流道進來，在觸媒上分解成氫離子和電子：氫離子可以穿過膜，電子卻過不去，只能經由外部電路繞到陰極，這股電子流就是我們使用的電。在陰極，氧氣、穿過膜的氫離子和繞回來的電子結合成水。膜要保持濕潤才導得動氫離子，所以運轉溫度通常在 60 到 80°C。":["At the heart of a proton exchange membrane fuel cell (PEMFC) is a polymer membrane only a few tens of micrometres thick, coated on both sides with a platinum catalyst layer. Hydrogen enters through the flow channels on the anode side and splits on the catalyst into hydrogen ions and electrons. The ions can pass through the membrane but the electrons cannot, so they travel through an external circuit to the cathode; that flow of electrons is the electricity we use. At the cathode, oxygen, the ions that crossed the membrane and the returning electrons combine to form water. The membrane must stay moist to conduct hydrogen ions, so the cell usually runs at 60 to 80°C.","固体高分子形燃料電池（PEMFC）の中心は、厚さ数十マイクロメートルの高分子膜で、両面に白金を含む触媒層が塗られています。水素はアノード側の流路から入り、触媒上で水素イオンと電子に分かれます。水素イオンは膜を通り抜けられますが、電子は通れないため外部回路を回ってカソードへ向かいます。この電子の流れが私たちの使う電気です。カソードでは酸素、膜を通ってきた水素イオン、戻ってきた電子が結びついて水になります。膜は湿っていないと水素イオンを通さないため、運転温度は通常 60〜80°C です。"],
+"氫氣從陽極流道進入，空氣從陰極進入":["Hydrogen enters the anode channels, air the cathode","水素はアノード流路から、空気はカソードから入る"],
+"觸媒把氫分解成氫離子和電子":["The catalyst splits hydrogen into ions and electrons","触媒が水素を水素イオンと電子に分ける"],
+"氫離子穿過膜，電子經外部電路點亮燈泡":["Ions cross the membrane; electrons light the lamp via the circuit","水素イオンは膜を通過、電子は外部回路で電球を点灯"],
+"在陰極，氧、氫離子和電子結合成水":["At the cathode, oxygen, ions and electrons form water","カソードで酸素・水素イオン・電子が水になる"],
+"陽極 −":["Anode −","アノード −"],
+"陰極 +":["Cathode +","カソード +"],
+"O₂（空氣）":["O₂ (air)","O₂（空気）"],
+"陽極反應":["Anode reaction","アノード反応"],
+"陰極反應":["Cathode reaction","カソード反応"],
+"雙極板（流道）":["Bipolar plate","セパレータ（流路）"],
+"觸媒層（鉑）":["Catalyst (platinum)","触媒層（白金）"],
+"質子交換膜":["Proton exchange membrane","電解質膜"],
+"外部電路":["External circuit","外部回路"],
+"從單電池到電堆":["From a single cell to a stack","単セルからスタックへ"],
+"一片單電池在運轉時只有約 0.7 伏特，電壓太低，所以要把幾百片單電池用雙極板串起來疊成電堆，電壓就相加。第二代 Toyota Mirai 的電堆有 330 片單電池，最大輸出 128 kW。右邊的極化曲線說明電流愈大、電壓愈低：小電流時觸媒反應要克服活化損失，中段主要是膜與接觸的電阻損失，電流太大時氣體來不及送到觸媒，電壓急速下降。設計時通常讓單電池在 0.6 到 0.8 伏特之間運轉，兼顧功率與效率。":["A single cell gives only about 0.7 volts in operation, which is too low, so hundreds of cells are connected in series through bipolar plates to form a stack, and their voltages add up. The second-generation Toyota Mirai stack has 330 cells and a maximum output of 128 kW. The polarisation curve on the right shows that the higher the current, the lower the voltage: at low current the catalyst reaction must overcome activation losses, in the middle range resistance in the membrane and contacts dominates, and at very high current gas cannot reach the catalyst fast enough and the voltage drops sharply. Cells are usually designed to run between 0.6 and 0.8 V to balance power and efficiency.","単セルの運転電圧は約 0.7 ボルトしかなく低すぎるため、数百枚のセルをセパレータで直列に積み重ねてスタックにし、電圧を足し合わせます。2 代目トヨタ MIRAI のスタックは 330 セルで、最高出力は 128 kW です。右の分極曲線は、電流が大きいほど電圧が下がることを示しています。小電流では触媒反応の活性化損失、中間域では膜や接触部の抵抗損失が主で、電流が大きすぎるとガスが触媒に届かず電圧が急に下がります。設計では出力と効率を両立させるため、単セルを 0.6〜0.8 V の範囲で運転するのが一般的です。"],
+"一片單電池只有約 0.7 V":["A single cell gives only about 0.7 V","単セルは約 0.7 V しかない"],
+"幾百片串聯疊成電堆，電壓相加":["Hundreds are stacked in series and the voltages add up","数百枚を直列に積層し、電圧を足し合わせる"],
+"電流愈大，電壓愈低：這是極化曲線":["More current means lower voltage: the polarisation curve","電流が大きいほど電圧は下がる：分極曲線"],
+"通常在 0.6–0.8 V 之間運轉，兼顧功率與效率":["Cells usually run at 0.6–0.8 V to balance power and efficiency","通常は 0.6–0.8 V で運転し、出力と効率を両立"],
+"電堆（示意）":["Stack (schematic)","スタック（模式図）"],
+"{n} 片":["{n} cells","{n} セル"],
+"單電池":["Cells","単セル"],
+"約 {v} V":["about {v} V","約 {v} V"],
+"電堆電壓":["Stack voltage","スタック電圧"],
+"最大輸出（Mirai）":["Max output (Mirai)","最高出力（MIRAI）"],
+"每片 × 0.7 V":["Each cell × 0.7 V","1 セル × 0.7 V"],
+"極化曲線（單電池，示例）":["Polarisation curve (single cell, example)","分極曲線（単セル、例）"],
+"理論 1.23 V":["Theoretical 1.23 V","理論 1.23 V"],
+"活化損失":["Activation loss","活性化損失"],
+"電阻損失":["Ohmic loss","抵抗損失"],
+"質傳損失":["Mass transport loss","物質移動損失"],
+"常用運轉區 0.6–0.8 V":["Typical range 0.6–0.8 V","主な運転域 0.6–0.8 V"],
+"燃料電池車裡有什麼":["Inside a fuel cell car","燃料電池車の中身"],
+"打開燃料電池車，可以看到幾個主要部件。碳纖維纏繞的高壓氣瓶放在車身中段與後座下方，氫氣經減壓後送進前方的燃料電池堆；空氣壓縮機把空氣送到陰極。電堆產生的直流電經升壓轉換器提高電壓，驅動馬達。車上另有一顆小型驅動電池，起步加速時協助供電，煞車時回收動能，讓電堆能在較有效率的區間運轉。反應產生的水以水蒸氣和少量液態水從車尾排出。":["Open up a fuel cell car and you find a few main components. Carbon-fibre-wrapped high-pressure tanks sit in the middle of the car and under the rear seat; hydrogen is reduced in pressure and sent to the fuel cell stack at the front, while an air compressor feeds air to the cathode. The stack's DC output is raised by a boost converter to drive the motor. A small traction battery helps during acceleration and recovers energy when braking, letting the stack run in its more efficient range. The water produced leaves the tail as vapour and a little liquid water.","燃料電池車を開くと、いくつかの主要部品が見えます。炭素繊維を巻いた高圧タンクは車体中央と後席の下にあり、水素は減圧されて前方の FC スタックへ送られます。エアコンプレッサーは空気をカソードへ送ります。スタックが発電した直流電力は昇圧コンバーターで電圧を上げ、モーターを駆動します。小型の駆動用バッテリーは発進・加速時に電力を補い、ブレーキ時にはエネルギーを回生して、スタックを効率のよい領域で運転できるようにします。反応でできた水は水蒸気と少量の水として車体後部から排出されます。"],
+"打開車身：高壓氣瓶、電堆、電池與馬達":["Inside: tanks, stack, battery and motor","車体の中：高圧タンク・スタック・電池・モーター"],
+"氫氣從氣瓶送進前方的燃料電池堆":["Hydrogen flows from the tanks to the stack at the front","水素はタンクから前方の FC スタックへ"],
+"電堆發電，驅動馬達，電池輔助加速":["The stack powers the motor; the battery helps accelerate","スタックが発電してモーターを駆動、電池が加速を補助"],
+"反應產生的水從車尾排出":["Water from the reaction leaves at the rear","反応でできた水を車体後部から排出"],
+"高壓氫氣瓶":["H₂ tanks","高圧水素タンク"],
+"燃料電池堆":["Fuel cell stack","FC スタック"],
+"升壓轉換器":["Boost converter","昇圧コンバーター"],
+"驅動電池":["Traction battery","駆動用バッテリー"],
+"馬達":["Motor","モーター"],
+"水":["Water","水"],
+"行駛中（示例）":["Driving (example)","走行中（例）"],
+"電堆輸出":["Stack output","スタック出力"],
+"電池輔助":["Battery","電池アシスト"],
+"放電":["Discharging","放電"],
+"待命":["Standby","待機"],
+"車速":["Speed","車速"],
+"排放":["Emissions","排出"],
+"只有水":["Water only","水のみ"],
+"大樓旁的燃料電池":["Fuel cells beside buildings","ビル脇の燃料電池"],
+"燃料電池也可以放在地面上當發電機組，稱為定置型燃料電池。它可以直接用氫氣，也可以先把天然氣或沼氣重組成含氫的氣體再發電。機組就近設在工廠、醫院或大樓旁，發電的同時把反應熱回收成熱水，稱為熱電合併，總能源效率可達八成以上。停電時它能持續供電，適合當基地台、機房與醫院的備援電力。經濟部能源署對定置型燃料電池提供每 kW 新臺幣 5 到 7 萬元的設置補助。":["Fuel cells can also stand on the ground as generating units, known as stationary fuel cells. They can run on hydrogen directly, or first reform natural gas or biogas into a hydrogen-rich gas. Installed right beside factories, hospitals or office buildings, they generate electricity while recovering the reaction heat as hot water. This combined heat and power (CHP) can push total energy efficiency above 80%. They keep supplying power during outages, making them suitable as backup power for telecom sites, data rooms and hospitals. Taiwan's Energy Administration offers an installation subsidy of NT$50,000 to 70,000 per kW for stationary fuel cells.","燃料電池は地上に置いて発電設備としても使え、定置用燃料電池と呼ばれます。水素を直接使うことも、天然ガスやバイオガスを改質して水素を含むガスにしてから発電することもできます。工場、病院、ビルのすぐそばに設置し、発電と同時に反応熱を温水として回収する熱電併給（コージェネレーション）により、総合エネルギー効率は 8 割以上に達します。停電時も発電を続けられるため、基地局、サーバールーム、病院のバックアップ電源に適しています。台湾経済部エネルギー署は定置用燃料電池に 1 kW あたり 5〜7 万台湾ドルの設置補助を行っています。"],
+"燃料電池機組設在大樓旁":["A fuel cell unit stands beside the building","燃料電池ユニットをビルの脇に設置"],
+"發電送進大樓，反應熱回收成熱水":["Power goes to the building; heat is recovered as hot water","電気をビルへ送り、反応熱を温水として回収"],
+"熱電合併，總效率可達八成以上":["With CHP, total efficiency can exceed 80%","熱電併給で総合効率は 8 割以上"],
+"電網停電時，機組持續供電":["When the grid fails, the unit keeps supplying power","停電時もユニットが電力を供給し続ける"],
+"燃料電池機組":["Fuel cell unit","燃料電池ユニット"],
+"氫氣或天然氣":["Hydrogen or natural gas","水素または天然ガス"],
+"熱水儲槽":["Hot water tank","貯湯タンク"],
+"電網停電":["Grid outage","系統停電"],
+"熱電合併（示例）":["CHP (example)","熱電併給（例）"],
+"電效率":["Electrical","発電効率"],
+"約 {n}%":["about {n}%","約 {n}%"],
+"熱回收":["Heat recovery","熱回収"],
+"總效率":["Total","総合効率"],
+"電網":["Grid","系統"],
+"停電":["Outage","停電"],
+"正常":["Normal","正常"],
+"效率與兩種燃料電池":["Efficiency and fuel cell types","効率と 2 種類の燃料電池"],
+"同樣 100 份燃料的能量，汽油引擎通常只有約三成變成動力；燃料電池以純氫發電，電效率可達約五到六成，若再把熱回收利用，總效率可達八成以上。常見的燃料電池還有不同種類：質子交換膜燃料電池（PEMFC）在 60 到 80°C 運轉，啟動快、體積小，適合車輛與備援電力；固態氧化物燃料電池（SOFC）在 600 到 1000°C 運轉，可以直接使用天然氣或沼氣，適合固定式發電與熱電合併。":["Of the same 100 units of fuel energy, a petrol engine typically turns only about 30% into motion. A fuel cell running on pure hydrogen can reach about 50 to 60% electrical efficiency, and with heat recovery the total can exceed 80%. There are also different kinds of fuel cell: the proton exchange membrane fuel cell (PEMFC) runs at 60 to 80°C, starts quickly and is compact, suiting vehicles and backup power; the solid oxide fuel cell (SOFC) runs at 600 to 1000°C, can use natural gas or biogas directly, and suits stationary generation and combined heat and power.","同じ 100 の燃料エネルギーのうち、ガソリンエンジンで動力になるのは通常約 3 割です。純水素で発電する燃料電池の発電効率は約 5〜6 割に達し、熱も回収すれば総合効率は 8 割以上になります。燃料電池にはいくつかの種類があります。固体高分子形（PEMFC）は 60〜80°C で運転し、起動が速く小型で、車両やバックアップ電源に向いています。固体酸化物形（SOFC）は 600〜1000°C で運転し、天然ガスやバイオガスを直接使えるため、定置用発電や熱電併給に向いています。"],
+"同樣 100 份燃料，能量去了哪裡":["Where do 100 units of fuel energy go?","同じ 100 の燃料エネルギーの行き先"],
+"燃料電池發電約五到六成，回收熱後可達八成以上":["Fuel cells turn 50–60% into power, over 80% with heat recovery","燃料電池の発電は約 5〜6 割、熱回収で 8 割以上"],
+"PEMFC：低溫、啟動快，適合車輛":["PEMFC: low temperature, fast start, suits vehicles","PEMFC：低温・起動が速く、車両向け"],
+"SOFC：高溫、可用天然氣，適合固定式發電":["SOFC: high temperature, runs on natural gas, suits stationary use","SOFC：高温・天然ガスが使え、定置用発電向け"],
+"每 100 份燃料能量的去向（示例）":["Where 100 units of fuel energy go (example)","燃料エネルギー 100 の行き先（例）"],
+"汽油引擎":["Petrol engine","ガソリンエンジン"],
+"車用（示例）":["In a car (example)","自動車（例）"],
+"動力":["Motion","動力"],
+"損失":["Loss","損失"],
+"僅發電":["Power only","発電のみ"],
 "電力":["Power","電力"],
-"產氫":["H₂ output","水素製造量"],
-"狀態":["Mode","状態"],
-"產氫中":["Producing","製造中"],
-"啟動":["Starting","起動"],
-"用電把水拆開":["Splitting water with electricity","電気で水を分解する"],
-"電解槽裡有兩片電極泡在水中，接上直流電後，負極（陰極）產生氫氣，正極（陽極）產生氧氣。反應式是 2H₂O → 2H₂ + O₂，所以氫氣的體積是氧氣的兩倍。拆開水分子需要能量：理論上電壓至少要 1.23 伏特；若連反應吸收的熱也由電供應，要 1.48 伏特。實際電解槽還要克服電極反應的過電位與電阻損失，一般運轉在 1.8 到 2.0 伏特，多出來的部分會變成熱。":["An electrolyser has two electrodes immersed in water. When direct current is applied, hydrogen forms at the negative electrode (cathode) and oxygen at the positive electrode (anode). The reaction is 2H₂O → 2H₂ + O₂, so twice as much hydrogen as oxygen is produced by volume. Breaking water molecules takes energy: in theory the voltage must be at least 1.23 V, or 1.48 V if the heat the reaction absorbs is also supplied electrically. Real electrolysers must also overcome electrode overpotentials and resistive losses, so they usually run at 1.8 to 2.0 V, and the extra voltage turns into heat.","電解槽では 2 枚の電極が水に浸かっており、直流電流を流すとマイナス極（陰極）で水素、プラス極（陽極）で酸素が発生します。反応式は 2H₂O → 2H₂ + O₂ で、水素の体積は酸素の 2 倍になります。水分子を分けるにはエネルギーが必要で、理論上は少なくとも 1.23 V、反応が吸収する熱も電気で賄う場合は 1.48 V が必要です。実際の電解槽は電極反応の過電圧や抵抗損失も克服する必要があるため、通常 1.8〜2.0 V で運転し、余分な電圧は熱になります。"],
-"兩片電極泡在水中，接上直流電":["Two electrodes in water, connected to DC power","水に浸した 2 枚の電極に直流を印加"],
-"電壓超過 1.23 V，電極開始冒出氣泡":["Above 1.23 V, bubbles start to form","1.23 V を超えると電極から気泡が発生"],
-"負極產生氫氣，正極產生氧氣，體積 2 比 1":["Hydrogen at the cathode, oxygen at the anode, 2 to 1","陰極で水素、陽極で酸素、体積比 2 対 1"],
-"實際運轉約 1.8–2.0 V，多出的電壓變成熱":["Real cells run at 1.8–2.0 V; the excess becomes heat","実運転は約 1.8–2.0 V、余分な電圧は熱に"],
-"電解槽（示意）":["Electrolysis cell (schematic)","電解セル（模式図）"],
-"H₂ 氫氣":["H₂ hydrogen","H₂ 水素"],
-"O₂ 氧氣":["O₂ oxygen","O₂ 酸素"],
-"陰極":["Cathode","陰極"],
-"陽極":["Anode","陽極"],
-"反應式":["Reaction","反応式"],
-"氫氣體積是氧氣的 2 倍":["Twice as much hydrogen as oxygen by volume","水素の体積は酸素の 2 倍"],
-"電解電壓":["Cell voltage","電解電圧"],
-"理論最低電壓":["Theoretical minimum","理論最低電圧"],
-"熱中性電壓（反應熱也由電供應）":["Thermoneutral voltage","熱中性電圧"],
-"實際運轉約 1.8–2.0 V":["Operating 1.8–2.0 V","実運転 1.8–2.0 V"],
-"損失 → 熱":["Loss → heat","損失 → 熱"],
-"鹼性與 PEM 電解槽":["Alkaline vs PEM electrolysers","アルカリ形と PEM 形電解槽"],
-"目前商業化最多的是兩種電解槽。鹼性電解槽用濃度約 30% 的氫氧化鉀溶液當電解質，兩極之間用隔膜分開，由氫氧根離子（OH⁻）在溶液中移動；技術成熟、不需貴金屬，單位成本較低。質子交換膜（PEM）電解槽用純水和一片固態高分子膜，氫離子（H⁺）穿過膜到陰極；電流密度可達鹼性的數倍，設備較小巧，功率升降也快，適合搭配變動的風光電力，但需要鉑與銥等貴金屬觸媒。":["Two types of electrolyser dominate commercial use today. An alkaline electrolyser uses a potassium hydroxide solution of about 30% as its electrolyte, with a diaphragm separating the electrodes and hydroxide ions (OH⁻) moving through the liquid; the technology is mature, needs no precious metals and costs less per unit. A proton exchange membrane (PEM) electrolyser uses pure water and a thin solid polymer membrane, through which hydrogen ions (H⁺) pass to the cathode. It reaches several times the current density of alkaline units, is more compact and ramps quickly, which suits variable wind and solar power, but it needs precious-metal catalysts such as platinum and iridium.","現在商用で主流の電解槽は 2 種類です。アルカリ形は濃度約 30% の水酸化カリウム水溶液を電解質とし、隔膜で両極を仕切り、水酸化物イオン（OH⁻）が液中を移動します。技術が成熟し、貴金属が不要で単価も低めです。固体高分子（PEM）形は純水と固体の高分子膜を使い、水素イオン（H⁺）が膜を通って陰極へ移動します。電流密度はアルカリ形の数倍に達し、装置がコンパクトで出力の増減も速いため、変動する風力・太陽光と組み合わせやすい一方、白金やイリジウムなどの貴金属触媒が必要です。"],
-"鹼性電解槽：氫氧化鉀溶液與隔膜":["Alkaline: potassium hydroxide solution and a diaphragm","アルカリ形：水酸化カリウム水溶液と隔膜"],
-"氫氧根離子從陰極移向陽極":["Hydroxide ions move from cathode to anode","水酸化物イオンが陰極から陽極へ移動"],
-"PEM 電解槽：純水與固態質子交換膜":["PEM: pure water and a solid proton exchange membrane","PEM 形：純水と固体高分子膜"],
-"氫離子穿過膜，反應快，適合搭配風光":["Protons cross the membrane; fast response suits wind and solar","水素イオンが膜を通過、応答が速く風力・太陽光向き"],
-"陰極 −":["Cathode −","陰極 −"],
-"陽極 +":["Anode +","陽極 +"],
-"固態質子交換膜":["Solid proton exchange membrane","固体高分子膜"],
-"氫氧化鉀溶液＋隔膜":["KOH solution + diaphragm","KOH 水溶液＋隔膜"],
-"鹼性電解槽（AWE）":["Alkaline electrolyser (AWE)","アルカリ形電解槽（AWE）"],
-"PEM 電解槽":["PEM electrolyser","PEM 形電解槽"],
-"電解質：約 30% 氫氧化鉀":["Electrolyte: about 30% KOH","電解質：約 30% 水酸化カリウム"],
-"電流密度約 0.2–0.4 A/cm²":["Current density about 0.2–0.4 A/cm²","電流密度 約 0.2–0.4 A/cm²"],
-"技術成熟、不需貴金屬":["Mature, no precious metals","技術が成熟、貴金属不要"],
-"電解質：純水＋高分子膜":["Electrolyte: pure water + polymer membrane","電解質：純水＋高分子膜"],
-"電流密度約 1–2 A/cm²":["Current density about 1–2 A/cm²","電流密度 約 1–2 A/cm²"],
-"功率升降快，需要鉑與銥":["Fast ramping, needs platinum and iridium","出力変化が速い、白金とイリジウムが必要"],
-"打開電解槽貨櫃":["Inside an electrolyser container","電解槽コンテナの内部"],
-"一套電解產氫系統不只有電解槽。電網或再生能源的交流電先經過整流器變成直流電，送進由數十到數百片電解單元疊成的電解槽堆。產出的氫氣和氧氣各自帶著水，先進入氣液分離器，把水分回收再利用；氫氣接著通過純化與乾燥設備，去除微量氧氣和水氣，純度可達 99.97% 以上，符合燃料電池車的要求。系統還需要純水設備與冷卻系統，把電解產生的熱帶走。":["An electrolysis system is more than the electrolyser itself. Alternating current from the grid or from renewables first passes through a rectifier to become direct current, which feeds a stack of tens to hundreds of electrolysis cells. The hydrogen and oxygen leave carrying water, so each goes to a gas–liquid separator where the water is recovered and reused. The hydrogen then passes through purification and drying equipment that removes traces of oxygen and moisture, reaching 99.97% purity or higher, as required for fuel cell vehicles. The system also needs water treatment and cooling to carry away the heat of electrolysis.","水電解システムは電解槽だけではありません。系統や再生可能エネルギーからの交流は、まず整流器で直流に変換され、数十〜数百枚の電解セルを積み重ねたスタックに送られます。発生した水素と酸素はそれぞれ水を含んでいるため、気液分離器で水を回収して再利用します。水素はさらに精製・乾燥装置で微量の酸素と水分を取り除かれ、燃料電池車に求められる 99.97% 以上の純度になります。システムには純水装置と、電解で生じる熱を除く冷却設備も必要です。"],
-"打開貨櫃：整流器、電解槽堆與分離器":["Opening the container: rectifier, stack and separators","コンテナの中：整流器、スタック、分離器"],
-"整流器把交流電變成直流電":["The rectifier turns AC into DC","整流器が交流を直流に変換"],
-"氫氣和氧氣分別進入氣液分離器":["Hydrogen and oxygen go to separate gas–liquid separators","水素と酸素はそれぞれ気液分離器へ"],
-"水回收再用，氫氣再經純化與乾燥":["Water is reused; the hydrogen is purified and dried","水は再利用、水素は精製・乾燥へ"],
-"整流器":["Rectifier","整流器"],
-"電解槽堆":["Cell stack","電解スタック"],
-"氫氣分離器":["H₂ separator","水素分離器"],
-"氧氣分離器":["O₂ separator","酸素分離器"],
-"純水":["Pure water","純水"],
-"電解槽（示例）":["Electrolyser (example)","電解槽（例）"],
-"單元電壓":["Cell voltage","セル電圧"],
-"溫度":["Temperature","温度"],
-"氫氣純度":["H₂ purity","水素純度"],
-"一公斤氫要多少電":["How much electricity per kilogram","水素 1 kg に必要な電力"],
-"一公斤氫氣蘊含約 39.4 度電的能量（高熱值），這也是電解水產生一公斤氫的理論最低耗電。實際的電解槽系統還有過電位、電阻、整流與輔助設備的損失，目前典型耗電約 50 到 55 度，系統效率約七到八成；若要壓縮到加氫站使用的高壓，還要再加幾度電。同時也需要水：理論上每公斤氫約 9 公斤水，實際還要考慮純水處理的損耗。一公斤氫大約可讓一輛燃料電池車行駛 100 公里（示例）。":["One kilogram of hydrogen holds about 39.4 kWh of energy (higher heating value), which is also the theoretical minimum electricity needed to make it by electrolysis. Real systems also lose energy to overpotentials, resistance, rectification and auxiliary equipment, so today they typically use about 50 to 55 kWh, an efficiency of roughly 70 to 80 percent; compressing the gas to refuelling-station pressures adds a few kWh more. Water is needed too: in theory about 9 kg per kilogram of hydrogen, plus losses in water treatment. One kilogram of hydrogen can take a fuel cell car roughly 100 km (example).","水素 1 kg には約 39.4 kWh（高位発熱量）のエネルギーがあり、これが水電解で水素 1 kg をつくるための理論最小電力量でもあります。実際のシステムでは過電圧、抵抗、整流、補機の損失があり、現在の代表的な消費電力量は約 50〜55 kWh、効率はおよそ 7〜8 割です。水素ステーションで使う高圧まで圧縮すると、さらに数 kWh が加わります。水も必要で、理論上は水素 1 kg あたり約 9 kg、実際には純水処理の損失も考慮します。水素 1 kg で燃料電池車はおよそ 100 km 走れます（例）。"],
-"一公斤氫的能量約 39.4 度電":["One kilogram of hydrogen holds about 39.4 kWh","水素 1 kg のエネルギーは約 39.4 kWh"],
-"實際電解還有損失，約 50–55 度":["With real losses it takes about 50–55 kWh","実際は損失があり約 50–55 kWh"],
-"理論上還需要約 9 公斤的水":["It also needs about 9 kg of water in theory","理論上、約 9 kg の水も必要"],
-"一公斤氫約可讓燃料電池車跑 100 公里":["One kilogram takes a fuel cell car about 100 km","水素 1 kg で燃料電池車は約 100 km 走行"],
-"產生 1 公斤氫的耗電（示例）":["Electricity per kg of H₂ (example)","水素 1 kg あたりの電力量（例）"],
-"理論最低":["Theoretical","理論最小"],
-"電解槽系統":["Electrolyser","電解システム"],
-"約 52":["about 52","約 52"],
-"＋壓縮":["+ compression","＋圧縮"],
-"約 55":["about 55","約 55"],
-"損失":["Losses","損失"],
-"一公斤氫的體積":["Volume of 1 kg of H₂","水素 1 kg の体積"],
-"約 11 m³":["about 11 m³","約 11 m³"],
-"常壓 0°C 時，約一個小房間":["At 1 atm and 0°C, a small room","常圧 0°C で小部屋ほど"],
-"系統效率":["System efficiency","システム効率"],
-"約 75%":["about 75%","約 75%"],
-"39.4 ÷ 52（示例）":["39.4 ÷ 52 (example)","39.4 ÷ 52（例）"],
-"需要的水":["Water needed","必要な水"],
-"約 9 kg":["about 9 kg","約 9 kg"],
-"每公斤氫的理論需水量":["Theoretical, per kg of H₂","水素 1 kg あたりの理論値"],
-"燃料電池車":["Fuel cell car","燃料電池車"],
-"約 100 km":["about 100 km","約 100 km"],
-"一公斤氫可行駛的距離（示例）":["Range on 1 kg of H₂ (example)","水素 1 kg での走行距離（例）"],
-"灰氫、藍氫與綠氫":["Grey, blue and green hydrogen","グレー・ブルー・グリーン水素"],
-"氫氣本身沒有顏色，「灰、藍、綠」指的是製造方式與碳排放。目前世界上大部分的氫來自天然氣蒸汽重組，每產生一公斤氫約排放 10 到 12 公斤二氧化碳當量，稱為灰氫；台灣現有的氫氣也有九成以上來自天然氣重組。若把重組產生的二氧化碳捕捉封存，就是藍氫。用再生能源電解水產生的是綠氫。要注意電力來源：若以台灣電網平均電力電解，每公斤氫的間接排放約 25 公斤，反而比灰氫高。":["Hydrogen itself is colourless; grey, blue and green describe how it is made and how much carbon is emitted. Most of the world's hydrogen today comes from steam reforming of natural gas, emitting about 10 to 12 kg of CO₂-equivalent per kilogram: this is grey hydrogen, and more than 90% of the hydrogen used in Taiwan today is made this way. If the CO₂ from reforming is captured and stored, the result is blue hydrogen. Electrolysis powered by renewables gives green hydrogen. The electricity source matters: electrolysis on Taiwan's average grid mix would cause about 25 kg of indirect emissions per kilogram, more than grey hydrogen.","水素そのものに色はなく、グレー・ブルー・グリーンは製造方法と炭素排出を表します。現在、世界の水素の大半は天然ガスの水蒸気改質でつくられ、水素 1 kg あたり約 10〜12 kg の CO₂ 換算排出があり、これをグレー水素と呼びます。台湾で使われている水素も 9 割以上が天然ガス改質によるものです。改質で出る CO₂ を回収・貯留すればブルー水素、再生可能エネルギーの電気で水を電気分解すればグリーン水素です。電源には注意が必要で、台湾の系統平均の電気で電解すると間接排出は水素 1 kg あたり約 25 kg となり、グレー水素より多くなります。"],
-"氫氣本身沒有顏色，顏色代表製造方式":["Hydrogen is colourless; the colour means how it is made","水素に色はなく、色は製造方法を表す"],
-"灰氫：天然氣重組，每公斤排放 10–12 公斤":["Grey: gas reforming, 10–12 kg CO₂e per kg","グレー：天然ガス改質、1 kg あたり 10–12 kg 排出"],
-"藍氫：重組並捕捉封存二氧化碳":["Blue: reforming with CO₂ capture and storage","ブルー：改質＋CO₂ の回収・貯留"],
-"綠氫：再生能源電解，排放接近零":["Green: renewable electrolysis, near-zero emissions","グリーン：再エネで電解、排出はほぼゼロ"],
-"每公斤氫的碳排放（示例）":["Emissions per kg of H₂ (example)","水素 1 kg あたりの排出量（例）"],
-"灰氫":["Grey","グレー"],
-"天然氣重組":["Gas reforming","天然ガス改質"],
-"藍氫":["Blue","ブルー"],
-"重組＋碳捕捉":["Reforming + CCS","改質＋CCS"],
-"約 1–4":["about 1–4","約 1–4"],
-"綠氫":["Green","グリーン"],
-"再生能源電解":["Renewable power","再エネ電解"],
-"接近 0":["near 0","ほぼ 0"],
-"電網電解":["Grid power","系統電力で電解"],
-"台灣電網平均電力":["Taiwan grid average","台湾の系統平均"],
-"約 25":["about 25","約 25"],
-"二氧化碳直接排放":["CO₂ released directly","CO₂ をそのまま排出"],
-"捕捉 CO₂ 並封存於地下":["CO₂ captured and stored underground","CO₂ を回収し地下に貯留"],
-"捕捉率決定排放":["Capture rate sets the emissions","回収率で排出量が決まる"],
-"再生能源電力電解水":["Water split with renewable power","再エネの電気で水を電解"],
-"只產生氧氣":["Only oxygen is released","副生物は酸素のみ"],
-"電力來源決定顏色":["The power source sets the colour","電源が色を決める"],
-"電網 0.474 kg/度 × 52 度 ≈ 25 kg":["Grid 0.474 kg/kWh × 52 kWh ≈ 25 kg","系統 0.474 kg/kWh × 52 kWh ≈ 25 kg"],
-"壓縮與儲存":["Compression and storage","圧縮と貯蔵"],
-"氫氣是最輕的氣體，常壓下一公斤就有約 11 立方公尺，必須壓縮才方便儲存與運輸。電解槽出口壓力通常只有數十巴，壓縮機再把氫氣加壓到約 200 巴以上，存進固定式儲氫管束，或灌進管束拖車運到用戶。燃料電池車的車載氣瓶則用 350 或 700 巴。另一種方式是冷卻到 −253°C 成為液氫，或轉成氨等化學載體，後續集數會再介紹。":["Hydrogen is the lightest gas: at atmospheric pressure one kilogram fills about 11 cubic metres, so it has to be compressed before it can be stored and transported easily. Electrolysers usually deliver it at only a few tens of bar; a compressor raises it to around 200 bar or more for stationary tube banks or for tube trailers that carry it to customers. Fuel cell cars store it on board at 350 or 700 bar. Alternatively it can be cooled to −253°C as liquid hydrogen or converted into carriers such as ammonia, which a later episode covers.","水素は最も軽い気体で、常圧では 1 kg が約 11 m³ にもなるため、貯蔵や輸送には圧縮が欠かせません。電解槽の出口圧力は通常数十 bar 程度で、圧縮機で約 200 bar 以上に昇圧し、定置式の高圧容器（チューブバンク）に貯めたり、チューブトレーラーに充填して需要家へ運んだりします。燃料電池車の車載容器は 350 bar または 700 bar です。ほかに −253°C まで冷やして液化水素にする方法や、アンモニアなどのキャリアに変える方法もあり、これらは今後のエピソードで紹介します。"],
-"電解槽出口的氫氣只有數十巴":["Hydrogen leaves the electrolyser at a few tens of bar","電解槽出口の水素は数十 bar"],
-"壓縮機把氫氣加壓到約 200 巴":["A compressor raises it to about 200 bar","圧縮機で約 200 bar に昇圧"],
-"存進儲氫管束，再灌進管束拖車":["It fills the tube bank, then the tube trailer","チューブバンクに貯め、トレーラーへ充填"],
-"拖車把高壓氫氣送到工廠與加氫站":["The trailer delivers it to factories and stations","トレーラーで工場や水素ステーションへ"],
-"約 30 bar":["about 30 bar","約 30 bar"],
-"儲氫管束":["Tube bank","チューブバンク"],
-"壓縮與儲存（示例）":["Compression (example)","圧縮と貯蔵（例）"],
-"壓力":["Pressure","圧力"],
-"拖車裝載":["Trailer load","積載量"],
-"出車":["Departing","出発"],
-"充填中":["Filling","充填中"]
+"熱電合併":["CHP","熱電併給"],
+"熱利用":["Heat","熱利用"],
+"質子交換膜（PEMFC）":["Proton exchange membrane (PEMFC)","固体高分子形（PEMFC）"],
+"運轉溫度約 60–80°C":["Runs at about 60–80°C","運転温度 約 60–80°C"],
+"啟動快、體積小":["Fast start-up, compact","起動が速く小型"],
+"車輛、堆高機、備援電力":["Vehicles, forklifts, backup power","車両・フォークリフト・非常用電源"],
+"固態氧化物（SOFC）":["Solid oxide (SOFC)","固体酸化物形（SOFC）"],
+"運轉溫度約 600–1000°C":["Runs at about 600–1000°C","運転温度 約 600–1000°C"],
+"可直接用天然氣、沼氣":["Uses natural gas or biogas directly","天然ガス・バイオガスを直接利用"],
+"固定式發電、熱電合併":["Stationary power and CHP","定置用発電・熱電併給"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

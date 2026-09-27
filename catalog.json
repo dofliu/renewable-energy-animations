@@ -537,6 +537,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "應用",
+            "en": "Applications",
+            "ja": "利用"
+          },
+          "episodes": [
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "燃料電池",
+                "en": "How a fuel cell works",
+                "ja": "燃料電池のしくみ"
+              },
+              "sub": {
+                "zh": "氫氧反應與 1.23 V、質子交換膜與觸媒、單電池到電堆、燃料電池車、定置型熱電合併",
+                "en": "The hydrogen–oxygen reaction, membrane and catalyst, from cell to stack, fuel cell cars, stationary CHP",
+                "ja": "水素と酸素の反応と 1.23 V、電解質膜と触媒、セルからスタックへ、燃料電池車、定置用コージェネ"
+              }
+            }
+          ]
         }
       ]
     },
