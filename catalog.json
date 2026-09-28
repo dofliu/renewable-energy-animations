@@ -266,6 +266,20 @@
                 "en": "Layout, wakes, lifecycle and day into night",
                 "ja": "配置、ウェイク、ライフサイクル、昼から夜へ"
               }
+            },
+            {
+              "no": 15,
+              "file": "ep15.html",
+              "title": {
+                "zh": "離岸風場的運維",
+                "en": "Offshore wind O&M",
+                "ja": "洋上風力発電所のO&M"
+              },
+              "sub": {
+                "zh": "運維港與 SOV、浪高與天候窗口、海纜監測、無人機巡檢與葉片前緣修補",
+                "en": "O&M port and SOV, weather windows, cable monitoring, drone inspection and leading-edge repair",
+                "ja": "O&M港とSOV、天候ウィンドウ、海底ケーブル監視、ドローン点検と前縁補修"
+              }
             }
           ]
         },
