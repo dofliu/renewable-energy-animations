@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep01.js｜地熱系列</title>
+<title>ep02.js｜地熱系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="地熱系列" data-en="Geothermal series" data-ja="地熱シリーズ">地熱系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 地熱鑽井 →" data-en="02 Drilling a geothermal well →" data-ja="02 地熱井の掘削 →">02 地熱鑽井 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="地熱系列" data-en="Geothermal series" data-ja="地熱シリーズ">地熱系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 地熱發電廠" data-en="← 01 Inside a geothermal power plant" data-ja="← 01 地熱発電所">← 01 地熱發電廠</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep01.js｜地熱系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜地熱系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,404 +543,524 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 地熱系列 第 1 集：地熱發電廠 */
+/* 地熱系列 第 2 集：地熱鑽井 */
 const gyy=x=>groundY(x);
 const SUN={x:1180,y:120};
-const PWX=230,HXX=330,PHX=500,PHW=220,PHH=120,ACX=780,ACW=220,RWX=1090,SSX=1200,TWX=1440;  // 生產井、熱交換器、發電機房、氣冷冷凝器、回注井、變電站、電塔
-const HOT='#ff8a60',COOL='#58b8d0',WF='#b37cff',PWR='#f2c230';                              // 熱水、回注水、工作流體、電力
+const DEG=Math.PI/180;
+const WX=760;                                   // 井場中心
+const HOT='#ff8a60',COOL='#58b8d0',MUD='#7dc8dc',PWR='#f2c230',CEM='#c9d1d6',STEEL='#8d989f';
 const GEO_LAY=[{d:0,c:'#7a9a55'},{d:14,c:'#a4876a'},{d:60,c:'#8a7a6a'},{d:150,c:'#6d6862'},{d:190,c:'#7a4b3a'},{d:330,c:'#8e3b22'}];
+const DPX=m=>m*.17;                             // 場景深度比例：2,000 m ≈ 340 px
+const PXM=2000/340;
 /* 沿折線 P（[[x,y],…]）取比例 f 的點 */
 function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
   let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
 function flowDots(P,n,col,a,sp,r){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],r||4.5,col));}}
 function pl(P,col,lw){const a=[];P.forEach(p=>a.push(p[0],p[1]));ln(a,col,lw);}
-/* 遠山（宜蘭山區意象） */
+const toA=P=>P.map(p=>[p.x,p.y]);
+/* 遠山與整集背景（不放雲，避免擋住章節卡） */
 function hills(){poly([-200,GY,-60,430,120,380,300,440,420,400,560,470,700,430,880,480,1000,440,1180,410,1320,450,1500,400,1700,460,1800,GY],'#8fae9a');
   poly([-200,GY,0,500,200,470,380,520,600,480,820,530,1060,490,1300,520,1560,480,1800,GY],'#7c9f7c');}
-function geoBase(k){landSky(GY,{sun:SUN,clouds:!k,dusk:k||0});hills();drawGround({layers:GEO_LAY});}
-/* 地面設施 */
-function wellhead(x){const g=gyy(x);box(x-30,g-4,60,6,'#aeb8be');box(x-10,g-24,20,22,'#8d989f');box(x-7,g-64,14,42,'#c9d1d6','rgba(0,0,0,.3)',1);
-  box(x-18,g-58,36,6,'#6a747a');box(x-18,g-40,36,6,'#6a747a');circ(x+16,g-30,7,'#1f7f99');}
-function heatEx(x){const g=gyy(x+60);box(x+14,g-54,8,54,'#6a747a');box(x+98,g-54,8,54,'#6a747a');
-  rrp(x,g-98,120,46,20);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();ln([x+30,g-98,x+30,g-52],'rgba(0,0,0,.18)',1);ln([x+90,g-98,x+90,g-52],'rgba(0,0,0,.18)',1);}
-function powerHouse(){const x=PHX,g=gyy(x+PHW/2),w=PHW,h=PHH;box(x,g-h,w,h,'#e3e8ec','rgba(0,0,0,.3)',1);poly([x-8,g-h,x+w/2,g-h-26,x+w+8,g-h],'#8d989f');
-  for(let i=0;i<5;i++)box(x+18+i*40,g-h+24,24,16,'#2a3a46');box(x+w/2-18,g-44,36,44,'#5c6770');box(x+14,g-h+54,72,14,'#1f7f99');}
-function acc(){const x=ACX,g=gyy(x+ACW/2),w=ACW;for(let i=0;i<=4;i++)box(x+8+i*(w-22)/4,g-96,6,96,'#6a747a');
-  box(x,g-112,w,18,'#c9d1d6','rgba(0,0,0,.3)',1);poly([x+6,g-112,x+w/2,g-150,x+w-6,g-112],'#aeb8be','rgba(0,0,0,.25)',1);
-  for(let i=0;i<3;i++){const cx=x+40+i*70,cy=g-150+10;box(cx-26,cy-12,52,6,'#8d989f');const s=Math.abs(Math.cos(TT*6+i));ln([cx-24*s,cy-16,cx+24*s,cy-16],'#44535c',3);}}
-function reinjPump(x){const g=gyy(x);box(x-70,g-30,44,26,'#1f7f99','rgba(0,0,0,.3)',1);circ(x-48,g-17,8,'#58b8d0');box(x-74,g-4,52,4,'#6a747a');
-  box(x-24,g-4,48,6,'#aeb8be');box(x-8,g-40,16,38,'#c9d1d6','rgba(0,0,0,.3)',1);box(x-14,g-36,28,5,'#6a747a');}
-function substation(){const x=SSX,g=gyy(x+50);fence(x-10,x+110,g+2);box(x+14,g-50,70,46,'#8d989f','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++){box(x+24+i*22,g-72,6,22,'#c9d1d6');circ(x+27+i*22,g-74,4,'#e3e8ec');}}
-function pylon(x){const g=gyy(x);ctx.strokeStyle='#5c6770';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-24,g);ctx.lineTo(x-6,g-220);ctx.lineTo(x+6,g-220);ctx.lineTo(x+24,g);
-  for(let i=0;i<6;i++){const y0=g-i*36,y1=g-(i+1)*36,w0=24-18*i/6,w1=24-18*(i+1)/6;ctx.moveTo(x-w0,y0);ctx.lineTo(x+w1,y1);ctx.moveTo(x+w0,y0);ctx.lineTo(x-w1,y1);}
-  ctx.moveTo(x-40,g-190);ctx.lineTo(x+40,g-190);ctx.moveTo(x-30,g-160);ctx.lineTo(x+30,g-160);ctx.stroke();}
-/* 管線路徑 */
-const P_PROD=()=>[[PWX,gyy(PWX)-64],[PWX,gyy(PWX)-112],[HXX+10,gyy(PWX)-112],[HXX+10,gyy(HXX+60)-98]];
-const P_BRINE=()=>[[HXX+110,gyy(HXX+60)-52],[HXX+110,gyy(HXX)-14],[RWX-60,gyy(HXX)-14],[RWX-60,gyy(RWX)-30]];
-const P_WF=()=>[[HXX+120,gyy(HXX+60)-78],[PHX,gyy(HXX+60)-78]];
-const P_ACC=()=>[[PHX+PHW,gyy(PHX)-80],[ACX+30,gyy(PHX)-80],[ACX+30,gyy(ACX+ACW/2)-94]];
-const P_RET=()=>[[ACX+ACW-30,gyy(ACX+ACW/2)-94],[ACX+ACW-30,gyy(ACX)-50],[PHX+PHW,gyy(ACX)-50]];
-const P_PWR=()=>[[PHX+PHW/2,gyy(PHX)-PHH-26],[PHX+PHW/2,gyy(PHX)-190],[SSX+49,gyy(PHX)-190],[SSX+49,gyy(SSX)-74]];
-const P_GRID=()=>[[SSX+71,gyy(SSX)-74],[TWX-40,gyy(TWX)-190],[1700,gyy(TWX)-196]];
-/* 地下：井與儲集層 */
-const W_PROD=()=>[[PWX+60,gyy(PWX)+240],[PWX+10,gyy(PWX)+160],[PWX,gyy(PWX)+60],[PWX,gyy(PWX)]];   // 由下往上
-const W_REIN=()=>[[RWX,gyy(RWX)],[RWX,gyy(RWX)+70],[RWX-10,gyy(RWX)+170],[RWX-60,gyy(RWX)+250]];  // 由上往下
-const R_FLOW=()=>[[RWX-60,gyy(RWX)+262],[RWX-300,860],[PWX+360,868],[PWX+70,gyy(PWX)+252]];
-function wellBore(P,a){alphaDo(a===undefined?1:a,()=>{pl(P,'#aeb8be',14);pl(P,'#2a3a46',8);});}
-function reservoirGlow(a){if(a<=0)return;alphaDo(a,()=>{const R=rng(11);for(let i=0;i<40;i++){const x=R()*1600,y=800+R()*120,p=(TT*.4+R())%1;circ(x+10*Math.sin(TT+i),y,2+2*Math.sin(p*TAU)**2,'rgba(255,157,122,.55)');}});}
-function plantDraw(o){o=o||{};
-  pl(P_GRID(),'rgba(40,50,58,.6)',2);pylon(TWX);substation();
-  [P_PROD(),P_BRINE()].forEach(P=>pl(P,'#6a747a',6));[P_WF(),P_ACC(),P_RET()].forEach(P=>pl(P,'#8d989f',4));pl(P_PWR(),'rgba(40,50,58,.55)',2);
-  wellhead(PWX);heatEx(HXX);powerHouse();acc();reinjPump(RWX);
-  wellBore(W_PROD(),o.wells);wellBore(W_REIN(),o.wells);
+function geoBase(){landSky(GY,{sun:SUN,clouds:false});hills();drawGround({layers:GEO_LAY});
+  const g=gyy(WX);box(WX-380,g-3,800,5,'#b9b3a6');}   // 碎石井場
+/* 鑽機：井架、游車與頂部驅動、鑽台、防噴器、鑽桿架、泥漿系統 */
+function rig(x,o){o=o||{};const g=gyy(x),F=g-64,T=g-340,hy=o.hy===undefined?F-200:o.hy;
+  // 發電機
+  box(x-470,g-40,90,40,'#5c6770','rgba(0,0,0,.3)',1);box(x-462,g-32,30,10,'#2a3a46');box(x-420,g-52,8,12,'#44535c');
+  // 鑽桿架
+  box(x-340,g-10,150,6,'#6a747a');for(let i=0;i<4;i++)ln([x-336,g-14-i*6,x-194,g-14-i*6],'#aeb8be',4);
+  ln([x-190,g-10,x-90,F+2],'#8d989f',4);
+  // 泥漿系統（泥漿泵→立管；返出管→振動篩→泥漿池）
+  if(o.mud!==false){ln([x+390,g-34,x+390,g-60,x+40,g-60],'#44535c',3);
+   box(x+140,g-42,210,42,'#8d989f','rgba(0,0,0,.3)',1);for(let i=1;i<4;i++)ln([x+140+i*52,g-42,x+140+i*52,g],'rgba(0,0,0,.25)',1);
+   box(x+144,g-40,202,6,'#6f8e9a');
+   box(x+104,g-66,56,22,'#6a747a','rgba(0,0,0,.3)',1);ln([x+108,g-44,x+116,g-40],'#44535c',3);
+   ln([x+18,g-40,x+104,g-56],'#44535c',5);
+   box(x+366,g-34,64,34,'#1f7f99','rgba(0,0,0,.3)',1);circ(x+398,g-17,9,'#58b8d0');
+   if(o.cool){box(x+450,g-90,70,90,'#c9d1d6','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++){const p=(TT*.5+i/3)%1;alphaDo(o.cool*(1-p),()=>circ(x+485+6*Math.sin(p*5+i),g-100-p*60,12+p*12,'rgba(255,255,255,.5)'));}}}
+  // 鑽台底座
+  for(const dx of [-84,-34,26,76])box(x+dx,F+8,8,g-F-8,'#6a747a');
+  ln([x-80,F+10,x-30,g,x-34,F+10,x+30,g],'rgba(80,90,96,.8)',1.5);ln([x+30,F+10,x+80,g,x+34,F+10],'rgba(80,90,96,.8)',1.5);
+  // 防噴器
+  box(x-15,g-52,30,46,'#e8572a','rgba(0,0,0,.35)',1);box(x-19,g-38,38,8,'#b8431f');box(x-19,g-22,38,8,'#b8431f');
+  box(x-90,F,180,10,'#5c6770');
+  // 值班房
+  box(x-176,F-46,78,46,'#dfe5e8','rgba(0,0,0,.3)',1);box(x-166,F-36,24,14,'#2a3a46');box(x-136,F-36,24,14,'#2a3a46');
+  // 井架
+  ctx.strokeStyle='#e9b21f';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x-46,F);ctx.lineTo(x-12,T);ctx.moveTo(x+46,F);ctx.lineTo(x+12,T);ctx.stroke();
+  ctx.lineWidth=1.5;ctx.beginPath();for(let i=0;i<10;i++){const y0=F-(F-T)*i/10,y1=F-(F-T)*(i+1)/10,w0=lerp(46,12,i/10),w1=lerp(46,12,(i+1)/10);
+   ctx.moveTo(x-w0,y0);ctx.lineTo(x+w1,y1);ctx.moveTo(x+w0,y0);ctx.lineTo(x-w1,y1);ctx.moveTo(x-w1,y1);ctx.lineTo(x+w1,y1);}ctx.stroke();
+  box(x-22,T-12,44,12,'#6a747a');box(x-34,T+96,22,4,'#6a747a');
+  // 大鉤鋼索、游車、頂部驅動
+  ln([x-4,T,x-4,hy-22],'#44535c',1.5);ln([x+4,T,x+4,hy-22],'#44535c',1.5);
+  box(x-11,hy-24,22,18,'#5c6770');box(x-14,hy-6,28,30,STEEL,'rgba(0,0,0,.35)',1);
+  ln([x,hy+24,x,g-52],'#aeb8be',4);
+  // 立管與水龍帶
+  ln([x+40,g-60,x+40,F-200],'#44535c',3);ctx.beginPath();ctx.moveTo(x+40,F-200);ctx.quadraticCurveTo(x+70,hy-20,x+14,hy+4);ctx.strokeStyle='#2b3137';ctx.lineWidth=3;ctx.stroke();
 }
-function plantFlows(a){flowDots(P_PROD(),6,HOT,a,.35);flowDots(P_BRINE(),9,COOL,a,.2);flowDots(P_WF(),3,WF,a,.5,3.5);flowDots(P_ACC(),4,WF,a,.4,3.5);flowDots(P_RET(),4,WF,a,.4,3.5);
-  flowDots(P_PWR(),5,PWR,a,.5,3.5);flowDots(P_GRID(),6,PWR,a,.35,3.5);flowDots(W_PROD(),6,HOT,a,.3,3.5);flowDots(W_REIN(),6,COOL,a,.3,3.5);}
+/* 地下的井：dm 為鑽頭深度（m） */
+function wellUG(x,dm,o){o=o||{};const g=gyy(x),yb=g+DPX(dm);if(dm<=0)return yb;
+  const cs=Math.min(yb-g,DPX(o.cas||0));if(cs>0)box(x-9,g,18,cs,'#aeb8be');
+  box(x-5,g,10,yb-g,'#1d2328');
+  if(o.pipe!==false){ln([x,g,x,yb-8],'#aeb8be',3);poly([x-7,yb-9,x+7,yb-9,x+4,yb-2,x,yb+2,x-4,yb-2],'#f2c230');}
+  return yb;}
+/* 定向井軌跡：dir=±1，theta 井斜角（度），R 造斜半徑（px） */
+function devPath(x,dir,theta,R){const g=gyy(x),k=g+DPX(500),end=g+DPX(2000),th=theta*DEG,P=[{x,y:g},{x,y:k}];
+  if(!dir){P.push({x,y:end});return P;}
+  for(let i=1;i<=14;i++){const a=th*i/14;P.push({x:x+dir*R*(1-Math.cos(a)),y:k+R*Math.sin(a)});}
+  const L=P[P.length-1];P.push({x:L.x+dir*(end-L.y)*Math.tan(th),y:end});return P;}
+function pathLen(P){let L=0;for(let i=1;i<P.length;i++)L+=Math.hypot(P[i].x-P[i-1].x,P[i].y-P[i-1].y);return L;}
+/* 由量測深度（px）換算井斜角、垂深、水平位移 */
+function devState(md,theta,R){const k=DPX(500),th=theta*DEG;if(md<=k)return {a:0,tvd:md,hd:0};
+  const arc=R*th;if(md<=k+arc){const a=(md-k)/R;return {a,tvd:k+R*Math.sin(a),hd:R*(1-Math.cos(a))};}
+  const s=md-k-arc;return {a:th,tvd:k+R*Math.sin(th)+s*Math.cos(th),hd:R*(1-Math.cos(th))+s*Math.sin(th)};}
+function fractures(cx,a,hl){alphaDo(a,()=>{ctx.setLineDash([10,6]);[[-44,0],[-6,14],[30,-8]].forEach(([dx,dy])=>ln([cx+dx-40,780+dy,cx+dx+26,1000+dy],hl?'rgba(255,138,96,.95)':'rgba(255,157,122,.55)',hl?3:2));ctx.setLineDash([]);});}
+/* 井口：套管頭、主閥、側翼閥 */
+function bigWellhead(x,o){o=o||{};const g=gyy(x);
+  box(x-30,g-14,60,14,'#6a747a','rgba(0,0,0,.3)',1);
+  box(x-17,g-58,34,44,STEEL,'rgba(0,0,0,.3)',1);ring(x-30,g-36,9,'#1f7f99',3);
+  box(x-22,g-64,44,6,'#6a747a');
+  box(x-17,g-108,34,44,STEEL,'rgba(0,0,0,.3)',1);ring(x-30,g-86,9,'#1f7f99',3);
+  box(x-20,g-150,40,42,'#aeb8be','rgba(0,0,0,.3)',1);
+  box(x+20,g-140,26,22,'#aeb8be','rgba(0,0,0,.3)',1);box(x+46,g-148,26,38,STEEL,'rgba(0,0,0,.3)',1);ring(x+59,g-158,9,'#1f7f99',3);
+  box(x-14,g-176,28,26,STEEL,'rgba(0,0,0,.3)',1);
+  if(o.vent){box(x-8,g-240,16,64,'#aeb8be','rgba(0,0,0,.3)',1);}
+}
+function plume(x,y,a,s){if(a<=0)return;for(let i=0;i<7;i++){const p=(TT*.45+i/7)%1;alphaDo(a*(1-p)*.9,()=>circ(x+14*Math.sin(p*4+i)*s,y-p*200*s,(12+p*40)*s,'rgba(255,255,255,.6)'));}}
+function silencer(x){const g=gyy(x);box(x-38,g-190,76,190,'#c9d1d6','rgba(0,0,0,.3)',1);box(x-44,g-196,88,8,'#aeb8be');box(x-46,g-6,92,6,'#6a747a');
+  for(let i=1;i<4;i++)ln([x-38,g-190+i*46,x+38,g-190+i*46],'rgba(0,0,0,.15)',1);}
+function weirBox(x){const g=gyy(x);box(x,g-32,90,32,'#8d989f','rgba(0,0,0,.3)',1);box(x+4,g-26,82,10,'#58b8d0');poly([x+60,g-32,x+72,g-18,x+84,g-32],'#6a747a');}
+/* 圖解：套管深度刻度（非線性） */
+const CY=m=>236+544*Math.sqrt(m/2000);
+const CAS=[ // [名稱, 管徑, 孔徑 in, 管徑 in, 上端 m, 下深 m, 作用, 顏色]
+ ['導管','20"',26,20,0,50,'防止表土崩塌','#aeb8be'],
+ ['表層套管','13-3/8"',17.5,13.375,0,300,'隔絕淺層地下水','#7dc8dc'],
+ ['生產套管','9-5/8"',12.25,9.625,0,1000,'承受高溫高壓','#f2c230'],
+ ['割縫襯管','7"',8.5,7,950,2000,'儲集層段，讓熱水流入','#ff8a60']];
 
-const EP={no:1,slug:'geothermal',seriesName:'地熱系列',t:'地熱發電廠',en:'Inside a geothermal power plant',
-lede:'地球內部的熱不分晝夜、不看天氣，是少數能當作基載的再生能源。這一集從地下的熱從哪裡來談起，走進一座地熱電廠，看生產井與回注井如何把熱水取出又送回，比較閃化式與雙循環兩種發電方式，最後介紹台灣宜蘭清水與大屯火山的地熱背景。',
-facts:[['4.2','MW','宜蘭清水地熱電廠裝置容量，2021 年起商轉'],
-['約 150','°C','清水地熱的熱水溫度，採雙循環（ORC）發電'],
-['293','°C','大屯火山區早年鑽井量測的地下熱水最高溫度'],
-['989','MW','深度 3 公里內的淺層地熱潛能（工研院估計）'],
-['約 32','GW','深度超過 3 公里的深層地熱潛能'],
-['200','MW','經濟部規劃的 2030 年地熱累計裝置容量']],
-note:'說明：本集為教育用途示意動畫，設備外觀、井深與地層比例經過壓縮調整。清水地熱電廠 4.2 MW、熱源約 150°C、ORC 取熱不取水與機組可用率約 95% 取自中央社、工商時報等報導；大屯火山 293°C 與酸性流體 pH 1.3–3.9 取自國科會科技大觀園與大屯火山觀測站資料；淺層 989 MW、深層約 32 GW 潛能及 2030 年 200 MW、2050 年 6 GW 願景取自經濟部能源署與行政院「地熱減碳旗艦行動計畫」。地溫曲線、閃化式與雙循環的適用溫度、回注溫度與電廠配置為文獻常見範圍的典型範例，實際數值依各案場而定。',
-base:()=>geoBase(0),
+const EP={no:2,slug:'geothermal',seriesName:'地熱系列',t:'地熱鑽井',en:'Drilling a geothermal well',
+lede:'地熱電廠的熱水，要靠一口口深井從地下兩千公尺上下取出來。這一集走上鑽井平台，看鑽機如何旋轉鑽進、泥漿如何帶出岩屑並冷卻鑽頭、套管與水泥如何層層保護井壁、定向鑽井怎麼從同一井場鑽向不同裂隙，以及完井後怎麼用流量測試判斷一口井的產能。',
+facts:[['近 4,000','m','員山 1 號井：台灣第一口深層地熱探測井的鑽井深度'],
+['約 150','°C','員山 1 號井井底實測溫度'],
+['約 90','°C/km','員山井 3,500 m 以下的地溫梯度，顯示下方有上湧熱源'],
+['15','口','1976 年起中油在宜蘭清水、土場鑽的地熱井，深 902–3,000 m'],
+['4 + 1','口','東部地區地熱鑽井計畫：宜蘭 4 口淺井與 1 口深層探勘井'],
+['4','層','典型地熱井的套管層數：導管、表層、生產套管與割縫襯管（示例）']],
+note:'說明：本集為教育用途示意動畫，鑽機、井徑與深度比例經過壓縮，套管圖採非線性深度刻度。員山 1 號井鑽深近 4,000 m、井底實測約 150°C、3,500 m 以下每公里升溫約 90°C，以及完鑽後轉為光纖監測井，依中央研究院新聞稿與媒體報導；1976 年起中油在清水、土場鑽 15 口深 902–3,000 m 的地熱井、最高約 230°C，依蘭陽博物館與能源教育資源資料；宜蘭 4 口淺井與 1 口深層探勘井依經濟部能源署「東部地區地熱鑽井計畫」；冬山第二口深層井依能源署地熱單一服務窗口轉載報導。井架高度、鑽桿長度、鑽井工期、套管尺寸與下深、造斜點與井斜角、唇壓、流量、焓值與測試天數皆為文獻常見範圍的典型範例，實際數值依各井設計而定。',
+base:()=>geoBase(),
 shots:[
-{t:'一座地熱電廠',en:'A geothermal power plant',dur:12,side:true,
- d:'地熱電廠看起來不大，真正的主角藏在地下。生產井深入約兩千公尺的地熱儲集層，把高溫熱水抽到地面；熱水在熱交換器把熱交給發電系統，推動汽輪機與發電機產生電力，再經變電站送上電網。放完熱、溫度降低的地熱水不排放，而是由回注井送回地下，讓儲集層保持水量與壓力。整套系統全天運轉，不受日照與風速影響。',
- s:[[0,'生產井從地下儲集層抽出高溫熱水'],[.26,'熱水在熱交換器把熱交給發電系統'],[.52,'汽輪機帶動發電機，電力送上電網'],[.76,'降溫後的地熱水由回注井送回地下']],
- cam:u=>camMix({x:800,y:470,s:1},{x:760,y:480,s:1.08},ease(seg(u,.1,.6))),
+{t:'鑽井平台與鑽機',en:'The drilling rig',dur:13,side:true,
+ d:'地熱井的鑽法與石油井相近。先整出一塊平坦的井場，架起鑽機：高約 40 公尺的井架吊著游車與頂部驅動，帶動鑽桿與鑽頭旋轉鑽進；每根鑽桿約 9 公尺，鑽深一段就在鑽台接上新的一根。井場旁有鑽桿架、發電機、泥漿池與泥漿泵，鑽台下方裝著防噴器。一口約 2,000 公尺的地熱井，常要鑽上一到兩個月（示例）。',
+ s:[[0,'整平井場，架起高約 40 m 的鑽機井架'],[.28,'頂部驅動帶著鑽桿與鑽頭旋轉鑽進'],[.52,'每鑽深一段，就在鑽台接上一根新鑽桿'],[.76,'鑽頭一路向下，穿過一層層地層']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:800,y:560,s:1},ease(seg(u,.3,.5))),
  draw(u){
-  plantDraw();reservoirGlow(1);
-  flowDots(W_PROD(),6,HOT,band(u,.02,1),.3,3.5);flowDots(P_PROD(),6,HOT,band(u,.08,1),.35);
-  flowDots(P_WF(),3,WF,band(u,.26,1),.5,3.5);flowDots(P_ACC(),4,WF,band(u,.3,1),.4,3.5);flowDots(P_RET(),4,WF,band(u,.3,1),.4,3.5);
-  flowDots(P_PWR(),5,PWR,band(u,.5,1),.5,3.5);flowDots(P_GRID(),6,PWR,band(u,.54,1),.35,3.5);
-  flowDots(P_BRINE(),9,COOL,band(u,.74,1),.2);flowDots(W_REIN(),6,COOL,band(u,.78,1),.3,3.5);
-  lab(PWX,gyy(PWX)-64,'生產井',{dx:-20,dy:-110,st:'s',a:band(u,.02,.3)});
-  lab(PWX+40,gyy(PWX)+220,'地熱儲集層',{dx:60,dy:-40,st:'w',a:band(u,.04,.3)});
-  lab(HXX+60,gyy(HXX+60)-98,'熱交換器',{dx:90,dy:-60,st:'s',a:band(u,.26,.55)});
-  lab(PHX+PHW/2,gyy(PHX)-PHH-26,'發電機房',{dx:40,dy:-90,a:band(u,.5,.78)});
-  lab(SSX+49,gyy(SSX)-74,'變電站',{dx:-60,dy:-60,st:'s',a:band(u,.52,.78)});
-  lab(RWX,gyy(RWX)-40,'回注井',{dx:20,dy:-110,st:'g',a:band(u,.76,1)});
+  const k=seg(u,.3,.95),dm=2000*ease(k),cyc=(k*9)%1,g=gyy(WX),F=g-64,hy=u<.3?F-200:lerp(F-250,F-40,cyc);
+  const yb=wellUG(WX,dm,{cas:300});
+  flowDots([[WX,g],[WX,yb]],6,MUD,seg(u,.3,.36)*(dm>30?1:0),.5,2.5);
+  rig(WX,{hy});
+  lab(WX-24,g-250,'井架',{dx:-110,dy:-20,st:'s',a:band(u,.02,.3)});
+  lab(WX+80,F,'鑽台',{dx:90,dy:-60,a:band(u,.04,.3)});
+  lab(WX-265,g-30,'鑽桿架',{dx:-30,dy:-80,a:band(u,.06,.3)});
+  lab(WX+245,g-42,'泥漿池',{dx:40,dy:-80,a:band(u,.08,.34)});
+  lab(WX+14,hy+10,'頂部驅動',{dx:110,dy:-30,st:'s',a:band(u,.3,.55)});
+  lab(WX,yb,'鑽頭',{dx:90,dy:0,st:'s',a:band(u,.5,1)});
+  lab(WX-300,g+DPX(1150),'蓋層',{dx:0,dy:-40,a:band(u,.76,1),minor:true});
+  lab(WX-300,g+DPX(1990),'地熱儲集層',{dx:-40,dy:-40,st:'w',a:band(u,.82,1)});
  },
- hud(u){hudPanel(240,150,'地熱電廠（示例）',seg(u,.05,.1),w=>{const t=lerp(25,150,ease(seg(u,.04,.24))),p=4.2*ease(seg(u,.48,.66));
-  hrow(56,'井口溫度',Math.round(t)+'°C',w,HOT);hrow(88,'發電',p.toFixed(1)+' MW',w,PWR);hrow(120,'回注',u>.76?'運轉中':'—',w,COOL);});}},
+ hud(u){hudPanel(240,150,'鑽井進度（示例）',seg(u,.05,.1),w=>{const dm=2000*ease(seg(u,.3,.95));
+  hrow(56,'鑽頭深度',Math.round(dm)+' m',w,PWR);hrow(88,'鑽桿',trf('{n} 根',{n:Math.ceil(dm/9.5)}),w,'#fff');hrow(120,'井架高度','約 40 m',w,'#7dffc4');});}},
 
-{t:'地下的熱從哪裡來',en:'Where the heat comes from',dur:13,
- d:'地球內部的熱主要來自岩石中放射性元素衰變與地球形成時留下的熱，一般地區每往下一公里，溫度約升高 25 到 30°C。在火山或板塊活動旺盛的地方，高溫岩體離地表較近，溫度上升得更快。地熱儲集層需要三個條件：熱源、有裂隙可讓熱水流動的岩層，以及上方不透水的蓋層把熱水封住；雨水沿斷層滲入地下，被加熱後形成熱水或蒸氣，部分沿裂隙冒出成為溫泉與噴氣孔。',
- s:[[0,'每往地下一公里，溫度約升高 25–30°C'],[.24,'雨水沿斷層滲入地下，被熱源加熱'],[.5,'不透水的蓋層把熱水封在儲集層裡'],[.74,'火山與板塊活動區，地下溫度升得更快']],
+{t:'旋轉鑽進與泥漿循環',en:'Rotary drilling and mud',dur:13,
+ d:'鑽頭旋轉時，靠鑽壓把岩石磨碎或壓碎。鑽井泥漿由泥漿泵打進鑽桿內部，從鑽頭的噴嘴噴出，再沿著鑽桿與井壁之間的環空上返，把岩屑帶回地面。泥漿同時冷卻鑽頭、以自身重量平衡地層壓力，並在井壁形成泥餅防止崩塌。回到地面的泥漿經振動篩分離岩屑；地熱井的泥漿回流溫度高，常再經冷卻塔降溫後重複使用。',
+ s:[[0,'頂部驅動帶動鑽桿，鑽頭磨碎岩石'],[.25,'泥漿由鑽桿內往下，從鑽頭噴出'],[.5,'泥漿沿環空上返，把岩屑帶回地面'],[.75,'振動篩分離岩屑，泥漿冷卻後再循環']],
  draw(u){
   diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'地熱儲集層的三個條件',20,'#f2c230',700);
-  const X0=90,X1=750;
-  box(X0,280,X1-X0,80,'#5b4e42');box(X0,360,X1-X0,90,'#6f5c4a');box(X0,450,X1-X0,150,'#7a4b3a');
-  const hg=ctx.createLinearGradient(0,600,0,780);hg.addColorStop(0,'#b8431f');hg.addColorStop(1,'#e8572a');ctx.fillStyle=hg;ctx.fillRect(X0,600,X1-X0,180);
-  ln([X0,280,X1,280],'#7a9a55',4);
-  const R=rng(4);for(let i=0;i<14;i++){const x=X0+30+R()*600,y=470+R()*110;ln([x,y,x+14+R()*20,y+8+R()*16],'rgba(0,0,0,.35)',2);}
-  /* 斷層與雨水 */
-  ctx.setLineDash([8,6]);ln([200,280,330,600],'rgba(227,236,238,.7)',2);ctx.setLineDash([]);
-  const ra=band(u,.22,1);if(ra>0){for(let i=0;i<12;i++){const p=(TT*.8+i/12)%1;alphaDo(ra,()=>ln([140+i*14,228+p*40,136+i*14,240+p*40],'#7dc8dc',2));}
-   flowDots([[200,282],[330,600],[480,560]],6,COOL,ra,.25,5);}
-  /* 熱源上升 */
-  const ha=seg(u,.02,.1);for(let i=0;i<6;i++){const x=150+i*105,p=(TT*.35+i*.17)%1;alphaDo(ha*(1-p),()=>arrow(x,760-p*40,x,720-p*40,'#f2c230',3));}
-  /* 儲集層熱水 */
-  const wa=seg(u,.5,.58);if(wa>0){const R2=rng(8);for(let i=0;i<26;i++){const x=X0+20+R2()*620,y=466+R2()*120;alphaDo(wa*(.5+.5*Math.sin(TT*2+i)),()=>circ(x,y,4,HOT));}}
-  /* 溫泉 */
-  const sa=seg(u,.74,.8);if(sa>0){ln([610,450,640,360,650,282],'rgba(255,157,122,.9)',3);for(let i=0;i<5;i++){const p=(TT*.5+i/5)%1;alphaDo(sa*(1-p),()=>circ(650+8*Math.sin(p*6+i),272-p*60,8+p*10,'rgba(255,255,255,.5)'));}}
-  wt(X1-14,322,'地表',17,'rgba(227,236,238,.9)',600,'right');
-  alphaDo(seg(u,.5,.56),()=>wt(X1-14,412,'蓋層（不透水）',18,'#fff',700,'right'));
-  alphaDo(seg(u,.5,.56),()=>wt(X1-14,530,'儲集層（裂隙岩層）',18,'#fff',700,'right'));
-  wt(X1-14,700,'熱源（高溫岩體）',18,'#fff',700,'right');
-  alphaDo(ra,()=>wt(320,262,'雨水補注',18,'#7dc8dc',700,'left'));
-  alphaDo(sa,()=>wt(560,254-10,'溫泉、噴氣孔',17,'#ff9d7a',700,'right'));
-  /* 右：地溫曲線 */
-  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'地溫隨深度增加（示意）',20,'#f2c230',700);
-  const PX0=930,PX1=1500,PY0=250,PY1=720,TX=t=>PX0+t/300*(PX1-PX0),DY=d=>PY0+d/3*(PY1-PY0);
-  ln([PX0,PY0,PX1,PY0],'rgba(227,236,238,.7)',1.5);ln([PX0,PY0,PX0,PY1],'rgba(227,236,238,.7)',1.5);
-  [0,100,200,300].forEach(t=>{ln([TX(t),PY0,TX(t),PY1],'rgba(255,255,255,.07)',1);wt(TX(t),PY0-12,t+'',17,'rgba(227,236,238,.85)',600,'center',COND);});
-  [0,1,2,3].forEach(d=>{ln([PX0,DY(d),PX1,DY(d)],'rgba(255,255,255,.07)',1);wt(PX0-12,DY(d)+6,d+' km',17,'rgba(227,236,238,.85)',600,'right',COND);});
-  wt(PX1,PY1+44,'溫度（°C）　深度（km）',16,'rgba(227,236,238,.75)',500,'right');
-  const curve=(fn,f)=>{const P=[];for(let i=0;i<=30;i++){const d=3*i/30;P.push({x:TX(fn(d)),y:DY(d)});}return partial(P,f);};
-  const C=[[d=>25+28*d,'一般地區 約 28°C/km','rgba(227,236,238,.9)',.04,[1.9,1.6]],[d=>25+62*d-4*d*d,'地熱區 2 km 約 150°C','#7dffc4',.3,[2.75,2.0]],[d=>25+190*d-45*d*d,'火山區 可達約 290°C','#ff8a60',.74,[1.0,1.0]]];
-  C.forEach(([fn,n,col,t0,[dl]])=>{const f=ease(seg(u,t0,t0+.18));if(f<=0)return;pathLine(curve(fn,f),col,3);
-   alphaDo(seg(u,t0+.14,t0+.2),()=>{const x=TX(fn(dl)),y=DY(dl);circ(x,y,5,col);wt(x+12,y-10,n,17,col,700,'left');});});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'泥漿循環（示意）',20,'#f2c230',700);
+  const X=330,S=320;
+  box(80,S,680,470,'rgba(122,75,58,.35)');ln([80,S,760,S],'rgba(227,236,238,.6)',2);
+  const R=rng(5);for(let i=0;i<16;i++){const x=90+R()*660,y=S+30+R()*420;if(Math.abs(x-X)<70)continue;ln([x,y,x+14+R()*18,y+6+R()*10],'rgba(0,0,0,.3)',2);}
+  box(X-44,S,88,440,'#1d2328');ln([X-44,S,X-44,S+440],'rgba(227,236,238,.5)',2);ln([X+44,S,X+44,S+440],'rgba(227,236,238,.5)',2);
+  box(X-12,238,24,480,'#aeb8be');box(X-7,238,14,480,'#44535c');
+  const rot=TT*6;poly([X-38,718,X+38,718,X+30,752,X,768,X-30,752],'#f2c230','rgba(0,0,0,.4)',1.5);
+  for(let i=0;i<3;i++){const px=X-24+i*24+6*Math.sin(rot+i*2);circ(px,742,5,'#b98f16');}
+  box(X-22,198,44,40,STEEL,'rgba(0,0,0,.35)',1);
+  /* 地面設備 */
+  const PX=560,PY=S-6;box(470,PY-48,210,48,'#8d989f','rgba(0,0,0,.3)',1);box(474,PY-40,202,8,'#6f8e9a');
+  box(420,PY-78,70,24,'#6a747a','rgba(0,0,0,.3)',1);
+  circ(710,PY-24,22,'#1f7f99','rgba(0,0,0,.3)',1);ln([710,PY-24,710+14*Math.cos(TT*5),PY-24+14*Math.sin(TT*5)],'#fff',3);
+  const Pdown=[[710,PY-46],[710,170],[X,170],[X,238],[X,718]],Pup=[[X+28,740],[X+28,S+10],[X+60,S-16],[420,PY-66]],Pret=[[490,PY-54],[600,PY-40],[690,PY-30]];
+  pl([[710,PY-46],[710,170],[X,170],[X,198]],'rgba(141,152,159,.9)',6);pl([[X+44,S-4],[X+60,S-16],[420,PY-66]],'rgba(141,152,159,.9)',6);
+  const a1=seg(u,.25,.3),a2=seg(u,.5,.55),a3=seg(u,.75,.8);
+  flowDots(Pdown,14,MUD,a1,.25,5);
+  if(a1>0)for(let i=0;i<6;i++){const p=(TT*1.4+i/6)%1;alphaDo(a1*(1-p),()=>{circ(X-20-p*16,768+p*6,3,MUD);circ(X+20+p*16,768+p*6,3,MUD);});}
+  flowDots([[X-28,760],[X-28,S+10]],7,HOT,a2,.22,4.5);flowDots(Pup,8,HOT,a2,.22,4.5);
+  if(a2>0){const R2=rng(9);for(let i=0;i<9;i++){const p=(TT*.22+R2())%1,y=lerp(760,S+10,p),x=X+(i%2?1:-1)*(22+R2()*14);alphaDo(a2,()=>box(x-3,y-3,6,6,'#b0a898'));}}
+  flowDots(Pret,4,MUD,a3,.4,4.5);
+  if(a3>0)for(let i=0;i<5;i++){const R3=rng(20+i);box(424+R3()*50,PY-10-R3()*6,7,5,'#b0a898');}
+  wt(X-30,224,'頂部驅動',17,'rgba(227,236,238,.9)',700,'right');
+  wt(710,PY+22,'泥漿泵',17,a1>0?'#7dc8dc':'rgba(227,236,238,.9)',700,'center');
+  wt(575,PY-60,'泥漿池',17,'rgba(227,236,238,.9)',700,'center');
+  wt(420,PY-88,'振動篩',17,a3>0?'#f2c230':'rgba(227,236,238,.9)',700,'center');
+  alphaDo(a1,()=>{wt(X-60,480,'鑽桿（往下）',17,MUD,700,'right');});
+  alphaDo(a2,()=>{wt(X+60,560,'環空（上返）',17,HOT,700,'left');wt(X+60,590,'帶著岩屑',16,'rgba(227,236,238,.85)',500,'left');});
+  wt(X+60,748,'鑽頭',17,'#f2c230',700,'left');
+  /* 右：泥漿的任務 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'泥漿的四個任務',20,'#f2c230',700);
+  const T=[['帶出岩屑','沿環空把岩屑送回地面',.5,HOT],['冷卻鑽頭','高溫井常加裝泥漿冷卻塔',.62,MUD],['平衡地層壓力','泥漿重量壓住地層流體',.28,'#f2c230'],['穩定井壁','在井壁形成一層泥餅',.4,'#7dffc4']];
+  T.forEach(([h,b,t0,col],i)=>{const y=226+i*140,on=seg(u,t0,t0+.06);card(844,y,672,120,{bg:on?'rgba(255,255,255,.07)':'rgba(255,255,255,.03)',st:on?col:'rgba(255,255,255,.12)'});
+   box(844,y,8,120,on?col:'rgba(255,255,255,.15)');wt(876,y+50,h,21,on?col:'rgba(227,236,238,.6)',700);alphaDo(.35+.65*on,()=>wt(876,y+90,b,17,'rgba(227,236,238,.9)',500));});
  }},
 
-{t:'生產井與回注井',en:'Production and injection wells',dur:13,side:true,
- d:'地熱井的鑽法和石油井相似，鑽到約兩千公尺深，井內下鋼製套管並灌注水泥固定，防止熱水流失或汙染淺層地下水。生產井常以傾斜方式穿過更多裂隙，增加出水量。熱水上升時壓力降低，要控制井口壓力與流量，避免結垢堵塞。放熱後的地熱水由回注井送回儲集層，距離生產井要夠遠，讓回注水在地下重新被加熱，同時補充水量、維持壓力，也避免地層下陷。',
- s:[[0,'剖開地面：兩口井深入約 2000 m 的儲集層'],[.25,'鋼製套管與水泥固定井壁，保護地下水'],[.5,'熱水從生產井上升到地面'],[.74,'回注水在地下重新加熱，維持儲集層壓力']],
- cam:u=>camMix({x:800,y:470,s:1},{x:660,y:640,s:1.3},ease(seg(u,.02,.22))),
+{t:'套管與固井',en:'Casing and cementing',dur:14,
+ d:'井愈鑽愈深，要分段下入鋼製套管，像望遠鏡一樣由粗到細。先下導管防止表土崩塌，再下表層套管隔絕淺層地下水，接著是承受高溫高壓的生產套管；儲集層段則放入開了縫的割縫襯管，讓熱水流進井內。每下一層套管，就把水泥從套管內泵下，經底部返到環空，一路填滿到地表。地熱井的套管通常全段固井，受熱膨脹時才不會變形。',
+ s:[[0,'由粗到細，分段下入鋼製套管'],[.2,'表層套管隔絕淺層地下水'],[.4,'水泥從底部返到環空，一路填到地表'],[.72,'儲集層段放入割縫襯管，讓熱水流入']],
  draw(u){
-  plantDraw();reservoirGlow(1);
-  const ca=band(u,.25,.5);
-  if(ca>0){[W_PROD(),W_REIN()].forEach(P=>alphaDo(ca,()=>{pl(P,'#f2c230',18);pl(P,'#aeb8be',12);pl(P,'#2a3a46',8);}));}
-  flowDots(W_PROD(),7,HOT,band(u,.48,1),.3,3.5);flowDots(P_PROD(),6,HOT,band(u,.5,1),.35);
-  flowDots(P_BRINE(),9,COOL,band(u,.7,1),.2);flowDots(W_REIN(),7,COOL,band(u,.72,1),.3,3.5);
-  const fa=band(u,.74,1);if(fa>0){const P=R_FLOW();for(let k=0;k<9;k++){const f=((TT*.12)+k/9)%1,p=ptAt(P,f);alphaDo(fa,()=>circ(p[0],p[1],5,f<.45?COOL:HOT));}}
-  lab(PWX+60,gyy(PWX)+240,'生產井',{dx:-40,dy:-60,st:'s',a:band(u,.02,1)});
-  lab(RWX-60,gyy(RWX)+250,'回注井',{dx:60,dy:-50,st:'g',a:band(u,.02,1)});
-  lab(PWX,gyy(PWX)+60,'套管與水泥',{dx:120,dy:-30,a:band(u,.25,.5)});
-  lab(700,gyy(700)+100,'蓋層',{dx:0,dy:-40,a:band(u,.25,.5),minor:true});
-  lab(700,870,'重新加熱',{dx:0,dy:-50,st:'w',a:band(u,.76,1)});
+  diagBG();
+  card(60,150,500,650,{bg:'rgba(7,27,39,.75)'});
+  const X=330,KP=4.4;
+  box(210,CY(0),340,CY(2000)-CY(0),'rgba(122,75,58,.35)');ln([200,CY(0),550,CY(0)],'rgba(227,236,238,.7)',2);
+  [0,50,300,1000,2000].forEach(m=>{ln([200,CY(m),210,CY(m)],'rgba(227,236,238,.7)',1.5);wt(194,CY(m)+6,m.toLocaleString('en-US')+' m',16,'rgba(227,236,238,.85)',600,'right',COND);});
+  wt(84,196,'套管配置（示例）',20,'#f2c230',700);
+  // 各段時間：[下套管開始, 下套管結束, 固井結束]
+  const TM=[[.03,.1,.16],[.18,.26,.33],[.38,.48,.6],[.7,.84,.84]];
+  const hw=i=>CAS[i][2]*KP,cw=i=>CAS[i][3]*KP;
+  // 裸孔（依鑽進）
+  CAS.forEach((c,i)=>{const top=i?CAS[i-1][5]:0,k=ease(seg(u,TM[i][0]-.03,TM[i][0]));if(k<=0)return;const y0=CY(i===3?1000:top),y1=lerp(y0,CY(c[5]),k);box(X-hw(i),y0,hw(i)*2,y1-y0,'#1d2328');});
+  CAS.forEach((c,i)=>{const [t0,t1,t2]=TM[i],k=ease(seg(u,t0,t1));if(k<=0)return;
+   const yTop=CY(c[4]),yShoe=CY(c[5]),yb=lerp(yTop,yShoe,k);
+   if(i<3){const ck=ease(seg(u,t1,t2));if(ck>0){const yc=lerp(yShoe,yTop,ck),prevShoe=i?CY(CAS[i-1][5]):yTop,pin=i?cw(i-1)-3:hw(i);
+     const y1=Math.max(yc,prevShoe);if(yShoe>y1)box(X-hw(i),y1,hw(i)*2,yShoe-y1,CEM);if(yc<prevShoe)box(X-pin,yc,pin*2,prevShoe-yc,CEM);}}
+   box(X-cw(i),yTop,cw(i)*2,yb-yTop,'#1d2328');
+   if(i<3){box(X-cw(i),yTop,4,yb-yTop,c[7]);box(X+cw(i)-4,yTop,4,yb-yTop,c[7]);}
+   else{ctx.setLineDash([10,6]);ln([X-cw(i)+2,yTop,X-cw(i)+2,yb],c[7],4);ln([X+cw(i)-2,yTop,X+cw(i)-2,yb],c[7],4);ctx.setLineDash([]);box(X-cw(i)-4,yTop,cw(i)*2+8,6,'#aeb8be');}
+   // 固井流動
+   if(i<3){const ca=band(u,t1,t2);if(ca>0){flowDots([[X,yTop],[X,yShoe-4]],6,CEM,ca,.5,3.5);
+     const pin=i?cw(i-1)-3:hw(i),mx=(cw(i)+pin)/2+(i?0:4);flowDots([[X-mx,yShoe],[X-mx,yTop]],6,'#ffffff',ca,.4,3);flowDots([[X+mx,yShoe],[X+mx,yTop]],6,'#ffffff',ca,.4,3);}}
+  });
+  const la=seg(u,.72,.8);if(la>0){for(let i=0;i<6;i++){const p=(TT*.4+i/6)%1,y=lerp(CY(1950),CY(1100),p);alphaDo(la,()=>{circ(X-cw(3)-10+p*6,y,4,HOT);circ(X+cw(3)+10-p*6,y,4,HOT);});}}
+  alphaDo(seg(u,.4,.46)*(1-seg(u,.66,.7)),()=>{tag(X+96,CY(650),'水泥',{bg:'#c9d1d6',fg:'#13232e',size:16,align:'left'});ln([X+96,CY(650),X+cw(2)+6,CY(650)],'#c9d1d6',2);});
+  wt(544,778,'深度刻度非線性',14,'rgba(227,236,238,.6)',500,'right');
+  /* 右：套管表 */
+  card(600,150,940,650,{bg:'rgba(7,27,39,.75)'});wt(624,196,'由粗到細的套管',20,'#f2c230',700);
+  const CX=[624,856,976,1146];['套管','管徑','下深（示例）','作用'].forEach((h,j)=>wt(CX[j],246,h,16,'rgba(227,236,238,.65)',600));
+  ln([620,262,1520,262],'rgba(255,255,255,.15)',1);
+  const dep=['約 50 m','約 300 m','約 1,000 m','1,000–2,000 m'];
+  CAS.forEach((c,i)=>{const y=312+i*72,k=seg(u,TM[i][0],TM[i][0]+.05),on=u>=TM[i][0]&&u<(i<3?TM[i+1][0]:1.01);
+   alphaDo(.25+.75*k,()=>{if(on)box(612,y-40,916,60,'rgba(242,194,48,.08)');box(612,y-40,5,60,c[7]);
+    wt(CX[0]+10,y,c[0],19,on?'#f2c230':'#fff',700);wt(CX[1],y,c[1],22,c[7],700,'left',COND);wt(CX[2],y,dep[i],18,'#fff',600,'left',COND);wt(CX[3],y,c[6],17,'rgba(227,236,238,.9)',500);});});
+  const ca2=seg(u,.4,.48);
+  alphaDo(ca2,()=>{card(624,610,892,166,{bg:'rgba(201,209,214,.08)',st:'rgba(201,209,214,.45)'});
+   wt(648,652,'固井',20,'#c9d1d6',700);
+   wt(648,690,'水泥由套管內泵入，從底部返到環空，一路填到地表',17,'#fff',500);
+   wt(648,722,'地熱井多全段固井，套管受熱膨脹時才不會變形',17,'rgba(227,236,238,.85)',500);
+   wt(648,754,'固井也封住各地層，防止熱水竄入淺層地下水',17,'rgba(227,236,238,.85)',500);});
+ }},
+
+{t:'定向鑽井',en:'Directional drilling',dur:13,side:true,
+ d:'地熱儲集層的熱水多沿著斷層與裂隙流動，直井不一定碰得到。定向鑽井先垂直鑽到造斜點（KOP），再用井下泥漿馬達與隨鑽量測（MWD）控制方向，讓井身逐漸傾斜，斜穿更多裂隙帶。同一個井場可以朝不同方向鑽出多口井，井口集中，減少整地與道路，也方便日後集中管線。本例在 500 公尺處造斜，井斜 30°（示例）。',
+ s:[[0,'同一井場，先鑽一口直井'],[.25,'到了造斜點，井身開始傾斜'],[.48,'泥漿馬達與隨鑽量測控制方向'],[.72,'斜井穿過更多裂隙帶，熱水較多']],
+ cam:u=>({x:800,y:560,s:1}),
+ draw(u){
+  const g=gyy(WX),TH=30,RR=200;
+  const W0=devPath(WX,0,0,0),W1=devPath(WX+16,1,TH,RR),W2=devPath(WX-16,-1,TH,RR);
+  const e1=W1[W1.length-1],e2=W2[W2.length-1];
+  const fh=band(u,.72,1);fractures(e1.x,1,fh>0);fractures(e2.x,1,fh>0);
+  const f0=ease(seg(u,.02,.22)),f1=ease(seg(u,.24,.62)),f2=ease(seg(u,.62,.86));
+  const dw=(P,f)=>{if(f<=0)return null;const Q=partial(P,f);pathLine(Q,'#aeb8be',11);pathLine(Q,'#1d2328',6);return Q[Q.length-1];};
+  const b0=dw(W0,f0),b1=dw(W1,f1),b2=dw(W2,f2);
+  [[b0,f0],[b1,f1],[b2,f2]].forEach(([b,f])=>{if(b&&f<1)circ(b.x,b.y,6,'#f2c230');});
+  const ha=seg(u,.86,.94);if(ha>0){flowDots(toA(W1).reverse(),7,HOT,ha,.25,4);flowDots(toA(W2).reverse(),7,HOT,ha,.25,4);flowDots(toA(W0).reverse(),3,HOT,ha,.25,4);}
+  for(const dx of [-16,0,16])box(WX+dx-5,g-8,10,8,'#6a747a');
+  rig(WX,{hy:gyy(WX)-64-140});
+  lab(WX,g+DPX(1400),'直井',{dx:-80,dy:-10,a:band(u,.04,.3)});
+  lab(WX+16,g+DPX(500),'造斜點（KOP）',{dx:130,dy:-30,st:'s',a:band(u,.26,.55)});
+  if(b1)lab(b1.x,b1.y,'泥漿馬達＋MWD',{dx:150,dy:-50,a:band(u,.46,.66)});
+  lab(e1.x+40,900,'斷層裂隙帶',{dx:120,dy:-20,st:'w',a:band(u,.72,1)});
+  lab(WX-200,g-4,'同一井場多口井',{dx:-80,dy:-90,st:'g',a:band(u,.66,1)});
  },
- hud(u){hudPanel(240,150,'地熱井（示例）',seg(u,.05,.1),w=>{const d=Math.round(2000*ease(seg(u,.02,.2)));
-  hrow(56,'井深',d+' m',w,'#fff');hrow(88,'出水溫度',u>.5?'約 150°C':'—',w,HOT);hrow(120,'回注溫度',u>.72?'約 90°C':'—',w,COOL);});}},
+ hud(u){hudPanel(240,180,'定向井（示例）',seg(u,.05,.1),w=>{const W1=devPath(WX+16,1,30,200),md=pathLen(W1)*ease(seg(u,.24,.62)),st=devState(md,30,200);
+  hrow(56,'井斜角',Math.round(st.a/DEG)+'°',w,PWR);hrow(88,'垂直深度',Math.round(st.tvd*PXM)+' m',w,'#fff');hrow(120,'水平位移',Math.round(st.hd*PXM)+' m',w,'#7dffc4');hrow(152,'量測深度',Math.round(md*PXM)+' m',w,'#fff');});}},
 
-{t:'閃化式發電',en:'Flash steam power',dur:13,
- d:'溫度較高、約 180°C 以上的地熱田，多採用閃化式發電。地下的高溫熱水承受很高的壓力，抽到地面減壓時，一部分會瞬間沸騰成蒸氣，稱為閃化。汽水分離器把蒸氣和熱水分開，蒸氣推動汽輪機帶動發電機，用過的蒸氣在冷凝器凝結成水，經冷卻塔散熱；分離出的熱水與冷凝水再一起回注地下。印尼、菲律賓與紐西蘭的大型地熱電廠多屬這一類。',
- s:[[0,'高壓熱水從生產井抽到地面'],[.22,'減壓時部分熱水瞬間沸騰成蒸氣'],[.42,'蒸氣推動汽輪機，帶動發電機'],[.62,'冷凝器把蒸氣變回水，冷卻塔散熱'],[.8,'熱水與冷凝水一起回注地下']],
+{t:'井控與高溫挑戰',en:'Well control in hot wells',dur:13,
+ d:'地熱井溫度高，井內熱水一旦減壓，就可能閃化成蒸氣，體積急遽膨脹，把泥漿推出井口，稱為井涌，失控就成為井噴。鑽台下方的防噴器（BOP）組可在短時間內關閉：環形防噴器包住鑽桿，閘板封住井筒，再經節流管線慢慢釋壓。高溫也會讓泥漿變質、水泥強度下降，因此要冷卻泥漿、使用耐高溫水泥；遇到裂隙吸走泥漿，則改用充氣泥漿鑽進。',
+ s:[[0,'壓力一降，高溫熱水就可能閃化成蒸氣'],[.2,'地層流體湧入井內，稱為井涌'],[.42,'防噴器關閉閘板，經節流管線控制壓力'],[.64,'冷卻泥漿、耐高溫水泥，對付高溫'],[.8,'裂隙吸走泥漿時，改用充氣泥漿鑽進']],
  draw(u){
   diagBG();
-  card(900,158,640,112,{bg:'rgba(7,27,39,.75)',st:'rgba(242,194,48,.5)'});
-  wt(924,200,'適用：約 180°C 以上的高溫地熱田',19,'#f2c230',700);wt(924,240,'熱水減壓 → 部分急速汽化（閃化）',18,'#fff',600);
-  ln([80,740,1520,740],'rgba(227,236,238,.6)',2);box(80,742,1440,58,'rgba(122,75,58,.35)');
-  const step=u<.22?0:u<.42?1:u<.62?2:u<.8?3:4,cc=i=>i===step?'#f2c230':'rgba(227,236,238,.85)';
-  /* 生產井、分離器 */
-  box(150,470,20,330,'#8d989f');box(154,470,12,330,'#2a3a46');
-  rrp(290,330,80,180,30);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle=step===1?'#f2c230':'rgba(0,0,0,.3)';ctx.lineWidth=step===1?3:1;ctx.stroke();
-  /* 汽輪機與發電機 */
-  poly([560,320,720,290,720,410,560,380],'#aeb8be',step===2?'#f2c230':'rgba(0,0,0,.3)',step===2?3:1);
-  const rot=TT*6*seg(u,.42,.5);for(let i=0;i<6;i++){const x=580+i*24,s=Math.abs(Math.sin(rot+i));ln([x,350-24*s-i*3,x,350+24*s+i*3],'#5c6770',3);}
-  ln([720,350,760,350],'#5c6770',6);box(760,310,110,80,'#1f7f99',step===2?'#f2c230':'rgba(0,0,0,.3)',step===2?3:1);
-  /* 冷凝器、冷卻塔 */
-  box(580,470,120,70,'#8d989f',step===3?'#f2c230':'rgba(0,0,0,.3)',step===3?3:1);
-  poly([960,560,985,440,975,340,1115,340,1105,440,1130,560],'#c9d1d6',step===3?'#f2c230':'rgba(0,0,0,.3)',step===3?3:1);
-  if(u>.62)for(let i=0;i<4;i++){const p=(TT*.4+i/4)%1;alphaDo(seg(u,.62,.68)*(1-p),()=>circ(1045+10*Math.sin(p*5+i),330-p*90,16+p*18,'rgba(255,255,255,.4)'));}
-  /* 回注井 */
-  box(1270,640,20,160,'#8d989f');box(1274,640,12,160,'#2a3a46');
-  /* 流動 */
-  const Pp=[[160,800],[160,450],[290,450]],Ps=[[330,330],[330,292],[520,292],[520,350],[560,350]],Pe=[[640,410],[640,470]],Pc=[[700,505],[960,505]],Pt=[[1045,560],[1045,640],[1280,640]],Pb=[[330,510],[330,690],[1280,690]],Pr=[[1280,640],[1280,800]];
-  [Pp,Ps,Pe,Pc,Pt,Pb].forEach(P=>pl(P,'rgba(141,152,159,.8)',6));
-  flowDots(Pp,6,HOT,seg(u,.02,.08),.35,6);
-  flowDots(Ps,6,'#ffffff',seg(u,.24,.3),.4,6);
-  flowDots(Pb,8,HOT,seg(u,.24,.3),.2,6);
-  flowDots(Pe,2,'#ffffff',seg(u,.44,.5),.4,5);flowDots(Pc,4,COOL,seg(u,.62,.68),.35,6);flowDots(Pt,4,COOL,seg(u,.8,.86),.35,6);flowDots(Pr,4,COOL,seg(u,.8,.86),.35,6);
-  if(u>.22){const R=rng(3);for(let i=0;i<10;i++){const p=(TT*.6+R())%1;alphaDo(seg(u,.22,.28)*(1-p),()=>circ(300+R()*60,500-p*150,4+p*3,'rgba(255,255,255,.1)','#fff',1.5));}}
-  alphaDo(seg(u,.44,.5),()=>{for(let i=0;i<3;i++){const p=(TT*1.2+i/3)%1;ln([900,318+i*14,900+22*p,318+i*14],PWR,3);}});
-  wt(160,440-10,'生產井',18,cc(0),700,'center');wt(330,550,'汽水分離器',18,cc(1),700,'left');
-  wt(640,270,'汽輪機',18,cc(2),700,'center');wt(815,420,'發電機',18,cc(2),700,'center');
-  wt(640,580,'冷凝器',18,cc(3),700,'center');wt(1045,600,'冷卻塔',18,cc(3),700,'center');wt(1280,620,'回注井',18,cc(4),700,'center');
-  alphaDo(seg(u,.24,.3),()=>{wt(420,286,'蒸氣',17,'#fff',700,'left');wt(420,682,'熱水',17,HOT,700,'left');});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'防噴器組（BOP）',20,'#f2c230',700);
+  const X=300,shut=ease(seg(u,.44,.52)),kick=seg(u,.2,.26),on=(t0,t1)=>u>=t0&&u<t1;
+  // 套管與井筒
+  box(X-40,680,80,110,'#1d2328');box(X-44,680,6,110,STEEL);box(X+38,680,6,110,STEEL);
+  // 套管頭、四通、閘板、環形
+  box(X-80,650,160,30,'#6a747a','rgba(0,0,0,.35)',1);
+  box(X-60,590,120,60,STEEL,'rgba(0,0,0,.35)',1);box(X-30,590,60,60,'#1d2328');
+  const ramBox=(y,col)=>{box(X-96,y,192,56,col,'rgba(0,0,0,.35)',1);box(X-30,y+8,60,40,'#1d2328');};
+  ramBox(460,'#e8572a');ramBox(524,'#e8572a');
+  const gap=lerp(84,10,shut);box(X-86,532,86-gap,24,'#aeb8be');box(X+gap,532,86-gap,24,'#aeb8be');
+  box(X-86,468,14,24,'#c9d1d6');box(X+72,468,14,24,'#c9d1d6');
+  poly([X-70,450,X-70,400,X-40,370,X+40,370,X+70,400,X+70,450],'#e8572a','rgba(0,0,0,.35)',1);box(X-26,380,52,70,'#1d2328');
+  const an=lerp(26,10,shut);box(X-26,396,26-an,40,'#5c6770');box(X+an,396,26-an,40,'#5c6770');
+  box(X-24,300,48,70,STEEL);box(X-18,300,36,70,'#1d2328');
+  // 鑽桿
+  box(X-8,230,16,560,'#aeb8be');
+  // 壓井、節流管線
+  ln([X-60,620,110,620],'#8d989f',6);
+  ln([X+60,620,660,620,660,650],'#8d989f',6);box(610,650,100,50,'#6a747a','rgba(0,0,0,.35)',1);for(let i=0;i<3;i++)circ(632+i*28,675,8,'#1f7f99');
+  // 井涌氣泡
+  if(kick>0){for(let i=0;i<14;i++){const p=(TT*.45+i/14)%1,top=shut>.9?600:lerp(600,300,1-shut);const y=lerp(790,top,p),x=X+(i%2?1:-1)*(16+(i*7)%14);
+    alphaDo(kick*(1-p*.5),()=>circ(x,y,4+p*3,'rgba(255,138,96,.9)','#fff',1));}}
+  flowDots([[X+60,620],[660,620],[660,650]],5,HOT,seg(u,.52,.58),.4,5);
+  // 標籤
+  const cc=(a)=>a?'#f2c230':'rgba(227,236,238,.9)';
+  wt(X+84,410,'環形防噴器',17,cc(on(.42,.64)),700,'left');
+  wt(X+110,494,'盲板／剪切閘板',17,'rgba(227,236,238,.9)',700,'left');
+  wt(X+110,558,'管柱閘板',17,cc(on(.42,.64)),700,'left');
+  wt(84,606,'壓井管線',16,'rgba(227,236,238,.85)',600,'left');
+  wt(500,606,'節流管線',16,cc(on(.52,.7)),600,'center');wt(660,730,'節流管匯',16,cc(on(.52,.7)),600,'center');
+  wt(X+60,720,'套管頭',16,'rgba(227,236,238,.85)',600,'left');
+  wt(X+20,262,'鑽桿',16,'rgba(227,236,238,.85)',600,'left');
+  alphaDo(band(u,.2,.44),()=>tag(560,340,'井涌',{bg:'#e8572a',fg:'#fff',size:18,align:'center'}));
+  alphaDo(seg(u,.52,.58),()=>tag(560,340,'井已關閉',{bg:'#7dffc4',fg:'#0e2a3b',size:18,align:'center'}));
+  /* 右：高溫挑戰 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'高溫地熱井的挑戰',20,'#f2c230',700);
+  const T=[['閃化與井涌','熱水減壓沸騰，體積暴增','#e8572a',.2],['泥漿冷卻','地面冷卻塔降低回流泥漿溫度',MUD,.64],['耐高溫材料','耐熱水泥、套管熱膨脹設計','#f2c230',.7],['泥漿漏失','裂隙吸走泥漿，改用充氣泥漿','#7dffc4',.8]];
+  T.forEach(([h,b,col,t0],i)=>{const y=226+i*140,k=seg(u,t0,t0+.06);if(k<=0)return;alphaDo(k,()=>{card(844,y,672,120,{bg:'rgba(255,255,255,.05)',st:col});box(844,y,8,120,col);
+   wt(876,y+50,h,21,col,700);wt(876,y+90,b,17,'rgba(227,236,238,.9)',500);});});
  }},
 
-{t:'雙循環發電',en:'Binary cycle (ORC)',dur:14,
- d:'溫度約 100 到 180°C 的中低溫地熱，常用雙循環發電，也稱有機朗肯循環（ORC）。地熱水只在熱交換器裡把熱傳給另一套封閉迴路中的工作流體，例如沸點約 28°C 的異戊烷；工作流體受熱汽化，推動渦輪與發電機，再到氣冷式冷凝器冷凝，由泵送回熱交換器。地熱水不接觸渦輪，放熱後全部回注，稱為「取熱不取水」。宜蘭清水地熱電廠就是採用這種方式。',
- s:[[0,'地熱水進入熱交換器，只交出熱量'],[.24,'工作流體沸點低，受熱就汽化'],[.46,'工作流體蒸氣推動渦輪與發電機'],[.66,'氣冷式冷凝器把工作流體冷凝，泵送回去'],[.84,'地熱水全部回注：取熱不取水']],
+{t:'井口設備與流量測試',en:'Wellhead and flow test',dur:13,side:true,
+ d:'完井後鑽機移走，井口裝上主閥與側翼閥，控制熱水流出。先讓井垂直排放，把殘留的泥漿與岩屑沖乾淨；再把流體接到消音器，也就是大氣壓分離器：量測排放管末端的唇壓，並用堰箱量測分離出的熱水，就能推算總流量與焓值，判斷這口井能供應多少熱。測試常持續數週（示例），並觀察流量與溫度是否穩定。',
+ s:[[0,'鑽機移走，井口裝上主閥與側翼閥'],[.25,'先垂直排放，把井內泥漿與岩屑沖乾淨'],[.5,'改接消音器，量測排放管末端的唇壓'],[.75,'堰箱量水，推算總流量與焓值']],
+ cam:u=>camMix({x:800,y:560,s:1},{x:900,y:600,s:1.15},ease(seg(u,.02,.2))),
  draw(u){
-  diagBG();
-  card(900,158,640,112,{bg:'rgba(7,27,39,.75)',st:'rgba(242,194,48,.5)'});
-  wt(924,200,'適用：約 100–180°C 的中低溫地熱',19,'#f2c230',700);wt(924,240,'工作流體沸點低（異戊烷約 28°C）',18,'#fff',600);
-  ln([80,700,760,700],'rgba(227,236,238,.6)',2);box(80,702,680,98,'rgba(122,75,58,.35)');
-  const step=u<.24?0:u<.46?1:u<.66?2:u<.84?3:4,hi=i=>i===step?'#f2c230':'rgba(0,0,0,.3)',lw=i=>i===step?3:1,cc=i=>i===step?'#f2c230':'rgba(227,236,238,.85)';
-  box(140,420,20,380,'#8d989f');box(144,420,12,380,'#2a3a46');box(550,600,20,200,'#8d989f');box(554,600,12,200,'#2a3a46');
-  /* 熱交換器 */
-  rrp(300,380,200,150,16);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle=step<=1?'#f2c230':'rgba(0,0,0,.3)';ctx.lineWidth=step<=1?3:1;ctx.stroke();
-  const zz=[];for(let i=0;i<=8;i++)zz.push(330+i*18,i%2?500:410);ln(zz,HOT,4);
-  /* 渦輪、發電機 */
-  poly([700,330,840,300,840,420,700,390],'#aeb8be',hi(2),lw(2));
-  const rot=TT*6*seg(u,.46,.54);for(let i=0;i<5;i++){const x=720+i*26,s=Math.abs(Math.sin(rot+i));ln([x,360-22*s-i*4,x,360+22*s+i*4],'#5c6770',3);}
-  ln([840,360,870,360],'#5c6770',6);box(870,320,110,80,'#1f7f99',hi(2),lw(2));
-  /* 氣冷式冷凝器 */
-  box(1070,330,300,90,'#c9d1d6',hi(3),lw(3));for(let i=0;i<4;i++){const cx=1110+i*74,s=Math.abs(Math.cos(TT*6+i));box(cx-26,312,52,6,'#8d989f');ln([cx-24*s,306,cx+24*s,306],'#44535c',3);}
-  for(let i=0;i<4;i++){const p=(TT*.5+i/4)%1;alphaDo(seg(u,.66,.72)*(1-p),()=>arrow(1110+i*74,300-p*30,1110+i*74,280-p*30,'rgba(255,157,122,.9)',3));}
-  /* 泵 */
-  circ(860,620,26,'#1f7f99',hi(3),lw(3));const pa=TT*5;ln([860,620,860+18*Math.cos(pa),620+18*Math.sin(pa)],'#fff',3);
-  /* 流動路徑 */
-  const Gin=[[150,800],[150,400],[300,400]],Gout=[[400,530],[400,600],[560,600],[560,800]];
-  const W1=[[500,400],[620,400],[620,360],[700,360]],W2=[[800,410],[800,470],[1100,470],[1100,420]],W3=[[1300,420],[1300,620],[886,620]],W4=[[834,620],[640,620],[640,500],[500,500]];
-  [Gin,Gout].forEach(P=>pl(P,'rgba(141,152,159,.8)',6));[W1,W2,W3,W4].forEach(P=>pl(P,'rgba(179,124,255,.45)',6));
-  flowDots(Gin,6,HOT,seg(u,.02,.08),.35,6);flowDots(Gout,6,COOL,seg(u,.06,.12),.3,6);
-  flowDots(W4,5,WF,seg(u,.24,.3),.35,5);flowDots(W1,4,'#d9b8ff',seg(u,.3,.36),.45,6);flowDots(W2,6,'#d9b8ff',seg(u,.48,.54),.35,6);flowDots(W3,6,WF,seg(u,.66,.72),.35,5);
-  alphaDo(seg(u,.46,.52),()=>{for(let i=0;i<3;i++){const p=(TT*1.2+i/3)%1;ln([1010,328+i*14,1010+22*p,328+i*14],PWR,3);}});
-  wt(150,390-10,'生產井',18,cc(0),700,'center');wt(580,660,'回注井',18,cc(4),700,'left');wt(400,560,'熱交換器（蒸發器）',18,step<=1?'#f2c230':'rgba(227,236,238,.85)',700,'center');
-  wt(770,285,'渦輪',18,cc(2),700,'center');wt(925,430,'發電機',18,cc(2),700,'center');wt(1220,452,'氣冷式冷凝器',18,cc(3),700,'center');wt(860,672,'工作流體泵',18,cc(3),700,'center');
-  alphaDo(seg(u,.24,.3),()=>{wt(580,470,'工作流體',17,'#d9b8ff',700,'center');});
-  alphaDo(seg(u,.84,.9),()=>{card(900,700,640,100,{bg:'rgba(125,255,196,.12)',st:'rgba(125,255,196,.6)'});wt(1220,742,'取熱不取水',22,'#7dffc4',700,'center');wt(1220,778,'地熱水不接觸渦輪，全部回注地下',17,'#fff',600,'center');});
- }},
-
-{t:'台灣的地熱',en:'Geothermal energy in Taiwan',dur:14,
- d:'台灣位在歐亞板塊與菲律賓海板塊交界，地熱資源豐富。北部大屯火山群的地下熱水溫度最高約 293°C，但多為酸性流體，pH 約 1.3 到 3.9，會腐蝕管線，是開發的主要難題。宜蘭清水地熱屬中低溫熱水，約 150°C，2021 年起以 4.2 MW 的雙循環機組商轉。工研院估計深度 3 公里內的淺層地熱潛能約 989 MW，更深的深層地熱約 32 GW；經濟部規劃 2030 年累計 200 MW，2050 年願景 6 GW。',
- s:[[0,'台灣位在板塊交界，地熱資源豐富'],[.22,'大屯火山群溫度高，但流體呈強酸性'],[.44,'宜蘭清水以雙循環機組商轉'],[.66,'淺層潛能約 989 MW，深層約 32 GW'],[.84,'目標 2030 年累計 200 MW']],
- draw(u){
-  diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'主要地熱區（示意）',20,'#f2c230',700);
-  const MX=l=>150+(l-120)*155,MY=a=>190+(25.4-a)*170;
-  const TW=[[121.5,25.3],[121.9,25.12],[122.0,25.0],[121.85,24.6],[121.8,24.3],[121.6,23.9],[121.5,23.4],[121.3,22.9],[121.0,22.6],[120.85,21.92],[120.7,22.0],[120.6,22.3],[120.3,22.55],[120.15,22.9],[120.1,23.1],[120.15,23.5],[120.3,23.9],[120.6,24.3],[120.8,24.6],[121.0,24.9],[121.2,25.1],[121.4,25.25]];
-  const pts=[];TW.forEach(([l,a])=>pts.push(MX(l),MY(a)));poly(pts,'rgba(122,154,85,.55)','rgba(227,236,238,.7)',2);
-  alphaDo(seg(u,.02,.08)*.6,()=>poly([MX(121.35),MY(24.8),MX(121.55),MY(24.6),MX(121.35),MY(23.2),MX(121.0),MY(22.7),MX(120.9),MY(22.9),MX(121.15),MY(23.6)],'rgba(242,194,48,.25)','rgba(242,194,48,.5)',1.5));
-  alphaDo(seg(u,.04,.1),()=>wt(MX(120.35),MY(23.5),'中央山脈',16,'rgba(227,236,238,.75)',600,'center'));
-  const mk=(l,a,col,t0,name,l1,l2,cy)=>{const k=seg(u,t0,t0+.06);if(k<=0)return;const x=MX(l),y=MY(a),p=(TT*.8)%1;
-   alphaDo(k,()=>{alphaDo(1-p,()=>ring(x,y,8+16*p,col,2));circ(x,y,8,col);ln([x+10,y,480,cy],col,1.5);
-    card(480,cy-50,270,100,{bg:'rgba(7,27,39,.9)',st:col});wt(496,cy-18,name,19,col,700);wt(496,cy+12,l1,17,'#fff',600);wt(496,cy+38,l2,16,'rgba(227,236,238,.85)',500);});};
-  mk(121.55,25.18,'#ff8a60',.22,'大屯火山群','最高約 293°C','強酸性 pH 1.3–3.9',250);
-  mk(121.63,24.6,'#7dffc4',.44,'宜蘭清水','約 150°C、4.2 MW','2021 年起商轉',420);
-  alphaDo(seg(u,.02,.08),()=>{wt(560,640,'歐亞板塊與菲律賓海板塊交界',16,'rgba(227,236,238,.8)',500,'center');arrow(620,680,560,680,'rgba(227,236,238,.6)',2);arrow(500,720,560,720,'rgba(227,236,238,.6)',2);});
-  /* 右：潛能與目標 */
-  const R=[['淺層地熱潛能','989 MW','深度 3 公里內',.66,'#7dc8dc',989],['深層地熱潛能','約 32 GW','深度超過 3 公里',.72,'#ff8a60',32],['2030 年目標','200 MW','累計裝置容量',.84,'#f2c230',200],['2050 年願景','6 GW','累計裝置容量',.9,'#7dffc4',6]];
-  R.forEach(([t,v,s,t0,col,n],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*162;card(820,y,720,146,{bg:'rgba(7,27,39,.75)'});box(820,y,8,146,col);wt(850,y+44,t,19,'rgba(227,236,238,.9)',600);
-   const k=ease(seg(u,t0,t0+.1)),num=trf(v.replace(/[\d]+/,'{n}'),{n:Math.round(+v.match(/\d+/)[0]*k)});wt(850,y+106,num,42,col,700,'left',COND);wt(1510,y+106,s,17,'rgba(227,236,238,.8)',500,'right');}));
- }},
-
-{t:'穩定的基載電力',en:'Steady baseload power',dur:12,side:true,
- base:()=>geoBase(.75),
- d:'地熱電廠不受晝夜與天氣影響，清水地熱機組的可用率約 95%，可以當作基載電力，和隨天候變動的太陽光電、風電互補。開發也有挑戰：地熱水含有礦物質，降溫時容易在管線結垢，早年清水的試驗電廠就曾因結垢與產量衰退停機；酸性流體會腐蝕套管；鑽井成本高、探勘有失敗風險；溫泉區也需要與地方溝通。持續回注與監測，是讓地熱長期運轉的關鍵。',
- s:[[0,'入夜後，地熱電廠照樣穩定發電'],[.24,'礦物質在管線結垢，需要定期清除'],[.48,'酸性流體會腐蝕套管與管線'],[.72,'持續回注與監測，維持儲集層長期運轉']],
- draw(u){
-  plantDraw();reservoirGlow(1);plantFlows(1);
-  lab(HXX+10,gyy(PWX)-112,'結垢',{dx:70,dy:-50,st:'w',a:band(u,.22,.5)});
-  lab(PWX,gyy(PWX)+100,'酸性腐蝕',{dx:90,dy:-20,st:'w',a:band(u,.46,.72)});
-  lab(RWX-20,gyy(RWX)+200,'回注維持壓力',{dx:-60,dy:-60,st:'g',a:band(u,.7,1)});
-  lab(TWX,gyy(TWX)-190,'基載電力',{dx:-80,dy:-50,st:'s',a:band(u,.02,.3)});
+  const g=gyy(WX),SX=1080,sg=gyy(SX),yL=g+DPX(1000),yE=g+DPX(2000);
+  box(WX-12,g,24,DPX(300),'#aeb8be');box(WX-8,g,16,yE-g,'#8d989f');box(WX-5,g,10,yE-g,'#1d2328');
+  ctx.setLineDash([8,5]);ln([WX-7,yL,WX-7,yE],HOT,3);ln([WX+7,yL,WX+7,yE],HOT,3);ctx.setLineDash([]);
+  const vd=band(u,.25,.5),hd=seg(u,.5,.56),fa=Math.max(vd,hd);
+  flowDots([[WX,yE],[WX,g]],8,HOT,fa,.35,3.5);
+  if(fa>0)for(let i=0;i<6;i++){const p=(TT*.5+i/6)%1;alphaDo(fa*(1-p),()=>{circ(WX-16-p*10,yE-10-p*120,3.5,HOT);circ(WX+16+p*10,yE-10-p*120,3.5,HOT);});}
+  bigWellhead(WX,{vent:vd>0});
+  // 排放管、消音器、堰箱
+  const pa=seg(u,.4,.5);alphaDo(pa,()=>{ln([WX+72,g-130,SX-60,g-130,SX-38,sg-120],'#8d989f',8);silencer(SX);weirBox(SX+56);
+   circ(SX-76,g-148,10,'#dfe5e8','#44535c',2);ln([SX-76,g-148,SX-76+7*Math.cos(-.8-hd*1.4),g-148+7*Math.sin(-.8-hd*1.4)],'#e8572a',2);ln([SX-76,g-138,SX-76,g-134],'#44535c',2);});
+  plume(WX,g-244,vd,.75);
+  plume(SX,sg-206,hd,1.1);
+  flowDots([[WX+72,g-130],[SX-60,g-130],[SX-38,sg-120]],6,'#ffffff',hd,.6,4);
+  flowDots([[SX+40,sg-10],[SX+130,sg-10]],4,COOL,seg(u,.72,.78),.4,3.5);
+  lab(WX-17,g-86,'主閥',{dx:-100,dy:-40,st:'s',a:band(u,.02,.26)});
+  lab(WX+59,g-128,'側翼閥',{dx:70,dy:-70,a:band(u,.04,.26)});
+  lab(WX,yL+20,'割縫襯管',{dx:-110,dy:-10,a:band(u,.06,.3)});
+  lab(WX-8,g-236,'垂直排放',{dx:-130,dy:50,st:'w',a:band(u,.28,.5)});
+  lab(SX-76,g-148,'唇壓量測',{dx:-40,dy:-80,st:'s',a:band(u,.52,.78)});
+  lab(SX-38,sg-100,'消音器',{dx:-90,dy:40,a:band(u,.54,.8)});
+  lab(SX+100,sg-26,'堰箱量水',{dx:30,dy:60,st:'g',a:band(u,.74,1)});
  },
- hud(u){hudPanel(240,170,'今日運轉（示例）',seg(u,.05,.1),w=>{const e=4.2*24*ease(seg(u,.05,.95));
-  hrow(56,'輸出',(4.2-.05*Math.sin(TT)).toFixed(2)+' MW',w,PWR);hrow(88,'今日發電',trf('{n} MWh',{n:e.toFixed(1)}),w,'#fff');hbar(14,100,w-28,e/100.8,PWR);hrow(140,'可用率','約 95%',w,'#7dffc4');});}}
+ hud(u){hudPanel(240,180,'流量測試（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.52,.8)),day=Math.max(1,Math.round(30*seg(u,.5,.98)));
+  hrow(56,'測試',u<.5?'—':trf('第 {n} 天',{n:day}),w,'#fff');hrow(88,'唇壓',u<.52?'—':(2.4*k).toFixed(1)+' bar',w,PWR);
+  hrow(120,'總流量',u<.52?'—':Math.round(60*k)+' t/h',w,COOL);hrow(152,'焓值',u<.76?'—':Math.round(630*ease(seg(u,.76,.9)))+' kJ/kg',w,HOT);});}},
+
+{t:'從探勘井到生產井',en:'From exploration to production',dur:12,
+ d:'地熱開發先做地表調查，綜合地質、溫泉化學與地球物理資料選定井位，再鑽探勘井確認溫度與地層，經流量測試證明產能後，才鑽生產井與回注井並興建電廠。台灣自 1976 年起在宜蘭清水、土場鑽過 15 口地熱井；中研院與中油合作的員山 1 號井鑽到近 4,000 公尺，井底實測約 150°C，完成後轉為光纖監測井，冬山的第二口深層井也接續開鑽。',
+ s:[[0,'一口地熱井，從地表探勘開始'],[.26,'探勘井與流量測試，確認值得開發'],[.46,'再鑽生產井與回注井，接上電廠'],[.62,'台灣已鑽到近 4,000 m 的深層地熱'],[.8,'完鑽的井也能轉為監測井，持續量測']],
+ draw(u){
+  diagBG();
+  const ST=[['地表探勘','地質與地球物理'],['探勘井','確認溫度與地層'],['流量測試','量測流量與焓值'],['生產井與回注井','同一井場多口井'],['地熱電廠','發電並持續監測']];
+  const cur=u<.13?0:u<.26?1:u<.38?2:u<.5?3:4;
+  ST.forEach(([h,b],i)=>{const x=60+i*296,t0=i*.12+.01,k=seg(u,t0,t0+.06);alphaDo(.25+.75*k,()=>{const on=i===cur&&u<.62;
+   card(x,176,276,138,{bg:on?'rgba(242,194,48,.12)':'rgba(7,27,39,.75)',st:on?'#f2c230':'rgba(255,255,255,.16)'});
+   wt(x+20,214,trf('步驟 {n}',{n:i+1}),16,'rgba(227,236,238,.65)',600,'left',COND);wt(x+20,254,h,19,on?'#f2c230':'#fff',700);wt(x+20,290,b,16,'rgba(227,236,238,.85)',500);
+   if(i<4)arrow(x+280,245,x+292,245,'rgba(242,194,48,.8)',2.5);});});
+  /* 左下：台灣的地熱鑽井 */
+  alphaDo(seg(u,.54,.6),()=>{card(60,350,720,450,{bg:'rgba(7,27,39,.75)'});wt(84,396,'台灣的地熱鑽井',20,'#f2c230',700);
+   const L=[['1976 年起','中油在清水、土場鑽 15 口地熱井','深 902–3,000 m，最高約 230°C','#ff8a60',.56],['2024–2025','員山 1 號井：第一口深層探測井','鑽到近 4,000 m，井底約 150°C','#f2c230',.64],['接續開鑽','冬山：第二口深層地熱井','目標約 4,000 m','#7dffc4',.7]];
+   L.forEach(([dt,a,b,col,t0],i)=>alphaDo(seg(u,t0,t0+.05),()=>{const y=460+i*112;box(84,y-30,6,84,col);wt(106,y,dt,22,col,700,'left',COND);wt(106,y+32,a,18,'#fff',700);wt(106,y+60,b,16,'rgba(227,236,238,.85)',500);}));});
+  /* 右下：井的角色 */
+  alphaDo(seg(u,.78,.84),()=>{card(820,350,720,450,{bg:'rgba(7,27,39,.75)'});wt(844,396,'一口井的不同角色',20,'#f2c230',700);
+   const R=[['探勘井','確認溫度、地層與流量','#ff9d7a'],['生產井','把熱水送到地面電廠','#ff8a60'],['回注井','把降溫的地熱水送回地下','#58b8d0'],['監測井','光纖量測地溫與微震','#7dffc4']];
+   R.forEach(([h,b,col],i)=>{const y=460+i*84;circ(856,y-7,8,col);wt(878,y,h,19,col,700);wt(1030,y,b,17,'rgba(227,236,238,.9)',500);});});
+ }}
 ]};
 
-/* 地熱發電廠 translations: Traditional Chinese → [English, Japanese] */
+/* 地熱系列 第 2 集：地熱鑽井 — 英日翻譯 */
 Object.assign(DICT,{
 "地熱系列":["Geothermal Series","地熱シリーズ"],
-"地熱發電廠":["Inside a geothermal power plant","地熱発電所"],
-"地球內部的熱不分晝夜、不看天氣，是少數能當作基載的再生能源。這一集從地下的熱從哪裡來談起，走進一座地熱電廠，看生產井與回注井如何把熱水取出又送回，比較閃化式與雙循環兩種發電方式，最後介紹台灣宜蘭清水與大屯火山的地熱背景。":["Heat from inside the Earth flows day and night, whatever the weather, making it one of the few renewables that can supply baseload power. This episode starts with where underground heat comes from, then visits a geothermal plant to see how production and injection wells bring hot water up and send it back, compares flash steam and binary cycle generation, and finally introduces the geothermal background of Qingshui in Yilan and the Tatun Volcano Group in Taiwan.","地球内部の熱は昼夜も天候も問わず、ベースロード電源になれる数少ない再生可能エネルギーです。このエピソードでは地下の熱がどこから来るのかを説明し、地熱発電所で生産井と還元井が熱水をくみ上げて地下へ戻す仕組みを見たうえで、フラッシュ方式とバイナリー方式を比較し、最後に台湾・宜蘭の清水地熱と大屯火山群の背景を紹介します。"],
-"宜蘭清水地熱電廠裝置容量，2021 年起商轉":["Installed capacity of the Qingshui geothermal plant in Yilan, in commercial operation since 2021","宜蘭・清水地熱発電所の設備容量。2021 年に商業運転開始"],
-"約 150":["about 150","約 150"],
-"清水地熱的熱水溫度，採雙循環（ORC）發電":["Hot water temperature at Qingshui, which uses binary-cycle (ORC) generation","清水地熱の熱水温度。バイナリー（ORC）方式で発電"],
-"大屯火山區早年鑽井量測的地下熱水最高溫度":["Highest underground water temperature measured in early wells at the Tatun volcanic area","大屯火山地域の初期の掘削で測定された地下熱水の最高温度"],
-"深度 3 公里內的淺層地熱潛能（工研院估計）":["Shallow geothermal potential within 3 km depth (ITRI estimate)","深度 3 km 以内の浅部地熱ポテンシャル（工業技術研究院の推計）"],
-"約 32":["about 32","約 32"],
-"深度超過 3 公里的深層地熱潛能":["Deep geothermal potential below 3 km","深度 3 km 超の深部地熱ポテンシャル"],
-"經濟部規劃的 2030 年地熱累計裝置容量":["Cumulative geothermal capacity planned by the Ministry of Economic Affairs for 2030","経済部が計画する 2030 年の地熱累計設備容量"],
-"說明：本集為教育用途示意動畫，設備外觀、井深與地層比例經過壓縮調整。清水地熱電廠 4.2 MW、熱源約 150°C、ORC 取熱不取水與機組可用率約 95% 取自中央社、工商時報等報導；大屯火山 293°C 與酸性流體 pH 1.3–3.9 取自國科會科技大觀園與大屯火山觀測站資料；淺層 989 MW、深層約 32 GW 潛能及 2030 年 200 MW、2050 年 6 GW 願景取自經濟部能源署與行政院「地熱減碳旗艦行動計畫」。地溫曲線、閃化式與雙循環的適用溫度、回注溫度與電廠配置為文獻常見範圍的典型範例，實際數值依各案場而定。":["Note: this is an illustrative educational animation; equipment appearance, well depth and rock layers are compressed and not to scale. Qingshui's 4.2 MW capacity, heat source of about 150°C, ORC 'take the heat, not the water' design and roughly 95% availability come from CNA and Commercial Times reports; Tatun's 293°C and acidic fluids of pH 1.3–3.9 come from the NSTC Science Vista and the Taiwan Volcano Observatory at Tatun; the shallow 989 MW and deep ~32 GW potential and the 200 MW (2030) and 6 GW (2050) targets come from the Energy Administration, MOEA, and the Executive Yuan's geothermal flagship action plan. Temperature curves, suitable temperatures for flash and binary plants, injection temperature and plant layout are typical examples from the literature; actual values depend on each site.","説明：本エピソードは教育用の模式アニメーションで、設備の外観、井戸の深さ、地層の比率は圧縮・調整しています。清水地熱発電所の 4.2 MW、熱源約 150°C、ORC による「熱だけを取り水は取らない」方式、稼働率約 95% は中央社・工商時報などの報道に基づきます。大屯火山の 293°C と pH 1.3–3.9 の酸性流体は国家科学及技術委員会「科技大観園」と大屯火山観測所の資料、浅部 989 MW・深部約 32 GW のポテンシャルと 2030 年 200 MW・2050 年 6 GW の目標は経済部エネルギー署と行政院「地熱減炭フラッグシップ行動計画」に基づきます。地温曲線、フラッシュ方式とバイナリー方式の適用温度、還元温度、発電所の配置は文献でよく見られる範囲の代表例であり、実際の値は各サイトにより異なります。"],
-/* 分鏡 1 */
-"一座地熱電廠":["A geothermal power plant","地熱発電所"],
-"地熱電廠看起來不大，真正的主角藏在地下。生產井深入約兩千公尺的地熱儲集層，把高溫熱水抽到地面；熱水在熱交換器把熱交給發電系統，推動汽輪機與發電機產生電力，再經變電站送上電網。放完熱、溫度降低的地熱水不排放，而是由回注井送回地下，讓儲集層保持水量與壓力。整套系統全天運轉，不受日照與風速影響。":["A geothermal plant looks small, because its main feature is hidden underground. A production well reaches a geothermal reservoir about 2,000 metres down and brings hot water to the surface. In a heat exchanger the water passes its heat to the power system, driving a turbine and generator, and the electricity goes through a substation to the grid. The cooled geothermal water is not discharged: an injection well returns it underground so the reservoir keeps its water and pressure. The whole system runs around the clock, regardless of sunshine or wind.","地熱発電所は小さく見えますが、本当の主役は地下にあります。生産井は深さ約 2,000 メートルの地熱貯留層まで達し、高温の熱水を地上へくみ上げます。熱水は熱交換器で熱を発電システムに渡してタービンと発電機を回し、電力は変電所を経て系統へ送られます。熱を渡して温度の下がった地熱水は放流せず、還元井から地下へ戻し、貯留層の水量と圧力を保ちます。システム全体が日照や風速に左右されず、終日運転します。"],
-"生產井從地下儲集層抽出高溫熱水":["A production well brings hot water up from the reservoir","生産井が地下の貯留層から高温の熱水をくみ上げる"],
-"熱水在熱交換器把熱交給發電系統":["The hot water hands its heat to the power system in a heat exchanger","熱水が熱交換器で熱を発電システムに渡す"],
-"汽輪機帶動發電機，電力送上電網":["The turbine drives the generator and power goes to the grid","タービンが発電機を回し、電力を系統へ送る"],
-"降溫後的地熱水由回注井送回地下":["The cooled water returns underground through an injection well","冷えた地熱水を還元井から地下へ戻す"],
+"地熱鑽井":["Drilling a geothermal well","地熱井の掘削"],
+"地熱電廠的熱水，要靠一口口深井從地下兩千公尺上下取出來。這一集走上鑽井平台，看鑽機如何旋轉鑽進、泥漿如何帶出岩屑並冷卻鑽頭、套管與水泥如何層層保護井壁、定向鑽井怎麼從同一井場鑽向不同裂隙，以及完井後怎麼用流量測試判斷一口井的產能。":["The hot water for a geothermal power plant has to be brought up through deep wells, often around 2,000 m down. This episode steps onto the drilling pad to see how the rig drills by rotation, how mud carries cuttings out and cools the bit, how casing and cement protect the borehole layer by layer, how directional drilling reaches different fractures from one pad, and how a flow test after completion shows what a well can produce.","地熱発電所の熱水は、地下 2,000 m 前後の深い井戸から取り出します。本編では掘削現場に立ち、リグが回転掘削する仕組み、泥水が掘りくずを運び出してビットを冷やす働き、ケーシングとセメントが坑壁を何重にも守る方法、一つのパッドから方向の異なる割れ目へ掘り進む傾斜掘削、そして仕上げ後に噴出試験で井戸の能力を判断する方法を見ていきます。"],
+"近 4,000":["Nearly 4,000","約 4,000"],
+"員山 1 號井：台灣第一口深層地熱探測井的鑽井深度":["Yuanshan No. 1: drilled depth of Taiwan's first deep geothermal exploration well","員山 1 号井：台湾初の深部地熱探査井の掘削深度"],
+"約 150":["About 150","約 150"],
+"員山 1 號井井底實測溫度":["Measured bottom-hole temperature of Yuanshan No. 1","員山 1 号井の坑底実測温度"],
+"約 90":["About 90","約 90"],
+"員山井 3,500 m 以下的地溫梯度，顯示下方有上湧熱源":["Temperature gradient below 3,500 m at Yuanshan, pointing to rising heat below","員山井の 3,500 m 以深の地温勾配。下方に上昇する熱源があることを示す"],
+"口":["wells","本"],
+"1976 年起中油在宜蘭清水、土場鑽的地熱井，深 902–3,000 m":["Geothermal wells drilled by CPC at Qingshui and Tuchang, Yilan, from 1976, 902–3,000 m deep","1976 年以降、台湾中油が宜蘭の清水・土場で掘削した地熱井。深さ 902–3,000 m"],
+"東部地區地熱鑽井計畫：宜蘭 4 口淺井與 1 口深層探勘井":["Eastern Region Geothermal Drilling Program: 4 shallow wells and 1 deep exploration well in Yilan","東部地区地熱掘削計画：宜蘭で浅井 4 本と深部探査井 1 本"],
+"層":["strings","段"],
+"典型地熱井的套管層數：導管、表層、生產套管與割縫襯管（示例）":["Casing strings in a typical geothermal well: conductor, surface, production casing and slotted liner (example)","代表的な地熱井のケーシング段数：導管、表層、生産ケーシング、スロッテッドライナー（例）"],
+"說明：本集為教育用途示意動畫，鑽機、井徑與深度比例經過壓縮，套管圖採非線性深度刻度。員山 1 號井鑽深近 4,000 m、井底實測約 150°C、3,500 m 以下每公里升溫約 90°C，以及完鑽後轉為光纖監測井，依中央研究院新聞稿與媒體報導；1976 年起中油在清水、土場鑽 15 口深 902–3,000 m 的地熱井、最高約 230°C，依蘭陽博物館與能源教育資源資料；宜蘭 4 口淺井與 1 口深層探勘井依經濟部能源署「東部地區地熱鑽井計畫」；冬山第二口深層井依能源署地熱單一服務窗口轉載報導。井架高度、鑽桿長度、鑽井工期、套管尺寸與下深、造斜點與井斜角、唇壓、流量、焓值與測試天數皆為文獻常見範圍的典型範例，實際數值依各井設計而定。":["Note: This is a schematic animation for education; the rig, hole sizes and depths are compressed, and the casing diagram uses a non-linear depth scale. Yuanshan No. 1 reaching nearly 4,000 m, its measured bottom-hole temperature of about 150°C, a gradient of about 90°C per km below 3,500 m and its conversion to a fibre-optic monitoring well follow Academia Sinica press releases and media reports. The 15 wells drilled by CPC at Qingshui and Tuchang from 1976, 902–3,000 m deep with up to about 230°C, follow the Lanyang Museum and energy education resources. The 4 shallow wells and 1 deep exploration well in Yilan follow the Energy Administration's Eastern Region Geothermal Drilling Program, and the second deep well at Dongshan follows reports reposted by the Energy Administration's geothermal service window. Mast height, pipe length, drilling time, casing sizes and depths, kick-off point and inclination, lip pressure, flow rate, enthalpy and test duration are typical examples within common literature ranges; actual values depend on each well's design.","説明：本編は教育用の模式アニメーションで、リグ、坑径、深さの縮尺は圧縮しており、ケーシング図は非線形の深度目盛りです。員山 1 号井の掘削深度約 4,000 m、坑底実測約 150°C、3,500 m 以深の地温勾配 1 km あたり約 90°C、掘削後に光ファイバー観測井へ転用した点は中央研究院の発表と報道に基づきます。1976 年以降に台湾中油が清水・土場で深さ 902–3,000 m の地熱井 15 本を掘削し最高約 230°C を得た点は蘭陽博物館とエネルギー教育資料に、宜蘭の浅井 4 本と深部探査井 1 本は経済部能源署「東部地区地熱掘削計画」に、冬山の 2 本目の深部井は能源署地熱ワンストップ窓口の転載報道に基づきます。やぐらの高さ、ドリルパイプ長、掘削期間、ケーシング寸法と設置深度、キックオフポイントと傾斜角、リップ圧、流量、エンタルピー、試験日数は文献でよく見られる範囲の代表的な例で、実際の値は各井の設計によって異なります。"],
+"鑽井平台與鑽機":["The drilling rig","掘削パッドとリグ"],
+"地熱井的鑽法與石油井相近。先整出一塊平坦的井場，架起鑽機：高約 40 公尺的井架吊著游車與頂部驅動，帶動鑽桿與鑽頭旋轉鑽進；每根鑽桿約 9 公尺，鑽深一段就在鑽台接上新的一根。井場旁有鑽桿架、發電機、泥漿池與泥漿泵，鑽台下方裝著防噴器。一口約 2,000 公尺的地熱井，常要鑽上一到兩個月（示例）。":["A geothermal well is drilled much like an oil well. A flat pad is prepared and the rig is erected: a mast about 40 m tall carries the traveling block and top drive, which turn the drill pipe and bit. Each joint of drill pipe is about 9 m long, and a new joint is added on the rig floor as the hole deepens. Around the pad sit the pipe rack, generators, mud pits and mud pumps, with the blowout preventer below the rig floor. A well of about 2,000 m often takes one to two months to drill (example).","地熱井の掘り方は石油井とよく似ています。平らな掘削パッドを整え、リグを組み立てます。高さ約 40 m のやぐらがトラベリングブロックとトップドライブを吊り、ドリルパイプとビットを回転させて掘り進みます。ドリルパイプは 1 本約 9 m で、深くなるたびにリグフロアで 1 本ずつ継ぎ足します。パッドにはパイプラック、発電機、泥水ピット、泥水ポンプが並び、リグフロアの下には噴出防止装置があります。深さ約 2,000 m の地熱井の掘削には、1〜2 か月かかることが多いです（例）。"],
+"整平井場，架起高約 40 m 的鑽機井架":["A pad is leveled and a 40 m mast goes up","パッドを整地し、高さ約 40 m のやぐらを建てる"],
+"頂部驅動帶著鑽桿與鑽頭旋轉鑽進":["The top drive turns the pipe and bit","トップドライブがパイプとビットを回して掘進"],
+"每鑽深一段，就在鑽台接上一根新鑽桿":["A new joint is added on the rig floor as it deepens","掘り進むごとにリグフロアでパイプを継ぎ足す"],
+"鑽頭一路向下，穿過一層層地層":["The bit works down through layer after layer","ビットは地層を一枚ずつ貫いて下へ"],
+"井架":["Mast","やぐら"],
+"鑽台":["Rig floor","リグフロア"],
+"鑽桿架":["Pipe rack","パイプラック"],
+"泥漿池":["Mud pits","泥水ピット"],
+"頂部驅動":["Top drive","トップドライブ"],
+"鑽頭":["Drill bit","ビット"],
+"蓋層":["Caprock","キャップロック"],
+"地熱儲集層":["Reservoir","地熱貯留層"],
+"鑽井進度（示例）":["Drilling (example)","掘削状況（例）"],
+"鑽頭深度":["Bit depth","ビット深度"],
+"鑽桿":["Drill pipe","ドリルパイプ"],
+"{n} 根":["{n} joints","{n} 本"],
+"井架高度":["Mast height","やぐら高さ"],
+"約 40 m":["≈ 40 m","約 40 m"],
+"旋轉鑽進與泥漿循環":["Rotary drilling and mud","回転掘削と泥水循環"],
+"鑽頭旋轉時，靠鑽壓把岩石磨碎或壓碎。鑽井泥漿由泥漿泵打進鑽桿內部，從鑽頭的噴嘴噴出，再沿著鑽桿與井壁之間的環空上返，把岩屑帶回地面。泥漿同時冷卻鑽頭、以自身重量平衡地層壓力，並在井壁形成泥餅防止崩塌。回到地面的泥漿經振動篩分離岩屑；地熱井的泥漿回流溫度高，常再經冷卻塔降溫後重複使用。":["As the bit rotates under weight, it grinds or crushes the rock. Mud pumps push drilling mud down inside the drill pipe; it jets out of the bit nozzles and rises through the annulus between the pipe and the borehole wall, carrying cuttings to the surface. The mud also cools the bit, balances formation pressure with its own weight and builds a filter cake that keeps the wall from caving in. At the surface, shale shakers remove the cuttings. Mud returning from a geothermal well is hot, so it is often passed through a cooling tower before being reused.","ビットは荷重をかけて回転し、岩石を削ったり砕いたりします。泥水ポンプが掘削泥水をドリルパイプの内側へ送り込み、泥水はビットのノズルから噴き出したあと、パイプと坑壁の間のアニュラスを上昇して掘りくずを地上へ運びます。泥水はビットを冷やし、自重で地層圧を抑え、坑壁にマッドケーキを作って崩壊を防ぎます。地上ではシェールシェーカーで掘りくずを分離します。地熱井から戻る泥水は高温なので、冷却塔で冷ましてから再利用することが多いです。"],
+"頂部驅動帶動鑽桿，鑽頭磨碎岩石":["The top drive spins the pipe; the bit grinds rock","トップドライブがパイプを回し、ビットが岩を削る"],
+"泥漿由鑽桿內往下，從鑽頭噴出":["Mud flows down the pipe and jets from the bit","泥水はパイプ内を下り、ビットから噴き出す"],
+"泥漿沿環空上返，把岩屑帶回地面":["It returns up the annulus, carrying cuttings","泥水はアニュラスを上り、掘りくずを地上へ"],
+"振動篩分離岩屑，泥漿冷卻後再循環":["Shakers remove cuttings; cooled mud is reused","シェーカーで掘りくずを分離、冷やして再循環"],
+"泥漿循環（示意）":["Mud circulation (schematic)","泥水循環（模式図）"],
+"泥漿泵":["Mud pump","泥水ポンプ"],
+"振動篩":["Shaker","シェーカー"],
+"鑽桿（往下）":["Drill pipe (down)","ドリルパイプ（下降）"],
+"環空（上返）":["Annulus (up)","アニュラス（上昇）"],
+"帶著岩屑":["with cuttings","掘りくずを運ぶ"],
+"泥漿的四個任務":["Four jobs of drilling mud","泥水の四つの役割"],
+"帶出岩屑":["Lift cuttings","掘りくずの排出"],
+"沿環空把岩屑送回地面":["Carries cuttings up the annulus to the surface","アニュラスを通して掘りくずを地上へ運ぶ"],
+"冷卻鑽頭":["Cool the bit","ビットの冷却"],
+"高溫井常加裝泥漿冷卻塔":["Hot wells often add a mud cooling tower","高温井では泥水冷却塔を加えることが多い"],
+"平衡地層壓力":["Balance pressure","地層圧の制御"],
+"泥漿重量壓住地層流體":["The mud's weight holds back formation fluids","泥水の重さで地層流体を抑える"],
+"穩定井壁":["Support the wall","坑壁の安定"],
+"在井壁形成一層泥餅":["Builds a thin filter cake on the wall","坑壁に薄いマッドケーキを作る"],
+"套管與固井":["Casing and cementing","ケーシングとセメンチング"],
+"井愈鑽愈深，要分段下入鋼製套管，像望遠鏡一樣由粗到細。先下導管防止表土崩塌，再下表層套管隔絕淺層地下水，接著是承受高溫高壓的生產套管；儲集層段則放入開了縫的割縫襯管，讓熱水流進井內。每下一層套管，就把水泥從套管內泵下，經底部返到環空，一路填滿到地表。地熱井的套管通常全段固井，受熱膨脹時才不會變形。":["As the hole deepens, steel casing is run in stages, stepping down in size like a telescope. A conductor keeps the topsoil from collapsing, surface casing seals off shallow groundwater, and production casing withstands high temperature and pressure. Across the reservoir, a slotted liner lets hot water flow into the well. After each string is run, cement is pumped down inside it, out through the bottom and up the annulus all the way to the surface. Geothermal casing is usually cemented along its full length so it does not deform when it expands with heat.","坑が深くなるにつれ、鋼製ケーシングを段階的に挿入し、望遠鏡のように太いものから細いものへ移ります。まず導管で表土の崩壊を防ぎ、表層ケーシングで浅層地下水を遮断し、続いて高温高圧に耐える生産ケーシングを入れます。貯留層区間には切れ目を入れたスロッテッドライナーを置き、熱水を坑内へ導きます。ケーシングを入れるたびに、セメントを内側から圧送し、底から回り込ませてアニュラスを地表まで満たします。地熱井のケーシングは通常全長をセメントで固め、熱膨張しても変形しないようにします。"],
+"由粗到細，分段下入鋼製套管":["Steel casing goes in stages, large to small","太い順に鋼製ケーシングを段階的に挿入"],
+"表層套管隔絕淺層地下水":["Surface casing seals off shallow groundwater","表層ケーシングで浅層地下水を遮断"],
+"水泥從底部返到環空，一路填到地表":["Cement returns up the annulus to the surface","セメントが底から回り込み地表まで充填"],
+"儲集層段放入割縫襯管，讓熱水流入":["A slotted liner in the reservoir lets hot water in","貯留層区間にスロッテッドライナーを入れ熱水を導く"],
+"套管配置（示例）":["Casing program (example)","ケーシング構成（例）"],
+"水泥":["Cement","セメント"],
+"深度刻度非線性":["Non-linear depth scale","深度目盛りは非線形"],
+"由粗到細的套管":["Casing, large to small","太い順のケーシング"],
+"套管":["String","ケーシング"],
+"管徑":["Size","管径"],
+"下深（示例）":["Depth (example)","設置深度（例）"],
+"作用":["Purpose","役割"],
+"導管":["Conductor","導管"],
+"防止表土崩塌":["Holds back topsoil","表土の崩壊を防ぐ"],
+"表層套管":["Surface casing","表層ケーシング"],
+"隔絕淺層地下水":["Seals off groundwater","浅層地下水を遮断"],
+"生產套管":["Production casing","生産ケーシング"],
+"承受高溫高壓":["Withstands heat and pressure","高温高圧に耐える"],
+"割縫襯管":["Slotted liner","スロッテッドライナー"],
+"儲集層段，讓熱水流入":["Lets reservoir fluid in","貯留層区間、熱水を導く"],
+"約 50 m":["≈ 50 m","約 50 m"],
+"約 300 m":["≈ 300 m","約 300 m"],
+"約 1,000 m":["≈ 1,000 m","約 1,000 m"],
+"固井":["Cementing","セメンチング"],
+"水泥由套管內泵入，從底部返到環空，一路填到地表":["Cement is pumped down the casing and back up the annulus to surface","セメントをケーシング内から圧送し、底からアニュラスを地表まで満たす"],
+"地熱井多全段固井，套管受熱膨脹時才不會變形":["Full-length cementing keeps hot, expanding casing from deforming","全長を固めることで、熱膨張してもケーシングが変形しない"],
+"固井也封住各地層，防止熱水竄入淺層地下水":["It also seals each layer so hot water cannot reach shallow aquifers","各地層も封じ、熱水が浅層地下水へ入るのを防ぐ"],
+"定向鑽井":["Directional drilling","傾斜掘削"],
+"地熱儲集層的熱水多沿著斷層與裂隙流動，直井不一定碰得到。定向鑽井先垂直鑽到造斜點（KOP），再用井下泥漿馬達與隨鑽量測（MWD）控制方向，讓井身逐漸傾斜，斜穿更多裂隙帶。同一個井場可以朝不同方向鑽出多口井，井口集中，減少整地與道路，也方便日後集中管線。本例在 500 公尺處造斜，井斜 30°（示例）。":["Hot water in a geothermal reservoir mostly moves along faults and fractures, which a vertical well may miss. Directional drilling goes straight down to a kick-off point (KOP), then uses a downhole mud motor and measurement while drilling (MWD) to steer, gradually tilting the well so it cuts across more fracture zones. Several wells can be drilled in different directions from one pad, keeping wellheads together, reducing land clearing and roads, and making it easier to gather pipelines later. Here the kick-off is at 500 m and the inclination is 30° (example).","地熱貯留層の熱水は主に断層や割れ目に沿って流れるため、垂直井では当たらないことがあります。傾斜掘削では、まずキックオフポイント（KOP）まで垂直に掘り、坑内のマッドモーターと掘削同時測定（MWD）で方向を制御しながら坑を徐々に傾け、より多くの割れ目帯を斜めに貫きます。一つのパッドから別々の方向へ複数の井戸を掘れるので、坑口がまとまり、造成や道路が減り、後の配管もまとめやすくなります。この例では 500 m でキックオフし、傾斜角は 30° です（例）。"],
+"同一井場，先鑽一口直井":["From one pad, a vertical well comes first","一つのパッドから、まず垂直井を掘る"],
+"到了造斜點，井身開始傾斜":["At the kick-off point, the well starts to tilt","キックオフポイントで坑が傾き始める"],
+"泥漿馬達與隨鑽量測控制方向":["A mud motor and MWD steer the well","マッドモーターと MWD で方向を制御"],
+"斜井穿過更多裂隙帶，熱水較多":["Deviated wells cross more fractures, finding more hot water","傾斜井は多くの割れ目を貫き、熱水が多い"],
+"直井":["Vertical well","垂直井"],
+"造斜點（KOP）":["Kick-off point","キックオフ点（KOP）"],
+"泥漿馬達＋MWD":["Mud motor + MWD","マッドモーター＋MWD"],
+"斷層裂隙帶":["Fracture zone","断層破砕帯"],
+"同一井場多口井":["Several wells, one pad","一つのパッドに複数井"],
+"定向井（示例）":["Deviated well (example)","傾斜井（例）"],
+"井斜角":["Inclination","傾斜角"],
+"垂直深度":["TVD","垂直深度"],
+"水平位移":["Offset","水平変位"],
+"量測深度":["Measured depth","掘削長"],
+"井控與高溫挑戰":["Well control in hot wells","坑井制御と高温対策"],
+"地熱井溫度高，井內熱水一旦減壓，就可能閃化成蒸氣，體積急遽膨脹，把泥漿推出井口，稱為井涌，失控就成為井噴。鑽台下方的防噴器（BOP）組可在短時間內關閉：環形防噴器包住鑽桿，閘板封住井筒，再經節流管線慢慢釋壓。高溫也會讓泥漿變質、水泥強度下降，因此要冷卻泥漿、使用耐高溫水泥；遇到裂隙吸走泥漿，則改用充氣泥漿鑽進。":["Geothermal wells are hot: if the pressure on the water in the hole drops, it can flash to steam, expand violently and push mud out of the well. This is a kick, and if it gets out of control it becomes a blowout. The blowout preventer (BOP) stack below the rig floor can close quickly: the annular preventer grips the drill pipe, the rams seal the wellbore, and pressure is bled off slowly through the choke line. Heat also degrades mud and weakens cement, so crews cool the mud and use heat-resistant cement. When fractures swallow the mud, drilling switches to aerated mud.","地熱井は高温で、坑内の熱水は圧力が下がるとフラッシュして蒸気になり、体積が急激に増えて泥水を坑口から押し出します。これをキックと呼び、制御できなければ噴出（ブローアウト）になります。リグフロア下の噴出防止装置（BOP）は短時間で閉じることができ、アニュラー BOP がドリルパイプを包み、ラムが坑を封じ、チョークラインから少しずつ圧力を逃がします。高温は泥水を劣化させセメント強度も下げるため、泥水を冷却し、耐熱セメントを使います。割れ目に泥水が逸失する場合は、エアレーテッド泥水に切り替えて掘削します。"],
+"壓力一降，高溫熱水就可能閃化成蒸氣":["When pressure drops, hot water can flash to steam","圧力が下がると、高温の熱水は蒸気にフラッシュする"],
+"地層流體湧入井內，稱為井涌":["Formation fluid entering the well is a kick","地層流体が坑内に流入するのがキック"],
+"防噴器關閉閘板，經節流管線控制壓力":["The BOP rams close; the choke line controls pressure","BOP のラムを閉じ、チョークラインで圧力を制御"],
+"冷卻泥漿、耐高溫水泥，對付高溫":["Cooled mud and heat-resistant cement handle the heat","泥水冷却と耐熱セメントで高温に対処"],
+"裂隙吸走泥漿時，改用充氣泥漿鑽進":["If fractures swallow mud, drilling switches to aerated mud","割れ目で泥水が逸失したらエアレーテッド泥水へ"],
+"防噴器組（BOP）":["BOP stack","噴出防止装置（BOP）"],
+"環形防噴器":["Annular preventer","アニュラー BOP"],
+"盲板／剪切閘板":["Blind/shear rams","ブラインド／シアラム"],
+"管柱閘板":["Pipe rams","パイプラム"],
+"壓井管線":["Kill line","キルライン"],
+"節流管線":["Choke line","チョークライン"],
+"節流管匯":["Choke manifold","チョークマニホールド"],
+"套管頭":["Casing head","ケーシングヘッド"],
+"井涌":["Kick","キック"],
+"井已關閉":["Well shut in","坑井閉鎖"],
+"高溫地熱井的挑戰":["Challenges of hot wells","高温地熱井の課題"],
+"閃化與井涌":["Flashing and kicks","フラッシュとキック"],
+"熱水減壓沸騰，體積暴增":["Hot water boils as pressure drops and expands fast","減圧で熱水が沸騰し、体積が急増"],
+"泥漿冷卻":["Mud cooling","泥水冷却"],
+"地面冷卻塔降低回流泥漿溫度":["A surface cooling tower cools the returning mud","地上の冷却塔で戻り泥水の温度を下げる"],
+"耐高溫材料":["Heat-resistant materials","耐熱材料"],
+"耐熱水泥、套管熱膨脹設計":["Heat-resistant cement, casing designed for expansion","耐熱セメントとケーシングの熱膨張設計"],
+"泥漿漏失":["Lost circulation","逸泥"],
+"裂隙吸走泥漿，改用充氣泥漿":["Fractures swallow mud, so aerated mud is used","割れ目が泥水を吸い込むため、エアレーテッド泥水を使う"],
+"井口設備與流量測試":["Wellhead and flow test","坑口装置と噴出試験"],
+"完井後鑽機移走，井口裝上主閥與側翼閥，控制熱水流出。先讓井垂直排放，把殘留的泥漿與岩屑沖乾淨；再把流體接到消音器，也就是大氣壓分離器：量測排放管末端的唇壓，並用堰箱量測分離出的熱水，就能推算總流量與焓值，判斷這口井能供應多少熱。測試常持續數週（示例），並觀察流量與溫度是否穩定。":["Once the well is complete the rig moves away, and a master valve and wing valve are fitted to control the flow. The well is first discharged vertically to flush out leftover mud and cuttings. The flow is then sent to a silencer, an atmospheric separator: measuring the lip pressure at the end of the discharge pipe and the separated water over a weir box gives the total flow and enthalpy, showing how much heat the well can supply. Tests often run for several weeks (example) to see whether flow and temperature stay stable.","仕上げが終わるとリグは撤去され、坑口にマスターバルブとウイングバルブを取り付けて熱水の流れを制御します。まず垂直噴出で残った泥水や掘りくずを洗い流し、次に流体をサイレンサー（大気圧セパレーター）へ導きます。噴出管末端のリップ圧を測り、分離した熱水をせき箱で計量すると、総流量とエンタルピーが求まり、その井戸がどれだけの熱を供給できるか判断できます。試験は数週間続くことが多く（例）、流量と温度が安定するかを観察します。"],
+"鑽機移走，井口裝上主閥與側翼閥":["The rig leaves; master and wing valves are fitted","リグを撤去し、マスターバルブとウイングバルブを設置"],
+"先垂直排放，把井內泥漿與岩屑沖乾淨":["A vertical discharge first flushes out mud and cuttings","まず垂直噴出で泥水と掘りくずを洗い流す"],
+"改接消音器，量測排放管末端的唇壓":["Flow goes to a silencer; lip pressure is measured","サイレンサーへ切り替え、リップ圧を測定"],
+"堰箱量水，推算總流量與焓值":["A weir box gauges water, giving flow and enthalpy","せき箱で水量を測り、総流量とエンタルピーを算出"],
+"主閥":["Master valve","マスターバルブ"],
+"側翼閥":["Wing valve","ウイングバルブ"],
+"垂直排放":["Vertical discharge","垂直噴出"],
+"唇壓量測":["Lip pressure","リップ圧測定"],
+"消音器":["Silencer","サイレンサー"],
+"堰箱量水":["Weir box","せき箱で計量"],
+"流量測試（示例）":["Flow test (example)","噴出試験（例）"],
+"測試":["Test","試験"],
+"第 {n} 天":["Day {n}","{n} 日目"],
+"唇壓":["Lip pressure","リップ圧"],
+"總流量":["Total flow","総流量"],
+"焓值":["Enthalpy","エンタルピー"],
+"從探勘井到生產井":["From exploration to production","探査井から生産井へ"],
+"地熱開發先做地表調查，綜合地質、溫泉化學與地球物理資料選定井位，再鑽探勘井確認溫度與地層，經流量測試證明產能後，才鑽生產井與回注井並興建電廠。台灣自 1976 年起在宜蘭清水、土場鑽過 15 口地熱井；中研院與中油合作的員山 1 號井鑽到近 4,000 公尺，井底實測約 150°C，完成後轉為光纖監測井，冬山的第二口深層井也接續開鑽。":["Geothermal development starts with surface surveys, combining geology, hot-spring chemistry and geophysics to choose a well site. An exploration well then confirms temperature and rock conditions, and only after a flow test proves the output are production and injection wells drilled and a plant built. Since 1976, 15 geothermal wells have been drilled at Qingshui and Tuchang in Yilan. Yuanshan No. 1, a joint project of Academia Sinica and CPC, reached nearly 4,000 m with a measured bottom-hole temperature of about 150°C and was then converted into a fibre-optic monitoring well; a second deep well at Dongshan has followed.","地熱開発は地表調査から始まり、地質、温泉の化学分析、物理探査のデータを総合して井戸の位置を決めます。次に探査井で温度と地層を確認し、噴出試験で生産能力が証明されてから、生産井と還元井を掘り、発電所を建設します。台湾では 1976 年以降、宜蘭の清水・土場で 15 本の地熱井が掘られました。中央研究院と台湾中油による員山 1 号井は約 4,000 m に達し、坑底実測約 150°C を記録したあと光ファイバー観測井に転用され、冬山では 2 本目の深部井の掘削が続いています。"],
+"一口地熱井，從地表探勘開始":["A geothermal well begins with surface surveys","地熱井は地表調査から始まる"],
+"探勘井與流量測試，確認值得開發":["An exploration well and flow test confirm the prospect","探査井と噴出試験で開発価値を確認"],
+"再鑽生產井與回注井，接上電廠":["Then production and injection wells feed a plant","続いて生産井と還元井を掘り、発電所へ"],
+"台灣已鑽到近 4,000 m 的深層地熱":["Taiwan has drilled nearly 4,000 m for deep geothermal","台湾は深部地熱で約 4,000 m まで掘削"],
+"完鑽的井也能轉為監測井，持續量測":["A finished well can become a monitoring well","掘削後の井戸は観測井としても活用できる"],
+"地表探勘":["Surface survey","地表調査"],
+"地質與地球物理":["Geology & geophysics","地質と物理探査"],
+"探勘井":["Exploration well","探査井"],
+"確認溫度與地層":["Confirm heat & rock","温度と地層を確認"],
+"流量測試":["Flow test","噴出試験"],
+"量測流量與焓值":["Flow & enthalpy","流量とエンタルピー"],
+"生產井與回注井":["Prod. & injection","生産井と還元井"],
+"地熱電廠":["Power plant","地熱発電所"],
+"發電並持續監測":["Power & monitoring","発電と継続監視"],
+"步驟 {n}":["Step {n}","ステップ {n}"],
+"台灣的地熱鑽井":["Geothermal drilling in Taiwan","台湾の地熱掘削"],
+"1976 年起":["From 1976","1976 年以降"],
+"中油在清水、土場鑽 15 口地熱井":["CPC drilled 15 wells at Qingshui and Tuchang","中油が清水・土場で地熱井 15 本を掘削"],
+"深 902–3,000 m，最高約 230°C":["902–3,000 m deep, up to about 230°C","深さ 902–3,000 m、最高約 230°C"],
+"員山 1 號井：第一口深層探測井":["Yuanshan No. 1: first deep exploration well","員山 1 号井：初の深部探査井"],
+"鑽到近 4,000 m，井底約 150°C":["Nearly 4,000 m deep, about 150°C at the bottom","約 4,000 m まで掘削、坑底約 150°C"],
+"接續開鑽":["Next","続いて掘削"],
+"冬山：第二口深層地熱井":["Dongshan: second deep geothermal well","冬山：2 本目の深部地熱井"],
+"目標約 4,000 m":["Target about 4,000 m","目標約 4,000 m"],
+"一口井的不同角色":["Different roles for a well","井戸のさまざまな役割"],
+"確認溫度、地層與流量":["Checks temperature, rock and flow","温度、地層、流量を確認"],
 "生產井":["Production well","生産井"],
-"地熱儲集層":["Geothermal reservoir","地熱貯留層"],
-"熱交換器":["Heat exchanger","熱交換器"],
-"發電機房":["Power house","発電建屋"],
-"變電站":["Substation","変電所"],
+"把熱水送到地面電廠":["Brings hot water up to the plant","熱水を地上の発電所へ送る"],
 "回注井":["Injection well","還元井"],
-"地熱電廠（示例）":["Geothermal plant (example)","地熱発電所（例）"],
-"井口溫度":["Wellhead temp","坑口温度"],
-"發電":["Output","発電"],
-"回注":["Injection","還元"],
-"運轉中":["Running","運転中"],
-/* 分鏡 2 */
-"地下的熱從哪裡來":["Where the heat comes from","地下の熱はどこから"],
-"地球內部的熱主要來自岩石中放射性元素衰變與地球形成時留下的熱，一般地區每往下一公里，溫度約升高 25 到 30°C。在火山或板塊活動旺盛的地方，高溫岩體離地表較近，溫度上升得更快。地熱儲集層需要三個條件：熱源、有裂隙可讓熱水流動的岩層，以及上方不透水的蓋層把熱水封住；雨水沿斷層滲入地下，被加熱後形成熱水或蒸氣，部分沿裂隙冒出成為溫泉與噴氣孔。":["The Earth's internal heat comes mainly from the decay of radioactive elements in rock and from heat left over from the planet's formation. In most places the temperature rises by about 25 to 30°C for every kilometre of depth. In volcanic or tectonically active regions, hot rock lies closer to the surface and temperatures climb faster. A geothermal reservoir needs three things: a heat source, fractured rock that lets hot water flow, and an impermeable cap rock above that seals the water in. Rainwater seeps down along faults, is heated into hot water or steam, and some of it rises through cracks as hot springs and fumaroles.","地球内部の熱は、主に岩石中の放射性元素の崩壊と、地球が形成されたときに残った熱に由来します。一般的な地域では深さ 1 キロメートルごとに温度が約 25〜30°C 上がります。火山やプレート活動が盛んな地域では高温の岩体が地表近くにあり、温度はより速く上がります。地熱貯留層には三つの条件が必要です。熱源、熱水が流れる割れ目のある岩盤、そして熱水を閉じ込める不透水性のキャップロックです。雨水は断層に沿って地下へしみ込み、加熱されて熱水や蒸気となり、一部は割れ目を通って温泉や噴気孔として地表に現れます。"],
-"每往地下一公里，溫度約升高 25–30°C":["Temperature rises about 25–30°C per kilometre of depth","地下 1 km ごとに温度が約 25–30°C 上がる"],
-"雨水沿斷層滲入地下，被熱源加熱":["Rain seeps down along faults and is heated","雨水が断層に沿ってしみ込み、熱源で温められる"],
-"不透水的蓋層把熱水封在儲集層裡":["An impermeable cap rock seals the hot water in","不透水性のキャップロックが熱水を閉じ込める"],
-"火山與板塊活動區，地下溫度升得更快":["In volcanic and tectonic areas, temperatures rise faster","火山やプレート活動域では地温がより速く上がる"],
-"地熱儲集層的三個條件":["Three ingredients of a reservoir","地熱貯留層の三つの条件"],
-"地表":["Surface","地表"],
-"蓋層（不透水）":["Cap rock (sealed)","キャップロック（不透水）"],
-"儲集層（裂隙岩層）":["Reservoir (fractured rock)","貯留層（割れ目のある岩盤）"],
-"熱源（高溫岩體）":["Heat source (hot rock)","熱源（高温岩体）"],
-"雨水補注":["Rain recharge","雨水の涵養"],
-"溫泉、噴氣孔":["Hot springs, fumaroles","温泉・噴気孔"],
-"地溫隨深度增加（示意）":["Temperature rises with depth (schematic)","深さとともに上がる地温（模式）"],
-"溫度（°C）":["Temperature (°C)","温度（°C）"],
-"深度（km）":["Depth (km)","深さ（km）"],
-"一般地區 約 28°C/km":["Typical area ~28°C/km","一般地域 約 28°C/km"],
-"地熱區 2 km 約 150°C":["Geothermal ~150°C at 2 km","地熱地域 2 km で約 150°C"],
-"火山區 可達約 290°C":["Volcanic area up to ~290°C","火山地域 約 290°C に達する"],
-/* 分鏡 3 */
-"生產井與回注井":["Production and injection wells","生産井と還元井"],
-"地熱井的鑽法和石油井相似，鑽到約兩千公尺深，井內下鋼製套管並灌注水泥固定，防止熱水流失或汙染淺層地下水。生產井常以傾斜方式穿過更多裂隙，增加出水量。熱水上升時壓力降低，要控制井口壓力與流量，避免結垢堵塞。放熱後的地熱水由回注井送回儲集層，距離生產井要夠遠，讓回注水在地下重新被加熱，同時補充水量、維持壓力，也避免地層下陷。":["Geothermal wells are drilled much like oil wells, to about 2,000 metres. Steel casing is run into the hole and cemented in place so that hot water neither escapes nor contaminates shallow groundwater. Production wells are often deviated to cut through more fractures and raise the flow. As the hot water rises its pressure falls, so wellhead pressure and flow are controlled to prevent scaling and blockage. After giving up its heat, the water returns to the reservoir through an injection well placed far enough from the production well for the water to be reheated underground, while also replenishing the water, maintaining pressure and preventing ground subsidence.","地熱井は石油井とよく似た方法で深さ約 2,000 メートルまで掘削し、鋼製ケーシングを挿入してセメントで固定し、熱水の漏出や浅層地下水の汚染を防ぎます。生産井はより多くの割れ目を貫くよう傾斜させて掘ることが多く、出水量を増やします。熱水は上昇とともに圧力が下がるため、坑口の圧力と流量を管理してスケールによる閉塞を防ぎます。熱を渡した地熱水は還元井から貯留層へ戻します。還元井は生産井から十分に離し、還元水が地下で再び温められるようにするとともに、水量を補い、圧力を保ち、地盤沈下も防ぎます。"],
-"剖開地面：兩口井深入約 2000 m 的儲集層":["Cutaway: two wells reach a reservoir about 2000 m down","地面を切り開くと、2 本の井戸が深さ約 2000 m の貯留層へ"],
-"鋼製套管與水泥固定井壁，保護地下水":["Steel casing and cement seal the well and protect groundwater","鋼製ケーシングとセメントで坑壁を固め、地下水を守る"],
-"熱水從生產井上升到地面":["Hot water rises up the production well","熱水が生産井を上って地上へ"],
-"回注水在地下重新加熱，維持儲集層壓力":["Injected water is reheated underground and keeps pressure up","還元水が地下で再加熱され、貯留層の圧力を保つ"],
-"套管與水泥":["Casing and cement","ケーシングとセメント"],
-"蓋層":["Cap rock","キャップロック"],
-"重新加熱":["Reheated","再加熱"],
-"地熱井（示例）":["Geothermal wells (example)","地熱井（例）"],
-"井深":["Well depth","井戸の深さ"],
-"出水溫度":["Outflow temp","産出温度"],
-"回注溫度":["Injection temp","還元温度"],
-"約 150°C":["~150°C","約 150°C"],
-"約 90°C":["~90°C","約 90°C"],
-/* 分鏡 4 */
-"閃化式發電":["Flash steam power","フラッシュ方式"],
-"溫度較高、約 180°C 以上的地熱田，多採用閃化式發電。地下的高溫熱水承受很高的壓力，抽到地面減壓時，一部分會瞬間沸騰成蒸氣，稱為閃化。汽水分離器把蒸氣和熱水分開，蒸氣推動汽輪機帶動發電機，用過的蒸氣在冷凝器凝結成水，經冷卻塔散熱；分離出的熱水與冷凝水再一起回注地下。印尼、菲律賓與紐西蘭的大型地熱電廠多屬這一類。":["Hotter geothermal fields, above about 180°C, usually use flash steam plants. Underground, the hot water is under high pressure; when it reaches the surface and the pressure drops, part of it instantly boils into steam, which is called flashing. A separator splits the steam from the water. The steam drives a turbine and generator, then condenses back into water in a condenser, with a cooling tower rejecting the heat. The separated brine and the condensate are injected back underground together. Most large geothermal plants in Indonesia, the Philippines and New Zealand are of this type.","温度が高く約 180°C を超える地熱田では、主にフラッシュ方式が採用されます。地下の高温熱水は高い圧力を受けており、地上にくみ上げて減圧すると一部が瞬時に沸騰して蒸気になります。これをフラッシュと呼びます。気水分離器で蒸気と熱水を分け、蒸気でタービンと発電機を回し、使い終えた蒸気は復水器で水に戻して冷却塔で放熱します。分離した熱水と復水は一緒に地下へ還元します。インドネシア、フィリピン、ニュージーランドの大規模地熱発電所の多くがこの方式です。"],
-"高壓熱水從生產井抽到地面":["High-pressure hot water comes up the production well","高圧の熱水を生産井から地上へくみ上げる"],
-"減壓時部分熱水瞬間沸騰成蒸氣":["As pressure drops, part of it flashes into steam","減圧で一部の熱水が瞬時に沸騰して蒸気に"],
-"蒸氣推動汽輪機，帶動發電機":["Steam spins the turbine and generator","蒸気がタービンを回し、発電機を駆動"],
-"冷凝器把蒸氣變回水，冷卻塔散熱":["The condenser turns steam back to water; the tower sheds heat","復水器で蒸気を水に戻し、冷却塔で放熱"],
-"熱水與冷凝水一起回注地下":["Brine and condensate are injected back underground","熱水と復水を一緒に地下へ還元"],
-"適用：約 180°C 以上的高溫地熱田":["For hot fields above about 180°C","適用：約 180°C 以上の高温地熱田"],
-"熱水減壓 → 部分急速汽化（閃化）":["Pressure drop → part flashes to steam","減圧 → 一部が急速に気化（フラッシュ）"],
-"汽水分離器":["Separator","気水分離器"],
-"汽輪機":["Steam turbine","蒸気タービン"],
-"發電機":["Generator","発電機"],
-"冷凝器":["Condenser","復水器"],
-"冷卻塔":["Cooling tower","冷却塔"],
-"蒸氣":["Steam","蒸気"],
-"熱水":["Brine","熱水"],
-/* 分鏡 5 */
-"雙循環發電":["Binary cycle (ORC)","バイナリー方式"],
-"溫度約 100 到 180°C 的中低溫地熱，常用雙循環發電，也稱有機朗肯循環（ORC）。地熱水只在熱交換器裡把熱傳給另一套封閉迴路中的工作流體，例如沸點約 28°C 的異戊烷；工作流體受熱汽化，推動渦輪與發電機，再到氣冷式冷凝器冷凝，由泵送回熱交換器。地熱水不接觸渦輪，放熱後全部回注，稱為「取熱不取水」。宜蘭清水地熱電廠就是採用這種方式。":["Moderate-temperature resources of about 100 to 180°C often use a binary cycle, also called an organic Rankine cycle (ORC). The geothermal water only passes its heat, in a heat exchanger, to a working fluid in a separate closed loop, such as isopentane, which boils at about 28°C. The working fluid vaporises, drives a turbine and generator, is condensed in an air-cooled condenser, and is pumped back to the heat exchanger. The geothermal water never touches the turbine and is all injected back after giving up its heat, an approach summed up as 'take the heat, not the water'. The Qingshui plant in Yilan works this way.","温度約 100〜180°C の中低温の地熱では、バイナリー方式（有機ランキンサイクル、ORC）がよく使われます。地熱水は熱交換器の中で、別の閉じた回路を流れる作動流体に熱を渡すだけです。作動流体には沸点約 28°C のイソペンタンなどを使い、加熱されて気化し、タービンと発電機を回したあと空冷式凝縮器で凝縮し、ポンプで熱交換器へ戻ります。地熱水はタービンに触れず、熱を渡した後はすべて還元されるため「熱だけを取り、水は取らない」方式と呼ばれます。宜蘭の清水地熱発電所もこの方式です。"],
-"地熱水進入熱交換器，只交出熱量":["Geothermal water enters the exchanger and gives up only heat","地熱水が熱交換器に入り、熱だけを渡す"],
-"工作流體沸點低，受熱就汽化":["The low-boiling working fluid vaporises","沸点の低い作動流体が加熱されて気化"],
-"工作流體蒸氣推動渦輪與發電機":["The vapour drives the turbine and generator","作動流体の蒸気がタービンと発電機を回す"],
-"氣冷式冷凝器把工作流體冷凝，泵送回去":["An air-cooled condenser liquefies it and a pump returns it","空冷式凝縮器で凝縮し、ポンプで戻す"],
-"地熱水全部回注：取熱不取水":["All water is injected: take the heat, not the water","地熱水はすべて還元：熱だけを取り水は取らない"],
-"適用：約 100–180°C 的中低溫地熱":["For moderate resources of 100–180°C","適用：約 100–180°C の中低温地熱"],
-"工作流體沸點低（異戊烷約 28°C）":["Low-boiling fluid (isopentane ~28°C)","低沸点の作動流体（イソペンタン約 28°C）"],
-"熱交換器（蒸發器）":["Heat exchanger (evaporator)","熱交換器（蒸発器）"],
-"渦輪":["Turbine","タービン"],
-"氣冷式冷凝器":["Air-cooled condenser","空冷式凝縮器"],
-"工作流體泵":["Fluid pump","作動流体ポンプ"],
-"工作流體":["Working fluid","作動流体"],
-"取熱不取水":["Take the heat, not the water","熱だけを取り、水は取らない"],
-"地熱水不接觸渦輪，全部回注地下":["Water never touches the turbine; all goes back down","地熱水はタービンに触れず、すべて地下へ還元"],
-/* 分鏡 6 */
-"台灣的地熱":["Geothermal energy in Taiwan","台湾の地熱"],
-"台灣位在歐亞板塊與菲律賓海板塊交界，地熱資源豐富。北部大屯火山群的地下熱水溫度最高約 293°C，但多為酸性流體，pH 約 1.3 到 3.9，會腐蝕管線，是開發的主要難題。宜蘭清水地熱屬中低溫熱水，約 150°C，2021 年起以 4.2 MW 的雙循環機組商轉。工研院估計深度 3 公里內的淺層地熱潛能約 989 MW，更深的深層地熱約 32 GW；經濟部規劃 2030 年累計 200 MW，2050 年願景 6 GW。":["Taiwan sits where the Eurasian and Philippine Sea plates meet, and it is rich in geothermal resources. Underground water in the Tatun Volcano Group in the north reaches about 293°C, but it is mostly acidic, with a pH of about 1.3 to 3.9, and corrodes pipework, the main obstacle to development. Qingshui in Yilan is a moderate-temperature hot-water resource of about 150°C, and a 4.2 MW binary plant has run there commercially since 2021. ITRI estimates shallow potential within 3 km depth at about 989 MW and deeper potential at about 32 GW. The Ministry of Economic Affairs plans a cumulative 200 MW by 2030 and envisions 6 GW by 2050.","台湾はユーラシアプレートとフィリピン海プレートの境界に位置し、地熱資源が豊富です。北部の大屯火山群では地下熱水の温度が最高約 293°C に達しますが、多くは pH 約 1.3〜3.9 の酸性流体で配管を腐食させることが開発の大きな課題です。宜蘭の清水地熱は約 150°C の中低温熱水型で、2021 年から 4.2 MW のバイナリー発電設備が商業運転しています。工業技術研究院は深度 3 km 以内の浅部地熱ポテンシャルを約 989 MW、より深い深部地熱を約 32 GW と推計しています。経済部は 2030 年に累計 200 MW、2050 年に 6 GW を目指しています。"],
-"台灣位在板塊交界，地熱資源豐富":["Taiwan sits on a plate boundary, rich in geothermal heat","台湾はプレート境界にあり、地熱資源が豊富"],
-"大屯火山群溫度高，但流體呈強酸性":["Tatun is very hot, but its fluids are strongly acidic","大屯火山群は高温だが、流体は強酸性"],
-"宜蘭清水以雙循環機組商轉":["Qingshui in Yilan runs a binary plant commercially","宜蘭・清水はバイナリー設備で商業運転"],
-"淺層潛能約 989 MW，深層約 32 GW":["Shallow potential ~989 MW, deep ~32 GW","浅部ポテンシャル約 989 MW、深部約 32 GW"],
-"目標 2030 年累計 200 MW":["Target: 200 MW cumulative by 2030","2030 年に累計 200 MW が目標"],
-"主要地熱區（示意）":["Main geothermal areas (schematic)","主な地熱地域（模式）"],
-"中央山脈":["Central Range","中央山脈"],
-"大屯火山群":["Tatun Volcano Group","大屯火山群"],
-"最高約 293°C":["Up to ~293°C","最高約 293°C"],
-"強酸性 pH 1.3–3.9":["Strongly acidic, pH 1.3–3.9","強酸性 pH 1.3–3.9"],
-"宜蘭清水":["Qingshui, Yilan","宜蘭・清水"],
-"約 150°C、4.2 MW":["~150°C, 4.2 MW","約 150°C、4.2 MW"],
-"2021 年起商轉":["Operating since 2021","2021 年に商業運転開始"],
-"歐亞板塊與菲律賓海板塊交界":["Eurasian–Philippine Sea plate boundary","ユーラシア・フィリピン海プレート境界"],
-"淺層地熱潛能":["Shallow potential","浅部地熱ポテンシャル"],
-"深層地熱潛能":["Deep potential","深部地熱ポテンシャル"],
-"2030 年目標":["2030 target","2030 年目標"],
-"2050 年願景":["2050 vision","2050 年ビジョン"],
-"深度 3 公里內":["Within 3 km depth","深度 3 km 以内"],
-"深度超過 3 公里":["Below 3 km depth","深度 3 km 超"],
-"累計裝置容量":["Cumulative capacity","累計設備容量"],
-"約 {n} GW":["about {n} GW","約 {n} GW"],
-/* 分鏡 7 */
-"穩定的基載電力":["Steady baseload power","安定したベースロード電源"],
-"地熱電廠不受晝夜與天氣影響，清水地熱機組的可用率約 95%，可以當作基載電力，和隨天候變動的太陽光電、風電互補。開發也有挑戰：地熱水含有礦物質，降溫時容易在管線結垢，早年清水的試驗電廠就曾因結垢與產量衰退停機；酸性流體會腐蝕套管；鑽井成本高、探勘有失敗風險；溫泉區也需要與地方溝通。持續回注與監測，是讓地熱長期運轉的關鍵。":["Geothermal plants are unaffected by day, night or weather. The Qingshui unit has an availability of about 95%, so it can serve as baseload power that complements weather-dependent solar and wind. Development has its challenges: minerals in the water readily form scale in pipes as it cools, and Qingshui's early pilot plant was shut down because of scaling and declining output; acidic fluids corrode casing; drilling is expensive and exploration can fail; and hot-spring communities need to be consulted. Continuous injection and monitoring are the key to keeping a geothermal field running for the long term.","地熱発電所は昼夜や天候の影響を受けません。清水地熱の設備稼働率は約 95% で、ベースロード電源として天候で変動する太陽光や風力を補うことができます。一方で課題もあります。地熱水は鉱物を含み、冷えると配管にスケールが付着しやすく、かつての清水の試験発電所はスケールと産出量の減少で停止しました。酸性流体はケーシングを腐食させます。掘削費用が高く、探査が失敗するリスクもあり、温泉地では地域との対話も欠かせません。継続的な還元と監視が、地熱を長期間運転する鍵です。"],
-"入夜後，地熱電廠照樣穩定發電":["After dark, the plant keeps generating steadily","夜になっても地熱発電所は安定して発電"],
-"礦物質在管線結垢，需要定期清除":["Minerals form scale in pipes and must be cleaned out","鉱物が配管にスケールとして付着し、定期的に除去"],
-"酸性流體會腐蝕套管與管線":["Acidic fluids corrode casing and pipes","酸性流体がケーシングや配管を腐食"],
-"持續回注與監測，維持儲集層長期運轉":["Injection and monitoring keep the reservoir going","継続的な還元と監視で貯留層を長期運転"],
-"結垢":["Scaling","スケール"],
-"酸性腐蝕":["Acid corrosion","酸性腐食"],
-"回注維持壓力":["Injection keeps pressure","還元で圧力維持"],
-"基載電力":["Baseload power","ベースロード電源"],
-"今日運轉（示例）":["Today (example)","本日の運転（例）"],
-"輸出":["Output","出力"],
-"今日發電":["Today's energy","本日の発電量"],
-"可用率":["Availability","稼働率"],
-"約 95%":["~95%","約 95%"]
+"把降溫的地熱水送回地下":["Returns cooled water underground","冷えた地熱水を地下へ戻す"],
+"監測井":["Monitoring well","観測井"],
+"光纖量測地溫與微震":["Fibre-optic temperature & microseismic sensing","光ファイバーで地温と微小地震を計測"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

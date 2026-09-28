@@ -631,6 +631,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "施工",
+            "en": "Construction",
+            "ja": "施工"
+          },
+          "episodes": [
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "地熱鑽井",
+                "en": "Drilling a geothermal well",
+                "ja": "地熱井の掘削"
+              },
+              "sub": {
+                "zh": "鑽機、泥漿循環、套管固井、定向鑽井與流量測試",
+                "en": "Rig, mud circulation, casing and cementing, directional drilling and flow testing",
+                "ja": "リグ、泥水循環、ケーシングとセメンチング、傾斜掘削、噴出試験"
+              }
+            }
+          ]
         }
       ]
     },
