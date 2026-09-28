@@ -511,6 +511,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "規劃",
+            "en": "Planning",
+            "ja": "計画"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "風場選址與風資源評估",
+                "en": "Choosing a site and assessing the wind",
+                "ja": "風力発電所の立地選定と風況評価"
+              },
+              "sub": {
+                "zh": "測風塔與光達、風速三次方、地表粗糙度與地形、尾流間距、住宅距離與限制圖層、P50／P90",
+                "en": "Met masts and lidar, the cube of wind speed, roughness and terrain, wake spacing, distance to homes and constraint layers, P50/P90",
+                "ja": "風況観測塔とライダー、風速の 3 乗、粗度と地形、後流と間隔、住宅からの距離と制約レイヤー、P50／P90"
+              }
+            }
+          ]
         }
       ]
     },
