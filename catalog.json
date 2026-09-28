@@ -268,6 +268,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "未來技術",
+            "en": "Future technology",
+            "ja": "次世代技術"
+          },
+          "episodes": [
+            {
+              "no": 14,
+              "file": "ep14.html",
+              "title": {
+                "zh": "浮動式離岸風電",
+                "en": "Floating offshore wind",
+                "ja": "浮体式洋上風力"
+              },
+              "sub": {
+                "zh": "半潛式、單柱式與張力腳平台，錨繫系統與動態海纜",
+                "en": "Semi-submersible, spar and TLP floaters, moorings and dynamic cables",
+                "ja": "セミサブ型・スパー型・TLP型の浮体、係留とダイナミックケーブル"
+              }
+            }
+          ]
         }
       ]
     },
