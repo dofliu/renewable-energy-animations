@@ -693,6 +693,49 @@
       ]
     },
     {
+      "slug": "bioenergy",
+      "title": {
+        "zh": "生質能",
+        "en": "Bioenergy",
+        "ja": "バイオエネルギー"
+      },
+      "summary": {
+        "zh": "沼氣、生質燃料與焚化發電：把廢棄物與作物變成能源",
+        "en": "Biogas, biofuels and waste-to-energy: turning residues and crops into energy",
+        "ja": "バイオガス、バイオ燃料、廃棄物発電：廃棄物や作物をエネルギーに"
+      },
+      "lede": {
+        "zh": "生質能來自動植物與有機廢棄物，是少數能穩定供電、又能處理廢棄物的再生能源。這個系列從養豬場的沼氣發電談起，介紹厭氧消化、沼氣淨化與發電機組，再延伸到生質燃料、垃圾焚化與汽電共生，以及原料永續與碳排計算的條件。",
+        "en": "Bioenergy comes from plants, animals and organic waste. It is one of the few renewables that can supply steady power while also dealing with waste. This series begins with biogas power on pig farms, covering anaerobic digestion, gas cleaning and generator sets, then moves on to biofuels, waste incineration with cogeneration, and what it takes for feedstocks and carbon accounting to be truly sustainable.",
+        "ja": "バイオエネルギーは動植物や有機廃棄物に由来し、安定した発電と廃棄物処理を両立できる数少ない再生可能エネルギーです。本シリーズは養豚場のバイオガス発電から始め、嫌気性消化、ガス精製、発電機を紹介し、さらにバイオ燃料、ごみ焼却とコージェネレーション、原料の持続可能性と炭素排出の算定条件へと広げます。"
+      },
+      "groups": [
+        {
+          "name": {
+            "zh": "發電原理",
+            "en": "How it works",
+            "ja": "発電の原理"
+          },
+          "episodes": [
+            {
+              "no": 1,
+              "file": "ep01.html",
+              "title": {
+                "zh": "沼氣發電",
+                "en": "Biogas power from livestock manure",
+                "ja": "バイオガス発電"
+              },
+              "sub": {
+                "zh": "厭氧消化四階段、沼氣脫硫、發電機組與餘熱回收、沼渣沼液回到農田",
+                "en": "Four stages of anaerobic digestion, biogas desulfurization, gas engines and heat recovery, digestate on farmland",
+                "ja": "嫌気性消化の 4 段階、バイオガスの脱硫、発電機と排熱回収、消化液の農地利用"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "power-grid",
       "title": {
         "zh": "電網與能源轉型",
