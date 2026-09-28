@@ -369,6 +369,20 @@
                 "en": "Layouts, rack clearance and work routes, the 40% coverage limit, farming calendar, shared operation",
                 "ja": "設置形態、架台高さと作業動線、設置率 40%、養殖カレンダー、三者による共同運営"
               }
+            },
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "水面型浮動式光電",
+                "en": "Floating solar on water",
+                "ja": "水上設置型フロート式太陽光発電"
+              },
+              "sub": {
+                "zh": "浮台構造、錨碇與繫纜、水位升降、抗風與颱風、水面冷卻、水庫與滯洪池應用",
+                "en": "Float units, anchors and moorings, water-level changes, wind and typhoons, water cooling, reservoirs and detention ponds",
+                "ja": "フロートの構造、アンカーと係留、水位変動、風と台風への備え、水面冷却、ダム湖と調整池での活用"
+              }
             }
           ]
         }
