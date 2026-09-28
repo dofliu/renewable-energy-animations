@@ -451,6 +451,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "運轉",
+            "en": "Operation",
+            "ja": "運転"
+          },
+          "episodes": [
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "陸域風場運維",
+                "en": "Operating and maintaining an onshore wind farm",
+                "ja": "陸上風力発電所の運用・保守"
+              },
+              "sub": {
+                "zh": "SCADA、葉片檢修、齒輪箱振動監測、保養與可用率、噪音與鳥類監測",
+                "en": "SCADA, blade repair, gearbox condition monitoring, availability, noise and bird monitoring",
+                "ja": "SCADA、ブレード補修、増速機の状態監視、稼働率、騒音と鳥類のモニタリング"
+              }
+            }
+          ]
         }
       ]
     },
