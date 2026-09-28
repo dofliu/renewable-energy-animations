@@ -506,6 +506,20 @@
                 "en": "Upper and lower reservoirs, reversible pump-turbines, round-trip efficiency, Minghu and Mingtan",
                 "ja": "上池と下池、可逆式ポンプ水車、往復効率、明湖・明潭発電所"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "從電池芯到儲能電廠",
+                "en": "From battery cell to storage plant",
+                "ja": "電池セルから蓄電所へ"
+              },
+              "sub": {
+                "zh": "鋰鐵電池化學、充放電曲線、SOC 與壽命、熱失控與防護",
+                "en": "LFP chemistry, voltage curve, SOC and ageing, thermal runaway and protection",
+                "ja": "リン酸鉄リチウムの化学、充放電曲線、SOC と寿命、熱暴走と防護"
+              }
             }
           ]
         }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep02.js｜儲能系列</title>
+<title>ep03.js｜儲能系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="儲能系列" data-en="Energy Storage series" data-ja="エネルギー貯蔵シリーズ">儲能系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 貨櫃式電池儲能系統" data-en="← 01 Containerized battery energy storage" data-ja="← 01 コンテナ型蓄電池システム">← 01 貨櫃式電池儲能系統</span></a><a href="ep03.html"><span data-zh="03 從電池芯到儲能電廠 →" data-en="03 From battery cell to storage plant →" data-ja="03 電池セルから蓄電所へ →">03 從電池芯到儲能電廠 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="儲能系列" data-en="Energy Storage series" data-ja="エネルギー貯蔵シリーズ">儲能系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="← 02 抽蓄水力" data-en="← 02 Pumped-storage hydropower" data-ja="← 02 揚水発電">← 02 抽蓄水力</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep02.js｜儲能系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep03.js｜儲能系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,419 +543,442 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 儲能系列 第 2 集：抽蓄水力 */
-/* 山體剖面：上池在左上、下池在右下（比例經過壓縮） */
-const TER=[[-400,238],[20,240],[50,300],[120,352],[380,356],[450,300],[490,262],[560,210],[630,188],[700,215],[800,300],[900,420],[960,478],[1010,482],[1040,520],[1080,600],[1120,660],[1160,718],[1300,728],[1450,720],[1510,662],[1560,630],[2000,626]];
-const LU0=276,LD0=680;                                      // 上池、下池的基準水位（世界座標）
-const WAY=[[455,338],[560,358],[700,380],[860,640],[900,696],[1000,716],[1170,716]]; // 進水口 → 壓力水道 → 廠房 → 尾水道
-const CAV={x:880,y:652,w:130,h:86};                          // 地下廠房
-const SWY={x:958,y:478};                                     // 開關場
-const PYL={x:1060,y:560};                                    // 輸電鐵塔
-function terY(x){for(let i=1;i<TER.length;i++)if(x<=TER[i][0]){const a=TER[i-1],b=TER[i],t=(x-a[0])/(b[0]-a[0]);return lerp(a[1],b[1],t);}return TER[TER.length-1][1];}
-/* 沿折線 P 取比例 f 的點 */
+/* 儲能系列 第 3 集：從電池芯到儲能電廠（磷酸鋰鐵電池的化學、曲線、壽命與安全） */
+const CW20=220,CH20=104;                                  // 20 呎貨櫃側視尺寸（世界座標）
+const BX=[200,480,760];                                   // 三座電池貨櫃左緣（間距 60）
+const PCSX=1040,TRX=1200,PYX=1440;                        // PCS 櫃、升壓變壓器、電塔
+const gyy=x=>groundY(x);
+const SUN={x:300,y:330};
+/* 20 呎電池貨櫃：外殼、肋條、端部空調機組；open 0–1 表示側牆透明程度 */
+function battContainer(x,y,open,inside){
+  open=open||0;const w=CW20,h=CH20;
+  box(x,y-h,w,h,'#1a2c38');
+  if(open>0)alphaDo(open,()=>(inside||containerInside)(x,y));
+  alphaDo(1-open*.85,()=>{box(x,y-h,w,h,'#e3e8ec');ctx.strokeStyle='rgba(0,0,0,.14)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<22;i++){const xx=x+w*i/22;ctx.moveTo(xx,y-h+4);ctx.lineTo(xx,y-4);}ctx.stroke();
+   box(x+w-44,y-h+14,34,34,'#c5ced4','rgba(0,0,0,.25)',1);ring(x+w-27,y-h+31,12,'rgba(0,0,0,.35)',2);
+   box(x+14,y-h+20,40,10,'#2d8f5a');});
+  ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.strokeRect(x,y-h,w,h);
+  box(x-4,y-h-4,w+8,5,'#aeb8be');box(x+6,y,18,6,'#6a747a');box(x+w-24,y,18,6,'#6a747a');
+}
+function containerInside(x,y){
+  const h=CH20;box(x+2,y-h+2,CW20-4,h-4,'#13232e');
+  for(let i=0;i<6;i++){const rx=x+10+i*28;box(rx,y-h+14,22,h-22,'#2a4a66','rgba(255,255,255,.3)',1);
+   for(let m=0;m<4;m++)box(rx+3,y-h+18+m*19,16,15,'#3f6f96');}
+  box(x+CW20-40,y-h+10,34,h-16,'#44535c','rgba(255,255,255,.3)',1);
+}
+function pcsSkid(x,y){box(x,y-90,110,90,'#dfe5e8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)box(x+10+i*34,y-80,26,50,'#c9d1d6','rgba(0,0,0,.2)',1);
+  for(let i=0;i<3;i++)ring(x+23+i*34,y-18,7,'rgba(0,0,0,.35)',2);}
+function transformer(x,y){box(x,y-80,90,80,'#8d989f');for(let i=0;i<5;i++)box(x-10,y-72+i*14,10,8,'#6f7a80');for(let i=0;i<5;i++)box(x+90,y-72+i*14,10,8,'#6f7a80');
+  for(let i=0;i<3;i++){box(x+18+i*24,y-110,8,30,'#c9a38c');for(let k=0;k<4;k++)box(x+14+i*24,y-106+k*7,16,3,'#b58b73');}}
+function pylon(x,y){ctx.strokeStyle='#5c6770';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-34,y);ctx.lineTo(x-6,y-230);ctx.lineTo(x+6,y-230);ctx.lineTo(x+34,y);
+  for(let k=0;k<6;k++){const t=k/6,t2=(k+1)/6;ctx.moveTo(lerp(x-34,x-6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x+34,x+6,t2),lerp(y,y-230,t2));ctx.moveTo(lerp(x+34,x+6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x-34,x-6,t2),lerp(y,y-230,t2));}
+  ctx.moveTo(x-60,y-200);ctx.lineTo(x+60,y-200);ctx.moveTo(x-46,y-170);ctx.lineTo(x+46,y-170);ctx.stroke();}
 function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
   let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
-function flowDots(P,n,col,a,dir,sp,r){if(a<=0)return;for(let k=0;k<n;k++){let f=((TT*(sp||.3))+k/n)%1;if(dir<0)f=1-f;const p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],r||4.5,col));}}
-/* 山、湖、水道與廠房；dz：上池水位變化（像素，正值為上升） */
-function mountain(dz,o){
-  o=o||{};const lu=LU0-dz,ld=LD0+dz*.8;
-  const wg=(y0,y1)=>{const g=ctx.createLinearGradient(0,y0,0,y1);g.addColorStop(0,'#4ea3c4');g.addColorStop(1,'#1d5f86');return g;};
-  ctx.fillStyle=wg(lu,360);ctx.fillRect(20,lu,480,110);
-  ctx.fillStyle=wg(ld,730);ctx.fillRect(1100,ld,420,60);
-  const prof=(off)=>{ctx.beginPath();ctx.moveTo(TER[0][0],TER[0][1]+off);TER.forEach(p=>ctx.lineTo(p[0],p[1]+off));ctx.lineTo(2000,1000);ctx.lineTo(-400,1000);ctx.closePath();};
-  prof(0);ctx.fillStyle='#6f9152';ctx.fill();
-  prof(22);ctx.fillStyle='#8f7d68';ctx.fill();
-  prof(90);ctx.fillStyle='#716a62';ctx.fill();
-  ctx.beginPath();TER.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle='#4f7a3a';ctx.lineWidth=3;ctx.stroke();
-  ln([20,lu,500,lu],'rgba(255,255,255,.75)',2);ln([1100,ld,1520,ld],'rgba(255,255,255,.75)',2);
-  /* 樹 */
-  const r=rng(5);for(let i=0;i<26;i++){const x=500+r()*560;if(x>930&&x<1020)continue;const y=terY(x);circ(x,y-8,7+r()*4,'#4c7a3c');}
-  for(let i=0;i<10;i++){const x=-200+r()*230;circ(x,terY(x)-8,7+r()*4,'#4c7a3c');}
-  for(let i=0;i<8;i++){const x=1530+r()*300;circ(x,terY(x)-8,7+r()*4,'#4c7a3c');}
-  /* 水道 */
-  ctx.lineCap='round';ctx.lineJoin='round';
-  pathLine(WAY,'#26343d',18);pathLine(WAY,o.water===false?'#3a4a54':'#3b7fa0',9);
-  ln([700,380,700,214],'#26343d',14);ln([700,380,700,230],'#3b7fa0',6);            // 調壓井
-  ctx.lineCap='butt';
-  box(440,326,24,24,'#44535c');                                                   // 進水口
-  /* 地下廠房 */
-  box(CAV.x,CAV.y,CAV.w,CAV.h,'#1b2a33','#c9d1d6',2);
-  unitSmall(CAV.x+40,CAV.y+CAV.h-8,o.dir||0);unitSmall(CAV.x+92,CAV.y+CAV.h-8,o.dir||0);
-  ln([CAV.x+CAV.w/2+10,CAV.y,SWY.x+10,SWY.y],'rgba(40,50,58,.8)',3);             // 電纜豎井
-  /* 開關場與鐵塔 */
-  box(SWY.x-6,SWY.y-2,60,6,'#9aa4aa');for(let i=0;i<3;i++){box(SWY.x+2+i*18,SWY.y-30,6,28,'#c9d1d6');ln([SWY.x+i*18,SWY.y-30,SWY.x+10+i*18,SWY.y-30],'#6f7a80',2);}
-  towerSmall(PYL.x,PYL.y);ln([SWY.x+48,SWY.y-30,PYL.x,PYL.y-150],'#394650',2);ln([PYL.x,PYL.y-150,1700,PYL.y-200],'#394650',2);
+function flowDots(P,n,col,a,dir,sp){if(a<=0)return;for(let k=0;k<n;k++){let f=((TT*(sp||.3))+k/n)%1;if(dir<0)f=1-f;const p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],4.5,col));}}
+function sitePath(){const yb=gyy(PCSX)-40;return [[BX[0]+CW20/2,gyy(BX[0])-CH20-10],[BX[0]+CW20/2,gyy(BX[0])-CH20-22],[PCSX+55,gyy(PCSX)-CH20-22],[PCSX+55,yb-50],[TRX+45,yb-50],[TRX+45,gyy(TRX)-112],[PYX,gyy(PYX)-200]];}
+/* 消防栓 */
+function hydrant(x,y){box(x-7,y-30,14,30,'#c8432a');box(x-11,y-34,22,6,'#a8341f');box(x-13,y-22,26,6,'#a8341f');}
+/* 整座案場；inside 用來替換中間貨櫃的內部畫法 */
+function siteDraw(o){o=o||{};
+  fence(150,1520,gyy(800)+4);
+  BX.forEach((x,i)=>battContainer(x,gyy(x+CW20/2),i===1?(o.open||0):0,o.inside));
+  pcsSkid(PCSX,gyy(PCSX));transformer(TRX,gyy(TRX));pylon(PYX,gyy(PYX));
+  ln([PYX,gyy(PYX)-200,1700,gyy(PYX)-215],'#394650',2);
+  ctx.setLineDash([8,6]);ln([BX[0]+CW20/2,gyy(BX[0])-CH20-22,PCSX+55,gyy(PCSX)-CH20-22],'rgba(40,50,58,.55)',2.5);ctx.setLineDash([]);
+  for(const x of BX)ln([x+CW20/2,gyy(x)-CH20-4,x+CW20/2,gyy(x)-CH20-22],'rgba(40,50,58,.55)',2.5);
+  ln([PCSX+55,gyy(PCSX)-CH20-22,PCSX+55,gyy(PCSX)-90],'rgba(40,50,58,.55)',2.5);
+  ln([PCSX+110,gyy(PCSX)-60,TRX,gyy(TRX)-60],'rgba(40,50,58,.55)',2.5);
+  ln([TRX+45,gyy(TRX)-110,PYX,gyy(PYX)-200],'#394650',2);
 }
-/* 小型機組：上方發電機／馬達、下方轉輪；dir=1 發電、-1 抽水 */
-function unitSmall(x,y,dir){
-  box(x-18,y-66,36,26,'#c9d1d6','rgba(0,0,0,.4)',1);ln([x,y-40,x,y-18],'#8d989f',4);
-  ctx.beginPath();ctx.ellipse(x,y-12,20,8,0,0,TAU);ctx.fillStyle='#58b8d0';ctx.fill();
-  if(dir){const ph=(TT*2.4*dir)%1;for(let k=0;k<3;k++){const f=((ph+k/3)%1+1)%1;const xx=x-16+32*f;ln([xx,y-60,xx,y-46],'rgba(20,30,40,.55)',2);ln([xx,y-16,xx,y-8],'rgba(255,255,255,.8)',2);}}
-}
-function towerSmall(x,y){ctx.strokeStyle='#5c6770';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x-22,y);ctx.lineTo(x-4,y-150);ctx.lineTo(x+4,y-150);ctx.lineTo(x+22,y);
-  for(let k=0;k<5;k++){const t=k/5,t2=(k+1)/5;ctx.moveTo(lerp(x-22,x-4,t),lerp(y,y-150,t));ctx.lineTo(lerp(x+22,x+4,t2),lerp(y,y-150,t2));}
-  ctx.moveTo(x-38,y-130);ctx.lineTo(x+38,y-130);ctx.moveTo(x-30,y-108);ctx.lineTo(x+30,y-108);ctx.stroke();}
-const LINE=[[SWY.x+48,SWY.y-30],[PYL.x,PYL.y-150],[1640,PYL.y-196]];
-/* 可逆式機組的轉輪俯視圖：dir=1 發電（順時針）、-1 抽水（逆時針） */
-function runnerTop(cx,cy,R,ang,col){
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(ang);
-  for(let k=0;k<7;k++){ctx.save();ctx.rotate(k*TAU/7);ctx.beginPath();ctx.moveTo(R*.3,0);ctx.quadraticCurveTo(R*.62,R*.34,R*.95,R*.22);ctx.lineTo(R*.95,R*.08);ctx.quadraticCurveTo(R*.62,R*.18,R*.3,-R*.08);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.restore();}
-  ctx.restore();circ(cx,cy,R*.3,'#44535c','#c9d1d6',2);circ(cx,cy,R*.1,'#c9d1d6');
-}
-/* 一天的抽水／發電排程（示意）：+ 發電、- 抽水，單位 MW 的比例 */
-const sched=h=>h>=10&&h<14.5?-100:h>=17&&h<21.5?100:h>=6.5&&h<8.5?40:0;
-const pvC=h=>h<6||h>18?0:100*Math.sin(Math.PI*(h-6)/12);
-/* 以排程積分得到上池水位變化（公尺，示意） */
-function lakeAt(h){let z=0;for(let t=0;t<h;t+=.1)z+=-sched(t)*.1;return z/100*.45;}
+/* 稜柱形電池芯 */
+function prism(x,y,w,h,col){box(x,y,w,h,col||'#3f6f96','rgba(255,255,255,.55)',1.5);box(x+w*.18,y-h*.06,w*.18,h*.06,'#c9d1d6');box(x+w*.64,y-h*.06,w*.18,h*.06,'#e8572a');}
+/* 磷酸鋰鐵與三元鋰的開路電壓曲線（示意，s 為 SOC %） */
+const lfpV=s=>3.22+.10*s/100-.72*Math.exp(-s/2.8)+.33*Math.exp((s-100)/2.2);
+const nmcV=s=>3.0+.9*s/100+.3*Math.pow(s/100,3)-.3*Math.exp(-s/4);
+/* 容量保持率（典型範例）：cyc 為千次 */
+const capA=n=>100-20*Math.pow(n/8,.8), capB=n=>100-20*Math.pow(n/5,.8), capC=n=>100-20*Math.pow(n/3,.8);
+/* 熱失控溫度歷程（示意，t 0–100） */
+const trT=t=>t<40?25+95*Math.pow(t/40,1.5):t<70?120+110*Math.pow((t-40)/30,2):t<82?230+370*(1-Math.exp(-(t-70)/1.6)):600-120*(1-Math.exp(-(t-82)/10));
+/* 電芯電量（SOC）：平衡前各不相同，平衡後趨於一致 */
+const SOC0=[64,55,60,47,62,58];
+const socAt=(i,b)=>lerp(SOC0[i],58,b);
+function curveP(ch,fn,a,b,step,col,lw,dash){if(b<=a)return;ctx.beginPath();for(let t=a;t<=b+1e-9;t+=step){const x=ch.X(t),y=ch.Y(fn(t));t===a?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;if(dash)ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);}
 
-const EP={no:2,slug:'energy-storage',seriesName:'儲能系列',t:'抽蓄水力',en:'Pumped-storage hydropower',
-lede:'世界上容量最大的儲能不是電池，而是兩座高低不同的水庫。這一集走進抽蓄水力電廠，看電多時把水抽上山、需要時放水發電的原理，打開可逆式機組看同一部機器如何正轉發電、反轉抽水，並算一算往返效率，最後介紹以日月潭為上池的明湖與明潭兩座抽蓄電廠。',
-facts:[['2,602','MW','明湖（大觀二廠）1,000 MW 與明潭 1,602 MW 兩座抽蓄電廠的合計裝置容量'],
-['380','m','明潭抽蓄電廠上池日月潭與下池明潭水庫的落差'],
-['267','MW','明潭電廠單部可逆式機組的容量，共 6 部'],
-['約 1','kWh','1 立方公尺的水從 380 m 高落下所含的位能（未計損失）'],
-['約 75','%','抽蓄電廠常見的往返效率，抽 4 度電約可發回 3 度（示例）'],
-['1985','年','明湖抽蓄電廠商轉，是台灣第一座抽蓄水力電廠']],
-note:'說明：本集為教育用途示意動畫，山體、水道與廠房比例經過壓縮。明湖（大觀二廠）4 部 250 MW、落差約 310 m、1985 年商轉，明潭 6 部 267 MW、落差約 380 m，兩廠皆以日月潭為上池，數據取自台電與日月潭國家風景區管理處公開資料。流量約 80 m³/s、機組效率 0.9、往返效率約 75% 與損失分配、一天的抽水與發電排程、水位變化量均為典型範例，實際依台電調度與水情而定。',
-base:()=>{landSky(700,{sun:{x:1180,y:120},clouds:true});},
+const EP={no:3,slug:'energy-storage',seriesName:'儲能系列',t:'從電池芯到儲能電廠',en:'From battery cell to storage plant',
+lede:'儲能電廠的核心，是成千上萬顆手掌大小的磷酸鋰鐵電池芯。這一集走進電芯內部，看鋰離子怎麼在正負極之間來回，讀懂充放電曲線與電量（SOC），了解電池為什麼會老化，以及熱失控如何發生、又如何層層防護。',
+facts:[['3.2','V','磷酸鋰鐵（LFP）電芯標稱電壓；充電截止約 3.65 V、放電截止約 2.5 V'],
+['314','Ah','目前儲能貨櫃常見的方形電芯容量，一顆約可存 1 度電'],
+['≥ 6,000','次','儲能級 LFP 電芯常見的循環壽命，以容量衰減到 80% 計（典型範例）'],
+['80–120','°C','電極表面 SEI 膜開始分解的溫度，是熱失控連鎖反應的第一步'],
+['約 230','°C','LFP 電芯熱失控觸發溫度的典型值；三元鋰（NMC）約 160–210 °C（典型範例）']],
+note:'說明：本集為教育用途示意動畫，電芯、設備與案場比例經過調整。電芯規格以市售儲能級 314 Ah 磷酸鋰鐵方形電芯規格書為典型範例（標稱 3.2 V、充電截止約 3.65 V、放電截止約 2.5 V、約 1 kWh）；充放電曲線為示意形狀。循環壽命曲線為典型範例，實際依溫度、充放電深度與倍率而異，各廠規格書常標示 6,000–8,000 次以上。熱失控各階段溫度（SEI 分解約 80–120 °C、隔離膜約 130 °C 起熔化）與 LFP、NMC 的自發熱及觸發溫度，取自公開文獻中絕熱量熱（ARC）試驗的典型範圍，因電芯尺寸與試驗方法而異。台灣戶外儲能案場依經濟部標準檢驗局「戶外電池儲能系統案場驗證技術規範」辦理，並參考 CNS 62933-5-2 與 UL 9540A。',
+base:()=>{landSky(GY,{sun:SUN,clouds:false});drawGround();},
 shots:[
-{t:'兩座水庫的電池',en:'A battery made of two reservoirs',dur:13,side:true,
- d:'抽蓄水力電廠由高低兩座水庫組成：上池在山上，下池在山腳，中間以山體內的壓力水道連接，機組則放在地下廠房。需要電的時候，打開上池的進水口，水沿著水道衝下，推動水輪機發電，再流入下池。電網電力有餘時，機組反過來當抽水機，把下池的水送回上池。電能就這樣以「水的高度」存了起來，隨時可以再放出來。',
- s:[[0,'上池在山上，下池在山腳，中間是壓力水道'],[.28,'打開進水口，水沿著水道往下衝'],[.52,'地下廠房的機組把水的能量變成電'],[.76,'電力經開關場與輸電線送上電網']],
- cam:u=>camMix({x:800,y:450,s:1},{x:820,y:480,s:1.08},ease(seg(u,.1,.6))),
+{t:'一顆電芯，組成一座電廠',en:'Thousands of cells make a plant',dur:12,side:true,
+ d:'儲能電廠看起來是一排排貨櫃，但真正存電的是裡面成千上萬顆電池芯。常見的磷酸鋰鐵電芯標稱 3.2 伏特、314 安培小時，約可存 1 度電。電芯串成模組、模組疊成電池簇、電池簇裝進貨櫃，一個 20 呎貨櫃約 5 MWh；幾座到幾十座貨櫃再經變流器與變壓器併網，就成為數十至數百 MWh 的儲能電廠（示例）。',
+ s:[[0,'儲能電廠的核心，是一顆顆電池芯'],[.25,'電芯組成模組，模組疊成電池簇'],[.5,'電池簇裝進貨櫃，一座約 5 MWh'],[.75,'許多貨櫃併網，組成儲能電廠']],
+ cam:u=>({x:820,y:450,s:1}),
  draw(u){
-  const g=seg(u,.28,.36);mountain(-6*seg(u,.3,1),{dir:g>.5?1:0});
-  flowDots(WAY,14,'#dff6ff',g,1,.28,4);
-  flowDots(LINE,6,'#f2c230',seg(u,.72,.78),1,.5);
-  alphaDo(band(u,.08,.6),()=>{ctx.setLineDash([8,7]);ln([470,LU0,1200,LU0],'rgba(255,255,255,.7)',1.5);ln([1060,LD0,1200,LD0],'rgba(255,255,255,.7)',1.5);ctx.setLineDash([]);
-   arrow(1180,LU0+4,1180,LD0-4,'#f2c230',3);arrow(1180,LD0-4,1180,LU0+4,'#f2c230',3);});
-  alphaDo(band(u,.08,.6),()=>tick(1192,(LU0+LD0)/2,'落差','left'));
-  lab(300,LU0,'上池',{dx:120,dy:50,st:'s',a:band(u,.03,.5)});
-  lab(1330,LD0,'下池',{dx:40,dy:-80,st:'s',a:band(u,.03,.5)});
-  lab(780,510,'壓力水道',{dx:-160,dy:40,a:band(u,.28,.7)});
-  lab(CAV.x+CAV.w/2,CAV.y+CAV.h,'地下廠房',{dx:-40,dy:70,st:'l',a:band(u,.5,1)});
-  lab(SWY.x+20,SWY.y-30,'開關場',{dx:-110,dy:-60,a:band(u,.72,1)});
- },
- hud(u){hudPanel(240,150,'抽蓄電廠（示例）',seg(u,.05,.1),w=>{const g=seg(u,.3,.5);const p=1602*g;
-  hrow(56,'模式',g>0?'發電':'待機',w,g>0?'#f2c230':'#fff');hrow(88,'出力',Math.round(p).toLocaleString('en-US')+' MW',w,'#f2c230');hrow(120,'上池水位',trf('{z} m',{z:(-0.6*seg(u,.3,1)).toFixed(2)}),w,'#7dc8dc');});}},
-
-{t:'水位高度就是能量',en:'Height is energy',dur:13,
- d:'水從高處落下，位能變成動能再變成電。能量的大小取決於兩件事：落差 H 與流量 Q。發電功率可寫成 P = ρgQHη，其中 ρ 是水的密度，g 是重力加速度，η 是機組效率。以明潭電廠為例，落差約 380 公尺，每秒約 80 立方公尺的水流過一部機組、效率 0.9 時，功率約 267 MW。換個角度看，1 立方公尺的水從 380 公尺落下，就含有約 1 度電的位能，所以落差越大，同一池水能存的電越多。',
- s:[[0,'落差越大，同一池水能存的能量越多'],[.3,'功率 P = ρ × g × Q × H × η'],[.55,'每秒 80 m³ 的水流過一部機組，約 267 MW'],[.78,'1 m³ 的水從 380 m 落下，約含 1 度電']],
- draw(u){
-  diagBG();
-  card(60,160,560,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'落差與流量',20,'#f2c230',700);
-  /* 左：上池、下池與落差 */
-  const yT=270,yB=690;box(100,yT,170,50,'#2f7fa3');ln([100,yT,270,yT],'#dff6ff',2);wt(185,yT-14,'上池',18,'#fff',700,'center');
-  box(400,yB,190,50,'#2f7fa3');ln([400,yB,590,yB],'#dff6ff',2);wt(495,yB-14,'下池',18,'#fff',700,'center');
-  ctx.lineCap='round';ln([260,yT+30,330,yT+80,390,yB-60,420,yB+20],'#26343d',22);ln([260,yT+30,330,yT+80,390,yB-60,420,yB+20],'#3b7fa0',12);ctx.lineCap='butt';
-  const P=[[260,yT+30],[330,yT+80],[390,yB-60],[420,yB+20]];flowDots(P,8,'#dff6ff',seg(u,.05,.12),1,.45,4);
-  const hA=seg(u,.06,.2);alphaDo(hA,()=>{ctx.setLineDash([6,6]);ln([270,yT,560,yT],'rgba(255,255,255,.6)',1.5);ctx.setLineDash([]);arrow(540,yT+4,540,lerp(yT+4,yB-4,hA),'#f2c230',3);});
-  alphaDo(seg(u,.16,.22),()=>{wt(530,(yT+yB)/2-8,'H',34,'#f2c230',700,'right',COND);wt(530,(yT+yB)/2+26,'380 m',24,'#f2c230',700,'right',COND);});
-  alphaDo(seg(u,.4,.46),()=>{wt(330,420,'Q',30,'#7dc8dc',700,'right',COND);wt(330,452,'80 m³/s',20,'#7dc8dc',700,'right',COND);});
-  /* 右：公式逐項代入 */
-  card(660,160,880,380,{bg:'rgba(7,27,39,.75)',st:'rgba(242,194,48,.5)'});wt(684,200,'發電功率',20,'#f2c230',700);
-  alphaDo(seg(u,.28,.34),()=>wt(1100,280,'P = ρ · g · Q · H · η',46,'#fff',700,'center',COND));
-  const V=[['ρ','1,000 kg/m³','水的密度'],['g','9.81 m/s²','重力加速度'],['Q','80 m³/s','流量（示例）'],['H','380 m','落差'],['η','0.9','機組效率（示例）']];
-  V.forEach(([s,v,n],i)=>{const a=seg(u,.34+i*.04,.38+i*.04);alphaDo(a,()=>{const x=690+i*168;card(x,318,156,120,{bg:'rgba(255,255,255,.05)'});wt(x+78,356,s,28,'#f2c230',700,'center',COND);wt(x+78,390,v,19,'#fff',700,'center',COND);wt(x+78,420,n,15,'rgba(227,236,238,.8)',500,'center');});});
-  const pk=ease(seg(u,.56,.74));
-  alphaDo(seg(u,.55,.6),()=>{wt(690,500,'一部機組',20,'#fff',700);wt(1510,504,trf('≈ {p} MW',{p:Math.round(267*pk)}),40,'#7dffc4',700,'right',COND);});
-  /* 下：1 m³ 的水 */
-  alphaDo(seg(u,.76,.82),()=>{card(660,570,880,230,{bg:'rgba(31,127,92,.22)',st:'rgba(125,255,196,.45)'});
-   box(700,620,90,90,'#3b7fa0','#dff6ff',2);wt(745,672,'1 m³',22,'#fff',700,'center',COND);
-   wt(830,640,'1,000 kg × 9.81 × 380 m',24,'#fff',700,'left',COND);wt(830,684,'≈ 3.7 MJ',26,'#7dffc4',700,'left',COND);
-   wt(1510,684,'≈ 1 kWh',44,'#7dffc4',700,'right',COND);wt(830,752,'1 立方公尺的水從 380 m 落下，約含 1 度電的位能',18,'rgba(227,236,238,.9)',500);});
+  siteDraw();
+  const P=sitePath();flowDots(P,12,'#f2c230',seg(u,.78,.84),1,.35);
+  const L=[['電池芯','3.2 V · 約 1 kWh'],['電池模組','約 104 kWh'],['電池簇','約 418 kWh'],['電池貨櫃','約 5 MWh'],['儲能電廠','數十至數百 MWh']];
+  L.forEach(([n,v],i)=>{const t0=.03+i*.17,a=seg(u,t0,t0+.06);const x=470+i*214;
+   alphaDo(.3+.7*a,()=>{card(x,170,190,92,{bg:'rgba(7,27,39,.82)',st:a>.5?'rgba(242,194,48,.7)':undefined});
+    wt(x+95,206,n,19,a>.5?'#f2c230':'rgba(227,236,238,.7)',700,'center');wt(x+95,242,v,19,'#fff',700,'center',COND);});
+   if(i<4)alphaDo(a,()=>arrow(x+192,216,x+210,216,'#f2c230',2.5));});
+  lab(BX[1]+CW20/2,gyy(BX[1])-CH20,'電池貨櫃',{dx:0,dy:-60,st:'s',a:band(u,.55,.78)});
+  lab(PCSX+55,gyy(PCSX)-90,'變流器（PCS）',{dx:-10,dy:-70,a:band(u,.72,1)});
+  lab(PYX,gyy(PYX)-200,'併網',{dx:-50,dy:40,st:'l',a:band(u,.78,1)});
  }},
 
-{t:'可逆式機組：正轉發電、反轉抽水',en:'The reversible pump-turbine',dur:14,
- d:'抽蓄電廠不必分別裝水輪機與抽水機。常見的是可逆式法蘭西斯機組：上方是發電電動機，下方是水泵水輪機，以同一根主軸相連。發電時，水從蝸殼四周流進轉輪，推動它往一個方向轉，帶動上方的發電機；抽水時，電網供電讓電動機反向旋轉，轉輪變成離心泵，把水從下方吸入、往上池壓回去。轉輪葉片的形狀必須在兩個方向之間取得平衡，所以設計上是一種折衷。',
- s:[[0,'上方是發電電動機，下方是水泵水輪機'],[.3,'發電：水流推動轉輪，帶動發電機'],[.58,'抽水：電動機反轉，轉輪變成抽水機'],[.8,'同一部機組，兩個方向都能運轉']],
+{t:'鋰鐵電池裡面',en:'Inside a lithium iron phosphate cell',dur:15,
+ d:'一顆磷酸鋰鐵電芯由正極、負極、隔離膜與電解液組成。正極是塗在鋁箔上的磷酸鋰鐵（LiFePO₄），負極是塗在銅箔上的石墨。充電時，鋰離子從正極出發，穿過電解液與隔離膜，嵌進石墨層之間，電子則經外部電路流向負極；放電時方向相反。磷酸鋰鐵是橄欖石結構，磷與氧的鍵結牢固，高溫下不易釋放氧氣，這是它比三元鋰安全的主要原因。',
+ s:[[0,'打開電芯：正極、隔離膜、負極與電解液'],[.22,'充電：鋰離子從正極游向石墨負極'],[.45,'電子走外部電路，隔離膜只讓離子通過'],[.62,'放電：鋰離子回到正極，電子推動負載'],[.82,'橄欖石結構牢固，高溫下不易釋氧']],
  draw(u){
   diagBG();
-  const pump=seg(u,.56,.62),dir=pump>.5?-1:1;
-  /* 左：剖面 */
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'機組剖面（示意）',20,'#f2c230',700);
-  const cx=410,a1=seg(u,.02,.08);
-  alphaDo(a1,()=>{
-   box(cx-140,240,280,150,'#44535c','#c9d1d6',2);box(cx-110,262,220,106,'#2a4a66');
-   for(let k=0;k<8;k++){const f=(((TT*.8*dir)+k/8)%1+1)%1;box(cx-100+200*f,272,12,86,'#c9a38c');}
-   ln([cx,390,cx,520],'#c9d1d6',12);
-   ctx.beginPath();ctx.ellipse(cx,560,230,48,0,0,TAU);ctx.fillStyle='#3a4a54';ctx.fill();ctx.strokeStyle='#c9d1d6';ctx.lineWidth=2;ctx.stroke();
-   ctx.beginPath();ctx.ellipse(cx,560,120,28,0,0,TAU);ctx.fillStyle='#58b8d0';ctx.fill();
-   for(let k=0;k<6;k++){const f=(((TT*1.4*dir)+k/6)%1+1)%1,xx=cx-104+208*f;ln([xx,540,xx,580],'rgba(14,42,59,.7)',3);}
-   poly([cx-70,600,cx+70,600,cx+110,720,cx-110,720],'#2f5f7a','#c9d1d6',2);
+  card(60,160,940,640,{bg:'rgba(7,27,39,.75)'});
+  const Y0=300,Y1=600,a0=seg(u,.02,.1);
+  const chg=seg(u,.22,.5),dis=seg(u,.62,.9),p=clamp(ease(chg)-ease(dis));
+  const charging=u<.58;
+  alphaDo(a0,()=>{
+   box(150,Y0,690,Y1-Y0,'rgba(88,184,208,.16)');                          // 電解液
+   box(136,Y0-10,14,Y1-Y0+20,'#c9d1d6');box(840,Y0-10,14,Y1-Y0+20,'#c98a5a'); // 鋁箔、銅箔
+   box(150,Y0,250,Y1-Y0,'rgba(63,111,150,.35)');
+   for(let r=0;r<8;r++)for(let c=0;c<6;c++)circ(176+c*42+(r%2)*10,Y0+22+r*37,15,'#3f6f96','rgba(255,255,255,.25)',1);
+   ctx.setLineDash([6,5]);ln([488,Y0,488,Y1],'rgba(242,242,242,.8)',4);ctx.setLineDash([]);
+   box(580,Y0,260,Y1-Y0,'rgba(40,46,52,.6)');
+   for(let r=0;r<9;r++)ln([594,Y0+18+r*33,828,Y0+18+r*33],'#8d989f',5);
+   wt(275,Y1+44,'正極 LiFePO₄',19,'#fff',700,'center');wt(275,Y1+74,'鋁箔集電',16,'rgba(227,236,238,.8)',500,'center');
+   wt(488,Y1+44,'隔離膜',19,'#fff',700,'center');wt(488,Y1+74,'電解液',16,'#7dc8dc',600,'center');
+   wt(710,Y1+44,'負極 石墨',19,'#fff',700,'center');wt(710,Y1+74,'銅箔集電',16,'rgba(227,236,238,.8)',500,'center');
+   /* 外部電路 */
+   ln([143,Y0-10,143,220,380,220],'#c9d1d6',3);ln([600,220,847,220,847,Y0-10],'#c9d1d6',3);
+   card(380,196,220,48,{bg:'rgba(242,194,48,.14)',st:'rgba(242,194,48,.6)'});
   });
-  /* 水流方向 */
-  const gA=seg(u,.3,.36)*(1-pump),pA=pump;
-  if(gA>0){flowDots([[160,560],[cx-120,560]],4,'#dff6ff',gA,1,.7,5);flowDots([[660,560],[cx+120,560]],4,'#dff6ff',gA,1,.7,5);flowDots([[cx,600],[cx,760]],4,'#dff6ff',gA,1,.7,5);}
-  if(pA>0){flowDots([[160,560],[cx-120,560]],4,'#7dffc4',pA,-1,.7,5);flowDots([[660,560],[cx+120,560]],4,'#7dffc4',pA,-1,.7,5);flowDots([[cx,600],[cx,760]],4,'#7dffc4',pA,-1,.7,5);}
-  alphaDo(a1*seg(u,.04,.1),()=>{wt(cx+160,300,'發電電動機',18,'#fff',700);
-   wt(cx+30,460,'主軸',17,'rgba(227,236,238,.9)',600);wt(cx+160,500,'水泵水輪機',18,'#fff',700);wt(100,640,'蝸殼',17,'rgba(227,236,238,.9)',600);wt(cx+120,700,'尾水管',17,'rgba(227,236,238,.9)',600);});
-  /* 右：俯視轉輪 */
-  card(820,160,720,420,{bg:'rgba(7,27,39,.75)',st:pump>.5?'rgba(125,255,196,.55)':'rgba(242,194,48,.55)'});wt(844,200,'轉輪俯視',20,'#f2c230',700);
-  const ang=TT*1.6*dir;runnerTop(1040,390,150,ang,'#7fb3cf');
-  ring(1040,390,168,'rgba(255,255,255,.3)',2);
-  const ac=pump>.5?'#7dffc4':'#f2c230';
-  ctx.beginPath();if(dir>0)ctx.arc(1040,390,190,-1.3,-.2);else ctx.arc(1040,390,190,-.2,-1.3,true);ctx.strokeStyle=ac;ctx.lineWidth=4;ctx.stroke();
-  const e=dir>0?-.2:-1.3,ex=1040+190*Math.cos(e),ey=390+190*Math.sin(e),tx=-dir*Math.sin(e),ty=dir*Math.cos(e);arrow(ex-tx*16,ey-ty*16,ex+tx*4,ey+ty*4,ac,4);
-  alphaDo(1-seg(u,.56,.59),()=>{tag(1270,300,'發電模式',{size:22});wt(1270,356,'水推轉輪',19,'#fff',700);wt(1270,390,'轉輪帶動發電機',17,'rgba(227,236,238,.85)',500);wt(1270,424,'水：上池 → 下池',17,'rgba(227,236,238,.85)',500);});
-  alphaDo(seg(u,.59,.62),()=>{tag(1270,300,'抽水模式',{size:22,bg:'#7dffc4'});wt(1270,356,'電動機反轉',19,'#fff',700);wt(1270,390,'轉輪當離心泵',17,'rgba(227,236,238,.85)',500);wt(1270,424,'水：下池 → 上池',17,'rgba(227,236,238,.85)',500);});
-  /* 右下：比較 */
-  alphaDo(seg(u,.8,.86),()=>{card(820,610,720,190,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});
-   wt(850,654,'同一部機組，兩種用途',20,'#7dffc4',700);
-   wt(850,700,'發電：水輪機效率約 90%',18,'#fff',600);wt(850,740,'抽水：水泵效率略低，約 85–90%',18,'#fff',600);wt(850,776,'葉片形狀在兩個方向之間折衷',17,'rgba(227,236,238,.85)',500);});
+  alphaDo(a0,()=>wt(490,228,charging?'充電器':'負載',18,'#f2c230',700,'center'));
+  /* 鋰離子 */
+  const R=rng(5);const ions=[];for(let i=0;i<16;i++)ions.push({yc:Y0+30+R()*(Y1-Y0-60),xc:180+R()*190,xa:606+R()*200,ya:Y0+34+Math.floor(R()*8)*33,d:R()});
+  if(a0>0)ions.forEach(o=>{const k=clamp(p*1.6-o.d*.6);const mid=clamp(k*1.25-.05);
+   const x=lerp(o.xc,o.xa,ease(mid)),y=lerp(o.yc,o.ya,ease(mid))+Math.sin(TT*3+o.d*9)*3*(k>0&&k<1?1:0);
+   alphaDo(a0,()=>{circ(x,y,9,'#f2c230','#13232e',1.5);});});
+  /* 電子 */
+  const eA=charging?band(u,.24,.52):band(u,.64,.9);
+  if(eA>0){const P=[[143,Y0-10],[143,220],[847,220],[847,Y0-10]];flowDots(charging?P:P.slice().reverse(),8,'#7dffc4',eA,1,.4);}
+  alphaDo(band(u,.24,.52),()=>{arrow(420,Y1-22,560,Y1-22,'#f2c230',3);tag(488,280,'充電：Li⁺ → 負極',{size:16,align:'center'});});
+  alphaDo(band(u,.64,.92),()=>{arrow(560,Y1-22,420,Y1-22,'#f2c230',3);tag(488,280,'放電：Li⁺ → 正極',{size:16,align:'center'});});
+  alphaDo(seg(u,.3,.36),()=>{circ(104,742,9,'#f2c230','#13232e',1.5);wt(124,748,'鋰離子 Li⁺',17,'#fff',600);circ(344,742,5,'#7dffc4');wt(360,748,'電子 e⁻（外部電路）',17,'#fff',600);});
+  /* 右：為什麼是磷酸鋰鐵 */
+  card(1040,160,500,640,{bg:'rgba(7,27,39,.75)'});
+  wt(1066,200,'為什麼是磷酸鋰鐵',20,'#f2c230',700);
+  alphaDo(seg(u,.05,.12),()=>{card(1066,222,448,74,{bg:'rgba(242,194,48,.1)',st:'rgba(242,194,48,.45)'});wt(1290,268,'LiFePO₄ ↔ FePO₄ + Li⁺ + e⁻',24,'#fff',700,'center',COND);});
+  const K=[['橄欖石結構','磷與氧鍵結牢固，高溫下不易釋氧','#7dffc4'],['不含鈷、鎳','原料較易取得，成本較低','#7dffc4'],['循環壽命長','可充放數千次以上','#7dffc4'],['能量密度較低','同樣電量比三元鋰重、體積大','#ff9d7a']];
+  K.forEach(([h,s,c],i)=>alphaDo(seg(u,.66+.06*i,.72+.06*i),()=>{const y=322+i*116;card(1066,y,448,98,{bg:'rgba(255,255,255,.04)',st:'rgba(255,255,255,.14)'});
+   box(1066,y,6,98,c);wt(1092,y+40,h,20,c,700);wt(1092,y+74,s,17,'rgba(227,236,238,.88)',500);}));
  }},
 
-{t:'電多時，把水抽上山',en:'Pumping water uphill',dur:12,side:true,
- d:'當電網供電大於需求，例如中午太陽光電大量發電時，調度中心就讓抽蓄電廠改成抽水模式。機組先與電網同步，電動機帶著轉輪反向旋轉，把下池的水沿著同一條水道壓回上池。明潭電廠 6 部機組全力抽水時，可以一次吸收一百多萬瓩的電力。上池水位慢慢上升，下池水位下降，這些電能就以位能的形式儲存在日月潭裡，等傍晚再放出來。',
- s:[[0,'電網電力有餘，調度中心下令抽水'],[.3,'電動機反轉，把下池的水壓回上池'],[.55,'上池水位上升，下池水位下降'],[.78,'電能以水的高度存在上池裡']],
- cam:u=>{const k=ease(seg(u,.18,.4))*(1-ease(seg(u,.62,.85)));return camMix({x:800,y:450,s:1},{x:CAV.x+CAV.w/2,y:CAV.y+20,s:2.4},k);},
- draw(u){
-  const p=seg(u,.22,.3),dz=10*seg(u,.3,1);
-  mountain(dz,{dir:p>.5?-1:0});
-  flowDots(LINE,6,'#7dffc4',seg(u,.06,.12),-1,.5);
-  flowDots(WAY,14,'#b8ffe0',p,-1,.28,4);
-  lab(PYL.x,PYL.y-150,'電網送電進廠',{dx:80,dy:-50,st:'g',a:band(u,.04,.28)});
-  lab(CAV.x+40,CAV.y+CAV.h-40,'電動機反轉',{dx:-60,dy:-50,st:'g',a:band(u,.26,.58)});
-  lab(CAV.x+CAV.w,CAV.y+CAV.h-10,'從下池吸水',{dx:50,dy:40,a:band(u,.3,.58)});
-  lab(300,LU0-dz,'上池水位上升',{dx:130,dy:50,st:'s',a:band(u,.62,1)});
-  lab(1330,LD0+dz*.8,'下池水位下降',{dx:40,dy:-80,a:band(u,.62,1)});
- },
- hud(u){hudPanel(240,150,'抽水運轉（示例）',seg(u,.05,.1),w=>{const p=seg(u,.22,.4);
-  hrow(56,'模式',p>0?'抽水':'切換中',w,p>0?'#7dffc4':'#fff');hrow(88,'用電',Math.round(-1560*p).toLocaleString('en-US')+' MW',w,'#7dffc4');hrow(120,'上池水位',trf('+{z} m',{z:(1*seg(u,.3,1)).toFixed(2)}),w,'#7dc8dc');});}},
-
-{t:'往返效率：抽 4 度，發回 3 度',en:'Round-trip efficiency',dur:13,
- d:'抽水與發電各有損失：電動機與水泵把電變成位能時會損失一部分，水在水道裡流動有摩擦，發電時水輪機、發電機與變壓器又各損失一些。整體來說，抽蓄電廠的往返效率大約在 70% 到 80% 之間，典型值約 75%，也就是抽水用掉 4 度電，約可發回 3 度。聽起來不划算，但它把沒人用的電移到最需要的時段，而且水庫與隧道可使用 50 年以上，容量也遠大於一般電池案場。',
- s:[[0,'抽水用掉 100 份電能'],[.25,'電動機、水泵與水道先損失一部分'],[.5,'發電時水輪機與發電機再損失一些'],[.75,'最後約 75 份送回電網']],
+{t:'平坦的充放電曲線',en:'A remarkably flat voltage curve',dur:14,
+ d:'把電芯從空充到滿，電壓不是直線上升。磷酸鋰鐵在電量約 10% 到 90% 之間，電壓幾乎停在 3.2 至 3.3 伏特，這段「平台區」讓輸出電壓穩定，也是標稱 3.2 伏特的由來。充電到約 3.65 伏特必須停止，放電到約 2.5 伏特也要停，超過都會損傷電芯。三元鋰的電壓會隨電量明顯變化；磷酸鋰鐵的平坦曲線則讓人很難只看電壓判斷剩多少電。',
+ s:[[0,'從空電充到滿，電壓怎麼變化'],[.3,'10% 到 90% 之間，電壓幾乎不動'],[.52,'3.65 V 與 2.5 V 是不能越過的截止線'],[.72,'三元鋰斜斜上升，鋰鐵卻像平台']],
  draw(u){
   diagBG();
-  const B=chartBox(60,160,960,640,{title:'能量去向（示例）',x0:0,x1:7,y0:0,y1:110,yt:[0,25,50,75,100],yl:'%',pt:60,pb:120,pl:70,gx:7,gy:4});
-  const S=[['抽水用電',0,100,'#7dffc4',.02],['電動機與水泵',100,-11,'#ff8a60',.24],['水道摩擦',89,-2,'#ff8a60',.3],['存在上池',0,87,'#58b8d0',.38],['水道摩擦',87,-2,'#ff8a60',.5],['水輪機與發電機',85,-9,'#ff8a60',.56],['變壓器等',76,-1,'#ff8a60',.62]];
-  S.forEach(([n,b,v,c,t0],i)=>{const k=ease(seg(u,t0,t0+.08));if(k<=0)return;const x=B.X(i)+12,w=B.X(1)-B.X(0)-24;
-   const y0=B.Y(v<0?b:b+v*k),y1=B.Y(v<0?b+v*k:b);box(x,y0,w,y1-y0,c);
-   alphaDo(k,()=>{wt(x+w/2,y0-10,String(v),20,v<0?'#ff9d7a':'#fff',700,'center',COND);
-    ctx.save();ctx.translate(x+w/2+6,B.py+B.ph+14);ctx.rotate(-.5);wt(0,0,n,16,'rgba(227,236,238,.9)',600,'right',FONT,'top');ctx.restore();});});
-  const fk=ease(seg(u,.74,.82));if(fk>0){const x=B.X(7)-14,w=40;box(x-w,B.Y(75*fk),w,B.Y(0)-B.Y(75*fk),'#f2c230');alphaDo(fk,()=>wt(x-w/2,B.Y(75*fk)-10,'75',20,'#f2c230',700,'center',COND));}
-  alphaDo(seg(u,.76,.82),()=>tag(B.X(6.1),B.Y(97),'送回電網 ≈ 75',{size:18,align:'center'}));
-  /* 右：比較卡 */
-  alphaDo(seg(u,.8,.86),()=>{card(1060,160,480,640,{bg:'rgba(7,27,39,.75)'});wt(1086,200,'抽蓄與電池',20,'#f2c230',700);
-   const R=[['往返效率','約 70–80%','約 85–90%'],['使用年限','50 年以上','約 15–20 年'],['反應速度','數分鐘','1 秒內'],['適合用途','大量、數小時','快速調頻']];
-   wt(1260,250,'抽蓄',18,'#58b8d0',700,'center');wt(1440,250,'電池',18,'#7dffc4',700,'center');
-   R.forEach(([a,b,c],i)=>{const y=310+i*118;ln([1080,y-38,1520,y-38],'rgba(255,255,255,.14)',1);wt(1086,y,a,17,'rgba(227,236,238,.85)',600);wt(1260,y+36,b,19,'#fff',700,'center');wt(1440,y+36,c,19,'#fff',700,'center');});});
+  const c=chartBox(60,160,960,640,{title:'電芯電壓與電量（示意）',x0:0,x1:100,y0:2.3,y1:4.4,xt:[0,20,40,60,80,100],yt:[2.5,3,3.5,4],xl:'電量 SOC（%）',yl:'電壓（V）',pl:72,pt:70,pb:60,gx:5,gy:7});
+  const f=100*seg(u,.03,.3);
+  /* 平台區 */
+  alphaDo(seg(u,.3,.37),()=>{box(c.X(10),c.Y(3.36),c.X(90)-c.X(10),c.Y(3.18)-c.Y(3.36),'rgba(242,194,48,.14)');wt(c.X(50),c.Y(3.36)-14,'平台區：電壓幾乎不變',18,'#f2c230',700,'center');});
+  /* 截止線 */
+  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([8,6]);ln([c.px,c.Y(3.65),c.px+c.pw,c.Y(3.65)],'#e8572a',2);ln([c.px,c.Y(2.5),c.px+c.pw,c.Y(2.5)],'#e8572a',2);ctx.setLineDash([]);
+   wt(c.px+12,c.Y(3.65)-10,'充電截止 3.65 V',17,'#ff9d7a',700);wt(c.px+c.pw-12,c.Y(2.5)-10,'放電截止 2.5 V',17,'#ff9d7a',700,'right');});
+  /* 三元鋰對照 */
+  const g=seg(u,.72,.9);
+  if(g>0){curveP(c,nmcV,0,100*g,.5,'#b37cff',3,[9,6]);alphaDo(seg(u,.8,.86),()=>wt(c.X(70),c.Y(nmcV(70))-18,'三元鋰 NMC（對照）',17,'#b37cff',700,'right'));}
+  curveP(c,lfpV,0,f,.25,'#f2c230',4);
+  if(f>0){const s=f,v=lfpV(s);circ(c.X(s),c.Y(v),8,'#fff','#13232e',2);
+   alphaDo(seg(u,.03,.08),()=>{const tx=Math.min(c.X(s)+14,c.px+c.pw-150),ty=c.Y(v)+(s>85?40:34);wt(tx,ty,v.toFixed(2)+' V',20,'#fff',700,'left',COND);wt(tx+86,ty,Math.round(s)+'%',20,'#7dffc4',700,'left',COND);});}
+  alphaDo(seg(u,.2,.26),()=>wt(c.X(40),c.Y(3.02),'磷酸鋰鐵 LFP',18,'#f2c230',700,'center'));
+  /* 右：三條關鍵電壓 */
+  const V=[['3.65 V','充電截止','再充會使正極與電解液劣化','#ff9d7a',.5],['3.2 V','標稱電壓','平台區中段，計算容量的基準','#f2c230',.32],['2.5 V','放電截止','再放會損傷負極與銅箔','#ff9d7a',.54]];
+  V.forEach(([v,n,s,col,t0],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*140;card(1060,y,480,122,{bg:'rgba(7,27,39,.75)'});
+   wt(1086,y+56,v,38,col,700,'left',COND);wt(1250,y+48,n,20,'#fff',700);wt(1250,y+86,s,16,'rgba(227,236,238,.85)',500);}));
+  alphaDo(seg(u,.86,.92),()=>{card(1060,590,480,210,{bg:'rgba(125,255,196,.1)',st:'rgba(125,255,196,.5)'});wt(1086,634,'只看電壓，很難知道剩多少電',20,'#7dffc4',700);
+   wt(1086,676,'平台區內差 10% 電量，',17,'#fff',500);wt(1086,706,'電壓只差約 0.01 V',17,'#fff',500);wt(1086,750,'→ 需要 BMS 用其他方法估算',17,'rgba(227,236,238,.88)',600);});
  }},
 
-{t:'中午抽水，傍晚發電',en:'Pump at noon, generate at dusk',dur:13,side:true,
- d:'過去抽蓄電廠的節奏是「夜間抽水、白天發電」：半夜用電少、火力機組不便降載，就把多餘的電拿來抽水。隨著太陽光電大量併網，台灣的運轉方式逐漸變成「中午抽水、傍晚發電」：中午光電發電最多時抽水，把綠電存進上池；太陽下山、光電退場而用電仍高時，再放水發電補上缺口。所以遊客常會發現，日月潭的水位在一天之中會起伏變化。',
- s:[[0,'中午太陽光電最多，電廠抽水'],[.32,'上池水位慢慢升高'],[.55,'太陽下山，光電發電減少'],[.75,'傍晚放水發電，補上用電缺口']],
- base:u=>{const h=lerp(9,21,seg(u,.02,.95)),k=seg(h,16,19.5);landSky(700,{sun:{x:lerp(300,1600,seg(h,6,19)),y:lerp(90,640,Math.pow(seg(h,12,19.5),1.6))},dusk:k,clouds:false});},
+{t:'BMS 怎麼知道還剩多少電',en:'How the BMS estimates state of charge',dur:13,side:true,
+ d:'電池管理系統（BMS）隨時量測每顆電芯的電壓、溫度與整串電流。因為鋰鐵曲線平坦，BMS 主要以「庫侖計數」估算電量（SOC）：把流進流出的電流逐秒累加，再利用靜置或接近充飽、放空時的電壓校正誤差。串聯的電芯只要有一顆先滿或先空，整串就得停下，所以 BMS 還要做電芯平衡，把電量偏高的電芯稍微放電，讓大家回到同一水準，可用容量才不會被最弱的一顆拖累。',
+ s:[[0,'打開貨櫃，BMS 監測每一顆電芯'],[.25,'逐秒累加電流，估算電量（SOC）'],[.48,'各電芯電量不一，最弱的一顆會拖累整串'],[.7,'電芯平衡：電量拉回同一水準']],
+ cam:u=>camMix({x:820,y:450,s:1},{x:BX[1]+CW20/2+40,y:gyy(BX[1]+CW20/2)-CH20/2-6,s:2.7},ease(seg(u,.02,.22))),
  draw(u){
-  const h=lerp(9,21,seg(u,.02,.95)),s=sched(h),dz=lakeAt(h)*14;
-  mountain(dz,{dir:s>0?1:s<0?-1:0});
-  flowDots(WAY,14,s<0?'#b8ffe0':'#dff6ff',s?1:0,s>0?1:-1,.28,4);
-  flowDots(LINE,6,s<0?'#7dffc4':'#f2c230',s?1:0,s>0?1:-1,.5);
-  alphaDo(seg(h,17,20.5)*.35,()=>box(VX0,VY0,VX1-VX0,VY1-VY0,'#0e1a2a'));
-  /* 一天的曲線（示意） */
-  alphaDo(seg(u,.02,.08),()=>{const c=chartBox(640,140,600,250,{title:'光電與抽蓄一天的運轉（示意）',x0:0,x1:24,y0:-100,y1:100,xt:[0,6,12,18,24],yt:[-100,0,100],xl:'時',pt:52,pb:40,pl:58,gx:4,gy:2});
-   ctx.beginPath();for(let t=0;t<=24;t+=.2){const x=c.X(t),y=c.Y(pvC(t));t?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='rgba(242,194,48,.85)';ctx.lineWidth=2.5;ctx.stroke();
-   for(let t=0;t<h;t+=.25){const v=sched(t);if(v)box(c.X(t),Math.min(c.Y(0),c.Y(v*.7)),c.X(.25)-c.X(0)-1,Math.abs(c.Y(v*.7)-c.Y(0)),v<0?'rgba(125,255,196,.7)':'rgba(88,184,208,.85)');}
-   ln([c.X(h),c.py,c.X(h),c.py+c.ph],'#fff',1.5);
-   wt(c.X(12.2),c.Y(-88)+4,'抽水',15,'#7dffc4',700,'center');wt(c.X(19.2),c.Y(88)+4,'發電',15,'#7dc8dc',700,'center');wt(c.X(7.4),c.Y(66),'光電',15,'#f2c230',700,'center');});
-  lab(300,LU0-dz,'日月潭（上池）',{dx:130,dy:50,st:'s',a:band(u,.08,.5)});
-  lab(PYL.x,PYL.y-150,'吸收中午多餘的光電',{dx:-60,dy:80,st:'g',a:band(u,.12,.4)});
-  lab(PYL.x,PYL.y-150,'傍晚用電尖峰',{dx:-60,dy:80,st:'w',a:band(u,.72,1)});
+  const op=ease(seg(u,.12,.26)),b=ease(seg(u,.62,.9));
+  const inside=(x,y)=>{const h=CH20;box(x+2,y-h+2,CW20-4,h-4,'#13232e');
+   for(let i=0;i<6;i++){const rx=x+10+i*28,top=y-h+14,hh=h-22,sc=socAt(i,b);box(rx,top,22,hh,'#1a3350','rgba(255,255,255,.35)',1);
+    const fh=(hh-4)*sc/100,low=sc===Math.min(...SOC0.map((_,k)=>socAt(k,b)));
+    box(rx+3,top+hh-2-fh,16,fh,low&&b<.6&&u>.45?'#ff9d7a':'#7dffc4');
+    if(u>.44&&b<.95&&SOC0[i]>60)alphaDo(seg(u,.62,.68)*(1-b),()=>circ(rx+11,top+6,2.4,'#f2c230'));}
+   box(x+CW20-40,y-h+10,34,h-16,'#44535c','rgba(255,255,255,.3)',1);box(x+CW20-34,y-h+18,22,10,'#0e2a3b');circ(x+CW20-23,y-h+40,2.5,'#7dffc4');
+   ctx.setLineDash([2,2]);ln([x+12,y-h+10,x+CW20-40,y-h+10],'rgba(242,194,48,.8)',1);ctx.setLineDash([]);};
+  siteDraw({open:op,inside});
+  const x0=BX[1],y0=gyy(x0+CW20/2);
+  lab(x0+CW20-23,y0-CH20+30,'BMS 主控',{dx:50,dy:110,st:'s',a:band(u,.2,.62)});
+  lab(x0+60,y0-CH20+10,'電壓與溫度採樣線',{dx:-60,dy:-80,a:band(u,.22,.5)});
+  lab(x0+10+3*28+11,y0-40,'電量最低的電芯',{dx:-110,dy:70,st:'w',a:band(u,.48,.68)});
+  lab(x0+10+0*28+11,y0-CH20+20,'高電量電芯小幅放電',{dx:-40,dy:-80,st:'g',a:band(u,.66,.95)});
  },
- hud(u){hudPanel(240,150,'運轉狀態（示例）',seg(u,.05,.1),w=>{const h=lerp(9,21,seg(u,.02,.95)),s=sched(h);
-  hrow(56,'時間',trf('{h}:{m}',{h:Math.floor(h),m:String(Math.floor((h%1)*60)).padStart(2,'0')}),w,'#fff');hrow(88,'模式',s<0?'抽水':s>0?'發電':'待機',w,s<0?'#7dffc4':s>0?'#f2c230':'#fff');
-  hrow(120,'上池水位',trf('{z} m',{z:(lakeAt(h)>=0?'+':'')+lakeAt(h).toFixed(2)}),w,'#7dc8dc');});}},
+ hud(u){hudPanel(250,190,'BMS 監測（示例）',seg(u,.05,.1),w=>{const b=ease(seg(u,.62,.9));const s=SOC0.map((_,i)=>socAt(i,b));const mx=Math.max(...s),mn=Math.min(...s);
+  const soc=lerp(52,58,seg(u,.2,.45));
+  hrow(56,'估算電量',Math.round(soc)+'%',w,'#7dffc4');hrow(88,'電流',(u<.45?'+157':'0')+' A',w,'#fff');
+  hrow(120,'電芯電量差',Math.round(mx-mn)+'%',w,mx-mn>6?'#ff9d7a':'#7dffc4');
+  s.forEach((v,i)=>{const bx=16+i*((w-32)/6),bw=(w-32)/6-8;box(bx,136,bw,40,'rgba(255,255,255,.1)');box(bx,136+40*(1-v/100),bw,40*v/100,v===mn&&b<.6?'#ff9d7a':'#7dffc4');});});}},
 
-{t:'台灣的抽蓄電廠',en:"Taiwan's pumped-storage plants",dur:12,
- d:'台灣現有兩座抽蓄電廠，都在南投水里溪一帶，共用日月潭當上池。明湖抽蓄電廠（現稱大觀二廠）於 1985 年商轉，4 部 250 MW 機組，以明湖水庫為下池，落差約 310 公尺。明潭抽蓄電廠於 1990 年代陸續完工，6 部 267 MW 機組，以明潭水庫為下池，落差約 380 公尺。兩廠合計約 2,602 MW，廠房都建在山體內的地下洞室，是台電調度尖峰與因應機組跳脫時的重要備援。',
- s:[[0,'兩座抽蓄電廠共用日月潭當上池'],[.3,'明湖：4 部 250 MW，落差約 310 m'],[.55,'明潭：6 部 267 MW，落差約 380 m'],[.78,'合計約 2,602 MW，是電網的重要備援']],
+{t:'電池為什麼會老化',en:'Why batteries age',dur:13,
+ d:'每一次充放電，電極表面都會發生少量副反應，消耗可用的鋰，容量因此慢慢下降。業界常把容量衰減到初始的 80% 視為壽命終點。儲能級磷酸鋰鐵電芯在約 25°C、0.5C 充放電時，規格書常標示 6,000 次以上的循環壽命；若每天充放一次，約可用十幾年。溫度越高、充放電越深、電流越大，老化越快，所以儲能系統會控溫、保留電量上下緩衝，並以溫和倍率運轉（典型範例）。',
+ s:[[0,'每次充放電，容量都會少一點點'],[.3,'衰減到 80% 時，通常視為壽命終點'],[.55,'溫度高、放得深、電流大，老化更快'],[.78,'控溫與保留緩衝，讓電池用得更久']],
  draw(u){
   diagBG();
-  /* 左：配置示意 */
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'配置示意（非比例）',20,'#f2c230',700);
-  alphaDo(seg(u,.02,.08),()=>{ctx.beginPath();ctx.ellipse(250,360,150,90,-.2,0,TAU);ctx.fillStyle='#2f7fa3';ctx.fill();ctx.strokeStyle='#dff6ff';ctx.lineWidth=2;ctx.stroke();
-   wt(250,352,'日月潭',24,'#fff',700,'center');wt(250,384,'共用上池',16,'rgba(227,236,238,.85)',500,'center');
-   ctx.strokeStyle='rgba(125,200,220,.55)';ctx.lineWidth=10;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(420,740);ctx.bezierCurveTo(520,640,560,540,720,470);ctx.stroke();ctx.lineCap='butt';
-   wt(700,520,'水里溪',16,'rgba(125,200,220,.9)',600,'right');});
-  const m1=seg(u,.28,.36),m2=seg(u,.52,.6);
-  alphaDo(m1,()=>{ctx.setLineDash([10,7]);ln([330,410,520,610],'#f2c230',4);ctx.setLineDash([]);flowDots([[330,410],[520,610]],4,'#f2c230',1,1,.5);
-   ctx.beginPath();ctx.ellipse(560,630,60,30,.3,0,TAU);ctx.fillStyle='#2f7fa3';ctx.fill();wt(560,690,'明湖水庫',17,'#fff',700,'center');tag(470,500,'大觀二廠',{size:16});});
-  alphaDo(m2,()=>{ctx.setLineDash([10,7]);ln([360,330,640,420],'#7dffc4',4);ctx.setLineDash([]);flowDots([[360,330],[640,420]],4,'#7dffc4',1,1,.5);
-   ctx.beginPath();ctx.ellipse(670,440,55,28,.3,0,TAU);ctx.fillStyle='#2f7fa3';ctx.fill();wt(690,400,'明潭水庫',17,'#fff',700,'center');tag(470,300,'明潭電廠',{size:16,bg:'#7dffc4'});});
-  /* 右：規格卡 */
-  const C=[[160,'明湖抽蓄電廠（大觀二廠）','#f2c230',m1,[['商轉','1985 年'],['機組','4 × 250 MW'],['落差','約 310 m'],['下池','明湖水庫']]],
-   [420,'明潭抽蓄電廠','#7dffc4',m2,[['完工','1990 年代'],['機組','6 × 267 MW'],['落差','約 380 m'],['下池','明潭水庫']]]];
-  C.forEach(([y,n,c,a,R])=>alphaDo(a,()=>{card(800,y,740,236,{bg:'rgba(7,27,39,.75)',st:c});wt(826,y+42,n,21,c,700);
-   R.forEach(([k,v],i)=>{const x=826+(i%2)*350,yy=y+100+Math.floor(i/2)*72;wt(x,yy,k,16,'rgba(227,236,238,.75)',600);wt(x,yy+32,v,24,'#fff',700,'left',COND);});}));
-  const tk=ease(seg(u,.78,.9));
-  alphaDo(seg(u,.76,.82),()=>{card(800,680,740,120,{bg:'rgba(31,127,92,.25)',st:'rgba(125,255,196,.45)'});wt(826,748,'兩廠合計',22,'#fff',700);
-   wt(1510,754,trf('{p} MW',{p:Math.round(2602*tk).toLocaleString('en-US')}),44,'#7dffc4',700,'right',COND);});
- }}
+  const c=chartBox(60,160,960,640,{title:'循環次數與容量保持率（典型範例）',x0:0,x1:10,y0:60,y1:102,xt:[0,2,4,6,8,10],yt:[60,70,80,90,100],xl:'循環次數（千次）',yl:'容量保持率（%）',pl:72,pt:70,pb:60,gx:5,gy:4});
+  const n=10*seg(u,.04,.5);
+  alphaDo(seg(u,.28,.34),()=>{ctx.setLineDash([8,6]);ln([c.px,c.Y(80),c.px+c.pw,c.Y(80)],'#e8572a',2);ctx.setLineDash([]);wt(c.px+12,c.Y(80)+26,'壽命終點 80%',17,'#ff9d7a',700);});
+  const g=seg(u,.52,.62);
+  if(g>0)alphaDo(g,()=>{curveP(c,capC,0,Math.min(10,4.2),.05,'#ff8a60',3);curveP(c,capB,0,Math.min(10,7),.05,'#58b8d0',3);
+   wt(c.X(4.2)+10,c.Y(capC(4.2))+6,'高溫 45°C',17,'#ff8a60',700);wt(c.X(7)+10,c.Y(capB(7))+6,'高倍率、滿充滿放',17,'#7dc8dc',700);});
+  curveP(c,capA,0,n,.05,'#7dffc4',4);
+  if(n>0){circ(c.X(n),c.Y(capA(n)),8,'#fff','#13232e',2);
+   alphaDo(seg(u,.04,.1),()=>{wt(c.px+c.pw-14,c.py+34,trf('循環 {n} 次',{n:Math.round(n*1000).toLocaleString('en-US')}),20,'#fff',700,'right');wt(c.px+c.pw-14,c.py+68,trf('容量 {p}%',{p:capA(n).toFixed(0)}),20,'#7dffc4',700,'right');});}
+  alphaDo(seg(u,.1,.16),()=>wt(c.X(.4),c.Y(97),'典型條件：25°C、0.5C',17,'#7dffc4',700));
+  alphaDo(seg(u,.4,.46),()=>{ln([c.X(8),c.Y(80),c.X(8),c.py+c.ph],'rgba(125,255,196,.5)',1.5);wt(c.X(8)-8,c.Y(64),'約 8,000 次',17,'#7dffc4',700,'right',COND);});
+  /* 右：影響因素 */
+  const F=[['溫度','25°C 左右最理想，高溫加速副反應'],['充放電深度（DoD）','保留上下緩衝，少用 0% 與 100%'],['倍率（C-rate）','儲能多用 0.5C，約 2 小時充滿'],['日曆老化','放著不用，也會慢慢衰退']];
+  F.forEach(([h,s],i)=>alphaDo(seg(u,.55+i*.05,.61+i*.05),()=>{const y=160+i*122;card(1060,y,480,106,{bg:'rgba(7,27,39,.75)'});box(1060,y,6,106,i===3?'#58b8d0':'#f2c230');
+   wt(1086,y+42,h,20,'#f2c230',700);wt(1086,y+78,s,17,'rgba(227,236,238,.88)',500);}));
+  alphaDo(seg(u,.8,.86),()=>{card(1060,654,480,146,{bg:'rgba(125,255,196,.1)',st:'rgba(125,255,196,.5)'});wt(1086,698,'每天一次完整循環',19,'#fff',700);
+   wt(1086,740,'6,000 次 ≈ 16 年',30,'#7dffc4',700,'left',COND);wt(1086,776,'（示例）',16,'rgba(227,236,238,.75)',500);});
+ }},
+
+{t:'熱失控：溫度一路失控',en:'Thermal runaway, step by step',dur:14,
+ d:'熱失控是電芯內部的連鎖放熱反應。過充、內部短路或外部高溫讓電芯升溫；約 80 至 120°C 時，負極表面的 SEI 膜開始分解放熱；約 130°C 起隔離膜熔化，正負極直接接觸而內短路，溫度急速上升並排出可燃氣體。磷酸鋰鐵正極不易釋氧，自發熱與熱失控的起點都比三元鋰高，失控時的最高溫度也較低，但並非不會失控，仍需要防護（典型範例）。',
+ s:[[0,'過充、內短路或外部高溫，讓電芯開始升溫'],[.22,'80–120°C：SEI 膜分解，自己開始發熱'],[.38,'隔離膜熔化，內短路讓溫度急升'],[.62,'比一比：鋰鐵比三元鋰更晚失控、溫度較低']],
+ draw(u){
+  diagBG();
+  const c=chartBox(60,160,900,640,{title:'電芯溫度歷程（示意）',x0:0,x1:100,y0:0,y1:700,yt:[0,100,200,300,400,500,600,700],xl:'時間',yl:'溫度（°C）',pl:72,pt:70,pb:50,gx:5,gy:7});
+  const tt=100*seg(u,.04,.6);
+  alphaDo(seg(u,.02,.08),()=>tag(c.X(3),c.Y(640),'誘因：過充 / 內短路 / 外部高溫',{size:16,bg:'#dfe5e8'}));
+  alphaDo(seg(u,.2,.26),()=>{box(c.px,c.Y(120),c.pw,c.Y(80)-c.Y(120),'rgba(242,194,48,.14)');wt(c.px+12,c.Y(120)+24,'SEI 膜分解 80–120°C',16,'#f2c230',700);});
+  alphaDo(seg(u,.34,.4),()=>{ctx.setLineDash([6,5]);ln([c.px,c.Y(130),c.px+c.pw,c.Y(130)],'rgba(255,157,122,.8)',1.5);ctx.setLineDash([]);wt(c.px+12,c.Y(130)-10,'隔離膜熔化約 130°C',16,'#ff9d7a',700);});
+  alphaDo(seg(u,.44,.5),()=>{ctx.setLineDash([6,5]);ln([c.px,c.Y(230),c.px+c.pw,c.Y(230)],'#e8572a',2);ctx.setLineDash([]);wt(c.px+12,c.Y(230)-10,'LFP 熱失控觸發 約 230°C',16,'#e8572a',700);});
+  curveP(c,trT,0,tt,.25,'#ff8a60',4);
+  if(tt>0){const T=trT(tt);circ(c.X(tt),c.Y(T),8,'#fff','#13232e',2);wt(c.X(tt)+(tt>80?-14:14),c.Y(T)+(tt>70?-14:6),Math.round(T)+'°C',19,'#fff',700,tt>80?'right':'left',COND);}
+  const gs=seg(u,.5,.56);if(gs>0)for(let q=0;q<6;q++){const p=(TT*.5+q/6)%1;alphaDo(gs*(1-p)*.8,()=>circ(c.X(78)+20*Math.sin(p*8+q),c.Y(610)-p*70,6+p*10,'rgba(200,200,200,.5)'));}
+  alphaDo(seg(u,.52,.58),()=>tag(c.X(57),c.Y(520),'排出可燃氣體',{size:16,bg:'#e8572a',fg:'#fff',align:'right'}));
+  /* 右：LFP 與 NMC 比較 */
+  card(1000,160,540,640,{bg:'rgba(7,27,39,.75)'});
+  wt(1024,200,'LFP 與三元鋰 NMC（典型範圍）',20,'#f2c230',700);
+  const M=[['自發熱起點','150–170','90–110',160,100],['熱失控觸發','約 230','160–210',235,185],['失控最高溫','約 600','約 800',600,800]];
+  const S=v=>v/900*300;
+  M.forEach(([n,lv,nv,l,m],i)=>{const a=seg(u,.62+i*.08,.68+i*.08);if(a<=0)return;const y=246+i*170;alphaDo(a,()=>{
+   wt(1024,y+14,n,19,'#fff',700);
+   box(1110,y+34,S(l)*a,34,'#7dffc4');wt(1024,y+58,'LFP',17,'#7dffc4',700,'left',COND);wt(1118+S(l)*a,y+58,lv+' °C',18,'#fff',700,'left',COND);
+   box(1110,y+80,S(m)*a,34,'#b37cff');wt(1024,y+104,'NMC',17,'#b37cff',700,'left',COND);wt(1118+S(m)*a,y+104,nv+' °C',18,'#fff',700,'left',COND);});});
+  alphaDo(seg(u,.88,.94),()=>wt(1024,770,'鋰鐵較安全，但仍會失控',17,'#ff9d7a',700));
+ }},
+
+{t:'從電芯到案場，層層防護',en:'Layers of protection, cell to site',dur:13,side:true,
+ d:'防護要從最小的電芯做到整個案場。電芯有洩壓閥，內壓過高時先排氣；模組內電芯之間加隔熱材，延緩熱量傳給鄰居；電池簇的 BMS 發現電壓或溫度異常就切斷電路；貨櫃裝有可燃氣體偵測、洩爆板與自動滅火系統；案場則保留貨櫃間距、消防通道與消防栓。台灣戶外儲能案場依標準檢驗局的案場驗證規範審查，並參考 CNS 62933-5-2 與 UL 9540A 的熱失控延燒試驗。',
+ s:[[0,'電芯洩壓閥、模組隔熱材，先把熱留在原地'],[.3,'BMS 發現異常，立即切斷電路'],[.52,'貨櫃內有氣體偵測、洩爆板與滅火系統'],[.75,'案場保留間距與消防通道，並通過驗證']],
+ cam:u=>camMix({x:BX[1]+CW20/2+40,y:gyy(BX[1]+CW20/2)-CH20/2-6,s:2.5},{x:820,y:450,s:1},ease(seg(u,.46,.66))),
+ draw(u){
+  const op=1-ease(seg(u,.4,.5));
+  const inside=(x,y)=>{containerInside(x,y);const h=CH20;
+   alphaDo(seg(u,.04,.1),()=>{for(let i=0;i<5;i++)box(x+33+i*28,y-h+14,4,h-22,'#f2c230');});
+   if(u>.28&&u<.5)alphaDo(seg(u,.28,.32),()=>{circ(x+CW20-23,y-h+40,4,'#e8572a');});};
+  siteDraw({open:op,inside});
+  /* 貨櫃頂部：偵測器與洩爆板 */
+  BX.forEach(x=>{const y=gyy(x+CW20/2)-CH20;box(x+70,y-10,50,6,'#8d989f');circ(x+150,y-8,5,'#dfe5e8','#44535c',1.5);});
+  hydrant(1005,gyy(1005));
+  const x0=BX[1],y0=gyy(x0+CW20/2);
+  lab(x0+50,y0-60,'電芯間隔熱材',{dx:-70,dy:-90,st:'s',a:band(u,.05,.3)});
+  lab(x0+CW20/2,y0-CH20+18,'電芯洩壓閥',{dx:30,dy:-100,a:band(u,.08,.3)});
+  lab(x0+CW20-23,y0-CH20+40,'BMS 切斷電路',{dx:60,dy:80,st:'w',a:band(u,.3,.48)});
+  lab(BX[0]+150,gyy(BX[0]+110)-CH20-8,'可燃氣體偵測',{dx:-40,dy:-80,a:band(u,.54,.76)});
+  lab(BX[2]+95,gyy(BX[2]+110)-CH20-10,'洩爆板',{dx:30,dy:-90,st:'s',a:band(u,.56,.78)});
+  const gy1=gyy(BX[1])+30;
+  alphaDo(band(u,.74,1),()=>{arrow(BX[1]+CW20+6,gy1,BX[2]-6,gy1,'#7dffc4',2.5);arrow(BX[2]-6,gy1,BX[1]+CW20+6,gy1,'#7dffc4',2.5);});
+  lab(BX[1]+CW20+30,gy1,'貨櫃間距',{dx:0,dy:60,st:'g',a:band(u,.74,1)});
+  lab(1005,gyy(1005)-30,'消防栓與通道',{dx:-20,dy:-110,st:'w',a:band(u,.78,1)});
+ },
+ hud(u){hudPanel(310,200,'防護層級',seg(u,.03,.08),w=>{
+  const R=[['電芯','洩壓閥',.03],['模組','隔熱材',.05],['電池簇','BMS 斷路',.3],['貨櫃','偵氣・洩爆・滅火',.54],['案場','間距・通道',.76]];
+  R.forEach(([n,v,t0],i)=>{const on=u>=t0;htext(16,52+i*30,n,15,on?'#f2c230':'rgba(227,236,238,.45)',700);htext(w-14,52+i*30,v,15,on?'#fff':'rgba(227,236,238,.45)',600,undefined,'right');});});}}
 ]};
 
-/* 抽蓄水力 translations: Traditional Chinese → [English, Japanese] */
+/* 儲能系列 第 3 集：從電池芯到儲能電廠 — 英日翻譯 */
 Object.assign(DICT,{
 "儲能系列":["Energy Storage Series","エネルギー貯蔵シリーズ"],
-"抽蓄水力":["Pumped-storage hydropower","揚水発電"],
-"世界上容量最大的儲能不是電池，而是兩座高低不同的水庫。這一集走進抽蓄水力電廠，看電多時把水抽上山、需要時放水發電的原理，打開可逆式機組看同一部機器如何正轉發電、反轉抽水，並算一算往返效率，最後介紹以日月潭為上池的明湖與明潭兩座抽蓄電廠。":["The largest energy storage in the world is not batteries but pairs of reservoirs at different heights. This episode goes inside a pumped-storage hydropower plant: how water is pumped uphill when power is plentiful and released to generate when it is needed, how a single reversible machine turns one way to generate and the other way to pump, how the round-trip efficiency adds up, and finally Taiwan's Minghu and Mingtan plants, which both use Sun Moon Lake as their upper reservoir.","世界で最も容量の大きい蓄電は電池ではなく、高さの異なる二つの貯水池です。このエピソードでは揚水発電所に入り、電気が余るときに水を山の上へくみ上げ、必要なときに放流して発電する原理、一台の可逆式ポンプ水車が正転で発電し逆転で揚水する仕組み、往復効率の内訳を見たうえで、日月潭を上部調整池とする台湾の明湖・明潭の二つの揚水発電所を紹介します。"],
-/* facts */
-"明湖（大觀二廠）1,000 MW 與明潭 1,602 MW 兩座抽蓄電廠的合計裝置容量":["Combined installed capacity of Taiwan's two pumped-storage plants: Minghu (Dakuan II) 1,000 MW and Mingtan 1,602 MW","台湾の二つの揚水発電所、明湖（大観第二）1,000 MWと明潭1,602 MWの合計設備容量"],
-"明潭抽蓄電廠上池日月潭與下池明潭水庫的落差":["Head between Sun Moon Lake (upper) and Mingtan Reservoir (lower) at the Mingtan plant","明潭揚水発電所の上池・日月潭と下池・明潭ダムの落差"],
-"明潭電廠單部可逆式機組的容量，共 6 部":["Rating of each reversible unit at Mingtan; the plant has six","明潭発電所の可逆式ユニット1台の出力（全6台）"],
-"約 1":["About 1","約 1"],
-"1 立方公尺的水從 380 m 高落下所含的位能（未計損失）":["Potential energy in 1 m³ of water falling 380 m, before losses","1 m³の水が380 m落下するときの位置エネルギー（損失を含まず）"],
-"約 75":["About 75","約 75"],
-"抽蓄電廠常見的往返效率，抽 4 度電約可發回 3 度（示例）":["Typical round-trip efficiency: about 3 kWh back for every 4 kWh used for pumping (example)","揚水発電の一般的な往復効率。4 kWhで揚水すると約3 kWhが戻る（例）"],
-"年":["year","年"],
-"明湖抽蓄電廠商轉，是台灣第一座抽蓄水力電廠":["Minghu entered commercial operation as Taiwan's first pumped-storage plant","明湖揚水発電所が営業運転を開始、台湾初の揚水発電所"],
-"說明：本集為教育用途示意動畫，山體、水道與廠房比例經過壓縮。明湖（大觀二廠）4 部 250 MW、落差約 310 m、1985 年商轉，明潭 6 部 267 MW、落差約 380 m，兩廠皆以日月潭為上池，數據取自台電與日月潭國家風景區管理處公開資料。流量約 80 m³/s、機組效率 0.9、往返效率約 75% 與損失分配、一天的抽水與發電排程、水位變化量均為典型範例，實際依台電調度與水情而定。":["Note: this is an illustrative educational animation; the mountain, waterways and powerhouse are compressed in scale. Minghu (Dakuan II: 4 × 250 MW, about 310 m head, commercial operation 1985) and Mingtan (6 × 267 MW, about 380 m head) both use Sun Moon Lake as the upper reservoir; figures are from public information by Taipower and the Sun Moon Lake National Scenic Area Administration. The flow of about 80 m³/s, unit efficiency of 0.9, round-trip efficiency of about 75% and its loss breakdown, the daily pumping and generating schedule and the water-level changes are typical examples; actual operation depends on Taipower dispatch and hydrological conditions.","説明：本作は教育用のイメージアニメーションで、山体・水路・発電所の縮尺は圧縮しています。明湖（大観第二：250 MW×4台、落差約310 m、1985年営業運転）と明潭（267 MW×6台、落差約380 m）はいずれも日月潭を上池としており、数値は台湾電力と日月潭国家風景区管理処の公開資料によります。流量約80 m³/s、ユニット効率0.9、往復効率約75%とその損失内訳、1日の揚水・発電スケジュール、水位変化量は典型的な例で、実際の運用は台湾電力の給電指令と水況によります。"],
-/* shot 1 */
-"兩座水庫的電池":["A battery made of two reservoirs","二つの貯水池でできた電池"],
-"抽蓄水力電廠由高低兩座水庫組成：上池在山上，下池在山腳，中間以山體內的壓力水道連接，機組則放在地下廠房。需要電的時候，打開上池的進水口，水沿著水道衝下，推動水輪機發電，再流入下池。電網電力有餘時，機組反過來當抽水機，把下池的水送回上池。電能就這樣以「水的高度」存了起來，隨時可以再放出來。":["A pumped-storage plant consists of two reservoirs: an upper one on the mountain and a lower one at its foot, linked by penstocks tunnelled through the rock, with the generating units in an underground powerhouse. When power is needed, the upper intake opens, water rushes down the waterway, spins the turbines and flows into the lower reservoir. When the grid has surplus power, the units run in reverse as pumps and send water from the lower reservoir back up. Electrical energy is stored as the height of water, ready to be released again at any time.","揚水発電所は高低二つの貯水池からなります。上池は山の上、下池は山のふもとにあり、山の中の水圧管路でつながれ、発電機は地下発電所に置かれています。電気が必要なときは上池の取水口を開き、水が管路を流れ下って水車を回し、下池へ流れ込みます。電力に余裕があるときは、ユニットを逆にポンプとして運転し、下池の水を上池へ戻します。こうして電気エネルギーは「水の高さ」として蓄えられ、いつでも取り出せます。"],
-"上池在山上，下池在山腳，中間是壓力水道":["Upper reservoir above, lower below, penstock between","上池は山の上、下池はふもと、間に水圧管路"],
-"打開進水口，水沿著水道往下衝":["The intake opens and water rushes down","取水口を開き、水が管路を流れ下る"],
-"地下廠房的機組把水的能量變成電":["Units in the underground powerhouse turn water into power","地下発電所のユニットが水のエネルギーを電気に変える"],
-"電力經開關場與輸電線送上電網":["Power goes out through the switchyard to the grid","電力は開閉所と送電線を通って系統へ"],
-"落差":["Head","落差"],
-"上池":["Upper reservoir","上池"],
-"下池":["Lower reservoir","下池"],
-"壓力水道":["Penstock","水圧管路"],
-"地下廠房":["Underground powerhouse","地下発電所"],
-"開關場":["Switchyard","開閉所"],
-"抽蓄電廠（示例）":["Pumped storage (example)","揚水発電所（例）"],
-"模式":["Mode","モード"],
-"發電":["Generating","発電"],
-"待機":["Standby","待機"],
-"出力":["Output","出力"],
-"上池水位":["Upper level","上池水位"],
-/* shot 2 */
-"水位高度就是能量":["Height is energy","水の高さがエネルギー"],
-"水從高處落下，位能變成動能再變成電。能量的大小取決於兩件事：落差 H 與流量 Q。發電功率可寫成 P = ρgQHη，其中 ρ 是水的密度，g 是重力加速度，η 是機組效率。以明潭電廠為例，落差約 380 公尺，每秒約 80 立方公尺的水流過一部機組、效率 0.9 時，功率約 267 MW。換個角度看，1 立方公尺的水從 380 公尺落下，就含有約 1 度電的位能，所以落差越大，同一池水能存的電越多。":["As water falls, potential energy becomes kinetic energy and then electricity. How much depends on two things: the head H and the flow Q. Output can be written P = ρgQHη, where ρ is the density of water, g is gravitational acceleration and η is unit efficiency. At Mingtan, with a head of about 380 m, roughly 80 m³ of water per second through one unit at 0.9 efficiency gives about 267 MW. Put another way, 1 m³ of water falling 380 m holds about 1 kWh of potential energy, so the higher the head, the more energy the same reservoir can store.","水が高い所から落ちると、位置エネルギーが運動エネルギーに、さらに電気に変わります。その大きさを決めるのは落差Hと流量Qの二つです。発電出力はP = ρgQHηと書け、ρは水の密度、gは重力加速度、ηはユニット効率です。明潭発電所の例では、落差約380 m、1台に毎秒約80 m³の水が流れ、効率0.9のとき出力は約267 MWになります。見方を変えれば、1 m³の水が380 m落ちると約1 kWhの位置エネルギーを持つので、落差が大きいほど同じ池でより多くの電気を蓄えられます。"],
-"落差越大，同一池水能存的能量越多":["More head means more energy from the same water","落差が大きいほど同じ水で多くのエネルギーを蓄える"],
-"功率 P = ρ × g × Q × H × η":["Power P = ρ × g × Q × H × η","出力 P = ρ × g × Q × H × η"],
-"每秒 80 m³ 的水流過一部機組，約 267 MW":["80 m³/s through one unit gives about 267 MW","1台に毎秒80 m³流れると約267 MW"],
-"1 m³ 的水從 380 m 落下，約含 1 度電":["1 m³ falling 380 m holds about 1 kWh","1 m³の水が380 m落ちると約1 kWh"],
-"落差與流量":["Head and flow","落差と流量"],
-"發電功率":["Generating power","発電出力"],
-"水的密度":["Water density","水の密度"],
-"重力加速度":["Gravity","重力加速度"],
-"流量（示例）":["Flow (example)","流量（例）"],
-"機組效率（示例）":["Efficiency (example)","ユニット効率（例）"],
-"一部機組":["One unit","ユニット1台"],
-"1 立方公尺的水從 380 m 落下，約含 1 度電的位能":["1 m³ of water falling 380 m holds about 1 kWh of potential energy","1 m³の水が380 m落ちると、約1 kWhの位置エネルギー"],
-/* shot 3 */
-"可逆式機組：正轉發電、反轉抽水":["The reversible pump-turbine","可逆式ポンプ水車：正転で発電、逆転で揚水"],
-"抽蓄電廠不必分別裝水輪機與抽水機。常見的是可逆式法蘭西斯機組：上方是發電電動機，下方是水泵水輪機，以同一根主軸相連。發電時，水從蝸殼四周流進轉輪，推動它往一個方向轉，帶動上方的發電機；抽水時，電網供電讓電動機反向旋轉，轉輪變成離心泵，把水從下方吸入、往上池壓回去。轉輪葉片的形狀必須在兩個方向之間取得平衡，所以設計上是一種折衷。":["A pumped-storage plant does not need separate turbines and pumps. The usual choice is a reversible Francis unit: a motor-generator on top and a pump-turbine below, joined by a single shaft. When generating, water flows in from the spiral case, drives the runner one way and turns the generator above. When pumping, grid power spins the motor the other way and the runner becomes a centrifugal pump, drawing water from below and pushing it back to the upper reservoir. The blade shape has to work in both directions, so its design is always a compromise.","揚水発電所では水車とポンプを別々に設ける必要はありません。一般的なのは可逆式フランシス形ユニットで、上部に発電電動機、下部にポンプ水車があり、一本の主軸でつながっています。発電時は水がケーシングの周囲からランナへ流れ込んで一方向に回し、上の発電機を駆動します。揚水時は系統の電力で電動機を逆回転させ、ランナが遠心ポンプとなって下から水を吸い込み、上池へ押し戻します。羽根の形は両方向で働く必要があるため、設計は常に折衷になります。"],
-"上方是發電電動機，下方是水泵水輪機":["Motor-generator on top, pump-turbine below","上に発電電動機、下にポンプ水車"],
-"發電：水流推動轉輪，帶動發電機":["Generating: water drives the runner and generator","発電：水がランナを回し、発電機を駆動"],
-"抽水：電動機反轉，轉輪變成抽水機":["Pumping: the motor reverses and the runner pumps","揚水：電動機が逆転し、ランナがポンプに"],
-"同一部機組，兩個方向都能運轉":["One machine runs in both directions","一台のユニットが両方向に運転"],
-"機組剖面（示意）":["Unit cross-section (schematic)","ユニット断面（イメージ）"],
-"發電電動機":["Motor-generator","発電電動機"],
-"主軸":["Shaft","主軸"],
-"水泵水輪機":["Pump-turbine","ポンプ水車"],
-"蝸殼":["Spiral case","ケーシング"],
-"尾水管":["Draft tube","吸出し管"],
-"轉輪俯視":["Runner, top view","ランナ上面図"],
-"發電模式":["Generating mode","発電モード"],
-"水推轉輪":["Water drives runner","水がランナを回す"],
-"轉輪帶動發電機":["Runner turns generator","ランナが発電機を駆動"],
-"水：上池 → 下池":["Water: upper → lower","水：上池 → 下池"],
-"抽水模式":["Pumping mode","揚水モード"],
-"電動機反轉":["Motor reverses","電動機が逆転"],
-"轉輪當離心泵":["Runner acts as pump","ランナが遠心ポンプに"],
-"水：下池 → 上池":["Water: lower → upper","水：下池 → 上池"],
-"同一部機組，兩種用途":["One machine, two jobs","一台で二つの役割"],
-"發電：水輪機效率約 90%":["Generating: turbine efficiency about 90%","発電：水車効率 約90%"],
-"抽水：水泵效率略低，約 85–90%":["Pumping: slightly lower, about 85–90%","揚水：ポンプ効率はやや低く約85–90%"],
-"葉片形狀在兩個方向之間折衷":["Blade shape is a two-way compromise","羽根の形は両方向の折衷"],
-/* shot 4 */
-"電多時，把水抽上山":["Pumping water uphill","電気が余ったら水を山へ"],
-"當電網供電大於需求，例如中午太陽光電大量發電時，調度中心就讓抽蓄電廠改成抽水模式。機組先與電網同步，電動機帶著轉輪反向旋轉，把下池的水沿著同一條水道壓回上池。明潭電廠 6 部機組全力抽水時，可以一次吸收一百多萬瓩的電力。上池水位慢慢上升，下池水位下降，這些電能就以位能的形式儲存在日月潭裡，等傍晚再放出來。":["When supply exceeds demand, for example when solar output peaks around noon, the dispatch centre switches the pumped-storage plant to pumping mode. Each unit synchronises with the grid, and the motor spins the runner in reverse, pushing water from the lower reservoir back up the same waterway. With all six units pumping, Mingtan can absorb well over 1,000 MW. The upper reservoir slowly rises and the lower one falls, and the energy is held as potential energy in Sun Moon Lake until it is released in the evening.","系統の供給が需要を上回るとき、たとえば正午に太陽光発電が大量に発電しているとき、給電指令所は揚水発電所を揚水モードに切り替えます。ユニットはまず系統と同期し、電動機がランナを逆回転させて、下池の水を同じ管路から上池へ押し戻します。明潭発電所の6台が全力で揚水すると、一度に100万kW以上の電力を吸収できます。上池の水位はゆっくり上がり、下池は下がり、このエネルギーは位置エネルギーとして日月潭に蓄えられ、夕方に取り出されます。"],
-"電網電力有餘，調度中心下令抽水":["Surplus power: dispatch orders pumping","電力に余裕、給電指令所が揚水を指令"],
-"電動機反轉，把下池的水壓回上池":["The motor reverses and pushes water back up","電動機が逆転し、下池の水を上池へ"],
-"上池水位上升，下池水位下降":["The upper level rises, the lower level falls","上池の水位が上がり、下池が下がる"],
-"電能以水的高度存在上池裡":["Energy is stored as water height","電気は水の高さとして上池に蓄えられる"],
-"電網送電進廠":["Grid power in","系統から受電"],
-"從下池吸水":["Drawing lower water","下池から吸水"],
-"上池水位上升":["Upper level rising","上池水位上昇"],
-"下池水位下降":["Lower level falling","下池水位低下"],
-"抽水運轉（示例）":["Pumping (example)","揚水運転（例）"],
-"抽水":["Pumping","揚水"],
-"切換中":["Switching","切替中"],
-"用電":["Demand","消費電力"],
-/* shot 5 */
-"往返效率：抽 4 度，發回 3 度":["Round-trip efficiency","往復効率：4 kWhで揚水、3 kWhを発電"],
-"抽水與發電各有損失：電動機與水泵把電變成位能時會損失一部分，水在水道裡流動有摩擦，發電時水輪機、發電機與變壓器又各損失一些。整體來說，抽蓄電廠的往返效率大約在 70% 到 80% 之間，典型值約 75%，也就是抽水用掉 4 度電，約可發回 3 度。聽起來不划算，但它把沒人用的電移到最需要的時段，而且水庫與隧道可使用 50 年以上，容量也遠大於一般電池案場。":["Both pumping and generating involve losses: the motor and pump lose some energy turning electricity into potential energy, water loses some to friction in the waterways, and the turbine, generator and transformers each lose a little more when generating. Overall, the round-trip efficiency of pumped storage is about 70 to 80%, typically around 75%: 4 kWh used for pumping returns about 3 kWh. That may sound wasteful, but it moves unused electricity to the hours when it is needed most, the reservoirs and tunnels last more than 50 years, and the capacity is far larger than a typical battery site.","揚水にも発電にも損失があります。電動機とポンプが電気を位置エネルギーに変える際に一部が失われ、水路では摩擦があり、発電時には水車・発電機・変圧器でもそれぞれ少しずつ失われます。全体として揚水発電の往復効率は約70〜80%、典型値は約75%で、4 kWhで揚水すると約3 kWhが戻ります。割に合わないように聞こえますが、使われない電気を最も必要な時間帯へ移すことができ、貯水池とトンネルは50年以上使え、容量も一般的な蓄電池サイトよりはるかに大きいのです。"],
-"抽水用掉 100 份電能":["Pumping uses 100 units of energy","揚水に100の電気エネルギーを使う"],
-"電動機、水泵與水道先損失一部分":["Motor, pump and waterway lose some first","電動機・ポンプ・水路でまず一部を損失"],
-"發電時水輪機與發電機再損失一些":["Turbine and generator lose a little more","発電時に水車と発電機でさらに損失"],
-"最後約 75 份送回電網":["About 75 units return to the grid","最終的に約75が系統へ戻る"],
-"能量去向（示例）":["Where the energy goes (example)","エネルギーの行方（例）"],
-"抽水用電":["Pumping input","揚水電力"],
-"電動機與水泵":["Motor and pump","電動機とポンプ"],
-"水道摩擦":["Friction","水路摩擦"],
-"存在上池":["Stored","上池に貯蔵"],
-"水輪機與發電機":["Turbine, generator","水車と発電機"],
-"變壓器等":["Transformer etc.","変圧器など"],
-"送回電網 ≈ 75":["Back to grid ≈ 75","系統へ ≈ 75"],
-"抽蓄與電池":["Pumped storage vs batteries","揚水と蓄電池"],
-"抽蓄":["Pumped","揚水"],
-"電池":["Battery","蓄電池"],
-"往返效率":["Efficiency","往復効率"],
-"約 70–80%":["About 70–80%","約70–80%"],
-"約 85–90%":["About 85–90%","約85–90%"],
-"使用年限":["Lifetime","耐用年数"],
-"50 年以上":["50+ years","50年以上"],
-"約 15–20 年":["15–20 years","約15–20年"],
-"反應速度":["Response","応答速度"],
-"數分鐘":["Minutes","数分"],
-"1 秒內":["Within 1 s","1秒以内"],
-"適合用途":["Best for","適した用途"],
-"大量、數小時":["Bulk, hours","大容量・数時間"],
-"快速調頻":["Fast frequency","高速周波数調整"],
-/* shot 6 */
-"中午抽水，傍晚發電":["Pump at noon, generate at dusk","正午に揚水、夕方に発電"],
-"過去抽蓄電廠的節奏是「夜間抽水、白天發電」：半夜用電少、火力機組不便降載，就把多餘的電拿來抽水。隨著太陽光電大量併網，台灣的運轉方式逐漸變成「中午抽水、傍晚發電」：中午光電發電最多時抽水，把綠電存進上池；太陽下山、光電退場而用電仍高時，再放水發電補上缺口。所以遊客常會發現，日月潭的水位在一天之中會起伏變化。":["Pumped storage used to follow a rhythm of pumping at night and generating by day: demand was low after midnight and thermal units could not easily ramp down, so surplus power went into pumping. As large amounts of solar have connected to the grid, Taiwan's pattern has shifted to pumping at noon and generating at dusk: water is pumped when solar output peaks, storing green power in the upper reservoir, and released when the sun sets and solar fades while demand is still high. That is why visitors often notice Sun Moon Lake's water level rising and falling over the day.","かつて揚水発電のリズムは「夜に揚水、昼に発電」でした。深夜は需要が少なく火力ユニットの出力を下げにくいため、余った電気で揚水していたのです。太陽光発電の大量導入に伴い、台湾の運用は次第に「正午に揚水、夕方に発電」へ変わってきました。太陽光が最も多い正午に揚水して再エネの電気を上池に蓄え、日が沈んで太陽光が減っても需要が高い時間帯に放流して不足を補います。そのため観光客は、日月潭の水位が一日の中で上下することに気づくことがあります。"],
-"中午太陽光電最多，電廠抽水":["Solar peaks at noon and the plant pumps","正午に太陽光が最大、発電所は揚水"],
-"上池水位慢慢升高":["The upper reservoir slowly rises","上池の水位がゆっくり上昇"],
-"太陽下山，光電發電減少":["The sun sets and solar output falls","日が沈み、太陽光発電が減少"],
-"傍晚放水發電，補上用電缺口":["Evening generation fills the gap","夕方に放流発電し、不足を補う"],
-"光電與抽蓄一天的運轉（示意）":["Solar and pumped storage over a day (schematic)","太陽光と揚水の1日の運転（イメージ）"],
-"光電":["Solar","太陽光"],
-"時":["Hour","時"],
-"日月潭（上池）":["Sun Moon Lake (upper)","日月潭（上池）"],
-"吸收中午多餘的光電":["Absorbing noon solar surplus","正午の余剰太陽光を吸収"],
-"傍晚用電尖峰":["Evening peak","夕方の需要ピーク"],
-"運轉狀態（示例）":["Operation (example)","運転状態（例）"],
-"時間":["Time","時刻"],
-/* shot 7 */
-"台灣的抽蓄電廠":["Taiwan's pumped-storage plants","台湾の揚水発電所"],
-"台灣現有兩座抽蓄電廠，都在南投水里溪一帶，共用日月潭當上池。明湖抽蓄電廠（現稱大觀二廠）於 1985 年商轉，4 部 250 MW 機組，以明湖水庫為下池，落差約 310 公尺。明潭抽蓄電廠於 1990 年代陸續完工，6 部 267 MW 機組，以明潭水庫為下池，落差約 380 公尺。兩廠合計約 2,602 MW，廠房都建在山體內的地下洞室，是台電調度尖峰與因應機組跳脫時的重要備援。":["Taiwan has two pumped-storage plants, both along the Shuili River in Nantou, sharing Sun Moon Lake as their upper reservoir. Minghu (now called Dakuan II) began commercial operation in 1985 with four 250 MW units, using Minghu Reservoir as the lower reservoir and a head of about 310 m. Mingtan was completed in stages in the 1990s with six 267 MW units, using Mingtan Reservoir as the lower reservoir and a head of about 380 m. Together they total about 2,602 MW, with powerhouses in caverns inside the mountain, and are an important reserve for Taipower in meeting peaks and responding to unit trips.","台湾には揚水発電所が二つあり、いずれも南投県の水里渓沿いにあって日月潭を上池として共用しています。明湖揚水発電所（現・大観第二発電所）は1985年に営業運転を開始し、250 MWのユニット4台、明湖ダムを下池とし、落差は約310 mです。明潭揚水発電所は1990年代に順次完成し、267 MWのユニット6台、明潭ダムを下池とし、落差は約380 mです。両所合わせて約2,602 MWで、発電所はいずれも山の中の地下空洞に建設されており、台湾電力にとってピーク対応やユニット脱落時の重要な予備力となっています。"],
-"兩座抽蓄電廠共用日月潭當上池":["Two plants share Sun Moon Lake as their upper reservoir","二つの揚水発電所が日月潭を上池として共用"],
-"明湖：4 部 250 MW，落差約 310 m":["Minghu: 4 × 250 MW, about 310 m head","明湖：250 MW×4台、落差約310 m"],
-"明潭：6 部 267 MW，落差約 380 m":["Mingtan: 6 × 267 MW, about 380 m head","明潭：267 MW×6台、落差約380 m"],
-"合計約 2,602 MW，是電網的重要備援":["About 2,602 MW in total, a key grid reserve","合計約2,602 MW、系統の重要な予備力"],
-"配置示意（非比例）":["Layout (not to scale)","配置イメージ（縮尺なし）"],
-"日月潭":["Sun Moon Lake","日月潭"],
-"共用上池":["Shared upper reservoir","共用の上池"],
-"水里溪":["Shuili River","水里渓"],
-"明湖水庫":["Minghu Reservoir","明湖ダム"],
-"大觀二廠":["Dakuan II","大観第二"],
-"明潭水庫":["Mingtan Reservoir","明潭ダム"],
-"明潭電廠":["Mingtan plant","明潭発電所"],
-"明湖抽蓄電廠（大觀二廠）":["Minghu pumped storage (Dakuan II)","明湖揚水発電所（大観第二）"],
-"明潭抽蓄電廠":["Mingtan pumped storage","明潭揚水発電所"],
-"商轉":["In service","営業運転"],
-"1985 年":["1985","1985年"],
-"機組":["Units","ユニット"],
-"完工":["Completed","完成"],
-"1990 年代":["1990s","1990年代"],
-"約 310 m":["About 310 m","約310 m"],
-"約 380 m":["About 380 m","約380 m"],
-"兩廠合計":["Both plants","両所合計"]
+"從電池芯到儲能電廠":["From battery cell to storage plant","電池セルから蓄電所へ"],
+"儲能電廠的核心，是成千上萬顆手掌大小的磷酸鋰鐵電池芯。這一集走進電芯內部，看鋰離子怎麼在正負極之間來回，讀懂充放電曲線與電量（SOC），了解電池為什麼會老化，以及熱失控如何發生、又如何層層防護。":["At the heart of a storage plant are thousands of palm-sized lithium iron phosphate cells. This episode goes inside a cell to watch lithium ions shuttle between the electrodes, reads the charge and discharge curve and the state of charge (SOC), explains why batteries age, and shows how thermal runaway happens and how it is contained layer by layer.","蓄電所の中心にあるのは、手のひらほどの大きさのリン酸鉄リチウム電池セル数千個です。本編ではセルの内部に入り、リチウムイオンが正極と負極の間を行き来する様子を見て、充放電曲線と充電率（SOC）を読み解きます。さらに電池が劣化する理由と、熱暴走がどう起き、どのように多層で防ぐのかを紹介します。"],
+"磷酸鋰鐵（LFP）電芯標稱電壓；充電截止約 3.65 V、放電截止約 2.5 V":["Nominal voltage of a lithium iron phosphate (LFP) cell; charge cut-off about 3.65 V, discharge cut-off about 2.5 V","リン酸鉄リチウム（LFP）セルの公称電圧。充電終止は約 3.65 V、放電終止は約 2.5 V"],
+"目前儲能貨櫃常見的方形電芯容量，一顆約可存 1 度電":["A common prismatic cell capacity in today's storage containers; each cell stores about 1 kWh","現在の蓄電コンテナで一般的な角形セルの容量。1 セルで約 1 kWh を蓄える"],
+"次":["cycles","回"],
+"儲能級 LFP 電芯常見的循環壽命，以容量衰減到 80% 計（典型範例）":["Typical cycle life of storage-grade LFP cells, counted until capacity falls to 80% (typical example)","蓄電用 LFP セルの一般的なサイクル寿命。容量が 80% に低下するまでで数える（代表例）"],
+"電極表面 SEI 膜開始分解的溫度，是熱失控連鎖反應的第一步":["Temperature at which the SEI layer on the electrode starts to break down, the first step of the thermal runaway chain","電極表面の SEI 被膜が分解し始める温度。熱暴走の連鎖反応の第一段階"],
+"約 230":["About 230","約 230"],
+"LFP 電芯熱失控觸發溫度的典型值；三元鋰（NMC）約 160–210 °C（典型範例）":["Typical thermal runaway trigger temperature of an LFP cell; about 160–210 °C for NMC cells (typical example)","LFP セルの熱暴走開始温度の代表値。三元系（NMC）は約 160–210 °C（代表例）"],
+"說明：本集為教育用途示意動畫，電芯、設備與案場比例經過調整。電芯規格以市售儲能級 314 Ah 磷酸鋰鐵方形電芯規格書為典型範例（標稱 3.2 V、充電截止約 3.65 V、放電截止約 2.5 V、約 1 kWh）；充放電曲線為示意形狀。循環壽命曲線為典型範例，實際依溫度、充放電深度與倍率而異，各廠規格書常標示 6,000–8,000 次以上。熱失控各階段溫度（SEI 分解約 80–120 °C、隔離膜約 130 °C 起熔化）與 LFP、NMC 的自發熱及觸發溫度，取自公開文獻中絕熱量熱（ARC）試驗的典型範圍，因電芯尺寸與試驗方法而異。台灣戶外儲能案場依經濟部標準檢驗局「戶外電池儲能系統案場驗證技術規範」辦理，並參考 CNS 62933-5-2 與 UL 9540A。":["Note: This is a schematic animation for education; the proportions of cells, equipment and site are adjusted. Cell specifications follow datasheets of commercial storage-grade 314 Ah LFP prismatic cells as a typical example (3.2 V nominal, charge cut-off about 3.65 V, discharge cut-off about 2.5 V, about 1 kWh); the voltage curves are schematic. The cycle-life curves are typical examples; real values depend on temperature, depth of discharge and C-rate, and manufacturers' datasheets commonly list 6,000–8,000 cycles or more. The temperatures of the thermal runaway stages (SEI breakdown at about 80–120 °C, separator melting from about 130 °C) and the self-heating and trigger temperatures of LFP and NMC are typical ranges from accelerating rate calorimetry (ARC) tests in published studies and vary with cell size and test method. Outdoor battery storage sites in Taiwan are reviewed under the Outdoor Battery Energy Storage System Site Verification Technical Specification of the Bureau of Standards, Metrology and Inspection (Ministry of Economic Affairs), with reference to CNS 62933-5-2 and UL 9540A.","説明：本編は教育用の模式アニメーションで、セル、設備、サイトの縮尺は調整しています。セル仕様は市販の蓄電用 314 Ah リン酸鉄リチウム角形セルのデータシートを代表例としています（公称 3.2 V、充電終止約 3.65 V、放電終止約 2.5 V、約 1 kWh）。充放電曲線は模式的な形です。サイクル寿命曲線は代表例で、実際には温度、放電深度、C レートによって異なり、各社のデータシートでは 6,000–8,000 回以上とされることが多いです。熱暴走の各段階の温度（SEI 分解約 80–120 °C、セパレータは約 130 °C から溶融）と LFP・NMC の自己発熱開始温度・熱暴走開始温度は、公開文献の加速速度熱量計（ARC）試験による代表的な範囲で、セルの大きさや試験方法によって異なります。台湾の屋外蓄電サイトは経済部標準検験局の「屋外電池蓄電システムサイト検証技術規範」に基づき審査され、CNS 62933-5-2 と UL 9540A を参考にしています。"],
+"一顆電芯，組成一座電廠":["Thousands of cells make a plant","セルが集まって蓄電所になる"],
+"儲能電廠看起來是一排排貨櫃，但真正存電的是裡面成千上萬顆電池芯。常見的磷酸鋰鐵電芯標稱 3.2 伏特、314 安培小時，約可存 1 度電。電芯串成模組、模組疊成電池簇、電池簇裝進貨櫃，一個 20 呎貨櫃約 5 MWh；幾座到幾十座貨櫃再經變流器與變壓器併網，就成為數十至數百 MWh 的儲能電廠（示例）。":["A storage plant looks like rows of containers, but the energy is really held by thousands of battery cells inside. A common LFP cell is rated 3.2 volts and 314 amp-hours, storing about 1 kWh. Cells are connected into modules, modules are stacked into racks, and racks go into containers; one 20-foot container holds about 5 MWh. A few to several dozen containers, connected to the grid through power conversion systems and transformers, make a storage plant of tens to hundreds of MWh (example).","蓄電所はコンテナが並んでいるように見えますが、実際に電気を蓄えているのは内部にある数千個の電池セルです。一般的なリン酸鉄リチウムセルは公称 3.2 V、314 Ah で、約 1 kWh を蓄えます。セルを直列につないでモジュールに、モジュールを積み重ねてラックにし、ラックをコンテナに収めます。20 フィートコンテナ 1 基で約 5 MWh です。数基から数十基のコンテナをパワコンと変圧器を通して系統につなぐと、数十〜数百 MWh の蓄電所になります（例）。"],
+"儲能電廠的核心，是一顆顆電池芯":["At the core of the plant are individual cells","蓄電所の中心は一つ一つの電池セル"],
+"電芯組成模組，模組疊成電池簇":["Cells form modules; modules stack into racks","セルでモジュールを作り、モジュールを積んでラックに"],
+"電池簇裝進貨櫃，一座約 5 MWh":["Racks go into containers of about 5 MWh each","ラックをコンテナに収め、1 基で約 5 MWh"],
+"許多貨櫃併網，組成儲能電廠":["Many containers connect to the grid as one plant","多数のコンテナを系統につなぎ蓄電所に"],
+"電池芯":["Cell","電池セル"],
+"3.2 V · 約 1 kWh":["3.2 V · ≈ 1 kWh","3.2 V · 約 1 kWh"],
+"電池模組":["Module","電池モジュール"],
+"約 104 kWh":["≈ 104 kWh","約 104 kWh"],
+"電池簇":["Rack","電池ラック"],
+"約 418 kWh":["≈ 418 kWh","約 418 kWh"],
+"電池貨櫃":["Container","電池コンテナ"],
+"約 5 MWh":["≈ 5 MWh","約 5 MWh"],
+"儲能電廠":["Storage plant","蓄電所"],
+"數十至數百 MWh":["Tens–hundreds MWh","数十〜数百 MWh"],
+"變流器（PCS）":["PCS","パワコン（PCS）"],
+"併網":["Grid","系統連系"],
+"鋰鐵電池裡面":["Inside a lithium iron phosphate cell","リン酸鉄リチウム電池の内部"],
+"一顆磷酸鋰鐵電芯由正極、負極、隔離膜與電解液組成。正極是塗在鋁箔上的磷酸鋰鐵（LiFePO₄），負極是塗在銅箔上的石墨。充電時，鋰離子從正極出發，穿過電解液與隔離膜，嵌進石墨層之間，電子則經外部電路流向負極；放電時方向相反。磷酸鋰鐵是橄欖石結構，磷與氧的鍵結牢固，高溫下不易釋放氧氣，這是它比三元鋰安全的主要原因。":["An LFP cell consists of a cathode, an anode, a separator and electrolyte. The cathode is lithium iron phosphate (LiFePO₄) coated on aluminium foil; the anode is graphite coated on copper foil. During charging, lithium ions leave the cathode, pass through the electrolyte and separator and slot in between the graphite layers, while electrons travel to the anode through the external circuit. Discharging reverses the flow. LiFePO₄ has an olivine structure with strong phosphorus–oxygen bonds, so it does not readily release oxygen at high temperature. This is the main reason it is safer than NMC chemistry.","リン酸鉄リチウムセルは正極、負極、セパレータ、電解液で構成されます。正極はアルミ箔に塗ったリン酸鉄リチウム（LiFePO₄）、負極は銅箔に塗った黒鉛です。充電時、リチウムイオンは正極を出て電解液とセパレータを通り、黒鉛の層の間に入り込みます。電子は外部回路を通って負極へ流れます。放電時は逆向きです。リン酸鉄リチウムはオリビン構造で、リンと酸素の結合が強く、高温でも酸素を放出しにくいことが、三元系より安全な主な理由です。"],
+"打開電芯：正極、隔離膜、負極與電解液":["Inside: cathode, separator, anode and electrolyte","セル内部：正極、セパレータ、負極、電解液"],
+"充電：鋰離子從正極游向石墨負極":["Charging: lithium ions move to the graphite anode","充電：リチウムイオンが黒鉛負極へ移動"],
+"電子走外部電路，隔離膜只讓離子通過":["Electrons take the outer circuit; ions pass the separator","電子は外部回路へ、セパレータはイオンだけを通す"],
+"放電：鋰離子回到正極，電子推動負載":["Discharging: ions return and electrons drive the load","放電：イオンが正極へ戻り、電子が負荷を動かす"],
+"橄欖石結構牢固，高溫下不易釋氧":["The sturdy olivine structure holds its oxygen when hot","強固なオリビン構造で高温でも酸素を放出しにくい"],
+"正極 LiFePO₄":["Cathode LiFePO₄","正極 LiFePO₄"],
+"鋁箔集電":["Aluminium foil","アルミ箔集電体"],
+"隔離膜":["Separator","セパレータ"],
+"電解液":["Electrolyte","電解液"],
+"負極 石墨":["Anode graphite","負極 黒鉛"],
+"銅箔集電":["Copper foil","銅箔集電体"],
+"充電器":["Charger","充電器"],
+"負載":["Load","負荷"],
+"充電：Li⁺ → 負極":["Charge: Li⁺ → anode","充電：Li⁺ → 負極"],
+"放電：Li⁺ → 正極":["Discharge: Li⁺ → cathode","放電：Li⁺ → 正極"],
+"鋰離子 Li⁺":["Lithium ion Li⁺","リチウムイオン Li⁺"],
+"電子 e⁻（外部電路）":["Electron e⁻ (outer circuit)","電子 e⁻（外部回路）"],
+"為什麼是磷酸鋰鐵":["Why lithium iron phosphate","なぜリン酸鉄リチウムか"],
+"橄欖石結構":["Olivine structure","オリビン構造"],
+"磷與氧鍵結牢固，高溫下不易釋氧":["Strong P–O bonds hold oxygen when hot","P–O 結合が強く高温でも酸素を出しにくい"],
+"不含鈷、鎳":["No cobalt or nickel","コバルト・ニッケル不使用"],
+"原料較易取得，成本較低":["Easier materials, lower cost","原料を入手しやすく低コスト"],
+"循環壽命長":["Long cycle life","長いサイクル寿命"],
+"可充放數千次以上":["Thousands of cycles or more","数千回以上の充放電が可能"],
+"能量密度較低":["Lower energy density","エネルギー密度が低め"],
+"同樣電量比三元鋰重、體積大":["Heavier and bulkier than NMC","同じ容量なら三元系より重く大きい"],
+"平坦的充放電曲線":["A remarkably flat voltage curve","平坦な充放電曲線"],
+"把電芯從空充到滿，電壓不是直線上升。磷酸鋰鐵在電量約 10% 到 90% 之間，電壓幾乎停在 3.2 至 3.3 伏特，這段「平台區」讓輸出電壓穩定，也是標稱 3.2 伏特的由來。充電到約 3.65 伏特必須停止，放電到約 2.5 伏特也要停，超過都會損傷電芯。三元鋰的電壓會隨電量明顯變化；磷酸鋰鐵的平坦曲線則讓人很難只看電壓判斷剩多少電。":["When a cell is charged from empty to full, its voltage does not rise in a straight line. Between about 10% and 90% state of charge, an LFP cell stays almost fixed at 3.2 to 3.3 volts. This plateau gives a steady output voltage and is where the 3.2 V nominal rating comes from. Charging must stop at about 3.65 V and discharging at about 2.5 V; going beyond either damages the cell. An NMC cell's voltage changes clearly with its charge, whereas the flat LFP curve makes it hard to tell how much energy is left from voltage alone.","セルを空から満充電まで充電しても、電圧は直線的には上がりません。リン酸鉄リチウムは充電率約 10% から 90% の間、電圧がほぼ 3.2〜3.3 V にとどまります。この「プラトー」が出力電圧を安定させ、公称 3.2 V の由来にもなっています。充電は約 3.65 V、放電は約 2.5 V で止める必要があり、どちらも超えるとセルを傷めます。三元系は充電率に応じて電圧がはっきり変わりますが、リン酸鉄リチウムの平坦な曲線では、電圧だけで残量を判断するのが難しくなります。"],
+"從空電充到滿，電壓怎麼變化":["How voltage changes from empty to full","空から満充電まで電圧はどう変わるか"],
+"10% 到 90% 之間，電壓幾乎不動":["Between 10% and 90%, voltage barely moves","10% から 90% の間、電圧はほぼ一定"],
+"3.65 V 與 2.5 V 是不能越過的截止線":["3.65 V and 2.5 V are limits not to be crossed","3.65 V と 2.5 V は越えてはならない終止線"],
+"三元鋰斜斜上升，鋰鐵卻像平台":["NMC slopes upward; LFP stays flat","三元系は右肩上がり、LFP は平坦"],
+"電芯電壓與電量（示意）":["Cell voltage vs charge (schematic)","セル電圧と充電率（模式図）"],
+"電量 SOC（%）":["SOC (%)","充電率 SOC（%）"],
+"電壓（V）":["Voltage (V)","電圧（V）"],
+"平台區：電壓幾乎不變":["Plateau: voltage nearly constant","プラトー：電圧がほぼ一定"],
+"充電截止 3.65 V":["Charge cut-off 3.65 V","充電終止 3.65 V"],
+"放電截止 2.5 V":["Discharge cut-off 2.5 V","放電終止 2.5 V"],
+"三元鋰 NMC（對照）":["NMC (for comparison)","三元系 NMC（比較）"],
+"磷酸鋰鐵 LFP":["LFP","リン酸鉄リチウム LFP"],
+"充電截止":["Charge cut-off","充電終止電圧"],
+"再充會使正極與電解液劣化":["Beyond it the cathode degrades","超えると正極と電解液が劣化"],
+"標稱電壓":["Nominal voltage","公称電圧"],
+"平台區中段，計算容量的基準":["Mid-plateau; basis for rating","プラトー中央、容量計算の基準"],
+"放電截止":["Discharge cut-off","放電終止電圧"],
+"再放會損傷負極與銅箔":["Below it the anode is damaged","下回ると負極と銅箔を傷める"],
+"只看電壓，很難知道剩多少電":["Voltage alone can't show the charge","電圧だけでは残量がわかりにくい"],
+"平台區內差 10% 電量，":["On the plateau, a 10% SOC gap","プラトー上では 10% の差でも"],
+"電壓只差約 0.01 V":["is only about 0.01 V","電圧差は約 0.01 V"],
+"→ 需要 BMS 用其他方法估算":["→ the BMS must estimate it another way","→ BMS は別の方法で推定する"],
+"BMS 怎麼知道還剩多少電":["How the BMS estimates state of charge","BMS は残量をどう知るか"],
+"電池管理系統（BMS）隨時量測每顆電芯的電壓、溫度與整串電流。因為鋰鐵曲線平坦，BMS 主要以「庫侖計數」估算電量（SOC）：把流進流出的電流逐秒累加，再利用靜置或接近充飽、放空時的電壓校正誤差。串聯的電芯只要有一顆先滿或先空，整串就得停下，所以 BMS 還要做電芯平衡，把電量偏高的電芯稍微放電，讓大家回到同一水準，可用容量才不會被最弱的一顆拖累。":["The battery management system (BMS) continuously measures the voltage and temperature of every cell and the current through each string. Because the LFP curve is so flat, the BMS estimates the state of charge (SOC) mainly by coulomb counting, adding up the current flowing in and out every second, and corrects the drift using voltage readings at rest or near full and empty. In a series string, as soon as one cell is full or empty the whole string must stop, so the BMS also balances the cells, gently discharging those with more charge to bring them all back to the same level. That way the weakest cell does not limit the usable capacity.","電池管理システム（BMS）は、すべてのセルの電圧と温度、ストリング全体の電流を常時計測します。リン酸鉄リチウムは曲線が平坦なため、BMS は主に「クーロンカウント」で充電率（SOC）を推定します。出入りする電流を毎秒積算し、休止時や満充電・放電終止付近の電圧で誤差を補正します。直列につながったセルは、一つでも先に満充電や空になるとストリング全体を止めなければなりません。そこで BMS はセルバランスを行い、充電率の高いセルを少し放電させて全体をそろえ、最も弱いセルに使える容量が引きずられないようにします。"],
+"打開貨櫃，BMS 監測每一顆電芯":["Inside the container, the BMS watches every cell","コンテナ内で BMS がすべてのセルを監視"],
+"逐秒累加電流，估算電量（SOC）":["Counting current each second to estimate SOC","毎秒電流を積算して SOC を推定"],
+"各電芯電量不一，最弱的一顆會拖累整串":["Uneven cells: the weakest one limits the string","セルの充電率がばらつき、最弱セルが全体を制限"],
+"電芯平衡：電量拉回同一水準":["Cell balancing brings them back in line","セルバランスで充電率をそろえる"],
+"BMS 主控":["BMS controller","BMS 主制御"],
+"電壓與溫度採樣線":["Sensing wires","電圧・温度センシング線"],
+"電量最低的電芯":["Lowest cell","充電率が最も低いセル"],
+"高電量電芯小幅放電":["Bleeding high cells","高いセルを少し放電"],
+"BMS 監測（示例）":["BMS readings (example)","BMS 監視（例）"],
+"估算電量":["Est. SOC","推定 SOC"],
+"電流":["Current","電流"],
+"電芯電量差":["SOC spread","セル間の差"],
+"電池為什麼會老化":["Why batteries age","電池はなぜ劣化するか"],
+"每一次充放電，電極表面都會發生少量副反應，消耗可用的鋰，容量因此慢慢下降。業界常把容量衰減到初始的 80% 視為壽命終點。儲能級磷酸鋰鐵電芯在約 25°C、0.5C 充放電時，規格書常標示 6,000 次以上的循環壽命；若每天充放一次，約可用十幾年。溫度越高、充放電越深、電流越大，老化越快，所以儲能系統會控溫、保留電量上下緩衝，並以溫和倍率運轉（典型範例）。":["Every charge and discharge causes small side reactions on the electrode surfaces that consume usable lithium, so capacity slowly falls. The industry usually treats a drop to 80% of the initial capacity as end of life. Datasheets for storage-grade LFP cells commonly list 6,000 cycles or more at about 25°C and 0.5C; at one cycle a day, that is well over a decade of service. Higher temperature, deeper cycling and higher current all speed up ageing, so storage systems control temperature, keep a buffer at the top and bottom of the charge range and run at moderate C-rates (typical example).","充放電のたびに電極表面ではわずかな副反応が起き、使えるリチウムが消費されて容量が少しずつ低下します。業界では初期容量の 80% まで低下した時点を寿命とするのが一般的です。蓄電用のリン酸鉄リチウムセルは約 25°C、0.5C の充放電で 6,000 回以上のサイクル寿命がデータシートに記載されることが多く、1 日 1 回の充放電なら十数年使えます。温度が高いほど、放電が深いほど、電流が大きいほど劣化は速まるため、蓄電システムは温度を管理し、充電率の上下に余裕を残し、穏やかな C レートで運転します（代表例）。"],
+"每次充放電，容量都會少一點點":["Each cycle takes away a little capacity","充放電のたびに容量が少しずつ減る"],
+"衰減到 80% 時，通常視為壽命終點":["At 80% capacity, a cell is usually at end of life","容量 80% で寿命とみなすのが一般的"],
+"溫度高、放得深、電流大，老化更快":["Heat, deep cycles and high current age it faster","高温、深い放電、大電流で劣化が速まる"],
+"控溫與保留緩衝，讓電池用得更久":["Temperature control and buffers extend its life","温度管理と余裕の確保で長寿命に"],
+"循環次數與容量保持率（典型範例）":["Cycles vs capacity retention (typical)","サイクル数と容量維持率（代表例）"],
+"循環次數（千次）":["Cycles (thousands)","サイクル数（千回）"],
+"容量保持率（%）":["Capacity retention (%)","容量維持率（%）"],
+"壽命終點 80%":["End of life 80%","寿命 80%"],
+"高溫 45°C":["Hot, 45°C","高温 45°C"],
+"高倍率、滿充滿放":["High C-rate, full cycles","高レート・満充放電"],
+"典型條件：25°C、0.5C":["Typical: 25°C, 0.5C","標準条件：25°C、0.5C"],
+"約 8,000 次":["≈ 8,000","約 8,000 回"],
+"溫度":["Temperature","温度"],
+"25°C 左右最理想，高溫加速副反應":["Best near 25°C; heat speeds side reactions","25°C 前後が理想、高温は副反応を加速"],
+"充放電深度（DoD）":["Depth of discharge (DoD)","放電深度（DoD）"],
+"保留上下緩衝，少用 0% 與 100%":["Keep buffers; avoid 0% and 100%","上下に余裕を残し 0% と 100% を避ける"],
+"倍率（C-rate）":["C-rate","C レート"],
+"儲能多用 0.5C，約 2 小時充滿":["Storage often runs 0.5C, 2 h to full","蓄電は 0.5C が多く約 2 時間で満充電"],
+"日曆老化":["Calendar ageing","カレンダー劣化"],
+"放著不用，也會慢慢衰退":["Capacity fades even when idle","使わなくても徐々に劣化する"],
+"每天一次完整循環":["One full cycle a day","1 日 1 回のフルサイクル"],
+"6,000 次 ≈ 16 年":["6,000 cycles ≈ 16 years","6,000 回 ≈ 16 年"],
+"（示例）":["(example)","（例）"],
+"熱失控：溫度一路失控":["Thermal runaway, step by step","熱暴走：温度が制御を失うまで"],
+"熱失控是電芯內部的連鎖放熱反應。過充、內部短路或外部高溫讓電芯升溫；約 80 至 120°C 時，負極表面的 SEI 膜開始分解放熱；約 130°C 起隔離膜熔化，正負極直接接觸而內短路，溫度急速上升並排出可燃氣體。磷酸鋰鐵正極不易釋氧，自發熱與熱失控的起點都比三元鋰高，失控時的最高溫度也較低，但並非不會失控，仍需要防護（典型範例）。":["Thermal runaway is a chain of heat-releasing reactions inside a cell. Overcharging, an internal short circuit or external heat raises the cell temperature. At about 80 to 120°C the SEI layer on the anode starts to break down and release heat. From about 130°C the separator melts, the electrodes touch and short internally, and the temperature shoots up as flammable gas vents. Because the LFP cathode does not readily release oxygen, both self-heating and runaway begin at higher temperatures than in NMC cells, and the peak temperature is lower. LFP can still run away, however, so protection is still needed (typical example).","熱暴走はセル内部で起こる発熱反応の連鎖です。過充電、内部短絡、外部の高温によってセルの温度が上がります。約 80〜120°C で負極表面の SEI 被膜が分解して発熱し、約 130°C からセパレータが溶けて正極と負極が接触し内部短絡が起きます。温度は急上昇し、可燃性ガスが放出されます。リン酸鉄リチウムの正極は酸素を放出しにくいため、自己発熱と熱暴走の開始温度はいずれも三元系より高く、最高温度も低くなります。ただし熱暴走しないわけではなく、防護は欠かせません（代表例）。"],
+"過充、內短路或外部高溫，讓電芯開始升溫":["Overcharge, a short or outside heat warms the cell","過充電・内部短絡・外部加熱でセルが昇温"],
+"80–120°C：SEI 膜分解，自己開始發熱":["80–120°C: the SEI breaks down and self-heats","80–120°C：SEI 被膜が分解し自己発熱"],
+"隔離膜熔化，內短路讓溫度急升":["The separator melts and a short spikes the heat","セパレータが溶け、内部短絡で温度が急上昇"],
+"比一比：鋰鐵比三元鋰更晚失控、溫度較低":["Compared: LFP runs away later and cooler than NMC","比較：LFP は三元系より遅く、低い温度で推移"],
+"電芯溫度歷程（示意）":["Cell temperature over time (schematic)","セル温度の推移（模式図）"],
+"時間":["Time","時間"],
+"溫度（°C）":["Temperature (°C)","温度（°C）"],
+"誘因：過充 / 內短路 / 外部高溫":["Trigger: overcharge / short / heat","要因：過充電 / 内部短絡 / 外部加熱"],
+"SEI 膜分解 80–120°C":["SEI breakdown 80–120°C","SEI 分解 80–120°C"],
+"隔離膜熔化約 130°C":["Separator melts ≈ 130°C","セパレータ溶融 約 130°C"],
+"LFP 熱失控觸發 約 230°C":["LFP runaway ≈ 230°C","LFP 熱暴走開始 約 230°C"],
+"排出可燃氣體":["Flammable gas vents","可燃性ガス放出"],
+"LFP 與三元鋰 NMC（典型範圍）":["LFP vs NMC (typical ranges)","LFP と三元系 NMC（代表範囲）"],
+"自發熱起點":["Self-heating onset","自己発熱開始"],
+"熱失控觸發":["Runaway trigger","熱暴走開始"],
+"失控最高溫":["Peak temperature","最高温度"],
+"約 230 °C":["≈ 230 °C","約 230 °C"],
+"約 600 °C":["≈ 600 °C","約 600 °C"],
+"約 800 °C":["≈ 800 °C","約 800 °C"],
+"鋰鐵較安全，但仍會失控":["Safer, but LFP can still run away","LFP は比較的安全だが熱暴走は起こりうる"],
+"從電芯到案場，層層防護":["Layers of protection, cell to site","セルからサイトまで多層の防護"],
+"防護要從最小的電芯做到整個案場。電芯有洩壓閥，內壓過高時先排氣；模組內電芯之間加隔熱材，延緩熱量傳給鄰居；電池簇的 BMS 發現電壓或溫度異常就切斷電路；貨櫃裝有可燃氣體偵測、洩爆板與自動滅火系統；案場則保留貨櫃間距、消防通道與消防栓。台灣戶外儲能案場依標準檢驗局的案場驗證規範審查，並參考 CNS 62933-5-2 與 UL 9540A 的熱失控延燒試驗。":["Protection runs from the smallest cell up to the whole site. Each cell has a safety vent that releases gas if internal pressure gets too high. Inside a module, insulation between cells slows heat from passing to neighbours. The BMS of each rack opens the circuit when it detects abnormal voltage or temperature. Containers carry flammable gas detection, explosion vent panels and automatic fire suppression, and the site keeps spacing between containers, fire access routes and hydrants. Outdoor storage sites in Taiwan are reviewed under the site verification specification of the Bureau of Standards, Metrology and Inspection, with reference to the thermal runaway propagation tests of CNS 62933-5-2 and UL 9540A.","防護は最小単位のセルからサイト全体まで行います。セルには安全弁があり、内圧が高くなると先にガスを逃がします。モジュール内のセル間には断熱材を入れ、隣のセルへの熱の伝わりを遅らせます。ラックの BMS は電圧や温度の異常を検知すると回路を遮断します。コンテナには可燃性ガス検知器、放爆パネル、自動消火設備を備え、サイトではコンテナ間の離隔距離、消防用通路、消火栓を確保します。台湾の屋外蓄電サイトは標準検験局のサイト検証規範に基づいて審査され、CNS 62933-5-2 と UL 9540A の熱暴走延焼試験を参考にしています。"],
+"電芯洩壓閥、模組隔熱材，先把熱留在原地":["Cell vents and module insulation keep heat contained","セルの安全弁とモジュールの断熱材で熱を封じ込める"],
+"BMS 發現異常，立即切斷電路":["The BMS spots a fault and opens the circuit","BMS が異常を検知し、すぐに回路を遮断"],
+"貨櫃內有氣體偵測、洩爆板與滅火系統":["Containers have gas detection, vents and suppression","コンテナにはガス検知、放爆パネル、消火設備"],
+"案場保留間距與消防通道，並通過驗證":["The site keeps spacing and fire access, and is verified","サイトは離隔距離と消防通路を確保し検証を受ける"],
+"電芯間隔熱材":["Cell insulation","セル間断熱材"],
+"電芯洩壓閥":["Cell safety vent","セル安全弁"],
+"BMS 切斷電路":["BMS trips circuit","BMS が回路遮断"],
+"可燃氣體偵測":["Gas detector","可燃性ガス検知"],
+"洩爆板":["Explosion vent","放爆パネル"],
+"貨櫃間距":["Spacing","コンテナ離隔"],
+"消防栓與通道":["Hydrant and access","消火栓と消防通路"],
+"防護層級":["Protection layers","防護の階層"],
+"電芯":["Cell","セル"],
+"洩壓閥":["Safety vent","安全弁"],
+"模組":["Module","モジュール"],
+"隔熱材":["Insulation","断熱材"],
+"BMS 斷路":["BMS trip","BMS 遮断"],
+"貨櫃":["Container","コンテナ"],
+"偵氣・洩爆・滅火":["Gas · vent · fire","ガス検知・放爆・消火"],
+"案場":["Site","サイト"],
+"間距・通道":["Spacing · access","離隔・通路"],
+"循環 {n} 次":["{n} cycles","{n} サイクル"],
+"容量 {p}%":["Capacity {p}%","容量維持率 {p}%"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
