@@ -548,6 +548,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "設備與原理",
+            "en": "Equipment and principles",
+            "ja": "設備と原理"
+          },
+          "episodes": [
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "齒輪箱與發電機",
+                "en": "Gearboxes and generators",
+                "ja": "増速機と発電機"
+              },
+              "sub": {
+                "zh": "增速原理與同步轉速、行星齒輪箱、雙饋式感應發電機、永磁直驅與全功率變流器、傳動鏈比較",
+                "en": "Why speed is stepped up, planetary gearboxes, doubly-fed induction generators, direct drive and full-power converters, drivetrains compared",
+                "ja": "増速の原理と同期速度、遊星歯車増速機、二重給電誘導発電機、ダイレクトドライブとフルコンバータ、ドライブトレインの比較"
+              }
+            }
+          ]
         }
       ]
     },
