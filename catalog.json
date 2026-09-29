@@ -523,6 +523,20 @@
                 "en": "Wind power and v³, the Betz limit, lift and tip speed ratio, pitch and yaw, the power curve",
                 "ja": "風のパワーと v³、ベッツの限界、揚力と周速比、ピッチとヨー、パワーカーブ"
               }
+            },
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "風機的控制與保護",
+                "en": "Turbine control and protection",
+                "ja": "風車の制御と保護"
+              },
+              "sub": {
+                "zh": "起動與併聯、轉矩與變槳控制分區、偏航對風、切出風速與颱風停機、剎車與安全鏈",
+                "en": "Start-up and grid connection, torque and pitch control regions, yawing, cut-out and typhoon shutdown, brakes and the safety chain",
+                "ja": "起動と系統並列、トルク制御とピッチ制御の領域、ヨーによる風向追従、カットアウトと台風時の停止、ブレーキとセーフティチェーン"
+              }
             }
           ]
         },
