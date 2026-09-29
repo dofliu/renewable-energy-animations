@@ -299,6 +299,29 @@
         },
         {
           "name": {
+            "zh": "設計",
+            "en": "Design",
+            "ja": "設計"
+          },
+          "episodes": [
+            {
+              "no": 17,
+              "file": "ep17.html",
+              "title": {
+                "zh": "颱風與地震的設計挑戰",
+                "en": "Designing for typhoons and earthquakes",
+                "ja": "台風と地震への設計"
+              },
+              "sub": {
+                "zh": "T 級風機、颱風停機與偏航、475 年設計地震、土壤液化與疲勞",
+                "en": "Class T turbines, typhoon shutdown and yaw, the 475-year earthquake, liquefaction and fatigue",
+                "ja": "T クラス風車、台風時の停止とヨー、475年設計地震、液状化と疲労"
+              }
+            }
+          ]
+        },
+        {
+          "name": {
             "zh": "未來技術",
             "en": "Future technology",
             "ja": "次世代技術"
