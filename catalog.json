@@ -178,6 +178,20 @@
                 "en": "Cable anatomy, burial and HDD landfall",
                 "ja": "ケーブル構造、埋設、HDD による陸揚げ"
               }
+            },
+            {
+              "no": 16,
+              "file": "ep16.html",
+              "title": {
+                "zh": "套管式基礎",
+                "en": "Jacket foundations",
+                "ja": "ジャケット式基礎"
+              },
+              "sub": {
+                "zh": "套管與單樁比較、預打樁、插樁與灌漿連接",
+                "en": "Jacket vs monopile, pre-piling, stabbing and grouted connections",
+                "ja": "ジャケットとモノパイルの比較、プレパイリング、スタビングとグラウト接合"
+              }
             }
           ]
         },
