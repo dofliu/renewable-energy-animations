@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep17.js｜離岸風場開發系列</title>
+<title>ep18.js｜離岸風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep15.html"><span data-zh="← 15 離岸風場的運維" data-en="← 15 Offshore wind O&amp;M" data-ja="← 15 洋上風力発電所のO&amp;M">← 15 離岸風場的運維</span></a><a href="ep18.html"><span data-zh="18 風機葉片的製造 →" data-en="18 How turbine blades are made →" data-ja="18 風車ブレードの製造 →">18 風機葉片的製造 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep17.html"><span data-zh="← 17 颱風與地震的設計挑戰" data-en="← 17 Designing for typhoons and earthquakes" data-ja="← 17 台風と地震への設計">← 17 颱風與地震的設計挑戰</span></a><a href="ep14.html"><span data-zh="14 浮動式離岸風電 →" data-en="14 Floating offshore wind →" data-ja="14 浮体式洋上風力 →">14 浮動式離岸風電 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep17.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep18.js｜離岸風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -487,862 +487,548 @@ const LANG_KEY='rea-lang';
 /* strings intentionally shown in Chinese in other languages (e.g. bilingual subtitles); qa.py ignores them */
 const QA_KEEP=[];
 
-/* ================= MARINE KIT: coastal cross-section world (sea left, land right) ================= */
-/* ================= world geometry ================= */
-const SEA=470,TX=640,OX=1120,COAST=1455;
-const bedBase=x=>702+6*Math.sin(x*.013)+4*Math.sin(x*.031+1);
-function bedY(x){
-  if(x<1180) return bedBase(x);
-  if(x<COAST){const k=(x-1180)/(COAST-1180);const s=k*k*(3-2*k);return lerp(bedBase(1180),SEA+6,s);}
-  return Math.max(440,SEA+6-(x-COAST)*.5);
+/* ================= LAND & OPEN-SEA KIT =================
+   Generic backgrounds for topics that are not the offshore-wind coastal section:
+   solar farms, onshore wind, storage, hydrogen, wave/tidal energy.
+   World is 1600×900; GY is the default ground line. */
+const GY=600;
+const LCLOUDS=(()=>{const r=rng(17),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*200,s:.5+r()*.8,sp:3+r()*5});return a;})();
+function lcloud(x,y,s){ctx.beginPath();[[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});ctx.fillStyle='rgba(255,255,255,.9)';ctx.fill();}
+/* sky down to horizon hy; o.sun={x,y}; o.dusk 0..1 warms the colours */
+function landSky(hy,o){
+  hy=hy||GY;o=o||{};const k=o.dusk||0;
+  const g=ctx.createLinearGradient(0,VY0,0,hy);
+  g.addColorStop(0,k?`rgb(${lerp(79,60,k)|0},${lerp(143,70,k)|0},${lerp(196,130,k)|0})`:'#4f8fc4');
+  g.addColorStop(.6,k?`rgb(${lerp(156,220,k)|0},${lerp(198,130,k)|0},${lerp(223,110,k)|0})`:'#9cc6df');
+  g.addColorStop(1,k?`rgb(${lerp(226,250,k)|0},${lerp(239,190,k)|0},${lerp(242,120,k)|0})`:'#e2eff2');
+  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,hy-VY0+2);
+  const sn=o.sun||{x:1280,y:120};const rg=ctx.createRadialGradient(sn.x,sn.y,8,sn.x,sn.y,220);rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(1,'rgba(255,244,214,0)');ctx.fillStyle=rg;ctx.fillRect(sn.x-230,sn.y-230,460,460);circ(sn.x,sn.y,20,'#fff8e2');
+  if(o.clouds!==false)for(const c of LCLOUDS){const x=((c.x+TT*c.sp+400)%2400)-400;if(c.y>hy-40)continue;lcloud(x,c.y,c.s);}
 }
-const wv=(x,t)=>SEA+2.4*Math.sin(x*.021-t*1.7)+1.5*Math.sin(x*.047+t*1.2);
-const bedTX=bedY(TX),bedOX=bedY(OX);
-const PILE_TOP=460,PILE_W=30,PILE_BOT=bedTX+130,PILE_L=PILE_BOT-PILE_TOP;
-const TP_TOP=420,TP_BOT=478,TP_H=58;
-const TW_TOP=185,HS=(TP_TOP-TW_TOP)/3;
-const tw=y=>lerp(16,26,(y-TW_TOP)/(TP_TOP-TW_TOP));
-const HUB={x:TX-44,y:TW_TOP-20},BR=165;
-const JH=bedOX-440;
-const LAY=[{a:0,b:36,c:'#d9c393',n:'細砂層',m:'0–7 m'},{a:36,b:92,c:'#a4876a',n:'粉土質黏土',m:'7–18 m'},{a:92,b:152,c:'#c4a678',n:'緊密砂層',m:'18–30 m'},{a:152,b:760,c:'#6d6862',n:'岩盤／極緊密層',m:'> 30 m'}];
-const WRECK_X=250,UXO_X=560;
-const HDD_EXIT=1350;
+const groundY=x=>GY+6*Math.sin(x*.004)+3*Math.sin(x*.013);
+const LAND_LAY=[{d:0,c:'#7a9a55',n:'表土'},{d:16,c:'#a4876a',n:'黏土層'},{d:110,c:'#c4a678',n:'砂礫層'},{d:230,c:'#6d6862',n:'岩盤'}];
+/* layered ground below groundY; o.layers overrides LAND_LAY; o.grass=false hides grass */
+function drawGround(o){
+  o=o||{};const Ls=o.layers||LAND_LAY;
+  Ls.forEach((L,i)=>{ctx.beginPath();ctx.moveTo(VX0,groundY(VX0)+L.d);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,groundY(x)+L.d+(i?nz(x*.01+i)*4:0));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=L.c;ctx.fill();});
+  if(o.grass!==false){ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=Math.floor(VX0);x<=VX1;x+=5){const y=groundY(x);ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%4));}ctx.stroke();}
+}
+function landBase(){landSky();drawGround();}
+function landEnd(){}
+/* open-sea swell for wave / tidal topics: o={y:mean level,A:amplitude,L:wavelength,sp:speed,bed:seabed y} */
+function swellY(x,o){o=o||{};const A=o.A===undefined?18:o.A,L=o.L||260,sp=o.sp||1.2,y0=o.y||420;return y0+A*Math.sin(TAU*(x/L)-TT*sp)+A*.22*Math.sin(TAU*(x/(L*.43))-TT*sp*1.7);}
+function drawSwell(o){
+  o=o||{};const bed=o.bed||820;const g=ctx.createLinearGradient(0,(o.y||420)-40,0,bed);g.addColorStop(0,'#3b93bb');g.addColorStop(.5,'#1d6690');g.addColorStop(1,'#0b3858');
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.moveTo(VX0,swellY(VX0,o));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,swellY(x,o));ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.8;ctx.stroke();
+  box(VX0,bed,VX1-VX0,VY1-bed+20,'#b59a6a');ln([VX0,bed,VX1,bed],'#a98a58',2);
+}
+function seaBase(){landSky(420,{});drawSwell();}
+/* ---- objects ---- */
+/* PV module on a post: base (x,y) on ground, panel width w, tilt in degrees facing right→left sun */
+function solarPanel(x,y,w,tilt,o){
+  o=o||{};const h=o.h||w*.45,a=-(tilt||20)*Math.PI/180;ln([x,y,x,y-h],'#8a99a3',Math.max(2,w*.05));
+  ctx.save();ctx.translate(x,y-h);ctx.rotate(a);const t=w*.06;box(-w/2,-t,w,t,'#1f3f66');
+  ctx.strokeStyle='rgba(160,200,240,.55)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(-w/2+w*i/6,-t);ctx.lineTo(-w/2+w*i/6,0);}ctx.stroke();
+  box(-w/2,-t,w,1.5,'#9fc3e6');if(o.glint)box(-w/2+w*.2,-t,w*.25,1.5,'#fff');ctx.restore();
+}
+function pvRow(x0,y,n,gap,w,tilt){for(let i=0;i<n;i++)solarPanel(x0+i*gap,y,w,tilt);}
+/* side-view truck; flip=true faces left */
+function truck(x,y,flip,col,load){ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);
+  box(0,-34,90,26,col||'#e8572a');box(92,-40,34,32,'#f4f6f7');box(100,-36,18,12,'#2a3a46');box(0,-10,126,6,'#2b3137');
+  if(load)load();for(const wx of [18,44,108])circ(wx,-3,8,'#222','#555',2);ctx.restore();}
+function fence(x0,x1,y){ctx.strokeStyle='rgba(60,70,75,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,y-18);ctx.lineTo(x1,y-18);ctx.moveTo(x0,y-9);ctx.lineTo(x1,y-9);for(let x=x0;x<=x1;x+=16){ctx.moveTo(x,y);ctx.lineTo(x,y-20);}ctx.stroke();}
+function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.strokeRect(x,y-h,w,h);ctx.fillStyle='rgba(0,0,0,.25)';for(let i=0;i<3;i++)ctx.fillRect(x+w*.15,y-h+h*(.2+i*.22),w*.7,h*.08);}
+/* pile-driving rig for ground-mounted PV or onshore foundations */
+function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
-/* ================= environment ================= */
-const WATER_END=COAST+12;
-function surf(x){if(x>=WATER_END)return SEA+1;const k=clamp((WATER_END-x)/90);return SEA+(wv(x,TT)-SEA)*k;}
-const CLOUDS=(()=>{const r=rng(11),a=[];for(let i=0;i<10;i++)a.push({x:r()*2600-500,y:30+r()*230,s:.55+r()*.9,sp:3+r()*6});return a;})();
-function cloud(x,y,s,a){
-  ctx.save();ctx.globalAlpha*=a;
-  ctx.beginPath();
-  [[0,0,26],[26,-12,31],[56,-5,25],[80,4,18],[-24,6,17],[40,8,20]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*s+r*s,y+dy*s);ctx.arc(x+dx*s,y+dy*s,r*s,0,TAU);});
-  ctx.fillStyle='rgba(255,255,255,.92)';ctx.fill();
-  ctx.clip();ctx.fillStyle='rgba(170,195,215,.35)';ctx.fillRect(x-60*s,y+8*s,180*s,30*s);
-  ctx.restore();
-}
-function drawSky(){
-  const g=ctx.createLinearGradient(0,-120,0,SEA);
-  g.addColorStop(0,'#4f8fc4');g.addColorStop(.55,'#9cc6df');g.addColorStop(1,'#e2eff2');
-  ctx.fillStyle=g;ctx.fillRect(VX0,VY0,VX1-VX0,SEA+10-VY0);
-  const sx=1290,sy=110,rg=ctx.createRadialGradient(sx,sy,10,sx,sy,230);
-  rg.addColorStop(0,'rgba(255,248,222,.85)');rg.addColorStop(.25,'rgba(255,244,214,.35)');rg.addColorStop(1,'rgba(255,244,214,0)');
-  ctx.fillStyle=rg;ctx.fillRect(sx-240,sy-240,480,480);circ(sx,sy,20,'#fff8e2');
-  for(const c of CLOUDS){let x=((c.x+TT*c.sp+500)%2700+2700)%2700-500;if(x>VX1+50||x+120*c.s<VX0-50)continue;cloud(x,c.y,c.s,.95);}
-  // distant mountains on the land side
-  ctx.fillStyle='rgba(120,150,170,.55)';ctx.beginPath();ctx.moveTo(1260,SEA+2);
-  for(let x=1260;x<=2200;x+=20){ctx.lineTo(x,SEA-12-38*clamp((x-1260)/400)-18*Math.sin(x*.013)-10*Math.sin(x*.041));}
-  ctx.lineTo(2200,SEA+2);ctx.fill();
-  const hz=ctx.createLinearGradient(0,SEA-70,0,SEA);hz.addColorStop(0,'rgba(255,255,255,0)');hz.addColorStop(1,'rgba(255,255,255,.4)');
-  ctx.fillStyle=hz;ctx.fillRect(VX0,SEA-70,VX1-VX0,72);
-}
-function waterTop(x0,x1){ctx.moveTo(x0,surf(x0));for(let x=x0;x<=x1;x+=8)ctx.lineTo(x,surf(x));ctx.lineTo(x1,surf(x1));}
-function drawWaterBack(){
-  const xe=Math.min(VX1,WATER_END+40);if(xe<=VX0)return;
-  const g=ctx.createLinearGradient(0,SEA,0,780);
-  g.addColorStop(0,'#3b93bb');g.addColorStop(.45,'#1d6690');g.addColorStop(1,'#0b3858');
-  ctx.beginPath();waterTop(VX0,xe);ctx.lineTo(xe,VY1+10);ctx.lineTo(VX0,VY1+10);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-}
-function waterRegion(){
-  const xe=Math.min(VX1,WATER_END);ctx.beginPath();waterTop(VX0,xe);
-  for(let x=xe;x>=VX0;x-=8)ctx.lineTo(x,bedY(x));ctx.lineTo(VX0,bedY(VX0));ctx.closePath();
-}
-function soilRegion(){ctx.beginPath();ctx.moveTo(VX0,bedY(VX0));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,bedY(x));ctx.lineTo(VX1,bedY(VX1));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();}
-const layB=(x,i)=>bedY(x)+LAY[i].a+(i?nz(x*.012+i*3.1)*5:0);
-const SOILTEX=(()=>{const r=rng(5),a=[];for(let x=-600;x<2300;x+=5.5){const d=r()*330;a.push({x:x+r()*4,d,r:r(),q:r()});}return a;})();
-function drawSoil(){
-  for(let i=0;i<LAY.length;i++){
-    ctx.beginPath();ctx.moveTo(VX0,layB(VX0,i));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,layB(x,i));
-    ctx.lineTo(VX1,layB(VX1,i));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=LAY[i].c;ctx.fill();
-  }
-  for(const p of SOILTEX){
-    if(p.x<VX0||p.x>VX1)continue;const b=bedY(p.x),y=b+p.d;if(y>VY1)continue;
-    let li=0;for(let i=1;i<LAY.length;i++)if(y>layB(p.x,i))li=i;
-    if(y<b+3)continue;
-    if(li===0){ctx.fillStyle='rgba(120,95,50,.35)';ctx.fillRect(p.x,y,1.6,1.4);}
-    else if(li===1){ctx.fillStyle='rgba(70,50,35,.28)';ctx.fillRect(p.x,y,5+p.r*5,1);}
-    else if(li===2){ctx.fillStyle=p.q>.5?'rgba(110,85,50,.35)':'rgba(255,240,210,.35)';ctx.beginPath();ctx.arc(p.x,y,1+p.r*1.2,0,TAU);ctx.fill();}
-    else{ctx.strokeStyle='rgba(30,30,30,.28)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,y);ctx.lineTo(p.x+4+p.r*6,y+(p.q-.5)*6);ctx.stroke();}
-  }
-  ctx.strokeStyle='rgba(40,25,10,.22)';ctx.lineWidth=1;
-  for(let i=1;i<LAY.length;i++){ctx.beginPath();ctx.moveTo(VX0,layB(VX0,i));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,layB(x,i));ctx.stroke();}
-  // seabed line
-  ctx.beginPath();ctx.moveTo(VX0,bedY(VX0));for(let x=VX0;x<=VX1;x+=5)ctx.lineTo(x,bedY(x)+(x<WATER_END?Math.sin(x*.35)*.8:0));
-  ctx.strokeStyle='#a98a58';ctx.lineWidth=2.2;ctx.stroke();
-  // grass and beach on land
-  const g0=Math.max(VX0,1500);
-  if(VX1>g0){ctx.beginPath();ctx.moveTo(g0,bedY(g0));for(let x=g0;x<=VX1;x+=6)ctx.lineTo(x,bedY(x)-1.5);for(let x=VX1;x>=g0;x-=6)ctx.lineTo(x,bedY(x)+5);ctx.closePath();ctx.fillStyle='#78a557';ctx.fill();
-    ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1;ctx.beginPath();for(let x=g0;x<=VX1;x+=4){const y=bedY(x)-1;ctx.moveTo(x,y);ctx.lineTo(x+1,y-3-(x%3));}ctx.stroke();}
-}
-function tree(x,s){const y=bedY(x);box(x-1.2*s,y-9*s,2.4*s,9*s,'#6b4f35');circ(x,y-13*s,6*s,'#4f8a43');circ(x-3*s,y-10*s,4.5*s,'#5c9a4c');circ(x+3.5*s,y-11*s,4.5*s,'#467c3b');}
-function drawWaterOver(){
-  if(VX0>WATER_END)return;
-  ctx.save();waterRegion();ctx.fillStyle='rgba(16,78,118,.17)';ctx.fill();ctx.clip();
-  for(let i=0;i<6;i++){
-    const x0=((i*310+TT*9)%1900)-200;
-    const g=ctx.createLinearGradient(0,SEA,0,SEA+230);g.addColorStop(0,'rgba(220,245,255,.10)');g.addColorStop(1,'rgba(220,245,255,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x0,SEA);ctx.lineTo(x0+36,SEA);ctx.lineTo(x0+130,SEA+240);ctx.lineTo(x0+70,SEA+240);ctx.closePath();ctx.fill();
-  }
-  ctx.restore();
-  const xe=Math.min(VX1,WATER_END);
-  ctx.beginPath();waterTop(VX0,xe);ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.6;ctx.stroke();
-  ctx.save();ctx.translate(0,3.5);ctx.beginPath();waterTop(VX0,xe);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
-}
-function soilVeil(x0,x1,a){ctx.save();soilRegion();ctx.clip();ctx.fillStyle=`rgba(120,95,62,${a||.38})`;ctx.fillRect(x0,VY0,x1-x0,VY1-VY0+30);ctx.restore();}
+// KITS: land
+/* 離岸風電系列 第 18 集：風機葉片的製造 */
+const gyy=x=>groundY(x);
+const FL=640;                                                  // 工廠地板線（世界座標）
+/* 葉片平面形：s 0→1 從葉根到葉尖的相對弦長（示意） */
+const chordAt=s=>s<.04?.42:s<.2?lerp(.42,1,ease((s-.04)/.16)):lerp(1,.16,Math.pow((s-.2)/.8,.85));
+/* 平面形（前緣在上、後緣在下）；bend(s) 為垂直位移，用於測試時的彎曲 */
+function bladePath(x0,y0,L,C,bend){const N=64;bend=bend||(()=>0);ctx.beginPath();
+  for(let i=0;i<=N;i++){const s=i/N,c=chordAt(s)*C;const x=x0+s*L,y=y0-c*.35+bend(s);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+  for(let i=N;i>=0;i--){const s=i/N,c=chordAt(s)*C;ctx.lineTo(x0+s*L,y0+c*.65+bend(s));}ctx.closePath();}
+function blade(x0,y0,L,C,fill,bend){bladePath(x0,y0,L,C,bend);ctx.fillStyle=fill||'#eef2f4';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=1.5;ctx.stroke();
+  const r=chordAt(0)*C;box(x0-4,y0-r*.35+(bend?bend(0):0),6,r,'#9aa3a8');}
+/* 翼型半厚度（NACA 四位數公式）與中弧線 */
+const yt=(s,t)=>5*t*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);
+const yc=s=>.025*Math.sin(Math.PI*s);
+/* 工廠內部 */
+function hallBG(){const W0=VX0-40,W1=VX1+40;
+  const g=ctx.createLinearGradient(0,-200,0,FL);g.addColorStop(0,'#26343d');g.addColorStop(1,'#3b4a53');ctx.fillStyle=g;ctx.fillRect(W0,-600,W1-W0,FL+600);
+  for(let x=Math.floor(W0/120)*120;x<W1;x+=120){ln([x,60,x,FL],'rgba(255,255,255,.05)',2);box(x+12,84,96,34,'rgba(170,210,230,.16)');}
+  ln([W0,54,W1,54],'#56646d',6);for(let x=Math.floor(W0/160)*160;x<W1;x+=160)ln([x,54,x+80,14,x+160,54],'#56646d',3);ln([W0,14,W1,14],'#56646d',4);
+  for(let x=Math.floor(W0/480)*480+240;x<W1;x+=480)box(x-10,54,20,FL-54,'#4a5860');
+  box(W0,150,W1-W0,12,'#6f7a80');ln([W0,162,W1,162],'rgba(0,0,0,.3)',2);
+  box(W0,FL,W1-W0,700,'#59646a');ln([W0,FL+2,W1,FL+2],'rgba(0,0,0,.35)',3);
+  ctx.setLineDash([30,20]);ln([W0,FL+70,W1,FL+70],'rgba(242,194,48,.45)',3);ctx.setLineDash([]);}
+/* 天車（橋式起重機）：小車在 x，吊鉤到 hy */
+function bridgeCrane(x,hy){box(x-44,142,88,26,'#f2c230','rgba(0,0,0,.4)',1);box(x-30,168,60,14,'#394650');
+  ln([x-6,182,x-6,hy],'#222',1.5);ln([x+6,182,x+6,hy],'#222',1.5);box(x-12,hy,24,10,'#394650');}
+/* 厚板條（碳纖維拉擠板）的斜紋 */
+function hatch(x,y,w,h,col,sp){ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();for(let k=-h;k<w;k+=sp||8)ln([x+k,y+h,x+k+h,y],col,1);ctx.restore();}
 
-/* ================= vessels (local coords: stern x=0, bow +x, waterline y=0) ================= */
-function hull(len,fb,dr,col,bot,stripe,bowRise){
-  bowRise=bowRise===undefined?6:bowRise;
-  ctx.beginPath();ctx.moveTo(-2,-fb);ctx.lineTo(len-22,-fb);ctx.lineTo(len,-fb-bowRise);
-  ctx.bezierCurveTo(len-3,-fb*.2,len-10,dr*.6,len-32,dr);ctx.lineTo(12,dr);ctx.quadraticCurveTo(0,dr,0,dr*.2);ctx.closePath();
-  ctx.fillStyle=col;ctx.fill();
-  ctx.save();ctx.clip();
-  ctx.fillStyle=bot||'#8e2f2a';ctx.fillRect(-6,1.5,len+12,dr+8);
-  if(stripe){ctx.fillStyle=stripe;ctx.fillRect(-6,-fb*.5-1.5,len+12,3);}
-  ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(-6,-fb,len+12,2);
-  ctx.fillStyle='rgba(0,0,0,.14)';ctx.fillRect(-6,-fb*.25,len+12,fb*.25);
-  ctx.restore();
-}
-function vsl(x,len,flip,o,fn){
-  o=o||{};const d=flip?-1:1,cx=x+d*len/2,damp=o.damp===undefined?1:o.damp;
-  const wl=SEA+(surf(cx)-SEA)*damp;
-  const tilt=o.tilt?Math.atan((surf(cx+len*.4)-surf(cx-len*.4))/(len*.8))*o.tilt:0;
-  ctx.save();if(o.a!==undefined)ctx.globalAlpha*=clamp(o.a);ctx.translate(x,wl);ctx.rotate(tilt);if(flip)ctx.scale(-1,1);fn(wl);ctx.restore();
-  return wl;
-}
-const wlAt=(cx,damp)=>SEA+(surf(cx)-SEA)*(damp===undefined?1:damp);
-function superBlock(x,y,w,h,rows,col){box(x,y,w,h,col||'#f4f6f7');ctx.strokeStyle='rgba(0,0,0,.12)';ctx.lineWidth=.8;ctx.strokeRect(x,y,w,h);for(let r=0;r<rows;r++)wins(x+4,y+4+r*10,Math.floor((w-6)/7),7,4,4.5);}
-function mast(x,y,h){ln([x,y,x,y-h],'#4a5560',1.4);ln([x-5,y-h*.6,x+5,y-h*.6],'#4a5560',1.1);circ(x,y-h-1,1.6,'#f2c230');}
+/* 合模分鏡：半翼型模具（端視） */
+const MC=380,MT=.26,MY=500,PIV=800;
+function halfShell(cx,up,flip){ // up：吸力面（較深）；flip：前緣在右
+  const P=[];for(let i=0;i<=40;i++){const s=i/40,h=MC*(yt(s,MT)+(up?yc(s):-yc(s)));P.push(cx+(flip?1:-1)*(MC/2-s*MC),MY+h);}return P;}
+function mouldHalf(cx,up,flip,sh){const P=halfShell(cx,up,flip);
+  const x0=cx-MC/2-40,x1=cx+MC/2+40;
+  ctx.beginPath();ctx.moveTo(x0,MY);for(let i=0;i<P.length;i+=2)ctx.lineTo(P[i],P[i+1]);ctx.lineTo(x1,MY);ctx.lineTo(x1,MY+MC*.2+36);ctx.lineTo(x0,MY+MC*.2+36);ctx.closePath();
+  ctx.fillStyle='#6f7a80';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=1.5;ctx.stroke();
+  for(let k=0;k<5;k++)ln([x0+20+k*(x1-x0-40)/4,MY+MC*.2+36,x0+20+k*(x1-x0-40)/4,MY+MC*.2+14],'rgba(0,0,0,.25)',2);
+  if(sh>0){ctx.save();ctx.globalAlpha*=sh;ctx.beginPath();for(let i=0;i<P.length;i+=2)i?ctx.lineTo(P[i],P[i+1]-6):ctx.moveTo(P[i],P[i+1]-6);
+   ctx.strokeStyle='#e9edf0';ctx.lineWidth=10;ctx.stroke();ctx.strokeStyle='#d9b36c';ctx.lineWidth=3.5;ctx.stroke();ctx.restore();}
+  box(x0,MY-6,x1-x0,6,'#8d989f');}
 
-function vWorkboat(){
-  hull(130,14,8,'#e8572a','#6d2a22','#fff');rail(2,78,-14,5);
-  superBlock(80,-36,34,22,1);superBlock(84,-46,24,10,0);wins(87,-44,3,7,4,4);mast(96,-46,16);
-}
-function vSurvey(){
-  hull(170,15,9,'#f4f6f7','#2c5f8a','#1f7f99');
-  // gondola / drop keel
-  poly([108,9,112,17,132,17,136,9],'#2c5f8a');
-  superBlock(88,-40,64,25,2);superBlock(98,-52,44,12,0);wins(101,-50,6,7,4,4);mast(122,-52,20);circ(114,-60,3,'#fff','#8a99a3');
-  // A-frame at stern
-  ln([6,-15,10,-44,20,-15],'#e8572a',2.4);ln([10,-44,-4,-40],'#e8572a',2);
-  box(22,-22,20,7,'#6b7780');circ(32,-24,5,'#4d5962');
-}
-function vDrill(){
-  hull(210,16,11,'#e9eef0','#963027','#0e5a8a');
-  // pipe rack
-  for(let i=0;i<5;i++)box(18,-19-i*2.6,62,2.2,i%2?'#8b6b4a':'#9d7b56');
-  // derrick over moonpool at 105
-  const b=-16,h=92;ln([92,b,101,b-h,109,b-h,118,b],'#e8572a',2.2);
-  ctx.strokeStyle='#e8572a';ctx.lineWidth=1;ctx.beginPath();
-  for(let i=0;i<6;i++){const y0=b-i*h/6,y1=b-(i+1)*h/6,k0=i/6,k1=(i+1)/6;ctx.moveTo(lerp(92,101,k0),y0);ctx.lineTo(lerp(118,109,k1),y1);ctx.moveTo(lerp(118,109,k0),y0);ctx.lineTo(lerp(92,101,k1),y1);}
-  ctx.stroke();box(98,b-h-6,14,6,'#394650');
-  superBlock(150,-60,50,44,3);superBlock(146,-72,58,12,0);wins(150,-70,7,7.5,4,4);
-  box(140,-80,74,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(140,-80,74,4);mast(170,-80,16);
-}
-function vResearch(){
-  hull(150,14,9,'#2f7a5c','#1d3b30','#fff');
-  superBlock(70,-38,52,24,2);superBlock(78,-50,38,12,0);wins(81,-48,5,7,4,4);
-  rail(78,116,-50,5,'rgba(255,255,255,.8)');mast(108,-50,22);
-  // stern crane
-  ln([14,-14,14,-30],'#e9edef',3);
-}
-function vHLV(){
-  hull(430,18,14,'#b3332b','#5b2320','#fff',8);
-  // deck stuff
-  box(2,-30,22,12,'#4d5962');
-  box(60,-62,40,16,'#e9b21f');box(66,-48,28,30,'#e9edef');ctx.strokeStyle='rgba(0,0,0,.2)';ctx.strokeRect(66,-48,28,30);
-  wins(70,-58,4,8,4,4,'#2a3a46');
-  superBlock(350,-88,62,70,5);box(344,-100,74,12,'#f4f6f7');wins(348,-97,9,7.4,4,5);
-  box(380,-106,60,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(380,-106,60,4);
-  mast(372,-100,22);
-}
-function drawGripper(R,deck,open){
-  const o=open*9;box(R-2,deck-10,TX+30-R,6,'#2b3137');
-  box(TX-18-o-5,deck-26,6,30,'#e8572a');box(TX+18+o-1,deck-26,6,30,'#e8572a');
-  box(TX+26,deck-14,6,14,'#2b3137');
-}
-function vBubble(){
-  hull(100,11,7,'#2d6ea3','#1a3550','#fff');
-  circ(26,-24,13,'#6b7780','#394650',1.5);ctx.strokeStyle='#1c252c';ctx.lineWidth=1;for(let r=4;r<12;r+=3){ctx.beginPath();ctx.arc(26,-24,r,0,TAU);ctx.stroke();}
-  box(44,-24,14,13,'#e8572a');superBlock(62,-32,26,21,1);mast(76,-32,14);
-}
-function vGuard(){
-  hull(80,9,5,'#f4f6f7','#2a3a46','#e8572a');superBlock(40,-24,26,15,1);mast(56,-24,12);person(48,-24,'#e8572a',.9);
-}
-function vCraneVessel(){
-  hull(460,20,15,'#1f3d5c','#6a2622','#f2c230',8);
-  superBlock(8,-92,50,72,6);box(4,-104,58,12,'#f4f6f7');wins(8,-101,7,7.4,4,5);
-  box(-4,-110,46,4,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(-4,-110,46,4);mast(50,-104,20);
-  box(402,-60,36,40,'#e9edef');box(394,-78,52,18,'#e8a33a');wins(400,-74,5,8,4,4,'#2a3a46');
-}
-function vCLV(){
-  hull(250,16,11,'#2c3e50','#7a2a24','#e8572a');
-  // carousel
-  box(40,-46,110,30,'#3a4650');ctx.strokeStyle='#e8a33a';ctx.lineWidth=1.3;for(let y=-43;y<-18;y+=4){ctx.beginPath();ctx.moveTo(42,y);ctx.lineTo(148,y);ctx.stroke();}
-  box(38,-50,114,4,'#20282e');box(92,-58,6,8,'#20282e');
-  box(14,-26,18,10,'#6b7780');
-  // chute at stern
-  ctx.strokeStyle='#8a99a3';ctx.lineWidth=4;ctx.beginPath();ctx.arc(4,-12,10,-Math.PI/2,-Math.PI,true);ctx.stroke();
-  superBlock(180,-60,56,44,3);box(176,-72,64,12,'#f4f6f7');wins(180,-69,8,7.4,4,5);mast(208,-72,18);
-}
-function vSmallWork(){
-  hull(110,12,7,'#e8572a','#6d2a22','#fff');
-  ln([2,-12,-6,-44,12,-12],'#f2c230',2.2);ln([-6,-44,-10,-42],'#f2c230',2);
-  circ(30,-19,7,'#394650');superBlock(62,-34,32,22,1);mast(80,-34,14);
-}
-function vCTV(){
-  ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(70,-12);ctx.lineTo(72,-4);ctx.lineTo(66,6);ctx.lineTo(6,6);ctx.lineTo(0,-2);ctx.closePath();ctx.fillStyle='#f2c230';ctx.fill();
-  box(0,1,68,5,'#2a3a46');box(20,1,30,5,'rgba(0,0,0,.25)');
-  box(70,-16,7,16,'#1c1c1c');
-  superBlock(24,-28,34,16,1);box(28,-32,24,4,'#e9edef');mast(40,-32,10);
-}
-function vSOV(){
-  hull(230,16,11,'#1f5f9e','#6a2622','#fff');
-  superBlock(150,-66,70,50,4);box(146,-78,78,12,'#f4f6f7');wins(150,-75,10,7.4,4,5);mast(190,-78,18);
-  box(112,-46,10,30,'#f2c230');box(20,-24,40,8,'#e9edef');
-}
-function wtivLeg(x,bot,col,a){
-  const top=bot-420;ctx.save();ctx.globalAlpha*=a;
-  ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(x-7,bot-6);ctx.lineTo(x-7,top);ctx.moveTo(x+7,bot-6);ctx.lineTo(x+7,top);ctx.stroke();
-  ctx.lineWidth=1;ctx.beginPath();for(let y=bot-6;y>top;y-=14){ctx.moveTo(x-7,y);ctx.lineTo(x+7,y-7);ctx.lineTo(x-7,y-14);}ctx.stroke();
-  poly([x-16,bot-6,x+16,bot-6,x+8,bot+4,x-8,bot+4],col);
-  box(x-8,top-3,16,3,'#555');ctx.restore();
-}
-function drawWTIV(R,d,legBot){
-  wtivLeg(R-440,legBot,'#d9b44a',.75);wtivLeg(R-40,legBot,'#d9b44a',.75);
-  // hull
-  box(R-482,d,482,32,'#e3e9ec');box(R-482,d+12,482,6,'#0e5a8a');box(R-482,d+24,482,8,'#7a2a24');
-  poly([R-482,d,R-495,d+6,R-488,d+32,R-482,d+32],'#e3e9ec');
-  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=1;ctx.strokeRect(R-482,d,482,32);
-  // accommodation
-  superBlock(R-480,d-70,50,70,6);box(R-484,d-82,58,12,'#f4f6f7');wins(R-481,d-79,7,7.5,4,5);
-  box(R-505,d-88,70,5,'#6b7780');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.strokeRect(R-505,d-88,70,5);mast(R-440,d-82,18);
-  // blade rack stands
-  for(const sx of [R-282,R-392]){ln([sx,d,sx,d-46],'#4d5962',2);for(let k=0;k<3;k++)ln([sx-8,d-38+12*k+3,sx+8,d-38+12*k+3],'#4d5962',1.6);}
-  // jacking houses + front legs
-  for(const lx of [R-455,R-25]){box(lx-15,d-22,30,22,'#c4ced3');}
-  wtivLeg(R-455,legBot,'#f2c230',1);wtivLeg(R-25,legBot,'#f2c230',1);
-  box(R-44,d-40,38,14,'#f2c230');box(R-40,d-44,30,4,'#394650');
-}
-
-/* ================= structures ================= */
-function drawPile(bx,by,ang,L,w){
-  ctx.save();ctx.translate(bx,by);ctx.rotate(ang-Math.PI/2);
-  const g=ctx.createLinearGradient(-w/2,0,w/2,0);g.addColorStop(0,'#3d4b55');g.addColorStop(.35,'#8093a0');g.addColorStop(1,'#33404a');
-  ctx.beginPath();ctx.moveTo(-w/2,0);ctx.lineTo(-w/2,-L*.8);ctx.lineTo(-w*.43,-L);ctx.lineTo(w*.43,-L);ctx.lineTo(w/2,-L*.8);ctx.lineTo(w/2,0);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=.8;ctx.beginPath();for(let k=1;k<10;k++){const y=-L*k/10;const hw=k>8?w*.45:w/2;ctx.moveTo(-hw,y);ctx.lineTo(hw,y);}ctx.stroke();
-  box(-w*.46,-L-2,w*.92,3,'#252e35');
-  ctx.fillStyle='#f2c230';ctx.fillRect(-w*.47,-L+3,w*.94,14);
-  ctx.restore();
-}
-function drawHammer(x,yb,flash){
-  if(flash>0){const rg=ctx.createRadialGradient(x,yb,2,x,yb,46);rg.addColorStop(0,`rgba(255,236,170,${.9*flash})`);rg.addColorStop(1,'rgba(255,200,80,0)');ctx.fillStyle=rg;ctx.fillRect(x-50,yb-50,100,100);}
-  box(x-21,yb-26,42,34,'#3a4046');box(x-17,yb-100,34,74,'#e07b27');
-  box(x-17,yb-100,34,6,'#2b2f33');box(x-17,yb-60,34,4,'#2b2f33');box(x-6,yb-110,12,10,'#2b2f33');
-  ln([x+17,yb-80,x+24,yb-70,x+24,yb-40],'#222',1.4);
-  ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(x-13,yb-94,6,32);
-}
-function drawTP(cx,yb,o){
-  o=o||{};const top=yb-58;
-  if(!o.bare){
-    ctx.strokeStyle='#e8a33a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-30,top+2);ctx.lineTo(cx-30,yb+24);ctx.moveTo(cx-37,top+2);ctx.lineTo(cx-37,yb+24);ctx.stroke();
-    ctx.lineWidth=1;ctx.beginPath();for(let y=top+6;y<yb+22;y+=5){ctx.moveTo(cx-37,y);ctx.lineTo(cx-30,y);}ctx.stroke();
-    ln([cx-30,top+30,cx-17,top+30],'#c08a1c',1.4);ln([cx-30,yb+10,cx-17,yb+10],'#c08a1c',1.4);
-  }
-  const g=ctx.createLinearGradient(cx-17,0,cx+17,0);g.addColorStop(0,'#c9971a');g.addColorStop(.4,'#f7d24c');g.addColorStop(1,'#b3830c');
-  ctx.fillStyle=g;ctx.fillRect(cx-17,top,34,58);box(cx-18,yb-4,36,4,'#a67b10');
-  rrp(cx+3,top+16,9,15,2);ctx.fillStyle='#e8edf0';ctx.fill();
-  if(!o.bare){
-    box(cx-57,top-3,114,4,'#6f7a80');rail(cx-57,cx+57,top-3,8);
-    ln([cx-57,top+1,cx-17,top+14],'#555',1.2);ln([cx+57,top+1,cx+17,top+14],'#555',1.2);
-    ln([cx+46,top-3,cx+46,top-24,cx+32,top-28],'#e8572a',2);ln([cx+32,top-28,cx+32,top-20],'#333',.8);
-  }
-}
-function drawTowerSec(cx,yb,k){
-  const yt=yb-HS,wb=tw(TP_TOP-k*HS),wt=tw(TP_TOP-(k+1)*HS);
-  const g=ctx.createLinearGradient(cx-wb/2,0,cx+wb/2,0);g.addColorStop(0,'#c3ccd1');g.addColorStop(.4,'#f8fafb');g.addColorStop(1,'#aeb8be');
-  poly([cx-wb/2,yb,cx-wt/2,yt,cx+wt/2,yt,cx+wb/2,yb],g);
-  box(cx-wt/2-1,yt,wt+2,2.2,'#8f9aa1');box(cx-wb/2-1,yb-2.2,wb+2,2.2,'#8f9aa1');
-  if(k===0){rrp(cx-4,yb-24,8,15,2);ctx.fillStyle='#9aa5ab';ctx.fill();}
-}
-function drawNacelle(ax,ay,cut,light){
-  box(ax-14,ay-4,28,4,'#8c979d');
-  const g=ctx.createLinearGradient(0,ay-38,0,ay-3);g.addColorStop(0,'#fdfefe');g.addColorStop(1,'#c3ccd1');
-  rrp(ax-30,ay-38,92,35,5);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1;ctx.stroke();
-  box(ax+30,ay-47,26,9,'#dfe5e8');ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=.7;ctx.beginPath();for(let x=ax+33;x<ax+55;x+=3){ctx.moveTo(x,ay-46);ctx.lineTo(x,ay-39);}ctx.stroke();
-  rail(ax+2,ax+28,ay-38,6);
-  if(cut>0){
-    ctx.save();ctx.globalAlpha*=clamp(cut);
-    rrp(ax-26,ay-34,84,27,3);ctx.fillStyle='#22313b';ctx.fill();
-    circ(ax-20,ay-20,9,'#8c979d','#c9d1d5',1.5);circ(ax-20,ay-20,3.5,'#394650');
-    box(ax-10,ay-32,16,24,'#b87333');ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=.8;ctx.beginPath();for(let x=ax-8;x<ax+6;x+=3){ctx.moveTo(x,ay-32);ctx.lineTo(x,ay-8);}ctx.stroke();
-    box(ax+10,ay-31,8,22,'#2f6fb0');box(ax+20,ay-31,8,22,'#2f6fb0');ctx.fillStyle='#8fd0ff';ctx.fillRect(ax+12,ay-28,3,2);ctx.fillRect(ax+22,ay-28,3,2);
-    box(ax+32,ay-30,20,21,'#6c777e');ctx.strokeStyle='#4a545a';ctx.beginPath();for(let x=ax+34;x<ax+52;x+=3){ctx.moveTo(x,ay-28);ctx.lineTo(x,ay-11);}ctx.stroke();
-    box(ax-4,ay-10,8,4,'#e8a33a');circ(ax-8,ay-7,2,'#e8a33a');circ(ax+8,ay-7,2,'#e8a33a');
-    ctx.restore();
-  }
-  ctx.beginPath();ctx.ellipse(ax-30,ay-20,28,16.5,0,Math.PI/2,Math.PI*1.5);ctx.closePath();
-  const sg=ctx.createLinearGradient(0,ay-37,0,ay-3);sg.addColorStop(0,'#ffffff');sg.addColorStop(1,'#cfd7db');ctx.fillStyle=sg;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.15)';ctx.stroke();
-  circ(ax+52,ay-49,2.4,light?'#ff3b30':'#8a1a14');if(light){const rg=ctx.createRadialGradient(ax+52,ay-49,1,ax+52,ay-49,14);rg.addColorStop(0,'rgba(255,60,48,.6)');rg.addColorStop(1,'rgba(255,60,48,0)');ctx.fillStyle=rg;ctx.fillRect(ax+38,ay-63,28,28);}
-}
-function chord(s){if(s<.04)return 7;if(s<.22)return 7+6*ease((s-.04)/.18);return lerp(13,2.2,Math.pow((s-.22)/.78,.85));}
-function drawBlade(cx,cy,a,R,col){
-  const k=R/165;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
-  ctx.beginPath();ctx.moveTo(0,-3.5*k);
-  for(let i=0;i<=16;i++){const s=i/16;ctx.lineTo(s*R,-chord(s)*.36*k);}
-  for(let i=16;i>=0;i--){const s=i/16;ctx.lineTo(s*R,chord(s)*.64*k);}
-  ctx.closePath();ctx.fillStyle=col||'#f5f7f8';ctx.fill();ctx.strokeStyle='rgba(60,80,95,.4)';ctx.lineWidth=.8;ctx.stroke();
-  ctx.fillStyle='rgba(120,135,145,.35)';ctx.fillRect(0,-3.6*k,R*.035,7.2*k);
-  ctx.restore();
-}
-function drawRotor(hx,hy,a,n){for(let i=0;i<n;i++)drawBlade(hx,hy,a-i*TAU/3,BR);circ(hx,hy,8.5,'#f2f5f6','rgba(0,0,0,.25)',1);circ(hx,hy,3,'#c9d1d5');}
-function jacketHW(y,yb,H){return lerp(55,40,(yb-y)/H);}
-function drawJacket(cx,yb,H,jt){
-  const yt=yb-H,L=y=>jacketHW(y,yb,H);
-  ctx.strokeStyle='rgba(150,165,175,.55)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx-L(yb)+8,yb);ctx.lineTo(cx-L(yt)+8,yt);ctx.moveTo(cx+L(yb)-8,yb);ctx.lineTo(cx+L(yt)-8,yt);ctx.stroke();
-  ctx.strokeStyle='#8595a0';ctx.lineWidth=2;ctx.beginPath();
-  for(let i=0;i<4;i++){const y0=yb-H*i/4,y1=yb-H*(i+1)/4;ctx.moveTo(cx-L(y0),y0);ctx.lineTo(cx+L(y1),y1);ctx.moveTo(cx+L(y0),y0);ctx.lineTo(cx-L(y1),y1);ctx.moveTo(cx-L(y1),y1);ctx.lineTo(cx+L(y1),y1);}
-  ctx.stroke();
-  if(jt){ctx.strokeStyle='#5d6b74';ctx.lineWidth=2.4;ctx.beginPath();
-    ctx.moveTo(cx-62,yb-15);ctx.quadraticCurveTo(cx-60,yb-30,cx-L(yb-40)-6,yb-40);ctx.lineTo(cx-L(yt+4)-6,yt+4);
-    ctx.moveTo(cx+62,yb-15);ctx.quadraticCurveTo(cx+60,yb-30,cx+L(yb-40)+6,yb-40);ctx.lineTo(cx+L(yt+4)+6,yt+4);ctx.stroke();
-    circ(cx-62,yb-15,3,'#5d6b74');circ(cx+62,yb-15,3,'#5d6b74');}
-  const leg=(s)=>{ctx.strokeStyle='#2f3a42';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(cx+s*L(yb),yb);ctx.lineTo(cx+s*L(yt),yt);ctx.stroke();ctx.strokeStyle='#a5b3bb';ctx.lineWidth=4;ctx.stroke();
-    ctx.strokeStyle='#f2c230';ctx.lineWidth=4.2;ctx.beginPath();ctx.moveTo(cx+s*L(yt+34),yt+34);ctx.lineTo(cx+s*L(yt),yt);ctx.stroke();};
-  leg(-1);leg(1);
-  for(const s of [-1,1]){const x=cx+s*(L(yb)+10.5);box(x-3.5,yb-26,7,26,'#6d7b84');box(cx+s*L(yb)-11,yb-2,22,4,'#55626a');}
-  box(cx-L(yt)-3,yt-4,L(yt)*2+6,5,'#f2c230');
-}
-function drawPins(cx,yb,prog,flash){
-  const off=44*(1-prog);
-  for(const s of [-1,1]){const x=cx+s*(55+10.5);box(x-2.5,yb-26-off,5,70,'#9aa6ad');box(x-3,yb-27-off,6,2,'#394650');
-    if(flash>0){const rg=ctx.createRadialGradient(x,yb-27-off,1,x,yb-27-off,16);rg.addColorStop(0,`rgba(255,230,160,${flash})`);rg.addColorStop(1,'rgba(255,230,160,0)');ctx.fillStyle=rg;ctx.fillRect(x-18,yb-45-off,36,36);}}
-}
-function drawTopside(cx,yb,det){
-  box(cx-75,yb-14,150,14,'#6f7c85');ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=.8;ctx.beginPath();for(let x=cx-75;x<cx+75;x+=15){ctx.moveTo(x,yb-14);ctx.lineTo(x+15,yb);}ctx.stroke();
-  box(cx-70,yb-80,134,66,'#e4e8ea');ctx.strokeStyle='rgba(0,0,0,.14)';ctx.strokeRect(cx-70,yb-80,134,66);ctx.beginPath();ctx.moveTo(cx-70,yb-47);ctx.lineTo(cx+64,yb-47);ctx.stroke();
-  box(cx-34,yb-74,44,56,'#56626a');ctx.strokeStyle='#39434a';ctx.lineWidth=1;ctx.beginPath();for(let x=cx-32;x<cx+10;x+=3.5){ctx.moveTo(x,yb-70);ctx.lineTo(x,yb-22);}ctx.stroke();
-  box(cx-26,yb-86,4,12,'#8b6b4a');box(cx-14,yb-86,4,12,'#8b6b4a');box(cx-2,yb-86,4,12,'#8b6b4a');
-  box(cx+18,yb-74,40,24,'#cfd6da');wins(cx+21,yb-70,5,7.4,4,4);box(cx+18,yb-44,40,24,'#cfd6da');wins(cx+21,yb-40,5,7.4,4,4);
-  box(cx-64,yb-74,24,52,'#cfd6da');wins(cx-61,yb-70,3,7,4,4);
-  box(cx-75,yb-84,150,4,'#6f7c85');
-  box(cx-122,yb-96,70,4,'#6f7c85');ctx.strokeStyle='#f2c230';ctx.lineWidth=1.4;ctx.strokeRect(cx-122,yb-96,70,4);
-  ln([cx-122,yb-92,cx-70,yb-80],'#6f7c85',1.6);ln([cx-100,yb-92,cx-70,yb-66],'#6f7c85',1.2);
-  if(det>0){ctx.save();ctx.globalAlpha*=det;ctx.fillStyle='#6fe07a';for(let x=cx-120;x<cx-54;x+=9){ctx.fillRect(x,yb-98,2,2);}ctx.restore();}
-  box(cx+48,yb-98,10,14,'#e8a33a');ln([cx+53,yb-98,cx+86,yb-130],'#e8a33a',2.4);ln([cx+86,yb-130,cx+86,yb-110],'#333',.8);
-  box(cx+30,yb-100,5,16,'#9aa5ab');circ(cx-60,yb-86,2,'#f2c230');
-}
-function drawOnshore(a){
-  alphaDo(a,()=>{
-    const g=440;ctx.strokeStyle='rgba(60,70,75,.6)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(1526,g-8);ctx.lineTo(1600,g-8);for(let x=1526;x<=1600;x+=5){ctx.moveTo(x,g);ctx.lineTo(x,g-8);}ctx.stroke();
-    superBlock(1532,g-26,26,26,1,'#dde3e6');box(1530,g-29,30,3,'#8a979e');
-    box(1565,g-18,18,18,'#5d6b74');ctx.strokeStyle='#3e4a52';ctx.lineWidth=.8;ctx.beginPath();for(let x=1567;x<1582;x+=3){ctx.moveTo(x,g-16);ctx.lineTo(x,g-2);}ctx.stroke();
-    for(const bx of [1568,1574,1580]){box(bx-1,g-28,2,10,'#c9b89a');circ(bx,g-28,1.6,'#a0876a');}
-    ctx.strokeStyle='#6b7780';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(1588,g);ctx.lineTo(1588,g-40);ctx.moveTo(1598,g);ctx.lineTo(1598,g-40);ctx.moveTo(1585,g-40);ctx.lineTo(1601,g-40);
-    for(let y=g;y>g-40;y-=8){ctx.moveTo(1588,y);ctx.lineTo(1598,y-8);}ctx.stroke();
-  });
-}
-function drawPylon(){
-  const x=1632,g=bedY(1632),top=g-120;
-  ctx.strokeStyle='#5d6b74';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-11,g);ctx.lineTo(x-2.5,top);ctx.moveTo(x+11,g);ctx.lineTo(x+2.5,top);
-  for(let k=0;k<8;k++){const y0=g-k*15,y1=g-(k+1)*15,w0=lerp(11,2.5,k/8),w1=lerp(11,2.5,(k+1)/8);ctx.moveTo(x-w0,y0);ctx.lineTo(x+w1,y1);ctx.moveTo(x+w0,y0);ctx.lineTo(x-w1,y1);}
-  ctx.moveTo(x-20,top+14);ctx.lineTo(x+20,top+14);ctx.moveTo(x-16,top+36);ctx.lineTo(x+16,top+36);ctx.stroke();
-  ctx.strokeStyle='rgba(40,50,55,.55)';ctx.lineWidth=.8;ctx.beginPath();
-  for(const [dx,dy] of [[-20,14],[20,14],[-16,36],[16,36]]){ctx.moveTo(x+dx,top+dy+4);if(dx<0)ctx.quadraticCurveTo(x+dx-20,top+dy+30,1597,g-38);else ctx.quadraticCurveTo(x+dx+60,top+dy+26,x+dx+160,top+dy-6);}
-  ctx.stroke();
-}
-function hddPt(t){
-  if(t<.8){const q=t/.8,m=1-q,p0={x:1350,y:bedY(1350)},p1={x:1430,y:560},p2={x:1505,y:452};return {x:m*m*p0.x+2*m*q*p1.x+q*q*p2.x,y:m*m*p0.y+2*m*q*p1.y+q*q*p2.y};}
-  const q=(t-.8)/.2;return {x:lerp(1505,1545,q),y:lerp(452,441,q)};
-}
-function drawHDD(a){alphaDo(a,()=>{ctx.beginPath();for(let i=0;i<=30;i++){const p=hddPt(i/30);i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);}
-  ctx.strokeStyle='rgba(50,45,40,.55)';ctx.lineWidth=6;ctx.stroke();ctx.strokeStyle='rgba(215,205,185,.9)';ctx.lineWidth=3.2;ctx.stroke();});}
-
-/* ================= life ================= */
-function dolphin(x,y,ang,s){
-  ctx.save();ctx.translate(x,y);ctx.rotate(ang);if(Math.cos(ang)<0)ctx.scale(s,-s);else ctx.scale(s,s);
-  ctx.beginPath();ctx.moveTo(23,0);ctx.quadraticCurveTo(19,-3,12,-4.5);ctx.quadraticCurveTo(0,-7.5,-14,-3.2);ctx.quadraticCurveTo(-20,-1.2,-24,-.3);ctx.lineTo(-24,1);ctx.quadraticCurveTo(-10,5.5,8,4.2);ctx.quadraticCurveTo(17,3,23,.8);ctx.closePath();
-  ctx.fillStyle='#b8a0a6';ctx.fill();
-  ctx.beginPath();ctx.ellipse(4,2.2,12,2.2,0,0,TAU);ctx.fillStyle='rgba(245,215,215,.75)';ctx.fill();
-  poly([-1,-6.5,-9,-14,-10,-5],'#a88f96');poly([-23,0,-31,-6,-27,.3,-31,6],'#a88f96');poly([7,3,2,8.5,0,4],'#a88f96');
-  circ(14,-1.6,.9,'#222');ctx.restore();
-}
-function fish(x,y,dir,s,col){ctx.save();ctx.translate(x,y);ctx.scale(dir*s,s);ctx.beginPath();ctx.ellipse(0,0,5,1.9,0,0,TAU);ctx.fillStyle=col||'rgba(200,225,235,.85)';ctx.fill();poly([-4,0,-8,-2.6,-8,2.6],col||'rgba(200,225,235,.85)');ctx.restore();}
-function school(cx,cy,n,seed,t,sp,dir,col){const r=rng(seed);for(let i=0;i<n;i++){const ox=(r()-.5)*sp*2,oy=(r()-.5)*sp*.7,ph=r()*6;fish(cx+ox+Math.sin(t*1.3+ph)*6*dir,cy+oy+Math.sin(t*2+ph)*3,dir,.8+r()*.5,col);}}
-function bird(x,y,s,t){const f=Math.sin(t*9)*5*s;ctx.strokeStyle='#2a3440';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(x-7*s,y-f);ctx.quadraticCurveTo(x-3*s,y-3*s-f*.4,x,y);ctx.quadraticCurveTo(x+3*s,y-3*s-f*.4,x+7*s,y-f);ctx.stroke();}
-function rov(x,y,t,active){
-  if(active){for(let i=0;i<14;i++){const k=((t*1.3+i/14)%1);circ(x-12-k*50,y-6-k*30+Math.sin(i*3)*6,3+k*9,`rgba(150,125,90,${.4*(1-k)})`);}}
-  box(x-14,y-5,30,5,'#222');for(let i=0;i<5;i++)circ(x-11+i*6,y-2.5,2,'#555');
-  box(x-12,y-19,26,14,'#f2c230');box(x-8,y-16,8,5,'#2a3a46');box(x+4,y-23,6,4,'#e8572a');
-  if(active){box(x-17,y-8,4,20,'#555');}
-}
-function buoy(x,wl,t,a){
-  alphaDo(a===undefined?1:a,()=>{
-    ctx.save();ctx.translate(x,wl);ctx.rotate(Math.sin(t*1.6)*.05);
-    poly([-20,-6,20,-6,14,10,-14,10],'#f2c230','#9c7a12',1);box(-4,10,8,10,'#9c7a12');
-    ln([-12,-6,-3,-44,3,-44,12,-6],'#6b7780',1.6);box(-9,-28,18,13,'#f4f6f7');ctx.strokeStyle='#8a99a3';ctx.strokeRect(-9,-28,18,13);box(-6,-31,12,3,'#394650');
-    poly([-22,-18,-10,-22,-10,-16,-22,-12],'#1f4a73');poly([22,-18,10,-22,10,-16,22,-12],'#1f4a73');
-    ln([0,-44,0,-58],'#6b7780',1.2);circ(0,-59,2.2,Math.sin(t*4)>0?'#ffe35a':'#b59a2a');ln([4,-50,10,-52],'#6b7780',1);
-    ctx.restore();
-  });
-}
-
-/* ================= persistent scenery items ================= */
-function drawWreck(hl){
-  const x=WRECK_X,y=bedY(x);ctx.save();ctx.translate(x,y+3);ctx.rotate(-.12);
-  poly([-34,0,-31,-9,18,-12,34,-4,30,3],'#5b4b3b','#3a2f25',1);poly([-20,-9,-15,-17,-1,-16,1,-10],'#4f4133');ln([-6,-12,-2,-27],'#4a3d30',2.2);
-  ctx.restore();
-  if(hl>0){ring(x,y-6,30+Math.sin(TT*6)*3,`rgba(232,87,42,${.8*hl})`,2);}
-}
-function drawUXO(hl,a){
-  alphaDo(a,()=>{const x=UXO_X,y=bedY(x);ctx.save();ctx.translate(x,y-2);ctx.rotate(.35);rrp(-9,-3.2,15,6.4,3.2);ctx.fillStyle='#4c5a3f';ctx.fill();poly([-9,0,-13,-4,-13,4],'#3c4832');ctx.restore();
-    if(hl>0){for(let i=0;i<3;i++){const k=(TT*1.2+i/3)%1;ring(x,y-3,6+k*34,`rgba(232,87,42,${hl*(1-k)})`,1.8);}}});
-}
-const FLS_X=380;
-function wb0(u){if(u<.46)return {x:lerp(-320,400,easeOut(seg(u,0,.2))),a:1};return {x:lerp(400,1500,easeIn(seg(u,.46,.78))),a:1-seg(u,.66,.76)};}
-function flsPos(){
-  const c=SC,u=SU;
-  if(c>0)return {x:FLS_X,y:wlAt(FLS_X,.9),free:true};
-  const w=wb0(u),deck=wlAt(w.x+65,.8)-14;
-  if(u<.2)return {x:w.x+34,y:deck-20};
-  if(u<.36){const p=kf(u,[[.2,w.x+34,deck-20],[.25,w.x+34,deck-44],[.3,FLS_X,deck-44],[.36,FLS_X,wlAt(FLS_X,.9)]]);return {x:p.x,y:p.y};}
-  return {x:FLS_X,y:wlAt(FLS_X,.9),free:true};
-}
-const flsAlpha=()=>SC<4?1:SC===4?1-seg(SU,0,.08):0;
-function drawMooring(){
-  const a=flsAlpha();if(a<=0)return;let p=1;if(SC===0){if(SU<.33)return;p=ease(seg(SU,.33,.45));}
-  const b=flsPos(),top={x:b.x,y:b.y+20},cl={x:lerp(b.x,340,p),y:lerp(b.y+26,bedY(340)-4,p)};
-  alphaDo(a,()=>{ctx.setLineDash([3,2.2]);ctx.beginPath();ctx.moveTo(top.x,top.y);ctx.quadraticCurveTo(lerp(top.x,cl.x,.3)+10,lerp(top.y,cl.y,.62),cl.x,cl.y);ctx.strokeStyle='#2b3035';ctx.lineWidth=1.7;ctx.stroke();ctx.setLineDash([]);box(cl.x-8,cl.y-4,16,9,'#4d5760');});
-}
-function drawFLS(){const a=flsAlpha();if(a<=0)return;const b=flsPos();buoy(b.x,b.y,b.free?TT:0,a);}
-function windV(h){return 10.3*Math.pow(h/150,.11)+.35*Math.sin(TT*1.9+h*.07);}
-
-/* default side-view background for shots with side:true */
-function sideBase(){
-  drawSky();drawWaterBack();drawSoil();
-  for(const [x,s] of [[1476,.8],[1490,1],[1506,.9],[1612,.9],[1664,1.1],[1690,.8],[1720,1]])if(x>VX0-20&&x<VX1+20)tree(x,s);
-  if(VX1>1600)drawPylon();
-}
-function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
-
-/* offshore-wind label dictionary (from the multilingual overview film) */
-Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
-
-// KITS: marine
-/* ================= EP17 颱風與地震的設計挑戰 ================= */
-/* complete fixed-bottom turbine at cx (monopile + TP + tower + nacelle + rotor) */
-function turb17(cx,ang){
-  const yb=bedY(cx)+130;drawPile(cx,yb,Math.PI/2,yb-PILE_TOP,PILE_W);drawTP(cx,TP_BOT);
-  for(let k=0;k<3;k++)drawTowerSec(cx,TP_TOP-k*HS,k);
-  drawNacelle(cx,TW_TOP,0,true);drawRotor(cx-44,TW_TOP-20,ang,3);
-}
-/* text wrapped to a width (after translation) */
-function wrap17(x,y,t,maxW,size,col,weight,lh,align){
-  t=tr(t);const cjk=LANG!=='en'&&CJK_RE.test(t),parts=cjk?[...t]:t.split(' ');let line='',n=0;
-  const out=s=>{wt(x,y+n*lh,s,size,col,weight,align);n++;};
-  for(const w of parts){const test=line?(cjk?line+w:line+' '+w):w;if(line&&wtw(test,size,weight)>maxW){if(cjk&&/^[，。、）」：；,.]$/.test(w)){out(test);line='';continue;}out(line);line=w;}else line=test;}
-  if(line)out(line);return n;
-}
-/* rotor angle as a pure function of u: integrate the angular speed om(x) over the shot */
-function rotAng17(u,dur,om){let a=0;const n=60;for(let i=0;i<n;i++)a+=om(u*(i+.5)/n)*u/n*dur;return a;}
-
-/* ---------- shot 1: typhoon ---------- */
-const V1_17=u=>lerp(12,52,ease(seg(u,.02,.8)));          // 10-min mean wind at hub (example)
-const UC17=(()=>{let u=0;while(u<1&&V1_17(u)<25)u+=.001;return u;})();   // cut-out moment
-const om1_17=x=>x<UC17?1.25:lerp(1.25,.05,ease(seg(x,UC17,UC17+.12)));
-const sk17=u=>.3+.7*ease(seg(u,0,.7));                   // storm intensity 0–1
-const RAIN17=(()=>{const r=rng(17),a=[];for(let i=0;i<150;i++)a.push({x:r()*2000-200,y:r()*900,l:.6+r()*.6,sp:.8+r()*.5});return a;})();
-const SCL17=(()=>{const r=rng(71),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*190,s:.9+r()*1.1,sp:.7+r()*.6});return a;})();
-function stormSky17(k){
-  drawSky();
-  ctx.fillStyle=`rgba(28,38,48,${.7*k})`;ctx.fillRect(VX0,VY0,VX1-VX0,SEA+10-VY0);
-  for(const c of SCL17){const x=((c.x+TT*60*c.sp*k+400)%2600+2600)%2600-400;
-    ctx.save();ctx.globalAlpha*=.85*k;ctx.beginPath();
-    [[0,0,34],[34,-14,40],[74,-4,32],[104,6,24],[-30,8,22]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*c.s+r*c.s,c.y+dy*c.s);ctx.arc(x+dx*c.s,c.y+dy*c.s,r*c.s,0,TAU);});
-    ctx.fillStyle='#4a5864';ctx.fill();ctx.restore();}
-}
-/* storm swell drawn over the kit water: crests above sea level with foam */
-function stormSwell17(A){
-  const xe=Math.min(VX1,COAST-40);if(xe<=VX0)return;
-  const y=x=>SEA+2-A*clamp((COAST-40-x)/260)*(.5+.5*Math.sin(x*.012-TT*2.1))*(.65+.35*Math.sin(x*.031+TT*1.3));
-  ctx.beginPath();ctx.moveTo(VX0,SEA+3);for(let x=VX0;x<=xe;x+=6)ctx.lineTo(x,y(x));ctx.lineTo(xe,SEA+3);ctx.closePath();
-  const g=ctx.createLinearGradient(0,SEA-A,0,SEA+3);g.addColorStop(0,'#2c6c8c');g.addColorStop(1,'#3b93bb');ctx.fillStyle=g;ctx.fill();
-  ctx.beginPath();for(let x=VX0;x<=xe;x+=6){const v=y(x);x===VX0?ctx.moveTo(x,v):ctx.lineTo(x,v);}
-  ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;ctx.stroke();
-  for(let x=VX0-(VX0%60);x<=xe;x+=60){const v=y(x);if(v<SEA-A*.55)circ(x+Math.sin(TT*3+x)*4,v+2,3+A*.08,'rgba(255,255,255,.75)');}
-}
-function rain17(k){
-  ctx.strokeStyle=`rgba(210,225,235,${.45*k})`;ctx.lineWidth=1.3;ctx.beginPath();
-  for(const d of RAIN17){if(d.x>2000*k&&k<1)continue;const y=((d.y+TT*900*d.sp)%1000+1000)%1000-60,x=((d.x+TT*420*d.sp+(y*.45))%2000+2000)%2000-200;
-    if(y>SEA+10)continue;ctx.moveTo(x,y);ctx.lineTo(x+14*d.l,y+32*d.l);}
-  ctx.stroke();
-}
-
-/* ---------- shot 3: typhoon wind record ---------- */
-const VM17=t=>(12+42*Math.exp(-Math.pow((t-12)/4,2)))*(1-.72*Math.exp(-Math.pow((t-12)/.7,2)));
-const VG17=t=>VM17(t)*(1.32+.1*Math.sin(t*7.3)+.07*Math.sin(t*17.1+1)+.05*Math.sin(t*31.7));
-const TH17=t=>150*(1/(1+Math.exp(-(t-12)/2.2)));     // wind direction change (deg)
-function yaw17(u){                                    // nacelle yaw (deg): tracks, then stuck on grid loss, then catches up
-  const t=24*u,th=TH17(t),tS=24*.46,tB=24*.76;
-  if(t<tS)return th;if(t<tB)return TH17(tS);
-  return lerp(TH17(tS),th,ease(seg(u,.76,.86)));
-}
-
-/* ---------- shot 4: earthquake ---------- */
-const EQ17=u=>seg(u,.14,.2)*(1-seg(u,.62,.76));
-const om4_17=x=>x<.3?1.1:lerp(1.1,0,ease(seg(x,.3,.46)));
-
-/* ---------- shot 5: liquefaction ---------- */
-const GR17=(()=>{const r=rng(55),a=[];for(let j=0;j<6;j++)for(let i=0;i<9;i++)a.push({i,j,ox:(r()-.5)*2,oy:(r()-.5)*2,ph:r()*6,r:21+r()*4});return a;})();
-const FL17=d=>{const v=1.55-.95*Math.exp(-Math.pow((d-7)/3.2,2))+.012*d;return v;};   // example FL profile
-
-const EP={no:17,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'颱風與地震的設計挑戰',en:'Designing for typhoons and earthquakes',
-lede:'台灣位在颱風路徑上，也處在環太平洋地震帶，離岸風機除了要能發電，更要在極端風浪與強震中站得住。這一集看颱風來襲時風機如何自保，認識 IEC 的 T 級風機等級，再看地震、土壤液化與二十多年的疲勞載重如何左右設計。',
-facts:[['57','m/s','T 級基準風速 Vref,T：輪轂高度 10 分鐘平均、50 年回歸期'],['79.8','m/s','T 級對應的 50 年回歸期 3 秒極端陣風（1.4 × Vref,T）'],['475','年','極限狀態檢核的設計地震回歸期；使用狀態另以 95 年地震檢核'],['< 1','FL','抗液化安全係數 FL = CRR / CSR 小於 1，即判定該土層會液化'],['20','年以上','技術指引規定的離岸風機最短設計年限'],['346','座','2024 年凱米颱風過後，台灣海峽仍安然佇立的離岸風機（能源署）']],
-note:'說明：本集為教育用途示意動畫。風機等級、T 級基準風速、極端風速公式、地震回歸期、液化評估方法與設計年限取自經濟部標準檢驗局《離岸風力發電場址調查及設計技術指引》（2023）與 IEC 61400-1 第 4 版；凱米颱風後的風機數量取自能源署風力發電單一服務窗口；蒲福風級取自中央氣象署。颱風風速與風向歷程、切出風速 25 m/s、海床加速度、FL 分布、S-N 曲線與疲勞損傷值均為典型範例，實際依各風場的場址調查與設計而定。',
+const EP={no:18,slug:'offshore-wind',seriesName:'離岸風電系列',t:'風機葉片的製造',en:'How turbine blades are made',
+lede:'一支離岸風機葉片長達八十多公尺，卻主要是由玻璃纖維布、樹脂與輕質芯材一層層做出來的。這一集走進葉片工廠，看葉片的剖面結構、玻纖與碳纖的分工、真空灌注與加熱固化，以及合模、檢測與台灣的在地生產。',
+facts:[['85','m','台中港葉片廠為 Vestas V174-9.5 MW 生產的葉片長度（報導值）'],
+['35','t','單支 85 m 葉片的重量（報導值）'],
+['108','m','西門子歌美颯 B108 一體成型葉片，整支一次灌注、沒有黏合縫'],
+['≈ 3','倍','碳纖維複材的拉伸剛性約為玻纖複材的 3 倍，用於長葉片主樑（示例）'],
+['≈ 0.05','bar','真空袋內的絕對壓力，大氣壓力把布層壓實（示例）'],
+['數百萬','次','全尺寸疲勞測試的載重循環次數，依 IEC 61400-23（示例）']],
+note:'說明：本集為教育用途示意動畫，工廠、模具、剖面與測試台的比例都經過簡化，製程時間已壓縮。天力離岸風電台中港廠為 Vestas V174-9.5 MW 生產 85 m、約 35 t 的葉片，依媒體報導；西門子歌美颯 B108 為 108 m 一體成型（IntegralBlade）葉片，依其官方資料；葉片以玻纖布、樹脂與芯材鋪層、真空灌注後加熱固化，主樑可用碳纖維拉擠板，為業界常見做法；全尺寸靜態與疲勞測試依 IEC 61400-23。玻纖與碳纖複材的剛性、密度與價格比、真空度、固化溫度與時間、鋪層順序、測試循環次數皆為典型範例，並非特定機型或工廠的資料。',
+base:()=>hallBG(),
 shots:[
-/* 1 */{t:'颱風來襲：風機怎麼自保',en:'When a typhoon hits',dur:14,side:true,
- d:'颱風接近時，風速一路升高。風速超過切出風速（典型約 25 m/s），控制系統讓風機停止發電，把三支葉片轉到約 90 度的順槳位置，像刀鋒一樣切風，大幅減少受力；機艙則持續偏航，讓轉子正面迎風，避免側向受風。若電網中斷，備用電源仍要維持偏航與控制。2024 年凱米颱風過後，台灣海峽的 346 座離岸風機都安然佇立。',
- s:[[0,'颱風接近，風速與浪高一路升高'],[.3,'超過切出風速，風機停止發電'],[.48,'葉片轉到順槳位置，像刀鋒一樣切風'],[.66,'機艙持續偏航，讓轉子正面迎風'],[.82,'電網中斷時，備用電源仍維持控制']],
- cam:u=>({x:640,y:430,s:1}),
- base:u=>{const k=sk17(u);stormSky17(k);drawWaterBack();drawSoil();},
- end:u=>{sideEnd();stormSwell17(6+20*sk17(u));},
+/* 1 ─────────────────────────────── 葉片工廠 */
+{t:'走進葉片工廠',en:'Inside a blade factory',dur:12,side:true,
+ d:'離岸風機葉片是在長度接近百公尺的廠房裡，用一對巨大的模具做出來的：一半是壓力面，一半是吸力面。工人與天車沿著模具，把一捲捲玻璃纖維布依設計的方向與層數鋪進模具，根部最厚、往葉尖逐漸變薄。接著放入輕質芯材與主樑，再蓋上真空袋膜準備灌注樹脂。一支 85 m 的葉片，從鋪層到脫模通常需要數天，模具的使用排程決定了工廠的產能。',
+ s:[[0,'葉片在長近百公尺的模具裡成形'],[.25,'天車沿著模具把玻纖布一層層鋪上'],[.55,'主樑條與芯材依設計位置放入'],[.8,'最後蓋上真空袋膜，準備灌注']],
+ cam:u=>camMix({x:800,y:430,s:1},{x:560,y:470,s:1.5},ease(seg(u,.5,.64))),
  draw(u){
-  turb17(TX,rotAng17(u,14,om1_17));
+  const X0=210,L=1240,C=200,Y=520,xf=X0+(L+20)*ease(seg(u,.08,.52));
+  /* 模具支架 */
+  for(let k=0;k<9;k++){const x=X0+30+k*(L-40)/8;box(x-8,Y+30,16,FL-Y-30,'#4a5860');}
+  box(X0-20,Y+24,L+40,14,'#394650');
+  /* 模具（俯視壓扁的平面形） */
+  ctx.save();ctx.translate(0,Y);ctx.scale(1,.34);ctx.translate(0,-Y);
+  bladePath(X0-24,Y,L+44,C+80);ctx.fillStyle='#6f7a80';ctx.fill();ctx.strokeStyle='#9aa3a8';ctx.lineWidth=5;ctx.stroke();
+  bladePath(X0,Y,L,C);ctx.fillStyle='#2b353c';ctx.fill();
+  ctx.save();bladePath(X0,Y,L,C);ctx.clip();
+  box(X0-10,Y-200,xf-X0+10,400,'#e3e8ec');for(let x=X0;x<xf;x+=14)ln([x,Y-200,x,Y+200],'rgba(0,0,0,.08)',2);
+  const cp=seg(u,.55,.72);if(cp>0)box(X0+L*.12,Y-C*.16,L*.78*cp,C*.28,'#394650');
+  if(cp>0)hatch(X0+L*.12,Y-C*.16,L*.78*cp,C*.28,'rgba(255,255,255,.18)',10);
+  const bg=seg(u,.78,.92);if(bg>0)alphaDo(.55,()=>{box(X0-10,Y-200,(L+20)*bg,400,'rgba(125,200,220,.5)');for(let x=X0;x<X0+(L+20)*bg;x+=60)ln([x,Y-200,x+40,Y+200],'rgba(255,255,255,.4)',3);});
+  ctx.restore();ctx.restore();
+  /* 天車與布捲 */
+  const cx=u<.52?Math.min(xf,X0+L):lerp(X0+L,X0+L*.5,ease(seg(u,.55,.7))),hy=u<.52?430:lerp(430,300,seg(u,.52,.58));
+  bridgeCrane(cx,hy);
+  if(u<.56){ctx.save();ctx.translate(cx,hy+30);ctx.rotate(TT*3);circ(0,0,22,'#e3e8ec','#394650',1.5);for(let k=0;k<3;k++){const a=k*TAU/3;ln([0,0,Math.cos(a)*18,Math.sin(a)*18],'#9aa3a8',2);}ctx.restore();
+   ln([cx-8,hy+50,cx-30,Y-8],'rgba(227,232,236,.8)',6);}
+  else{box(cx-60,hy+10,120,10,'#394650');alphaDo(1-seg(u,.72,.76),()=>{box(cx-70,hy+20,140,12,'#394650');hatch(cx-70,hy+20,140,12,'rgba(255,255,255,.2)',6);});}
+  /* 工人 */
+  [[X0+120,0],[X0+420,1],[X0+700,2],[X0+980,3]].forEach(([x,i])=>{const px=x+10*Math.sin(TT*.8+i);person(px,FL,i%2?'#e8572a':'#f2c230',4);});
+  /* 尺寸線 */
+  alphaDo(band(u,.04,.3),()=>{const y=FL+40;ln([X0,y,X0+L,y],'#fff',1.5);ln([X0,y-10,X0,y+10],'#fff',1.5);ln([X0+L,y-10,X0+L,y+10],'#fff',1.5);wt(X0+L/2,y-8,'葉片長約 85 m',20,'#fff',700,'center');});
+  lab(X0+L*.45,Y+6,'葉片模具（吸力面）',{dx:-80,dy:-150,st:'l',a:band(u,.03,.26)});
+  lab(X0,Y,'葉根',{dx:-40,dy:-100,st:'n',a:band(u,.06,.3)});
+  lab(cx,hy+30,'玻纖布捲',{dx:80,dy:-90,st:'s',a:band(u,.28,.52)});
+  lab(X0+L*.4,Y,'碳纖維主樑條',{dx:60,dy:-120,st:'s',a:band(u,.6,.8)});
+  lab(X0+L*.3,Y-10,'真空袋膜',{dx:-60,dy:-120,st:'g',a:band(u,.82,1)});
  },
- fx(u){
-  rain17(sk17(u));
-  lab(HUB.x,HUB.y,'超過切出風速：停機',{dx:-110,dy:70,a:band(u,UC17,UC17+.18),st:'w'});
-  lab(HUB.x+BR*.7,HUB.y+BR*.2,'葉片順槳（約 90°）',{dx:90,dy:40,a:band(u,.46,.68),st:'s'});
-  lab(TX+30,TW_TOP-30,'機艙偏航，正面迎風',{dx:120,dy:-40,a:band(u,.64,.84)});
-  lab(TX+30,TP_TOP-40,'備用電源維持控制',{dx:130,dy:10,a:band(u,.8,1),st:'g'});
-  lab(260,SEA-14,'颱風巨浪',{dx:-60,dy:-60,a:band(u,.66,1),st:'w',minor:true});
- },
- hud(u){hudPanel(240,150,'颱風監測（示例）',seg(u,.02,.08),w=>{const V=V1_17(u),G=V*(1.3+.06*Math.sin(TT*5.3));
-  hrow(52,'平均風速',V.toFixed(0)+' m/s',w,'#f2c230');hbar(14,60,w-28,V/60,V>25?'#e8572a':'#f2c230');
-  hrow(92,'陣風',G.toFixed(0)+' m/s',w);
-  const st=u<UC17?'發電中':u<UC17+.12?'切出停機':'順槳待機';
-  hrow(116,'狀態',st,w,u<UC17?'#7dffc4':'#ff9d7a');
-  hrow(140,'偏航',u>.8?'備用電源':'對風中',w,'#7dffc4');});}},
-/* 2 */{t:'風機等級：為颱風多加一級',en:'Turbine classes and Class T',dur:14,
- d:'國際標準 IEC 61400-1 依「基準風速」把風機分成 I、II、III 級，基準風速是輪轂高度 50 年回歸期的 10 分鐘平均風速，I 級為 50 m/s。第 4 版為颱風地區新增 T 級，基準風速提高到 57 m/s；對應的 50 年回歸期 3 秒陣風是基準風速的 1.4 倍，約 79.8 m/s。57 m/s 大約相當於蒲福風級 17 級。台灣的離岸風機須符合 T 級規範。',
- s:[[0,'IEC 61400-1 依基準風速把風機分成 I、II、III 級'],[.3,'第 4 版新增颱風等級：T 級'],[.55,'T 級基準風速 57 m/s，極端陣風約 79.8 m/s'],[.78,'台灣的離岸風機須符合 T 級規範']],
+ hud(u){hudPanel(250,182,'葉片工廠（示例）',seg(u,.03,.08),w=>{const p=seg(u,.08,.52);
+  hrow(56,'葉片長度','85 m',w,'#fff');hrow(88,'模具','2 半（壓力面／吸力面）',w,'#7dc8dc');
+  hrow(120,'鋪層進度',trf('{n} %',{n:(p*100).toFixed(0)}),w,'#f2c230');
+  hrow(152,'目前工序',u<.52?'鋪玻纖布':u<.78?'放主樑條':'蓋真空袋',w,'#7dffc4');});}},
+
+/* 2 ─────────────────────────────── 剖面結構 */
+{t:'葉片裡面長什麼樣',en:'What is inside a blade',dur:14,
+ d:'把葉片橫切開來，會看到它是中空的。外殼是三明治結構：內外兩層玻纖積層，中間夾著發泡材或巴沙木芯材，既輕又不易凹陷。真正承受風力彎曲的是上下兩條厚實的主樑，長葉片常用碳纖維製作；主樑之間由一到兩片剪力腹板連接，組成像工字梁或箱形梁的骨架。上殼與下殼在前緣、後緣和腹板頂端用結構膠黏合。葉片受風時，一側主樑受壓、另一側受拉，腹板承受剪力。',
+ s:[[0,'橫切開來，葉片是中空的殼'],[.22,'外殼：玻纖皮夾著輕質芯材'],[.4,'上下主樑承受彎曲，腹板把兩者連起來'],[.62,'前緣與後緣用結構膠黏合'],[.8,'受風時一側受壓、一側受拉']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,650,{title:'IEC 61400-1 風機等級',x0:0,x1:4,y0:0,y1:90,yt:[0,20,40,60,80],yl:'m/s',pt:96,pl:70,pb:70,gx:4,gy:4});
-  const CL=[['III 級',37.5,.04],['II 級',42.5,.1],['I 級',50,.16],['T 級',57,.34]];
-  CL.forEach((k,i)=>{const a=seg(u,k[2],k[2]+.08);if(a<=0)return;const xm=c.X(i+.5),bw=62,T=i===3;
-   alphaDo(Math.max(a,.001),()=>{
-    const h1=k[1]*ease(a),h2=k[1]*1.4*ease(seg(u,k[2]+.14,k[2]+.22));
-    box(xm-bw-4,c.Y(h1),bw,c.Y(0)-c.Y(h1),T?'#f2c230':'#58b8d0');
-    if(h2>0)box(xm+4,c.Y(h2),bw,c.Y(0)-c.Y(h2),T?'rgba(232,87,42,.85)':'rgba(125,200,220,.45)');
-    wt(xm-bw/2-4,c.Y(h1)-10,String(k[1]),19,T?'#f2c230':'#fff',700,'center',COND);
-    if(h2>0)alphaDo(seg(u,k[2]+.18,k[2]+.22),()=>wt(xm+bw/2+4,c.Y(h2)-10,String(Math.round(k[1]*14)/10),19,T?'#ff9d7a':'rgba(227,236,238,.85)',700,'center',COND));
-    wt(xm,c.Y(0)+30,k[0],19,T?'#f2c230':'#fff',700,'center');});});
-  // legend
-  alphaDo(seg(u,.06,.12),()=>{box(420,190,16,16,'#58b8d0');wt(444,204,'基準風速 Vref（10 分鐘平均）',16,'#fff',600);
-   box(420,218,16,16,'rgba(125,200,220,.45)');wt(444,232,'50 年 3 秒陣風 Ve50',16,'#fff',600);});
-  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([7,5]);ln([c.X(0),c.Y(57),c.X(4),c.Y(57)],'#f2c230',1.6);ctx.setLineDash([]);});
-  // right cards
-  alphaDo(seg(u,.3,.36),()=>{card(960,150,580,330,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.45)'});
-   wt(984,192,'T 級（颱風等級）',21,'#f2c230',700);
-   ['IEC 61400-1 第 4 版為颱風地區新增','基準風速 Vref,T = 57 m/s，高於 I 級的 50 m/s','台灣離岸風機須符合 T 級規範（能源署）'].forEach((t,i)=>{const a=seg(u,.34+i*.06,.4+i*.06);alphaDo(a,()=>{circ(992,242+i*74,5,'#f2c230');wrap17(1008,248+i*74,t,500,18,'#fff',600,25);});});});
-  alphaDo(seg(u,.56,.62),()=>{card(960,500,580,300,{bg:'rgba(7,27,39,.8)'});
-   wt(984,542,'極端風速模型',20,'#fff',700);
-   wt(984,604,'Ve50 = 1.4 × Vref',32,'#f2c230',700,'left',COND);
-   wt(984,634,'50 年回歸期 3 秒陣風',16,'rgba(227,236,238,.8)',500);
-   wt(984,684,'Ve1 = 0.8 × Ve50',26,'#7dc8dc',700,'left',COND);
-   wt(984,712,'1 年回歸期 3 秒陣風',16,'rgba(227,236,238,.8)',500);
-   alphaDo(seg(u,.74,.8),()=>wrap17(984,764,'57 m/s 約相當於蒲福風級 17 級（56.1–61.2 m/s）',530,17,'#7dffc4',600,23));});
+  card(60,160,960,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'葉片中段剖面（示意）',20,'#f2c230',700);
+  const LE=130,CH=820,CY=450,T=.25,U=s=>CY-CH*(yt(s,T)+yc(s)),D=s=>CY+CH*(yt(s,T)-yc(s)),X=s=>LE+s*CH,N=80;
+  const sh=ease(seg(u,.04,.2));
+  alphaDo(sh,()=>{ctx.beginPath();for(let i=0;i<=N;i++){const s=i/N;i?ctx.lineTo(X(s),U(s)):ctx.moveTo(X(s),U(s));}for(let i=N;i>=0;i--){const s=i/N;ctx.lineTo(X(s),D(s));}ctx.closePath();
+   ctx.fillStyle='#16384c';ctx.fill();ctx.strokeStyle='#e3e8ec';ctx.lineWidth=18;ctx.stroke();ctx.strokeStyle='#d9b36c';ctx.lineWidth=7;ctx.stroke();});
+  const cp=ease(seg(u,.36,.46)),s0=.2,s1=.44;
+  if(cp>0){[1,-1].forEach(sg=>{const F=sg>0?U:D;ctx.beginPath();for(let i=0;i<=20;i++){const s=lerp(s0,s1,i/20);i?ctx.lineTo(X(s),F(s)-sg*9):ctx.moveTo(X(s),F(s)-sg*9);}
+   for(let i=20;i>=0;i--){const s=lerp(s0,s1,i/20);ctx.lineTo(X(s),F(s)+sg*(9+22*cp));}ctx.closePath();ctx.fillStyle='#394650';ctx.fill();ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2;ctx.stroke();});}
+  const wb=ease(seg(u,.44,.54));
+  [.25,.39].forEach(s=>{if(wb<=0)return;const y0=U(s)+31,y1=D(s)-31,ym=(y0+y1)/2,hh=(y1-y0)/2*wb;box(X(s)-7,ym-hh,14,hh*2,'#e3e8ec','#394650',1);box(X(s)-2,ym-hh,4,hh*2,'#d9b36c');});
+  const gl=seg(u,.6,.66);
+  if(gl>0){const pk=.6+.4*Math.sin(TT*6);alphaDo(gl*pk,()=>{circ(X(0)+4,CY,11,'#e8572a');circ(X(1)-10,(U(1)+D(1))/2,9,'#e8572a');[.25,.39].forEach(s=>{box(X(s)-12,U(s)+27,24,6,'#e8572a');box(X(s)-12,D(s)-33,24,6,'#e8572a');});});}
+  lab(X(.7),U(.7),'外殼：玻纖＋芯材',{dx:40,dy:-80,st:'l',a:band(u,.18,.4)});
+  lab(X(.32),U(.32),'主樑（上）',{dx:280,dy:-40,st:'s',a:band(u,.4,.62)});
+  lab(X(.32),D(.32),'主樑（下）',{dx:280,dy:40,st:'s',a:band(u,.4,.62)});
+  lab(X(.39),CY,'剪力腹板',{dx:170,dy:0,st:'g',a:band(u,.46,.62)});
+  lab(X(0)+4,CY,'前緣黏合',{dx:-10,dy:-110,st:'w',a:band(u,.62,.82)});
+  lab(X(1)-10,(U(1)+D(1))/2,'後緣黏合',{dx:-20,dy:100,st:'w',a:band(u,.62,.82)});
+  /* 三明治放大 */
+  alphaDo(seg(u,.2,.26),()=>{const x=110,y=640;wt(x,y,'三明治外殼',17,'#fff',700);
+   box(x,y+14,300,12,'#e3e8ec');box(x,y+26,300,40,'#d9b36c');box(x,y+66,300,12,'#e3e8ec');for(let i=0;i<12;i++)ln([x+i*25,y+26,x+i*25,y+66],'rgba(0,0,0,.18)',1);
+   wt(x+320,y+26,'玻纖積層',16,'rgba(227,236,238,.85)',600);wt(x+320,y+52,'發泡／巴沙木芯材',16,'#d9b36c',600);wt(x+320,y+78,'玻纖積層',16,'rgba(227,236,238,.85)',600);});
+  /* 右：梁的比喻 */
+  card(1060,160,480,640,{bg:'rgba(7,27,39,.75)'});wt(1084,200,'主樑＋腹板＝一根梁',20,'#f2c230',700);
+  const bd=70*ease(seg(u,.78,.9))+(u>.9?4*Math.sin(TT*4):0),bx0=1110,bL=390,by=430,by_=x=>by+bd*Math.pow((x-bx0)/bL,2);
+  box(1090,330,20,200,'#6f7a80');for(let i=0;i<7;i++)ln([1090,340+i*28,1080,352+i*28],'#6f7a80',2);
+  ctx.beginPath();for(let i=0;i<=30;i++){const x=bx0+bL*i/30;i?ctx.lineTo(x,by_(x)-26):ctx.moveTo(x,by_(x)-26);}for(let i=30;i>=0;i--){const x=bx0+bL*i/30;ctx.lineTo(x,by_(x)+26);}ctx.closePath();ctx.fillStyle='rgba(227,236,238,.18)';ctx.fill();
+  ctx.beginPath();for(let i=0;i<=30;i++){const x=bx0+bL*i/30;i?ctx.lineTo(x,by_(x)-22):ctx.moveTo(x,by_(x)-22);}ctx.strokeStyle='#7dc8dc';ctx.lineWidth=9;ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=30;i++){const x=bx0+bL*i/30;i?ctx.lineTo(x,by_(x)+22):ctx.moveTo(x,by_(x)+22);}ctx.strokeStyle='#ff9d7a';ctx.lineWidth=9;ctx.stroke();
+  const ex=bx0+bL;arrow(ex-10,by_(ex)-120,ex-10,by_(ex)-34,'#f2c230',3);wt(ex-20,by_(ex)-130,'風的推力',16,'#f2c230',700,'right');
+  alphaDo(seg(u,.8,.86),()=>{wt(1084,600,'上主樑：受壓',18,'#7dc8dc',700);wt(1084,640,'下主樑：受拉',18,'#ff9d7a',700);wt(1084,680,'腹板：承受剪力',18,'#e3e8ec',700);wt(1084,740,'材料集中在離中心最遠處',17,'rgba(227,236,238,.8)',600);});
+  alphaDo(1-seg(u,.76,.8),()=>{wt(1300,620,'骨架在殼體之內',18,'rgba(227,236,238,.8)',600,'center');});
  }},
-/* 3 */{t:'颱風的風，為什麼特別難',en:'What makes typhoon winds hard',dur:14,
- d:'颱風的風不只是大。陣風比平均風速高出三到四成，紊流也強；颱風眼通過時風速驟降又驟升，風向在數小時內大幅轉變。若此時電網中斷、偏航系統停擺，機艙卡在原來的方向，強風就從側面打在轉子與塔架上，這是設計中必須檢核的情境，所以要有備用電源讓機艙繼續對風。台灣颱風路徑多變，年最大風速的變異大，技術指引要求適度提高設計風速。',
- s:[[0,'颱風的陣風比平均風速高出三到四成'],[.3,'颱風眼通過，風速驟降又驟升'],[.46,'風向在數小時內大幅轉變'],[.6,'電網中斷時，機艙卡住，強風從側面打來'],[.78,'備用電源啟動，機艙重新對風']],
+
+/* 3 ─────────────────────────────── 玻纖與碳纖 */
+{t:'玻纖與碳纖的分工',en:'Glass fibre and carbon fibre',dur:13,
+ d:'葉片大部分的重量是玻璃纖維複材：價格低、韌性好，用在外殼、腹板與根部。葉片越長，自重與葉尖變形越大，葉尖若彎得太多，運轉時可能掃到塔架。碳纖維複材的拉伸剛性約為玻纖的三倍、密度更低，但每公斤價格高出許多，所以只用在最需要剛性的主樑。常見做法是先把碳纖維以拉擠成型做成數公釐厚的長板條，再一片片疊進模具，纖維排列整齊、品質穩定。',
+ s:[[0,'外殼與腹板用便宜、耐用的玻纖'],[.3,'碳纖更輕更剛，但價格高出許多'],[.55,'碳纖先拉擠成厚度一致的長板條'],[.8,'板條疊起來，成為葉片的主樑']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,400,{title:'颱風通過時的輪轂風速（示例）',x0:0,x1:24,y0:0,y1:90,xt:[0,6,12,18,24],yt:[0,30,60,90],xl:'時間（小時）',yl:'m/s',pt:70,pl:60,gx:4,gy:3});
-  const tc=24*u,P=[],Q=[];for(let t=0;t<=tc;t+=.08){P.push(c.X(t),c.Y(VM17(t)));Q.push(c.X(t),c.Y(Math.min(88,VG17(t))));}
-  ctx.setLineDash([6,5]);ln([c.X(0),c.Y(57),c.X(24),c.Y(57)],'rgba(242,194,48,.7)',1.4);ln([c.X(0),c.Y(79.8),c.X(24),c.Y(79.8)],'rgba(232,87,42,.7)',1.4);ctx.setLineDash([]);
-  wt(c.X(24)-6,c.Y(57)-8,'Vref,T 57',15,'#f2c230',700,'right',COND);wt(c.X(24)-6,c.Y(79.8)-8,'Ve50 79.8',15,'#ff9d7a',700,'right',COND);
-  if(Q.length>3)ln(Q,'rgba(255,157,122,.85)',1.4);if(P.length>3)ln(P,'#7dffc4',3);
-  ln([c.X(tc),c.py,c.X(tc),c.py+c.ph],'rgba(255,255,255,.35)',1);
-  wt(250,196,'10 分鐘平均',15,'#7dffc4',700);wt(370,196,'3 秒陣風',15,'#ff9d7a',700);
-  alphaDo(band(u,.44,.62),()=>wt(c.X(12),c.Y(VM17(12))+34,'颱風眼',16,'#fff',700,'center'));
-  // top view: wind direction and nacelle yaw
-  card(960,150,580,400,{bg:'rgba(7,27,39,.8)'});wt(984,190,'俯視：風向與機艙方向',20,'#f2c230',700);
-  const cx=1250,cy=372,R=140;ring(cx,cy,R,'rgba(255,255,255,.18)',1.4);
-  for(let a=0;a<360;a+=30){const r=a*Math.PI/180;ln([cx+Math.cos(r)*(R-8),cy+Math.sin(r)*(R-8),cx+Math.cos(r)*R,cy+Math.sin(r)*R],'rgba(255,255,255,.3)',1.4);}
-  const th=TH17(tc)*Math.PI/180,yw=yaw17(u)*Math.PI/180,mis=Math.abs(TH17(tc)-yaw17(u));
-  // wind arrow comes from direction th toward the centre
-  const wx=cx-Math.cos(th)*(R+10),wy=cy-Math.sin(th)*(R+10);
-  const k=(TT*.9)%1;for(let i=0;i<3;i++){const o=(i-1)*22,px=-Math.sin(th)*o,py=Math.cos(th)*o,f=(k+i*.33)%1;
-   arrow(wx+px+Math.cos(th)*f*60,wy+py+Math.sin(th)*f*60,wx+px+Math.cos(th)*(f*60+50),wy+py+Math.sin(th)*(f*60+50),'#7dc8dc',3);}
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(yw);
-  rrp(-8,-18,64,36,6);ctx.fillStyle='#e8edf0';ctx.fill();box(-16,-6,10,12,'#c9d1d5');
-  ln([-16,-96,-16,96],mis>30?'#ff9d7a':'#f5f7f8',6);circ(-16,0,7,'#f2f5f6');ctx.restore();
-  const bad=mis>30;wt(cx,cy+R+34,trf('偏航誤差 {n}°',{n:Math.round(mis)}),20,bad?'#ff9d7a':'#7dffc4',700,'center',COND);
-  alphaDo(band(u,.5,.78),()=>tag(984,236,'電網中斷，偏航停擺',{bg:'#e8572a',fg:'#fff',size:16}));
-  alphaDo(band(u,.78,1),()=>tag(984,236,'備用電源啟動',{bg:'#7dffc4',fg:'#0e2a3b',size:16}));
-  // bottom cards
-  const B=[['陣風大、紊流強','陣風比平均風速高出三到四成',.08],['風向急轉','颱風眼前後，風向可轉一百多度',.42],['路徑多變','年最大風速變異大，設計風速要適度提高',.86]];
-  B.forEach((b,i)=>{const a=seg(u,b[2],b[2]+.06);if(a<=0)return;const x=60+i*500;alphaDo(a,()=>{card(x,580,480,220,{bg:'rgba(7,27,39,.8)'});
-   wt(x+24,624,b[0],20,i===2?'#f2c230':'#fff',700);wrap17(x+24,664,b[1],430,17,'rgba(227,236,238,.88)',500,24);});});
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'單向複材的比較（示例）',20,'#f2c230',700);
+  wt(300,248,'玻纖複材',18,'#dfe5e8',700,'center');wt(560,248,'碳纖複材',18,'#7dc8dc',700,'center');
+  const R=[['拉伸剛性','45 GPa','150 GPa',45/160,150/160,.06],['密度','1.95 g/cm³','1.6 g/cm³',1.95/2.2,1.6/2.2,.16],['每公斤價格','1','約 10 倍',.09,.9,.26]];
+  R.forEach(([n,a,b,fa,fb,t],i)=>{const k=ease(seg(u,t,t+.1)),y=290+i*130;wt(84,y+18,n,18,'#fff',700);
+   box(180,y+34,240,24,'rgba(255,255,255,.07)');box(180,y+34,240*fa*k,24,'#dfe5e8');wt(180,y+84,a,19,'#dfe5e8',700,'left',COND);
+   box(440,y+34,240,24,'rgba(255,255,255,.07)');box(440,y+34,240*fb*k,24,'#7dc8dc');wt(440,y+84,b,19,'#7dc8dc',700,'left',COND);});
+  alphaDo(seg(u,.36,.42),()=>{box(84,690,652,84,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);
+   wt(104,724,'玻纖：外殼、腹板、葉根',17,'#dfe5e8',700);wt(104,756,'碳纖：主樑，限制葉尖變形、避免掃塔',17,'#7dc8dc',700);});
+  /* 右：拉擠成型 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'碳纖維拉擠板（示意）',20,'#f2c230',700);
+  const ly=400,on=seg(u,.46,.52);
+  alphaDo(.35+.65*on,()=>{
+   for(let i=0;i<5;i++){const y=280+i*60;circ(870,y,20,'#394650','#9aa3a8',1.5);ctx.save();ctx.translate(870,y);ctx.rotate(TT*2);ln([-14,0,14,0],'#7dc8dc',2);ctx.restore();ln([890,y,1000,ly-10+i*5],'rgba(125,200,220,.55)',1.5);}
+   box(990,ly-40,110,70,'#16384c','#9aa3a8',1.5);box(996,ly-6,98,30,'rgba(242,194,48,.45)');
+   ln([1000,ly+2,1130,ly+2],'#394650',8);
+   const gl=.6+.4*Math.sin(TT*5);box(1130,ly-28,120,60,'#6f7a80','#394650',1.5);alphaDo(gl,()=>box(1134,ly-24,112,52,'rgba(232,87,42,.35)'));
+   const sp=90,off=(TT*sp)%120;ctx.save();ctx.beginPath();ctx.rect(1250,ly-20,280,40);ctx.clip();box(1250,ly-4,280,12,'#394650');for(let x=1250-120+off;x<1530;x+=120)hatch(x,ly-4,60,12,'rgba(255,255,255,.22)',6);ctx.restore();
+   circ(1275,ly+22,10,'#9aa3a8','#394650',1);circ(1275,ly-18,10,'#9aa3a8','#394650',1);
+   wt(870,560,'碳纖維紗架',16,'rgba(227,236,238,.85)',600,'center');wt(1045,470,'樹脂含浸',16,'rgba(227,236,238,.85)',600,'center');
+   wt(1190,470,'加熱模具',16,'#ff9d7a',600,'center');wt(1400,450,'拉擠板',16,'#7dc8dc',600,'center');});
+  alphaDo(seg(u,.56,.62),()=>tag(1170,258,'厚約 5 mm、寬約 10–20 cm（示例）',{size:16,bg:'#7dc8dc',align:'center'}));
+  /* 板條疊成主樑 */
+  const st=seg(u,.76,.96),n=Math.floor(st*8);
+  alphaDo(seg(u,.74,.78),()=>{wt(1170,560,'疊成主樑',18,'#f2c230',700,'center');
+   for(let i=0;i<8;i++){const y=740-i*16,a=i<n?1:i===n?(st*8-n):0;alphaDo(a,()=>{box(990,y-lerp(40,0,a)*0,360,13,'#394650','#7dc8dc',1);hatch(990,y,360,13,'rgba(255,255,255,.2)',8);});}
+   wt(1370,740,trf('{n} 層',{n:Math.min(8,n+ (st>=1?0:1))}),19,'#7dc8dc',700,'left',COND);});
  }},
-/* 4 */{t:'地震：海床跟著搖',en:'When the seabed shakes',dur:13,side:true,
- d:'台灣位在環太平洋地震帶，地震波從震源傳到海床，基樁與整座風機跟著左右搖晃，塔頂的晃動又比底部更大。技術指引把地震分成兩個層級檢核：475 年回歸期的地震屬極限狀態，支撐結構要保持彈性、不能破壞；95 年回歸期的地震屬使用狀態，基礎的永久位移與傾角要小到風機仍能運轉。機艙裡的振動感測器偵測到強震會觸發停機。',
- s:[[0,'風機正常運轉，海床下方是鬆軟的砂泥層'],[.16,'地震波從震源傳上來，海床開始搖晃'],[.3,'振動感測器偵測到強震，觸發停機'],[.5,'475 年地震：支撐結構要保持彈性'],[.76,'95 年地震：基礎傾角要小到仍能運轉']],
- cam:u=>({x:640,y:440,s:1}),
- base:u=>{const e=EQ17(u),gx=4*e*Math.sin(TT*38);drawSky();drawWaterBack();ctx.save();ctx.translate(gx,0);drawSoil();ctx.restore();},
- draw(u){
-  const e=EQ17(u),gx=4*e*Math.sin(TT*38),sw=e*.02*Math.sin(TT*6.5),yb=bedY(TX)+130;
-  // seismic wave fronts in the soil
-  if(e>0){ctx.save();soilRegion();ctx.clip();for(let i=0;i<4;i++){const r=((TT*260+i*150)%600);alphaDo(e*(1-r/600),()=>ring(260,1060,r+200,'rgba(232,87,42,.7)',3));}ctx.restore();}
-  ctx.save();ctx.translate(gx,yb);ctx.transform(1,0,-sw,1,0,0);ctx.translate(0,-yb);
-  turb17(TX,rotAng17(u,13,om4_17));ctx.restore();
-  // top sway trace
-  alphaDo(band(u,.18,.72),()=>{ctx.setLineDash([4,4]);ln([TX,TW_TOP-60,TX,yb],'rgba(255,255,255,.35)',1.2);ctx.setLineDash([]);});
- },
- fx(u){
-  const e=EQ17(u);
-  lab(250,bedY(250)+180,'地震波',{dx:-40,dy:-80,a:band(u,.14,.4)*e,st:'w'});
-  lab(TX+10,TW_TOP-24,'振動感測器觸發停機',{dx:130,dy:-30,a:band(u,.3,.52),st:'w'});
-  lab(TX,420,'支撐結構保持彈性',{dx:150,dy:0,a:band(u,.5,.76),st:'s'});
-  lab(TX,bedY(TX),'基礎傾角檢核',{dx:150,dy:30,a:band(u,.76,1),st:'g'});
-  lab(TX,TW_TOP-60,'塔頂晃動最大',{dx:-130,dy:30,a:band(u,.2,.46)*e,minor:true});
- },
- hud(u){hudPanel(240,150,'地震監測（示例）',seg(u,.02,.08),w=>{const e=EQ17(u),g=.28*e*(.7+.3*Math.abs(Math.sin(TT*9)));
-  hrow(52,'海床加速度',g.toFixed(2)+' g',w,'#f2c230');hbar(14,60,w-28,g/.35,'#e8572a');
-  hrow(92,'塔頂位移',Math.round(e*38*Math.abs(Math.sin(TT*6.5)))+' cm',w);
-  hrow(116,'狀態',u<.3?'運轉中':u<.62?'觸發停機':'停機檢查',w,u<.3?'#7dffc4':'#ff9d7a');
-  hrow(140,'檢核',u<.76?'475 年 ULS':'95 年 SLS',w,'#fff');});}},
-/* 5 */{t:'土壤液化：地層失去支撐',en:'Soil liquefaction',dur:15,
- d:'海床表層常是飽和、鬆散的砂層。平時砂粒彼此接觸、互相支撐；地震反覆搖晃時，砂粒想擠密，孔隙裡的水卻來不及排出，超額孔隙水壓上升。當孔隙水壓升到等於土壤原本的有效應力，砂粒不再互相壓緊，土層就像液體一樣失去強度，這就是液化。設計時先計算各深度的抗液化安全係數 FL，小於 1 的土層視為會液化，並分別分析液化與不液化兩種情境，取較保守的結果。',
- s:[[0,'平時砂粒互相接觸，承載力來自顆粒間的摩擦'],[.24,'地震搖晃，孔隙水來不及排出，水壓上升'],[.44,'水壓等於有效應力，砂粒浮起，土層液化'],[.64,'計算各深度的安全係數 FL，小於 1 視為液化'],[.82,'液化與不液化兩種情境都要分析，取保守者']],
+
+/* 4 ─────────────────────────────── 真空灌注與固化 */
+{t:'真空灌注與加熱固化',en:'Vacuum infusion and curing',dur:15,
+ d:'乾的纖維布、芯材與主樑都鋪好之後，上面依序蓋上脫模布、導流網和真空袋膜，四周用密封膠條封住。真空泵把袋內抽到接近真空，外面的大氣壓力把整疊材料壓實。接著打開樹脂進料管，樹脂沿著導流網向前推進，再往下滲透每一層布，直到流動前緣到達出料口。灌注完成後，模具內建的加熱系統把溫度升到約 70 °C（示例）並保溫數小時，讓環氧樹脂交聯固化，變成堅硬的複合材料。',
+ s:[[0,'依序疊上布層、芯材、主樑與輔助層'],[.26,'封上真空袋，把袋內空氣抽掉'],[.4,'樹脂被吸入，流動前緣慢慢往前'],[.74,'模具加熱，樹脂固化成堅硬的殼']],
  draw(u){
   diagBG();
-  card(60,150,700,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'飽和砂層的放大圖（示意）',20,'#f2c230',700);
-  const q=ease(seg(u,.22,.5)),shake=seg(u,.22,.26)*(1-seg(u,.56,.62)),bx=100,by=220,bw=620,bh=380;
-  ctx.save();rrp(bx,by,bw,bh,8);ctx.clip();box(bx,by,bw,bh,'rgba(59,147,187,.45)');
-  const pos=[];GR17.forEach(g=>{const x0=bx+40+g.i*68+(g.j%2)*34,y0=by+bh-40-g.j*56;
-   const fx=Math.sin(TT*1.2+g.ph)*14*q+g.ox*16*q+shake*Math.sin(TT*30+g.ph)*3,fy=-q*(26+g.oy*12)+Math.cos(TT*1.1+g.ph)*8*q;pos.push([x0+fx,y0+fy,g.r*(1-.12*q)]);});
-  // contact force chains
-  alphaDo(1-q,()=>{ctx.strokeStyle='rgba(242,194,48,.9)';ctx.lineWidth=3;ctx.beginPath();pos.forEach((p,i)=>pos.forEach((o,j)=>{if(j>i&&Math.hypot(p[0]-o[0],p[1]-o[1])<72){ctx.moveTo(p[0],p[1]);ctx.lineTo(o[0],o[1]);}}));ctx.stroke();});
-  pos.forEach(p=>circ(p[0],p[1],p[2],'#d9c393','rgba(120,95,50,.6)',1.4));
+  card(60,160,960,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'鋪層剖面（示意，厚度放大）',20,'#f2c230',700);
+  const X0=110,X1=770,W=X1-X0;
+  const Ls=[['加熱模具',640,60,'#6f7a80',0],['外層玻纖布',610,30,'#e3e8ec',.04],['芯材＋碳纖主樑',556,54,'#d9b36c',.09],['內層玻纖布',536,20,'#e3e8ec',.14],['脫模布',530,6,'#b37cff',.18],['導流網',522,8,'#7dffc4',.21],['真空袋膜',514,8,'#7dc8dc',.24]];
+  const vac=ease(seg(u,.28,.36)),xf=lerp(X0,X1,easeOut(seg(u,.4,.72))),cure=seg(u,.74,.98);
+  Ls.forEach(([n,y,h,c,t],i)=>{const k=i===0?1:ease(seg(u,t,t+.04));if(k<=0)return;const dy=(1-k)*-60;
+   alphaDo(k,()=>{if(i===2){box(X0,y+dy,W,h,c);box(X0+W*.36,y+dy,W*.3,h,'#394650');hatch(X0+W*.36,y+dy,W*.3,h,'rgba(255,255,255,.2)',8);}
+    else if(i===5){for(let x=X0;x<X1;x+=12)ln([x,y+dy,x+12,y+dy+h],c,1.5);}
+    else if(i===6){const sg=(1-vac)*10;ctx.beginPath();for(let x=X0;x<=X1;x+=10){const yy=y+dy+sg*Math.sin(x*.05)-sg;x===X0?ctx.moveTo(x,yy):ctx.lineTo(x,yy);}ctx.strokeStyle=c;ctx.lineWidth=4;ctx.stroke();}
+    else box(X0,y+dy,W,h,c,'rgba(0,0,0,.3)',1);
+    if(i===0){for(let x=X0+30;x<X1;x+=60){const gl=cure>0?.4+.6*cure*(.7+.3*Math.sin(TT*4+x)):0;circ(x,y+34,9,gl>0?`rgba(232,87,42,${gl.toFixed(2)})`:'#4a5860','#394650',1);}}
+    const ly=y+h/2+dy,LY=[670,625,588,562,538,514,490][i]+dy;ln([X1+6,ly,X1+30,LY],'rgba(227,236,238,.5)',1);wt(X1+38,LY+6,n,16,i===2?'#d9b36c':c==='#6f7a80'?'rgba(227,236,238,.85)':c,600);});});
+  /* 樹脂流動 */
+  if(xf>X0){ctx.save();ctx.beginPath();ctx.moveTo(X0,518);for(let y=518;y<=640;y+=8)ctx.lineTo(xf-(y-518)*.45+4*Math.sin(y*.2+TT*3),y);ctx.lineTo(X0,640);ctx.closePath();
+   ctx.fillStyle=`rgba(242,194,48,${(.45-.2*cure).toFixed(2)})`;ctx.fill();ctx.restore();
+   if(u<.74)for(let i=0;i<6;i++){const x=X0+((TT*60+i*110)%(Math.max(1,xf-X0)));circ(x,526,3,'#f2c230');}}
+  /* 進料與抽氣 */
+  alphaDo(seg(u,.26,.3),()=>{ln([X0+30,514,X0+30,420,X0-10,420],'#f2c230',6);wt(X0+40,410,'樹脂進料',16,'#f2c230',700);
+   ln([X1-30,514,X1-30,420,X1+20,420],'#7dc8dc',6);wt(X1-40,410,'抽真空',16,'#7dc8dc',700,'right');
+   if(vac>0)for(let i=0;i<3;i++){const k=(TT*.9+i/3)%1;alphaDo(1-k,()=>arrow(X1-30,500-k*60,X1-30,470-k*60,'#7dc8dc',2));}});
+  alphaDo(seg(u,.42,.46)*(1-seg(u,.72,.76)),()=>{ln([xf,500,xf,480],'#fff',1.5);tag(xf,468,'流動前緣',{size:15,bg:'#f2c230',align:'center'});});
+  alphaDo(seg(u,.3,.34),()=>{for(let i=0;i<7;i++){const x=X0+60+i*95;arrow(x,300,x,350,'rgba(227,236,238,.5)',2);}wt(440,285,'大氣壓力把布層壓實',17,'rgba(227,236,238,.85)',600,'center');});
+  const rows=[['袋內壓力',trf('{n} bar',{n:lerp(1,.05,vac).toFixed(2)}),'#7dc8dc'],['灌注進度',trf('{n} %',{n:((xf-X0)/W*100).toFixed(0)}),'#f2c230']];
+  rows.forEach(([n,v,c],i)=>{const y=700+i*44;wt(110,y+20,n,18,'rgba(227,236,238,.85)',600);wt(420,y+20,v,22,c,700,'right',COND);});
+  /* 右：固化曲線 */
+  const C=chartBox(1060,160,480,640,{title:'固化過程（示例）',x0:0,x1:10,y0:0,y1:100,xt:[0,2,4,6,8,10],yt:[0,25,50,75,100],xl:'時間 h',yl:'°C／%',pl:64,pt:110,pb:70,gx:5,gy:4});
+  const Tf=h=>h<1?25:h<3?lerp(25,70,(h-1)/2):h<8?70:lerp(70,35,(h-8)/2),Cf=h=>100/(1+Math.exp(-(h-4.2)*1.3));
+  wt(C.px+10,C.py-18,'模具溫度',16,'#ff9d7a',700);wt(C.px+180,C.py-18,'固化程度',16,'#7dffc4',700);
+  const tc=10*cure;
+  if(tc>0){[[Tf,'#ff9d7a'],[Cf,'#7dffc4']].forEach(([f,c])=>{ctx.beginPath();for(let k=0;k<=80;k++){const h=tc*k/80;k?ctx.lineTo(C.X(h),C.Y(f(h))):ctx.moveTo(C.X(h),C.Y(f(h)));}ctx.strokeStyle=c;ctx.lineWidth=3;ctx.stroke();circ(C.X(tc),C.Y(f(tc)),6,c,'#13232e',1.5);});
+   wt(C.X(5.5),C.Y(70)-14,trf('約 {n} °C',{n:70}),17,'#ff9d7a',700,'center',COND);}
+  else wt(1300,480,'灌注完成後開始加熱',17,'rgba(227,236,238,.7)',600,'center');
+ }},
+
+/* 5 ─────────────────────────────── 合模黏合 */
+{t:'合模：兩半殼黏成一支',en:'Closing the mould',dur:13,side:true,
+ d:'兩半殼體各自在模具裡固化後，先把預製好的剪力腹板吊進壓力面殼體，定位在主樑上方。接著在前緣、後緣與腹板頂端塗上一道道結構膠，吸力面的模具由液壓翻轉機構整個翻過來，精準蓋在另一半上。合模後再次加熱讓黏合劑固化，才開模把葉片吊出，進入修邊、打磨與塗裝。也有廠商採用一體成型技術，把整支葉片在同一個封閉模具內一次灌注，省去黏合縫。',
+ s:[[0,'兩半殼體各自固化完成'],[.1,'剪力腹板吊進壓力面殼體'],[.36,'前緣、後緣與腹板頂端塗上結構膠'],[.5,'吸力面模具整個翻轉過來'],[.82,'合模加熱，黏合劑固化']],
+ cam:u=>({x:800,y:430,s:1.05}),
+ draw(u){
+  const L0=PIV-280,R0=PIV+280,ang=-Math.PI*ease(seg(u,.5,.8));
+  /* 支架 */
+  [L0-190,L0+190,R0-190,R0+190].forEach(x=>box(x-10,MY+MC*.2+36,20,FL-MY-MC*.2-36,'#4a5860'));
+  box(PIV-14,MY+20,28,FL-MY-20,'#394650');
+  mouldHalf(L0,false,false,1);
+  /* 腹板吊入 */
+  const Pd=s=>MY+MC*(yt(s,MT)-yc(s)),Pu=s=>MY-MC*(yt(s,MT)+yc(s)),WX=s=>L0-MC/2+s*MC;
+  const drop=ease(seg(u,.1,.32)),WS=[.3,.46];
+  const hx=u<.36?WX(.38):lerp(WX(.38),PIV+420,ease(seg(u,.36,.46)));
+  WS.forEach(s=>{const top=Pu(s)+8,bot=Pd(s)-8,off=(1-drop)*-260;box(WX(s)-6,top+off,12,bot-top,'#e3e8ec','#394650',1);box(WX(s)-2,top+off,4,bot-top,'#d9b36c');});
+  const hy=u<.36?Pu(.38)-40+(1-drop)*-260:lerp(Pu(.38)-40,200,ease(seg(u,.36,.46)));
+  bridgeCrane(hx,hy);
+  if(u<.36){box(WX(.3)-10,hy+10,WX(.46)-WX(.3)+20,8,'#394650');slings(hx,hy+10,[WX(.3),Pu(.3)+8+(1-drop)*-260,WX(.46),Pu(.46)+8+(1-drop)*-260]);}
+  /* 結構膠 */
+  const gl=seg(u,.36,.46);
+  if(gl>0&&u<.86){const n=Math.floor(gl*12);alphaDo(.9,()=>{circ(L0-MC/2+4,MY-2,8,'#e8572a');if(gl>.4)circ(L0+MC/2-6,MY-2,7,'#e8572a');WS.forEach((s,i)=>{if(n>4+i*3)box(WX(s)-10,Pu(s)+2,20,7,'#e8572a');});});}
+  /* 翻轉的吸力面模具 */
+  ctx.save();ctx.translate(PIV,MY);ctx.rotate(ang);ctx.translate(-PIV,-MY);
+  mouldHalf(R0,true,true,1);
+  box(PIV,MY+10,R0-MC/2-40-PIV,16,'#394650');
   ctx.restore();
-  wt(bx+bw/2,by+bh+34,q<.5?'砂粒互相接觸（黃線為傳力路徑）':'砂粒浮在水中，失去接觸',17,q<.5?'#f2c230':'#ff9d7a',700,'center');
-  // pore pressure ratio bar
-  const ru=clamp(q*1.02);wt(84,668,'超額孔隙水壓 ／ 有效應力',17,'#fff',600);
-  box(84,684,560,24,'rgba(255,255,255,.12)');box(84,684,560*ru,24,ru>=.99?'#e8572a':'#58b8d0');
-  wt(664,704,ru.toFixed(2),24,ru>=.99?'#ff9d7a':'#fff',700,'left',COND);
-  alphaDo(seg(u,.46,.5),()=>wt(84,746,'比值達到 1：土壤液化',19,'#ff9d7a',700));
-  // FL profile chart
-  const c=chartBox(800,150,740,420,{title:'抗液化安全係數 FL（示例）',x0:0,x1:2,y0:20,y1:0,xt:[0,.5,1,1.5,2],yt:[0,5,10,15,20],xl:'FL',yl:'海床下深度（m）',pt:78,pl:64,pb:56,gx:4,gy:4});
-  const fp=seg(u,.6,.72);
-  if(fp>0){const P=[];for(let d=0;d<=20*fp;d+=.25)P.push(c.X(FL17(d)),c.Y(d));
-   alphaDo(1,()=>{ctx.save();ctx.beginPath();ctx.rect(c.px,c.py,c.X(1)-c.px,c.ph);ctx.clip();
-    const Z=[];for(let d=0;d<=20*fp;d+=.25)Z.push([c.X(FL17(d)),c.Y(d)]);ctx.beginPath();ctx.moveTo(c.X(1),c.Y(0));Z.forEach(p=>ctx.lineTo(Math.min(p[0],c.X(1)),p[1]));ctx.lineTo(c.X(1),Z[Z.length-1][1]);ctx.closePath();ctx.fillStyle='rgba(232,87,42,.35)';ctx.fill();ctx.restore();});
-   ln(P,'#7dffc4',3);}
-  ctx.setLineDash([7,5]);ln([c.X(1),c.py,c.X(1),c.py+c.ph],'#e8572a',1.8);ctx.setLineDash([]);
-  wt(c.X(1)+8,c.py+22,'FL = 1',16,'#ff9d7a',700,'left',COND);
-  alphaDo(seg(u,.7,.76),()=>wt(c.X(.62),c.Y(7)+6,'液化層',17,'#ff9d7a',700,'center'));
-  // formula + design card
-  alphaDo(seg(u,.62,.68),()=>{card(800,590,740,210,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.4)'});
-   wt(824,640,'FL = CRR / CSR',30,'#f2c230',700,'left',COND);
-   wrap17(1110,622,'土壤抗液化強度 ÷ 地震引起的剪應力（475 年地震）',400,16,'rgba(227,236,238,.88)',500,22);
-   alphaDo(seg(u,.82,.88),()=>{wrap17(824,700,'液化層不計側向支撐，基樁要穿過並深入下方緊密地層；液化與不液化兩種情境都分析，取較保守的結果。',690,17,'#7dffc4',600,25);});});
- }},
-/* 6 */{t:'疲勞：上億次的小載重',en:'Fatigue: millions of small loads',dur:14,
- d:'颱風與地震是少見的極端事件，但風機在二十多年裡每天都承受波浪、紊流與轉子旋轉帶來的反覆載重。每一次應力都不大，累積上億次後，焊道與節點仍可能出現裂紋，這就是疲勞。設計時用 S-N 曲線換算每一種應力幅度可承受的次數，再依邁納法則把各種載重造成的損傷相加，整個設計年限內的累積損傷必須小於 1，並保留安全係數。',
- s:[[0,'波浪、紊流與轉子旋轉，每天帶來反覆載重'],[.26,'應力越小，可承受的次數越多：S-N 曲線'],[.52,'二十五年間，每八秒一道浪，約一億次'],[.74,'把各種載重的損傷相加，累積損傷要小於 1']],
+  circ(PIV,MY+18,16,'#8d989f','#394650',2);
+  const ht=seg(u,.84,.98);if(ht>0)alphaDo(ht*(.5+.3*Math.sin(TT*4)),()=>{for(let i=0;i<6;i++){const x=L0-160+i*64;ln([x,MY+MC*.2+46,x+10,MY+MC*.2+60],'#e8572a',3);}});
+  [[160,0],[1330,1],[1420,2]].forEach(([x,i])=>person(x+6*Math.sin(TT+i),FL,i?'#f2c230':'#e8572a',4));
+  lab(L0-100,Pd(.2)-6,'壓力面殼體',{dx:-90,dy:-170,st:'l',a:band(u,.02,.2)});
+  lab(R0+100,MY+MC*(yt(.2,MT)+yc(.2))-6,'吸力面殼體',{dx:60,dy:-190,st:'l',a:band(u,.02,.2)});
+  lab(WX(.46),(Pu(.46)+Pd(.46))/2,'剪力腹板',{dx:130,dy:-120,st:'g',a:band(u,.2,.4)});
+  lab(L0-MC/2+4,MY-2,'結構膠',{dx:-60,dy:-120,st:'w',a:band(u,.38,.54)});
+  lab(PIV,MY+18,'液壓翻轉機構',{dx:120,dy:90,st:'s',a:band(u,.5,.8)});
+  lab(L0,MY+MC*.2+40,'加熱固化黏合劑',{dx:-40,dy:100,st:'w',a:band(u,.84,1)});
+ },
+ hud(u){hudPanel(250,150,'合模（示例）',seg(u,.03,.08),w=>{
+  hrow(56,'目前工序',u<.36?'吊入腹板':u<.5?'塗結構膠':u<.82?'翻轉合模':'加熱固化',w,'#7dffc4');
+  hrow(88,'翻轉角度',trf('{n}°',{n:(180*ease(seg(u,.5,.8))).toFixed(0)}),w,'#f2c230');
+  hrow(120,'黏合面','前緣／後緣／腹板',w,'#ff9d7a');});}},
+
+/* 6 ─────────────────────────────── 檢測與測試 */
+{t:'檢測與全尺寸測試',en:'Inspection and full-scale testing',dur:14,
+ d:'每支葉片出廠前都要檢查：量測外形尺寸與重量，並以超音波掃描主樑與黏合線，找出乾點、氣孔、纖維皺褶或黏合不足，標記後修補。三支葉片還要配重，讓重量與重心一致，轉子才不會失衡。新設計的葉片另外要依 IEC 61400-23 做全尺寸測試：先施加設計極限載重的靜態測試，再以共振方式來回擺動數百萬次，模擬二十多年運轉累積的疲勞。',
+ s:[[0,'超音波掃描主樑與黏合線'],[.3,'找到缺陷就標記修補，三支一組配重'],[.52,'新葉片型式要做全尺寸靜態測試'],[.74,'疲勞測試來回擺動數百萬次']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,650,{title:'S-N 曲線（示意）',x0:4,x1:9,y0:-1.6,y1:0,pt:80,pl:74,pb:74,gx:5,gy:4,yl:'應力幅度'});
-  wt(c.px+c.pw,c.py+c.ph+56,'循環次數 N',16,'rgba(227,236,238,.7)',500,'right');
-  for(let n=4;n<=9;n++){wt(c.X(n)-4,c.py+c.ph+26,'10',16,'rgba(227,236,238,.75)',600,'center',COND);wt(c.X(n)+10,c.py+c.ph+16,String(n),12,'rgba(227,236,238,.75)',600,'left',COND);}
-  wt(c.px-12,c.Y(0)+5,'高',16,'rgba(227,236,238,.75)',600,'right');wt(c.px-12,c.Y(-1.6)+5,'低',16,'rgba(227,236,238,.75)',600,'right');
-  const sn=x=>x<7?-(x-4)/3:-1-(x-7)/5,cf=seg(u,.22,.44),P=[];
-  for(let x=4;x<=4+5*cf;x+=.05)P.push(c.X(x),c.Y(sn(x)));if(P.length>3)ln(P,'#f2c230',3.4);
-  alphaDo(seg(u,.4,.46),()=>{wt(c.X(5.6),c.Y(sn(5.6))-24,'應力大：可承受次數少',16,'#ff9d7a',700,'left');
-   wt(c.X(7.4),c.Y(sn(7.4))-24,'應力小：次數多',16,'#7dffc4',700,'left');});
-  // markers: typhoon load vs daily waves
-  alphaDo(seg(u,.46,.52),()=>{circ(c.X(4.6),c.Y(sn(4.6)),9,'#e8572a');wt(c.X(4.6),c.Y(sn(4.6))+38,'颱風',16,'#ff9d7a',700,'center');
-   circ(c.X(8.4),c.Y(sn(8.4)),9,'#58b8d0');wt(c.X(8.4),c.Y(sn(8.4))+36,'日常波浪',16,'#7dc8dc',700,'center');});
-  // load source strip
-  const L=[['波浪','每 5–10 秒一次'],['風紊流','隨時變化'],['轉子旋轉','每轉三次葉片通過']];
-  alphaDo(seg(u,.02,.08),()=>{card(960,150,580,200,{bg:'rgba(7,27,39,.8)'});wt(984,190,'反覆載重的來源',20,'#fff',700);
-   L.forEach((l,i)=>{const x=984+i*186,a=seg(u,.04+i*.05,.1+i*.05);alphaDo(a,()=>{
-    const ph=TT*(i===0?1.2:i===1?2.6:3.4);ln(Array.from({length:30},(_,k)=>[x+k*5.5,262+Math.sin(ph+k*.5)*(i===1?6+4*Math.sin(k*1.7):10)]).flat(),i===0?'#58b8d0':i===1?'#7dc8dc':'#f2c230',2.4);
-    wt(x,310,l[0],18,'#fff',700);wt(x,334,l[1],14,'rgba(227,236,238,.78)',500);});});});
-  // cycle counter
-  alphaDo(seg(u,.5,.56),()=>{const k=ease(seg(u,.52,.72)),yr=25*k,n=yr*365*24*3600/8;
-   card(960,370,580,200,{bg:'rgba(7,27,39,.8)'});wt(984,410,'波浪載重累計（示例）',20,'#fff',700);
-   wt(984,480,trf('第 {n} 年',{n:yr.toFixed(0)}),30,'#7dc8dc',700,'left',COND);
-   wt(1516,480,trf('{n} 萬次',{n:Math.round(n/1e4).toLocaleString('en-US'),m:(n/1e6).toFixed(1)}),34,'#f2c230',700,'right',COND);
-   hbar(984,508,532,k,'#f2c230');wt(984,550,'每 8 秒一道浪 × 25 年 ≈ 1 億次',16,'rgba(227,236,238,.85)',500);});
-  // Miner damage
-  alphaDo(seg(u,.72,.78),()=>{const D=.62*ease(seg(u,.74,.92));
-   card(960,590,580,210,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.4)'});
-   wt(984,632,'累積損傷 D = Σ n / N',24,'#f2c230',700,'left',COND);
-   box(984,656,532,26,'rgba(255,255,255,.12)');box(984,656,532*D,26,'#7dffc4');
-   ln([984+532,648,984+532,690],'#e8572a',2.4);wt(1516,712,'D = 1 破壞',15,'#ff9d7a',700,'right');
-   wt(984,712,'D = '+D.toFixed(2),18,'#7dffc4',700,'left',COND);
-   wrap17(984,752,'設計年限內 D 必須小於 1，並保留安全係數',540,16,'#fff',600,22);});
- }}
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'出廠檢測（示意）',20,'#f2c230',700);
+  const px=lerp(110,700,seg(u,.04,.34));
+  box(100,300,610,50,'#e3e8ec','rgba(0,0,0,.3)',1);box(100,318,610,14,'#394650');
+  box(px-14,262,28,38,'#9aa3a8','#394650',1.5);ln([px,262,px,240],'#394650',2);
+  alphaDo(.5+.5*Math.sin(TT*10),()=>{ctx.setLineDash([4,4]);ln([px,300,px,350],'#7dffc4',2);ctx.setLineDash([]);});
+  wt(100,250,'超音波探頭',16,'rgba(227,236,238,.85)',600);
+  /* C 掃描圖 */
+  wt(100,392,'掃描結果（C-scan）',16,'rgba(227,236,238,.85)',600);
+  const r=rng(8);for(let i=0;i<30;i++)for(let j=0;j<5;j++){const x=100+i*20.3,y=404+j*20;const d=Math.hypot((x-455)/40,(y-444)/24)<1;const v=r();if(x>px)continue;
+   box(x,y,19,19,d?'#e8572a':v<.5?'rgba(125,255,196,.55)':'rgba(125,255,196,.35)');}
+  alphaDo(seg(u,.28,.32),()=>{ring(465,444,40,'#f2c230',3);tag(465,540,'乾點 → 標記修補',{size:16,bg:'#e8572a',align:'center'});});
+  const CK=[['外形尺寸與重量量測',.36],['超音波掃描主樑與黏合線',.4],['三支一組配重，平衡重心',.44]];
+  CK.forEach(([t,a],i)=>alphaDo(seg(u,a,a+.04),()=>{const y=600+i*56;box(84,y,652,46,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);circ(108,y+23,12,'#7dffc4');wt(108,y+30,'✓',16,'#13232e',800,'center');wt(134,y+30,t,17,'#fff',600);}));
+  /* 右：全尺寸測試台 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'全尺寸測試：IEC 61400-23（示意）',20,'#f2c230',700);
+  const stat=ease(seg(u,.52,.66))*(1-ease(seg(u,.7,.74))),fat=seg(u,.74,.98),osc=fat>0?42*Math.sin(TT*5)*Math.min(1,fat*8):0;
+  const d=110*stat+osc,bx=860,bL=640,by=380;
+  box(826,300,40,300,'#6f7a80','#394650',1.5);box(810,600,80,20,'#394650');
+  blade(bx,by,bL,110,'#eef2f4',s=>d*s*s);
+  if(stat>.01){[.45,.7,.9].forEach(s=>{const x=bx+bL*s,y=by+chordAt(s)*110*.65+d*s*s;ln([x,y,x,720],'#dfe5e8',1.5);});box(bx+bL*.4,720,bL*.56,14,'#394650');}
+  if(fat>0){const s=.55,x=bx+bL*s,y=by+d*s*s;box(x-24,y-40,48,24,'#f2c230','#13232e',1);ctx.save();ctx.translate(x,y-28);ctx.rotate(TT*5);ln([-14,0,14,0],'#13232e',3);ctx.restore();}
+  alphaDo(seg(u,.52,.56)*(1-seg(u,.7,.74)),()=>{tag(1180,270,'靜態測試：施加極限載重',{size:16,bg:'#f2c230',align:'center'});wt(1500,by+d+30,trf('葉尖位移 {n} m',{n:(stat*14).toFixed(1)}),18,'#f2c230',700,'right',COND);});
+  alphaDo(seg(u,.74,.78),()=>{tag(1180,270,'疲勞測試：共振來回擺動',{size:16,bg:'#7dffc4',align:'center'});
+   wt(1500,760,trf('{n} 百萬次',{n:(fat*2).toFixed(2)}),26,'#7dffc4',700,'right',COND);wt(1500,786,'循環次數（示例）',15,'rgba(227,236,238,.7)',600,'right');});
+  alphaDo(seg(u,.74,.78),()=>wt(bx+bL*.55+34,by-44,'激振器',16,'#f2c230',700));
+  alphaDo(1-seg(u,.48,.52),()=>wt(1170,700,'新葉片型式設計完成後進行',17,'rgba(227,236,238,.7)',600,'center'));
+ }},
+
+/* 7 ─────────────────────────────── 在地化生產 */
+{t:'在台中港生產葉片',en:'Making blades at Taichung Port',dur:12,side:true,
+ d:'葉片又長又重，工廠最好就蓋在港邊。台中港的葉片廠為 Vestas V174-9.5 MW 風機生產 85 m、約 35 t 的葉片，報導指出這是 Vestas 在歐洲以外唯一的離岸葉片工廠。成品葉片由多軸自走式模組運輸車（SPMT）從廠房運到儲放區，再到重件碼頭裝船。在地生產縮短運輸距離，也帶動複材、樹脂與檢測人才的供應鏈；但產能與人力需要穩定的訂單支撐，隨著風機大型化，模具與廠房也要跟著升級。',
+ s:[[0,'葉片工廠就設在港區碼頭旁'],[.3,'自走式運輸車把葉片送到碼頭'],[.6,'在重件碼頭吊上船，運往風場'],[.82,'在地生產帶動複材與檢測供應鏈']],
+ base:()=>{landSky(GY,{sun:{x:1200,y:130},clouds:false});drawGround();},
+ cam:u=>({x:800,y:430,s:1.02}),
+ draw(u){
+  const QX=1260;
+  box(QX,GY+4,VX1-QX+40,400,'#2b6f88');for(let i=0;i<5;i++){const y=GY+20+i*26;ln([QX,y+3*Math.sin(TT+i),VX1+40,y+3*Math.sin(TT*1.2+i)],'rgba(255,255,255,.18)',2);}
+  box(QX-20,GY-4,24,60,'#8d989f');
+  /* 船 */
+  const sx=1440;poly([sx-150,GY+10,sx+200,GY+10,sx+180,GY+50,sx-130,GY+50],'#394650');box(sx-150,GY-6,350,16,'#6f7a80');box(sx+140,GY-70,50,64,'#dfe5e8','rgba(0,0,0,.3)',1);
+  for(let k=0;k<2;k++)blade(1290,GY-16-k*14,420,28,'#eef2f4');
+  /* 廠房 */
+  box(40,GY-230,480,230,'#dfe5e8','rgba(0,0,0,.3)',1);poly([30,GY-230,280,GY-290,530,GY-230],'#9aa3a8');box(360,GY-170,150,170,'#394650');
+  for(let i=0;i<5;i++)box(70+i*56,GY-200,40,24,'#16384c');
+  /* 碼頭吊機 */
+  const CT=1170,JY=GY-270;box(CT-12,JY,24,GY-JY,'#f2c230','rgba(0,0,0,.4)',1);for(let y=JY+20;y<GY-10;y+=40)ln([CT-12,y,CT+12,y+40],'rgba(0,0,0,.3)',1.5);
+  box(CT-140,JY-14,700,14,'#f2c230','rgba(0,0,0,.4)',1);box(CT-150,JY-4,60,40,'#394650');
+  /* SPMT 運輸與吊上船 */
+  const bl=420,tk=ease(seg(u,.58,.8)),bx=u<.58?lerp(380,820,ease(seg(u,.1,.55))):lerp(820,1290,tk),by=u<.58?GY-46:lerp(GY-46,GY-44,tk)-150*Math.sin(Math.PI*tk);
+  const hkx=bx+bl*.4;ln([hkx,JY,hkx,by-40],'#222',2);box(hkx-10,JY,20,10,'#394650');
+  if(u>=.56){slings(hkx,by-40,[bx+bl*.2,by-6,bx+bl*.6,by-4]);}
+  blade(bx,by,bl,34,'#eef2f4');
+  const tx=u<.58?bx:820;[[tx+10,90],[tx+bl*.62,70]].forEach(([x,w])=>{box(x-w/2,GY-40,w,22,'#f2c230','rgba(0,0,0,.4)',1);for(let i=0;i<4;i++)circ(x-w/2+10+i*(w-20)/3,GY-8,7,'#222');if(u<.58)box(x-8,GY-52,16,12,'#394650');});
+  [[600,0],[700,1],[1120,2]].forEach(([x,i])=>person(x+5*Math.sin(TT+i),gyy(x),i%2?'#e8572a':'#f2c230',3.5));
+  lab(280,GY-230,'葉片工廠',{dx:40,dy:-80,st:'l',a:band(u,.02,.3)});
+  lab(tx+bl*.62,GY-29,'自走式模組運輸車（SPMT）',{dx:-40,dy:-150,st:'s',a:band(u,.12,.55)});
+  lab(CT,JY+60,'碼頭吊機',{dx:-110,dy:-40,st:'l',a:band(u,.56,.8)});
+  lab(QX-8,GY+20,'重件碼頭',{dx:-60,dy:90,st:'g',a:band(u,.6,.9)});
+  lab(1440,GY+30,'葉片運輸船',{dx:0,dy:100,st:'l',a:band(u,.8,1)});
+ },
+ hud(u){hudPanel(250,182,'台中港葉片廠（報導值）',seg(u,.03,.08),w=>{
+  hrow(56,'葉片長度','85 m',w,'#fff');hrow(88,'單支重量','約 35 t',w,'#fff');
+  hrow(120,'對應機型','V174-9.5 MW',w,'#7dc8dc');hrow(152,'運輸方式','SPMT → 船',w,'#7dffc4');});}}
 ]};
 
-/* EP17 translations: Traditional Chinese → [English, Japanese] */
+/* 離岸風電系列 第 18 集：風機葉片的製造 — 英日翻譯 */
 Object.assign(DICT,{
-"離岸風場開發系列":["Offshore Wind Development Series","洋上風力開発シリーズ"],
-"颱風與地震的設計挑戰":["Designing for typhoons and earthquakes","台風と地震への設計"],
-"台灣位在颱風路徑上，也處在環太平洋地震帶，離岸風機除了要能發電，更要在極端風浪與強震中站得住。這一集看颱風來襲時風機如何自保，認識 IEC 的 T 級風機等級，再看地震、土壤液化與二十多年的疲勞載重如何左右設計。":["Taiwan lies on typhoon tracks and on the Pacific Ring of Fire, so an offshore turbine must not only generate power but also stay standing through extreme wind, waves and strong earthquakes. This episode follows how a turbine protects itself when a typhoon arrives, introduces the IEC Class T for typhoon regions, and then looks at how earthquakes, soil liquefaction and more than twenty years of fatigue loading shape the design.","台湾は台風の進路上にあり、環太平洋地震帯にも位置するため、洋上風車は発電できるだけでなく、極端な風浪と強い地震に耐えなければなりません。本編では台風が来たとき風車がどのように身を守るかを見て、IEC の T クラスを紹介し、さらに地震、土壌の液状化、20年を超える疲労荷重が設計をどう左右するかを見ていきます。"],
-/* facts */
-"T 級基準風速 Vref,T：輪轂高度 10 分鐘平均、50 年回歸期":["Class T reference wind speed Vref,T: 10-minute mean at hub height, 50-year return period","T クラスの基準風速 Vref,T：ハブ高さの10分間平均、再現期間50年"],
-"T 級對應的 50 年回歸期 3 秒極端陣風（1.4 × Vref,T）":["Matching 50-year extreme 3-second gust for Class T (1.4 × Vref,T)","T クラスに対応する再現期間50年の3秒極値ガスト（1.4 × Vref,T）"],
-"年":["years","年"],
-"極限狀態檢核的設計地震回歸期；使用狀態另以 95 年地震檢核":["Return period of the design earthquake for the ultimate limit state; the serviceability check uses a 95-year earthquake","終局限界状態で照査する設計地震の再現期間。使用限界状態は95年地震で照査"],
-"抗液化安全係數 FL = CRR / CSR 小於 1，即判定該土層會液化":["When the liquefaction safety factor FL = CRR / CSR is below 1, the soil layer is judged to liquefy","液状化に対する安全率 FL = CRR / CSR が1未満なら、その土層は液状化すると判定"],
-"年以上":["years min.","年以上"],
-"技術指引規定的離岸風機最短設計年限":["Minimum design life for offshore turbines set by the technical guideline","技術指針が定める洋上風車の最短設計寿命"],
-"座":["turbines","基"],
-"2024 年凱米颱風過後，台灣海峽仍安然佇立的離岸風機（能源署）":["Offshore turbines in the Taiwan Strait still standing safely after Typhoon Gaemi in 2024 (Energy Administration)","2024年の台風ケーミー通過後も台湾海峡で無事に立っていた洋上風車（能源署）"],
-"說明：本集為教育用途示意動畫。風機等級、T 級基準風速、極端風速公式、地震回歸期、液化評估方法與設計年限取自經濟部標準檢驗局《離岸風力發電場址調查及設計技術指引》（2023）與 IEC 61400-1 第 4 版；凱米颱風後的風機數量取自能源署風力發電單一服務窗口；蒲福風級取自中央氣象署。颱風風速與風向歷程、切出風速 25 m/s、海床加速度、FL 分布、S-N 曲線與疲勞損傷值均為典型範例，實際依各風場的場址調查與設計而定。":["Note: This is a schematic animation for education. Turbine classes, the Class T reference wind speed, the extreme wind formulas, earthquake return periods, the liquefaction assessment method and the design life are from the Bureau of Standards, Metrology and Inspection's Technical Guideline for Site Investigation and Design of Offshore Wind Farms (2023) and IEC 61400-1 Edition 4; the turbine count after Typhoon Gaemi is from the Energy Administration's wind power one-stop service window; the Beaufort scale is from the Central Weather Administration. The typhoon wind speed and direction history, the 25 m/s cut-out speed, seabed acceleration, the FL profile, the S-N curve and fatigue damage values are typical examples; actual values depend on each wind farm's site investigation and design.","説明：本編は教育用の模式アニメーションです。風車クラス、T クラスの基準風速、極値風速の式、地震の再現期間、液状化の評価方法、設計寿命は経済部標準検験局「洋上風力発電サイト調査及び設計技術指針」（2023）と IEC 61400-1 第4版、台風ケーミー後の風車の基数は能源署の風力発電ワンストップ窓口、ビューフォート風力階級は中央気象署によります。台風の風速・風向の推移、カットアウト風速 25 m/s、海底の加速度、FL の分布、S-N 曲線と疲労損傷の値は典型的な例であり、実際は各発電所のサイト調査と設計によって異なります。"],
-/* shot 1 */
-"颱風來襲：風機怎麼自保":["When a typhoon hits","台風襲来：風車はどう身を守るか"],
-"颱風接近時，風速一路升高。風速超過切出風速（典型約 25 m/s），控制系統讓風機停止發電，把三支葉片轉到約 90 度的順槳位置，像刀鋒一樣切風，大幅減少受力；機艙則持續偏航，讓轉子正面迎風，避免側向受風。若電網中斷，備用電源仍要維持偏航與控制。2024 年凱米颱風過後，台灣海峽的 346 座離岸風機都安然佇立。":["As a typhoon approaches, the wind keeps rising. Once it passes the cut-out speed (typically about 25 m/s), the control system stops generation and pitches all three blades to about 90 degrees, the feathered position, so they slice the wind like knife edges and loads drop sharply. The nacelle keeps yawing so the rotor faces straight into the wind and avoids side-on loading. If the grid fails, backup power must still keep yaw and control running. After Typhoon Gaemi in 2024, all 346 offshore turbines in the Taiwan Strait were still standing safely.","台風が近づくと風速はどんどん上がります。カットアウト風速（典型的には約 25 m/s）を超えると、制御システムは発電を止め、3枚のブレードを約90度のフェザリング位置まで回して刃のように風を切らせ、受ける力を大きく減らします。ナセルはヨー制御を続けてロータを風に正対させ、横風を避けます。系統が停電しても、非常用電源でヨーと制御を維持しなければなりません。2024年の台風ケーミー通過後も、台湾海峡の洋上風車346基はすべて無事に立っていました。"],
-"颱風接近，風速與浪高一路升高":["The typhoon nears; wind and waves keep rising","台風が接近し、風速と波高が上昇"],
-"超過切出風速，風機停止發電":["Above cut-out speed, the turbine stops generating","カットアウト風速を超え、発電を停止"],
-"葉片轉到順槳位置，像刀鋒一樣切風":["Blades pitch to feather and slice the wind like knife edges","ブレードをフェザリングし、刃のように風を切る"],
-"機艙持續偏航，讓轉子正面迎風":["The nacelle keeps yawing so the rotor faces the wind","ナセルはヨー制御を続け、ロータを風に正対"],
-"電網中斷時，備用電源仍維持控制":["If the grid fails, backup power keeps control running","系統停電時も、非常用電源で制御を維持"],
-"超過切出風速：停機":["Cut-out: stop","カットアウト：停止"],
-"葉片順槳（約 90°）":["Blades feathered (~90°)","フェザリング（約 90°）"],
-"機艙偏航，正面迎風":["Yaw into the wind","ヨーで風に正対"],
-"備用電源維持控制":["Backup power","非常用電源で制御"],
-"颱風巨浪":["Typhoon waves","台風の高波"],
-"颱風監測（示例）":["Typhoon watch (example)","台風監視（例）"],
-"平均風速":["Mean wind","平均風速"],
-"陣風":["Gust","ガスト"],
-"狀態":["Status","状態"],
-"發電中":["Generating","発電中"],
-"切出停機":["Cut-out","カットアウト"],
-"順槳待機":["Feathered idle","待機（フェザー）"],
-"偏航":["Yaw","ヨー"],
-"備用電源":["Backup power","非常用電源"],
-"對風中":["Tracking","追従中"],
-/* shot 2 */
-"風機等級：為颱風多加一級":["Turbine classes and Class T","風車クラス：台風用にもう1クラス"],
-"國際標準 IEC 61400-1 依「基準風速」把風機分成 I、II、III 級，基準風速是輪轂高度 50 年回歸期的 10 分鐘平均風速，I 級為 50 m/s。第 4 版為颱風地區新增 T 級，基準風速提高到 57 m/s；對應的 50 年回歸期 3 秒陣風是基準風速的 1.4 倍，約 79.8 m/s。57 m/s 大約相當於蒲福風級 17 級。台灣的離岸風機須符合 T 級規範。":["The international standard IEC 61400-1 sorts turbines into Classes I, II and III by reference wind speed: the 10-minute mean wind speed at hub height with a 50-year return period, which is 50 m/s for Class I. Edition 4 adds Class T for typhoon regions and raises the reference wind speed to 57 m/s; the matching 50-year 3-second gust is 1.4 times the reference speed, about 79.8 m/s. 57 m/s is roughly Beaufort force 17 on Taiwan's extended scale. Offshore turbines in Taiwan must meet the Class T requirements.","国際規格 IEC 61400-1 は「基準風速」によって風車を I、II、III クラスに分けます。基準風速はハブ高さにおける再現期間50年の10分間平均風速で、I クラスは 50 m/s です。第4版では台風地域向けに T クラスが追加され、基準風速は 57 m/s に引き上げられました。対応する再現期間50年の3秒ガストは基準風速の1.4倍、約 79.8 m/s です。57 m/s はビューフォート風力階級のおよそ17に相当します。台湾の洋上風車は T クラスの基準を満たす必要があります。"],
-"IEC 61400-1 依基準風速把風機分成 I、II、III 級":["IEC 61400-1 sorts turbines into Classes I, II and III by reference wind speed","IEC 61400-1 は基準風速で I・II・III クラスに分類"],
-"第 4 版新增颱風等級：T 級":["Edition 4 adds a typhoon class: Class T","第4版で台風クラス「T クラス」を追加"],
-"T 級基準風速 57 m/s，極端陣風約 79.8 m/s":["Class T: 57 m/s reference speed, about 79.8 m/s extreme gust","T クラスは基準風速 57 m/s、極値ガスト約 79.8 m/s"],
-"台灣的離岸風機須符合 T 級規範":["Offshore turbines in Taiwan must meet Class T","台湾の洋上風車は T クラスへの適合が必要"],
-"IEC 61400-1 風機等級":["IEC 61400-1 turbine classes","IEC 61400-1 の風車クラス"],
-"III 級":["Class III","クラス III"],
-"II 級":["Class II","クラス II"],
-"I 級":["Class I","クラス I"],
-"T 級":["Class T","クラス T"],
-"基準風速 Vref（10 分鐘平均）":["Reference speed Vref (10-min mean)","基準風速 Vref（10分間平均）"],
-"50 年 3 秒陣風 Ve50":["50-year 3-s gust Ve50","50年3秒ガスト Ve50"],
-"T 級（颱風等級）":["Class T (typhoon class)","T クラス（台風クラス）"],
-"IEC 61400-1 第 4 版為颱風地區新增":["Added in IEC 61400-1 Edition 4 for typhoon regions","IEC 61400-1 第4版で台風地域向けに追加"],
-"基準風速 Vref,T = 57 m/s，高於 I 級的 50 m/s":["Reference speed Vref,T = 57 m/s, above Class I's 50 m/s","基準風速 Vref,T = 57 m/s、I クラスの 50 m/s より高い"],
-"台灣離岸風機須符合 T 級規範（能源署）":["Required for Taiwan's offshore turbines (Energy Administration)","台湾の洋上風車に適合を要求（能源署）"],
-"極端風速模型":["Extreme wind model","極値風速モデル"],
-"50 年回歸期 3 秒陣風":["50-year 3-second gust","再現期間50年の3秒ガスト"],
-"1 年回歸期 3 秒陣風":["1-year 3-second gust","再現期間1年の3秒ガスト"],
-"57 m/s 約相當於蒲福風級 17 級（56.1–61.2 m/s）":["57 m/s is about Beaufort force 17 (56.1–61.2 m/s)","57 m/s はビューフォート風力階級 17（56.1–61.2 m/s）に相当"],
-/* shot 3 */
-"颱風的風，為什麼特別難":["What makes typhoon winds hard","台風の風はなぜ難しいか"],
-"颱風的風不只是大。陣風比平均風速高出三到四成，紊流也強；颱風眼通過時風速驟降又驟升，風向在數小時內大幅轉變。若此時電網中斷、偏航系統停擺，機艙卡在原來的方向，強風就從側面打在轉子與塔架上，這是設計中必須檢核的情境，所以要有備用電源讓機艙繼續對風。台灣颱風路徑多變，年最大風速的變異大，技術指引要求適度提高設計風速。":["Typhoon winds are not just strong. Gusts run 30 to 40 percent above the mean wind and turbulence is intense; as the eye passes, the wind drops and then surges again, and its direction swings widely within a few hours. If the grid fails at that moment and the yaw system stops, the nacelle is stuck in its old heading and the storm hits the rotor and tower from the side. This is a load case the design must check, which is why backup power keeps the nacelle facing the wind. Typhoon tracks near Taiwan vary widely, so the annual maximum wind speed is highly variable, and the technical guideline calls for a suitably higher design wind speed.","台風の風はただ強いだけではありません。ガストは平均風速より3〜4割高く、乱流も強く、台風の目が通過すると風速が急に落ちてまた急に上がり、風向は数時間で大きく変わります。このとき系統が停電してヨー装置が止まると、ナセルは元の向きのまま固定され、強風が横からロータとタワーに当たります。これは設計で照査が必要なケースであり、そのため非常用電源でナセルを風に向け続けます。台湾の台風は進路が変わりやすく、年最大風速のばらつきが大きいため、技術指針は設計風速を適度に引き上げることを求めています。"],
-"颱風的陣風比平均風速高出三到四成":["Typhoon gusts run 30–40% above the mean wind","台風のガストは平均風速より3〜4割高い"],
-"颱風眼通過，風速驟降又驟升":["As the eye passes, the wind drops, then surges again","台風の目が通過し、風速が急降下して急上昇"],
-"風向在數小時內大幅轉變":["The wind direction swings widely within hours","風向が数時間で大きく変わる"],
-"電網中斷時，機艙卡住，強風從側面打來":["With the grid down, the nacelle is stuck and wind hits side-on","系統停電でナセルが固定され、強風が横から当たる"],
-"備用電源啟動，機艙重新對風":["Backup power starts and the nacelle turns back into the wind","非常用電源が起動し、ナセルが再び風に正対"],
-"颱風通過時的輪轂風速（示例）":["Hub-height wind during a typhoon (example)","台風通過時のハブ高さ風速（例）"],
-"時間（小時）":["Time (hours)","時間（h）"],
-"10 分鐘平均":["10-min mean","10分間平均"],
-"3 秒陣風":["3-s gust","3秒ガスト"],
-"颱風眼":["Eye","台風の目"],
-"俯視：風向與機艙方向":["Top view: wind and nacelle heading","上から見た風向とナセルの向き"],
-"偏航誤差 {n}°":["Yaw error {n}°","ヨー誤差 {n}°"],
-"電網中斷，偏航停擺":["Grid lost, yaw stopped","系統停電、ヨー停止"],
-"備用電源啟動":["Backup power on","非常用電源が起動"],
-"陣風大、紊流強":["Strong gusts and turbulence","強いガストと乱流"],
-"陣風比平均風速高出三到四成":["Gusts run 30–40% above the mean wind","ガストは平均風速より3〜4割高い"],
-"風向急轉":["Rapid direction shifts","風向の急変"],
-"颱風眼前後，風向可轉一百多度":["Around the eye, the wind can swing more than 100 degrees","台風の目の前後で風向が100度以上変わることも"],
-"路徑多變":["Unpredictable tracks","変わりやすい進路"],
-"年最大風速變異大，設計風速要適度提高":["Annual maximum winds vary widely, so design speeds are raised","年最大風速のばらつきが大きく、設計風速を適度に引き上げる"],
-/* shot 4 */
-"地震：海床跟著搖":["When the seabed shakes","地震：海底が揺れる"],
-"台灣位在環太平洋地震帶，地震波從震源傳到海床，基樁與整座風機跟著左右搖晃，塔頂的晃動又比底部更大。技術指引把地震分成兩個層級檢核：475 年回歸期的地震屬極限狀態，支撐結構要保持彈性、不能破壞；95 年回歸期的地震屬使用狀態，基礎的永久位移與傾角要小到風機仍能運轉。機艙裡的振動感測器偵測到強震會觸發停機。":["Taiwan sits on the Pacific Ring of Fire. Seismic waves travel from the source to the seabed, and the pile and the whole turbine sway from side to side, with the tower top moving more than the base. The technical guideline checks earthquakes at two levels: a 475-year earthquake is an ultimate limit state, in which the support structure must stay elastic and must not fail; a 95-year earthquake is a serviceability limit state, in which permanent displacement and tilt of the foundation must stay small enough for the turbine to keep operating. Vibration sensors in the nacelle trigger a shutdown when they detect strong shaking.","台湾は環太平洋地震帯に位置します。地震波は震源から海底に伝わり、杭と風車全体が左右に揺れ、タワー頂部は基部よりも大きく揺れます。技術指針は地震を2つのレベルで照査します。再現期間475年の地震は終局限界状態で、支持構造物は弾性を保ち破壊してはなりません。再現期間95年の地震は使用限界状態で、基礎の残留変位と傾斜を風車が運転を続けられる程度に小さく抑えます。ナセル内の振動センサーは強い揺れを検知すると停止を作動させます。"],
-"風機正常運轉，海床下方是鬆軟的砂泥層":["The turbine runs normally above soft sand and mud","風車は通常運転、海底下は軟らかい砂泥層"],
-"地震波從震源傳上來，海床開始搖晃":["Seismic waves rise from the source and the seabed shakes","地震波が震源から伝わり、海底が揺れ始める"],
-"振動感測器偵測到強震，觸發停機":["Vibration sensors detect strong shaking and trigger a stop","振動センサーが強い揺れを検知し、停止を作動"],
-"475 年地震：支撐結構要保持彈性":["475-year quake: the support structure must stay elastic","475年地震：支持構造物は弾性を保つ"],
-"95 年地震：基礎傾角要小到仍能運轉":["95-year quake: foundation tilt must allow continued operation","95年地震：基礎の傾斜は運転可能な範囲に"],
-"地震波":["Seismic waves","地震波"],
-"振動感測器觸發停機":["Vibration trip","振動センサーで停止"],
-"支撐結構保持彈性":["Structure stays elastic","支持構造は弾性範囲"],
-"基礎傾角檢核":["Tilt check","基礎の傾斜照査"],
-"塔頂晃動最大":["Top sways most","頂部が最も揺れる"],
-"地震監測（示例）":["Earthquake watch (example)","地震監視（例）"],
-"海床加速度":["Seabed accel.","海底加速度"],
-"塔頂位移":["Top displ.","頂部変位"],
-"運轉中":["Running","運転中"],
-"觸發停機":["Tripped","停止作動"],
-"停機檢查":["Inspection","停止・点検"],
-"檢核":["Check","照査"],
-"475 年 ULS":["475-yr ULS","475年 ULS"],
-"95 年 SLS":["95-yr SLS","95年 SLS"],
-/* shot 5 */
-"土壤液化：地層失去支撐":["Soil liquefaction","土壌の液状化：地盤が支えを失う"],
-"海床表層常是飽和、鬆散的砂層。平時砂粒彼此接觸、互相支撐；地震反覆搖晃時，砂粒想擠密，孔隙裡的水卻來不及排出，超額孔隙水壓上升。當孔隙水壓升到等於土壤原本的有效應力，砂粒不再互相壓緊，土層就像液體一樣失去強度，這就是液化。設計時先計算各深度的抗液化安全係數 FL，小於 1 的土層視為會液化，並分別分析液化與不液化兩種情境，取較保守的結果。":["The upper seabed is often saturated, loose sand. Normally the grains touch and support one another; under repeated shaking they try to pack tighter, but the water in the pores cannot drain away fast enough, so excess pore water pressure builds up. When it rises to equal the soil's original effective stress, the grains no longer press against each other and the layer loses its strength like a liquid: this is liquefaction. Designers first calculate the liquefaction safety factor FL at each depth; layers with FL below 1 are treated as liquefiable, and both liquefied and non-liquefied cases are analysed, with the more conservative result used.","海底の表層は飽和したゆるい砂層であることが多いです。普段は砂粒どうしが接触して支え合っていますが、地震で繰り返し揺すられると砂粒は密になろうとし、間隙の水は排出が間に合わず、過剰間隙水圧が上昇します。間隙水圧が土のもともとの有効応力に等しくなると、砂粒は互いに押し合わなくなり、土層は液体のように強度を失います。これが液状化です。設計では各深さの液状化に対する安全率 FL を計算し、1未満の土層は液状化するものとみなし、液状化する場合としない場合の両方を解析して、より安全側の結果を採用します。"],
-"平時砂粒互相接觸，承載力來自顆粒間的摩擦":["Normally grains touch, and strength comes from friction between them","普段は砂粒が接触し、粒子間の摩擦で支える"],
-"地震搖晃，孔隙水來不及排出，水壓上升":["Shaking traps pore water, and its pressure rises","揺れで間隙水が排出できず、水圧が上昇"],
-"水壓等於有效應力，砂粒浮起，土層液化":["Pore pressure equals effective stress: the sand liquefies","水圧が有効応力に達し、砂粒が浮いて液状化"],
-"計算各深度的安全係數 FL，小於 1 視為液化":["FL is calculated at each depth; below 1 means liquefaction","各深さの安全率 FL を計算し、1未満は液状化"],
-"液化與不液化兩種情境都要分析，取保守者":["Both liquefied and non-liquefied cases are analysed; the safer result governs","液状化あり・なしの両方を解析し、安全側を採用"],
-"飽和砂層的放大圖（示意）":["Close-up of saturated sand (schematic)","飽和砂層の拡大図（模式）"],
-"砂粒互相接觸（黃線為傳力路徑）":["Grains in contact (yellow: load paths)","砂粒が接触（黄線は力の伝達経路）"],
-"砂粒浮在水中，失去接觸":["Grains float in water, contact lost","砂粒が水中に浮き、接触を失う"],
-"超額孔隙水壓 ／ 有效應力":["Excess pore pressure / effective stress","過剰間隙水圧 ／ 有効応力"],
-"比值達到 1：土壤液化":["Ratio reaches 1: the soil liquefies","比が1に達する：液状化"],
-"抗液化安全係數 FL（示例）":["Liquefaction safety factor FL (example)","液状化に対する安全率 FL（例）"],
-"海床下深度（m）":["Depth below seabed (m)","海底面からの深さ（m）"],
-"液化層":["Liquefiable","液状化層"],
-"土壤抗液化強度 ÷ 地震引起的剪應力（475 年地震）":["Soil resistance to liquefaction ÷ shear stress from the 475-year earthquake","土の液状化抵抗 ÷ 地震による せん断応力（475年地震）"],
-"液化層不計側向支撐，基樁要穿過並深入下方緊密地層；液化與不液化兩種情境都分析，取較保守的結果。":["Liquefiable layers give no lateral support, so piles pass through them into the dense ground below; both liquefied and non-liquefied cases are analysed and the more conservative result is used.","液状化層は水平支持を見込まず、杭はこれを貫いて下の締まった地層まで入れる。液状化あり・なしの両方を解析し、安全側の結果を採用する。"],
-/* shot 6 */
-"疲勞：上億次的小載重":["Fatigue: millions of small loads","疲労：億回を超える小さな荷重"],
-"颱風與地震是少見的極端事件，但風機在二十多年裡每天都承受波浪、紊流與轉子旋轉帶來的反覆載重。每一次應力都不大，累積上億次後，焊道與節點仍可能出現裂紋，這就是疲勞。設計時用 S-N 曲線換算每一種應力幅度可承受的次數，再依邁納法則把各種載重造成的損傷相加，整個設計年限內的累積損傷必須小於 1，並保留安全係數。":["Typhoons and earthquakes are rare extremes, but every day for more than twenty years a turbine carries repeated loads from waves, turbulence and the spinning rotor. Each stress cycle is small, yet after a hundred million of them welds and joints can still crack: this is fatigue. Designers use S-N curves to find how many cycles each stress range can withstand, then add up the damage from every load type with Miner's rule. The cumulative damage over the whole design life must stay below 1, with a safety factor kept in reserve.","台風と地震はまれな極端事象ですが、風車は20年以上にわたり毎日、波、乱流、ロータの回転による繰返し荷重を受けます。1回ごとの応力は小さくても、1億回を超えて積み重なると溶接部や節点に亀裂が生じることがあります。これが疲労です。設計では S-N 曲線で各応力範囲に耐えられる回数を求め、マイナー則で各荷重による損傷を足し合わせます。設計寿命全体での累積損傷は1未満でなければならず、安全率も確保します。"],
-"波浪、紊流與轉子旋轉，每天帶來反覆載重":["Waves, turbulence and the rotor bring repeated loads every day","波・乱流・ロータ回転が毎日繰返し荷重をもたらす"],
-"應力越小，可承受的次數越多：S-N 曲線":["Smaller stress, more cycles to failure: the S-N curve","応力が小さいほど耐えられる回数が多い：S-N 曲線"],
-"二十五年間，每八秒一道浪，約一億次":["One wave every eight seconds for 25 years: about 100 million","25年間、8秒ごとに1波で約1億回"],
-"把各種載重的損傷相加，累積損傷要小於 1":["Damage from all loads is summed; the total must stay below 1","各荷重の損傷を合計し、累積損傷は1未満に"],
-"S-N 曲線（示意）":["S-N curve (schematic)","S-N 曲線（模式）"],
-"循環次數 N":["Cycles N","繰返し回数 N"],
-"應力幅度":["Stress range","応力範囲"],
-"高":["High","高"],
-"低":["Low","低"],
-"應力大：可承受次數少":["High stress: few cycles","応力大：耐用回数が少ない"],
-"應力小：次數多":["Low stress: many cycles","応力小：回数が多い"],
-"颱風":["Typhoon","台風"],
-"日常波浪":["Daily waves","日常の波"],
-"反覆載重的來源":["Sources of cyclic load","繰返し荷重の発生源"],
-"波浪":["Waves","波"],
-"每 5–10 秒一次":["Every 5–10 s","5〜10秒ごと"],
-"風紊流":["Turbulence","風の乱流"],
-"隨時變化":["Always changing","常に変動"],
-"轉子旋轉":["Rotor","ロータ回転"],
-"每轉三次葉片通過":["3 blade passes per turn","1回転に3回ブレード通過"],
-"波浪載重累計（示例）":["Wave load cycles (example)","波浪荷重の累計（例）"],
-"第 {n} 年":["Year {n}","{n} 年目"],
-"{n} 萬次":["{m} million","{n} 万回"],
-"每 8 秒一道浪 × 25 年 ≈ 1 億次":["One wave every 8 s × 25 years ≈ 100 million","8秒ごとに1波 × 25年 ≈ 1億回"],
-"累積損傷 D = Σ n / N":["Cumulative damage D = Σ n / N","累積損傷 D = Σ n / N"],
-"D = 1 破壞":["D = 1 failure","D = 1 で破壊"],
-"設計年限內 D 必須小於 1，並保留安全係數":["D must stay below 1 over the design life, with a safety margin","設計寿命内で D は1未満、かつ安全率を確保"]
+"離岸風電系列":["Offshore Wind Series","洋上風力発電シリーズ"],
+"風機葉片的製造":["How turbine blades are made","風車ブレードの製造"],
+"一支離岸風機葉片長達八十多公尺，卻主要是由玻璃纖維布、樹脂與輕質芯材一層層做出來的。這一集走進葉片工廠，看葉片的剖面結構、玻纖與碳纖的分工、真空灌注與加熱固化，以及合模、檢測與台灣的在地生產。":["An offshore wind turbine blade can be more than 80 metres long, yet it is built up layer by layer mostly from glass-fibre fabric, resin and lightweight core material. This episode steps inside a blade factory to look at the blade's cross-section, the roles of glass and carbon fibre, vacuum infusion and heat curing, and then mould closing, inspection and local production in Taiwan.","洋上風車のブレードは長さ 80 m を超えますが、その大部分はガラス繊維の布、樹脂、軽量なコア材を一層ずつ積み重ねて作られています。本編ではブレード工場に入り、断面構造、ガラス繊維と炭素繊維の役割分担、真空含浸と加熱硬化、そして型締め、検査、台湾での現地生産を見ていきます。"],
+"台中港葉片廠為 Vestas V174-9.5 MW 生產的葉片長度（報導值）":["Length of the blades made at Taichung Port for the Vestas V174-9.5 MW (reported)","台中港のブレード工場が Vestas V174-9.5 MW 向けに生産するブレード長（報道値）"],
+"單支 85 m 葉片的重量（報導值）":["Mass of one 85 m blade (reported)","85 m ブレード 1 本の重量（報道値）"],
+"西門子歌美颯 B108 一體成型葉片，整支一次灌注、沒有黏合縫":["Siemens Gamesa B108 one-piece blade, infused in a single shot with no glued joints","シーメンスガメサ B108 一体成形ブレード。一度に含浸し接着継ぎ目がない"],
+"倍":["times","倍"],
+"碳纖維複材的拉伸剛性約為玻纖複材的 3 倍，用於長葉片主樑（示例）":["Carbon composite is about 3 times stiffer in tension than glass composite, so it is used for spar caps of long blades (example)","炭素繊維複合材の引張剛性はガラス繊維複合材の約 3 倍。長いブレードのスパーキャップに使用（例）"],
+"真空袋內的絕對壓力，大氣壓力把布層壓實（示例）":["Absolute pressure inside the vacuum bag; atmospheric pressure compacts the layup (example)","真空バッグ内の絶対圧。大気圧が積層を押し固める（例）"],
+"數百萬":["Millions","数百万"],
+"次":["cycles","回"],
+"全尺寸疲勞測試的載重循環次數，依 IEC 61400-23（示例）":["Load cycles in a full-scale fatigue test to IEC 61400-23 (example)","IEC 61400-23 に基づく実寸疲労試験の荷重サイクル数（例）"],
+"說明：本集為教育用途示意動畫，工廠、模具、剖面與測試台的比例都經過簡化，製程時間已壓縮。天力離岸風電台中港廠為 Vestas V174-9.5 MW 生產 85 m、約 35 t 的葉片，依媒體報導；西門子歌美颯 B108 為 108 m 一體成型（IntegralBlade）葉片，依其官方資料；葉片以玻纖布、樹脂與芯材鋪層、真空灌注後加熱固化，主樑可用碳纖維拉擠板，為業界常見做法；全尺寸靜態與疲勞測試依 IEC 61400-23。玻纖與碳纖複材的剛性、密度與價格比、真空度、固化溫度與時間、鋪層順序、測試循環次數皆為典型範例，並非特定機型或工廠的資料。":["Note: this is an educational, schematic animation. The proportions of the factory, moulds, cross-section and test rig are simplified, and process times are compressed. The 85 m, roughly 35 t blades that Tien Li Offshore Wind Technology makes at Taichung Port for the Vestas V174-9.5 MW are based on media reports; the 108 m Siemens Gamesa B108 one-piece (IntegralBlade) blade is based on the company's own information. Laying up glass fabric, resin and core material, vacuum infusing and heat curing, and using pultruded carbon planks for spar caps are common industry practice; full-scale static and fatigue testing follows IEC 61400-23. The stiffness, density and price ratios of glass and carbon composites, vacuum level, curing temperature and time, layup sequence and number of test cycles are typical examples, not data for any specific turbine model or factory.","説明：本編は教育用の模式アニメーションです。工場、成形型、断面、試験装置の比率は簡略化し、工程時間は短縮しています。天力離岸風電（Tien Li）台中港工場が Vestas V174-9.5 MW 向けに生産する長さ 85 m、約 35 t のブレードは報道に基づきます。シーメンスガメサ B108 は長さ 108 m の一体成形（IntegralBlade）ブレードで、同社の公表資料に基づきます。ガラス繊維布、樹脂、コア材を積層し、真空含浸後に加熱硬化すること、スパーキャップに炭素繊維の引抜成形板を用いることは業界で一般的な方法です。実寸の静的試験と疲労試験は IEC 61400-23 に基づきます。ガラス繊維と炭素繊維複合材の剛性・密度・価格の比、真空度、硬化温度と時間、積層順序、試験サイクル数は代表的な例であり、特定の機種や工場のデータではありません。"],
+"走進葉片工廠":["Inside a blade factory","ブレード工場へ"],
+"離岸風機葉片是在長度接近百公尺的廠房裡，用一對巨大的模具做出來的：一半是壓力面，一半是吸力面。工人與天車沿著模具，把一捲捲玻璃纖維布依設計的方向與層數鋪進模具，根部最厚、往葉尖逐漸變薄。接著放入輕質芯材與主樑，再蓋上真空袋膜準備灌注樹脂。一支 85 m 的葉片，從鋪層到脫模通常需要數天，模具的使用排程決定了工廠的產能。":["Offshore blades are made in halls close to a hundred metres long, using a pair of huge moulds: one for the pressure side and one for the suction side. Workers and overhead cranes move along the mould, laying rolls of glass-fibre fabric in the designed directions and number of plies, thickest at the root and thinning towards the tip. Lightweight core material and the spar caps go in next, and a vacuum bag film is laid over the top ready for resin infusion. An 85 m blade usually takes several days from layup to demoulding, so mould scheduling sets the factory's output.","洋上風車のブレードは、長さ 100 m 近い建屋の中で、一対の巨大な成形型を使って作られます。片方は圧力面、もう片方は負圧面です。作業員と天井クレーンが型に沿って移動し、ガラス繊維の布を設計どおりの方向と層数で型に敷き込みます。根元が最も厚く、翼端に向かって薄くなります。続いて軽量なコア材とスパーキャップを入れ、真空バッグフィルムをかぶせて樹脂の含浸に備えます。85 m のブレードは積層から脱型まで通常数日かかり、成形型の稼働計画が工場の生産能力を決めます。"],
+"葉片在長近百公尺的模具裡成形":["The blade takes shape in a mould nearly 100 m long","長さ 100 m 近い成形型でブレードを成形"],
+"天車沿著模具把玻纖布一層層鋪上":["A crane runs along the mould laying glass fabric ply by ply","クレーンが型に沿ってガラス繊維布を一層ずつ敷く"],
+"主樑條與芯材依設計位置放入":["Spar cap planks and core go in at their design positions","スパーキャップ材とコア材を設計位置に配置"],
+"最後蓋上真空袋膜，準備灌注":["Finally a vacuum bag goes on, ready for infusion","最後に真空バッグをかぶせ、含浸に備える"],
+"葉片長約 85 m":["Blade length about 85 m","ブレード長 約 85 m"],
+"葉片模具（吸力面）":["Blade mould (suction side)","ブレード成形型（負圧面）"],
+"葉根":["Blade root","翼根"],
+"玻纖布捲":["Glass fabric roll","ガラス繊維布ロール"],
+"碳纖維主樑條":["Carbon spar cap","炭素繊維スパーキャップ"],
+"真空袋膜":["Vacuum bag","真空バッグ"],
+"葉片工廠（示例）":["Blade factory (example)","ブレード工場（例）"],
+"葉片長度":["Blade length","ブレード長"],
+"模具":["Moulds","成形型"],
+"2 半（壓力面／吸力面）":["2 halves (PS/SS)","2 分割"],
+"鋪層進度":["Layup","積層進捗"],
+"目前工序":["Current step","現在の工程"],
+"鋪玻纖布":["Glass layup","ガラス布積層"],
+"放主樑條":["Spar caps","スパーキャップ配置"],
+"蓋真空袋":["Bagging","真空バッグ"],
+"葉片裡面長什麼樣":["What is inside a blade","ブレードの中身"],
+"把葉片橫切開來，會看到它是中空的。外殼是三明治結構：內外兩層玻纖積層，中間夾著發泡材或巴沙木芯材，既輕又不易凹陷。真正承受風力彎曲的是上下兩條厚實的主樑，長葉片常用碳纖維製作；主樑之間由一到兩片剪力腹板連接，組成像工字梁或箱形梁的骨架。上殼與下殼在前緣、後緣和腹板頂端用結構膠黏合。葉片受風時，一側主樑受壓、另一側受拉，腹板承受剪力。":["Cut a blade across and you find it is hollow. The shell is a sandwich: inner and outer glass laminates with a foam or balsa core between them, light yet resistant to denting. The bending loads from the wind are carried mainly by two thick spar caps, top and bottom, which are often made of carbon fibre in long blades. One or two shear webs connect the spar caps, forming a skeleton like an I-beam or box beam. The upper and lower shells are bonded with structural adhesive at the leading edge, the trailing edge and the tops of the webs. Under wind load, one spar cap is in compression, the other in tension, and the webs carry shear.","ブレードを輪切りにすると、中が空洞であることがわかります。外皮はサンドイッチ構造で、内外 2 層のガラス繊維積層の間に発泡材やバルサ材のコアを挟み、軽くてへこみにくくなっています。風による曲げを主に受け持つのは上下 2 本の厚いスパーキャップで、長いブレードでは炭素繊維で作ることが多くあります。スパーキャップの間は 1〜2 枚のシアウェブでつながれ、I 形梁や箱形梁のような骨格になります。上下のシェルは前縁、後縁、ウェブ上端で構造用接着剤により接合されます。風を受けると一方のスパーキャップは圧縮、もう一方は引張を受け、ウェブはせん断力を受けます。"],
+"橫切開來，葉片是中空的殼":["Cut across, the blade is a hollow shell","輪切りにすると中空のシェル"],
+"外殼：玻纖皮夾著輕質芯材":["Shell: glass skins around a light core","外皮：ガラス繊維で軽量コアを挟む"],
+"上下主樑承受彎曲，腹板把兩者連起來":["Spar caps carry bending; webs join them","スパーキャップが曲げを受け、ウェブがつなぐ"],
+"前緣與後緣用結構膠黏合":["Leading and trailing edges are bonded","前縁と後縁を構造用接着剤で接合"],
+"受風時一側受壓、一側受拉":["Under load one side compresses, the other stretches","風を受けると片側は圧縮、片側は引張"],
+"葉片中段剖面（示意）":["Mid-span section (schematic)","ブレード中央部の断面（模式）"],
+"外殼：玻纖＋芯材":["Shell: glass + core","外皮：ガラス＋コア"],
+"主樑（上）":["Spar cap (top)","スパーキャップ（上）"],
+"主樑（下）":["Spar cap (bottom)","スパーキャップ（下）"],
+"剪力腹板":["Shear web","シアウェブ"],
+"前緣黏合":["Leading-edge bond","前縁接着"],
+"後緣黏合":["Trailing-edge bond","後縁接着"],
+"三明治外殼":["Sandwich shell","サンドイッチ外皮"],
+"玻纖積層":["Glass laminate","ガラス繊維積層"],
+"發泡／巴沙木芯材":["Foam or balsa core","発泡材／バルサコア"],
+"主樑＋腹板＝一根梁":["Spar caps + webs = a beam","スパーキャップ＋ウェブ＝梁"],
+"風的推力":["Wind thrust","風の推力"],
+"上主樑：受壓":["Top cap: compression","上スパーキャップ：圧縮"],
+"下主樑：受拉":["Bottom cap: tension","下スパーキャップ：引張"],
+"腹板：承受剪力":["Webs: shear","ウェブ：せん断"],
+"材料集中在離中心最遠處":["Material sits far from the centre","材料を中心から最も遠い位置に集中"],
+"骨架在殼體之內":["The skeleton is inside the shell","骨格はシェルの内側にある"],
+"玻纖與碳纖的分工":["Glass fibre and carbon fibre","ガラス繊維と炭素繊維の役割"],
+"葉片大部分的重量是玻璃纖維複材：價格低、韌性好，用在外殼、腹板與根部。葉片越長，自重與葉尖變形越大，葉尖若彎得太多，運轉時可能掃到塔架。碳纖維複材的拉伸剛性約為玻纖的三倍、密度更低，但每公斤價格高出許多，所以只用在最需要剛性的主樑。常見做法是先把碳纖維以拉擠成型做成數公釐厚的長板條，再一片片疊進模具，纖維排列整齊、品質穩定。":["Most of a blade's mass is glass-fibre composite: cheap and tough, used for the shells, webs and root. The longer the blade, the greater its weight and tip deflection, and a tip that bends too far could strike the tower. Carbon composite is about three times stiffer in tension than glass and less dense, but costs far more per kilogram, so it is used only in the spar caps where stiffness matters most. A common approach is to pultrude the carbon fibre into long planks a few millimetres thick and stack them in the mould one by one, giving straight, well-aligned fibres and consistent quality.","ブレード重量の大部分はガラス繊維複合材です。安価で粘り強く、外皮、ウェブ、翼根に使われます。ブレードが長くなるほど自重と翼端のたわみが大きくなり、たわみすぎると運転中にタワーに接触するおそれがあります。炭素繊維複合材は引張剛性がガラス繊維の約 3 倍で密度も低い一方、1 kg あたりの価格がはるかに高いため、剛性が最も必要なスパーキャップにだけ使われます。一般的には炭素繊維を引抜成形で厚さ数 mm の長い板にし、型の中に 1 枚ずつ積み重ねます。繊維がまっすぐにそろい、品質が安定します。"],
+"外殼與腹板用便宜、耐用的玻纖":["Shells and webs use cheap, tough glass fibre","外皮とウェブには安価で丈夫なガラス繊維"],
+"碳纖更輕更剛，但價格高出許多":["Carbon is lighter and stiffer, but far pricier","炭素繊維は軽く高剛性だが、価格ははるかに高い"],
+"碳纖先拉擠成厚度一致的長板條":["Carbon is pultruded into planks of even thickness","炭素繊維を均一な厚さの板に引抜成形"],
+"板條疊起來，成為葉片的主樑":["Stacked planks become the spar cap","板を積み重ねてスパーキャップにする"],
+"單向複材的比較（示例）":["Unidirectional composites (example)","一方向複合材の比較（例）"],
+"玻纖複材":["Glass composite","ガラス繊維複合材"],
+"碳纖複材":["Carbon composite","炭素繊維複合材"],
+"拉伸剛性":["Tensile stiffness","引張剛性"],
+"密度":["Density","密度"],
+"每公斤價格":["Price per kg","1 kg あたり価格"],
+"約 10 倍":["About 10×","約 10 倍"],
+"玻纖：外殼、腹板、葉根":["Glass: shells, webs, root","ガラス：外皮、ウェブ、翼根"],
+"碳纖：主樑，限制葉尖變形、避免掃塔":["Carbon: spar caps, limiting tip deflection","炭素：スパーキャップ、翼端たわみを抑えタワー接触を防ぐ"],
+"碳纖維拉擠板（示意）":["Pultruded carbon planks (schematic)","炭素繊維引抜成形板（模式）"],
+"碳纖維紗架":["Carbon creel","炭素繊維クリール"],
+"樹脂含浸":["Resin bath","樹脂含浸"],
+"加熱模具":["Heated die","加熱金型"],
+"拉擠板":["Plank","引抜成形板"],
+"厚約 5 mm、寬約 10–20 cm（示例）":["About 5 mm thick, 10–20 cm wide (example)","厚さ約 5 mm、幅約 10〜20 cm（例）"],
+"疊成主樑":["Stacked into a spar cap","積層してスパーキャップに"],
+"{n} 層":["{n} layers","{n} 層"],
+"真空灌注與加熱固化":["Vacuum infusion and curing","真空含浸と加熱硬化"],
+"乾的纖維布、芯材與主樑都鋪好之後，上面依序蓋上脫模布、導流網和真空袋膜，四周用密封膠條封住。真空泵把袋內抽到接近真空，外面的大氣壓力把整疊材料壓實。接著打開樹脂進料管，樹脂沿著導流網向前推進，再往下滲透每一層布，直到流動前緣到達出料口。灌注完成後，模具內建的加熱系統把溫度升到約 70 °C（示例）並保溫數小時，讓環氧樹脂交聯固化，變成堅硬的複合材料。":["Once the dry fabric, core and spar caps are in place, peel ply, flow mesh and vacuum bag film are laid on top in turn and sealed around the edges with sealant tape. A vacuum pump draws the bag down to near vacuum, and atmospheric pressure outside compacts the whole stack. The resin inlet is then opened: resin advances along the flow mesh and soaks down through every ply until the flow front reaches the outlet. After infusion, heaters built into the mould raise the temperature to about 70 °C (example) and hold it for several hours so the epoxy cross-links and cures into a hard composite.","乾いた繊維布、コア材、スパーキャップを敷き終えたら、その上にピールプライ、フローメディア、真空バッグフィルムを順に重ね、周囲をシーラントテープで密封します。真空ポンプでバッグ内をほぼ真空にすると、外の大気圧が積層全体を押し固めます。次に樹脂の注入口を開くと、樹脂はフローメディアに沿って進み、各層にしみ込みながら、フローフロントが排出口に達するまで広がります。含浸後、型に内蔵されたヒーターで約 70 °C（例）まで昇温して数時間保持し、エポキシ樹脂を架橋・硬化させて硬い複合材にします。"],
+"依序疊上布層、芯材、主樑與輔助層":["Fabric, core, spar caps and consumables are stacked","布、コア、スパーキャップ、副資材を順に積層"],
+"封上真空袋，把袋內空氣抽掉":["The bag is sealed and the air pumped out","真空バッグを密封して空気を抜く"],
+"樹脂被吸入，流動前緣慢慢往前":["Resin is drawn in and the flow front advances","樹脂が吸い込まれ、フローフロントが進む"],
+"模具加熱，樹脂固化成堅硬的殼":["The mould heats up and the resin cures hard","型を加熱し、樹脂が硬いシェルに硬化"],
+"鋪層剖面（示意，厚度放大）":["Layup section (thickness exaggerated)","積層断面（模式、厚さ誇張）"],
+"外層玻纖布":["Outer glass","外側ガラス布"],
+"芯材＋碳纖主樑":["Core + carbon cap","コア＋炭素スパー"],
+"內層玻纖布":["Inner glass","内側ガラス布"],
+"脫模布":["Peel ply","ピールプライ"],
+"導流網":["Flow mesh","フローメディア"],
+"樹脂進料":["Resin inlet","樹脂注入"],
+"抽真空":["Vacuum","真空引き"],
+"流動前緣":["Flow front","フローフロント"],
+"大氣壓力把布層壓實":["Atmospheric pressure compacts the plies","大気圧が積層を押し固める"],
+"袋內壓力":["Bag pressure","バッグ内圧力"],
+"灌注進度":["Infusion","含浸進捗"],
+"固化過程（示例）":["Curing cycle (example)","硬化プロセス（例）"],
+"時間 h":["Time h","時間 h"],
+"°C／%":["°C / %","°C／%"],
+"模具溫度":["Mould temp.","型温度"],
+"固化程度":["Degree of cure","硬化度"],
+"約 {n} °C":["About {n} °C","約 {n} °C"],
+"灌注完成後開始加熱":["Heating starts after infusion","含浸完了後に加熱開始"],
+"合模：兩半殼黏成一支":["Closing the mould","型締め：2 つのシェルを接合"],
+"兩半殼體各自在模具裡固化後，先把預製好的剪力腹板吊進壓力面殼體，定位在主樑上方。接著在前緣、後緣與腹板頂端塗上一道道結構膠，吸力面的模具由液壓翻轉機構整個翻過來，精準蓋在另一半上。合模後再次加熱讓黏合劑固化，才開模把葉片吊出，進入修邊、打磨與塗裝。也有廠商採用一體成型技術，把整支葉片在同一個封閉模具內一次灌注，省去黏合縫。":["Once both shells have cured in their moulds, prefabricated shear webs are lifted into the pressure-side shell and positioned over the spar cap. Beads of structural adhesive are applied along the leading edge, the trailing edge and the tops of the webs, and a hydraulic turning mechanism flips the entire suction-side mould over and lowers it precisely onto the other half. The closed mould is heated again to cure the adhesive before it is opened and the blade is lifted out for trimming, grinding and painting. Some manufacturers use one-piece technology instead, infusing the whole blade in a single closed mould with no glued joints.","2 つのシェルがそれぞれの型で硬化したら、あらかじめ製作したシアウェブを圧力面シェルに吊り込み、スパーキャップの上に位置決めします。次に前縁、後縁、ウェブ上端に構造用接着剤を塗布し、負圧面の型を油圧反転装置でまるごと裏返して、もう一方の型に正確にかぶせます。型締め後に再び加熱して接着剤を硬化させ、型を開いてブレードを吊り出し、トリミング、研磨、塗装へ進みます。ブレード全体を 1 つの密閉型で一度に含浸し、接着継ぎ目をなくす一体成形技術を採用するメーカーもあります。"],
+"兩半殼體各自固化完成":["Both shell halves have cured","2 つのシェルがそれぞれ硬化完了"],
+"剪力腹板吊進壓力面殼體":["Shear webs are lifted into the pressure-side shell","シアウェブを圧力面シェルに吊り込む"],
+"前緣、後緣與腹板頂端塗上結構膠":["Adhesive goes on the edges and web tops","前縁、後縁、ウェブ上端に接着剤を塗布"],
+"吸力面模具整個翻轉過來":["The suction-side mould flips over","負圧面の型をまるごと反転"],
+"合模加熱，黏合劑固化":["The closed mould is heated to cure the bond","型締めして加熱し、接着剤を硬化"],
+"壓力面殼體":["Pressure-side shell","圧力面シェル"],
+"吸力面殼體":["Suction-side shell","負圧面シェル"],
+"結構膠":["Adhesive","構造用接着剤"],
+"液壓翻轉機構":["Hydraulic turnover","油圧反転装置"],
+"加熱固化黏合劑":["Heat-curing the bond","接着剤を加熱硬化"],
+"合模（示例）":["Mould closing (example)","型締め（例）"],
+"吊入腹板":["Webs in","ウェブ吊込み"],
+"塗結構膠":["Adhesive","接着剤塗布"],
+"翻轉合模":["Flipping","反転・型締め"],
+"加熱固化":["Curing","加熱硬化"],
+"翻轉角度":["Flip angle","反転角度"],
+"{n}°":["{n}°","{n}°"],
+"黏合面":["Bond lines","接着面"],
+"前緣／後緣／腹板":["LE / TE / webs","前縁／後縁／ウェブ"],
+"檢測與全尺寸測試":["Inspection and full-scale testing","検査と実寸試験"],
+"每支葉片出廠前都要檢查：量測外形尺寸與重量，並以超音波掃描主樑與黏合線，找出乾點、氣孔、纖維皺褶或黏合不足，標記後修補。三支葉片還要配重，讓重量與重心一致，轉子才不會失衡。新設計的葉片另外要依 IEC 61400-23 做全尺寸測試：先施加設計極限載重的靜態測試，再以共振方式來回擺動數百萬次，模擬二十多年運轉累積的疲勞。":["Every blade is inspected before it leaves the factory: its shape and mass are measured, and the spar caps and bond lines are scanned ultrasonically to find dry spots, voids, fibre wrinkles or poor bonds, which are marked and repaired. Blades are also balanced in sets of three so that their mass and centre of gravity match and the rotor stays in balance. A new blade design must additionally pass full-scale testing to IEC 61400-23: a static test at the design ultimate load, then a fatigue test in which the blade is swung back and forth at resonance millions of times to simulate more than twenty years of operation.","ブレードは出荷前にすべて検査されます。外形寸法と重量を測り、スパーキャップと接着線を超音波で探傷して、樹脂の未含浸部、ボイド、繊維のしわ、接着不良を見つけ、印を付けて補修します。さらに 3 本 1 組で重量と重心をそろえ、ロータのアンバランスを防ぎます。新設計のブレードは IEC 61400-23 に基づく実寸試験も必要です。設計終局荷重をかける静的試験のあと、共振を利用して数百万回往復させる疲労試験で、20 年以上の運転で蓄積する疲労を再現します。"],
+"超音波掃描主樑與黏合線":["Ultrasound scans spar caps and bond lines","スパーキャップと接着線を超音波探傷"],
+"找到缺陷就標記修補，三支一組配重":["Defects are marked and repaired; blades balanced in threes","欠陥は印を付けて補修、3 本 1 組で重量調整"],
+"新葉片型式要做全尺寸靜態測試":["A new blade type gets a full-scale static test","新型ブレードは実寸の静的試験を行う"],
+"疲勞測試來回擺動數百萬次":["The fatigue test swings it millions of times","疲労試験で数百万回往復させる"],
+"出廠檢測（示意）":["Factory inspection (schematic)","出荷前検査（模式）"],
+"超音波探頭":["Ultrasonic probe","超音波探触子"],
+"掃描結果（C-scan）":["Scan result (C-scan)","探傷結果（C スキャン）"],
+"乾點 → 標記修補":["Dry spot → mark, repair","未含浸部 → 印付け・補修"],
+"外形尺寸與重量量測":["Shape and mass measured","外形寸法と重量の測定"],
+"三支一組配重，平衡重心":["Balanced in sets of three","3 本 1 組で重量・重心をそろえる"],
+"全尺寸測試：IEC 61400-23（示意）":["Full-scale test: IEC 61400-23","実寸試験：IEC 61400-23（模式）"],
+"靜態測試：施加極限載重":["Static test: ultimate load","静的試験：終局荷重を負荷"],
+"葉尖位移 {n} m":["Tip deflection {n} m","翼端変位 {n} m"],
+"疲勞測試：共振來回擺動":["Fatigue test: resonant swinging","疲労試験：共振で往復"],
+"{n} 百萬次":["{n} million","{n} 百万回"],
+"循環次數（示例）":["Load cycles (example)","サイクル数（例）"],
+"激振器":["Exciter","加振機"],
+"新葉片型式設計完成後進行":["Done once for each new blade design","新型ブレードの設計完了後に実施"],
+"在台中港生產葉片":["Making blades at Taichung Port","台中港でのブレード生産"],
+"葉片又長又重，工廠最好就蓋在港邊。台中港的葉片廠為 Vestas V174-9.5 MW 風機生產 85 m、約 35 t 的葉片，報導指出這是 Vestas 在歐洲以外唯一的離岸葉片工廠。成品葉片由多軸自走式模組運輸車（SPMT）從廠房運到儲放區，再到重件碼頭裝船。在地生產縮短運輸距離，也帶動複材、樹脂與檢測人才的供應鏈；但產能與人力需要穩定的訂單支撐，隨著風機大型化，模具與廠房也要跟著升級。":["Blades are long and heavy, so the best place for a factory is right by the harbour. The blade factory at Taichung Port makes 85 m, roughly 35 t blades for the Vestas V174-9.5 MW turbine, and reports describe it as Vestas's only offshore blade factory outside Europe. Finished blades are carried by multi-axle self-propelled modular transporters (SPMTs) from the hall to the storage yard and then to the heavy-load quay for shipping. Local production shortens transport and builds a supply chain of composites, resin and inspection skills, but capacity and staffing depend on a steady flow of orders, and moulds and halls must be upgraded as turbines grow.","ブレードは長く重いため、工場は港のそばに建てるのが理想です。台中港のブレード工場は Vestas V174-9.5 MW 向けに長さ 85 m、約 35 t のブレードを生産しており、報道によれば Vestas の欧州以外で唯一の洋上ブレード工場です。完成したブレードは多軸の自走式モジュール運搬車（SPMT）で建屋から保管ヤードへ、さらに重量物岸壁へ運ばれて船積みされます。現地生産は輸送距離を短くし、複合材、樹脂、検査人材のサプライチェーンを育てますが、生産能力と人員の維持には安定した受注が必要で、風車の大型化に合わせて型や建屋も更新しなければなりません。"],
+"葉片工廠就設在港區碼頭旁":["The blade factory stands beside the quay","ブレード工場は港の岸壁のそばにある"],
+"自走式運輸車把葉片送到碼頭":["An SPMT carries the blade to the quay","SPMT がブレードを岸壁へ運ぶ"],
+"在重件碼頭吊上船，運往風場":["It is lifted aboard at the heavy-load quay","重量物岸壁で船に吊り込み、風力発電所へ"],
+"在地生產帶動複材與檢測供應鏈":["Local production builds a composites supply chain","現地生産が複合材と検査のサプライチェーンを育てる"],
+"葉片工廠":["Blade factory","ブレード工場"],
+"自走式模組運輸車（SPMT）":["SPMT transporter","自走式運搬車（SPMT）"],
+"碼頭吊機":["Quay crane","岸壁クレーン"],
+"重件碼頭":["Heavy-load quay","重量物岸壁"],
+"葉片運輸船":["Blade carrier","ブレード輸送船"],
+"台中港葉片廠（報導值）":["Taichung blade plant (reported)","台中港工場（報道値）"],
+"單支重量":["Blade mass","1 本の重量"],
+"約 35 t":["About 35 t","約 35 t"],
+"對應機型":["Turbine","対応機種"],
+"運輸方式":["Transport","輸送方法"],
+"SPMT → 船":["SPMT → ship","SPMT → 船"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
