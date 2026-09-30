@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep12.js｜離岸風場開發系列</title>
+<title>ep19.js｜離岸風場開發系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep19.html"><span data-zh="← 19 港口與在地供應鏈" data-en="← 19 Ports and the local supply chain" data-ja="← 19 港湾と国内サプライチェーン">← 19 港口與在地供應鏈</span></a><a href="ep13.html"><span data-zh="13 風場全面運轉 →" data-en="13 The whole wind farm at work →" data-ja="13 風力発電所の全面運転 →">13 風場全面運轉 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep11.html"><span data-zh="← 11 風機安裝：葉片" data-en="← 11 Turbine installation: blades" data-ja="← 11 風車の据付：ブレード">← 11 風機安裝：葉片</span></a><a href="ep12.html"><span data-zh="12 併網運轉 →" data-en="12 Commissioning and operation →" data-ja="12 系統連系と運転 →">12 併網運轉 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep12.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep19.js｜離岸風場開發系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -927,746 +927,438 @@ function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
 /* offshore-wind label dictionary (from the multilingual overview film) */
 Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
 
-let ROT_T=()=>-1;
-/* ================= CH5 transition piece ================= */
-function hlv5(u){let R=TX-40,a=1;if(u>.86){R=lerp(TX-40,TX-520,easeIn(seg(u,.86,1)));a=1-seg(u,.9,1);}return {R,a};}
-function tp5(u,R,deck){if(u<.16)return {x:R-290,y:deck};return kf(u,[[.16,R-290,deck],[.27,R-290,300],[.41,TX,300],[.56,TX,TP_BOT]]);}
-function sc5(u){
-  const {R,a}=hlv5(u),deck=hlvDeck(R);
-  vsl(R,430,true,{damp:.35,a},vHLV);
-  const ham=u<.12?kf(u,[[0,TX,PILE_TOP-60],[.04,TX,300],[.08,R-150,300],[.12,R-150,deck-8]]):{x:R-150,y:deck-8};
-  alphaDo(a,()=>drawHammer(ham.x,ham.y,0));
-  const tp=tp5(u,R,deck);
-  alphaDo(u<.56?a:1,()=>drawTP(tp.x,tp.y));
-  if(u>=.16&&u<.56)slings(tp.x,tp.y-88,[tp.x-22,tp.y-58,tp.x+22,tp.y-58]);
-  alphaDo(a,()=>{
-    box(R-2,deck-40,8,40,'#2b3137');box(R+2,deck-44,5,6,'#e8572a');
-    const stow={x:R-250,y:deck-90};let hk;
-    if(u<.12)hk={x:ham.x,y:ham.y-110};else if(u<.16)hk=lerpPt({x:R-150,y:deck-118},{x:R-290,y:deck-88},ease(seg(u,.12,.16)));
-    else if(u<.56)hk={x:tp.x,y:tp.y-88};else if(u<.66)hk=lerpPt({x:TX,y:TP_BOT-88},{x:TX-40,y:240},ease(seg(u,.56,.66)));
-    else hk=lerpPt({x:TX-40,y:240},stow,ease(seg(u,.66,.8)));
-    crane(R-80,deck-30,440,hk.x,hk.y,{col:'#e9b21f'});
-  });
-  lab(tp.x+17,tp.y-30,'轉接段 TP',{dx:70,dy:-20,a:band(u,.15,.58)});
-  lab(TX,PILE_TOP,'對準樁頂套接',{dx:70,dy:40,a:band(u,.44,.58)});
-  lab(TX+16,PILE_TOP+2,'螺栓法蘭鎖固',{dx:80,dy:20,st:'s',a:band(u,.56,.76)});
-  lab(TX+40,TP_TOP-3,'工作平台',{dx:110,dy:-6,a:band(u,.75,1)});
-  lab(TX-34,470,'靠船設施與爬梯',{dx:-80,dy:30,a:band(u,.75,1)});
-  lab(TX+46,TP_TOP-22,'平台吊車',{dx:40,dy:-70,a:band(u,.78,1),minor:true});
-  lab(R-380,deck-104,'吊裝船撤離',{dy:-30,a:band(u,.87,.97)});
+// KITS: marine
+/* ================= EP19 港口與在地供應鏈 ================= */
+const QX=860,QY=452,SBD=760;                                   // 碼頭岸壁、碼頭面、港池海床
+/* text wrapped to a width (after translation) */
+function wrap19(x,y,t,maxW,size,col,weight,lh,align){
+  t=tr(t);const cjk=LANG!=='en'&&CJK_RE.test(t),parts=cjk?[...t]:t.split(' ');let line='',n=0;
+  const out=s=>{wt(x,y+n*lh,s,size,col,weight,align);n++;};
+  for(const w of parts){const test=line?(cjk?line+w:line+' '+w):w;if(line&&wtw(test,size,weight)>maxW){if(cjk&&/^[，。、）」：；,.]$/.test(w)){out(test);line='';continue;}out(line);line=w;}else line=test;}
+  if(line)out(line);return n;
 }
-function fx5(u){
-  if(u<.56||u>.76)return;const q=seg(u,.56,.75),k=Math.floor(q*14);
-  for(let i=0;i<=k&&i<14;i++){const x=TX-14+(i%7)*4.6,a=i===k?1-((q*14)%1):.35;circ(x,PILE_TOP+1,i===k?3.5:1.6,`rgba(255,236,150,${a})`);}
+/* 港口側視背景：港池在左、碼頭與後線場地在右 */
+function portBase(){
+  drawSky();
+  const xe=Math.min(VX1,QX);
+  if(xe>VX0){const g=ctx.createLinearGradient(0,SEA,0,SBD);g.addColorStop(0,'#3b93bb');g.addColorStop(.5,'#1d6690');g.addColorStop(1,'#0b3858');
+   ctx.beginPath();ctx.moveTo(VX0,wv(VX0,TT));for(let x=VX0;x<=xe;x+=8)ctx.lineTo(x,wv(x,TT));ctx.lineTo(xe,SBD+10);ctx.lineTo(VX0,SBD+10);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+   ctx.beginPath();ctx.moveTo(VX0,wv(VX0,TT));for(let x=VX0;x<=xe;x+=8)ctx.lineTo(x,wv(x,TT));ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=1.6;ctx.stroke();
+   box(VX0,SBD,xe-VX0,VY1-SBD+20,'#b59a6a');ln([VX0,SBD,xe,SBD],'#a98a58',2);}
+  /* 後線廠房 */
+  for(const [x,w,h] of [[1180,170,70],[1370,210,92],[1600,240,80]]){box(x,QY-h,w,h,'#c7cfd3');poly([x-4,QY-h,x+w/2,QY-h-18,x+w+4,QY-h],'#8e9aa1');for(let i=0;i<Math.floor(w/40);i++)box(x+12+i*40,QY-h+16,24,12,'rgba(90,110,120,.45)');}
+  /* 回填地盤與岸壁 */
+  box(QX,QY+20,VX1-QX+40,VY1-QY,'#8f7c5c');
+  const r=rng(19);for(let i=0;i<160;i++){const x=QX+r()*900,y=QY+24+r()*(SBD-QY);circ(x,y,1+r()*2,'rgba(60,45,30,.35)');}
+  box(QX-26,QY,34,SBD-QY+12,'#9aa3a8');ln([QX-26,QY,QX-26,SBD+12],'rgba(0,0,0,.35)',2);
+  for(let y=QY+40;y<SBD;y+=60)ln([QX-26,y,QX+8,y],'rgba(0,0,0,.18)',1.5);
+  box(QX-26,QY,VX1-QX+66,20,'#c3c9cc');ln([QX-26,QY,VX1+40,QY],'#e3e8ea',2);
+  for(let y=QY+26;y<SEA+30;y+=26)box(QX-34,y,8,18,'#2b3137');
+  for(let x=QX+10;x<QX+160;x+=70)box(x,QY-6,8,6,'#2b3137');
 }
+/* 平躺的塔段 */
+function towerLying(x,y,k){ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/2);drawTowerSec(0,0,k);ctx.restore();box(x+8,y+10,10,QY-y-10,'#4a5860');box(x+HS-18,y+10,10,QY-y-10,'#4a5860');}
+/* 完整塔架（三段） */
+function towerUp(cx,yb,n){for(let k=0;k<(n===undefined?3:n);k++)drawTowerSec(cx,yb-k*HS,k);}
+/* 機艙＋輪轂放在支架上 */
+function nacStand(ax,yb,s){ctx.save();ctx.translate(ax,yb);ctx.scale(s||1,s||1);box(-34,-10,70,10,'#4a5860');drawNacelle(0,-10,0,false);circ(-58,-30,8,'#f2f5f6','rgba(0,0,0,.25)',1);ctx.restore();}
+/* 葉片儲放架 */
+function bladeRack(x,yb,n,R){R=R||165;for(const fx of [x+14,x+R*.62])box(fx-5,yb-16*n-8,10,16*n+8,'#4a5860');for(let i=0;i<n;i++)drawBlade(x,yb-12-16*i,0,R);}
+/* 自走式模組運輸車（SPMT） */
+function spmt(x,y,w){box(x-w/2,y-16,w,9,'#e9b21f','rgba(0,0,0,.35)',1);box(x-w/2+4,y-7,w-8,3,'#394650');for(let wx=x-w/2+8;wx<x+w/2-4;wx+=13)circ(wx,y-3,4,'#222','#555',1);}
+/* 履帶式起重機：回傳吊臂支點 */
+function crawler(x,y){box(x-52,y-16,104,16,'#2b3137');for(let k=0;k<7;k++)circ(x-44+k*14.6,y-8,4,'#555');box(x-38,y-44,76,28,'#e9b21f','rgba(0,0,0,.35)',1);box(x+12,y-62,22,18,'#dfe5e8');box(x+15,y-58,14,9,'#2a3a46');box(x-50,y-38,16,22,'#6f7a80');return {x:x-24,y:y-40};}
+/* 分鏡 3：塔段吊運路徑 */
+const T3X=1060,T3S=[1180,1240],T3C=1500;
+function path3(u,i){const a=i?.48:.08,b=i?.78:.38,x0=T3S[i],y0=QY-HS,y1=QY-(i+2)*HS,lift=y1-30;
+  const k=seg(u,a,b);if(k<=0)return {x:x0,y:y0,st:0};if(k>=1)return {x:T3X,y:y1,st:2};
+  if(k<.3)return {x:x0,y:lerp(y0,lift,ease(k/.3)),st:1};if(k<.7)return {x:lerp(x0,T3X,ease((k-.3)/.4)),y:lift,st:1};
+  return {x:T3X,y:lerp(lift,y1,ease((k-.7)/.3)),st:1};}   // y：塔段頂端
+/* 分鏡 5：安裝船裝船與出港 */
+const R5=QX-8;
+function wtiv5(u){const dn=ease(seg(u,.62,.72)),go=easeIn(seg(u,.74,1));
+  const d=lerp(SEA-78,SEA-26,dn)+(dn>=1?wv(R5,TT)-SEA:0),leg=lerp(SBD,d+80,ease(seg(u,.62,.74)));return {R:R5-760*go,d,leg,go};}
+const SLOT5=[-330,-290,-250,-210];
+/* 分鏡 6：月可作業比例（示例） */
+const WK6=[22,28,42,58,68,64,50,52,48,34,24,20];
+/* 分鏡 7：台灣西部海岸簡圖 */
+const MAP7=[[121.53,25.3],[121.9,25.13],[122.0,25.0],[121.85,24.6],[121.8,24.3],[121.6,23.9],[121.45,23.3],[121.2,22.8],[120.9,22.3],[120.85,21.9],[120.7,22.0],[120.6,22.4],[120.3,22.6],[120.15,23.0],[120.1,23.4],[120.25,23.85],[120.45,24.2],[120.75,24.6],[121.0,24.85],[121.2,25.05],[121.4,25.18]];
+const MX=lon=>250+(lon-119.6)*142,MY=lat=>240+(25.4-lat)*155;
 
-/* ================= CH6 offshore substation ================= */
-function cv6(u){let Ls=lerp(-700,600,easeOut(seg(u,0,.15))),a=1;if(u>.88){Ls=lerp(600,100,easeIn(seg(u,.88,1)));a=1-seg(u,.9,1);}return {Ls,a};}
-function sc6(u){
-  const {Ls,a}=cv6(u),deck=wlAt(Ls+230,.3)-20,pv={x:Ls+420,y:deck-40};
-  vsl(Ls,460,false,{damp:.3,a},vCraneVessel);
-  const jb=u<.15?{x:Ls+315,y:deck}:kf(u,[[.15,Ls+315,deck],[.22,Ls+315,380],[.28,OX,380],[.36,OX,bedOX]]);
-  const tb=u<.5?{x:Ls+175,y:deck}:kf(u,[[.5,Ls+175,deck],[.6,Ls+175,256],[.68,OX,256],[.76,OX,440]]);
-  drawJacket(jb.x,jb.y,JH,true);
-  if(u>.36)drawPins(OX,bedOX,ease(seg(u,.38,.5)),u>.38&&u<.5?Math.max(0,1-((seg(u,.38,.5)*9)%1)*3):0);
-  drawTopside(tb.x,tb.y,seg(u,.78,.9));
-  if(u>=.15&&u<.36)slings(jb.x,jb.y-JH-26,[jb.x-40,jb.y-JH-2,jb.x+40,jb.y-JH-2]);
-  if(u>=.5&&u<.76)slings(tb.x,tb.y-144,[tb.x-70,tb.y-84,tb.x+64,tb.y-84]);
-  alphaDo(a,()=>{
-    const stow={x:Ls+330,y:deck-130};let hk;
-    if(u<.12)hk=stow;else if(u<.15)hk=lerpPt(stow,{x:Ls+315,y:deck-JH-26},ease(seg(u,.12,.15)));
-    else if(u<.36)hk={x:jb.x,y:jb.y-JH-26};else if(u<.44)hk=lerpPt({x:OX,y:bedOX-JH-26},{x:OX-60,y:150},ease(seg(u,.36,.44)));
-    else if(u<.5)hk=lerpPt({x:OX-60,y:150},{x:Ls+175,y:deck-144},ease(seg(u,.44,.5)));
-    else if(u<.76)hk={x:tb.x,y:tb.y-144};else if(u<.86)hk=lerpPt({x:OX,y:296},{x:OX-60,y:130},ease(seg(u,.76,.86)));
-    else hk=lerpPt({x:OX-60,y:130},stow,ease(seg(u,.86,.96)));
-    crane(pv.x,pv.y,400,hk.x,hk.y,{col:'#e8a33a'});
-  });
-  lab(Ls+33,deck-106,'大型起重船',{dy:-30,a:band(u,.02,.2)});
-  lab(jb.x+48,jb.y-JH*.5,'套管式基礎 Jacket',{dx:70,dy:-20,a:band(u,.16,.4)});
-  lab(OX+66,bedOX-20,'打入針樁',{dx:60,dy:30,a:band(u,.38,.52)});
-  lab(tb.x+64,tb.y-60,'上部模組',{dx:70,dy:-30,a:band(u,.5,.78)});
-  lab(OX-12,392,'主變壓器',{dx:-30,dy:-80,a:band(u,.76,1,.04)});
-  lab(OX-90,344,'直升機平台',{dx:-60,dy:-40,a:band(u,.8,1)});
-  lab(OX-60,bedOX-70,'J 形管',{dx:-70,dy:0,a:band(u,.8,1)});
-}
-function hud6(u){
-  hudPanel(250,134,'升壓送電',band(u,.5,1),(w)=>{
-    htext(14,52,'陣列海纜',11,'rgba(227,236,238,.8)');htext(14,74,'66 kV',19,'#fff',700,COND);
-    rrp(86,40,58,42,6);ctx.fillStyle='#56626a';ctx.fill();htext(115,58,'主變',12,'#fff',700,FONT,'center');htext(115,74,'壓器',12,'#fff',700,FONT,'center');
-    arrowR(64,62,8,'#f2c230');arrowR(150,62,8,'#f2c230');
-    htext(w-14,52,'輸出海纜',11,'rgba(227,236,238,.8)',500,FONT,'right');htext(w-14,74,'161 kV',19,'#f2c230',700,COND,'right');
-    htext(14,108,'電壓升高、電流變小，',12,'rgba(227,236,238,.75)');htext(14,124,'長距離輸電損耗更低',12,'rgba(227,236,238,.75)');
-  });
-}
-
-/* ================= CH7 cables ================= */
-function clvS(u){if(u<.12)return lerp(-500,TX+30,easeOut(seg(u,0,.12)));if(u<.24)return TX+30;return lerp(TX+30,985,ease(seg(u,.24,.54)));}
-function clvS2(u){return u<.74?1336:lerp(1336,1215,ease(seg(u,.74,.88)));}
-function rovX1(u){if(u<.34)return TX+45;let x=lerp(TX+45,OX-85,seg(u,.34,.68));if(u<.54){const TD=Math.max(TX+40,clvS(u)-70);x=Math.min(x,TD-40);}return Math.max(x,TX+45);}
-function rovX2(u){if(u<.86)return 1340;return lerp(1340,OX+85,seg(u,.86,.99));}
-const burA=(x,r)=>clamp((x-(TX+30))/15)*clamp((r-x)/15);
-const burB=(x,r)=>clamp((1340-x)/15)*clamp((x-r)/15);
-const jtube=s=>[{x:OX+62*s,y:bedOX-15},{x:OX+59*s,y:bedOX-40},{x:OX+46*s,y:444}];
-function iaPts(u){
-  if(u<.12)return null;
-  const A={x:TX+15,y:bedTX-20},S=clvS(u),ch={x:S-4,y:wlAt(S+125,.4)+3};
-  if(u<.24){const p=ease(seg(u,.12,.24)),E=lerpPt(ch,A,p),P=[];for(let i=0;i<=16;i++)P.push(bez(ch,{x:ch.x-4,y:lerp(ch.y,E.y,.7)},{x:lerp(E.x,ch.x,.35),y:E.y+4},E,i/16));return P.reverse();}
-  const r=rovX1(u),P=[A,{x:TX+35,y:bedY(TX+35)-2}];
-  const end=u<.54?Math.max(TX+40,S-70):lerp(915,OX-85,ease(seg(u,.54,.57)));
-  for(let x=TX+40;x<end;x+=6)P.push({x,y:bedY(x)-2+13*burA(x,r)});
-  P.push({x:end,y:bedY(end)-2+13*burA(end,r)});
-  if(u<.54){const td=P[P.length-1];for(let i=1;i<=14;i++)P.push(bez(td,{x:lerp(td.x,ch.x,.45),y:td.y},{x:ch.x-6,y:lerp(ch.y,td.y,.45)},ch,i/14));}
-  else if(end>=OX-86)P.push(...partial(jtube(-1),seg(u,.56,.6)));
-  return P;
-}
-function landPts(){const L=[];for(let i=0;i<=20;i++)L.push(hddPt(i/20));L.push({x:1556,y:437});return L;}
-function exPts(u){
-  if(u<.66)return null;
-  const S2=clvS2(u),ch={x:S2+4,y:wlAt(S2-125,.4)+3},X={x:1350,y:bedY(1350)},land=landPts();
-  if(u<.74){const P=[];for(let i=0;i<=12;i++)P.push(bez(ch,{x:ch.x+4,y:lerp(ch.y,X.y,.7)},{x:lerp(X.x,ch.x,.4),y:X.y},X,i/12));P.push(...land.slice(1));return partial(P,ease(seg(u,.66,.74)));}
-  const r=rovX2(u),P=land.slice().reverse();
-  const end=u<.88?Math.min(1350,S2+70):lerp(1285,OX+85,ease(seg(u,.88,.91)));
-  for(let x=1344;x>end;x-=6)P.push({x,y:bedY(x)-2+13*burB(x,r)});
-  P.push({x:end,y:bedY(end)-2+13*burB(end,r)});
-  if(u<.88){const td=P[P.length-1];for(let i=1;i<=14;i++)P.push(bez(td,{x:lerp(td.x,ch.x,.45),y:td.y},{x:ch.x+6,y:lerp(ch.y,td.y,.45)},ch,i/14));}
-  else if(end<=OX+86)P.push(...partial(jtube(1),seg(u,.9,.95)));
-  return P;
-}
-function drawCables(){
-  if(SC<7)return;const u=uc(7);
-  const ia=iaPts(u),ex=exPts(u);
-  drawCable(ia);drawCable(ex);
-  if(ia&&u>=.24){ln([TX+15,bedTX-20,TX+40,bedY(TX+40)-1],'rgba(232,87,42,.9)',5.5);}
-}
-function sc7(u){
-  const S=clvS(u),wl=wlAt(S+125,.4);
-  const r1=rovX1(u),ra=seg(u,.28,.33)*(1-seg(u,.68,.72));
-  if(ra>0){const bw=wlAt(r1+45,.7),ry=u<.34?lerp(bw+10,bedY(r1),ease(seg(u,.3,.34))):bedY(r1);
-    alphaDo(ra,()=>{ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(r1-16,bw-44);ctx.quadraticCurveTo(r1-30,(bw+ry)/2,r1-4,ry-19);ctx.stroke();
-      if(u>.3)rov(r1,ry,TT,u>.34&&u<.68);vsl(r1-10,110,false,{tilt:.5},vSmallWork);});}
-  const r2=rovX2(u),ra2=seg(u,.84,.87)*(1-seg(u,.97,1));
-  if(ra2>0){const bw=wlAt(r2-45,.7),ry=u<.87?lerp(bw+10,bedY(r2),ease(seg(u,.84,.87))):bedY(r2);
-    alphaDo(ra2,()=>{ctx.strokeStyle='#f2c230';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(r2+16,bw-44);ctx.quadraticCurveTo(r2+30,(bw+ry)/2,r2+4,ry-19);ctx.stroke();
-      if(u>.84){ctx.save();ctx.translate(r2,0);ctx.scale(-1,1);rov(0,ry,TT,u>.87&&u<.99);ctx.restore();}vsl(r2+10,110,true,{tilt:.5},vSmallWork);});}
-  if(u<.62)vsl(S,250,false,{damp:.4,a:1-seg(u,.58,.62)},vCLV);
-  const S2=clvS2(u),wl2=wlAt(S2-125,.4);
-  if(u>.62&&u<.95)vsl(S2,250,true,{damp:.4,a:seg(u,.62,.66)*(1-seg(u,.9,.95))},vCLV);
-  const wa=band(u,.63,.78);if(wa>0)alphaDo(wa,()=>{box(1548,425,20,12,'#e8a33a');circ(1553,438,2.4,'#222');circ(1564,438,2.4,'#222');circ(1558,428,4,'#394650');});
-  lab(S+208,wl-76,'海纜鋪設船 CLV',{dy:-30,a:band(u,.02,.2)});
-  lab(S+95,wl-46,'海纜轉盤',{dx:-40,dy:-54,a:band(u,.05,.3)});
-  lab(TX+15,bedTX-20,'拉入風機基礎',{dx:-70,dy:-40,a:band(u,.12,.28)});
-  lab(TX+80,bedY(TX+80)-2,'陣列海纜 66 kV',{dx:-50,dy:-60,a:band(u,.26,.56)});
-  if(ra>0)lab(r1,bedY(r1)-20,'埋設機：高壓水刀開溝',{dx:60,dy:-90,a:band(u,.36,.6)*ra});
-  lab(OX-62,bedOX-15,'拉入 J 形管',{dx:-70,dy:-40,a:band(u,.55,.63)});
-  const hp=hddPt(.45);lab(hp.x,hp.y,'HDD 登陸導管',{dx:30,dy:60,a:band(u,.63,.82)});
-  lab(1558,424,'陸上絞機',{dx:10,dy:-44,a:band(u,.66,.76),minor:true});
-  lab(1290,bedY(1290),'輸出海纜 161 kV',{dx:0,dy:-60,a:band(u,.76,.92)});
-  lab(1546,414,'陸上變電站',{dx:40,dy:-40,a:band(u,.7,1)});
-  lab(OX+62,bedOX-15,'拉入 J 形管',{dx:60,dy:-40,a:band(u,.89,.98)});
-  if(ra2>0)lab(r2,bedY(r2)-20,'埋設機',{dx:-40,dy:-50,a:ra2,minor:true});
-}
-function hud7(u){
-  hudPanel(226,236,'海纜剖面（3 芯 XLPE）',band(u,.1,.6),(w)=>{
-    const cx=74,cy=128,R=56;
-    circ(cx,cy,R,'#1b1f22');for(let i=0;i<40;i++){const a=i/40*TAU;circ(cx+Math.cos(a)*(R-6),cy+Math.sin(a)*(R-6),3.2,'#9aa5ab','#5d6b74',.6);}
-    circ(cx,cy,R-11,'#3a3f44');
-    for(let i=0;i<3;i++){const a=-Math.PI/2+i*TAU/3,x=cx+Math.cos(a)*22,y=cy+Math.sin(a)*22;circ(x,y,17.5,'#1c1c1c');circ(x,y,16,'#e9ecef');circ(x,y,9,'#c87533');}
-    circ(cx,cy+2,4.5,'#f2c230');
-    const L=(y,t,tx,ty)=>{ln([tx,ty,142,y],'rgba(255,255,255,.55)',1);htext(146,y+4,t,12,'#fff',500);};
-    L(62,'銅導體',cx,cy-22);L(96,'XLPE 絕緣',cx+14,cy+14);L(130,'光纖單元',cx+4,cy+2);L(164,'鋼線鎧裝',cx+R-6,cy+10);
-    htext(14,210,'陣列 66 kV　輸出 161–220 kV',12,'rgba(227,236,238,.75)');
-    htext(14,227,'埋深約 1–3 m',12,'rgba(227,236,238,.75)');
-  });
-}
-
-/* ================= CH8-10 WTIV ================= */
-function wtivState(){
-  const c=SC,u=SU;if(c<8||c>11)return null;
-  let R=TX-45,a=1;
-  if(c===8)R=lerp(2100,TX-45,easeOut(seg(u,0,.18)));
-  if(c===11){R=lerp(TX-45,TX-700,easeIn(seg(u,0,.16)));a=1-seg(u,.08,.16);if(a<=0)return null;}
-  const wl=wlAt(R-240,.25),fl=wl-22,bed=bedY(R-240)+12;
-  let d=395,lb=bed;
-  if(c===8){if(u<.32){d=fl;lb=u<.18?fl+38:lerp(fl+38,bed,ease(seg(u,.18,.32)));}else d=lerp(fl,395,ease(seg(u,.32,.45)));}
-  if(c===10&&u>.84){d=lerp(395,fl,ease(seg(u,.84,.93)));lb=u<.93?bed:lerp(bed,d+38,ease(seg(u,.93,1)));}
-  if(c===11){d=fl;lb=fl+38;}
-  return {R,d,lb,a};
-}
-const SECB=[.45,.63,.80],BLB=[.02,.29,.56];
-function secState(k,w){
-  if(SC>8)return {m:'set'};if(SC<8)return {m:'deck'};
-  const b=SECB[k],u=SU;if(u<b)return {m:'deck'};if(u>=b+.15)return {m:'set'};
-  const cx=w.R-240+30*k,pb=TP_TOP-k*HS,hy=Math.min(pb-40,w.d-60);
-  const p=kf(u,[[b,cx,w.d],[b+.05,cx,hy],[b+.1,TX,hy],[b+.15,TX,pb]]);return {m:'hang',x:p.x,y:p.y};
-}
-function nacState(w){
-  if(SC>9)return {m:'set'};if(SC<9)return {m:'deck'};const u=SU;
-  if(u<.1)return {m:'deck'};if(u>=.58)return {m:'set'};
-  const p=kf(u,[[.1,w.R-110,w.d],[.3,w.R-110,120],[.45,TX,120],[.58,TX,TW_TOP]]);return {m:'hang',x:p.x,y:p.y};
-}
-function bladeState(k,w){
-  if(SC>10)return {m:'set'};if(SC<10)return {m:'rack'};const u=SU,b=BLB[k];
-  if(u<b)return {m:'rack'};if(u>=b+.215)return {m:'set'};
-  const ry=w.d-38+12*k;
-  const p=kf(u,[[b,w.R-262,ry],[b+.06,w.R-202,ry-60],[b+.11,HUB.x-49,130],[b+.17,HUB.x-49,HUB.y],[b+.2,HUB.x,HUB.y]]);return {m:'hang',x:p.x,y:p.y};
-}
-function rotorAng(){
-  const u10=uc(10);let a=Math.PI+TAU/3*ease(seg(u10,.24,.29))+TAU/3*ease(seg(u10,.51,.56));
-  const t=ROT_T();if(t>0)a+=t<4?.95*t*t/8:.95*(t-2);return a;
-}
-function rotorW(){const t=ROT_T();return t<=0?0:clamp(t/4);}
-function nBlades(){if(SC>10)return 3;if(SC<10)return 0;let n=0;for(let k=0;k<3;k++)if(SU>=BLB[k]+.215)n++;return n;}
-const bladeLug=(x,y)=>({x:x-.35*BR,y:y-14});
-function wtivHook(w){
-  const c=SC,u=SU,R=w.R,d=w.d,stow={x:R-360,y:d-150},stowB={x:R-200,y:d-200};
-  const pre0={x:R-262-.35*BR,y:d-38-14-80};
-  if(c===8){
-    if(u<.4)return stow;
-    const secLug=(k)=>({x:R-240+30*k,y:d-HS-8});
-    if(u<.45)return lerpPt(stow,secLug(0),ease(seg(u,.4,.45)));
-    for(let k=0;k<3;k++){const b=SECB[k];
-      if(u<b+.15){const s=secState(k,w);return {x:s.x,y:s.y-HS-8};}
-      const nb=k<2?SECB[k+1]:1,placed={x:TX,y:TP_TOP-k*HS-HS-8},tgt=k<2?secLug(k+1):stowB;
-      if(u<nb||k===2)return lerpPt(placed,tgt,ease(seg(u,b+.15,k<2?nb:1)));}
-  }
-  if(c===9){
-    const lug=(p)=>({x:p.x+16,y:p.y-66});
-    if(u<.1)return lerpPt(stowB,lug({x:R-110,y:d}),ease(seg(u,0,.1)));
-    if(u<.58){const s=nacState(w);return lug(s);}
-    if(u<.64)return lug({x:TX,y:TW_TOP});
-    return lerpPt(lug({x:TX,y:TW_TOP}),pre0,ease(seg(u,.64,.8)));
-  }
-  if(c===10){
-    const rackLug=k=>bladeLug(R-262,d-38+12*k);
-    if(u<BLB[0])return lerpPt(pre0,rackLug(0),ease(seg(u,0,BLB[0])));
-    for(let k=0;k<3;k++){const b=BLB[k];
-      if(u<b+.215){const s=bladeState(k,w);const p=s.m==='hang'?s:{x:HUB.x,y:HUB.y};return bladeLug(p.x,p.y);}
-      const nb=k<2?BLB[k+1]:.84,from=bladeLug(HUB.x,HUB.y),tgt=k<2?rackLug(k+1):stowB;
-      if(u<nb||k===2)return lerpPt(from,tgt,ease(seg(u,b+.215,nb)));}
-  }
-  return stowB;
-}
-function tagLine(x0,y0,x1,y1){ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo((x0+x1)/2,Math.max(y0,y1)+30,x1,y1);ctx.stroke();}
-function scWTIV(){
-  const w=wtivState();if(!w)return;const c=SC,u=SU,{R,d}=w;
-  alphaDo(w.a,()=>{
-    drawWTIV(R,d,w.lb);
-    for(let k=0;k<3;k++){if(bladeState(k,w).m==='rack')drawBlade(R-262,d-38+12*k,Math.PI,BR);}
-    for(let k=0;k<3;k++){if(secState(k,w).m==='deck')drawTowerSec(R-240+30*k,d,k);}
-    const ns=nacState(w);if(ns.m==='deck'){drawNacelle(R-110,d,0,false);drawRotor(R-154,d-20,0,0);}
-    if(c===8)for(let k=0;k<3;k++){const s=secState(k,w);if(s.m==='hang')drawTowerSec(s.x,s.y,k);}
-    if(c===9&&ns.m==='hang'){drawNacelle(ns.x,ns.y,0,false);drawRotor(ns.x-44,ns.y-20,0,0);tagLine(ns.x+60,ns.y-8,R-60,d-4);}
-    if(c===10)for(let k=0;k<3;k++){const s=bladeState(k,w);if(s.m==='hang'){drawBlade(s.x,s.y,Math.PI,BR);box(s.x-.5*BR,s.y-9,.3*BR,17,'#394650');const lg=bladeLug(s.x,s.y);slings(lg.x,lg.y,[s.x-.48*BR,s.y-9,s.x-.22*BR,s.y-9]);tagLine(s.x-.5*BR,s.y+8,R-300,d-2);tagLine(s.x-.2*BR,s.y+8,R-150,d-2);}}
-    const hk=wtivHook(w);crane(R-25,d-26,370,hk.x,hk.y,{col:'#f2c230'});
-  });
-  if(c===8){
-    lab(R-240,d-60,'自升式風機安裝船 WTIV',{dy:-36,a:band(u,.02,.2)});
-    lab(R-110,d-40,'機艙',{dy:-30,a:band(u,.04,.3),minor:true});lab(R-340,d-44,'葉片',{dy:-30,a:band(u,.04,.3),minor:true});lab(R-210,d-80,'塔架段',{dy:-30,a:band(u,.04,.3),minor:true});
-    lab(R-25,w.lb,'樁腿插入海床並預壓',{dx:70,dy:-20,a:band(u,.2,.36)});
-    lab(R-240,d+32,'船身頂升離開水面',{dx:0,dy:44,st:'s',a:band(u,.33,.47)});
-    for(let k=0;k<3;k++){const s=secState(k,w);if(s.m==='hang')lab(s.x+13,s.y-HS/2,`第 ${k+1} 段塔架`,{dx:60,dy:-10,a:1});
-      const pb=TP_TOP-k*HS,b=SECB[k];lab(TX+13,pb-2,'法蘭螺栓鎖固',{dx:70,dy:0,st:'s',a:band(u,b+.15,b+.18,.01)});}
-  }
-  if(c===9){
-    const ns=nacState(w);if(ns.m==='hang')lab(ns.x+62,ns.y-20,'機艙（含輪轂）',{dx:60,dy:-20,a:band(u,.1,.56)});
-    if(ns.m==='hang')lab(ns.x+60,ns.y-8,'導引繩',{dx:80,dy:40,a:band(u,.16,.5),minor:true});
-    lab(TX,TW_TOP-2,'對準偏航軸承，螺栓鎖固',{dx:80,dy:30,st:'s',a:band(u,.56,.72)});
-    const ca=band(u,.74,1);const ax=TX,ay=TW_TOP;
-    lab(ax-44,ay-20,'輪轂',{dx:-60,dy:40,a:ca});lab(ax-20,ay-24,'主軸承',{dx:-60,dy:-70,a:ca});lab(ax-2,ay-26,'發電機',{dx:-10,dy:-96,a:ca});
-    lab(ax+19,ay-26,'變流器',{dx:40,dy:-96,a:ca});lab(ax+42,ay-22,'變壓器',{dx:130,dy:10,a:ca});lab(ax+43,ay-44,'冷卻系統',{dx:90,dy:-80,a:ca});lab(ax,ay-7,'偏航驅動',{dx:80,dy:46,a:ca});
-  }
-  if(c===10){
-    for(let k=0;k<3;k++){const s=bladeState(k,w);if(s.m==='hang')lab(s.x-.35*BR,s.y-12,k===0?'葉片夾具 Blade yoke':`第 ${k+1} 支葉片`,{dx:-30,dy:-50,a:1});}
-    lab(HUB.x,HUB.y,'盤車裝置：輪轂轉 120°',{dx:90,dy:40,st:'s',a:band(u,.23,.3)+band(u,.5,.57)});
-    lab(R-150,d-6,'導引繩控制姿態',{dx:-20,dy:50,a:band(u,.06,.2),minor:true});
-    lab(R-330,d,'降下船身、收起樁腿',{dx:0,dy:-60,a:band(u,.84,1)});
-  }
-}
-function fx9(u){if(u<.56||u>.66)return;const q=seg(u,.56,.64),k=Math.floor(q*10);for(let i=0;i<=k&&i<10;i++){circ(TX-12+(i%5)*6,TW_TOP-1,i===k?3:1.5,`rgba(255,236,150,${i===k?1-((q*10)%1):.35})`);}}
-function hudW(){
-  const c=SC,u=SU,w=wtivState();if(!w)return;
-  if(c===8)hudPanel(226,128,'自升式安裝船',seg(u,.16,.22),(ww)=>{
-    const st=u<.18?'航行進場':u<.32?'樁腿插入海床':u<.45?'頂升中':'吊裝作業';hrow(50,'狀態',st,ww,'#f2c230');
-    const gap=Math.max(0,(SEA-(w.d+32))/1.95);hrow(76,'氣隙（船底至海面）',gap>0?gap.toFixed(1)+' m':'—',ww);
-    hrow(102,'樁腿長度','約 110 m',ww);
-    htext(14,120,'（示意數值）',10,'rgba(227,236,238,.5)');});
-  if(c===9)hudPanel(226,118,'機艙（15 MW 級示例）',seg(u,.06,.12),(ww)=>{hrow(50,'額定功率','15 MW',ww,'#f2c230');hrow(76,'輪轂高度','約 150 m',ww);hrow(102,'機艙＋輪轂','數百公噸',ww);});
-  if(c===10)hudPanel(226,146,'葉片吊裝',seg(u,.02,.08)*(1-seg(u,.82,.86)),(ww)=>{hrow(50,'葉片長度','> 100 m',ww);hrow(76,'作業風速上限','約 10–12 m/s',ww);
-    const v=7.4+.4*Math.sin(TT*.9);hrow(102,'目前風速',v.toFixed(1)+' m/s',ww,'#6fe07a');hrow(128,'已安裝',nBlades()+' / 3',ww,'#f2c230');});
-}
-
-/* ================= CH11 commissioning ================= */
-const PPATH=(()=>{const P=[],add=(x,y)=>P.push({x,y});
-  add(TX,190);add(TX,420);add(TX,470);add(TX,bedTX-20);add(TX+15,bedTX-20);add(TX+38,bedY(TX+38)-1);
-  for(let x=TX+45;x<=OX-85;x+=10)add(x,bedY(x)+11);
-  add(OX-62,bedOX-15);add(OX-59,bedOX-40);add(OX-46,444);add(OX-10,410);add(OX+46,444);add(OX+59,bedOX-40);add(OX+62,bedOX-15);
-  for(let x=OX+85;x<=1340;x+=10)add(x,bedY(x)+11);
-  for(let i=0;i<=20;i++){const p=hddPt(i/20);add(p.x,p.y);}
-  add(1556,437);add(1574,428);add(1594,400);add(1612,334);
-  let L=0;P[0].l=0;for(let i=1;i<P.length;i++){L+=Math.hypot(P[i].x-P[i-1].x,P[i].y-P[i-1].y);P[i].l=L;}P.L=L;return P;})();
-function ppAt(l){const P=PPATH;let lo=0,hi=P.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(P[m].l<l)lo=m;else hi=m;}const a=P[lo],b=P[hi],t=(l-a.l)/((b.l-a.l)||1);return {x:lerp(a.x,b.x,t),y:lerp(a.y,b.y,t),i:lo};}
-function ctv11(u){if(u<.52)return {x:lerp(TX-620,TX-114,easeOut(seg(u,.14,.22))),a:seg(u,.14,.17)};return {x:lerp(TX-114,TX-520,easeIn(seg(u,.52,.62))),a:1-seg(u,.55,.62)};}
-function sc11(u){
-  const fa=seg(u,.45,.55);
-  if(fa>0)alphaDo(fa,()=>{school(TX-70,600,9,21,TT,26,1,'rgba(242,214,120,.85)');school(TX+60,650,8,22,TT,24,-1);school(OX-10,640,9,23,TT,30,1,'rgba(242,214,120,.85)');});
-  const cv=ctv11(u),cwl=wlAt(cv.x+37,.9);
-  if(u>.14)vsl(cv.x,74,false,{a:cv.a,tilt:.5},vCTV);
-  if(u>.22&&u<.4){for(let i=0;i<2;i++){const s=u-i*.03;if(s<.22)continue;const p=kf(s,[[.22,TX-50,cwl-12],[.25,TX-33,cwl-12],[.31,TX-33,TP_TOP-3],[.34,TX+7,TP_TOP-3]]);alphaDo(1-seg(s,.34,.36),()=>person(p.x,p.y,'#e8572a',1));}}
-  const ss=lerp(TX-900,TX-300,easeOut(seg(u,.58,.72))),swl=wlAt(ss+115,.5);
-  if(u>.58){vsl(ss,230,false,{damp:.5,a:seg(u,.58,.62)},vSOV);
-    if(u>.72){const p=ease(seg(u,.72,.8)),gx0=ss+117,gy0=swl-46,gx1=lerp(gx0,TX-57,p),gy1=lerp(gy0,TP_TOP-4,p);ln([gx0,gy0,gx1,gy1],'#8a5a12',4.6);ln([gx0,gy0,gx1,gy1],'#f2a33a',3);ln([gx0,gy0-7,gx1,gy1-7],'#f2a33a',1.2);for(let i=0;i<=6;i++){const t=i/6;ln([lerp(gx0,gx1,t),lerp(gy0,gy1,t),lerp(gx0,gx1,t),lerp(gy0,gy1,t)-7],'#f2a33a',1);}
-      if(u>.8){const q=ease(seg(u,.8,.9));person(lerp(gx0,TX-57,q),lerp(gy0,TP_TOP-4,q)-1,'#f2c230',1);}}}
-  lab(cv.x+42,cwl-28,'人員運輸船 CTV',{dy:-40,a:band(u,.16,.34)*cv.a});
-  lab(TX-33,440,'技術人員登塔',{dx:-120,dy:24,a:band(u,.22,.36)});
-  lab(HUB.x,HUB.y-60,'偏航對風、葉片變槳',{dx:60,dy:-30,a:band(u,.34,.46)});
-  lab(OX,370,'海上變電站升壓',{dx:40,dy:-60,a:band(u,.43,.72)});
-  lab(880,bedY(880)+11,'陣列海纜',{dx:0,dy:-50,a:band(u,.43,.72)});
-  lab(1250,bedY(1250)+11,'輸出海纜',{dx:-10,dy:-60,a:band(u,.46,.74)});
-  lab(1600,380,'陸上變電站 → 電網',{dx:-30,dy:-60,a:band(u,.48,.78)});
-  lab(ss+190,swl-80,'運維母船 SOV',{dy:-34,a:band(u,.62,.82)});
-  lab(TX-110,TP_TOP-14,'動態補償舷梯',{dx:-40,dy:-60,a:band(u,.74,.92)});
-  lab(TX-70,610,'基礎成為人工魚礁',{dx:-80,dy:40,a:band(u,.52,.95)});
-}
-function fx11(u){
-  const pa=SC===11?seg(u,.4,.46):1;if(pa<=0)return;
-  const n=46,sp=140;
-  for(let i=0;i<n;i++){const l=((T*sp+i*PPATH.L/n)%PPATH.L);const p=ppAt(l);const hv=p.i>40;
-    const rg=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,11);rg.addColorStop(0,`rgba(255,${hv?190:228},${hv?60:110},${.8*pa})`);rg.addColorStop(1,'rgba(255,210,80,0)');ctx.fillStyle=rg;ctx.fillRect(p.x-11,p.y-11,22,22);circ(p.x,p.y,2.4,`rgba(255,248,210,${pa})`);}
-}
-function hud11(u){
-  hudPanel(236,176,'風機運轉狀態',seg(u,.34,.4),(w)=>{
-    const f=rotorW(),pw=15*ease(clamp(f*1.1));
-    hrow(50,'風速','11.4 m/s',w);hrow(76,'轉速',(7.4*f).toFixed(1)+' rpm',w);
-    hrow(102,'輸出功率',pw.toFixed(1)+' MW',w,'#f2c230');hbar(14,110,w-28,pw/15,'#f2c230');
-    hrow(140,'每轉一圈約發','34 度電',w);
-    const pt=tr(f>.9?'併網發電中':'啟動中');ctx.font=`700 11px ${FONT}`;rrp(14,150,Math.min(w-28,ctx.measureText(pt).width+20),20,10);ctx.fillStyle=f>.9?'#1f7f5c':'#4f6470';ctx.fill();htext(24,164,pt,11,'#fff',700);
-  });
-}
-
-/* ================= persistent structures ================= */
-function drawStructures(){
-  const c=SC;
-  if(c>6){drawJacket(OX,bedOX,JH,true);drawPins(OX,bedOX,1,0);drawTopside(OX,440,1);}
-  if(c>4)drawPile(TX,PILE_BOT,Math.PI/2,PILE_L,PILE_W);
-  if(c>5)drawTP(TX,TP_BOT);
-  if(c>=8){const w=wtivState();for(let k=0;k<3;k++){if(c>8||(w&&secState(k,w).m==='set'))drawTowerSec(TX,TP_TOP-k*HS,k);}}
-  if(c>=9){const w=wtivState();if(c>9||(w&&nacState(w).m==='set'))drawNacelle(TX,TW_TOP,c===9?seg(SU,.72,.8):0,c>=11&&(T%2)<1);}
-  if(c>=9){const n=nBlades();if(c>9||nacState(wtivState()).m==='set')drawRotor(HUB.x,HUB.y,rotorAng(),n);}
-}
-
-// KITS: marine, offshore-seq
-/* ================= EP12 併網運轉 ================= */
-const O=(c,p)=>{SC=c;SU=p;};const map=(u,a,b)=>lerp(a,b,u);
-ROT_T=()=>(SU-.34)*17;
-function cSide(p){O(11,p);drawOnshore(1);drawHDD(1);drawCables();school(TX+20,690,6,31,TT,20,1,'rgba(242,214,120,.8)');sc11(p);scWTIV();drawStructures();}
-const PCv=v=>v<3||v>25?0:v>=11?15:15*(v*v*v-27)/(1331-27);
-const EP={no:12,slug:'offshore-wind',seriesName:'離岸風場開發系列',total:13,t:'併網運轉',en:'Commissioning and operation',
-lede:'機械裝好了，風機還不算完成。這一集看技術人員如何登塔、依序送電與試運轉，風機如何自己判斷何時啟動、如何調整葉片角度，以及日後 25 年的維運怎麼進行。',
-facts:[['3','m/s','切入風速：風機開始發電'],['約 11','m/s','額定風速：達到滿載 15 MW'],['25','m/s','切出風速：葉片順槳、停機保護'],['0–90','°','變槳角度範圍；90° 時葉片像刀鋒般切風'],['97%+','可用率','離岸風機的典型可用率目標'],['70','m/s','颱風等級機型的設計極端陣風（10 分鐘平均 50 m/s）']],
-note:'說明：本集為教育用途示意動畫。功率曲線、切入切出風速與可用率為典型範例；抗颱設計等級依國際標準（如 IEC 61400 T 類）與機型而定。',
+const EP={no:19,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'港口與在地供應鏈',en:'Ports and the local supply chain',
+lede:'一座離岸風機的零件比大樓還大、比火車頭還重，海上安裝能不能順利，很大一部分在港口就決定了。這一集走進風電母港，看重件碼頭為什麼要特別強、預組裝場在岸上先做了什麼、安裝船怎麼裝船出港與等待天候窗口，再看台灣這幾年建立起來的在地供應鏈。',
+facts:[['50','t/m²','台中港 #5A、#5B 重件碼頭的設計承載力（台灣港務公司）'],
+['40','t/m²','台中港 #106 與新建 #37、#38 碼頭的設計承載力'],
+['30','ha','台中港每個預組裝區可專用的零組件儲放用地'],
+['4–7','組','自升式安裝船單趟可載運的風機組數，依船型與機組大小而定（示例）'],
+['4,000','t','台船與 DEME 合資、在高雄建造的「綠鯨號」起重能力'],
+['> 1.5','GW','高雄華新海纜廠可支應的離岸風電市場需求（報導值）']],
+note:'說明：本集為教育用途示意動畫，碼頭、船舶與零組件的比例都經過簡化，作業時間已壓縮。台中港 #5A、#5B（50 t/m²）、#106 與 #37、#38（40 t/m²）的設計承載力與每區約 30 公頃的儲放用地取自台灣港務公司與媒體公開資訊；「綠鯨號」起重能力 4,000 t 取自 CDWE 與 DEME 公開資料；華新高雄海纜廠依 2025 年 12 月開幕報導。一般碼頭承載力、履帶吊車接地壓力、吊裝次數、單趟載運組數、各月可作業比例、風速與浪高作業上限、航次時程皆為典型範例，並非特定案場或船舶的資料。',
+base:()=>portBase(),end:()=>{},
 shots:[
-{t:'人員運輸船與登塔',en:'Crew transfer',dur:12,side:true,
- d:'安裝船撤離後，人員運輸船（CTV）從港口載著技術人員出海。CTV 以船首的橡膠護舷頂住轉接段的靠船設施，引擎持續推力讓船身貼緊；技術人員掛上安全索，看準浪的起伏跨上爬梯，一路爬到工作平台。這一步只能在浪高約 1.5 公尺以下進行。',
- s:[[0,'安裝船撤離'],[.35,'人員運輸船頂住靠船設施'],[.6,'技術人員掛安全索，跨上爬梯'],[.85,'登上工作平台，進入塔內']],
- cam:u=>camMix({x:TX-160,y:400,s:1.1},{x:TX-60,y:440,s:1.8},ease(seg(u,.4,.6))),draw(u){cSide(map(u,0,.38));}},
-{t:'依序送電',en:'Energisation sequence',dur:13,
- d:'送電不是按一個開關就好，而是由陸地往海上一段一段進行。先由電網把電送到陸上變電站，再經輸出海纜送到海上變電站、讓主變壓器帶電；接著逐一送電給各條陣列海纜，最後才輪到每一部風機。每一步都要檢查保護電驛、絕緣與通訊，確認正常後才進行下一步，萬一出狀況也能立刻隔離。',
- s:[[0,'電網送電到陸上變電站'],[.2,'經輸出海纜送到海上變電站，主變壓器帶電'],[.4,'逐一送電給各條陣列海纜'],[.6,'每部風機完成安全與功能測試'],[.8,'風機同步併網，開始送出電力']],
+/* 1 ─────────────────────────────── 風電母港 */
+{t:'風電母港：零件在碼頭集結',en:'The marshalling harbour',dur:12,side:true,
+ d:'離岸風機的零件從各地工廠運到港口，在碼頭後方的儲放場集結：完整的塔架直立排開，機艙放在支架上，八十多公尺長的葉片疊在儲放架上。這些零件單件就重達數百噸，必須用自走式模組運輸車（SPMT）緩慢移動，再由自升式安裝船停靠重件碼頭裝船。台中港是台灣主要的風電母港，#5A、#5B 重件碼頭的設計承載力達每平方公尺 50 公噸。',
+ s:[[0,'風機零件在港口後方的儲放場集結'],[.25,'塔架直立排開，葉片疊在儲放架上'],[.5,'自走式模組運輸車把機艙慢慢移到碼頭邊'],[.76,'自升式安裝船停靠重件碼頭，準備裝船']],
+ cam:u=>camMix({x:1180,y:370,s:1.45},{x:800,y:400,s:1},ease(seg(u,.3,.7))),
  draw(u){
-  diagBG();const N=[['電網',160],['陸上變電站',440],['輸出海纜',720],['海上變電站',1000],['陣列海纜',1260],['風機',1480]];const st=[0,.1,.2,.3,.4,.6];
-  N.forEach((n,i)=>{const on=u>=st[i]+.05;const x=n[1];circ(x,300,50,on?'#f2c230':'rgba(255,255,255,.1)','rgba(255,255,255,.4)',2);wt(x,306,on?'帶電':'待命',18,on?'#13232e':'#fff',700,'center');wt(x,390,n[0],20,'#fff',700,'center');
-   if(i){const px=N[i-1][1];ln([px+52,300,x-52,300],on?'#f2c230':'rgba(255,255,255,.2)',on?5:2);if(on)for(let k=0;k<3;k++){const q=(TT*.6+k/3)%1;circ(lerp(px+52,x-52,q),300,5,'#fff');}}});
-  alphaDo(seg(u,.58,.64),()=>{card(260,470,1080,320,{bg:'rgba(7,27,39,.8)'});wt(290,512,'風機試運轉檢查（示例）',20,'#f2c230',700);
-   const L=['緊急停機與安全鏈','變槳系統三支葉片','偏航系統與扭纜限制','變流器與變壓器','併網同步與電能品質','遠端監控通訊'];
-   L.forEach((t,i)=>{const d=u>.62+i*.03;const x=290+(i%2)*530,y=565+Math.floor(i/2)*70;circ(x+10,y-7,11,d?'#7dffc4':'rgba(255,255,255,.2)');if(d)wt(x+10,y,'✓',16,'#13232e',700,'center');wt(x+34,y,t,20,'#fff',500);});});
- }},
-{t:'轉子啟動，電流上岸',en:'First power',dur:13,side:true,
- d:'控制系統確認風速超過切入值後，機艙偏航對準風向，葉片從順槳位置轉回工作角度，轉子開始加速，達到同步條件後併入電網。電力沿著陣列海纜流到海上變電站升壓，再經輸出海纜送上岸，進入陸上變電站併入電網，送往家家戶戶。',
- s:[[0,'偏航對風，葉片由順槳轉回工作角度'],[.3,'轉子加速，達到同步條件後併網'],[.55,'電力經陣列海纜送到海上變電站升壓'],[.8,'輸出海纜送上岸，併入電網']],
- cam:()=>({x:840,y:440,s:.93}),draw(u){cSide(map(u,.32,.62));},fx(u){O(11,map(u,.32,.62));fx11(SU);},hud(u){O(11,map(u,.32,.62));hud11(SU);}},
-{t:'風機怎麼控制自己',en:'Pitch and power control',dur:15,
- d:'風機的控制系統每秒做數十次判斷。風速低於 3 m/s 時待機；介於 3 到約 11 m/s 時，葉片維持最佳角度、轉速跟著風速變化，盡可能擷取最多能量；超過額定風速後，功率已到上限，控制系統把葉片逐漸轉離迎風角度（變槳），把多餘的風「放掉」，讓功率維持在 15 MW；風速超過 25 m/s 時，葉片轉到 90° 順槳、轉子停下，以保護結構。',
- s:[[0,'風速低於 3 m/s：待機'],[.2,'3–11 m/s：葉片維持最佳角度，盡量擷取能量'],[.45,'超過額定風速：變槳把多餘的風放掉，功率維持 15 MW'],[.75,'超過 25 m/s：葉片順槳 90°，轉子停下保護結構']],
- draw(u){
-  diagBG();const v=u<.2?lerp(0,3,u/.2):u<.45?lerp(3,11,(u-.2)/.25):u<.75?lerp(11,24.5,(u-.45)/.3):lerp(24.5,28,seg(u,.75,.85));
-  const c=chartBox(60,150,900,650,{title:'功率曲線與控制區間',x0:0,x1:30,y0:0,y1:17,xt:[0,5,10,15,20,25,30],yt:[0,5,10,15],xl:'風速（m/s）',yl:'功率（MW）',pt:86,pl:64,gx:6});
-  [[0,3,'待機','rgba(255,255,255,.04)'],[3,11,'最大功率追蹤','rgba(125,255,196,.08)'],[11,25,'變槳限功率','rgba(242,194,48,.08)'],[25,30,'停機','rgba(232,87,42,.1)']].forEach(z=>{box(c.X(z[0]),c.py,c.X(z[1])-c.X(z[0]),c.ph,z[3]);wt((c.X(z[0])+c.X(z[1]))/2,c.py+26,z[2],17,'rgba(227,236,238,.85)',600,'center');});
-  ctx.beginPath();for(let x=0;x<=30;x+=.1){const y=c.Y(PCv(x));x?ctx.lineTo(c.X(x),y):ctx.moveTo(c.X(x),y);}ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();
-  circ(c.X(v),c.Y(PCv(v)),10,'#f2c230','#13232e',3);
-  const pitch=v<3?90:v<11?0:v<=25?lerp(0,25,Math.pow((v-11)/14,.8)):90,rpm=v<3?0:v<11?lerp(4.5,7.5,(v-3)/8):v<=25?7.5:0;
-  card(1000,150,540,650,{bg:'rgba(7,27,39,.75)'});wt(1024,190,'控制系統即時狀態',20,'#f2c230',700);
-  const rows=[['風速',v.toFixed(1)+' m/s'],['輸出功率',PCv(v).toFixed(1)+' MW'],['轉速',rpm.toFixed(1)+' rpm'],['變槳角度',pitch.toFixed(0)+'°']];
-  rows.forEach((r,i)=>{wt(1024,250+i*50,r[0],20,'rgba(227,236,238,.8)',500);wt(1516,250+i*50,r[1],28,i===3?'#f2c230':'#fff',700,'right',COND);});
-  const cx=1270,cy=620;ln([cx-160,cy,cx+160,cy],'rgba(255,255,255,.3)',1);arrow(cx-220,cy-60,cx-150,cy-60,'rgba(125,200,220,.8)',3);wt(cx-220,cy-76,'風',18,'#7dc8dc',700);
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(pitch*Math.PI/180);ctx.beginPath();ctx.moveTo(-120,0);ctx.quadraticCurveTo(-60,-34,60,-12);ctx.lineTo(120,0);ctx.quadraticCurveTo(0,14,-120,0);ctx.fillStyle='#e9ecef';ctx.fill();ctx.restore();
-  wt(cx,cy+120,'葉片剖面（俯視）',17,'rgba(227,236,238,.7)',500,'center');
- }},
-{t:'運維母船與人工魚礁',en:'Operations and maintenance',dur:13,side:true,
- d:'風場營運期間，運維母船（SOV）長時間駐守在風場內，船上有技術人員的住艙、備品倉庫與工作坊。它的動態補償舷梯能即時抵銷船身隨浪起伏，讓人員像走平地一樣安全登上風機，比小船能在更大的浪況下作業。水面下，基礎與防淘刷石塊漸漸長滿藻類與貝類，吸引魚群聚集，成為人工魚礁。',
- s:[[0,'基礎與拋石漸漸長滿藻類與貝類，魚群聚集'],[.3,'運維母船駛入風場，長時間駐守'],[.55,'動態補償舷梯抵銷船身起伏，伸向風機'],[.8,'技術人員走過舷梯登塔，進行日常維護']],
- cam:()=>({x:TX-230,y:430,s:1.12}),draw(u){cSide(map(u,.5,1));},fx(u){O(11,map(u,.5,1));fx11(SU);}},
-{t:'25 年的維運',en:'Keeping it running',dur:13,
- d:'風場的維運分成三類。預防性維護依時程定期檢查螺栓預拉力、更換油品與濾網；狀態監測系統持續分析主軸承、齒輪與發電機的振動頻譜，在故障發生前提早預警；故障維修則由遠端控制中心判斷後派員處理。台灣還要面對颱風：抗颱機型在強風時讓葉片順槳、機艙偏航到最安全的角度，並以備用電源確保控制系統持續運作。',
- s:[[0,'預防性維護：依時程檢查螺栓、油品與濾網'],[.3,'狀態監測：分析振動頻譜，提早發現異常'],[.55,'遠端控制中心 24 小時監看每一部風機'],[.75,'颱風來襲：葉片順槳、機艙偏航，備用電源維持控制']],
+  const W=drawWTIV;W(R5,SEA-78,SBD);crane(R5-25,SEA-122,340,R5-150,SEA-200,{col:'#e9b21f'});
+  towerUp(960,QY);towerUp(1010,QY);
+  nacStand(1110,QY,.9);nacStand(1205,QY,.9);
+  bladeRack(1280,QY,3);
+  towerLying(1500,QY-26,1);
+  const sx=lerp(1560,1000,ease(seg(u,.42,.76)));spmt(sx,QY+20,130);nacStand(sx+4,QY+4,.9);
+  [[920,0],[1070,1],[1250,2],[1450,3]].forEach(([x,i])=>person(x+8*Math.sin(TT*.7+i),QY,i%2?'#e8572a':'#f2c230',3));
+  lab(1010,QY-HS*3,'完整塔架',{dx:-40,dy:-60,a:band(u,.04,.34),st:'l'});
+  lab(1350,QY-40,'葉片儲放架',{dx:40,dy:-90,a:band(u,.24,.5),st:'l'});
+  lab(sx,QY+10,'自走式模組運輸車（SPMT）',{dx:40,dy:70,a:band(u,.48,.76),st:'s'});
+  lab(1160,QY-40,'機艙',{dx:10,dy:-110,a:band(u,.08,.34)});
+  lab(R5-250,SEA-78,'自升式安裝船',{dx:-60,dy:-120,a:band(u,.74,1),st:'s'});
+  lab(QX+30,QY+10,'重件碼頭',{dx:60,dy:80,a:band(u,.76,1),st:'w'});
+ },
+ hud(u){hudPanel(240,154,'台中港重件碼頭（公開資料）',seg(u,.04,.1),w=>{
+  hrow(52,'#5A、#5B 承載力','50 t/m²',w,'#f2c230');hrow(78,'#106 承載力','40 t/m²',w);
+  hrow(104,'#37、#38 承載力','40 t/m²',w);hrow(132,'每區儲放用地','約 30 ha',w,'#7dffc4');});}},
+
+/* 2 ─────────────────────────────── 重件碼頭 */
+{t:'重件碼頭為什麼要特別強',en:'Why heavy-load quays',dur:13,
+ d:'一般碼頭主要承載貨櫃與散貨，設計承載力大約每平方公尺數公噸；風電零件卻集中在很小的面積上。大型履帶吊車吊起數百噸的機艙時，履帶下的接地壓力可達每平方公尺數十公噸，SPMT 與儲放架也把重量壓在局部地盤上。所以重件碼頭要加厚面版、改良後線地盤。安裝船若要在碼頭邊插腿頂升，前方的海床也要鋪設碎石墊，讓樁腿有穩固的支撐。',
+ s:[[0,'風電零件的重量集中在很小的面積上'],[.24,'履帶吊車吊重時，接地壓力可達每平方公尺數十噸'],[.5,'碼頭前方的碎石墊，支撐安裝船的樁腿'],[.72,'重件碼頭的承載力，是一般碼頭的十倍以上']],
  draw(u){
   diagBG();
-  card(60,150,700,300,{bg:'rgba(7,27,39,.75)'});wt(84,190,'預防性維護時程（示例）',20,'#f2c230',700);
-  const M=['1','2','3','4','5','6','7','8','9','10','11','12'];M.forEach((m,i)=>{const x=100+i*52;wt(x+20,240,trf('{m}月',{m}),15,'rgba(227,236,238,.7)',600,'center');});
-  [[4,7,'年度檢修','#f2c230'],[0,12,'遠端監控','#58b8d0'],[6,9,'螺栓抽檢','#7dffc4']].forEach((b,i)=>alphaDo(seg(u,.02+i*.05,.08+i*.05),()=>{box(100+b[0]*52,270+i*56,(b[1]-b[0])*52,34,b[3]);wt(104+b[0]*52,294+i*56,b[2],17,'#13232e',700);}));
-  const c=chartBox(800,150,740,300,{title:'狀態監測：主軸承振動頻譜',x0:0,x1:100,y0:0,y1:1,pt:60,pl:30,gx:5,gy:2,xl:'頻率'});
-  alphaDo(seg(u,.3,.36),()=>{ctx.beginPath();for(let f=0;f<=100;f+=.5){let a=.08+.05*hn(Math.round(f*2),1)+.5*Math.exp(-Math.pow((f-20)/1.2,2))+.3*Math.exp(-Math.pow((f-40)/1.2,2));const g=seg(u,.4,.5);a+=g*.55*Math.exp(-Math.pow((f-67)/1.4,2));f?ctx.lineTo(c.X(f),c.Y(Math.min(.98,a))):ctx.moveTo(c.X(f),c.Y(a));}ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.stroke();
-   if(u>.45){lab(c.X(67),c.Y(.6),'異常峰值：安排檢查',{dx:60,dy:-30,st:'w'});}});
-  card(60,490,700,310,{bg:'rgba(7,27,39,.75)'});wt(84,530,'遠端控制中心',20,'#f2c230',700);
-  alphaDo(seg(u,.55,.6),()=>{for(let i=0;i<30;i++){const x=110+(i%10)*62,y=580+Math.floor(i/10)*62,s=i===17&&u>.45&&u<.75?'#e8572a':'#7dffc4';circ(x,y,18,'rgba(255,255,255,.06)');circ(x,y,9,s);}wt(84,780,'綠：正常發電　紅：待檢查',16,'rgba(227,236,238,.75)',500);});
-  card(800,490,740,310,{bg:'rgba(7,27,39,.75)'});wt(824,530,'颱風模式',20,'#f2c230',700);
-  alphaDo(seg(u,.75,.8),()=>{const cx=1170,cy=680;for(let i=0;i<5;i++){const y=590+i*40,x=((TT*260+i*120)%700)+820;ln([x,y,x+60,y],'rgba(255,255,255,.4)',2);}
-   box(cx-6,cy-10,12,120,'#dfe5e8');box(cx-40,cy-30,80,26,'#e9ecef');for(let i=0;i<3;i++){const b=-Math.PI/2+i*TAU/3+Math.sin(TT*.5)*.02;drawBlade(cx-44,cy-17,b,90,'#e9ecef');}
-   wt(1516,580,'葉片順槳 90°',19,'#fff',700,'right');wt(1516,620,'機艙偏航到安全角度',19,'#fff',700,'right');wt(1516,660,'備用電源維持控制',19,'#fff',700,'right');});
+  card(60,160,960,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'重件碼頭剖面（示意）',20,'#f2c230',700);
+  const WX=420,AY=420,SL=440,BD=700;
+  ctx.save();rrp(61,161,958,638,14);ctx.clip();
+  box(61,SL,WX-61,BD-SL,'rgba(59,147,187,.35)');ln([61,SL,WX,SL],'rgba(255,255,255,.7)',1.5);
+  box(61,BD,WX-61,100,'rgba(181,154,106,.85)');
+  box(WX,AY+24,600,380,'rgba(143,124,92,.85)');
+  const gi=seg(u,.72,.8);if(gi>0)alphaDo(gi,()=>{for(let x=WX+40;x<1010;x+=46)ln([x,AY+40,x,AY+200],'rgba(242,194,48,.55)',3);wt(720,AY+230,'後線地盤改良',17,'#f2c230',700,'center');});
+  box(WX-30,AY,40,BD-AY+20,'#9aa3a8');box(WX-30,AY,600,24,'#c3c9cc');
+  ctx.restore();
+  /* 履帶吊車與機艙 */
+  const lk=ease(seg(u,.06,.3)),pv=crawler(760,AY),hy=lerp(AY-62,AY-200,lk);
+  const tip=crane(pv.x,pv.y,330,560,hy,{col:'#e9b21f',w:10});
+  ctx.save();ctx.translate(tip.x+20,tip.hy+56);ctx.scale(1.3,1.3);drawNacelle(0,0,0,false);ctx.restore();slings(tip.x,tip.hy,[tip.x-10,tip.hy+10,tip.x+50,tip.hy+10]);
+  const pk=seg(u,.2,.34),np=Math.round(30*pk);
+  if(pk>0){alphaDo(pk,()=>{for(let i=0;i<5;i++){const x=716+i*22,L=16+30*pk+4*Math.sin(TT*5+i);arrow(x,AY+26,x,AY+26+L,'#e8572a',3);}
+   tag(760,AY+120,trf('接地壓力 約 {n} t/m²',{n:np}),{size:16,bg:'#e8572a',fg:'#fff',align:'center'});});}
+  /* 樁腿與碎石墊 */
+  const jp=seg(u,.46,.54);
+  alphaDo(.35+.65*jp,()=>{wtivLeg(260,BD-4,'#f2c230',1);});
+  alphaDo(jp,()=>{poly([180,BD,200,BD-14,320,BD-14,340,BD],'#9aa3a8','rgba(0,0,0,.3)',1);const r=rng(7);for(let i=0;i<24;i++)circ(190+r()*140,BD-3-r()*10,2+r()*2,'#6f7a80');
+   for(let i=0;i<3;i++){const k=(TT*.8+i/3)%1;alphaDo(1-k,()=>arrow(260,BD-120+k*40,260,BD-80+k*40,'#f2c230',3));}
+   wt(260,BD+40,'碎石墊',17,'#fff',700,'center');wt(260,BD-440,'安裝船樁腿',17,'#f2c230',700,'center');});
+  alphaDo(1-seg(u,.44,.48),()=>{wt(240,BD-120,'港池',17,'rgba(227,236,238,.7)',600,'center');});
+  wt(840,AY-10,'碼頭面版',16,'rgba(227,236,238,.85)',600);
+  /* 右：承載力比較 */
+  card(1060,160,480,640,{bg:'rgba(7,27,39,.75)'});wt(1084,200,'碼頭設計承載力',20,'#f2c230',700);wt(1084,228,'單位：t/m²',15,'rgba(227,236,238,.7)',500);
+  const B=[['一般碼頭（示例）',3,'#58b8d0'],['台中港 #106',40,'#7dffc4'],['台中港 #37、#38',40,'#7dffc4'],['台中港 #5A、#5B',50,'#f2c230']];
+  B.forEach(([n,v,c],i)=>{const k=ease(seg(u,.6+i*.04,.7+i*.04)),y=280+i*110;wt(1084,y,n,18,'#fff',700);
+   box(1084,y+18,400,26,'rgba(255,255,255,.07)');box(1084,y+18,400*v/50*k,26,c);wt(1084+400*v/50*k+8,y+40,String(Math.round(v*k)),20,c,700,'left',COND);});
+  alphaDo(seg(u,.8,.86),()=>{wrap19(1084,720,'重件碼頭約為一般碼頭的十倍以上',430,17,'rgba(227,236,238,.9)',600,24);});
+ }},
+
+/* 3 ─────────────────────────────── 預組裝 */
+{t:'預組裝：在岸上先完成',en:'Pre-assembly on land',dur:13,side:true,
+ d:'塔架從工廠出來時是好幾段鋼管，每段長二、三十公尺。預組裝場用大型履帶吊車把塔段一節節疊起來，以數百支高強度螺栓鎖緊法蘭，在岸上組成完整塔架；機艙也常在岸上先裝好輪轂。岸上作業不受浪況影響、工具與人力充足，每多完成一個接合，海上就少一次吊裝，也少一段等天氣的時間，這正是預組裝場存在的理由。',
+ s:[[0,'塔架以數段鋼管的形式運到港口'],[.08,'履帶吊車把第二段塔段吊起，疊到底段上'],[.4,'工人鎖緊法蘭上的高強度螺栓'],[.5,'第三段吊上去，組成完整塔架'],[.82,'岸上多完成一個接合，海上就少一次吊裝']],
+ cam:u=>({x:1200,y:320,s:1.5}),
+ draw(u){
+  towerUp(T3X,QY,1);
+  const P=[path3(u,0),path3(u,1)];
+  P.forEach((p,i)=>{if(p.st!==1)drawTowerSec(p.x,p.y+HS,i+1);});
+  const act=P[1].st===1?P[1]:P[0];
+  const hk=P[0].st===1?{x:P[0].x,y:P[0].y-26}:P[1].st===1?{x:P[1].x,y:P[1].y-26}:u<.08?{x:T3S[0],y:QY-HS-26}:u<.48?{x:lerp(T3X,T3S[1],ease(seg(u,.4,.48))),y:lerp(QY-HS*2-26,QY-HS-26,ease(seg(u,.4,.48)))}:{x:T3X,y:lerp(QY-HS*3-26,QY-HS*3-90,ease(seg(u,.8,.9)))};
+  const pv=crawler(T3C,QY),tip=crane(pv.x,pv.y,560,hk.x,hk.y,{col:'#e9b21f',w:12});
+  P.forEach((p,i)=>{if(p.st===1){drawTowerSec(p.x,p.y+HS,i+1);slings(tip.x,tip.hy,[p.x-10,p.y,p.x+10,p.y]);}});
+  /* 鎖螺栓 */
+  [[.38,.48,QY-HS],[.78,.88,QY-HS*2]].forEach(([a,b,y])=>{const k=band(u,a,b);if(k>0)alphaDo(k,()=>{for(let i=0;i<4;i++){const s=Math.sin(TT*9+i*1.7)>.3;circ(T3X-14+i*9,y,2.5,s?'#f2c230':'#8f9aa1');}box(T3X-36,y+2,72,4,'#6f7a80');person(T3X-26,y+2,'#e8572a',2.4);person(T3X+26,y+2,'#f2c230',2.4);});});
+  nacStand(1340,QY,.9);
+  person(1130,QY,'#f2c230',3);person(1290,QY,'#e8572a',3);
+  alphaDo(seg(u,.86,.92),()=>{ln([T3X+34,QY,T3X+34,QY-HS*3],'#fff',1.5);ln([T3X+28,QY-HS*3,T3X+40,QY-HS*3],'#fff',1.5);wt(T3X+44,QY-HS*1.5,'完整塔架',17,'#fff',700);});
+  lab(T3X,QY-HS/2,'底段塔架',{dx:-90,dy:-20,a:band(u,0,.12)});
+  lab(act.x,act.y+HS/2,'塔段',{dx:-100,dy:-10,a:band(u,.1,.36),st:'s'});
+  lab(T3X,QY-HS,'法蘭螺栓',{dx:-110,dy:30,a:band(u,.38,.5),st:'w'});
+  lab(T3C,QY-30,'履帶式起重機',{dx:40,dy:-80,a:band(u,.52,.78),minor:true});
+  lab(1340,QY-30,'機艙＋輪轂',{dx:10,dy:-80,a:band(u,.82,1),st:'g'});
+ },
+ hud(u){hudPanel(230,128,'塔架預組裝（示例）',seg(u,.04,.1),w=>{const n=1+(u>=.38?1:0)+(u>=.78?1:0);
+  hrow(52,'已組塔段',trf('{n} / 3',{n}),w,'#f2c230');hbar(14,62,w-28,n/3,'#f2c230');
+  hrow(96,'海上塔架吊裝',trf('{n} 次',{n:4-n}),w,'#7dffc4');});}},
+
+/* 4 ─────────────────────────────── 岸上做越多 */
+{t:'岸上做越多，海上越省',en:'More on land, less at sea',dur:12,
+ d:'同樣一座風機，不同的組裝策略會讓海上吊裝次數差很多。如果塔段、機艙、輪轂與葉片全部逐件吊，每座要吊約八次；把塔架在岸上預組成一件、輪轂先裝在機艙上，就降到約五次。早期較小的機組甚至把機艙、輪轂和兩支葉片組成「兔耳式」一起吊。每次吊裝都要等風速夠低，吊得越少，安裝船在海上停留的時間就越短。',
+ s:[[0,'同一座風機，組裝策略不同，吊裝次數就不同'],[.3,'塔架預組、輪轂先裝上機艙，每座約吊五次'],[.54,'較小機組曾把兩支葉片一起吊上，只吊三次'],[.76,'每段海上作業，都要等待合適的天候']],
+ draw(u){
+  diagBG();
+  card(60,160,1000,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'每座風機的海上吊裝次數（典型）',20,'#f2c230',700);
+  const RW=[['逐件吊裝',['塔段','塔段','塔段','機艙','輪轂','葉片','葉片','葉片'],'#ff9d7a',.04],
+   ['塔架預組＋輪轂先裝',['塔架','機艙＋輪轂','葉片','葉片','葉片'],'#f2c230',.28],
+   ['兔耳式（較小機組）',['塔架','機艙＋兩葉片','葉片'],'#7dffc4',.52]];
+  RW.forEach(([n,L,c,t],i)=>{const y=260+i*170,a=seg(u,t,t+.04);if(a<=0)return;alphaDo(a,()=>{wt(84,y,n,19,'#fff',700);
+   let x=84;L.forEach((b,j)=>{const k=seg(u,t+.02+j*.02,t+.05+j*.02);if(k<=0)return;const bw=Math.max(84,wtw(b,15,700)+24);alphaDo(k,()=>{card(x,y+22,bw,52,{bg:'rgba(255,255,255,.06)',st:c,r:3});wt(x+bw/2,y+55,b,15,c,700,'center');});x+=bw+10;});
+   const cnt=Math.round(L.length*seg(u,t+.02,t+.05+L.length*.02));wt(1030,y+62,trf('{n} 次',{n:cnt}),34,c,700,'right',COND);});});
+  /* 右：從工廠到海上 */
+  card(1100,160,440,640,{bg:'rgba(7,27,39,.75)'});wt(1124,200,'從工廠到海上',20,'#f2c230',700);
+  const ST=['零組件工廠','港口儲放','岸上預組裝','裝船','海上安裝'];
+  ST.forEach((s,i)=>{const on=seg(u,.06+i*.12,.1+i*.12),y=250+i*104,sea=i===4;
+   card(1150,y,340,64,{bg:on>0?(sea?'rgba(232,87,42,.18)':'rgba(242,194,48,.14)'):'rgba(255,255,255,.04)',st:on>0?(sea?'#e8572a':'#f2c230'):'rgba(255,255,255,.16)',r:3});
+   wt(1320,y+40,s,19,on>0?'#fff':'rgba(227,236,238,.6)',700,'center');if(i<4)arrow(1320,y+68,1320,y+100,'rgba(227,236,238,.6)',2);});
+  alphaDo(seg(u,.78,.84),()=>{tag(1320,774,'受天候限制',{size:15,bg:'#e8572a',fg:'#fff',align:'center'});});
+ }},
+
+/* 5 ─────────────────────────────── 裝船出港 */
+{t:'裝船與出港',en:'Load-out and sail-away',dur:14,side:true,
+ d:'自升式安裝船靠上重件碼頭後，先放下樁腿把船身頂出水面，讓船在裝船時不隨潮汐與波浪起伏。船上的主吊車把塔架、機艙與葉片一件件吊上甲板，固定在專用的支架上；一趟可載運的組數依船型與機組大小而定，大約四到七組。裝完後船身降回水面、收起樁腿，出港前往風場，一趟往返通常要一到兩週。',
+ s:[[0,'安裝船頂升在碼頭邊，船身不隨潮汐起伏'],[.1,'主吊車把塔架一座座吊上甲板'],[.48,'機艙與葉片固定在甲板支架上'],[.62,'船身降回水面，收起樁腿'],[.76,'載著整批風機零件出港，前往風場']],
+ cam:u=>camMix({x:700,y:360,s:1.2},{x:560,y:400,s:1},ease(seg(u,.7,.9))),
+ draw(u){
+  const S=wtiv5(u),n=Math.min(4,Math.floor(seg(u,.08,.56)*4+1e-6)),cyc=(seg(u,.08,.56)*4)%1;
+  /* 碼頭上待裝的塔架 */
+  for(let i=n+(u<.56?1:0);i<4;i++)towerUp(QX+60+i*48,QY);
+  nacStand(1150,QY,.9);bladeRack(1230,QY,2);
+  drawWTIV(S.R,S.d,S.leg);
+  for(let i=0;i<4;i++){if(i<n){towerUp(S.R+SLOT5[i],S.d);}}
+  /* 甲板上的葉片與機艙 */
+  const nb=Math.min(4,Math.floor(seg(u,.3,.6)*4+1e-6));for(let i=0;i<nb;i++)drawBlade(S.R-400,S.d-44+i*9,0,120);
+  const nn=Math.min(4,Math.floor(seg(u,.36,.6)*4+1e-6));for(let i=0;i<nn;i++){ctx.save();ctx.translate(S.R-140+(i%2)*56,S.d-(i>1?40:0));ctx.scale(.55,.55);drawNacelle(0,0,0,false);ctx.restore();}
+  /* 吊運 */
+  let hk={x:S.R-150,y:S.d-200},hang=null;
+  if(u>.08&&u<.56&&n<4){const px=QX+60+n*48,dx=S.R+SLOT5[n],top=Math.min(QY,S.d)-HS*3-40;
+   const x=cyc<.25?px:cyc<.7?lerp(px,dx,ease((cyc-.25)/.45)):dx,yb=cyc<.25?lerp(QY,top+HS*3,ease(cyc/.25)):cyc<.7?top+HS*3:lerp(top+HS*3,S.d,ease((cyc-.7)/.3));
+   hk={x,y:yb-HS*3-22};hang={x,yb};}
+  const tip=crane(S.R-25,S.d-44,460,hk.x,hk.y,{col:'#e9b21f'});
+  if(hang){towerUp(hang.x,hang.yb);slings(tip.x,tip.hy,[hang.x-6,hang.yb-HS*3,hang.x+6,hang.yb-HS*3]);}
+  if(S.go>0)alphaDo(.7,()=>{for(let i=0;i<6;i++){const k=(TT*1.6+i/6)%1;ln([S.R+10+k*90,SEA+2+i*.5,S.R+34+k*90,SEA+2+i*.5],`rgba(255,255,255,${.8*(1-k)})`,1.4);}});
+  lab(S.R-240,S.d+10,'自升式安裝船',{dx:-40,dy:80,a:band(u,0,.2),st:'s'});
+  lab(S.R-440,Math.min(SBD-60,S.d+120),'樁腿',{dx:-70,dy:20,a:band(u,.02,.2)});
+  lab(tip.x,tip.y,'主吊車',{dx:60,dy:-40,a:band(u,.12,.36)});
+  lab(S.R-360,S.d-2*HS,'甲板上的塔架',{dx:-90,dy:-40,a:band(u,.4,.6),st:'l'});
+  lab(S.R-340,S.d-30,'葉片',{dx:-80,dy:-100,a:band(u,.5,.64),minor:true});
+  lab(S.R-440,S.leg-40,'收起樁腿',{dx:-80,dy:-30,a:band(u,.64,.76),st:'w'});
+ },
+ hud(u){hudPanel(230,128,'裝船（示例）',seg(u,.04,.1),w=>{const n=Math.min(4,Math.floor(seg(u,.08,.56)*4+1e-6));
+  hrow(52,'已裝組數',trf('{n} / 4 組',{n}),w,'#f2c230');hbar(14,62,w-28,n/4,'#f2c230');
+  hrow(96,'狀態',u<.62?'頂升裝船':u<.74?'降船收腿':'出港',w,'#7dffc4');
+  hrow(120,'單趟可載','4–7 組',w);});}},
+
+/* 6 ─────────────────────────────── 作業窗口 */
+{t:'作業窗口：等天氣的船隊',en:'Weather windows for installation',dur:13,
+ d:'安裝船的每一個動作都有天候上限：插腿頂升時示性波高通常要低於約 1.5 到 2 公尺，吊裝葉片時輪轂高度的風速通常要低於約 10 到 12 m/s（典型）。台灣海峽冬季東北季風強勁，夏季又有颱風，能作業的日子集中在春末到初秋。一趟航次除了裝船、航行與逐座安裝，還要把等天氣的時間算進去，這也是在港口就把工作做完的另一個理由。',
+ s:[[0,'每個海上動作都有風速與浪高的上限'],[.3,'東北季風與颱風，讓可作業的日子集中在春夏'],[.56,'一趟航次：裝船、航行、逐座安裝、返航'],[.8,'排程要把等天氣的時間算進去']],
+ draw(u){
+  diagBG();
+  const c=chartBox(60,160,760,440,{title:'台灣海峽各月可作業比例（示例）',x0:.5,x1:12.5,y0:0,y1:100,xt:[1,2,3,4,5,6,7,8,9,10,11,12],yt:[0,25,50,75,100],xl:'月份',pt:80,gx:12,gy:4});
+  wt(c.px-10,c.py-18,'%',15,'rgba(227,236,238,.7)',600,'right',COND);
+  WK6.forEach((v,i)=>{const k=ease(seg(u,.04+i*.015,.1+i*.015));if(k<=0)return;const x=c.X(i+1),bw=c.pw/12*.62,y=c.Y(v*k);box(x-bw/2,y,bw,c.Y(0)-y,v>=45?'#7dffc4':'#58b8d0');});
+  alphaDo(seg(u,.3,.36),()=>{wt(c.X(1.5),c.Y(92),'東北季風',16,'#ff9d7a',700,'center');wt(c.X(11.5),c.Y(92),'東北季風',16,'#ff9d7a',700,'center');wt(c.X(8),c.Y(92),'颱風季',16,'#ff9d7a',700,'center');
+   ctx.setLineDash([6,5]);ln([c.X(6.5),c.Y(84),c.X(9.5),c.Y(84)],'#ff9d7a',2);ctx.setLineDash([]);});
+  card(60,620,760,180,{bg:'rgba(7,27,39,.75)'});wt(84,656,'作業上限（典型）',19,'#f2c230',700);
+  [['插腿頂升','示性波高 ≤ 約 1.5–2 m','#7dc8dc'],['吊裝葉片','輪轂高度風速 ≤ 約 10–12 m/s','#f2c230'],['吊裝塔架與機艙','風速上限依吊重與機型而定','rgba(227,236,238,.85)']]
+   .forEach(([a,b,col],i)=>{const k=seg(u,.06+i*.06,.12+i*.06);alphaDo(k,()=>{wt(84,700+i*34,a,17,'#fff',700);wt(330,700+i*34,b,17,col,600);});});
+  /* 右：一趟航次甘特圖 */
+  const G=chartBox(860,160,680,640,{title:'一趟航次（示例，4 座）',x0:0,x1:12,y0:0,y1:8,xt:[0,2,4,6,8,10,12],yt:[],xl:'天',pl:150,pt:80,pb:120,gx:6,gy:8});
+  const TK=[['裝船',0,1.5,'#58b8d0'],['航行',1.5,2,'#b37cff'],['安裝 1',2,3.2,'#f2c230'],['等天氣',3.2,5,'#e8572a'],['安裝 2',5,6.2,'#f2c230'],['安裝 3',6.2,7.4,'#f2c230'],['安裝 4',7.8,9,'#f2c230'],['返航',9,9.5,'#b37cff']];
+  const gp=seg(u,.54,.84)*10;
+  TK.forEach(([n,a,b,col],i)=>{const y=G.Y(7.5-i)-14;wt(G.px-14,y+20,n,16,'rgba(227,236,238,.9)',600,'right');
+   const e=clamp((gp-a)/(b-a));if(e>0)box(G.X(a),y,(G.X(b)-G.X(a))*e,26,col);});
+  alphaDo(seg(u,.86,.92),()=>{wt(G.px+G.pw/2,G.py+G.ph+76,'等天氣也要算進時程',17,'#ff9d7a',700,'center');});
+ }},
+
+/* 7 ─────────────────────────────── 在地供應鏈 */
+{t:'台灣的在地供應鏈',en:"Taiwan's local supply chain",dur:13,
+ d:'台灣在產業關聯政策推動下，沿著西部港口建立起離岸風電供應鏈。台中港是風電母港，周邊有葉片廠、機艙組裝廠、塔架與鑄件廠；台北港與高雄興達港設有水下基礎製造廠；台船與比利時 DEME 合資，在高雄建造起重能力 4,000 公噸的重件安裝船「綠鯨號」；華新在高雄港與丹麥 NKT 合作的海纜廠於 2025 年底開幕。港口、工廠與船隊串在一起，就是一條從陸上到海上的產業鏈。',
+ s:[[0,'離岸風電供應鏈沿著西部港口展開'],[.2,'台中港：風電母港，葉片、機艙、塔架都在周邊'],[.44,'台北港與高雄：水下基礎製造'],[.62,'在高雄建造的重件安裝船與新建的海纜廠'],[.84,'港口、工廠與船隊，串成一條產業鏈']],
+ draw(u){
+  diagBG();
+  card(60,160,620,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'主要港口與產業（示意）',20,'#f2c230',700);
+  ctx.beginPath();MAP7.forEach(([lo,la],i)=>{const x=MX(lo),y=MY(la);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.closePath();
+  ctx.fillStyle='rgba(125,200,220,.16)';ctx.fill();ctx.strokeStyle='rgba(227,236,238,.6)';ctx.lineWidth=2;ctx.stroke();
+  wt(MX(119.75),MY(23.2),'台灣海峽',17,'rgba(125,200,220,.7)',600,'center');
+  /* 彰化外海風場 */
+  const r=rng(3);for(let i=0;i<26;i++){const x=MX(119.85+r()*.3),y=MY(23.85+r()*.4);circ(x,y,2.6,'rgba(242,194,48,.6)');}
+  wt(MX(119.82),MY(24.3)-4,'彰化外海風場',15,'#f2c230',700,'right');
+  const PT=[['台北港',121.37,25.15,.4],['台中港',120.5,24.28,.18],['高雄',120.28,22.62,.4]];
+  PT.forEach(([n,lo,la,t])=>{const x=MX(lo),y=MY(la),a=seg(u,t,t+.05);const pk=a>0?1+.25*Math.sin(TT*4):1;
+   circ(x,y,9*pk,a>0?'#e8572a':'rgba(227,236,238,.4)','#fff',1.5);wt(x+16,y+6,n,18,a>0?'#fff':'rgba(227,236,238,.6)',700);});
+  /* 右：產業卡片 */
+  const C=[['台中港',['風電母港與重件碼頭','葉片廠、機艙組裝廠','塔架、鑄件廠'],'#f2c230',.18],
+   ['台北港／高雄興達港',['水下基礎（單樁、套管）製造'],'#7dffc4',.42],
+   ['高雄',['綠鯨號：起重 4,000 t 的重件安裝船','華新與 NKT 合作的海纜廠（2025 年開幕）'],'#7dc8dc',.6]];
+  let y=160;
+  C.forEach(([n,L,col,t])=>{const h=64+L.length*34,a=seg(u,t,t+.06);alphaDo(.25+.75*a,()=>{card(720,y,820,h,{bg:'rgba(7,27,39,.8)',st:a>0?col:'rgba(255,255,255,.16)',r:3});
+   wt(744,y+38,n,20,col,700);L.forEach((s,j)=>{circ(752,y+70+j*34,4,col);wt(768,y+76+j*34,s,17,'rgba(227,236,238,.92)',500);});});y+=h+20;});
+  alphaDo(seg(u,.84,.9),()=>{card(720,y,820,Math.min(90,800-y),{bg:'rgba(242,194,48,.08)',st:'rgba(242,194,48,.45)',r:3});
+   wrap19(744,y+36,'從國產化要求到區塊開發的產業關聯方案，港口是串起整條產業鏈的節點',780,17,'#fff',600,24);});
  }}
 ]};
 
-/* EP12 translations: Traditional Chinese → [English, Japanese] */
+/* EP19 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"離岸風場開發系列": [
-"Offshore Wind Development Series",
-"洋上風力開発シリーズ"
-],
-"併網運轉": [
-"Commissioning and operation",
-"系統連系と運転"
-],
-"機械裝好了，風機還不算完成。這一集看技術人員如何登塔、依序送電與試運轉，風機如何自己判斷何時啟動、如何調整葉片角度，以及日後 25 年的維運怎麼進行。": [
-"With the machinery installed, the turbine is still not finished. This episode shows how technicians climb aboard, energise and commission in sequence, how the turbine decides for itself when to start and how to set its blade angles, and how the next 25 years of operation and maintenance work.",
-"機械の据付が終わっても、風車はまだ完成ではありません。このエピソードでは、作業員の乗り移り、順序立てた受電と試運転、風車が自ら起動のタイミングやブレード角度を判断する仕組み、そしてその後25年間の運転保守の進め方を見ていきます。"
-],
-"切入風速：風機開始發電": [
-"Cut-in wind speed: the turbine starts generating",
-"カットイン風速：発電を開始"
-],
-"約 11": [
-"about 11",
-"約 11"
-],
-"額定風速：達到滿載 15 MW": [
-"Rated wind speed: full output of 15 MW",
-"定格風速：定格出力 15 MW に到達"
-],
-"切出風速：葉片順槳、停機保護": [
-"Cut-out wind speed: blades feather and the turbine shuts down",
-"カットアウト風速：ブレードをフェザリングして停止保護"
-],
-"變槳角度範圍；90° 時葉片像刀鋒般切風": [
-"Pitch range; at 90° the blades slice the wind edge-on",
-"ピッチ角の範囲。90° でブレードは刃のように風を切る"
-],
-"可用率": [
-"Availability",
-"稼働率"
-],
-"離岸風機的典型可用率目標": [
-"Typical availability target for offshore turbines",
-"洋上風車の一般的な稼働率目標"
-],
-"颱風等級機型的設計極端陣風（10 分鐘平均 50 m/s）": [
-"Design extreme gust for typhoon-class turbines (10-minute mean 50 m/s)",
-"台風クラス機の設計極値ガスト（10分平均 50 m/s）"
-],
-"說明：本集為教育用途示意動畫。功率曲線、切入切出風速與可用率為典型範例；抗颱設計等級依國際標準（如 IEC 61400 T 類）與機型而定。": [
-"Note: this episode is an educational schematic. The power curve, cut-in and cut-out speeds and availability are typical examples; typhoon design classes follow international standards (such as IEC 61400 class T) and the turbine model.",
-"注：本エピソードは教育用の模式アニメーションです。パワーカーブ、カットイン・カットアウト風速、稼働率は典型的な例です。耐台風設計のクラスは国際規格（IEC 61400 T クラスなど）と機種によって決まります。"
-],
-"人員運輸船與登塔": [
-"Crew transfer",
-"作業員輸送船と乗り移り"
-],
-"安裝船撤離後，人員運輸船（CTV）從港口載著技術人員出海。CTV 以船首的橡膠護舷頂住轉接段的靠船設施，引擎持續推力讓船身貼緊；技術人員掛上安全索，看準浪的起伏跨上爬梯，一路爬到工作平台。這一步只能在浪高約 1.5 公尺以下進行。": [
-"Once the installation vessel has gone, a crew transfer vessel (CTV) brings technicians out from port. The CTV pushes its rubber bow fender against the TP's boat landing, keeping engine thrust on to hold itself there; technicians clip on their safety lines, time the swell and step onto the ladder, then climb to the working platform. This is only possible with waves below about 1.5 m.",
-"据付船が離れると、作業員輸送船（CTV）が港から作業員を乗せて出航します。CTV は船首のゴム製フェンダーを TP のボートランディングに押し当て、エンジンの推力をかけ続けて船体を密着させます。作業員は安全索を掛け、波の上下のタイミングを見てはしごに乗り移り、作業デッキまで登ります。この作業は波高が約 1.5 m 以下のときにしかできません。"
-],
-"安裝船撤離": [
-"The installation vessel leaves",
-"据付船が離脱"
-],
-"人員運輸船頂住靠船設施": [
-"The crew transfer vessel pushes against the boat landing",
-"作業員輸送船がボートランディングに船首を押し当てる"
-],
-"技術人員掛安全索，跨上爬梯": [
-"Technicians clip on safety lines and step onto the ladder",
-"作業員が安全索を掛け、はしごに乗り移る"
-],
-"登上工作平台，進入塔內": [
-"Up to the working platform and into the tower",
-"作業デッキに上がり、タワー内へ"
-],
-"依序送電": [
-"Energisation sequence",
-"順序立てた受電"
-],
-"送電不是按一個開關就好，而是由陸地往海上一段一段進行。先由電網把電送到陸上變電站，再經輸出海纜送到海上變電站、讓主變壓器帶電；接著逐一送電給各條陣列海纜，最後才輪到每一部風機。每一步都要檢查保護電驛、絕緣與通訊，確認正常後才進行下一步，萬一出狀況也能立刻隔離。": [
-"Energising is not just flipping one switch; it proceeds step by step from land out to sea. First the grid feeds the onshore substation, then the export cables carry power to the offshore substation to energise the main transformers; next each array cable is energised in turn, and only then each turbine. At every step protection relays, insulation and communications are checked before moving on, so any fault can be isolated at once.",
-"受電はスイッチを1つ入れれば済むものではなく、陸から海へ一段ずつ進めます。まず電力系統から陸上変電所へ送電し、次に送電ケーブルで洋上変電所へ送って主変圧器を充電します。続いてアレイケーブルを1回線ずつ充電し、最後に各風車の番になります。各段階で保護リレー、絶縁、通信を確認し、正常であれば次へ進みます。異常があればすぐに切り離せます。"
-],
-"電網送電到陸上變電站": [
-"The grid energises the onshore substation",
-"電力系統から陸上変電所へ送電"
-],
-"經輸出海纜送到海上變電站，主變壓器帶電": [
-"The export cables feed the offshore substation; the main transformers go live",
-"送電ケーブルで洋上変電所へ送り、主変圧器を充電"
-],
-"逐一送電給各條陣列海纜": [
-"Each array cable is energised in turn",
-"アレイケーブルを1回線ずつ充電"
-],
-"每部風機完成安全與功能測試": [
-"Each turbine passes its safety and function tests",
-"各風車が安全試験と機能試験を完了"
-],
-"風機同步併網，開始送出電力": [
-"Turbines synchronise with the grid and start exporting",
-"風車が系統に同期して並列し、送電を開始"
-],
-"電網": [
-"Grid",
-"電力系統"
-],
-"風機": [
-"Turbines",
-"風車"
-],
-"帶電": [
-"Live",
-"充電"
-],
-"待命": [
-"Standby",
-"待機"
-],
-"風機試運轉檢查（示例）": [
-"Turbine commissioning checks (examples)",
-"風車の試運転チェック（例）"
-],
-"緊急停機與安全鏈": [
-"Emergency stop and safety chain",
-"非常停止と安全回路"
-],
-"變槳系統三支葉片": [
-"Pitch system, all three blades",
-"ピッチシステム（ブレード3枚）"
-],
-"偏航系統與扭纜限制": [
-"Yaw system and cable-twist limits",
-"ヨーシステムとケーブルねじれ制限"
-],
-"變流器與變壓器": [
-"Converter and transformer",
-"コンバーターと変圧器"
-],
-"併網同步與電能品質": [
-"Grid synchronisation and power quality",
-"系統同期と電力品質"
-],
-"遠端監控通訊": [
-"Remote monitoring communications",
-"遠隔監視の通信"
-],
-"轉子啟動，電流上岸": [
-"First power",
-"ロータ起動、電気が陸へ"
-],
-"控制系統確認風速超過切入值後，機艙偏航對準風向，葉片從順槳位置轉回工作角度，轉子開始加速，達到同步條件後併入電網。電力沿著陣列海纜流到海上變電站升壓，再經輸出海纜送上岸，進入陸上變電站併入電網，送往家家戶戶。": [
-"Once the controller confirms the wind is above cut-in, the nacelle yaws into the wind, the blades pitch from feathered back to their working angle, and the rotor speeds up until it can synchronise with the grid. Power flows along the array cables to the offshore substation to be stepped up, then along the export cables ashore to the onshore substation and into the grid, and on to homes.",
-"制御システムが風速のカットイン値超えを確認すると、ナセルがヨー旋回して風に正対し、ブレードはフェザリング位置から運転角度に戻り、ロータが加速して同期条件を満たすと系統に並列します。電気はアレイケーブルを通って洋上変電所で昇圧され、送電ケーブルで陸へ送られ、陸上変電所から電力系統に入り、各家庭へ届きます。"
-],
-"偏航對風，葉片由順槳轉回工作角度": [
-"The nacelle yaws into the wind; the blades pitch from feathered to working angle",
-"ヨー旋回で風に正対し、ブレードがフェザリングから運転角度へ"
-],
-"轉子加速，達到同步條件後併網": [
-"The rotor speeds up and synchronises with the grid",
-"ロータが加速し、同期条件を満たして系統並列"
-],
-"電力經陣列海纜送到海上變電站升壓": [
-"Power flows along the array cables to the substation to be stepped up",
-"電気がアレイケーブルで洋上変電所へ送られ昇圧"
-],
-"輸出海纜送上岸，併入電網": [
-"The export cables carry it ashore and into the grid",
-"送電ケーブルで陸へ送り、系統に連系"
-],
-"風機怎麼控制自己": [
-"Pitch and power control",
-"風車はどうやって自らを制御するのか"
-],
-"風機的控制系統每秒做數十次判斷。風速低於 3 m/s 時待機；介於 3 到約 11 m/s 時，葉片維持最佳角度、轉速跟著風速變化，盡可能擷取最多能量；超過額定風速後，功率已到上限，控制系統把葉片逐漸轉離迎風角度（變槳），把多餘的風「放掉」，讓功率維持在 15 MW；風速超過 25 m/s 時，葉片轉到 90° 順槳、轉子停下，以保護結構。": [
-"The turbine's controller makes dozens of decisions a second. Below 3 m/s it waits; between 3 and about 11 m/s the blades hold their optimum angle and rotor speed follows the wind to capture as much energy as possible; above rated wind speed, power is at its limit, so the controller gradually pitches the blades out of the wind to shed the excess and hold output at 15 MW; above 25 m/s the blades feather to 90° and the rotor stops to protect the structure.",
-"風車の制御システムは1秒間に数十回の判断を行います。風速 3 m/s 未満では待機し、3〜約 11 m/s ではブレードを最適角度に保ち、回転数を風速に合わせてできるだけ多くのエネルギーを取り込みます。定格風速を超えると出力は上限に達しているため、制御システムはブレードを少しずつ風から逸らし（ピッチ制御）、余分な風を「逃がして」出力を 15 MW に保ちます。25 m/s を超えるとブレードを 90° のフェザリング位置にしてロータを止め、構造を守ります。"
-],
-"風速低於 3 m/s：待機": [
-"Below 3 m/s: standby",
-"3 m/s 未満：待機"
-],
-"3–11 m/s：葉片維持最佳角度，盡量擷取能量": [
-"3–11 m/s: blades hold their optimum angle to capture maximum energy",
-"3〜11 m/s：ブレードを最適角度に保ち、最大限エネルギーを取り込む"
-],
-"超過額定風速：變槳把多餘的風放掉，功率維持 15 MW": [
-"Above rated: pitching sheds the excess wind, holding 15 MW",
-"定格風速超え：ピッチ制御で余分な風を逃がし、15 MW を維持"
-],
-"超過 25 m/s：葉片順槳 90°，轉子停下保護結構": [
-"Above 25 m/s: blades feather to 90° and the rotor stops to protect the structure",
-"25 m/s 超え：ブレードを 90° フェザリングし、ロータを止めて構造を保護"
-],
-"功率曲線與控制區間": [
-"Power curve and control regions",
-"パワーカーブと制御領域"
-],
-"風速（m/s）": [
-"Wind speed (m/s)",
-"風速（m/s）"
-],
-"功率（MW）": [
-"Power (MW)",
-"出力（MW）"
-],
-"待機": [
-"Standby",
-"待機"
-],
-"最大功率追蹤": [
-"Maximum power tracking",
-"最大出力追従"
-],
-"變槳限功率": [
-"Pitch-limited power",
-"ピッチによる出力制限"
-],
-"停機": [
-"Shutdown",
-"停止"
-],
-"控制系統即時狀態": [
-"Live controller status",
-"制御システムのリアルタイム状態"
-],
-"變槳角度": [
-"Pitch angle",
-"ピッチ角"
-],
-"風": [
-"Wind",
-"風"
-],
-"葉片剖面（俯視）": [
-"Blade section (top view)",
-"ブレード断面（上から見た図）"
-],
-"運維母船與人工魚礁": [
-"Operations and maintenance",
-"SOV と人工魚礁"
-],
-"風場營運期間，運維母船（SOV）長時間駐守在風場內，船上有技術人員的住艙、備品倉庫與工作坊。它的動態補償舷梯能即時抵銷船身隨浪起伏，讓人員像走平地一樣安全登上風機，比小船能在更大的浪況下作業。水面下，基礎與防淘刷石塊漸漸長滿藻類與貝類，吸引魚群聚集，成為人工魚礁。": [
-"While the wind farm operates, a service operation vessel (SOV) stays on site for long periods, with cabins for technicians, a spare-parts store and workshops. Its motion-compensated gangway cancels the ship's movement in the waves in real time, so people walk safely onto the turbine as if on level ground, in rougher seas than small boats can manage. Below water, the foundations and scour rock gradually grow over with algae and shellfish, drawing fish and becoming artificial reefs.",
-"風力発電所の運転中は、保守支援船（SOV）が長期間発電所内に常駐します。船には作業員の居室、予備品倉庫、作業場があります。動揺補正ギャングウェイが波による船体の揺れをリアルタイムに打ち消し、作業員は平地を歩くように安全に風車へ乗り移れるため、小型船より大きな波の中でも作業できます。水面下では、基礎や洗掘防止の石に藻類や貝類がしだいに付着し、魚が集まって人工魚礁になります。"
-],
-"基礎與拋石漸漸長滿藻類與貝類，魚群聚集": [
-"Foundations and rock grow over with algae and shellfish, and fish gather",
-"基礎と捨石に藻類や貝類が付着し、魚が集まる"
-],
-"運維母船駛入風場，長時間駐守": [
-"The service vessel arrives to stay on site long-term",
-"SOV が発電所に入り、長期間常駐"
-],
-"動態補償舷梯抵銷船身起伏，伸向風機": [
-"The motion-compensated gangway cancels the swell and reaches the turbine",
-"動揺補正ギャングウェイが船の揺れを打ち消し、風車へ伸びる"
-],
-"技術人員走過舷梯登塔，進行日常維護": [
-"Technicians walk across to the turbine for routine maintenance",
-"作業員がギャングウェイを渡って風車に乗り移り、日常保守を行う"
-],
-"25 年的維運": [
-"Keeping it running",
-"25 年間の運転保守"
-],
-"風場的維運分成三類。預防性維護依時程定期檢查螺栓預拉力、更換油品與濾網；狀態監測系統持續分析主軸承、齒輪與發電機的振動頻譜，在故障發生前提早預警；故障維修則由遠端控制中心判斷後派員處理。台灣還要面對颱風：抗颱機型在強風時讓葉片順槳、機艙偏航到最安全的角度，並以備用電源確保控制系統持續運作。": [
-"Wind-farm maintenance falls into three kinds. Preventive maintenance follows a schedule to check bolt preload and change oils and filters; condition monitoring continuously analyses the vibration spectra of main bearings, gears and generators to warn before a failure; corrective maintenance is diagnosed by the remote control centre, which then sends a team. Taiwan also has to face typhoons: in strong winds, typhoon-class turbines feather their blades, yaw the nacelle to the safest angle and use backup power to keep the controller running.",
-"風力発電所の保守は3種類に分けられます。予防保全はスケジュールに沿ってボルトの予張力を点検し、オイルやフィルターを交換します。状態監視システムは主軸受、ギア、発電機の振動スペクトルを常に解析し、故障が起きる前に警告します。故障時の修理は遠隔制御センターが判断してから作業員を派遣します。台湾では台風にも備えなければなりません。耐台風機は強風時にブレードをフェザリングし、ナセルを最も安全な角度にヨー旋回させ、予備電源で制御システムの動作を維持します。"
-],
-"預防性維護：依時程檢查螺栓、油品與濾網": [
-"Preventive maintenance: scheduled checks of bolts, oils and filters",
-"予防保全：スケジュールに沿ってボルト、オイル、フィルターを点検"
-],
-"狀態監測：分析振動頻譜，提早發現異常": [
-"Condition monitoring: vibration spectra reveal problems early",
-"状態監視：振動スペクトルを解析し、異常を早期発見"
-],
-"遠端控制中心 24 小時監看每一部風機": [
-"The remote control centre watches every turbine around the clock",
-"遠隔制御センターが24時間すべての風車を監視"
-],
-"颱風來襲：葉片順槳、機艙偏航，備用電源維持控制": [
-"Typhoon: blades feather, the nacelle yaws, backup power keeps control alive",
-"台風接近：ブレードをフェザリング、ナセルをヨー旋回、予備電源で制御を維持"
-],
-"預防性維護時程（示例）": [
-"Preventive maintenance schedule (example)",
-"予防保全スケジュール（例）"
-],
-"{m}月": [
-"{m}",
-"{m}月"
-],
-"年度檢修": [
-"Annual service",
-"年次点検"
-],
-"遠端監控": [
-"Remote monitoring",
-"遠隔監視"
-],
-"螺栓抽檢": [
-"Bolt spot checks",
-"ボルト抜き取り検査"
-],
-"狀態監測：主軸承振動頻譜": [
-"Condition monitoring: main bearing vibration spectrum",
-"状態監視：主軸受の振動スペクトル"
-],
-"頻率": [
-"Frequency",
-"周波数"
-],
-"異常峰值：安排檢查": [
-"Abnormal peak: inspection scheduled",
-"異常ピーク：点検を手配"
-],
-"遠端控制中心": [
-"Remote control centre",
-"遠隔制御センター"
-],
-"綠：正常發電　紅：待檢查": [
-"Green: generating normally   Red: needs checking",
-"緑：正常発電　赤：点検待ち"
-],
-"颱風模式": [
-"Typhoon mode",
-"台風モード"
-],
-"葉片順槳 90°": [
-"Blades feathered to 90°",
-"ブレードを 90° フェザリング"
-],
-"機艙偏航到安全角度": [
-"Nacelle yawed to a safe angle",
-"ナセルを安全な角度へヨー旋回"
-],
-"備用電源維持控制": [
-"Backup power keeps control running",
-"予備電源で制御を維持"
-]
+"離岸風場開發系列":["Offshore Wind Development Series","洋上風力開発シリーズ"],
+"港口與在地供應鏈":["Ports and the local supply chain","港湾と国内サプライチェーン"],
+"一座離岸風機的零件比大樓還大、比火車頭還重，海上安裝能不能順利，很大一部分在港口就決定了。這一集走進風電母港，看重件碼頭為什麼要特別強、預組裝場在岸上先做了什麼、安裝船怎麼裝船出港與等待天候窗口，再看台灣這幾年建立起來的在地供應鏈。":["The parts of an offshore wind turbine are bigger than buildings and heavier than locomotives, and whether installation at sea goes smoothly is largely decided in port. This episode visits a marshalling harbour to see why heavy-load quays must be so strong, what the pre-assembly yard finishes on land, how an installation vessel loads out, sails and waits for weather windows, and the local supply chain Taiwan has built in recent years.","洋上風車の部品はビルより大きく、機関車より重く、洋上据付がうまくいくかどうかは、かなりの部分が港で決まります。本編では風力発電の基地港に入り、重量物岸壁がなぜ特に強くなければならないのか、プレアセンブリヤードが陸上で何を済ませるのか、据付船がどのように積み込み、出港し、作業可能な気象条件を待つのかを見て、さらに台湾がここ数年で築いてきた国内サプライチェーンを紹介します。"],
+/* facts */
+"台中港 #5A、#5B 重件碼頭的設計承載力（台灣港務公司）":["Design load capacity of heavy-load wharves #5A and #5B at Taichung Port (Taiwan International Ports Corporation)","台中港 #5A・#5B 重量物岸壁の設計荷重（台湾港務公司）"],
+"台中港 #106 與新建 #37、#38 碼頭的設計承載力":["Design load capacity of wharf #106 and the new wharves #37 and #38 at Taichung Port","台中港 #106 と新設 #37・#38 岸壁の設計荷重"],
+"台中港每個預組裝區可專用的零組件儲放用地":["Dedicated component storage land for each pre-assembly site at Taichung Port","台中港の各プレアセンブリ区画が専用で使える部品保管用地"],
+"組":["sets","セット"],
+"自升式安裝船單趟可載運的風機組數，依船型與機組大小而定（示例）":["Turbine sets a jack-up installation vessel carries per trip, depending on vessel and turbine size (example)","ジャッキアップ据付船が1航海で運べる風車のセット数。船型と機種の大きさによる（例）"],
+"台船與 DEME 合資、在高雄建造的「綠鯨號」起重能力":["Crane capacity of Green Jade, built in Kaohsiung by the CSBC–DEME joint venture","CSBC と DEME の合弁が高雄で建造した「グリーン・ジェイド」のクレーン能力"],
+"高雄華新海纜廠可支應的離岸風電市場需求（報導值）":["Offshore wind demand the Walsin submarine cable plant in Kaohsiung can supply (reported)","高雄の華新（Walsin）海底ケーブル工場が供給できる洋上風力の需要（報道値）"],
+"說明：本集為教育用途示意動畫，碼頭、船舶與零組件的比例都經過簡化，作業時間已壓縮。台中港 #5A、#5B（50 t/m²）、#106 與 #37、#38（40 t/m²）的設計承載力與每區約 30 公頃的儲放用地取自台灣港務公司與媒體公開資訊；「綠鯨號」起重能力 4,000 t 取自 CDWE 與 DEME 公開資料；華新高雄海纜廠依 2025 年 12 月開幕報導。一般碼頭承載力、履帶吊車接地壓力、吊裝次數、單趟載運組數、各月可作業比例、風速與浪高作業上限、航次時程皆為典型範例，並非特定案場或船舶的資料。":["Note: This is a schematic animation for education; the proportions of quays, vessels and components are simplified and working times are compressed. The design load capacities of Taichung Port wharves #5A and #5B (50 t/m²), #106 and #37/#38 (40 t/m²) and the roughly 30 ha of storage land per site are from Taiwan International Ports Corporation and public media reports; the 4,000 t crane capacity of Green Jade is from CDWE and DEME public information; the Walsin cable plant in Kaohsiung follows reports of its opening in December 2025. Ordinary quay capacity, crawler crane ground pressure, lift counts, sets per trip, monthly workable ratios, wind and wave limits and the voyage schedule are typical examples, not data for any specific project or vessel.","説明：本編は教育用の模式アニメーションで、岸壁・船舶・部品の比率は簡略化し、作業時間は短縮しています。台中港 #5A・#5B（50 t/m²）、#106 と #37・#38（40 t/m²）の設計荷重と各区画約 30 ha の保管用地は台湾港務公司と報道の公開情報、「グリーン・ジェイド」のクレーン能力 4,000 t は CDWE と DEME の公開資料、高雄の華新海底ケーブル工場は 2025 年 12 月の開業報道によります。一般岸壁の荷重、クローラークレーンの接地圧、吊上げ回数、1航海のセット数、月別の作業可能率、風速と波高の作業限界、航海日程は典型的な例であり、特定の案件や船舶のデータではありません。"],
+/* shot 1 */
+"風電母港：零件在碼頭集結":["The marshalling harbour","基地港：部品が岸壁に集結"],
+"離岸風機的零件從各地工廠運到港口，在碼頭後方的儲放場集結：完整的塔架直立排開，機艙放在支架上，八十多公尺長的葉片疊在儲放架上。這些零件單件就重達數百噸，必須用自走式模組運輸車（SPMT）緩慢移動，再由自升式安裝船停靠重件碼頭裝船。台中港是台灣主要的風電母港，#5A、#5B 重件碼頭的設計承載力達每平方公尺 50 公噸。":["Turbine components arrive from factories and gather in the storage yard behind the quay: complete towers stand in rows, nacelles sit on stands, and blades more than 80 m long are stacked on racks. A single piece can weigh several hundred tonnes, so it is moved slowly on self-propelled modular transporters (SPMTs) before a jack-up installation vessel berths at the heavy-load quay to load it. Taichung Port is Taiwan's main offshore wind marshalling harbour, and its heavy-load wharves #5A and #5B are designed for 50 tonnes per square metre.","洋上風車の部品は各地の工場から港へ運ばれ、岸壁背後の保管ヤードに集結します。完成したタワーが立ち並び、ナセルは架台に置かれ、長さ80 mを超えるブレードはラックに積まれます。部品1点で数百トンにもなるため、自走式モジュール台車（SPMT）でゆっくり移動させ、重量物岸壁に着いたジャッキアップ据付船に積み込みます。台中港は台湾の主要な洋上風力の基地港で、#5A・#5B 重量物岸壁の設計荷重は 1 m² あたり 50 トンに達します。"],
+"風機零件在港口後方的儲放場集結":["Turbine parts gather in the yard behind the quay","風車部品が港の保管ヤードに集結"],
+"塔架直立排開，葉片疊在儲放架上":["Towers stand in rows; blades rest on racks","タワーが立ち並び、ブレードはラックに"],
+"自走式模組運輸車把機艙慢慢移到碼頭邊":["An SPMT slowly moves a nacelle to the quayside","SPMT がナセルをゆっくり岸壁へ運ぶ"],
+"自升式安裝船停靠重件碼頭，準備裝船":["A jack-up vessel berths at the heavy-load quay to load","ジャッキアップ船が重量物岸壁に着岸し、積込み準備"],
+"完整塔架":["Complete tower","完成タワー"],
+"葉片儲放架":["Blade racks","ブレードラック"],
+"自走式模組運輸車（SPMT）":["SPMT transporter","自走式台車（SPMT）"],
+"機艙":["Nacelle","ナセル"],
+"自升式安裝船":["Jack-up vessel","ジャッキアップ据付船"],
+"重件碼頭":["Heavy-load quay","重量物岸壁"],
+"台中港重件碼頭（公開資料）":["Taichung heavy quays (public data)","台中港の重量物岸壁（公開資料）"],
+"#5A、#5B 承載力":["#5A, #5B load","#5A・#5B 荷重"],
+"#106 承載力":["#106 load","#106 荷重"],
+"#37、#38 承載力":["#37, #38 load","#37・#38 荷重"],
+"每區儲放用地":["Storage per site","区画ごとの保管地"],
+"約 30 ha":["~30 ha","約 30 ha"],
+/* shot 2 */
+"重件碼頭為什麼要特別強":["Why heavy-load quays","重量物岸壁はなぜ強いのか"],
+"一般碼頭主要承載貨櫃與散貨，設計承載力大約每平方公尺數公噸；風電零件卻集中在很小的面積上。大型履帶吊車吊起數百噸的機艙時，履帶下的接地壓力可達每平方公尺數十公噸，SPMT 與儲放架也把重量壓在局部地盤上。所以重件碼頭要加厚面版、改良後線地盤。安裝船若要在碼頭邊插腿頂升，前方的海床也要鋪設碎石墊，讓樁腿有穩固的支撐。":["An ordinary quay mainly carries containers and bulk cargo and is designed for a few tonnes per square metre, but wind turbine parts concentrate their weight on very small areas. When a large crawler crane lifts a nacelle of several hundred tonnes, the ground pressure under its tracks can reach tens of tonnes per square metre, and SPMTs and storage racks also press on local patches of ground. Heavy-load quays therefore need thicker deck slabs and improved ground behind the wall. If an installation vessel is to jack up alongside the quay, the seabed in front must also be covered with a gravel bed so the legs have firm support.","一般の岸壁は主にコンテナやばら積み貨物を扱い、設計荷重は 1 m² あたり数トン程度ですが、風車部品は重さがごく狭い面積に集中します。大型クローラークレーンが数百トンのナセルを吊ると、クローラ下の接地圧は 1 m² あたり数十トンに達し、SPMT や保管ラックも局所的な地盤に重さをかけます。そのため重量物岸壁は床版を厚くし、背後の地盤を改良します。据付船が岸壁横でジャッキアップするなら、前面の海底にも砕石マウンドを敷き、レグをしっかり支える必要があります。"],
+"風電零件的重量集中在很小的面積上":["Turbine parts put their weight on small areas","風車部品の重さは狭い面積に集中する"],
+"履帶吊車吊重時，接地壓力可達每平方公尺數十噸":["Under a lifting crawler crane, pressure reaches tens of t/m²","吊上げ中のクローラークレーンの接地圧は数十 t/m² に"],
+"碼頭前方的碎石墊，支撐安裝船的樁腿":["A gravel bed in front of the quay supports the vessel's legs","岸壁前面の砕石マウンドが据付船のレグを支える"],
+"重件碼頭的承載力，是一般碼頭的十倍以上":["A heavy-load quay carries over ten times an ordinary one","重量物岸壁の荷重は一般岸壁の10倍以上"],
+"重件碼頭剖面（示意）":["Heavy-load quay section (schematic)","重量物岸壁の断面（模式図）"],
+"後線地盤改良":["Ground improvement","背後地盤の改良"],
+"接地壓力 約 {n} t/m²":["Ground pressure ~{n} t/m²","接地圧 約 {n} t/m²"],
+"碎石墊":["Gravel bed","砕石マウンド"],
+"安裝船樁腿":["Vessel leg","据付船のレグ"],
+"港池":["Harbour basin","泊地"],
+"碼頭面版":["Deck slab","岸壁床版"],
+"碼頭設計承載力":["Quay design load","岸壁の設計荷重"],
+"單位：t/m²":["Unit: t/m²","単位：t/m²"],
+"一般碼頭（示例）":["Ordinary quay (example)","一般岸壁（例）"],
+"台中港 #106":["Taichung #106","台中港 #106"],
+"台中港 #37、#38":["Taichung #37, #38","台中港 #37・#38"],
+"台中港 #5A、#5B":["Taichung #5A, #5B","台中港 #5A・#5B"],
+"重件碼頭約為一般碼頭的十倍以上":["Heavy-load quays carry more than ten times an ordinary quay","重量物岸壁は一般岸壁の10倍以上"],
+/* shot 3 */
+"預組裝：在岸上先完成":["Pre-assembly on land","プレアセンブリ：陸上で先に仕上げる"],
+"塔架從工廠出來時是好幾段鋼管，每段長二、三十公尺。預組裝場用大型履帶吊車把塔段一節節疊起來，以數百支高強度螺栓鎖緊法蘭，在岸上組成完整塔架；機艙也常在岸上先裝好輪轂。岸上作業不受浪況影響、工具與人力充足，每多完成一個接合，海上就少一次吊裝，也少一段等天氣的時間，這正是預組裝場存在的理由。":["A tower leaves the factory as several steel sections, each twenty or thirty metres long. In the pre-assembly yard a large crawler crane stacks them one on top of another, and hundreds of high-strength bolts tighten each flange to form a complete tower on land; the hub is also often fitted to the nacelle onshore. Work on land is unaffected by waves and has plenty of tools and people. Every joint finished onshore means one less lift at sea and one less spell of waiting for weather, which is exactly why pre-assembly yards exist.","タワーは工場を出る時点では数本の鋼管セクションで、1本の長さは20〜30 mです。プレアセンブリヤードでは大型クローラークレーンでセクションを1段ずつ積み上げ、数百本の高力ボルトでフランジを締結し、陸上で完成タワーに組み上げます。ナセルにも陸上でハブを取り付けることがよくあります。陸上作業は波の影響を受けず、工具も人手も十分です。陸上で接合を1か所増やすごとに洋上の吊上げが1回減り、天候待ちも1回減ります。これこそプレアセンブリヤードがある理由です。"],
+"塔架以數段鋼管的形式運到港口":["The tower arrives in port as several steel sections","タワーは数本の鋼管セクションで港に届く"],
+"履帶吊車把第二段塔段吊起，疊到底段上":["A crawler crane lifts the second section onto the bottom one","クローラークレーンが2段目を吊り、最下段に載せる"],
+"工人鎖緊法蘭上的高強度螺栓":["Workers tighten the high-strength flange bolts","作業員がフランジの高力ボルトを締める"],
+"第三段吊上去，組成完整塔架":["The third section goes up, completing the tower","3段目を吊り上げ、タワーが完成"],
+"岸上多完成一個接合，海上就少一次吊裝":["Each joint made on land saves one lift at sea","陸上の接合1つで、洋上の吊上げが1回減る"],
+"底段塔架":["Bottom section","最下段タワー"],
+"塔段":["Section","セクション"],
+"法蘭螺栓":["Flange bolts","フランジボルト"],
+"履帶式起重機":["Crawler crane","クローラークレーン"],
+"機艙＋輪轂":["Nacelle + hub","ナセル＋ハブ"],
+"塔架預組裝（示例）":["Tower pre-assembly (example)","タワーのプレアセンブリ（例）"],
+"已組塔段":["Sections joined","組立済みセクション"],
+"海上塔架吊裝":["Tower lifts at sea","洋上のタワー吊上げ"],
+"{n} 次":["{n}×","{n} 回"],
+"{n} / 3":["{n} / 3","{n} / 3"],
+/* shot 4 */
+"岸上做越多，海上越省":["More on land, less at sea","陸上で多く、洋上は少なく"],
+"同樣一座風機，不同的組裝策略會讓海上吊裝次數差很多。如果塔段、機艙、輪轂與葉片全部逐件吊，每座要吊約八次；把塔架在岸上預組成一件、輪轂先裝在機艙上，就降到約五次。早期較小的機組甚至把機艙、輪轂和兩支葉片組成「兔耳式」一起吊。每次吊裝都要等風速夠低，吊得越少，安裝船在海上停留的時間就越短。":["For the same turbine, the assembly strategy makes a big difference to the number of lifts at sea. Lifting tower sections, nacelle, hub and blades one by one takes about eight lifts per turbine; pre-assembling the tower into one piece and fitting the hub to the nacelle onshore cuts this to about five. Earlier, smaller turbines were even lifted in a \"bunny ears\" configuration, with the nacelle, hub and two blades going up together. Every lift must wait for low enough wind, so the fewer the lifts, the less time the installation vessel spends at sea.","同じ風車でも、組立方法によって洋上の吊上げ回数は大きく変わります。タワーセクション、ナセル、ハブ、ブレードをすべて1点ずつ吊ると1基あたり約8回、タワーを陸上で1本に組み、ハブを先にナセルに取り付ければ約5回に減ります。初期の小型機では、ナセル・ハブ・ブレード2枚を「バニーイヤー」方式でまとめて吊ることもありました。吊上げのたびに風が十分弱まるのを待つため、吊る回数が少ないほど据付船の洋上滞在は短くなります。"],
+"同一座風機，組裝策略不同，吊裝次數就不同":["Same turbine, different strategies, different lift counts","同じ風車でも、組立方法で吊上げ回数が変わる"],
+"塔架預組、輪轂先裝上機艙，每座約吊五次":["Pre-assembled tower and hub on nacelle: about five lifts","タワーを先に組み、ハブをナセルに付ければ約5回"],
+"較小機組曾把兩支葉片一起吊上，只吊三次":["Smaller turbines once went up with two blades: three lifts","小型機ではブレード2枚ごと吊り、3回で済んだ"],
+"每段海上作業，都要等待合適的天候":["Every step at sea waits for suitable weather","洋上の作業はすべて適した天候を待つ"],
+"每座風機的海上吊裝次數（典型）":["Offshore lifts per turbine (typical)","1基あたりの洋上吊上げ回数（典型）"],
+"逐件吊裝":["Piece by piece","1点ずつ吊る"],
+"輪轂":["Hub","ハブ"],
+"葉片":["Blade","ブレード"],
+"塔架預組＋輪轂先裝":["Tower pre-assembled + hub fitted","タワー先組み＋ハブ先付け"],
+"塔架":["Tower","タワー"],
+"兔耳式（較小機組）":["Bunny ears (smaller turbines)","バニーイヤー（小型機）"],
+"機艙＋兩葉片":["Bunny ears","バニーイヤー"],
+"從工廠到海上":["From factory to sea","工場から洋上へ"],
+"零組件工廠":["Component factory","部品工場"],
+"港口儲放":["Port storage","港で保管"],
+"岸上預組裝":["Pre-assembly on land","陸上プレアセンブリ"],
+"裝船":["Load-out","積込み"],
+"海上安裝":["Installation at sea","洋上据付"],
+"受天候限制":["Weather-limited","天候に左右される"],
+/* shot 5 */
+"裝船與出港":["Load-out and sail-away","積込みと出港"],
+"自升式安裝船靠上重件碼頭後，先放下樁腿把船身頂出水面，讓船在裝船時不隨潮汐與波浪起伏。船上的主吊車把塔架、機艙與葉片一件件吊上甲板，固定在專用的支架上；一趟可載運的組數依船型與機組大小而定，大約四到七組。裝完後船身降回水面、收起樁腿，出港前往風場，一趟往返通常要一到兩週。":["Once the jack-up installation vessel berths at the heavy-load quay, it lowers its legs and lifts its hull clear of the water so that it does not move with tides and waves during loading. The main crane lifts towers, nacelles and blades onto the deck one by one and secures them in dedicated sea-fastenings; how many sets fit on one trip depends on the vessel and turbine size, roughly four to seven. When loading is done, the hull is lowered back into the water, the legs are raised and the vessel sails for the wind farm; a round trip usually takes one to two weeks.","ジャッキアップ据付船は重量物岸壁に着くと、まずレグを下ろして船体を水面上に押し上げ、積込み中に潮汐や波で揺れないようにします。船上のメインクレーンがタワー、ナセル、ブレードを1点ずつ甲板に吊り上げ、専用の架台に固縛します。1航海で運べるセット数は船型と機種の大きさによって異なり、およそ4〜7セットです。積込みが終わると船体を水面に下ろし、レグを引き上げて風力発電所へ出港します。1往復にはふつう1〜2週間かかります。"],
+"安裝船頂升在碼頭邊，船身不隨潮汐起伏":["Jacked up at the quay, the hull ignores the tide","岸壁横でジャッキアップし、潮汐で船体が動かない"],
+"主吊車把塔架一座座吊上甲板":["The main crane lifts the towers onto the deck","メインクレーンがタワーを1本ずつ甲板へ"],
+"機艙與葉片固定在甲板支架上":["Nacelles and blades are fastened on deck","ナセルとブレードを甲板の架台に固縛"],
+"船身降回水面，收起樁腿":["The hull comes down and the legs go up","船体を水面に下ろし、レグを引き上げる"],
+"載著整批風機零件出港，前往風場":["The vessel sails for the wind farm with a full load","部品を満載して出港し、発電所へ向かう"],
+"樁腿":["Leg","レグ"],
+"主吊車":["Main crane","メインクレーン"],
+"甲板上的塔架":["Towers on deck","甲板上のタワー"],
+"收起樁腿":["Legs raised","レグを上げる"],
+"裝船（示例）":["Load-out (example)","積込み（例）"],
+"已裝組數":["Sets loaded","積込み済み"],
+"{n} / 4 組":["{n} / 4 sets","{n} / 4 セット"],
+"狀態":["Status","状態"],
+"頂升裝船":["Jacked, loading","ジャッキアップ積込"],
+"降船收腿":["Jacking down","ジャッキダウン"],
+"出港":["Sailing","出港"],
+"單趟可載":["Sets per trip","1航海の積載"],
+"4–7 組":["4–7 sets","4–7 セット"],
+/* shot 6 */
+"作業窗口：等天氣的船隊":["Weather windows for installation","作業可能期間：天候を待つ船団"],
+"安裝船的每一個動作都有天候上限：插腿頂升時示性波高通常要低於約 1.5 到 2 公尺，吊裝葉片時輪轂高度的風速通常要低於約 10 到 12 m/s（典型）。台灣海峽冬季東北季風強勁，夏季又有颱風，能作業的日子集中在春末到初秋。一趟航次除了裝船、航行與逐座安裝，還要把等天氣的時間算進去，這也是在港口就把工作做完的另一個理由。":["Every step an installation vessel takes has a weather limit: jacking up usually needs a significant wave height below about 1.5 to 2 m, and lifting blades usually needs hub-height wind below about 10 to 12 m/s (typical). The Taiwan Strait has a strong northeast monsoon in winter and typhoons in summer, so workable days cluster from late spring to early autumn. A voyage must allow for waiting on weather as well as loading, transit and installing each turbine, which is another reason to finish as much work as possible in port.","据付船のあらゆる作業には天候の限界があります。ジャッキアップには有義波高がおおむね 1.5〜2 m 以下、ブレードの吊上げにはハブ高さの風速がおおむね 10〜12 m/s 以下（典型）が必要です。台湾海峡は冬に北東季節風が強く、夏には台風が来るため、作業可能な日は晩春から初秋に集中します。1航海には積込み、航行、1基ずつの据付に加えて天候待ちの時間も見込む必要があり、これも港でできるだけ作業を済ませておくもう一つの理由です。"],
+"每個海上動作都有風速與浪高的上限":["Every step at sea has wind and wave limits","洋上の各作業には風速と波高の上限がある"],
+"東北季風與颱風，讓可作業的日子集中在春夏":["Monsoon and typhoons push workable days into spring and summer","季節風と台風で、作業可能日は春から夏に集中"],
+"一趟航次：裝船、航行、逐座安裝、返航":["One voyage: load, sail, install each turbine, return","1航海：積込み、航行、1基ずつ据付、帰港"],
+"排程要把等天氣的時間算進去":["The schedule must include waiting on weather","工程には天候待ちの時間を見込む"],
+"台灣海峽各月可作業比例（示例）":["Workable share by month, Taiwan Strait (example)","台湾海峡の月別作業可能率（例）"],
+"月份":["Month","月"],
+"東北季風":["NE monsoon","北東季節風"],
+"颱風季":["Typhoon season","台風シーズン"],
+"作業上限（典型）":["Working limits (typical)","作業限界（典型）"],
+"插腿頂升":["Jacking up","ジャッキアップ"],
+"示性波高 ≤ 約 1.5–2 m":["Significant wave height ≤ ~1.5–2 m","有義波高 ≤ 約 1.5–2 m"],
+"吊裝葉片":["Blade lifts","ブレード吊上げ"],
+"輪轂高度風速 ≤ 約 10–12 m/s":["Hub-height wind ≤ ~10–12 m/s","ハブ高さ風速 ≤ 約 10–12 m/s"],
+"吊裝塔架與機艙":["Tower/nacelle lifts","タワー・ナセル吊上げ"],
+"風速上限依吊重與機型而定":["Wind limit depends on load and model","風速限界は吊荷と機種による"],
+"一趟航次（示例，4 座）":["One voyage (example, 4 turbines)","1航海（例、4基）"],
+"天":["Days","日"],
+"航行":["Transit","航行"],
+"安裝 1":["Install 1","据付 1"],
+"等天氣":["Weather wait","天候待ち"],
+"安裝 2":["Install 2","据付 2"],
+"安裝 3":["Install 3","据付 3"],
+"安裝 4":["Install 4","据付 4"],
+"返航":["Return","帰港"],
+"等天氣也要算進時程":["Weather waits belong in the schedule","天候待ちも工程に含める"],
+/* shot 7 */
+"台灣的在地供應鏈":["Taiwan's local supply chain","台湾の国内サプライチェーン"],
+"台灣在產業關聯政策推動下，沿著西部港口建立起離岸風電供應鏈。台中港是風電母港，周邊有葉片廠、機艙組裝廠、塔架與鑄件廠；台北港與高雄興達港設有水下基礎製造廠；台船與比利時 DEME 合資，在高雄建造起重能力 4,000 公噸的重件安裝船「綠鯨號」；華新在高雄港與丹麥 NKT 合作的海纜廠於 2025 年底開幕。港口、工廠與船隊串在一起，就是一條從陸上到海上的產業鏈。":["Driven by its industrial relevance policy, Taiwan has built an offshore wind supply chain along its western ports. Taichung Port is the marshalling harbour, surrounded by blade, nacelle assembly, tower and casting plants; Taipei Port and Kaohsiung's Xingda Port host foundation fabrication yards; the CSBC–DEME joint venture built the heavy-lift installation vessel Green Jade, with a 4,000-tonne crane, in Kaohsiung; and Walsin's submarine cable plant in Kaohsiung Port, developed with Denmark's NKT, opened at the end of 2025. Ports, factories and vessels linked together form an industrial chain that runs from land to sea.","台湾は産業関連政策のもと、西部の港に沿って洋上風力のサプライチェーンを築いてきました。台中港は基地港で、周辺にブレード工場、ナセル組立工場、タワー工場、鋳物工場があります。台北港と高雄の興達港には基礎構造物の製作工場があり、台湾国際造船（CSBC）とベルギーの DEME の合弁は、クレーン能力 4,000 トンの重量物据付船「グリーン・ジェイド」を高雄で建造しました。さらに華新がデンマークの NKT と組んだ高雄港の海底ケーブル工場が 2025 年末に開業しています。港、工場、船団がつながり、陸から海へ続く産業チェーンになっています。"],
+"離岸風電供應鏈沿著西部港口展開":["The supply chain runs along the western ports","サプライチェーンは西部の港に沿って広がる"],
+"台中港：風電母港，葉片、機艙、塔架都在周邊":["Taichung: the marshalling port, with blade, nacelle and tower plants","台中港：基地港。周辺にブレード・ナセル・タワー"],
+"台北港與高雄：水下基礎製造":["Taipei Port and Kaohsiung: foundation fabrication","台北港と高雄：基礎構造物の製作"],
+"在高雄建造的重件安裝船與新建的海纜廠":["A Kaohsiung-built heavy-lift vessel and a new cable plant","高雄で建造された据付船と新しいケーブル工場"],
+"港口、工廠與船隊，串成一條產業鏈":["Ports, plants and vessels form one industrial chain","港、工場、船団が一つの産業チェーンに"],
+"主要港口與產業（示意）":["Main ports and industries (schematic)","主な港と産業（模式図）"],
+"台灣海峽":["Taiwan Strait","台湾海峡"],
+"彰化外海風場":["Changhua wind farms","彰化沖の発電所"],
+"台北港":["Taipei Port","台北港"],
+"台中港":["Taichung Port","台中港"],
+"高雄":["Kaohsiung","高雄"],
+"風電母港與重件碼頭":["Marshalling harbour and heavy-load quays","基地港と重量物岸壁"],
+"葉片廠、機艙組裝廠":["Blade plant, nacelle assembly plant","ブレード工場、ナセル組立工場"],
+"塔架、鑄件廠":["Tower and casting plants","タワー工場、鋳物工場"],
+"台北港／高雄興達港":["Taipei Port / Xingda Port, Kaohsiung","台北港／高雄・興達港"],
+"水下基礎（單樁、套管）製造":["Monopile and jacket foundation fabrication","モノパイル・ジャケット基礎の製作"],
+"綠鯨號：起重 4,000 t 的重件安裝船":["Green Jade: heavy-lift vessel with a 4,000 t crane","グリーン・ジェイド：4,000 t クレーンの据付船"],
+"華新與 NKT 合作的海纜廠（2025 年開幕）":["Walsin–NKT submarine cable plant (opened 2025)","華新と NKT の海底ケーブル工場（2025年開業）"],
+"從國產化要求到區塊開發的產業關聯方案，港口是串起整條產業鏈的節點":["From local content rules to the zonal development industrial relevance plan, ports are the nodes that tie the whole chain together","国産化要件からゾーン開発の産業関連方策まで、港はチェーン全体をつなぐ結節点です"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

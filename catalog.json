@@ -248,6 +248,29 @@
         },
         {
           "name": {
+            "zh": "施工",
+            "en": "Construction",
+            "ja": "施工"
+          },
+          "episodes": [
+            {
+              "no": 19,
+              "file": "ep19.html",
+              "title": {
+                "zh": "港口與在地供應鏈",
+                "en": "Ports and the local supply chain",
+                "ja": "港湾と国内サプライチェーン"
+              },
+              "sub": {
+                "zh": "重件碼頭與承載力、預組裝場、裝船出港與作業窗口、台灣在地供應鏈",
+                "en": "Heavy-load quays, pre-assembly yards, load-out, weather windows and Taiwan's local supply chain",
+                "ja": "重量物岸壁と耐荷重、プレアセンブリヤード、積込みと作業可能期間、台湾の国内サプライチェーン"
+              }
+            }
+          ]
+        },
+        {
+          "name": {
             "zh": "運轉",
             "en": "Operation",
             "ja": "運転"
