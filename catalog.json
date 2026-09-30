@@ -668,6 +668,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "應用型態",
+            "en": "Applications",
+            "ja": "応用形態"
+          },
+          "episodes": [
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "小型風機與分散式應用",
+                "en": "Small wind turbines and distributed use",
+                "ja": "小形風車と分散型利用"
+              },
+              "sub": {
+                "zh": "IEC 61400-2 小型風機定義、水平軸與垂直軸、低風速功率曲線與年發電量、屋頂紊流與塔架高度、離島風光儲微電網、台灣躉購與驗證",
+                "en": "The IEC 61400-2 definition, horizontal and vertical axes, low-wind power curves and annual energy, rooftop turbulence and tower height, island wind–solar–battery microgrids, Taiwan's feed-in tariff and certification",
+                "ja": "IEC 61400-2 の小形風車の定義、水平軸と垂直軸、低風速のパワーカーブと年間発電量、屋根の乱流とタワー高さ、離島の風力・太陽光・蓄電池マイクログリッド、台湾の固定価格買取と認証"
+              }
+            }
+          ]
         }
       ]
     },
