@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep05.js｜陸域風電系列</title>
+<title>ep07.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep04.html"><span data-zh="← 04 風場選址與風資源評估" data-en="← 04 Choosing a site and assessing the wind" data-ja="← 04 風力発電所の立地選定と風況評価">← 04 風場選址與風資源評估</span></a><a href="ep07.html"><span data-zh="07 雷擊與葉片防護 →" data-en="07 Lightning and blade protection →" data-ja="07 落雷とブレードの保護 →">07 雷擊與葉片防護 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep05.html"><span data-zh="← 05 齒輪箱與發電機" data-en="← 05 Gearboxes and generators" data-ja="← 05 増速機と発電機">← 05 齒輪箱與發電機</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep05.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep07.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,465 +543,413 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 5 集：齒輪箱與發電機 */
+/* 陸域風電系列 第 7 集：雷擊與葉片防護 */
 const gyy=x=>groundY(x);
-const TX=640,HY=240;                                       // 風機塔架位置與輪轂高度（世界座標）
-const RR=15,G1=5,G2=4.6,G3=4.8,GR=G1*G2*G3;                  // 轉子 15 rpm、三級增速 1:110.4（典型範例）
-const PW=3.6;                                              // 額定功率 MW（示例）
-const fmt=v=>Math.round(v).toLocaleString('en-US');
-const tq=rpm=>PW*1e3/(rpm*TAU/60);                         // 扭矩 kN·m（忽略損耗）
-/* 側視葉片：輪轂 (hx,hy)，葉片長 L，轉角 a（葉片在轉子平面內，側視時看到邊） */
-function bladeS(hx,hy,a,L){const c=Math.cos(a),s=Math.sin(a),dx=s*6;
-  poly([hx-3,hy,hx+3,hy,hx+dx+1.5,hy-c*L,hx+dx-1.5,hy-c*L],'#f4f6f7','rgba(0,0,0,.35)',1);}
-/* 側視風機；cut：外殼透明度（0 看得到內部），rot：轉子角度 */
-function turbineSide(rot,cut){const g=gyy(TX);
+const TX=640,HY=240,BL=200;                                  // 風機塔架位置、輪轂高度、側視葉片長度（世界座標）
+const RAD=60,RMAX=15;                                        // 轉子半徑 60 m、額定轉速 15 rpm（典型範例）
+/* 側視葉片 */
+function bladeS(hx,hy,a,L){const c=Math.cos(a),s=Math.sin(a),dx=s*6,w=3;
+  poly([hx-w,hy,hx+w,hy,hx+dx+w*.5,hy-c*L,hx+dx-w*.5,hy-c*L],'#f4f6f7','rgba(0,0,0,.35)',1);
+  if(Math.abs(c)>.3)circ(hx+dx,hy-c*(L-3),2.6,'#8d989f');}
+function tipOf(rot){return [TX-100+Math.sin(rot)*6,HY-Math.cos(rot)*BL];}
+/* 側視風機（外殼關閉） */
+function turbineSide(rot){const g=gyy(TX),hx=TX-100;
   poly([TX-18,g,TX-11,HY+36,TX+11,HY+36,TX+18,g],'#eef2f4','rgba(0,0,0,.3)',1);
-  const hx=TX-100;
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)<0)bladeS(hx,HY,a,200);}
-  /* 內部 */
-  box(TX-80,HY+26,260,10,'#8d989f');                                   // 底座
-  box(TX-100,HY-6,110,12,'#9aa3a8','rgba(0,0,0,.4)',1);                // 主軸
-  for(let k=0;k<3;k++){const q=rot+k*TAU/3;if(Math.cos(q)>0)ln([TX-75,HY+5*Math.sin(q),TX+8,HY+5*Math.sin(q)],'rgba(0,0,0,.35)',1.5);}
-  box(TX-64,HY-18,18,36,'#7dc8dc','rgba(0,0,0,.45)',1);                // 主軸承
-  box(TX+10,HY-26,75,54,'#6f7a80','rgba(0,0,0,.5)',1.5);               // 齒輪箱
-  const gr=(x,y,r,s)=>{circ(x,y,r,'#8d989f','#394650',1.5);for(let i=0;i<6;i++){const a=s+i*TAU/6;ln([x,y,x+Math.cos(a)*r,y+Math.sin(a)*r],'#394650',1);}};
-  gr(TX+32,HY+2,16,rot);gr(TX+58,HY-10,9,-rot*4.6);gr(TX+72,HY+10,6,rot*22);
-  box(TX+85,HY-3,26,6,'#9aa3a8');                                      // 高速軸
-  box(TX+90,HY-18,6,36,'#e8572a');                                     // 剎車盤
-  box(TX+110,HY-22,60,44,'#58b8d0','rgba(0,0,0,.45)',1);               // 發電機
-  for(let k=0;k<5;k++){const q=rot*12+k*TAU/5;if(Math.cos(q)>0)ln([TX+114,HY+18*Math.sin(q),TX+166,HY+18*Math.sin(q)],'rgba(0,0,0,.25)',2);}
-  box(TX+172,HY-14,6,30,'#394650');                                    // 冷卻器
-  /* 外殼 */
-  alphaDo(cut,()=>{rrp(TX-80,HY-32,260,68,8);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();});
-  alphaDo(1-cut,()=>{rrp(TX-80,HY-32,260,68,8);ctx.strokeStyle='rgba(40,50,60,.7)';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);ctx.stroke();ctx.setLineDash([]);});
-  poly([TX-80,HY-26,TX-112,HY-12,TX-118,HY,TX-112,HY+12,TX-80,HY+26],'#dfe5e8','rgba(0,0,0,.35)',1);   // 導流罩
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)>=0)bladeS(hx,HY,a,200);}
-  return {hx,hy:HY};}
-/* 風線 */
-function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
-  for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
-   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
-/* 齒輪（外齒或內齒）：Z 齒數 */
-function gearPath(x,y,r,Z,a,inw){const th=Math.max(3,r*.08)*(inw?-1:1);
-  for(let i=0;i<=Z*4;i++){const q=a+i*TAU/(Z*4),k=(i%4===1||i%4===2)?1:0,rr=r+(k?th:0)-(inw?0:th*.5),px=x+Math.cos(q)*rr,py=y+Math.sin(q)*rr;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();}
-function gear(x,y,r,Z,a,fill,st){ctx.beginPath();gearPath(x,y,r,Z,a,false);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=st||'#394650';ctx.lineWidth=1.5;ctx.stroke();
-  circ(x,y,r*.22,'#394650');ln([x,y,x+Math.cos(a)*r*.7,y+Math.sin(a)*r*.7],'#394650',3);}
-/* 側視轉軸：粗細 h，條紋隨角度 q 移動 */
-function shaft(x0,x1,y,h,q,col){box(x0,y-h/2,x1-x0,h,col,'rgba(0,0,0,.45)',1.5);
-  for(let k=0;k<4;k++){const p=q+k*TAU/4;if(Math.cos(p)>0){const yy=y+Math.sin(p)*h*.42;ln([x0+4,yy,x1-4,yy],'rgba(0,0,0,.3)',Math.max(1.5,h*.06));}}}
-/* 變壓器符號 */
-function xfmr(x,y,r){ring(x-r*.45,y,r,'#fff',2.5);ring(x+r*.45,y,r,'#fff',2.5);}
-/* 沿折線的位置 */
+  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)<0)bladeS(hx,HY,a,BL);}
+  box(TX-8,HY+36,16,8,'#394650');
+  rrp(TX-80,HY-32,260,68,8);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();
+  poly([TX-80,HY-26,TX-112,HY-12,TX-118,HY,TX-112,HY+12,TX-80,HY+26],'#dfe5e8','rgba(0,0,0,.35)',1);
+  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)>=0)bladeS(hx,HY,a,BL);}
+  ln([TX+150,HY-32,TX+150,HY-58],'#6f7a80',2);circ(TX+150,HY-60,3,'#e8572a');}
+/* 正視小風機（圖解用）；回傳頂端葉尖 */
+function miniT(x,g,H,R,rot){const hy=g-H;
+  poly([x-7,g,x-4,hy,x+4,hy,x+7,g],'#eef2f4','rgba(0,0,0,.35)',1);box(x-12,hy-8,24,14,'#dfe5e8','rgba(0,0,0,.35)',1);
+  let top=[x,hy-R],best=-9;
+  for(let i=0;i<3;i++){const a=rot+i*TAU/3,c=Math.cos(a),s=Math.sin(a),tx=x+s*R,ty=hy-c*R,nx=c*4,ny=s*4;
+   poly([x-nx,hy-ny,x+nx,hy+ny,tx+nx*.3,ty+ny*.3,tx-nx*.3,ty-ny*.3],'#f4f6f7','rgba(0,0,0,.35)',1);if(-ty>best){best=-ty;top=[tx,ty];}}
+  circ(x,hy,5,'#dfe5e8','#394650',1);return top;}
+/* 雷雲、雨、閃電 */
+function stormClouds(){const r=rng(21);for(let i=0;i<16;i++){const x=VX0-100+r()*(VX1-VX0+200)+nz(TT*.05+i)*20,y=-40+r()*70,s=50+r()*60;
+  circ(x,y,s,i%2?'#26303a':'#2e3944');}}
+function rain(a){if(a<=0)return;const r=rng(11);alphaDo(a,()=>{for(let i=0;i<140;i++){const x0=VX0-300+r()*(VX1-VX0+600),y=((r()*1000+TT*800)%1000)-100,x=x0+(y*.25);ln([x,y,x+6,y+24],'rgba(205,222,235,.45)',1.5);}});}
+function boltPts(x0,y0,x1,y1,seed,n,amp){const r=rng(seed),P=[x0,y0];for(let i=1;i<n;i++){const k=i/n;P.push(lerp(x0,x1,k)+(r()-.5)*amp,lerp(y0,y1,k)+(r()-.5)*amp*.3);}P.push(x1,y1);return P;}
+function bolt(P,a,w){if(a<=0)return;alphaDo(a*.35,()=>ln(P,'#b9c8ff',(w||3)*4));alphaDo(a,()=>ln(P,'#ffffff',w||3));}
+function flick(u,a,b){return u>=a&&u<=b?(.55+.45*Math.abs(Math.sin(TT*47))):0;}
+/* 沿折線的流動點 */
 function along(P,f){let L=0;const S=[];for(let i=2;i<P.length;i+=2){const d=Math.hypot(P[i]-P[i-2],P[i+1]-P[i-1]);S.push(d);L+=d;}
   let t=((f%1)+1)%1*L;for(let i=0;i<S.length;i++){if(t<=S[i]){const k=t/S[i];return [lerp(P[i*2],P[i*2+2],k),lerp(P[i*2+1],P[i*2+3],k)];}t-=S[i];}return [P[P.length-2],P[P.length-1]];}
 function flow(P,n,sp,col,r){for(let i=0;i<n;i++){const [x,y]=along(P,TT*sp+i/n);circ(x,y,r||4,col);}}
-/* 波形小圖：cyc 顯示的週期數，dc 為直流 */
-function wave(x,y,w,h,cyc,col,dc){box(x,y,w,h,'rgba(255,255,255,.04)','rgba(255,255,255,.16)',1);ln([x+6,y+h/2,x+w-6,y+h/2],'rgba(255,255,255,.14)',1);
-  ctx.beginPath();for(let i=0;i<=80;i++){const t=i/80,xx=x+6+t*(w-12),yy=dc?y+h*.28:y+h/2-Math.sin(TAU*cyc*t-TT*3)*h*.34;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.stroke();}
-/* 小型變電站與電塔（側視） */
-function pylon(x){const g=gyy(x);ln([x-22,g,x-5,g-190,x+5,g-190,x+22,g],'#6f7a80',2.5);ln([x-16,g-60,x+16,g-60],'#6f7a80',2);ln([x-30,g-160,x+30,g-160],'#6f7a80',2.5);ln([x-24,g-120,x+24,g-120],'#6f7a80',2);}
-function substation(x){const g=gyy(x);fence(x-90,x+90,g);cabinet(x-70,g,40,56,'#dfe5e8');cabinet(x+30,g,40,56,'#dfe5e8');
-  box(x-20,g-70,40,70,'#9aa3a8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)ln([x-14+i*14,g-70,x-14+i*14,g-92],'#6f7a80',2.5);}
+function tree(x,b){const g=gyy(x);ln([x,g,x+b*.3,g-40,x+b,g-72],'#5b4632',5);circ(x+b*1.1,g-84,24,'#3f6b45');circ(x+b*1.2-16,g-72,17,'#4a7a50');}
+/* 葉片剖面（翼型），LE 朝 ang 方向 */
+function airfoil(x,y,L,ang,col,st){ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.beginPath();
+  const T=s=>L*.15*5*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);
+  for(let i=0;i<=24;i++){const s=i/24;ctx.lineTo(L/2-s*L,-T(s)-L*.03*Math.sin(Math.PI*s));}
+  for(let i=24;i>=0;i--){const s=i/24;ctx.lineTo(L/2-s*L,T(s)*.7-L*.03*Math.sin(Math.PI*s));}
+  ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=st||'#13232e';ctx.lineWidth=2;ctx.stroke();ctx.restore();}
+/* 雷擊電流波形 10/350 μs（示意） */
+const iw=t=>t<10?200*(1-Math.cos(Math.PI*t/10))/2:200*Math.exp(-(t-10)*Math.LN2/340);
+/* 基礎、環形接地極、接地棒（剖面） */
+function earthing(a){const g=gyy(TX),cy=g+64,rx=230,ry=18;
+  ctx.save();ctx.setLineDash([7,5]);ctx.beginPath();ctx.ellipse(TX,cy,rx,ry,0,Math.PI,TAU);ctx.strokeStyle=`rgba(208,138,74,${(.8*a).toFixed(3)})`;ctx.lineWidth=3;ctx.stroke();ctx.restore();
+  box(TX-30,g,60,44,'#9aa3a8','rgba(0,0,0,.4)',1);
+  poly([TX-40,g+44,TX+40,g+44,TX+170,g+104,TX-170,g+104],'#9aa3a8','rgba(0,0,0,.4)',1);box(TX-170,g+104,340,30,'#8d989f','rgba(0,0,0,.4)',1);
+  ctx.setLineDash([5,5]);ln([TX-160,g+122,TX+160,g+122],'rgba(40,50,60,.55)',1.5);ln([TX-20,g+6,TX-20,g+116],'rgba(40,50,60,.55)',1.5);ln([TX+20,g+6,TX+20,g+116],'rgba(40,50,60,.55)',1.5);ctx.setLineDash([]);
+  alphaDo(a,()=>{ctx.beginPath();ctx.ellipse(TX,cy,rx,ry,0,0,Math.PI);ctx.strokeStyle='#d08a4a';ctx.lineWidth=3.5;ctx.stroke();
+   [-rx,rx].forEach(d=>{ln([TX+d,cy,TX+d,cy+150],'#d08a4a',4);circ(TX+d,cy,4,'#d08a4a');});
+   ln([TX+150,cy+13,TX+150,g+118],'#d08a4a',2.5);});}
+function baseCab(){const g=gyy(TX),bx=TX+40;box(bx,g-46,70,46,'#dfe5e8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)ln([bx+10,g-36+i*10,bx+60,g-36+i*10],'rgba(0,0,0,.2)',2);circ(bx+62,g-40,3,'#7dffc4');}
 
-const EP={no:5,slug:'onshore-wind',seriesName:'陸域風電系列',t:'齒輪箱與發電機',en:'Gearboxes and generators',
-lede:'葉片每分鐘只轉十幾圈，發電機卻需要轉得快、送出穩定的 60 Hz 電力。這一集打開機艙，看齒輪箱如何增速、雙饋式與永磁直驅發電機各怎麼運作，以及變流器扮演的角色。',
-facts:[['1 : 110','左右','2–4 MW 級陸域風機三級齒輪箱的典型增速比（示例）'],
-['1,800','rpm','台灣電網 60 Hz 下，4 極發電機的同步轉速（n = 120 f ÷ p）'],
-['≈ 30','%','雙饋式發電機的變流器只需處理約三成功率，轉速可在同步轉速 ±30% 內變化'],
-['100','%','全功率變流器：發電機的全部電力都經過 AC→DC→AC 轉換後才併網'],
-['≈ 650','kg/MW','低速永磁直驅發電機的永久磁鐵用量（Siemens 估計，依設計而異）'],
-['3','級','常見的增速齒輪箱：一級行星齒輪加兩級平行軸齒輪（示例）']],
-note:'說明：本集為教育用途示意動畫，機艙、齒輪與電路比例經過簡化。同步轉速 n = 120 f ÷ p 為電機學公式，台灣電網頻率為 60 Hz；雙饋式感應發電機（DFIG）以部分功率變流器搭配約 ±30% 同步轉速的變速範圍、齒輪箱＋全功率變流器與直驅等傳動型式，參考美國 NREL 風機傳動鏈相關文件；直驅發電機永磁用量約每 MW 650 kg 為 Siemens 估計值，文獻中依機型與磁鐵等級差異很大；Enercon 等直驅機型不使用齒輪箱。額定功率 3.6 MW、轉子 15 rpm、三級增速比 1 : 5、1 : 4.6、1 : 4.8、扭矩、690 V 與 22.8 kV 電壓、各型式轉速範圍與比較內容皆為典型範例，並非特定機型或案場資料；扭矩計算忽略齒輪損耗。',
+const EP={no:7,slug:'onshore-wind',seriesName:'陸域風電系列',t:'雷擊與葉片防護',en:'Lightning and blade protection',
+lede:'風機是開闊地上最高的物體，雷雨時常被擊中；葉片前緣則每天承受雨滴與沙塵以高速撞擊。這一集看雷電流如何從葉尖的接閃器一路導入大地、接地與突波保護怎麼設計，以及前緣侵蝕、冬季雷與沿海鹽害的防護方法。',
+facts:[['200','kA','IEC 61400-24 雷擊防護等級 LPL I 的設計峰值電流'],
+['300','C','LPL I 的雷擊電荷量；電荷越大，接閃器燒蝕越嚴重'],
+['4','%','日本 NEDO 在 27 部風機的觀測中，電荷量超過 300 C 的雷擊比例'],
+['≤ 10','Ω','常見的接地電阻設計目標（實際依土壤電阻率設計）'],
+['≈ 94','m/s','轉子半徑 60 m、每分鐘 15 轉時的葉尖速度（示例）'],
+['數','%','前緣嚴重侵蝕造成的年發電量損失，研究多在幾個百分點']],
+note:'說明：本集為教育用途示意動畫，風機、葉片與接地系統比例經過簡化，雷擊與侵蝕過程的時間已壓縮。LPL I 峰值電流 200 kA、電荷量 300 C、比能量 10 MJ/Ω 與 10/350 μs 波形依 IEC 61400-24 與 IEC 62305 的雷擊參數；日本海沿岸冬季上行雷電荷量大、NEDO 2008–2013 年觀測 27 部風機中約 4% 雷擊超過 300 C，引自公開研究文獻；前緣侵蝕可造成數個百分點的年發電量損失，引自 Wind Energy Science 等期刊研究。接地電阻 10 Ω 為常見設計目標而非固定規定；雷擊峰值 34 kA、電荷 12 C、量測接地電阻 4.6 Ω、轉子半徑 60 m、轉速 15 rpm、侵蝕年數與各階段皆為典型範例，並非特定機型或案場資料。',
 base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:false});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 打開機艙 */
-{t:'打開機艙',en:'Inside the nacelle',dur:13,side:true,
- d:'陸域風機的輪轂高度常在 80–120 公尺，葉片轉動的機械能要在機艙裡變成電能。沿著動力傳遞的順序，依序是輪轂、主軸與主軸承、增速齒輪箱、高速軸上的剎車盤，最後是發電機；機艙後段還有冷卻器，控制櫃與變流器則放在機艙或塔架底部。葉片每分鐘約轉 10–20 圈，發電機卻需要每分鐘上千轉，這一集要看的，就是中間這段轉速與電力的轉換。',
- s:[[0,'輪轂高度約百公尺，機艙裡藏著整條傳動鏈'],[.3,'打開外殼：主軸、主軸承、齒輪箱'],[.55,'齒輪箱後方是剎車盤與發電機'],[.78,'轉子每分鐘十幾轉，發電機要轉上千轉']],
- cam:u=>camMix({x:800,y:420,s:1},{x:TX+30,y:HY+10,s:2.5},ease(seg(u,.16,.38))),
+/* 1 ─────────────────────────────── 最高的那一點 */
+{t:'開闊地上最高的一點',en:'The highest point around',dur:13,side:true,
+ d:'陸域風機常立在海岸或丘陵的開闊處，葉尖最高點往往超過 100 公尺，是周圍數公里內最突出的物體，雷雨時很容易成為落雷點。結構越高，越容易從葉尖向上長出迎向雲層的放電通道，也就是上行先導。雷擊多半落在葉尖，因此葉片裝有金屬接閃器，把雷電流引進葉片內部的引下線，再經機艙與塔架導入地下的接地系統，而不是讓電流在葉片與設備中亂竄。',
+ s:[[0,'雷雨雲接近開闊地上的風機'],[.18,'葉尖向上長出放電通道：上行先導'],[.3,'雷擊落在葉尖的接閃器'],[.55,'電流經葉片、機艙、塔架導入大地']],
+ cam:u=>({x:760,y:400,s:1}),
  draw(u){
-  windLines(120,560,18,240,.9,5,60);
-  const rot=TT*RR*TAU/60;
-  turbineSide(rot,1-ease(seg(u,.3,.42)));
-  lab(TX+50,HY-32,'機艙',{dx:60,dy:-60,st:'l',a:band(u,.03,.2)});
-  lab(TX-100,HY,'輪轂',{dx:-80,dy:-70,st:'l',a:band(u,.03,.2)});
-  lab(TX-55,HY-18,'主軸承',{dx:-50,dy:-80,st:'s',a:band(u,.4,.62)});
-  lab(TX-20,HY+6,'主軸（低速）',{dx:-60,dy:90,a:band(u,.42,.64)});
-  lab(TX+48,HY-26,'齒輪箱',{dx:0,dy:-90,st:'s',a:band(u,.46,.75)});
-  lab(TX+93,HY+18,'剎車盤',{dx:0,dy:90,st:'w',a:band(u,.56,.8)});
-  lab(TX+140,HY-22,'發電機',{dx:60,dy:-80,st:'g',a:band(u,.6,.98)});
-  lab(TX+100,HY,'高速軸',{dx:70,dy:80,a:band(u,.76,.98)});
+  box(VX0-20,-600,VX1-VX0+40,2000,'rgba(22,32,42,.45)');
+  stormClouds();rain(.55);
+  const fl=flick(u,.3,.36);if(fl>0)alphaDo(fl*.3,()=>box(VX0-20,-600,VX1-VX0+40,2000,'#dfe8ff'));
+  [[230,0],[320,1],[1040,2],[1130,3],[1450,4]].forEach(([x,i])=>tree(x,10+4*Math.sin(TT*2.4+i)));
+  const rot=(u-.3)*.9,[tx,ty]=tipOf(rot),g=gyy(TX);
+  earthing(.9);
+  turbineSide(rot);baseCab();
+  /* 上行先導 */
+  const lk=seg(u,.16,.3);if(lk>0&&u<.36){const P=boltPts(tx,ty,tx+20,ty-110*lk,5,6,26);alphaDo(.8,()=>ln(P,'#dfe8ff',2));}
+  bolt(boltPts(tx+60,-60,tx,ty,9,12,70),fl,3.5);
+  /* 電流路徑 */
+  const pa=band(u,.34,.84),P=[tx,ty,TX-100,HY,TX-40,HY,TX,HY+40,TX,g,TX,g+60];
+  if(pa>0){alphaDo(pa*.5,()=>ln(P,'#f2c230',6));alphaDo(pa,()=>flow(P,14,.9,'#f2c230',4.5));
+   for(let i=0;i<3;i++){const k=((TT*.9+i/3)%1);alphaDo(pa*(1-k),()=>{ctx.beginPath();ctx.ellipse(TX,g+64,60+k*280,(60+k*280)*.35,0,0,Math.PI);ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.stroke();});}}
+  lab(tx,ty-60,'上行先導',{dx:140,dy:-10,st:'l',a:band(u,.16,.3)});
+  lab(tx,ty,'葉尖接閃器',{dx:150,dy:30,st:'s',a:band(u,.3,.56)});
+  lab(TX-100,HY+30,'葉片內引下線',{dx:-150,dy:60,st:'s',a:band(u,.4,.66)});
+  lab(TX+6,420,'經塔架向下',{dx:120,dy:0,st:'g',a:band(u,.5,.8)});
+  lab(TX+230,g+64,'接地系統',{dx:120,dy:50,st:'g',a:band(u,.6,1)});
  },
- hud(u){hudPanel(250,150,'傳動鏈轉速（示例）',seg(u,.05,.1),w=>{const r=RR+.3*nz(TT*.4);
-  hrow(56,'轉子轉速',trf('{n} rpm',{n:r.toFixed(1)}),w,'#fff');hrow(88,'發電機轉速',trf('{n} rpm',{n:fmt(r*GR)}),w,'#7dffc4');hrow(120,'增速比',trf('1 : {n}',{n:GR.toFixed(0)}),w,'#f2c230');});}},
+ hud(u){hudPanel(250,182,'雷擊監測（示例）',seg(u,.04,.09),w=>{const hit=u>=.3;
+  hrow(56,'峰值電流',hit?trf('{n} kA',{n:(34*ease(seg(u,.3,.33))).toFixed(0)}):'—',w,'#f2c230');
+  hrow(88,'電荷量',hit?trf('{n} C',{n:(12*ease(seg(u,.3,.36))).toFixed(1)}):'—',w,'#f2c230');
+  hrow(120,'本年雷擊次數',hit?'4':'3',w,'#fff');
+  hrow(152,'狀態',u<.3?'運轉中':u<.7?'偵測到雷擊':'自動檢查',w,u<.3?'#7dffc4':'#ff9d7a');});}},
 
-/* 2 ─────────────────────────────── 為什麼要增速 */
-{t:'為什麼要增速',en:'Why speed it up?',dur:13,
- d:'功率等於扭矩乘以轉速。以一部 3.6 MW 的風機為例，轉子每分鐘 15 轉時，主軸承受約 2,300 kN·m 的扭矩；若把轉速提高 110 倍，同樣功率的扭矩只剩約 21 kN·m，發電機就能做得小而輕。另一方面，發電機的同步轉速 n = 120 f ÷ p，由電網頻率 f 與磁極數 p 決定。台灣電網是 60 Hz，4 極發電機的同步轉速是每分鐘 1,800 轉；若要直接配合每分鐘 15 轉，就需要 480 極。解法有兩種：用齒輪箱增速，或用多極發電機搭配變流器。',
- s:[[0,'功率等於扭矩乘以轉速'],[.25,'轉速提高 110 倍，扭矩就降到約百分之一'],[.5,'在 60 Hz 電網，4 極發電機同步轉速是 1,800 rpm'],[.75,'所以要嘛用齒輪箱增速，要嘛讓發電機多極']],
+/* 2 ─────────────────────────────── 雷電流的路徑 */
+{t:'雷電流的旅程',en:'The path of a lightning current',dur:14,
+ d:'風機的雷擊防護系統要讓雷電流走一條事先安排好的低阻抗路徑。葉尖與葉身的金屬接閃器接住雷擊，電流沿著葉片內部的銅質引下線流向葉根。葉片會變槳、機艙會偏航，轉動的軸承不能讓大電流直接通過，否則滾珠與滾道會被電弧燒出凹痕，因此在變槳與偏航處用碳刷、滑動接點或火花間隙跨接。電流進入鋼製塔架後向下傳到基礎，最後由接地系統散入大地。',
+ s:[[0,'接閃器在葉尖接住雷擊'],[.2,'引下線把電流帶到葉根'],[.4,'軸承處用碳刷與火花間隙跨接'],[.7,'經塔架與接地網散入大地']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'同樣的功率，兩種轉法（示例）',20,'#f2c230',700);
-  alphaDo(seg(u,.02,.08),()=>{wt(410,272,'P = T × ω',44,'#fff',700,'center',COND);wt(410,306,'功率 = 扭矩 × 轉速',18,'rgba(227,236,238,.85)',600,'center');});
-  const rq=TT*RR*TAU/60;
-  alphaDo(seg(u,.06,.13),()=>{wt(90,366,'轉子側',18,'#7dc8dc',700);shaft(90,470,440,96,rq,'#9aa3a8');
-   wt(520,432,'15 rpm',32,'#fff',700,'left',COND);wt(520,466,trf('扭矩 {n} kN·m',{n:fmt(tq(RR))}),18,'#ff9d7a',700);});
-  alphaDo(seg(u,.2,.26),()=>{arrow(280,500,280,570,'#f2c230',3);tag(410,535,trf('同樣 {p} MW',{p:PW}),{size:16,bg:'#f2c230',align:'center'});});
-  alphaDo(seg(u,.24,.31),()=>{wt(90,600,'發電機側',18,'#7dffc4',700);shaft(90,470,630,16,rq*12,'#58b8d0');
-   wt(520,622,trf('{n} rpm',{n:fmt(RR*GR)}),32,'#7dffc4',700,'left',COND);wt(520,656,trf('扭矩 {n} kN·m',{n:tq(RR*GR).toFixed(1)}),18,'#ff9d7a',700);});
-  alphaDo(seg(u,.36,.42),()=>tag(410,742,'扭矩小約 110 倍，發電機可以小得多',{size:17,bg:'#7dffc4',align:'center'}));
-  /* 右：同步轉速 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'發電機要轉多快？',20,'#f2c230',700);
-  alphaDo(seg(u,.46,.52),()=>{wt(1170,272,'n = 120 f ÷ p',42,'#fff',700,'center',COND);
-   wt(840,318,'n：同步轉速（rpm）',17,'rgba(227,236,238,.9)',600);wt(840,346,'f：電網頻率（台灣 60 Hz）',17,'rgba(227,236,238,.9)',600);wt(840,374,'p：發電機磁極數',17,'rgba(227,236,238,.9)',600);});
-  [[4,1800,'#7dffc4'],[6,1200,'#7dc8dc'],[480,15,'#ff9d7a']].forEach(([p,n,c],i)=>alphaDo(seg(u,.52+i*.06,.58+i*.06),()=>{const y=410+i*72;
-   box(840,y,660,56,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);wt(862,y+37,trf('{p} 極',{p}),22,c,700,'left',COND);
-   const f=Math.max(.012,n/1800)*ease(seg(u,.52+i*.06,.62+i*.06));box(980,y+18,360*f,20,c);wt(1484,y+38,trf('{n} rpm',{n:fmt(n)}),24,c,700,'right',COND);}));
-  alphaDo(seg(u,.7,.76),()=>wt(1170,660,'要直接配合 15 rpm，需要 480 極',18,'#ff9d7a',700,'center'));
-  alphaDo(seg(u,.76,.82),()=>{tag(990,730,'解法一：齒輪箱增速',{size:17,bg:'#f2c230',align:'center'});tag(1340,730,'解法二：多極＋變流器',{size:17,bg:'#7dffc4',align:'center'});});
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'雷電流的路徑（示意）',20,'#f2c230',700);
+  const g=740,hx=300,hy=400;
+  /* 地面與接地 */
+  box(62,g,696,58,'rgba(164,135,106,.35)');ln([62,g,758,g],'rgba(227,236,238,.5)',1.5);
+  ctx.beginPath();ctx.ellipse(420,g+26,160,12,0,0,TAU);ctx.strokeStyle='#d08a4a';ctx.lineWidth=3;ctx.stroke();
+  /* 塔架、機艙、輪轂、葉片 */
+  poly([405,g,410,hy+30,430,hy+30,435,g],'#dfe5e8','#394650',1.2);
+  rrp(330,hy-24,190,54,6);ctx.fillStyle='#c9d1d6';ctx.fill();ctx.strokeStyle='#394650';ctx.lineWidth=1.2;ctx.stroke();
+  poly([330,hy-18,hx+4,hy-6,hx,hy+4,hx+4,hy+14,330,hy+22],'#dfe5e8','#394650',1.2);
+  poly([hx-14,hy-8,hx+14,hy-8,hx+5,236,hx-5,236],'#f4f6f7','#394650',1.4);
+  poly([hx-12,hy+16,hx+12,hy+16,hx+4,g-40,hx-4,g-40],'rgba(244,246,247,.35)','rgba(57,70,80,.5)',1);
+  ctx.setLineDash([6,5]);ln([hx,244,hx,hy-10],'#d08a4a',2.5);ctx.setLineDash([]);
+  [[hx,240],[hx+9,300],[hx-9,350]].forEach(([x,y])=>circ(x,y,5,'#9aa3a8','#13232e',1.2));
+  /* 流動 */
+  const P=[hx,240,hx,hy-10,hx+10,hy+4,380,hy+4,420,hy+32,420,g,420,g+14];
+  const segs=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]],T0=[.03,.18,.38,.5,.62,.74];
+  let cur=-1;T0.forEach((t,i)=>{if(u>=t)cur=i;});
+  const L=[0,1,2,3,4,5,6].map(i=>[P[i*2],P[i*2+1]]);
+  const reach=[1,1,3,4,5,6];      // 每一步點亮到路徑的第幾點
+  if(cur>=0){const k=reach[cur];const Q=[];for(let i=0;i<=k;i++)Q.push(L[i][0],L[i][1]);alphaDo(.55,()=>ln(Q,'#f2c230',6));flow(Q,10,.8,'#f2c230',4);}
+  if(u>=.74){for(let i=0;i<3;i++){const k=((TT*.8+i/3)%1);alphaDo(1-k,()=>{ctx.beginPath();ctx.ellipse(420,g+26,160+k*120,12+k*20,0,0,Math.PI);ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.stroke();});}}
+  const BG=[[hx+26,238],[hx+26,320],[hx-26,hy+10],[452,hy+40],[452,590],[600,g+26]];
+  BG.forEach(([x,y],i)=>alphaDo(u>=T0[i]?1:.3,()=>{circ(x,y,15,i===cur?'#f2c230':i<cur?'#7dffc4':'#16384c','#13232e',1.5);wt(x,y+6,String(i+1),16,'#13232e',800,'center',COND);}));
+  /* 右：步驟 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'每一段怎麼過電',20,'#f2c230',700);
+  const ST=['接閃器：葉尖與葉身的金屬接收點','引下線：葉片內部的銅纜','變槳軸承：碳刷或火花間隙跨接','偏航軸承：滑動接點導到塔架','塔架：鋼管本身就是導體','接地網：把電流散入大地'];
+  ST.forEach((s,i)=>{const y=226+i*92,on=u>=T0[i];alphaDo(on?1:.35,()=>{
+   const c=i<cur?'#7dffc4':i===cur?'#f2c230':'rgba(227,236,238,.6)';
+   box(824,y,692,72,i===cur?'rgba(242,194,48,.12)':'rgba(255,255,255,.04)',c,i===cur?2.5:1);
+   circ(862,y+36,20,i<cur?'#7dffc4':'#16384c',c,2);wt(862,y+43,String(i+1),20,i<cur?'#13232e':c,800,'center',COND);
+   wt(900,y+43,s,19,'#fff',i===cur?700:600);});});
  }},
 
-/* 3 ─────────────────────────────── 齒輪箱 */
-{t:'齒輪箱的三級增速',en:'Three stages of a gearbox',dur:14,
- d:'常見的風機齒輪箱由一級行星齒輪加上兩級平行軸齒輪組成。第一級是行星齒輪：外圈的內齒環固定，主軸帶動行星架，三到四個行星齒輪一邊公轉、一邊自轉，把力量分散到多個齒面，中間的太陽齒輪就被帶著快速旋轉。以太陽齒輪 22 齒、內齒環 88 齒為例，增速比是 1 + 88 ÷ 22 = 5 倍。接著兩級平行軸齒輪再各增速約 4.6 與 4.8 倍，合計約 110 倍。每一級都有些微摩擦損耗，整體效率約 97%，損失的能量變成熱，要靠潤滑油循環與冷卻器帶走。',
- s:[[0,'第一級行星齒輪：主軸帶動行星架'],[.25,'行星齒輪分擔負載，帶動中央的太陽齒輪'],[.5,'再經過兩級平行軸齒輪，每一級都加速'],[.76,'轉速增加約 110 倍，扭矩同比例下降']],
+/* 3 ─────────────────────────────── 雷擊有多猛 */
+{t:'雷擊有多猛',en:'How violent is a strike',dur:14,
+ d:'國際標準 IEC 61400-24 以雷擊防護等級描述設計要承受的雷電，風機一般採用最高的 LPL I：峰值電流 200 kA、單次雷擊電荷量 300 C、比能量 10 MJ/Ω。電流在約 10 微秒內衝到峰值，數百微秒後才衰減到一半。如果葉片沒有可靠的導電路徑，雷擊可能穿透外殼，在中空葉片內部的空氣中起弧，瞬間加熱的空氣形成壓力波，把葉殼從接縫撐裂，甚至讓葉尖爆開。接閃器與引下線的任務，就是讓電流在外部金屬中通過。',
+ s:[[0,'防護等級 LPL I：峰值 200 kA'],[.3,'約 10 微秒衝到峰值，再慢慢衰減'],[.5,'沒有導電路徑：葉片內部起弧'],[.72,'有接閃器與引下線：電流走金屬']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'第一級：行星齒輪（正視示意）',20,'#f2c230',700);
-  const cx=410,cy=500,m=4.4,rs=22*m/2,rp=33*m/2,rr=88*m/2,cr=rs+rp;
-  const th=TT*.3,sun=th*5,pl=th*(1-88/33);
-  /* 內齒環 */
-  ctx.beginPath();ctx.arc(cx,cy,rr+26,0,TAU);gearPath(cx,cy,rr,88,0,true);ctx.fillStyle='#6f7a80';ctx.fill('evenodd');ctx.strokeStyle='#394650';ctx.lineWidth=1.5;ctx.stroke();
-  /* 行星架 */
-  const ka=seg(u,.02,.08);
-  alphaDo(.35+.65*band(u,.02,.3),()=>{for(let i=0;i<3;i++){const a=th+i*TAU/3;ln([cx,cy,cx+Math.cos(a)*cr,cy+Math.sin(a)*cr],'#f2c230',10);}});
-  for(let i=0;i<3;i++){const a=th+i*TAU/3;gear(cx+Math.cos(a)*cr,cy+Math.sin(a)*cr,rp,33,pl,'#9aa3a8');circ(cx+Math.cos(a)*cr,cy+Math.sin(a)*cr,9,'#f2c230','#13232e',1.5);}
-  gear(cx,cy,rs,22,sun,'#7dffc4','#13232e');
-  alphaDo(ka,()=>{wt(cx,cy+rr+62,'內齒環固定　88 齒',17,'rgba(227,236,238,.9)',700,'center');});
-  alphaDo(band(u,.04,.34),()=>tag(cx-190,cy-rr-4,'輸入：行星架',{size:16,bg:'#f2c230',align:'center'}));
-  alphaDo(band(u,.26,.56),()=>{tag(cx+170,cy-rr-4,'輸出：太陽齒輪',{size:16,bg:'#7dffc4',align:'center'});});
-  alphaDo(seg(u,.3,.36),()=>{tag(cx,cy+rr+100,'1 + 88 ÷ 22 = 5 倍',{size:18,bg:'#dfe5e8',align:'center'});});
-  /* 右：三級轉速與扭矩 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'轉速與扭矩逐級變化（示例）',20,'#f2c230',700);
-  const ST=[['主軸',RR,'#fff'],['第一級 行星',RR*G1,'#7dc8dc'],['第二級 平行軸',RR*G1*G2,'#7dc8dc'],['第三級 平行軸',RR*GR,'#7dffc4']];
-  const RT=['× 5','× 4.6','× 4.8'];
-  wt(1110,248,'轉速',16,'rgba(227,236,238,.7)',700,'left');wt(1350,248,'扭矩',16,'rgba(227,236,238,.7)',700,'left');
-  ST.forEach(([n,v,c],i)=>{const t0=i===0?.04:i===1?.3:.46+(i-2)*.12;alphaDo(seg(u,t0,t0+.06),()=>{const y=270+i*120;
-   box(830,y,680,76,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);
-   const q=TT*Math.log2(v/7.5+1)*1.6;circ(870,y+38,20,'#16384c',c,2.5);ln([870,y+38,870+Math.cos(q)*18,y+38+Math.sin(q)*18],c,3);
-   wt(904,y+32,n,18,'#fff',700);wt(904,y+60,i?trf('累計 1 : {n}',{n:(v/RR).toFixed(i===3?1:0)}):'1 : 1',15,'rgba(227,236,238,.75)',600,'left',COND);
-   wt(1110,y+48,trf('{n} rpm',{n:fmt(v)}),28,c,700,'left',COND);
-   const T=tq(v),f=T/tq(RR);box(1350,y+22,140*Math.max(.02,f),14,'#ff9d7a');wt(1350,y+62,trf('{n} kN·m',{n:T>100?fmt(T):T.toFixed(1)}),17,'#ff9d7a',700,'left',COND);
-   if(i<3)alphaDo(seg(u,t0+.2,t0+.26),()=>{arrow(990,y+80,990,y+114,'#f2c230',2.5);wt(1004,y+104,RT[i],17,'#f2c230',700,'left',COND);});});});
-  alphaDo(seg(u,.8,.86),()=>tag(1170,766,'整體效率約 97%，損耗變成熱由油冷卻帶走',{size:16,bg:'#f2c230',align:'center'}));
+  const C=chartBox(60,160,700,420,{title:'雷擊電流波形 10/350 μs（示意）',x0:0,x1:800,y0:0,y1:220,xt:[0,200,400,600,800],yt:[0,100,200],xl:'時間 μs',yl:'電流 kA',pl:80,pt:80,pb:64,gx:4,gy:2});
+  const tc=800*seg(u,.04,.44);
+  if(tc>0){ctx.beginPath();for(let k=0;k<=200;k++){const t=tc*k/200;k?ctx.lineTo(C.X(t),C.Y(iw(t))):ctx.moveTo(C.X(t),C.Y(iw(t)));}ctx.strokeStyle='#f2c230';ctx.lineWidth=3.5;ctx.stroke();circ(C.X(tc),C.Y(iw(tc)),6,'#f2c230','#13232e',1.5);}
+  alphaDo(seg(u,.1,.14),()=>{tag(C.X(10)+16,C.Y(200)+4,'峰值 200 kA',{size:16,bg:'#f2c230'});});
+  alphaDo(seg(u,.3,.34),()=>{ctx.setLineDash([6,6]);ln([C.X(350),C.Y(100),C.X(350),C.py+C.ph],'#fff',1.5);ln([C.px,C.Y(100),C.X(350),C.Y(100)],'#fff',1.5);ctx.setLineDash([]);tag(C.X(350)+10,C.Y(100)-22,'350 μs 降到一半',{size:16,bg:'#7dffc4'});});
+  const PR=[['200 kA','峰值電流'],['300 C','電荷量'],['10 MJ/Ω','比能量']];
+  PR.forEach(([v,n],i)=>alphaDo(seg(u,.06+i*.06,.12+i*.06),()=>{const x=60+i*240;card(x,610,220,190,{bg:'rgba(7,27,39,.75)'});
+   wt(x+110,690,v,36,'#f2c230',700,'center',COND);wt(x+110,740,n,18,'rgba(227,236,238,.85)',600,'center');}));
+  wt(410,786,'IEC 61400-24　LPL I',15,'rgba(227,236,238,.55)',600,'center');
+  /* 右：葉片剖面比較 */
+  card(800,160,740,300,{bg:'rgba(7,27,39,.75)'});wt(824,200,'沒有導電路徑',20,'#ff9d7a',700);
+  const k=ease(seg(u,.55,.64)),cx=1170,cy=330,d=12*k;
+  ctx.save();ctx.beginPath();ctx.rect(800,160,740,cy-160);ctx.clip();ctx.translate(0,-d);airfoil(cx,cy,440,Math.PI,'#dfe5e8');ctx.restore();
+  ctx.save();ctx.beginPath();ctx.rect(800,cy,740,130);ctx.clip();ctx.translate(0,d);airfoil(cx,cy,440,Math.PI,'#dfe5e8');ctx.restore();
+  const af=flick(u,.48,.58)+(u>.58&&u<.66?.4:0);
+  if(u>=.46){bolt(boltPts(cx-40,210,cx-40,cy-22,3,5,30),flick(u,.46,.5),3);bolt(boltPts(cx-60,cy+2,cx+140,cy+2,7,9,26),af,2.5);}
+  if(k>0){alphaDo(k,()=>{[[-120,-1],[20,1],[160,-1]].forEach(([dx,s],i)=>{const r=rng(40+i);const x=cx+dx;ln([x,cy,x+10*s,cy-14*s,x+4*s,cy-26*s],'#e8572a',2.5);});});
+   alphaDo(k,()=>tag(cx,432,'葉殼沿接縫撐裂',{size:16,bg:'#e8572a',align:'center'}));}
+  card(800,490,740,310,{bg:'rgba(7,27,39,.75)'});wt(824,530,'有接閃器與引下線',20,'#7dffc4',700);
+  const cy2=660;airfoil(cx,cy2,440,Math.PI,'#dfe5e8');
+  circ(cx-30,cy2-10,9,'#d08a4a','#13232e',1.5);box(cx-36,cy2-50,12,34,'#9aa3a8','#13232e',1.2);
+  if(u>=.7){bolt(boltPts(cx-30,540,cx-30,cy2-50,13,5,30),flick(u,.7,.76),3);
+   const pa=band(u,.72,1);alphaDo(pa*(.5+.4*Math.sin(TT*10)),()=>circ(cx-30,cy2-10,16,'rgba(242,194,48,.5)'));
+   alphaDo(seg(u,.78,.84),()=>tag(cx,768,'電流沿引下線流走，葉片完好',{size:16,bg:'#7dffc4',align:'center'}));}
+  alphaDo(band(u,.7,1),()=>{wt(cx+90,cy2-58,'接閃器',16,'#fff',700);wt(cx+90,cy2+2,'引下線（剖面）',16,'#fff',700);
+   ln([cx+84,cy2-64,cx-22,cy2-40],'rgba(255,255,255,.6)',1);ln([cx+84,cy2-4,cx-20,cy2-10],'rgba(255,255,255,.6)',1);});
  }},
 
-/* 4 ─────────────────────────────── 雙饋式 */
-{t:'雙饋式感應發電機',en:'The doubly-fed induction generator',dur:14,
- d:'過去十多年最常見的陸域機型，是齒輪箱搭配雙饋式感應發電機（DFIG）。它的定子直接接到電網，轉子則經由滑環與碳刷接到一組背對背的變流器。變流器調整送進轉子的電流頻率，讓發電機在同步轉速約 ±30% 的範圍內變速運轉，葉片就能跟著風速改變轉速、保持在效率最好的葉尖速比。轉速低於同步轉速時，電網經變流器供電給轉子；高於同步轉速時，轉子也把電送出去。因為變流器只處理約三成功率，體積與成本都較小；缺點是仍需齒輪箱，滑環碳刷要定期保養。',
- s:[[0,'定子直接接電網，轉子經滑環接到變流器'],[.25,'變流器只處理約三成的功率'],[.5,'低於同步轉速：電網供電給轉子'],[.72,'高於同步轉速：轉子也把電送回電網']],
+/* 4 ─────────────────────────────── 接地與突波保護 */
+{t:'接地與突波保護',en:'Earthing and surge protection',dur:14,side:true,
+ d:'雷電流最後要散入大地。風機基礎的鋼筋與埋在基礎外圍的環形接地極連成一體，土壤電阻率高的地方再打入接地棒，設計上常以接地電阻 10 Ω 以下為目標，完工後實際量測確認。電流進入土壤時會形成電位梯度，人站在附近，兩腳之間可能出現跨步電壓，環形接地極能讓地表電位較平均。雷擊也會在電纜上感應出突波，所以塔底控制櫃的電源與通訊線路都裝有突波保護器（SPD），並把所有金屬做等電位連接。',
+ s:[[0,'基礎鋼筋、環形接地極與接地棒連成一體'],[.3,'雷電流進入土壤，向四周擴散'],[.48,'地表電位梯度可能形成跨步電壓'],[.66,'控制櫃線路裝突波保護器（SPD）'],[.84,'完工量測接地電阻，確認達到設計值']],
+ cam:u=>({x:TX+110,y:560,s:1.6}),
  draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'雙饋式發電機的電路（示意）',20,'#f2c230',700);
-  const n=1400+800*ease(seg(u,.45,.85)),sl=(n-1800)/1800;
-  const q=TT*(1+n/400);
-  /* 齒輪箱與軸 */
-  box(90,420,90,90,'#6f7a80','rgba(0,0,0,.5)',1.5);wt(135,405,'齒輪箱',16,'rgba(227,236,238,.9)',700,'center');
-  shaft(180,222,465,14,q,'#9aa3a8');
-  /* DFIG */
-  box(222,380,190,170,'#58b8d0','rgba(0,0,0,.5)',1.5);box(248,418,138,94,'#7dc8dc','rgba(0,0,0,.5)',1.5);
-  for(let k=0;k<5;k++){const p=q+k*TAU/5;if(Math.cos(p)>0){const yy=465+Math.sin(p)*40;ln([254,yy,380,yy],'rgba(0,0,0,.3)',3);}}
-  wt(317,372,'定子',16,'#58b8d0',700,'center');wt(317,470,'轉子',16,'#13232e',800,'center');
-  for(let k=0;k<3;k++)box(296+k*14,550,8,22,'#e8a33a');wt(317,596,'滑環',15,'#e8a33a',700,'center');
-  /* 定子路徑 */
-  const SP=[412,440,640,440];ln(SP,'#f2c230',4);
-  /* 轉子路徑 */
-  const RP=[317,572,317,650,360,650];ln([317,572,317,650,360,650],'#e8a33a',2.5);
-  box(356,620,84,60,'#16384c','#e8a33a',2);wt(398,656,'AC/DC',15,'#fff',700,'center',COND);
-  ln([440,640,484,640],'#e8a33a',2.5);ln([440,660,484,660],'#e8a33a',2.5);ln([462,628,462,672],'#e8a33a',3);
-  box(484,620,80,60,'#16384c','#e8a33a',2);wt(524,656,'DC/AC',15,'#fff',700,'center',COND);
-  ln([564,650,640,650,640,440],'#e8a33a',2.5);
-  /* 變壓器與電網 */
-  ln([640,440,672,440],'#f2c230',4);xfmr(694,440,18);ln([716,440,740,440],'#f2c230',4);
-  wt(694,400,'電網',17,'#fff',700,'center');wt(694,486,'60 Hz',17,'#fff',700,'center',COND);
-  /* 功率流 */
-  alphaDo(seg(u,.06,.12),()=>flow([412,440,740,440],6,.5,'#f2c230',6));
-  const rp=[317,572,317,650,360,650,640,650,640,440];
-  alphaDo(seg(u,.2,.26)*Math.min(1,Math.abs(sl)*6+.2),()=>{const dir=sl<0?-1:1;for(let i=0;i<4;i++){const [x,y]=along(rp,dir*TT*.35+i/4);circ(x,y,3.5,'#e8a33a');}});
-  alphaDo(seg(u,.22,.28),()=>tag(462,730,'變流器：約 30% 功率',{size:16,bg:'#e8a33a',align:'center'}));
-  alphaDo(seg(u,.45,.5),()=>wt(84,262,trf('發電機轉速 {n} rpm',{n:fmt(n)}),20,'#7dffc4',700,'left',COND));
-  /* 右：變速範圍 */
-  const C=chartBox(800,160,740,640,{title:'轉子功率與轉速（示例）',x0:1000,x1:2600,y0:-40,y1:40,xt:[1200,1800,2400],yt:[-30,0,30],xl:'發電機轉速 rpm',yl:'轉子功率 %',pl:80,pt:70,pb:70,gx:4,gy:4});
-  alphaDo(seg(u,.3,.36),()=>{box(C.X(1260),C.py,C.X(2340)-C.X(1260),C.ph,'rgba(125,255,196,.08)');
-   ctx.setLineDash([7,6]);ln([C.X(1800),C.py,C.X(1800),C.py+C.ph],'#fff',2);ctx.setLineDash([]);
-   wt(C.X(1800)+10,C.py+26,'同步轉速 1,800 rpm',16,'#fff',700,'left');
-   wt(C.X(1260)+10,C.py+26,'變速範圍 ±30%',16,'#7dffc4',700,'left');});
-  const f=seg(u,.32,.44);if(f>0){ctx.beginPath();ctx.moveTo(C.X(1260),C.Y(-30));ctx.lineTo(C.X(lerp(1260,2340,f)),C.Y(lerp(-30,30,f)));ctx.strokeStyle='#f2c230';ctx.lineWidth=3;ctx.stroke();}
-  alphaDo(seg(u,.48,.54),()=>{wt(C.X(1680),C.Y(-30),'電網供電給轉子',16,'#e8a33a',700,'center');wt(C.X(1680),C.Y(-30)+24,'次同步',15,'rgba(227,236,238,.75)',600,'center');});
-  alphaDo(seg(u,.72,.78),()=>{wt(C.X(1960),C.Y(30),'轉子也送電',16,'#e8a33a',700,'center');wt(C.X(1960),C.Y(30)+24,'超同步',15,'rgba(227,236,238,.75)',600,'center');});
-  alphaDo(seg(u,.45,.5),()=>circ(C.X(n),C.Y(sl*100),9,'#7dffc4','#13232e',2));
- }},
-
-/* 5 ─────────────────────────────── 永磁直驅 */
-{t:'永磁直驅與全功率變流器',en:'Direct drive and the full-power converter',dur:14,
- d:'另一種做法是拿掉齒輪箱，讓輪轂直接帶動一部直徑很大的多極發電機。轉子上排滿一圈永久磁鐵，磁極數可達上百極，即使每分鐘只轉十幾圈，定子線圈仍能感應出電力。不過它發出的電頻率隨轉速改變，大約只有十幾赫茲，不能直接併網，必須由全功率變流器先整流成直流，再轉換成穩定的 60 Hz 交流電。直驅機型少了齒輪箱這個最常損壞的部件，但發電機大而重，每 MW 約需數百公斤的永久磁鐵，其中含有釹、鐠等稀土元素。',
- s:[[0,'沒有齒輪箱，輪轂直接帶動大型發電機'],[.25,'一圈永久磁鐵，轉得慢也能發電'],[.5,'頻率隨轉速變化，先整流成直流'],[.75,'再轉換成穩定的 60 Hz 交流電併網']],
- draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'直驅永磁發電機（正視示意）',20,'#f2c230',700);
-  const cx=410,cy=500,R=196,th=TT*.22;
-  /* 定子 */
-  ctx.beginPath();ctx.arc(cx,cy,R+44,0,TAU);ctx.arc(cx,cy,R+12,0,TAU,true);ctx.fillStyle='#6f7a80';ctx.fill();
-  for(let i=0;i<72;i++){const a=i*TAU/72;ln([cx+Math.cos(a)*(R+14),cy+Math.sin(a)*(R+14),cx+Math.cos(a)*(R+30),cy+Math.sin(a)*(R+30)],'#e8a33a',3);}
-  /* 轉子與磁鐵 */
-  circ(cx,cy,R+8,'#394650');
-  const km=ease(seg(u,.2,.34));
-  for(let i=0;i<60;i++){const a=th+i*TAU/60;if(i/60>km)continue;ctx.save();ctx.translate(cx+Math.cos(a)*(R-2),cy+Math.sin(a)*(R-2));ctx.rotate(a);box(-8,-8,16,16,i%2?'#58b8d0':'#e8572a');ctx.restore();}
-  circ(cx,cy,R-16,'#16384c');
-  for(let i=0;i<6;i++){const a=th+i*TAU/6;ln([cx+Math.cos(a)*60,cy+Math.sin(a)*60,cx+Math.cos(a)*(R-16),cy+Math.sin(a)*(R-16)],'#8d989f',8);}
-  circ(cx,cy,60,'#dfe5e8','#394650',2);
-  for(let i=0;i<3;i++){const a=th+i*TAU/3;circ(cx+Math.cos(a)*34,cy+Math.sin(a)*34,11,'#9aa3a8');}
-  alphaDo(band(u,.04,.3),()=>tag(cx,cy+96,'輪轂直接連結',{size:16,bg:'#dfe5e8',align:'center'}));
-  alphaDo(band(u,.26,.56),()=>{tag(cx-150,cy-R-44,'永久磁鐵',{size:16,bg:'#e8572a',align:'center'});tag(cx+150,cy-R-44,'定子線圈',{size:16,bg:'#e8a33a',align:'center'});});
-  alphaDo(seg(u,.56,.62),()=>tag(cx,cy+R+72,'直徑可達 5 m 以上　無齒輪箱',{size:16,bg:'#7dffc4',align:'center'}));
-  /* 右：全功率變流器 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'全功率變流器：100% 電力都要轉換',20,'#f2c230',700);
-  const BX=[[830,'發電機','約 15 Hz','#7dc8dc'],[1010,'整流','AC → DC','#e8a33a'],[1190,'變流','DC → AC','#e8a33a'],[1370,'電網','60 Hz','#7dffc4']];
-  BX.forEach(([x,n,s,c],i)=>{const t0=[.38,.48,.6,.66][i];alphaDo(seg(u,t0,t0+.06),()=>{
-   box(x,270,140,90,'#16384c',c,2);wt(x+70,308,n,20,c,800,'center');wt(x+70,340,s,17,'#fff',700,'center',COND);
-   if(i<3)arrowR(x+146,315,30,'#f2c230');
-   const vf=12+4*nz(TT*.3);wave(x,400,140,110,i===0?vf/60*1.6:i===3?1.6:0,c,i===1||i===2);});});
-  alphaDo(seg(u,.5,.56),()=>{wt(1100,550,'直流鏈',16,'#e8a33a',700,'center');ln([1010,540,1060,540],'rgba(232,163,58,.5)',1);ln([1140,540,1330,540],'rgba(232,163,58,.5)',1);});
-  alphaDo(seg(u,.42,.48),()=>wt(900,550,'頻率隨轉速變',15,'rgba(227,236,238,.8)',600,'center'));
-  alphaDo(seg(u,.7,.76),()=>wt(1440,550,'穩定併網',15,'rgba(227,236,238,.8)',600,'center'));
-  alphaDo(seg(u,.8,.86),()=>{box(830,610,680,150,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);
-   wt(852,650,'優點',18,'#7dffc4',800);wt(930,650,'少了齒輪箱，轉速低、磨耗少',18,'#fff',600);
-   wt(852,700,'限制',18,'#ff9d7a',800);wt(930,700,'發電機大而重，需要稀土永久磁鐵',18,'#fff',600);
-   wt(930,738,'每 MW 約 650 kg 永久磁鐵（Siemens 估計）',16,'rgba(227,236,238,.8)',600);});
- }},
-
-/* 6 ─────────────────────────────── 比較 */
-{t:'三種傳動鏈比一比',en:'Three drivetrains compared',dur:13,
- d:'目前的風機大致分成三種傳動鏈。齒輪箱加雙饋式發電機技術成熟、變流器小，是許多陸域機型的主流，但齒輪箱與滑環需要較多保養。中速永磁的混合式設計只用一到兩級齒輪，發電機轉速約每分鐘數百轉，兼顧體積與可靠度，並搭配全功率變流器。永磁直驅完全沒有齒輪箱，運動零件最少，但發電機最大最重，也最依賴稀土。全功率變流器還能提供較好的電網支撐能力。選哪一種沒有絕對答案，要看成本、重量、道路運輸與吊裝條件，以及當地的維修能力。',
- s:[[0,'三種傳動鏈，差在齒輪箱與變流器'],[.3,'雙饋式：變流器小，但齒輪箱要保養'],[.55,'中速與直驅：齒輪少或沒有，用全功率變流器'],[.8,'沒有絕對好壞，看成本、運輸與維修條件']],
- draw(u){
-  diagBG();
-  const COL=[['齒輪箱＋雙饋式','三級','約 1,000–2,000 rpm','約 30%','變流器小、成本較低','齒輪箱與滑環要保養','#f2c230',3],
-   ['中速永磁（混合式）','一至兩級','約 100–500 rpm','100%','齒輪較少、機艙較精簡','仍有齒輪箱、需稀土','#7dc8dc',1.5],
-   ['永磁直驅','無','約 10–20 rpm','100%','運動零件最少','發電機大而重、需稀土','#7dffc4',0]];
-  const RW=['齒輪箱','發電機轉速','變流器'];
-  COL.forEach(([h,a,b,c,pro,con,col,ng],i)=>{const x=60+i*500,w=480,t0=[.02,.36,.5][i];
-   card(x,160,w,640,{bg:'rgba(7,27,39,.75)'});
-   alphaDo(seg(u,t0,t0+.06),()=>{box(x,160,w,6,col);wt(x+24,206,h,21,col,800);
-    /* 小圖示：主軸—齒輪箱—發電機 */
-    const y=270,gw=ng*24,gl=Math.max(70,190-ng*30),x0=x+30;
-    ln([x0,y,x0+60,y],'#9aa3a8',8);if(ng>0)box(x0+60,y-24,gw+20,48,'#6f7a80','rgba(0,0,0,.4)',1);
-    const gx=x0+60+(ng>0?gw+20:0),gh=ng===0?90:ng<2?64:46;ln([gx,y,gx+14,y],'#9aa3a8',4);box(gx+14,y-gh/2,gl,gh,'#58b8d0','rgba(0,0,0,.4)',1);
-    [a,b,c].forEach((v,k)=>{const yy=360+k*72;ln([x+24,yy-30,x+w-24,yy-30],'rgba(255,255,255,.1)',1);
-     wt(x+24,yy,RW[k],16,'rgba(227,236,238,.7)',600);wt(x+24,yy+28,v,20,'#fff',700);});});
-   alphaDo(seg(u,t0+.1,t0+.16),()=>{const yy=596;
-    wt(x+24,yy,'優點',17,'#7dffc4',800);wt(x+24,yy+32,pro,18,'#fff',600);
-    wt(x+24,yy+80,'限制',17,'#ff9d7a',800);wt(x+24,yy+112,con,18,'#fff',600);});});
-  alphaDo(seg(u,.8,.86),()=>tag(800,142,'選擇取決於成本、重量、運輸與維修能力',{size:17,bg:'#f2c230',align:'center'}));
- }},
-
-/* 7 ─────────────────────────────── 送上電網 */
-{t:'從發電機到電網',en:'From generator to grid',dur:13,side:true,
- d:'發電機送出的電壓通常只有數百伏特，例如 690 V，要先經過變流器調整成與電網同步，再由塔底或機艙內的升壓變壓器提高到數萬伏特的中壓，透過地下集電線路送到風場變電站，再升壓併入台電電網。台灣電網頻率是 60 Hz，變流器與控制器會持續讓輸出的頻率、電壓與功率因數符合併網規範。齒輪箱與發電機在機艙裡把轉速換成電力，變流器與變壓器則把這些電力整理成電網能接受的樣子。',
- s:[[0,'風機運轉中，電力從機艙沿塔架往下送'],[.3,'變流器讓輸出與 60 Hz 電網同步'],[.55,'升壓變壓器把 690 V 提高到中壓'],[.78,'地下集電線路送到變電站，再併入電網']],
- cam:u=>camMix({x:800,y:430,s:1},{x:820,y:440,s:1.02},ease(seg(u,.1,.9))),
- draw(u){
-  windLines(120,560,18,240,.9,7,60);
-  const rot=TT*RR*TAU/60;turbineSide(rot,1);
-  const g=gyy(TX),bx=TX+36,SX=1180;
-  box(bx,g-46,70,46,'#dfe5e8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)ln([bx+10,g-36+i*10,bx+60,g-36+i*10],'rgba(0,0,0,.2)',2);
-  substation(SX);pylon(1400);ln([SX,gyy(SX)-92,1400,gyy(1400)-160,1700,gyy(1400)-150],'rgba(60,70,75,.7)',1.5);
-  const cy=g+28;
-  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([10,6]);ln([bx+35,g,bx+35,cy,SX,cy,SX,gyy(SX)],'#f2c230',2.5);ctx.setLineDash([]);});
-  const DOWN=[TX+140,HY+22,TX+140,HY+36,TX,HY+40,TX,g-20,bx,g-20];
-  alphaDo(seg(u,.05,.12),()=>flow(DOWN,5,.45,'#7dffc4',4));
-  alphaDo(seg(u,.56,.62),()=>flow([bx+35,g,bx+35,cy,SX,cy,SX,gyy(SX)-70],8,.25,'#f2c230',4.5));
-  alphaDo(seg(u,.8,.86),()=>flow([SX,gyy(SX)-92,1400,gyy(1400)-160,1700,gyy(1400)-150],5,.4,'#ff9d7a',4));
-  lab(TX+140,HY,'發電機 690 V',{dx:80,dy:-70,st:'g',a:band(u,.04,.3)});
-  lab(TX,g-150,'電纜沿塔架而下',{dx:-110,dy:-40,a:band(u,.12,.34)});
-  lab(bx+35,g-46,'變流器與控制櫃',{dx:90,dy:-80,st:'s',a:band(u,.3,.56)});
-  lab(bx+35,g-30,'升壓變壓器',{dx:110,dy:-60,st:'s',a:band(u,.56,.8)});
-  lab(900,cy,'地下集電線路（示例 22.8 kV）',{dx:0,dy:70,st:'s',a:band(u,.6,.86)});
-  lab(SX,gyy(SX)-80,'風場變電站',{dx:0,dy:-110,a:band(u,.74,1)});
-  lab(1400,gyy(1400)-190,'台電電網 60 Hz',{dx:-40,dy:-60,st:'w',a:band(u,.82,1)});
+  const g=gyy(TX);
+  turbineSide(TT*.4);baseCab();
+  earthing(1);
+  /* 雷電流 */
+  const pa=band(u,.28,.6);
+  if(pa>0){const P=[TX,280,TX,g,TX,g+64];alphaDo(pa*.5,()=>ln(P,'#f2c230',6));alphaDo(pa,()=>flow(P,8,.9,'#f2c230',4));
+   ctx.save();ctx.beginPath();ctx.rect(VX0,g+2,VX1-VX0,600);ctx.clip();
+   for(let i=0;i<4;i++){const k=((TT*.6+i/4)%1),rx=240+k*420;alphaDo(pa*(1-k)*.9,()=>{ctx.beginPath();ctx.ellipse(TX,g+64,rx,rx*.42,0,0,TAU);ctx.strokeStyle='#f2c230';ctx.lineWidth=2.5;ctx.stroke();});}
+   ctx.restore();}
+  /* 跨步電壓 */
+  const px=1010,ps=band(u,.44,.66);person(px,gyy(px),'#e8572a',2.4);
+  if(ps>0)alphaDo(ps,()=>{circ(px-3,gyy(px)+2,4,'#ff9d7a');circ(px+3,gyy(px)+2,4,'#f2c230');});
+  /* SPD 指示燈 */
+  const sp=band(u,.64,.84);if(sp>0)alphaDo(sp*(.6+.4*Math.sin(TT*9)),()=>circ(TX+75,g-24,10,'rgba(125,255,196,.55)'));
+  lab(TX-230,g+64,'環形接地極',{dx:-40,dy:-80,st:'s',a:band(u,.02,.3)});
+  lab(TX+230,g+170,'接地棒',{dx:90,dy:30,st:'s',a:band(u,.06,.3)});
+  lab(TX-100,g+118,'基礎鋼筋',{dx:-60,dy:60,st:'l',a:band(u,.1,.3)});
+  lab(TX+420,g+120,'電流向四周擴散',{dx:60,dy:40,st:'s',a:band(u,.3,.5)});
+  lab(px,gyy(px)-10,'跨步電壓',{dx:40,dy:-90,st:'w',a:band(u,.46,.66)});
+  lab(TX+75,g-24,'突波保護器（SPD）',{dx:110,dy:-90,st:'g',a:band(u,.66,.9)});
+  lab(TX+40,g-6,'等電位連接',{dx:-40,dy:-150,st:'g',a:band(u,.7,.9)});
  },
- hud(u){hudPanel(250,150,'併網狀態（示例）',seg(u,.05,.1),w=>{
-  hrow(56,'輸出功率',trf('{p} MW',{p:(3.2+.25*nz(TT*.3)).toFixed(2)}),w,'#f2c230');hrow(88,'電網頻率',trf('{f} Hz',{f:(60+.02*nz(TT*.7)).toFixed(2)}),w,'#7dffc4');hrow(120,'升壓',u>.56?'690 V → 22.8 kV':'690 V',w,'#fff');});}}
+ hud(u){hudPanel(250,182,'接地與保護（示例）',seg(u,.03,.08),w=>{
+  hrow(56,'設計目標','≤ 10 Ω',w,'#fff');
+  hrow(88,'量測接地電阻',u<.84?'—':trf('{n} Ω',{n:(lerp(9,4.6,ease(seg(u,.84,.94)))).toFixed(1)}),w,'#7dffc4');
+  hrow(120,'雷電流',u<.28||u>.62?'—':trf('{n} kA',{n:(34*Math.exp(-seg(u,.3,.62)*3)).toFixed(0)}),w,'#f2c230');
+  hrow(152,'SPD 狀態',u<.64?'待命':u<.8?'動作，洩放突波':'正常',w,u<.64?'#fff':u<.8?'#ff9d7a':'#7dffc4');});}},
+
+/* 5 ─────────────────────────────── 前緣侵蝕 */
+{t:'葉片前緣侵蝕',en:'Leading-edge erosion',dur:14,
+ d:'葉片的前緣是轉動時最先切開空氣的部位。以轉子半徑 60 m、每分鐘 15 轉為例，葉尖速度約 94 m/s，雨滴、冰雹與沙塵以這樣的速度反覆撞擊，數年後塗層出現麻點、剝落，嚴重時露出底下的玻璃纖維層板。前緣變粗糙後，氣流提早轉為紊流，升力下降、阻力上升，研究顯示年發電量可能因此減少數個百分點。常見的前緣保護（LEP）有彈性塗層、保護膠帶與預製護殼，巡檢時一併檢查修補。',
+ s:[[0,'葉尖速度可達每秒 90 多公尺'],[.25,'雨滴與沙塵反覆撞擊葉片前緣'],[.45,'塗層麻點、剝落，最後露出層板'],[.72,'前緣保護：塗層、膠帶或護殼']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'前緣的特寫（示意）',20,'#f2c230',700);
+  const yr=10*seg(u,.26,.66),cx=520,cy=400;
+  ctx.save();ctx.beginPath();ctx.rect(62,220,696,380);ctx.clip();
+  airfoil(cx,cy,760,Math.PI,'#dfe5e8');
+  /* 塗層 */
+  const r=rng(8),LEx=cx-380;
+  ctx.beginPath();ctx.ellipse(LEx+56,cy-8,62,58,0,Math.PI*.5,Math.PI*1.5);ctx.strokeStyle='#7dc8dc';ctx.lineWidth=7;ctx.stroke();
+  const np=Math.round(yr*9);for(let i=0;i<np;i++){const a=Math.PI*.62+r()*Math.PI*.76,rr=58+r()*4,x=LEx+56+Math.cos(a)*rr,y=cy-8+Math.sin(a)*rr*.95;circ(x,y,2+r()*2.5+(yr>5?1.5:0),yr>8&&i%3===0?'#b89a6a':'#5b6b74');}
+  if(yr>8)alphaDo(seg(yr,8,10),()=>{ctx.beginPath();ctx.ellipse(LEx+56,cy-8,62,58,0,Math.PI*.85,Math.PI*1.15);ctx.strokeStyle='#c9b088';ctx.lineWidth=9;ctx.stroke();});
+  /* 雨滴 */
+  for(let i=0;i<22;i++){const y=250+((i*37)%320),x=62+((TT*900+i*97)%(LEx-62+30));if(Math.abs(y-cy)<150||x<LEx-20)ln([x-22,y,x,y],'rgba(125,200,220,.85)',2);}
+  ctx.restore();
+  wt(96,580,trf('運轉第 {n} 年',{n:yr.toFixed(0)}),22,'#fff',700,'left',COND);
+  alphaDo(band(u,.05,.3),()=>tag(150,262,'雨滴高速撞擊',{size:16,bg:'#7dc8dc'}));
+  const SG=[['塗層麻點',2],['塗層剝落',5],['層板外露',8]];
+  SG.forEach(([n,t],i)=>{const on=yr>=t,x=84+i*222;alphaDo(on?1:.35,()=>{box(x,630,206,120,on?'rgba(232,87,42,.12)':'rgba(255,255,255,.04)',on?'#ff9d7a':'rgba(227,236,238,.4)',on?2:1);
+   wt(x+103,676,String(i+1),24,on?'#ff9d7a':'rgba(227,236,238,.6)',800,'center',COND);wt(x+103,720,n,18,'#fff',700,'center');});});
+  /* 右：沿葉展的速度 */
+  const C=chartBox(800,160,740,360,{title:'沿葉片的相對速度（示例）',x0:0,x1:60,y0:0,y1:100,xt:[0,20,40,60],yt:[0,50,100],xl:'離輪轂距離 m',yl:'速度 m/s',pl:80,pt:80,pb:64,gx:3,gy:2});
+  const rr=60*seg(u,.02,.22),vf=r=>r*TAU*RMAX/60;
+  if(rr>0){ln([C.X(0),C.Y(0),C.X(rr),C.Y(vf(rr))],'#f2c230',3.5);circ(C.X(rr),C.Y(vf(rr)),7,'#f2c230','#13232e',1.5);
+   wt(C.X(rr)-12,C.Y(vf(rr))-16,trf('{n} m/s',{n:vf(rr).toFixed(0)}),20,'#fff',700,'right',COND);}
+  alphaDo(seg(u,.22,.26),()=>tag(C.X(60)-10,C.Y(30),'葉尖最容易侵蝕',{size:16,bg:'#e8572a',align:'right'}));
+  card(800,550,740,250,{bg:'rgba(7,27,39,.75)'});wt(824,590,'前緣保護（LEP）',20,'#7dffc4',700);
+  const LP=[['保護塗層','彈性塗料，可現場修補'],['保護膠帶','貼覆彈性膜，施工快'],['前緣護殼','預製硬殼，耐久性高']];
+  LP.forEach(([n,s],i)=>alphaDo(seg(u,.72+i*.07,.77+i*.07),()=>{const x=824+i*236;box(x,612,220,110,'rgba(125,255,196,.08)','#7dffc4',1.5);
+   wt(x+110,654,n,19,'#7dffc4',700,'center');wt(x+110,694,s,15,'#fff',600,'center');}));
+  alphaDo(seg(u,.5,.55),()=>wt(1170,770,'前緣變粗糙：年發電量可能少數個百分點',17,'#ff9d7a',700,'center'));
+ }},
+
+/* 6 ─────────────────────────────── 冬季雷與鹽害 */
+{t:'冬季雷與沿海鹽害',en:'Winter lightning and salt',dur:13,
+ d:'環境不同，防護重點也不同。日本海沿岸冬季的雷雲低，風機葉尖常自己向上引發上行雷，電荷量特別大；日本 NEDO 在 27 部風機的觀測中，約 4% 的雷擊超過 300 C，接閃器因此要更耐燒蝕。台灣的雷擊則多集中在夏季午後雷陣雨與梅雨季。台灣西部沿海的風機另有鹽害問題：東北季風把海上的鹽霧吹上岸，塔架與機艙需要高防蝕等級的塗裝、機艙密封與除濕，並定期以無人機或繩索作業檢查接閃器與前緣。',
+ s:[[0,'日本海沿岸冬季雷雲低，常見上行雷'],[.3,'上行雷電荷量大，接閃器容易燒蝕'],[.52,'台灣沿海：東北季風帶來鹽霧'],[.76,'防蝕塗裝、機艙除濕與定期巡檢']],
+ draw(u){
+  diagBG();
+  /* 左：冬季雷 */
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'冬季雷（日本海沿岸）',20,'#f2c230',700);
+  ctx.save();ctx.beginPath();ctx.rect(62,220,696,380);ctx.clip();
+  box(62,220,696,380,'#1d2b36');
+  const r=rng(6);for(let i=0;i<10;i++)circ(80+r()*660,250+r()*40,40+r()*40,'#34424e');
+  const g1=560;box(62,g1,696,40,'#dfe5e8');
+  for(let i=0;i<50;i++){const x=62+((r()*700+TT*14)%700),y=240+((r()*360+TT*40)%360);circ(x,y,1.8,'rgba(255,255,255,.7)');}
+  const top=miniT(410,g1,190,110,TT*.8);
+  const lk=seg(u,.06,.28),sb=[];
+  if(lk>0){const P=boltPts(top[0],top[1],top[0]+30,lerp(top[1],290,lk),15,8,40);bolt(P,u<.3?.8:flick(u,.3,.5),2.5);
+   [[-60,.4],[70,.6]].forEach(([dx,f],i)=>{if(lk>f){const q=along(P,f*.9);bolt(boltPts(q[0],q[1],q[0]+dx,q[1]-80*(lk-f),20+i,5,20),u<.3?.6:flick(u,.3,.5),1.6);}});}
+  ctx.restore();
+  lab(top[0],top[1],'葉尖引發上行雷',{dx:120,dy:30,st:'s',a:band(u,.1,.5)});
+  const LR=[['上行雷多、電荷量大','#f2c230',.28],['NEDO 觀測：約 4% 超過 300 C','#f2c230',.36],['台灣雷擊多在夏季午後雷陣雨','#7dc8dc',.44]];
+  LR.forEach(([s,c,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=624+i*56;box(84,y,652,46,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);box(84,y,6,46,c);wt(104,y+30,s,17,'#fff',600);}));
+  /* 右：鹽害 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'沿海鹽害（台灣西部海岸）',20,'#f2c230',700);
+  ctx.save();ctx.beginPath();ctx.rect(802,220,736,380);ctx.clip();
+  box(802,220,736,380,'#6f9fbf');
+  const g2=560;
+  ctx.beginPath();ctx.moveTo(802,g2);for(let x=802;x<=1100;x+=6)ctx.lineTo(x,g2+4*Math.sin(x*.05+TT*2));ctx.lineTo(1100,600);ctx.lineTo(802,600);ctx.closePath();ctx.fillStyle='#1f7f99';ctx.fill();
+  poly([1100,g2,1180,g2-6,1538,g2-6,1538,600,1100,600],'#d8c79c');
+  const sa=seg(u,.46,.54);
+  for(let i=0;i<60;i++){const ph=(r()+TT*.18)%1,x=820+ph*680,y=g2-20-r()*260+Math.sin(TT+i)*8;alphaDo(sa*(1-ph*.5)*.9,()=>circ(x,y,2.2,'#ffffff'));}
+  miniT(1360,g2-6,190,110,TT*1.4);
+  if(sa>0)alphaDo(sa,()=>{for(let i=0;i<3;i++){const y=300+i*60,x=860+((TT*80+i*60)%120);arrow(x,y,x+90,y,'rgba(255,255,255,.85)',2.5);}});
+  ctx.restore();
+  alphaDo(band(u,.5,.8),()=>tag(900,260,'東北季風挾帶鹽霧',{size:16,bg:'#fff'}));
+  const MR=[['高防蝕等級塗裝（如 ISO 12944 C5）',.62],['機艙密封、正壓與除濕',.7],['無人機巡檢接閃器與前緣',.78]];
+  MR.forEach(([s,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=624+i*56;box(824,y,692,46,'rgba(125,255,196,.06)','rgba(125,255,196,.4)',1);box(824,y,6,46,'#7dffc4');wt(844,y+30,s,17,'#fff',600);}));
+ }}
 ]};
 
-/* 陸域風電系列 第 5 集：齒輪箱與發電機 — 英日翻譯 */
+/* 陸域風電系列 第 7 集：雷擊與葉片防護 — 英日翻譯 */
 Object.assign(DICT,{
 "陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
-"齒輪箱與發電機":["Gearboxes and generators","増速機と発電機"],
-"葉片每分鐘只轉十幾圈，發電機卻需要轉得快、送出穩定的 60 Hz 電力。這一集打開機艙，看齒輪箱如何增速、雙饋式與永磁直驅發電機各怎麼運作，以及變流器扮演的角色。":["The blades turn only ten-odd times a minute, yet the generator must spin fast and deliver steady 60 Hz power. This episode opens the nacelle to see how a gearbox steps up speed, how doubly-fed and permanent-magnet direct-drive generators work, and what the power converter does.","ブレードは毎分十数回しか回りませんが、発電機は速く回って安定した 60 Hz の電力を送らなければなりません。本編ではナセルを開き、増速機による増速、二重給電誘導発電機と永久磁石式ダイレクトドライブ発電機の仕組み、そして電力変換器の役割を見ていきます。"],
-"左右":["approx.","程度"],
-"級":["stages","段"],
-"2–4 MW 級陸域風機三級齒輪箱的典型增速比（示例）":["Typical step-up ratio of a three-stage gearbox in a 2–4 MW onshore turbine (example)","2–4 MW 級陸上風車の 3 段増速機の代表的な増速比（例）"],
-"台灣電網 60 Hz 下，4 極發電機的同步轉速（n = 120 f ÷ p）":["Synchronous speed of a 4-pole generator on Taiwan's 60 Hz grid (n = 120 f ÷ p)","台湾の 60 Hz 系統における 4 極発電機の同期速度（n = 120 f ÷ p）"],
-"雙饋式發電機的變流器只需處理約三成功率，轉速可在同步轉速 ±30% 內變化":["A DFIG converter handles only about 30% of the power, allowing speed to vary within ±30% of synchronous speed","二重給電誘導発電機の変換器は約 3 割の電力だけを扱い、回転数は同期速度の ±30% 内で可変"],
-"全功率變流器：發電機的全部電力都經過 AC→DC→AC 轉換後才併網":["Full-power converter: all of the generator's output goes through AC→DC→AC conversion before reaching the grid","フルコンバータ：発電機の全電力が AC→DC→AC 変換を経て系統へ"],
-"低速永磁直驅發電機的永久磁鐵用量（Siemens 估計，依設計而異）":["Permanent magnet mass in a low-speed direct-drive generator (Siemens estimate; varies by design)","低速ダイレクトドライブ発電機の永久磁石の使用量（Siemens の推計、設計により異なる）"],
-"常見的增速齒輪箱：一級行星齒輪加兩級平行軸齒輪（示例）":["A common gearbox layout: one planetary stage plus two parallel-shaft stages (example)","一般的な増速機：遊星歯車 1 段＋平行軸歯車 2 段（例）"],
-"說明：本集為教育用途示意動畫，機艙、齒輪與電路比例經過簡化。同步轉速 n = 120 f ÷ p 為電機學公式，台灣電網頻率為 60 Hz；雙饋式感應發電機（DFIG）以部分功率變流器搭配約 ±30% 同步轉速的變速範圍、齒輪箱＋全功率變流器與直驅等傳動型式，參考美國 NREL 風機傳動鏈相關文件；直驅發電機永磁用量約每 MW 650 kg 為 Siemens 估計值，文獻中依機型與磁鐵等級差異很大；Enercon 等直驅機型不使用齒輪箱。額定功率 3.6 MW、轉子 15 rpm、三級增速比 1 : 5、1 : 4.6、1 : 4.8、扭矩、690 V 與 22.8 kV 電壓、各型式轉速範圍與比較內容皆為典型範例，並非特定機型或案場資料；扭矩計算忽略齒輪損耗。":["Note: This is a schematic animation for education; the nacelle, gears and circuits are simplified. The synchronous speed n = 120 f ÷ p is a standard electrical machine formula, and Taiwan's grid runs at 60 Hz. The doubly-fed induction generator (DFIG) with a partial-power converter and a speed range of about ±30% of synchronous speed, the geared full-converter layout and direct drive follow US NREL documents on wind turbine drivetrains. The figure of about 650 kg of permanent magnets per MW for direct-drive generators is a Siemens estimate; published values vary widely by model and magnet grade. Direct-drive models such as Enercon's use no gearbox. The 3.6 MW rating, 15 rpm rotor speed, stage ratios of 1 : 5, 1 : 4.6 and 1 : 4.8, torques, 690 V and 22.8 kV voltages, speed ranges and comparison points are typical examples, not data for a specific model or site; torque calculations ignore gear losses.","説明：本編は教育用の模式アニメーションで、ナセル、歯車、回路は簡略化しています。同期速度 n = 120 f ÷ p は電気機械の公式で、台湾の系統周波数は 60 Hz です。部分容量変換器と同期速度の約 ±30% の可変速範囲を持つ二重給電誘導発電機（DFIG）、増速機＋フルコンバータ、ダイレクトドライブの各方式は米国 NREL の風車ドライブトレインに関する文書を参考にしています。ダイレクトドライブ発電機の永久磁石が 1 MW あたり約 650 kg という値は Siemens の推計で、文献では機種や磁石の等級により大きく異なります。Enercon などのダイレクトドライブ機は増速機を使いません。定格出力 3.6 MW、ロータ 15 rpm、各段の増速比 1 : 5、1 : 4.6、1 : 4.8、トルク、690 V と 22.8 kV の電圧、各方式の回転数範囲と比較内容はいずれも代表的な例で、特定の機種や発電所のデータではありません。トルクの計算では歯車の損失を無視しています。"],
-/* 分鏡 1 */
-"打開機艙":["Inside the nacelle","ナセルを開く"],
-"陸域風機的輪轂高度常在 80–120 公尺，葉片轉動的機械能要在機艙裡變成電能。沿著動力傳遞的順序，依序是輪轂、主軸與主軸承、增速齒輪箱、高速軸上的剎車盤，最後是發電機；機艙後段還有冷卻器，控制櫃與變流器則放在機艙或塔架底部。葉片每分鐘約轉 10–20 圈，發電機卻需要每分鐘上千轉，這一集要看的，就是中間這段轉速與電力的轉換。":["Onshore turbines typically have hub heights of 80–120 metres, and the mechanical energy of the spinning blades is turned into electricity inside the nacelle. Following the power flow, the parts are the hub, the main shaft and main bearing, the step-up gearbox, the brake disc on the high-speed shaft and finally the generator; a cooler sits at the rear, while control cabinets and the converter are in the nacelle or at the tower base. The blades turn about 10–20 times a minute, but the generator needs over a thousand revolutions per minute. This episode looks at how that speed and power are converted.","陸上風車のハブ高さは一般に 80–120 m で、ブレードが回る機械エネルギーはナセルの中で電気に変わります。動力の伝わる順に、ハブ、主軸と主軸受、増速機、高速軸のブレーキディスク、最後に発電機が並びます。ナセル後部には冷却器があり、制御盤と電力変換器はナセル内またはタワー基部に置かれます。ブレードは毎分約 10–20 回転ですが、発電機は毎分千回転以上を必要とします。本編では、その間の回転数と電力の変換を見ていきます。"],
-"輪轂高度約百公尺，機艙裡藏著整條傳動鏈":["About 100 m up, the nacelle holds the whole drivetrain","高さ約 100 m のナセルにドライブトレインが収まる"],
-"打開外殼：主軸、主軸承、齒輪箱":["Open the cover: main shaft, main bearing, gearbox","カバーを開く：主軸、主軸受、増速機"],
-"齒輪箱後方是剎車盤與發電機":["Behind the gearbox are the brake disc and generator","増速機の後ろにブレーキディスクと発電機"],
-"轉子每分鐘十幾轉，發電機要轉上千轉":["The rotor turns ~15 rpm; the generator needs over 1,000","ロータは毎分十数回転、発電機は千回転以上"],
-"機艙":["Nacelle","ナセル"],
-"輪轂":["Hub","ハブ"],
-"主軸承":["Main bearing","主軸受"],
-"主軸（低速）":["Main shaft (low speed)","主軸（低速）"],
-"齒輪箱":["Gearbox","増速機"],
-"剎車盤":["Brake disc","ブレーキディスク"],
-"發電機":["Generator","発電機"],
-"高速軸":["High-speed shaft","高速軸"],
-"傳動鏈轉速（示例）":["Drivetrain speed (example)","ドライブトレインの回転数（例）"],
-"轉子轉速":["Rotor speed","ロータ回転数"],
-"發電機轉速":["Generator speed","発電機回転数"],
-"增速比":["Gear ratio","増速比"],
-/* 分鏡 2 */
-"為什麼要增速":["Why speed it up?","なぜ増速するのか"],
-"功率等於扭矩乘以轉速。以一部 3.6 MW 的風機為例，轉子每分鐘 15 轉時，主軸承受約 2,300 kN·m 的扭矩；若把轉速提高 110 倍，同樣功率的扭矩只剩約 21 kN·m，發電機就能做得小而輕。另一方面，發電機的同步轉速 n = 120 f ÷ p，由電網頻率 f 與磁極數 p 決定。台灣電網是 60 Hz，4 極發電機的同步轉速是每分鐘 1,800 轉；若要直接配合每分鐘 15 轉，就需要 480 極。解法有兩種：用齒輪箱增速，或用多極發電機搭配變流器。":["Power equals torque times rotational speed. For a 3.6 MW turbine whose rotor turns at 15 rpm, the main shaft carries about 2,300 kN·m of torque. Raise the speed 110 times and the same power needs only about 21 kN·m, so the generator can be small and light. On the other hand, a generator's synchronous speed n = 120 f ÷ p is set by the grid frequency f and the number of poles p. Taiwan's grid runs at 60 Hz, so a 4-pole generator runs at 1,800 rpm; matching 15 rpm directly would take 480 poles. There are two answers: step up the speed with a gearbox, or use a many-pole generator with a power converter.","出力はトルクと回転数の積です。3.6 MW の風車でロータが毎分 15 回転のとき、主軸には約 2,300 kN·m のトルクがかかります。回転数を 110 倍にすれば、同じ出力でもトルクは約 21 kN·m で済み、発電機を小さく軽くできます。一方、発電機の同期速度は n = 120 f ÷ p で、系統周波数 f と極数 p で決まります。台湾の系統は 60 Hz なので、4 極発電機の同期速度は毎分 1,800 回転です。毎分 15 回転に直接合わせるには 480 極が必要になります。解決策は二つ、増速機で回転数を上げるか、多極発電機と電力変換器を組み合わせるかです。"],
-"功率等於扭矩乘以轉速":["Power equals torque times speed","出力＝トルク×回転数"],
-"轉速提高 110 倍，扭矩就降到約百分之一":["Speed up 110 times and torque drops to about 1%","回転数を 110 倍にすると、トルクは約 1% に"],
-"在 60 Hz 電網，4 極發電機同步轉速是 1,800 rpm":["On a 60 Hz grid, a 4-pole generator runs at 1,800 rpm","60 Hz 系統では 4 極発電機の同期速度は 1,800 rpm"],
-"所以要嘛用齒輪箱增速，要嘛讓發電機多極":["So either add a gearbox or give the generator many poles","増速機を使うか、発電機を多極にするか"],
-"同樣的功率，兩種轉法（示例）":["Same power, two ways to turn (example)","同じ出力、二通りの回し方（例）"],
-"功率 = 扭矩 × 轉速":["Power = torque × speed","出力 ＝ トルク × 回転数"],
-"轉子側":["Rotor side","ロータ側"],
-"扭矩 {n} kN·m":["Torque {n} kN·m","トルク {n} kN·m"],
-"同樣 {p} MW":["Same {p} MW","同じ {p} MW"],
-"發電機側":["Generator side","発電機側"],
-"扭矩小約 110 倍，發電機可以小得多":["110× less torque, a much smaller generator","トルクは約 110 分の 1、発電機を小型化"],
-"發電機要轉多快？":["How fast must the generator turn?","発電機はどれだけ速く回るのか"],
-"n：同步轉速（rpm）":["n: synchronous speed (rpm)","n：同期速度（rpm）"],
-"f：電網頻率（台灣 60 Hz）":["f: grid frequency (60 Hz in Taiwan)","f：系統周波数（台湾は 60 Hz）"],
-"p：發電機磁極數":["p: number of generator poles","p：発電機の極数"],
-"{p} 極":["{p} poles","{p} 極"],
-"要直接配合 15 rpm，需要 480 極":["Matching 15 rpm directly takes 480 poles","15 rpm に直接合わせるには 480 極が必要"],
-"解法一：齒輪箱增速":["Option 1: a gearbox","解決策 1：増速機"],
-"解法二：多極＋變流器":["Option 2: many poles + converter","解決策 2：多極＋変換器"],
-/* 分鏡 3 */
-"齒輪箱的三級增速":["Three stages of a gearbox","増速機の 3 段増速"],
-"常見的風機齒輪箱由一級行星齒輪加上兩級平行軸齒輪組成。第一級是行星齒輪：外圈的內齒環固定，主軸帶動行星架，三到四個行星齒輪一邊公轉、一邊自轉，把力量分散到多個齒面，中間的太陽齒輪就被帶著快速旋轉。以太陽齒輪 22 齒、內齒環 88 齒為例，增速比是 1 + 88 ÷ 22 = 5 倍。接著兩級平行軸齒輪再各增速約 4.6 與 4.8 倍，合計約 110 倍。每一級都有些微摩擦損耗，整體效率約 97%，損失的能量變成熱，要靠潤滑油循環與冷卻器帶走。":["A common wind turbine gearbox has one planetary stage followed by two parallel-shaft stages. In the planetary stage the outer ring gear is fixed and the main shaft drives the planet carrier; three or four planet gears orbit and spin at the same time, sharing the load across several tooth contacts and driving the central sun gear much faster. With a 22-tooth sun and an 88-tooth ring, the ratio is 1 + 88 ÷ 22 = 5. Two parallel-shaft stages then add about 4.6 and 4.8 times, for about 110 in total. Every stage loses a little to friction; overall efficiency is about 97%, and the lost energy becomes heat that the oil circulation and cooler carry away.","風車の増速機は一般に、遊星歯車 1 段と平行軸歯車 2 段で構成されます。1 段目の遊星歯車では、外側の内歯車を固定し、主軸で遊星キャリアを回します。3〜4 個の遊星歯車が公転しながら自転して荷重を複数の歯面に分散し、中央の太陽歯車を高速で回します。太陽歯車 22 歯、内歯車 88 歯の場合、増速比は 1 + 88 ÷ 22 = 5 倍です。続く 2 段の平行軸歯車でそれぞれ約 4.6 倍と 4.8 倍に増速し、合計約 110 倍になります。各段でわずかな摩擦損失があり、全体の効率は約 97% です。失われたエネルギーは熱となり、潤滑油の循環と冷却器で取り除きます。"],
-"第一級行星齒輪：主軸帶動行星架":["Stage 1: the main shaft drives the planet carrier","1 段目の遊星歯車：主軸がキャリアを回す"],
-"行星齒輪分擔負載，帶動中央的太陽齒輪":["Planets share the load and drive the sun gear","遊星歯車が荷重を分担し、太陽歯車を回す"],
-"再經過兩級平行軸齒輪，每一級都加速":["Two parallel-shaft stages speed it up further","平行軸歯車 2 段でさらに増速"],
-"轉速增加約 110 倍，扭矩同比例下降":["Speed rises about 110 times; torque falls in step","回転数は約 110 倍、トルクは同じ割合で低下"],
-"第一級：行星齒輪（正視示意）":["Stage 1: planetary gear (front view)","1 段目：遊星歯車（正面模式図）"],
-"內齒環固定":["Fixed ring gear","内歯車は固定"],
-"88 齒":["88 teeth","88 歯"],
-"輸入：行星架":["In: planet carrier","入力：遊星キャリア"],
-"輸出：太陽齒輪":["Out: sun gear","出力：太陽歯車"],
-"1 + 88 ÷ 22 = 5 倍":["1 + 88 ÷ 22 = 5×","1 + 88 ÷ 22 = 5 倍"],
-"轉速與扭矩逐級變化（示例）":["Speed and torque by stage (example)","段ごとの回転数とトルク（例）"],
-"主軸":["Main shaft","主軸"],
-"第一級 行星":["Stage 1 planetary","1 段目 遊星"],
-"第二級 平行軸":["Stage 2 parallel","2 段目 平行軸"],
-"第三級 平行軸":["Stage 3 parallel","3 段目 平行軸"],
-"轉速":["Speed","回転数"],
-"扭矩":["Torque","トルク"],
-"累計 1 : {n}":["Total 1 : {n}","累計 1 : {n}"],
-"整體效率約 97%，損耗變成熱由油冷卻帶走":["About 97% efficient; oil cooling removes the heat","全体効率約 97%、損失の熱は油で冷却"],
-/* 分鏡 4 */
-"雙饋式感應發電機":["The doubly-fed induction generator","二重給電誘導発電機"],
-"過去十多年最常見的陸域機型，是齒輪箱搭配雙饋式感應發電機（DFIG）。它的定子直接接到電網，轉子則經由滑環與碳刷接到一組背對背的變流器。變流器調整送進轉子的電流頻率，讓發電機在同步轉速約 ±30% 的範圍內變速運轉，葉片就能跟著風速改變轉速、保持在效率最好的葉尖速比。轉速低於同步轉速時，電網經變流器供電給轉子；高於同步轉速時，轉子也把電送出去。因為變流器只處理約三成功率，體積與成本都較小；缺點是仍需齒輪箱，滑環碳刷要定期保養。":["For the past decade and more, the most common onshore design has paired a gearbox with a doubly-fed induction generator (DFIG). Its stator connects straight to the grid, while its rotor connects through slip rings and carbon brushes to a back-to-back converter. By adjusting the frequency of the rotor current, the converter lets the generator run at variable speed within about ±30% of synchronous speed, so the rotor can follow the wind and stay at its most efficient tip speed ratio. Below synchronous speed the grid feeds the rotor through the converter; above it the rotor sends power out as well. Because the converter handles only about 30% of the power, it is smaller and cheaper. The drawbacks are that a gearbox is still needed and the slip rings and brushes need regular service.","この十数年、陸上風車で最も一般的だったのは、増速機と二重給電誘導発電機（DFIG）の組み合わせです。固定子は系統に直接つながり、回転子はスリップリングとカーボンブラシを介して背中合わせの電力変換器につながります。変換器が回転子電流の周波数を調整することで、発電機は同期速度の約 ±30% の範囲で可変速運転でき、ブレードは風速に合わせて回転数を変え、最も効率の良い周速比を保てます。同期速度より遅いときは系統から変換器を通じて回転子へ給電し、速いときは回転子からも電力を送り出します。変換器が扱うのは約 3 割の電力なので、小型で低コストです。欠点は増速機が必要なことと、スリップリングとブラシの定期保守が要ることです。"],
-"定子直接接電網，轉子經滑環接到變流器":["Stator to grid; rotor to converter via slip rings","固定子は系統へ、回転子はスリップリング経由で変換器へ"],
-"變流器只處理約三成的功率":["The converter handles only about 30% of the power","変換器が扱うのは約 3 割の電力"],
-"低於同步轉速：電網供電給轉子":["Below synchronous speed, the grid feeds the rotor","同期速度より遅いとき：系統から回転子へ給電"],
-"高於同步轉速：轉子也把電送回電網":["Above it, the rotor also sends power to the grid","同期速度より速いとき：回転子からも系統へ送電"],
-"雙饋式發電機的電路（示意）":["DFIG circuit (schematic)","二重給電誘導発電機の回路（模式図）"],
-"定子":["Stator","固定子"],
-"轉子":["Rotor","回転子"],
-"滑環":["Slip rings","スリップリング"],
-"電網":["Grid","系統"],
-"變流器：約 30% 功率":["Converter: ~30% of power","変換器：約 30% の電力"],
-"發電機轉速 {n} rpm":["Generator {n} rpm","発電機 {n} rpm"],
-"轉子功率與轉速（示例）":["Rotor power vs speed (example)","回転子電力と回転数（例）"],
-"發電機轉速 rpm":["Generator speed rpm","発電機回転数 rpm"],
-"轉子功率 %":["Rotor power %","回転子電力 %"],
-"同步轉速 1,800 rpm":["Synchronous 1,800 rpm","同期速度 1,800 rpm"],
-"變速範圍 ±30%":["Speed range ±30%","可変速範囲 ±30%"],
-"電網供電給轉子":["Grid feeds rotor","系統から回転子へ"],
-"次同步":["Sub-synchronous","同期速度以下"],
-"轉子也送電":["Rotor exports too","回転子からも送電"],
-"超同步":["Super-synchronous","同期速度以上"],
-/* 分鏡 5 */
-"永磁直驅與全功率變流器":["Direct drive and the full-power converter","永久磁石式ダイレクトドライブとフルコンバータ"],
-"另一種做法是拿掉齒輪箱，讓輪轂直接帶動一部直徑很大的多極發電機。轉子上排滿一圈永久磁鐵，磁極數可達上百極，即使每分鐘只轉十幾圈，定子線圈仍能感應出電力。不過它發出的電頻率隨轉速改變，大約只有十幾赫茲，不能直接併網，必須由全功率變流器先整流成直流，再轉換成穩定的 60 Hz 交流電。直驅機型少了齒輪箱這個最常損壞的部件，但發電機大而重，每 MW 約需數百公斤的永久磁鐵，其中含有釹、鐠等稀土元素。":["The other approach removes the gearbox and lets the hub drive a large-diameter, many-pole generator directly. The rotor is lined with a ring of permanent magnets, often more than a hundred poles, so the stator windings still produce power even at ten-odd revolutions per minute. But the frequency of that power changes with speed and is only around ten-odd hertz, so it cannot go straight to the grid. A full-power converter first rectifies it to DC, then inverts it to steady 60 Hz AC. Direct-drive turbines do without the gearbox, one of the parts most prone to failure, but the generator is large and heavy and needs several hundred kilograms of permanent magnets per MW, containing rare earths such as neodymium and praseodymium.","もう一つの方法は増速機をなくし、ハブで大口径の多極発電機を直接回すことです。回転子には永久磁石がぐるりと並び、極数は百極を超えることもあり、毎分十数回転でも固定子の巻線に電力が生じます。ただし周波数は回転数とともに変わり、十数 Hz 程度しかないため、そのままでは系統につなげません。フルコンバータでいったん直流に整流し、安定した 60 Hz の交流に変換します。ダイレクトドライブ機は故障の多い増速機がない代わりに、発電機が大きく重く、1 MW あたり数百 kg の永久磁石が必要で、ネオジムやプラセオジムなどのレアアースを含みます。"],
-"沒有齒輪箱，輪轂直接帶動大型發電機":["No gearbox: the hub drives a large generator directly","増速機なし、ハブが大型発電機を直接回す"],
-"一圈永久磁鐵，轉得慢也能發電":["A ring of magnets generates even at low speed","永久磁石の列で、低速でも発電"],
-"頻率隨轉速變化，先整流成直流":["Frequency varies with speed, so it is rectified to DC","周波数は回転数で変わるため、まず直流に整流"],
-"再轉換成穩定的 60 Hz 交流電併網":["Then inverted to steady 60 Hz AC for the grid","安定した 60 Hz の交流に変換して系統へ"],
-"直驅永磁發電機（正視示意）":["Direct-drive PM generator (front view)","ダイレクトドライブ永久磁石発電機（正面模式図）"],
-"輪轂直接連結":["Hub connected directly","ハブに直結"],
-"永久磁鐵":["Permanent magnets","永久磁石"],
-"定子線圈":["Stator windings","固定子巻線"],
-"直徑可達 5 m 以上":["Diameter can exceed 5 m","直径 5 m を超えることも"],
-"無齒輪箱":["No gearbox","増速機なし"],
-"全功率變流器：100% 電力都要轉換":["Full-power converter: 100% of power converted","フルコンバータ：全電力を変換"],
-"約 15 Hz":["~15 Hz","約 15 Hz"],
-"整流":["Rectifier","整流"],
-"變流":["Inverter","逆変換"],
-"直流鏈":["DC link","直流リンク"],
-"頻率隨轉速變":["Varies with speed","回転数で変化"],
-"穩定併網":["Steady to grid","安定して系統へ"],
-"優點":["Pros","長所"],
-"少了齒輪箱，轉速低、磨耗少":["No gearbox, low speed, less wear","増速機なし、低速で摩耗が少ない"],
-"限制":["Cons","短所"],
-"發電機大而重，需要稀土永久磁鐵":["Large, heavy generator; rare-earth magnets","発電機が大きく重い、レアアース磁石が必要"],
-"每 MW 約 650 kg 永久磁鐵（Siemens 估計）":["About 650 kg of magnets per MW (Siemens estimate)","1 MW あたり約 650 kg の永久磁石（Siemens 推計）"],
-/* 分鏡 6 */
-"三種傳動鏈比一比":["Three drivetrains compared","3 種類のドライブトレインを比較"],
-"目前的風機大致分成三種傳動鏈。齒輪箱加雙饋式發電機技術成熟、變流器小，是許多陸域機型的主流，但齒輪箱與滑環需要較多保養。中速永磁的混合式設計只用一到兩級齒輪，發電機轉速約每分鐘數百轉，兼顧體積與可靠度，並搭配全功率變流器。永磁直驅完全沒有齒輪箱，運動零件最少，但發電機最大最重，也最依賴稀土。全功率變流器還能提供較好的電網支撐能力。選哪一種沒有絕對答案，要看成本、重量、道路運輸與吊裝條件，以及當地的維修能力。":["Today's turbines use roughly three kinds of drivetrain. A gearbox with a doubly-fed generator is mature, has a small converter and is common in many onshore models, but the gearbox and slip rings need more maintenance. The medium-speed permanent-magnet hybrid uses only one or two gear stages, with the generator turning a few hundred rpm, balancing size and reliability, and pairs it with a full-power converter. Permanent-magnet direct drive has no gearbox and the fewest moving parts, but its generator is the largest and heaviest and relies most on rare earths. Full-power converters also offer better grid support. There is no single best choice: it depends on cost, weight, road transport and crane access, and local maintenance capability.","現在の風車のドライブトレインは大きく 3 種類に分かれます。増速機と二重給電誘導発電機の組み合わせは技術的に成熟し、変換器も小さく、多くの陸上機種の主流ですが、増速機とスリップリングの保守が多めです。中速の永久磁石式ハイブリッドは歯車を 1〜2 段だけ使い、発電機は毎分数百回転で、大きさと信頼性のバランスを取り、フルコンバータと組み合わせます。永久磁石式ダイレクトドライブは増速機がなく可動部品が最も少ない一方、発電機が最も大きく重く、レアアースへの依存も最も大きくなります。フルコンバータは系統支援の性能でも優れます。どれが最善という答えはなく、コスト、重量、道路輸送と据付の条件、現地の保守体制で選びます。"],
-"三種傳動鏈，差在齒輪箱與變流器":["Three drivetrains: the gearbox and converter differ","3 方式の違いは増速機と変換器"],
-"雙饋式：變流器小，但齒輪箱要保養":["DFIG: small converter, but the gearbox needs care","DFIG：変換器は小さいが増速機の保守が必要"],
-"中速與直驅：齒輪少或沒有，用全功率變流器":["Fewer or no gears, with a full converter","中速とダイレクトドライブ：歯車は少ないかなし、フルコンバータ"],
-"沒有絕對好壞，看成本、運輸與維修條件":["No single best: cost, transport and service decide","優劣はなく、コスト・輸送・保守条件で選ぶ"],
-"齒輪箱＋雙饋式":["Gearbox + DFIG","増速機＋DFIG"],
-"三級":["Three stages","3 段"],
-"約 1,000–2,000 rpm":["~1,000–2,000 rpm","約 1,000–2,000 rpm"],
-"約 30%":["~30%","約 30%"],
-"變流器小、成本較低":["Small converter, lower cost","変換器が小さく低コスト"],
-"齒輪箱與滑環要保養":["Gearbox and slip rings need service","増速機とスリップリングの保守"],
-"中速永磁（混合式）":["Medium-speed PM (hybrid)","中速永久磁石（ハイブリッド）"],
-"一至兩級":["One or two stages","1〜2 段"],
-"約 100–500 rpm":["~100–500 rpm","約 100–500 rpm"],
-"齒輪較少、機艙較精簡":["Fewer gears, compact nacelle","歯車が少なくナセルが小型"],
-"仍有齒輪箱、需稀土":["Still geared; needs rare earths","増速機あり、レアアースが必要"],
-"永磁直驅":["PM direct drive","永久磁石ダイレクトドライブ"],
-"無":["None","なし"],
-"約 10–20 rpm":["~10–20 rpm","約 10–20 rpm"],
-"運動零件最少":["Fewest moving parts","可動部品が最少"],
-"發電機大而重、需稀土":["Big, heavy; needs rare earths","発電機が大きく重い、レアアース"],
-"變流器":["Converter","電力変換器"],
-"選擇取決於成本、重量、運輸與維修能力":["The choice depends on cost, weight, transport and service","選択はコスト、重量、輸送、保守体制次第"],
-/* 分鏡 7 */
-"從發電機到電網":["From generator to grid","発電機から系統へ"],
-"發電機送出的電壓通常只有數百伏特，例如 690 V，要先經過變流器調整成與電網同步，再由塔底或機艙內的升壓變壓器提高到數萬伏特的中壓，透過地下集電線路送到風場變電站，再升壓併入台電電網。台灣電網頻率是 60 Hz，變流器與控制器會持續讓輸出的頻率、電壓與功率因數符合併網規範。齒輪箱與發電機在機艙裡把轉速換成電力，變流器與變壓器則把這些電力整理成電網能接受的樣子。":["A generator's output is usually only a few hundred volts, for example 690 V. The converter first synchronises it with the grid, then a step-up transformer at the tower base or in the nacelle raises it to a medium voltage of tens of kilovolts. Underground collection cables carry it to the wind farm substation, where it is stepped up again and fed into Taipower's grid. Taiwan's grid runs at 60 Hz, and the converter and controller constantly keep the output frequency, voltage and power factor within the grid code. The gearbox and generator turn rotation into electricity in the nacelle; the converter and transformer shape that power into something the grid can accept.","発電機の出力電圧は通常数百ボルト、例えば 690 V です。まず電力変換器で系統と同期させ、タワー基部またはナセル内の昇圧変圧器で数万ボルトの中電圧に上げ、地中の集電線で発電所の変電所へ送り、さらに昇圧して台湾電力の系統に連系します。台湾の系統周波数は 60 Hz で、変換器と制御装置が出力の周波数、電圧、力率を常に系統連系規定に合わせます。ナセルの増速機と発電機が回転を電力に変え、変換器と変圧器がその電力を系統が受け入れられる形に整えます。"],
-"風機運轉中，電力從機艙沿塔架往下送":["Power flows from the nacelle down the tower","運転中、電力はナセルからタワーを下る"],
-"變流器讓輸出與 60 Hz 電網同步":["The converter syncs the output to the 60 Hz grid","変換器が出力を 60 Hz の系統に同期"],
-"升壓變壓器把 690 V 提高到中壓":["A step-up transformer raises 690 V to medium voltage","昇圧変圧器で 690 V を中電圧に"],
-"地下集電線路送到變電站，再併入電網":["Underground cables reach the substation and the grid","地中集電線で変電所へ、そして系統へ"],
-"發電機 690 V":["Generator 690 V","発電機 690 V"],
-"電纜沿塔架而下":["Cables down the tower","タワー内のケーブル"],
-"變流器與控制櫃":["Converter and controls","変換器と制御盤"],
-"升壓變壓器":["Step-up transformer","昇圧変圧器"],
-"地下集電線路（示例 22.8 kV）":["Collection cable (e.g. 22.8 kV)","地中集電線（例 22.8 kV）"],
-"風場變電站":["Wind farm substation","発電所変電所"],
-"台電電網 60 Hz":["Taipower grid 60 Hz","台湾電力の系統 60 Hz"],
-"併網狀態（示例）":["Grid status (example)","連系状態（例）"],
-"輸出功率":["Output","出力"],
-"電網頻率":["Grid frequency","系統周波数"],
-"升壓":["Voltage","昇圧"]
+"雷擊與葉片防護":["Lightning and blade protection","落雷とブレードの保護"],
+"風機是開闊地上最高的物體，雷雨時常被擊中；葉片前緣則每天承受雨滴與沙塵以高速撞擊。這一集看雷電流如何從葉尖的接閃器一路導入大地、接地與突波保護怎麼設計，以及前緣侵蝕、冬季雷與沿海鹽害的防護方法。":["A wind turbine is the tallest object on open ground and is often struck during thunderstorms, while its leading edges are hit by rain and sand at high speed every day. This episode follows the lightning current from the tip receptor down to earth, looks at how earthing and surge protection are designed, and covers protection against leading-edge erosion, winter lightning and coastal salt.","風車は開けた土地で最も高い構造物で、雷雨のたびに落雷を受けやすく、ブレード前縁は毎日雨滴や砂塵の高速衝突にさらされています。本編では、雷電流が翼端のレセプタから大地へ流れる経路、接地とサージ保護の設計、そして前縁エロージョン、冬季雷、沿岸の塩害への対策を見ていきます。"],
+"IEC 61400-24 雷擊防護等級 LPL I 的設計峰值電流":["Design peak current for IEC 61400-24 lightning protection level LPL I","IEC 61400-24 の雷保護レベル LPL I における設計波高値"],
+"LPL I 的雷擊電荷量；電荷越大，接閃器燒蝕越嚴重":["LPL I charge per flash; the larger the charge, the more the receptor melts away","LPL I の電荷量。電荷が大きいほどレセプタの溶損が進む"],
+"日本 NEDO 在 27 部風機的觀測中，電荷量超過 300 C 的雷擊比例":["Share of strikes above 300 C in Japan's NEDO measurements at 27 turbines","日本の NEDO による風車 27 基の観測で、電荷量 300 C を超えた落雷の割合"],
+"常見的接地電阻設計目標（實際依土壤電阻率設計）":["Common earthing-resistance design target (actual design depends on soil resistivity)","一般的な接地抵抗の設計目標（実際は土壌抵抗率に応じて設計）"],
+"轉子半徑 60 m、每分鐘 15 轉時的葉尖速度（示例）":["Tip speed for a 60 m rotor radius at 15 rpm (example)","ロータ半径 60 m、毎分 15 回転時の翼端速度（例）"],
+"數":["A few","数"],
+"前緣嚴重侵蝕造成的年發電量損失，研究多在幾個百分點":["Annual energy loss from severe leading-edge erosion; studies mostly report a few percent","前縁の激しいエロージョンによる年間発電量の損失。研究では数パーセント程度"],
+"說明：本集為教育用途示意動畫，風機、葉片與接地系統比例經過簡化，雷擊與侵蝕過程的時間已壓縮。LPL I 峰值電流 200 kA、電荷量 300 C、比能量 10 MJ/Ω 與 10/350 μs 波形依 IEC 61400-24 與 IEC 62305 的雷擊參數；日本海沿岸冬季上行雷電荷量大、NEDO 2008–2013 年觀測 27 部風機中約 4% 雷擊超過 300 C，引自公開研究文獻；前緣侵蝕可造成數個百分點的年發電量損失，引自 Wind Energy Science 等期刊研究。接地電阻 10 Ω 為常見設計目標而非固定規定；雷擊峰值 34 kA、電荷 12 C、量測接地電阻 4.6 Ω、轉子半徑 60 m、轉速 15 rpm、侵蝕年數與各階段皆為典型範例，並非特定機型或案場資料。":["Note: this is an educational illustration. The proportions of the turbine, blades and earthing system are simplified, and the timing of the strike and of erosion is compressed. The LPL I values of 200 kA peak current, 300 C charge, 10 MJ/Ω specific energy and the 10/350 μs waveform follow the lightning parameters of IEC 61400-24 and IEC 62305. The large charge of winter upward lightning on Japan's Sea of Japan coast, and NEDO's 2008–2013 finding that about 4% of strikes at 27 turbines exceeded 300 C, come from published research. The energy loss of a few percent from leading-edge erosion is taken from journal studies such as Wind Energy Science. An earthing resistance of 10 Ω is a common design target, not a fixed rule. The 34 kA peak, 12 C charge, measured 4.6 Ω, 60 m rotor radius, 15 rpm, erosion years and stages are all typical examples, not data from a specific turbine model or site.","説明：本編は教育用の模式アニメーションで、風車、ブレード、接地系統の比率は簡略化し、落雷とエロージョンの時間は圧縮しています。LPL I の波高値 200 kA、電荷量 300 C、比エネルギー 10 MJ/Ω、10/350 μs 波形は IEC 61400-24 と IEC 62305 の雷パラメータによります。日本海沿岸の冬季上向き雷の電荷量が大きいこと、NEDO の 2008〜2013 年の観測で風車 27 基への落雷の約 4% が 300 C を超えたことは公開された研究文献によります。前縁エロージョンによる数パーセントの年間発電量損失は Wind Energy Science などの学術研究によります。接地抵抗 10 Ω は一般的な設計目標で、固定の規定ではありません。雷の波高値 34 kA、電荷 12 C、測定接地抵抗 4.6 Ω、ロータ半径 60 m、回転数 15 rpm、エロージョンの年数と各段階はすべて代表例で、特定の機種やサイトのデータではありません。"],
+"開闊地上最高的一點":["The highest point around","開けた土地で一番高い場所"],
+"陸域風機常立在海岸或丘陵的開闊處，葉尖最高點往往超過 100 公尺，是周圍數公里內最突出的物體，雷雨時很容易成為落雷點。結構越高，越容易從葉尖向上長出迎向雲層的放電通道，也就是上行先導。雷擊多半落在葉尖，因此葉片裝有金屬接閃器，把雷電流引進葉片內部的引下線，再經機艙與塔架導入地下的接地系統，而不是讓電流在葉片與設備中亂竄。":["Onshore turbines often stand on open coasts or hills, with blade tips reaching more than 100 m. They are the most prominent objects for kilometres around and readily attract lightning. The taller a structure is, the more easily a discharge channel grows upward from the tip toward the cloud; this is called an upward leader. Most strikes land on a blade tip, so the blades carry metal receptors that lead the current into a down conductor inside the blade, then through the nacelle and tower into the earthing system below ground, instead of letting it wander through the blade and equipment.","陸上風車は海岸や丘陵の開けた場所に立つことが多く、翼端の最高点は 100 m を超えることもあり、周囲数キロで最も目立つ構造物として雷を受けやすくなります。構造物が高いほど、翼端から雲に向かって放電路が伸びやすくなります。これが上向きリーダです。落雷の多くは翼端に当たるため、ブレードには金属製のレセプタが付けられ、雷電流をブレード内部の引下げ導線に導き、ナセルとタワーを経て地中の接地系統へ流します。電流がブレードや機器の中を勝手に流れないようにするためです。"],
+"雷雨雲接近開闊地上的風機":["A thundercloud nears a turbine on open ground","雷雲が開けた土地の風車に近づく"],
+"葉尖向上長出放電通道：上行先導":["A discharge grows up from the tip: the upward leader","翼端から放電路が伸びる：上向きリーダ"],
+"雷擊落在葉尖的接閃器":["Lightning strikes the tip receptor","雷が翼端のレセプタに落ちる"],
+"電流經葉片、機艙、塔架導入大地":["Current flows through blade, nacelle and tower to earth","電流はブレード、ナセル、タワーを通って大地へ"],
+"上行先導":["Upward leader","上向きリーダ"],
+"葉尖接閃器":["Tip receptor","翼端レセプタ"],
+"葉片內引下線":["Down conductor","引下げ導線"],
+"經塔架向下":["Down the tower","タワーを下る"],
+"接地系統":["Earthing system","接地系統"],
+"雷擊監測（示例）":["Lightning monitor (example)","落雷監視（例）"],
+"峰值電流":["Peak current","波高値"],
+"電荷量":["Charge","電荷量"],
+"本年雷擊次數":["Strikes this year","今年の落雷回数"],
+"狀態":["Status","状態"],
+"運轉中":["Running","運転中"],
+"偵測到雷擊":["Strike detected","落雷を検知"],
+"自動檢查":["Self-check","自動点検"],
+"雷電流的旅程":["The path of a lightning current","雷電流の道のり"],
+"風機的雷擊防護系統要讓雷電流走一條事先安排好的低阻抗路徑。葉尖與葉身的金屬接閃器接住雷擊，電流沿著葉片內部的銅質引下線流向葉根。葉片會變槳、機艙會偏航，轉動的軸承不能讓大電流直接通過，否則滾珠與滾道會被電弧燒出凹痕，因此在變槳與偏航處用碳刷、滑動接點或火花間隙跨接。電流進入鋼製塔架後向下傳到基礎，最後由接地系統散入大地。":["A turbine's lightning protection system gives the current a planned, low-impedance path. Metal receptors on the tip and along the blade catch the strike, and the current runs down a copper conductor inside the blade to the root. Because the blades pitch and the nacelle yaws, the rotating bearings must not carry the full current, or arcing would pit the balls and raceways. Carbon brushes, sliding contacts or spark gaps bridge the pitch and yaw bearings instead. The current then runs down the steel tower to the foundation and is dissipated into the ground by the earthing system.","風車の雷保護システムは、雷電流にあらかじめ用意した低インピーダンスの経路を通らせます。翼端とブレード表面の金属レセプタが雷を受け、電流はブレード内部の銅製引下げ導線を通って翼根へ流れます。ブレードはピッチ動作し、ナセルはヨー旋回するため、回転する軸受に大電流を直接流すと、アークで転動体と軌道面に傷が付きます。そこでピッチ部とヨー部はカーボンブラシ、摺動接点、放電ギャップでバイパスします。電流は鋼製タワーを下って基礎に達し、最後に接地系統から大地へ放散されます。"],
+"接閃器在葉尖接住雷擊":["The receptor catches the strike at the tip","翼端のレセプタが雷を受ける"],
+"引下線把電流帶到葉根":["The down conductor carries it to the root","引下げ導線が電流を翼根へ運ぶ"],
+"軸承處用碳刷與火花間隙跨接":["Brushes and spark gaps bridge the bearings","軸受部はブラシと放電ギャップでバイパス"],
+"經塔架與接地網散入大地":["Through the tower and earth grid into the soil","タワーと接地網を通って大地へ"],
+"雷電流的路徑（示意）":["Current path (schematic)","雷電流の経路（模式図）"],
+"每一段怎麼過電":["How each section conducts","各部の電流の流し方"],
+"接閃器：葉尖與葉身的金屬接收點":["Receptors: metal strike points on tip and blade","レセプタ：翼端と翼面の金属受雷部"],
+"引下線：葉片內部的銅纜":["Down conductor: copper cable inside the blade","引下げ導線：ブレード内部の銅ケーブル"],
+"變槳軸承：碳刷或火花間隙跨接":["Pitch bearing: bridged by brushes or spark gaps","ピッチ軸受：ブラシか放電ギャップでバイパス"],
+"偏航軸承：滑動接點導到塔架":["Yaw bearing: sliding contacts to the tower","ヨー軸受：摺動接点でタワーへ"],
+"塔架：鋼管本身就是導體":["Tower: the steel tube itself conducts","タワー：鋼管そのものが導体"],
+"接地網：把電流散入大地":["Earth grid: spreads the current into the soil","接地網：電流を大地へ放散"],
+"雷擊有多猛":["How violent is a strike","落雷はどれほど激しいか"],
+"國際標準 IEC 61400-24 以雷擊防護等級描述設計要承受的雷電，風機一般採用最高的 LPL I：峰值電流 200 kA、單次雷擊電荷量 300 C、比能量 10 MJ/Ω。電流在約 10 微秒內衝到峰值，數百微秒後才衰減到一半。如果葉片沒有可靠的導電路徑，雷擊可能穿透外殼，在中空葉片內部的空氣中起弧，瞬間加熱的空氣形成壓力波，把葉殼從接縫撐裂，甚至讓葉尖爆開。接閃器與引下線的任務，就是讓電流在外部金屬中通過。":["The international standard IEC 61400-24 defines lightning protection levels for the strikes a design must withstand. Wind turbines usually adopt the highest, LPL I: 200 kA peak current, 300 C charge per flash and 10 MJ/Ω specific energy. The current rises to its peak in about 10 microseconds and takes hundreds of microseconds to fall to half. If a blade has no reliable conductive path, the strike can puncture the shell and arc through the air inside the hollow blade. The suddenly heated air creates a pressure wave that splits the shell along its bond lines or even blows off the tip. Receptors and down conductors keep the current in metal instead.","国際規格 IEC 61400-24 は、設計で耐えるべき雷を雷保護レベルで定めており、風車には通常最も厳しい LPL I が適用されます。波高値 200 kA、1 回の雷の電荷量 300 C、比エネルギー 10 MJ/Ω です。電流は約 10 マイクロ秒で波高値に達し、数百マイクロ秒かけて半分まで減衰します。ブレードに確実な導電経路がないと、雷が外殻を貫通し、中空のブレード内部の空気中でアークが発生します。瞬間的に加熱された空気が圧力波となり、外殻を接着部から押し割り、翼端が破裂することもあります。レセプタと引下げ導線は、電流を金属の中に通すためのものです。"],
+"防護等級 LPL I：峰值 200 kA":["Protection level LPL I: 200 kA peak","保護レベル LPL I：波高値 200 kA"],
+"約 10 微秒衝到峰值，再慢慢衰減":["Peaks in about 10 μs, then slowly decays","約 10 μs で波高値に達し、ゆっくり減衰"],
+"沒有導電路徑：葉片內部起弧":["No conductive path: an arc forms inside","導電経路なし：ブレード内部でアーク"],
+"有接閃器與引下線：電流走金屬":["With receptor and conductor: current stays in metal","レセプタと導線あり：電流は金属を流れる"],
+"雷擊電流波形 10/350 μs（示意）":["Lightning current 10/350 μs (schematic)","雷電流波形 10/350 μs（模式図）"],
+"時間 μs":["Time μs","時間 μs"],
+"電流 kA":["Current kA","電流 kA"],
+"峰值 200 kA":["Peak 200 kA","波高値 200 kA"],
+"350 μs 降到一半":["Half value at 350 μs","350 μs で半減"],
+"比能量":["Specific energy","比エネルギー"],
+"沒有導電路徑":["No conductive path","導電経路なし"],
+"葉殼沿接縫撐裂":["Shell splits at bond lines","外殻が接着部で割れる"],
+"有接閃器與引下線":["With receptor and down conductor","レセプタと引下げ導線あり"],
+"電流沿引下線流走，葉片完好":["Current follows the conductor; blade intact","電流は導線を流れ、ブレードは無傷"],
+"接閃器":["Receptor","レセプタ"],
+"引下線（剖面）":["Down conductor (section)","引下げ導線（断面）"],
+"接地與突波保護":["Earthing and surge protection","接地とサージ保護"],
+"雷電流最後要散入大地。風機基礎的鋼筋與埋在基礎外圍的環形接地極連成一體，土壤電阻率高的地方再打入接地棒，設計上常以接地電阻 10 Ω 以下為目標，完工後實際量測確認。電流進入土壤時會形成電位梯度，人站在附近，兩腳之間可能出現跨步電壓，環形接地極能讓地表電位較平均。雷擊也會在電纜上感應出突波，所以塔底控制櫃的電源與通訊線路都裝有突波保護器（SPD），並把所有金屬做等電位連接。":["In the end the current has to be dissipated into the ground. The foundation rebar is bonded to a ring earth electrode buried around the foundation, and earth rods are added where soil resistivity is high. Designs commonly target an earthing resistance of 10 Ω or less, confirmed by measurement after construction. As current enters the soil it creates a potential gradient, so a person standing nearby may see a step voltage between their feet; the ring electrode helps even out the surface potential. Strikes also induce surges in cables, so the power and communication lines in the tower-base cabinet are fitted with surge protective devices (SPDs), and all metal parts are equipotentially bonded.","雷電流は最終的に大地へ放散させます。風車基礎の鉄筋は基礎の周囲に埋設した環状接地極と一体に接続し、土壌抵抗率が高い場所では接地棒を追加します。設計では接地抵抗 10 Ω 以下を目標とすることが多く、完成後に実測して確認します。電流が土中に入ると電位勾配が生じ、近くに立つ人の両足の間に歩幅電圧がかかるおそれがあります。環状接地極は地表の電位を均一にする働きがあります。雷はケーブルにサージも誘導するため、タワー基部の制御盤の電源線と通信線にはサージ防護デバイス（SPD）を設け、すべての金属を等電位ボンディングします。"],
+"基礎鋼筋、環形接地極與接地棒連成一體":["Rebar, ring electrode and earth rods are bonded","鉄筋、環状接地極、接地棒を一体に接続"],
+"雷電流進入土壤，向四周擴散":["The current enters the soil and spreads out","雷電流が土中に入り、周囲へ広がる"],
+"地表電位梯度可能形成跨步電壓":["The surface gradient can create a step voltage","地表の電位勾配が歩幅電圧を生むことがある"],
+"控制櫃線路裝突波保護器（SPD）":["Cabinet lines are fitted with SPDs","制御盤の配線にサージ防護デバイス（SPD）"],
+"完工量測接地電阻，確認達到設計值":["Earthing resistance is measured against the target","完成後に接地抵抗を測定し、設計値を確認"],
+"環形接地極":["Ring electrode","環状接地極"],
+"接地棒":["Earth rod","接地棒"],
+"基礎鋼筋":["Foundation rebar","基礎鉄筋"],
+"電流向四周擴散":["Current spreads out","電流が周囲へ広がる"],
+"跨步電壓":["Step voltage","歩幅電圧"],
+"突波保護器（SPD）":["Surge protector (SPD)","サージ防護デバイス（SPD）"],
+"等電位連接":["Equipotential bonding","等電位ボンディング"],
+"接地與保護（示例）":["Earthing (example)","接地と保護（例）"],
+"設計目標":["Target","設計目標"],
+"量測接地電阻":["Measured","接地抵抗測定値"],
+"雷電流":["Lightning current","雷電流"],
+"SPD 狀態":["SPD status","SPD の状態"],
+"待命":["Standby","待機"],
+"動作，洩放突波":["Diverting surge","作動・サージ放流"],
+"正常":["Normal","正常"],
+"葉片前緣侵蝕":["Leading-edge erosion","ブレード前縁のエロージョン"],
+"葉片的前緣是轉動時最先切開空氣的部位。以轉子半徑 60 m、每分鐘 15 轉為例，葉尖速度約 94 m/s，雨滴、冰雹與沙塵以這樣的速度反覆撞擊，數年後塗層出現麻點、剝落，嚴重時露出底下的玻璃纖維層板。前緣變粗糙後，氣流提早轉為紊流，升力下降、阻力上升，研究顯示年發電量可能因此減少數個百分點。常見的前緣保護（LEP）有彈性塗層、保護膠帶與預製護殼，巡檢時一併檢查修補。":["The leading edge is the part of the blade that cuts the air first. With a 60 m rotor radius at 15 rpm, the tip moves at about 94 m/s, and raindrops, hail and sand strike it again and again at that speed. After a few years the coating pits and peels, and in severe cases the glass-fibre laminate underneath is exposed. A rougher leading edge makes the airflow turn turbulent earlier, lowering lift and raising drag; studies show annual energy production can drop by a few percent. Common leading-edge protection (LEP) includes elastic coatings, protective tapes and pre-formed shells, checked and repaired during inspections.","ブレードの前縁は、回転時に最初に空気を切り裂く部分です。ロータ半径 60 m、毎分 15 回転の場合、翼端速度は約 94 m/s で、雨滴、ひょう、砂塵がこの速度で繰り返し衝突します。数年たつと塗膜に点食や剥離が生じ、ひどい場合は下地のガラス繊維積層板が露出します。前縁が粗くなると気流が早く乱流に遷移し、揚力が下がって抗力が増え、研究では年間発電量が数パーセント減ることがあるとされています。一般的な前縁保護（LEP）には弾性塗料、保護テープ、成形シェルがあり、点検時にあわせて確認・補修します。"],
+"葉尖速度可達每秒 90 多公尺":["Tip speed can exceed 90 m/s","翼端速度は毎秒 90 m を超える"],
+"雨滴與沙塵反覆撞擊葉片前緣":["Rain and sand hit the leading edge again and again","雨滴と砂塵が前縁に繰り返し衝突"],
+"塗層麻點、剝落，最後露出層板":["The coating pits, peels, then exposes the laminate","塗膜が点食・剥離し、積層板が露出"],
+"前緣保護：塗層、膠帶或護殼":["Protection: coatings, tapes or shells","前縁保護：塗料、テープ、シェル"],
+"前緣的特寫（示意）":["Leading edge close-up (schematic)","前縁のクローズアップ（模式図）"],
+"運轉第 {n} 年":["Year {n} of operation","運転 {n} 年目"],
+"雨滴高速撞擊":["High-speed rain impact","雨滴の高速衝突"],
+"塗層麻點":["Coating pitting","塗膜の点食"],
+"塗層剝落":["Coating peeling","塗膜の剥離"],
+"層板外露":["Laminate exposed","積層板の露出"],
+"沿葉片的相對速度（示例）":["Relative speed along the blade (example)","ブレードに沿った相対速度（例）"],
+"離輪轂距離 m":["Distance from hub m","ハブからの距離 m"],
+"速度 m/s":["Speed m/s","速度 m/s"],
+"葉尖最容易侵蝕":["Tip erodes most","翼端が最も侵食されやすい"],
+"前緣保護（LEP）":["Leading-edge protection (LEP)","前縁保護（LEP）"],
+"保護塗層":["Coating","保護塗料"],
+"彈性塗料，可現場修補":["Elastic, repairable on site","弾性塗料、現地補修可"],
+"保護膠帶":["Tape","保護テープ"],
+"貼覆彈性膜，施工快":["Elastic film, quick to apply","弾性フィルム、施工が速い"],
+"前緣護殼":["Shell","前縁シェル"],
+"預製硬殼，耐久性高":["Pre-formed, durable","成形品、耐久性が高い"],
+"前緣變粗糙：年發電量可能少數個百分點":["Rough edge: a few percent less energy per year","前縁が粗くなると年間発電量が数 % 減ることも"],
+"冬季雷與沿海鹽害":["Winter lightning and salt","冬季雷と沿岸の塩害"],
+"環境不同，防護重點也不同。日本海沿岸冬季的雷雲低，風機葉尖常自己向上引發上行雷，電荷量特別大；日本 NEDO 在 27 部風機的觀測中，約 4% 的雷擊超過 300 C，接閃器因此要更耐燒蝕。台灣的雷擊則多集中在夏季午後雷陣雨與梅雨季。台灣西部沿海的風機另有鹽害問題：東北季風把海上的鹽霧吹上岸，塔架與機艙需要高防蝕等級的塗裝、機艙密封與除濕，並定期以無人機或繩索作業檢查接閃器與前緣。":["Different environments call for different protection. On Japan's Sea of Japan coast, winter thunderclouds hang low and turbine tips often trigger upward lightning themselves, carrying especially large charge; in NEDO's measurements at 27 turbines, about 4% of strikes exceeded 300 C, so receptors must resist melting better. In Taiwan, lightning is concentrated in summer afternoon thunderstorms and the plum-rain season. Turbines on Taiwan's west coast also face salt damage: the northeast monsoon blows salt spray ashore, so towers and nacelles need high-grade anti-corrosion coatings, sealed and dehumidified nacelles, and regular drone or rope-access inspections of receptors and leading edges.","環境が違えば、保護の重点も変わります。日本海沿岸では冬の雷雲が低く、風車の翼端から上向き雷が発生しやすく、電荷量が特に大きくなります。NEDO による風車 27 基の観測では落雷の約 4% が 300 C を超えており、レセプタには高い耐溶損性が求められます。台湾の落雷は夏の午後の雷雨と梅雨期に集中しています。台湾西部沿岸の風車には塩害の問題もあります。北東季節風が海の塩霧を陸へ運ぶため、タワーとナセルには高い防食等級の塗装、ナセルの密閉と除湿が必要で、ドローンやロープアクセスでレセプタと前縁を定期点検します。"],
+"日本海沿岸冬季雷雲低，常見上行雷":["Low winter clouds on Japan's west coast bring upward lightning","日本海沿岸の冬は雷雲が低く、上向き雷が多い"],
+"上行雷電荷量大，接閃器容易燒蝕":["Upward flashes carry large charge and melt receptors","上向き雷は電荷量が大きく、レセプタが溶損しやすい"],
+"台灣沿海：東北季風帶來鹽霧":["Taiwan's coast: the northeast monsoon brings salt spray","台湾沿岸：北東季節風が塩霧を運ぶ"],
+"防蝕塗裝、機艙除濕與定期巡檢":["Anti-corrosion coating, dehumidifying, regular inspection","防食塗装、ナセル除湿、定期点検"],
+"冬季雷（日本海沿岸）":["Winter lightning (Sea of Japan coast)","冬季雷（日本海沿岸）"],
+"葉尖引發上行雷":["Tip triggers upward flash","翼端から上向き雷"],
+"上行雷多、電荷量大":["Frequent upward flashes, large charge","上向き雷が多く、電荷量が大きい"],
+"NEDO 觀測：約 4% 超過 300 C":["NEDO data: about 4% exceed 300 C","NEDO 観測：約 4% が 300 C 超"],
+"台灣雷擊多在夏季午後雷陣雨":["Taiwan: mostly summer afternoon storms","台湾の落雷は夏の午後の雷雨が中心"],
+"沿海鹽害（台灣西部海岸）":["Coastal salt (Taiwan's west coast)","沿岸の塩害（台湾西部海岸）"],
+"東北季風挾帶鹽霧":["Monsoon carries salt spray","北東季節風が塩霧を運ぶ"],
+"高防蝕等級塗裝（如 ISO 12944 C5）":["High-grade coating (e.g. ISO 12944 C5)","高防食等級の塗装（ISO 12944 C5 など）"],
+"機艙密封、正壓與除濕":["Sealed, pressurised, dehumidified nacelle","ナセルの密閉・正圧・除湿"],
+"無人機巡檢接閃器與前緣":["Drone checks of receptors and edges","ドローンでレセプタと前縁を点検"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

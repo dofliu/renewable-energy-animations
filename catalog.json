@@ -629,6 +629,20 @@
                 "en": "Why speed is stepped up, planetary gearboxes, doubly-fed induction generators, direct drive and full-power converters, drivetrains compared",
                 "ja": "増速の原理と同期速度、遊星歯車増速機、二重給電誘導発電機、ダイレクトドライブとフルコンバータ、ドライブトレインの比較"
               }
+            },
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "雷擊與葉片防護",
+                "en": "Lightning and blade protection",
+                "ja": "落雷とブレードの保護"
+              },
+              "sub": {
+                "zh": "接閃器與引下線、雷電流路徑、LPL I 雷擊參數、接地與突波保護、前緣侵蝕、冬季雷與沿海鹽害",
+                "en": "Receptors and down conductors, the lightning current path, LPL I parameters, earthing and surge protection, leading-edge erosion, winter lightning and coastal salt",
+                "ja": "レセプタと引下げ導線、雷電流の経路、LPL I の雷パラメータ、接地とサージ保護、前縁エロージョン、冬季雷と沿岸の塩害"
+              }
             }
           ]
         }
