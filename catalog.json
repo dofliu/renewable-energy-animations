@@ -317,6 +317,20 @@
                 "en": "O&M port and SOV, weather windows, cable monitoring, drone inspection and leading-edge repair",
                 "ja": "O&M港とSOV、天候ウィンドウ、海底ケーブル監視、ドローン点検と前縁補修"
               }
+            },
+            {
+              "no": 20,
+              "file": "ep20.html",
+              "title": {
+                "zh": "海纜故障與維修",
+                "en": "Subsea cable faults and repair",
+                "ja": "海底ケーブルの故障と修理"
+              },
+              "sub": {
+                "zh": "走錨與故障原因、TDR 故障定位、ROV 確認、打撈與海上接頭、Ω 迴圈與拋石保護",
+                "en": "Anchor damage and failure causes, TDR fault location, ROV survey, recovery and offshore joints, omega bight and rock protection",
+                "ja": "走錨と故障原因、TDR による故障点標定、ROV 調査、引揚げと洋上ジョイント、Ω ループと捨石保護"
+              }
             }
           ]
         },
