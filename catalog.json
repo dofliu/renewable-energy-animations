@@ -331,6 +331,20 @@
                 "en": "Anchor damage and failure causes, TDR fault location, ROV survey, recovery and offshore joints, omega bight and rock protection",
                 "ja": "走錨と故障原因、TDR による故障点標定、ROV 調査、引揚げと洋上ジョイント、Ω ループと捨石保護"
               }
+            },
+            {
+              "no": 22,
+              "file": "ep22.html",
+              "title": {
+                "zh": "離岸風電如何併網",
+                "en": "Connecting offshore wind to the grid",
+                "ja": "洋上風力はどう系統連系するか"
+              },
+              "sub": {
+                "zh": "陸上變電站與併網點、電網規範、低電壓穿越、功率預測與降載調度",
+                "en": "Onshore substation and connection point, grid code, low-voltage ride-through, forecasting and curtailment",
+                "ja": "陸上変電所と連系点、グリッドコード、低電圧ライドスルー、発電予測と出力抑制"
+              }
             }
           ]
         },
