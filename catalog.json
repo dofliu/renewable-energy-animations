@@ -402,6 +402,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生命週期",
+            "en": "Life cycle",
+            "ja": "ライフサイクル"
+          },
+          "episodes": [
+            {
+              "no": 21,
+              "file": "ep21.html",
+              "title": {
+                "zh": "離岸風場的除役",
+                "en": "Decommissioning an offshore wind farm",
+                "ja": "洋上風力発電所の撤去"
+              },
+              "sub": {
+                "zh": "延壽、換機或除役、反向拆除轉子與機艙、樁內清淤與水刀切除、海纜與拋石去留、材料回收與海域復原",
+                "en": "Life extension, repowering or removal, reverse dismantling, internal dredging and water-jet cutting, what stays on the seabed, recycling and site restoration",
+                "ja": "寿命延長・リパワリング・撤去、ロータとナセルの逆順解体、杭内浚渫とウォータージェット切断、ケーブルと捨石の扱い、リサイクルと海域の回復"
+              }
+            }
+          ]
         }
       ]
     },
