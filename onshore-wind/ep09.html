@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep08.js｜陸域風電系列</title>
+<title>ep09.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep07.html"><span data-zh="← 07 雷擊與葉片防護" data-en="← 07 Lightning and blade protection" data-ja="← 07 落雷とブレードの保護">← 07 雷擊與葉片防護</span></a><a href="ep09.html"><span data-zh="09 除役、延壽與葉片回收 →" data-en="09 Decommissioning, life extension and blade recycling →" data-ja="09 撤去、延命とブレードのリサイクル →">09 除役、延壽與葉片回收 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep08.html"><span data-zh="← 08 小型風機與分散式應用" data-en="← 08 Small wind turbines and distributed use" data-ja="← 08 小形風車と分散型利用">← 08 小型風機與分散式應用</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep08.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep09.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,466 +543,474 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 8 集：小型風機與分散式應用 */
+/* 陸域風電系列 第 9 集：除役、延壽與葉片回收 */
 const gyy=x=>groundY(x);
-const PXM=12;                                                 // 側視場景比例：1 m ＝ 12 px（示意）
-/* 典型 10 kW 小型風機功率曲線（示例）：切入 3 m/s、額定 11 m/s */
-const pc=v=>v<3||v>25?0:v>=11?10:10*(v*v*v-27)/(1331-27);
-/* 韋伯分布 k=2（年平均風速 vm） */
-const wb=(v,vm)=>{const c=vm/.8862;return 2/c*(v/c)*Math.exp(-(v/c)*(v/c));};
-/* 正視水平軸小風機；x,g 為塔底，H 輪轂高，R 轉子半徑；回傳輪轂座標 */
-function smallT(x,g,H,R,rot,o){o=o||{};const hy=g-H,tw=Math.max(2,R*.09);
-  poly([x-tw,g,x-tw*.55,hy,x+tw*.55,hy,x+tw,g],o.col||'#eef2f4','rgba(0,0,0,.35)',1);
-  box(x-R*.2,hy-R*.1,R*.4,R*.2,'#dfe5e8','rgba(0,0,0,.35)',1);
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3,c=Math.cos(a),s=Math.sin(a),tx=x+s*R,ty=hy-c*R,nx=c*R*.06,ny=s*R*.06;
-   poly([x-nx,hy-ny,x+nx,hy+ny,tx+nx*.3,ty+ny*.3,tx-nx*.3,ty-ny*.3],'#f4f6f7','rgba(0,0,0,.35)',1);}
-  circ(x,hy,Math.max(2,R*.1),'#dfe5e8','#394650',1);return [x,hy];}
-/* 側視垂直軸（H 型達里厄）小風機 */
-function vawtSide(x,g,H,R,h,rot){const hy=g-H;
-  ln([x,g,x,hy-h/2],'#dfe5e8',Math.max(2,R*.08));
-  [[hy-h*.3],[hy+h*.3]].forEach(([y])=>ln([x-R*.95,y,x+R*.95,y],'rgba(223,229,232,.55)',1.5));
-  const B=[0,1,2].map(i=>{const a=rot+i*TAU/3;return {x:x+Math.sin(a)*R,z:Math.cos(a)};}).sort((a,b)=>a.z-b.z);
-  B.forEach(b=>{const w=Math.max(2,R*.1);box(b.x-w/2,hy-h/2,w,h,b.z>0?'#f4f6f7':'#b9c3c9','rgba(0,0,0,.35)',1);
-   ln([x,hy-h*.3,b.x,hy-h*.3],'#9aa3a8',1.2);ln([x,hy+h*.3,b.x,hy+h*.3],'#9aa3a8',1.2);});}
-function house(x,g,w,h,col){box(x,g-h,w,h,col||'#e9dcc6','rgba(0,0,0,.3)',1);
-  poly([x-8,g-h,x+w/2,g-h-h*.55,x+w+8,g-h],'#a8553a','rgba(0,0,0,.3)',1);
-  for(let i=0;i<2;i++)box(x+w*.18+i*w*.44,g-h*.72,w*.2,h*.26,'#6f8ea0','rgba(0,0,0,.3)',1);box(x+w*.44,g-h*.42,w*.14,h*.42,'#7a5a3e');}
-function tree(x,s){const g=gyy(x);s=s||1;ln([x,g,x,g-50*s],'#5b4632',5*s);circ(x,g-66*s,26*s,'#3f6b45');circ(x-14*s,g-52*s,18*s,'#4a7a50');circ(x+14*s,g-54*s,18*s,'#4a7a50');}
-/* 風的流線（持續移動的短線） */
-function windStreaks(y0,y1,n,sp,a){const r=rng(5);alphaDo(a,()=>{for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),x=VX0+((r()*2000+TT*sp)%(VX1-VX0+200))-100;ln([x,y,x+46,y],'rgba(255,255,255,.7)',1.6);}});}
-function along(P,f){let L=0;const S=[];for(let i=2;i<P.length;i+=2){const d=Math.hypot(P[i]-P[i-2],P[i+1]-P[i-1]);S.push(d);L+=d;}
-  let t=((f%1)+1)%1*L;for(let i=0;i<S.length;i++){if(t<=S[i]){const k=t/S[i];return [lerp(P[i*2],P[i*2+2],k),lerp(P[i*2+1],P[i*2+3],k)];}t-=S[i];}return [P[P.length-2],P[P.length-1]];}
-function flow(P,n,sp,col,r){for(let i=0;i<n;i++){const [x,y]=along(P,TT*sp+i/n);circ(x,y,r||4,col);}}
-/* 翼型剖面（俯視圖用），弦長 L，方向 ang */
-function foil(x,y,L,ang,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.beginPath();
-  const T=s=>L*.15*5*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);
-  for(let i=0;i<=16;i++){const s=i/16;ctx.lineTo(L/2-s*L,-T(s));}for(let i=16;i>=0;i--){const s=i/16;ctx.lineTo(L/2-s*L,T(s));}
-  ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle='#13232e';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();}
-/* 模擬風速（持續變動，示例） */
-const wsNow=(b,a)=>b+a*(.6*Math.sin(TT*.7)+.4*Math.sin(TT*1.9+1));
+/* 正視葉片（以輪轂為原點），wear 為前緣磨損程度 */
+function bladeF(a,R,wear){const c=Math.cos(a),s=Math.sin(a),tx=s*R,ty=-c*R,nx=c,ny=s;
+  poly([-nx*7,-ny*7,nx*7,ny*7,tx+nx*2,ty+ny*2,tx-nx*2,ty-ny*2],'#f4f6f7','rgba(0,0,0,.35)',1);
+  if(wear>0)alphaDo(wear,()=>ln([tx*.62-nx*4.5,ty*.62-ny*4.5,tx-nx*2,ty-ny*2],'#8a6f55',3));}
+/* 正視轉子；sy<1 代表轉子傾倒放平 */
+function rotorF(cx,cy,R,rot,sy,wear){ctx.save();ctx.translate(cx,cy);ctx.scale(1,sy);
+  for(let i=0;i<3;i++)bladeF(rot+i*TAU/3,R,wear||0);circ(0,0,R*.06+4,'#dfe5e8','#394650',1.2);ctx.restore();}
+/* 正視塔架：從地面 g 畫到 yTop */
+function towerF(x,g,yTop,H,wear){const wb=H*.05+6,wt_=H*.028+4,k=(g-yTop)/H,wtop=lerp(wb,wt_,k);
+  poly([x-wb,g,x-wtop,yTop,x+wtop,yTop,x+wb,g],'#eef2f4','rgba(0,0,0,.3)',1);
+  [.4,.75].forEach(f=>{const y=g-H*f;if(y>yTop)ln([x-lerp(wb,wt_,f),y,x+lerp(wb,wt_,f),y],'rgba(0,0,0,.18)',1);});
+  if(wear>0){const r=rng(Math.round(x));for(let i=0;i<14;i++){const f=r()*.9,y=g-H*f;if(y<yTop)continue;circ(x+(r()-.5)*lerp(wb,wt_,f)*1.4,y,1.5+r()*2.5,`rgba(150,92,52,${(.75*wear).toFixed(3)})`);}}}
+function nacF(x,hy,H){const w=H*.07+8;box(x-w,hy-w*.7,w*2,w*1.4,'#dfe5e8','rgba(0,0,0,.35)',1);}
+/* 完整正視風機 */
+function frontT(x,H,R,rot,wear){const g=gyy(x),hy=g-H;towerF(x,g,hy,H,wear);nacF(x,hy,H);rotorF(x,hy,R,rot,1,wear);return {g,hy};}
+/* 履帶式主吊機（吊臂向左）；回傳支點 */
+function crawler(px){const g=gyy(px);box(px-62,g-16,124,16,'#2b3137');for(let i=0;i<6;i++)circ(px-50+i*20,g-8,6,'#555','#222',1);
+  box(px-52,g-44,92,28,'#e9b21f','rgba(0,0,0,.3)',1);box(px-66,g-62,36,46,'#c99a16','rgba(0,0,0,.3)',1);box(px+20,g-62,26,22,'#f4f6f7');box(px+24,g-58,16,11,'#2a3a46');return {x:px+10,y:g-44};}
+/* 側視平放葉片（葉根在右） */
+function bladeSide(x0,y,L,a0,a1){a0=a0||0;a1=a1===undefined?1:a1;
+  const P=[[0,-24],[.08,-26],[.28,-32],[1,-13],[1,-9],[.28,-5],[.08,-3],[0,-3]];
+  const at=(f,top)=>{let i=0;const S=top?[[0,-24],[.08,-26],[.28,-32],[1,-13]]:[[0,-3],[.08,-3],[.28,-5],[1,-9]];
+   for(i=0;i<S.length-1&&S[i+1][0]<f;i++);const k=(f-S[i][0])/((S[i+1][0]-S[i][0])||1);return lerp(S[i][1],S[i+1][1],clamp(k,0,1));};
+  const top=[],bot=[];[a0,...P.slice(0,4).map(p=>p[0]).filter(f=>f>a0&&f<a1),a1].forEach(f=>{top.push(x0-L*f,y+at(f,1));bot.unshift(x0-L*f,y+at(f,0));});
+  poly([...top,...bot],'#eef2f4','rgba(0,0,0,.4)',1);if(a0===0)ln([x0,y-24,x0,y-3],'#8d989f',3);
+  if(a0>0)ln([x0-L*a0,y+at(a0,1),x0-L*a0,y+at(a0,0)],'#b9a888',2.5);if(a1<1)ln([x0-L*a1,y+at(a1,1),x0-L*a1,y+at(a1,0)],'#b9a888',2.5);}
+/* 挖土機（手臂向左，k 為破碎錘的下探量） */
+function excavator(x,g,reach,drop,hammer){box(x-50,g-18,100,18,'#2b3137');for(let i=0;i<5;i++)circ(x-40+i*20,g-9,6,'#555','#222',1);
+  box(x-42,g-52,84,34,'#e9b21f','rgba(0,0,0,.3)',1);box(x+6,g-80,34,30,'#e9b21f','rgba(0,0,0,.3)',1);box(x+11,g-76,22,14,'#2a3a46');
+  const sx=x-34,sy=g-46,ex=x-reach*.55,ey=g-140,tx=x-reach,ty=g-30+drop;
+  ln([sx,sy,ex,ey],'#d9a51a',10);ln([ex,ey,tx,ty-30],'#d9a51a',7);
+  if(hammer){box(tx-6,ty-32,12,26,'#3d4750');ln([tx,ty-6,tx,ty+4],'#9aa3a8',3);}
+  else poly([tx-14,ty-32,tx+8,ty-32,tx+4,ty,tx-18,ty-6],'#3d4750');
+  return [tx,ty];}
+function tree(x,b){const g=gyy(x);ln([x,g,x+b*.3,g-40,x+b,g-72],'#5b4632',5);circ(x+b*1.1,g-84,24,'#3f6b45');circ(x+b*1.2-16,g-72,17,'#4a7a50');}
 
-const EP={no:8,slug:'onshore-wind',seriesName:'陸域風電系列',t:'小型風機與分散式應用',en:'Small wind turbines and distributed use',
-lede:'不是每一部風機都有百公尺高。小型風機立在農舍旁、漁港邊或離島村落，發的電就近使用。這一集比較水平軸與垂直軸的設計，看低風速場址的功率曲線與年發電量，說明為什麼屋頂上往往不是好位置，以及小風機如何和太陽光電、儲能一起撐起離島微電網。',
-facts:[['≤ 200','m²','IEC 61400-2 小型風機的掃掠面積上限，約為直徑 16 m'],
-['59.3','%','貝茲極限：理論上風機最多能從風中擷取的能量比例'],
-['8','倍','風速變為 2 倍時，風中的功率變為 2³ = 8 倍'],
-['9','m','經驗法則：葉片最低點至少高出 90 m 內障礙物 9 m'],
-['≈ 2','倍','同一部 10 kW 風機，年均風速 5 m/s 與 4 m/s 場址的年發電量比（示例）'],
-['7.4110','元/度','114 年度陸域風力 1 瓩以上不及 30 瓩的躉購費率']],
-note:'說明：本集為教育用途示意動畫，風機、建築與離島電力設施的比例經過簡化，時間已壓縮。小型風機掃掠面積 ≤ 200 m²、電壓低於 AC 1000 V／DC 1500 V 依 IEC 61400-2 與國家標準 CNS 15176-2；貝茲極限 16/27 ≈ 59.3% 為理論值；「葉片最低點高出 90 m（300 ft）內障礙物 9 m（30 ft）」為美國能源部等機構常用的經驗法則，實際須依場址評估；114 年度陸域風力 1 瓩以上不及 30 瓩躉購費率 7.4110 元/度依經濟部公告，各年度費率請以最新公告為準；澎湖設有中小型風機測試場。10 kW 風機的功率曲線（切入 3 m/s、額定 11 m/s）、以韋伯分布 k=2 估算的年發電量（年均 4、5、6 m/s 約 6,700、13,600、21,900 度）、各型風機的典型功率係數、屋頂與塔架的風速與紊流強度、離島負載與各電源出力、日夜與季節出力曲線皆為典型範例，並非特定機型或案場資料。',
+const K=(u,p)=>{const o=kf(u,p);return [o.x,o.y];};
+const TX=700,H4=330,R4=150;                 // 拆除分鏡的風機位置、輪轂高度、轉子半徑（世界座標）
+const RT=[TX,gyy(TX)-H4];                    // 輪轂位置
+const ROT0=Math.PI;                          // 轉子鎖定時一支葉片朝下
+
+const EP={no:9,slug:'onshore-wind',seriesName:'陸域風電系列',t:'除役、延壽與葉片回收',en:'Decommissioning, life extension and blade recycling',
+lede:'風機的設計壽命通常是 20 年。台灣第一批陸域風機已陸續屆齡，接下來要決定延壽、換成更大的新機，或拆除除役。這一集看剩餘壽命怎麼評估、換機如何以少換多、風機怎麼反向拆除，以及最難處理的複合材料葉片能回收成什麼。',
+facts:[['20','年','IEC 61400-1 風機的設計壽命至少 20 年'],
+['5–10','%','台電評估以更新零組件延壽，可提升的發電效率'],
+['0.66 → 5','MW','台電石門風場更新案：單機容量上限擴大約 7.5 倍'],
+['85–90','%','一部風機總質量中可回收的比例，主要是鋼材與金屬'],
+['100','%','歐洲風電業承諾退役葉片全部再使用、回收或回收能源'],
+['≈ 1','m','基礎常見拆除到地表下約 1 公尺再覆土（示例）']],
+note:'說明：本集為教育用途示意動畫，風機、吊機與基礎比例經過簡化，拆除與回收過程的時間已壓縮。設計壽命 20 年依 IEC 61400-1；延壽評估依 IEC TS 61400-28:2025 與 DNV-ST-0262 的架構；台電以零組件更新延壽可提升發電效率 5–10%，以及石門風場以 3 部單機 5 MW 以下、總裝置容量 15 MW 以下的新機更新原 6 部 0.66 MW 機組並於 2026 年通過環評，引自台電與中央社等公開報導，數值為計畫上限；風機總質量 85–90% 可回收、歐洲風電業承諾退役葉片 100% 再使用回收、奧地利、德國、荷蘭、芬蘭禁止複合材料掩埋，引自 WindEurope 公開資料。疲勞損傷曲線與剩餘壽命 8 年、葉片材料比例、葉片長度 23 m 與重量、切割段數、熱解溫度、拆除深度約 1 m、累計發電量與可用率皆為典型範例，實際依機型、合約與主管機關要求而定，並非特定案場資料。',
 base:()=>{landSky(GY,{sun:{x:1320,y:120}});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 在自家旁邊發電 */
-{t:'在自家旁邊發電',en:'Power beside the farmhouse',dur:13,side:true,
- d:'小型風機是容量從數百瓦到數十瓩的風力發電機，常見於農場、漁港、山區工作站與離島。以一部 10 kW 機組為例，轉子直徑約 7 m，裝在 18 m 高的塔架上，和農舍差不多是同一個尺度。葉片帶動發電機產生變動的交流電，經控制器與變流器整理成穩定的電力，先供自家使用，多餘的電再併入電網。它的價值不在規模，而在電就在用電的地方產生，不需要長距離輸電。',
- s:[[0,'農舍旁的一部 10 kW 小型風機'],[.25,'轉子直徑 7 m，塔架 18 m 高'],[.5,'控制器與變流器把電整理成穩定的交流電'],[.75,'先供自家使用，多餘的電併入電網']],
- cam:u=>camMix({x:820,y:430,s:1.3},{x:800,y:470,s:1.55},ease(seg(u,0,.4))),
+/* 1 ─────────────────────────────── 屆齡 */
+{t:'服役二十年的風機',en:'Twenty years in service',dur:12,side:true,
+ d:'風機設計時依 IEC 61400-1 以至少 20 年的壽命計算疲勞強度。台灣本島的商業風場從 2000 年代初開始運轉，第一批單機 660 kW 左右的風機已陸續屆滿 20 年。二十年間葉片前緣被雨滴與沙塵磨損、塔架塗裝老化，控制器與變流器的零件也可能停產。屆齡不代表馬上要拆，但業主必須做決定：繼續運轉需要證明結構仍然安全，換機或除役則要重新規劃。',
+ s:[[0,'海岸邊的第一代風機已運轉二十年'],[.3,'葉片前緣磨損、塔架塗裝老化'],[.6,'控制系統零件逐漸停產'],[.82,'屆滿設計壽命：延壽、換機或除役']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:650,y:450,s:1.3},ease(seg(u,.25,.6))),
  draw(u){
-  windStreaks(260,560,18,420,.55);
-  const TX=1000,g=gyy(TX),H=18*PXM,R=3.5*PXM,ws=wsNow(6.2,1.6),rot=TT*2.6;
-  tree(420,1.1);tree(1260,1.2);tree(1330,.9);
-  const hx=560,hg=gyy(hx+80);house(hx,hg,160,84);
-  /* 電纜：塔底 → 控制櫃 → 住宅 */
-  const cx=800,cg=gyy(cx);cabinet(cx-22,cg,44,56,'#dfe5e8');circ(cx,cg-48,3,'#7dffc4');
-  const P=[TX,g+2,TX,g+18,cx,cg+18,cx,cg-2],Q=[cx-22,cg-30,hx+160,hg-30];
-  ln(P,'rgba(40,50,60,.7)',3);ln(Q,'rgba(40,50,60,.7)',3);
-  const pw=pc(ws)/10;if(pw>0){flow(P,6,.35+pw*.4,'#f2c230',3.5);flow(Q,4,.35+pw*.4,'#f2c230',3.5);}
-  smallT(TX,g,H,R,rot);
-  person(TX+60,gyy(TX+60),'#e8572a',2.2);
-  lab(TX,g-H,'小型風機 10 kW',{dx:-150,dy:-60,st:'s',a:band(u,.04,.5)});
-  lab(TX+R,g-H,'轉子直徑 7 m',{dx:110,dy:50,st:'l',a:band(u,.25,.55)});
-  lab(TX,g-H*.45,'塔架 18 m',{dx:110,dy:0,st:'l',a:band(u,.28,.58)});
-  lab(cx,cg-56,'控制器與變流器',{dx:-40,dy:-110,st:'g',a:band(u,.5,.8)});
-  lab(hx+80,hg-100,'自用，餘電併網',{dx:-90,dy:-80,st:'g',a:band(u,.74,1)});
+  const w=ease(seg(u,.05,.7));
+  [[1260,0],[1360,1],[160,2]].forEach(([x,i])=>tree(x,10+4*Math.sin(TT*2.4+i)));
+  frontT(300,210,95,TT*1.1+1,w*.8);
+  frontT(960,170,80,TT*1.05+2.2,w*.8);
+  const T=frontT(640,240,110,TT*1.2,w);
+  lab(640+Math.sin(TT*1.2)*110*.8,T.hy-Math.cos(TT*1.2)*110*.8,'葉片前緣磨損',{dx:-130,dy:-40,st:'w',a:band(u,.3,.62)});
+  lab(646,T.g-110,'塔架塗裝老化',{dx:150,dy:20,st:'w',a:band(u,.34,.66)});
+  lab(640,T.hy-12,'控制器零件停產',{dx:150,dy:-60,st:'w',a:band(u,.6,.84)});
+  lab(640,T.hy,'設計壽命 20 年',{dx:-170,dy:-70,st:'s',a:band(u,.82,1)});
  },
- hud(u){hudPanel(250,182,'小型風機（示例）',seg(u,.03,.08),w=>{const ws=wsNow(6.2,1.6);
-  hrow(56,'風速',trf('{n} m/s',{n:ws.toFixed(1)}),w,'#fff');
-  hrow(88,'輸出功率',trf('{n} kW',{n:pc(ws).toFixed(1)}),w,'#f2c230');
-  hrow(120,'今日發電',trf('{n} 度',{n:(38+u*6).toFixed(1)}),w,'#7dffc4');
-  hrow(152,'額定容量','10 kW',w,'#fff');});}},
+ hud(u){hudPanel(250,182,'第一代風機（示例）',seg(u,.03,.08),w=>{const yr=20*seg(u,.06,.8);
+  hrow(56,'運轉年數',trf('{n} 年',{n:yr.toFixed(0)}),w,yr>=19.5?'#ff9d7a':'#f2c230');
+  hrow(88,'單機容量','660 kW',w,'#fff');
+  hrow(120,'累計發電',trf('{n} GWh',{n:(1.45*yr).toFixed(1)}),w,'#7dffc4');
+  hrow(152,'狀態',yr<19.5?'運轉中':'屆滿設計壽命',w,yr<19.5?'#7dffc4':'#ff9d7a');});}},
 
-/* 2 ─────────────────────────────── 多小才算小 */
-{t:'多小才算小',en:'How small is small',dur:13,
- d:'國際標準 IEC 61400-2 把轉子掃掠面積不超過 200 m²、輸出電壓低於交流 1000 V 或直流 1500 V 的風機定義為小型風機，台灣的國家標準 CNS 15176-2 採用同樣的界線。200 m² 相當於直徑約 16 m 的轉子。一部 10 kW 機組的直徑約 7 m、掃掠面積約 38 m²；而 4 MW 級的大型陸域風機直徑約 136 m，掃掠面積超過 14,000 m²，是小型上限的 70 多倍。',
- s:[[0,'同一比例尺下，小型風機幾乎看不見'],[.3,'放大來看：10 kW 與 1 kW 機組'],[.55,'IEC 61400-2：掃掠面積不超過 200 m²'],[.78,'大型風機的掃掠面積是上限的 70 多倍']],
+/* 2 ─────────────────────────────── 剩餘壽命評估 */
+{t:'延壽評估：還能轉幾年',en:'How many more years?',dur:14,
+ d:'設計壽命是以設計風況計算的疲勞極限，實際場址的風況若比假設溫和，結構累積的疲勞損傷就比較少。延壽評估先整理 SCADA 運轉資料與維修紀錄，再到現場檢查塔架螺栓、焊道、葉片與基礎，最後用實際風況重新計算載重，推估剩餘壽命。IEC TS 61400-28 與 DNV-ST-0262 提供這套評估的架構。結論可能是延壽數年、更換主要零組件，或判定不宜繼續運轉。',
+ s:[[0,'設計曲線：第 20 年累積損傷達到允許值'],[.3,'實際風況較溫和，損傷累積較慢'],[.5,'延伸曲線：推估剩餘壽命'],[.72,'檢查與重算後，決定延壽、換機或除役']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'與大型風機比一比（同一比例尺）',20,'#f2c230',700);
-  const G=740,S=2.8;
-  box(62,G,696,58,'rgba(164,135,106,.35)');ln([62,G,758,G],'rgba(227,236,238,.5)',1.5);
-  smallT(280,G,110*S,68*S,TT*.5);
-  smallT(600,G,18*S,3.5*S,TT*2.6);smallT(640,G,10*S,1.25*S,TT*3.4);
-  wt(280,780,'4 MW 級：輪轂 110 m、直徑 136 m',16,'rgba(227,236,238,.85)',600,'center');
-  /* 放大框 */
-  const zk=ease(seg(u,.25,.36));
-  ctx.setLineDash([5,4]);ln([585,G-60,660,G-60,660,G+4,585,G+4,585,G-60],'#f2c230',1.5);ctx.setLineDash([]);
-  if(zk>0)alphaDo(zk,()=>{ln([585,G-60,500,480],'rgba(242,194,48,.6)',1);ln([660,G-60,740,480],'rgba(242,194,48,.6)',1);
-   box(500,240,240,240,'#1d3c52','#f2c230',1.5);
-   ctx.save();ctx.beginPath();ctx.rect(500,240,240,240);ctx.clip();
-   const g2=450,k=9;box(500,g2,240,30,'rgba(164,135,106,.5)');
-   smallT(555,g2,18*k,3.5*k,TT*2.6);house(592,g2,64,56);smallT(705,g2,10*k,1.25*k,TT*3.4);
-   ctx.restore();
-   wt(555,472,'10 kW',15,'#fff',700,'center',COND);wt(705,472,'1 kW',15,'#fff',700,'center',COND);
-   wt(510,262,'放大 3 倍',14,'#f2c230',700);});
-  /* 右：掃掠面積 */
-  card(800,160,740,420,{bg:'rgba(7,27,39,.75)'});wt(824,200,'掃掠面積（同一比例尺）',20,'#f2c230',700);
-  const cy=380,k2=12;
-  ctx.save();ctx.beginPath();ctx.rect(802,220,736,358);ctx.clip();
-  const bk=seg(u,.72,.84);if(bk>0){ctx.beginPath();ctx.arc(1540+68*k2-180,cy,68*k2,0,TAU);ctx.fillStyle=`rgba(255,157,122,${(.16*bk).toFixed(3)})`;ctx.fill();ctx.strokeStyle=`rgba(255,157,122,${bk.toFixed(3)})`;ctx.lineWidth=2.5;ctx.stroke();}
-  ctx.restore();
-  const CI=[[880,1.25,'1 kW','D 2.5 m','4.9 m²',.08],[990,3.5,'10 kW','D 7 m','38 m²',.18],[1170,8,'小型上限','D 16 m','200 m²',.5]];
-  CI.forEach(([x,r,n,d,a,t],i)=>{const k=ease(seg(u,t,t+.08));if(k<=0)return;alphaDo(k,()=>{
-   if(i===2){ctx.setLineDash([8,6]);ring(x,cy,r*k2,'#e8572a',2.5);ctx.setLineDash([]);}
-   else circ(x,cy,r*k2,'rgba(242,194,48,.25)','#f2c230',2);
-   wt(x,cy+116,n,18,i===2?'#ff9d7a':'#fff',700,'center');wt(x,cy+142,d,17,'rgba(227,236,238,.8)',600,'center',COND);wt(x,cy+166,a,19,i===2?'#ff9d7a':'#f2c230',700,'center',COND);});});
-  if(bk>0)alphaDo(bk,()=>{wt(1430,cy-40,'大型',18,'#ff9d7a',700,'center');wt(1430,cy-14,'D 136 m',17,'#fff',600,'center',COND);wt(1430,cy+12,'≈ 14,500 m²',18,'#ff9d7a',700,'center',COND);});
-  card(800,610,740,190,{bg:'rgba(7,27,39,.75)'});wt(824,650,'小型風機的定義',20,'#7dffc4',700);
-  const DR=[['IEC 61400-2：掃掠面積 ≤ 200 m²',.55],['輸出電壓低於 AC 1000 V／DC 1500 V',.62],['台灣國家標準 CNS 15176-2 同樣界線',.68]];
-  DR.forEach(([s,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=670+i*40;box(824,y,6,30,'#7dffc4');wt(844,y+22,s,17,'#fff',600);}));
+  const C=chartBox(60,160,700,470,{title:'累積疲勞損傷（示意）',x0:0,x1:30,y0:0,y1:1.2,xt:[0,10,20,30],yt:[0,.5,1],xl:'運轉年數',yl:'累積損傷',pl:90,pt:80,pb:64,gx:3,gy:2});
+  ctx.setLineDash([8,6]);ln([C.X(0),C.Y(1),C.X(30),C.Y(1)],'#e8572a',2);ctx.setLineDash([]);
+  wt(C.X(.5),C.Y(1)-10,'允許值',16,'#ff9d7a',700);
+  const k1=seg(u,.04,.26);if(k1>0){ln([C.X(0),C.Y(0),C.X(20*k1),C.Y(k1)],'rgba(255,255,255,.85)',3);}
+  alphaDo(seg(u,.24,.28),()=>tag(C.X(20)-14,C.Y(1)-30,'設計：第 20 年',{size:16,bg:'#fff',align:'right'}));
+  const k2=seg(u,.3,.5);if(k2>0){ln([C.X(0),C.Y(0),C.X(20*k2),C.Y(20*k2/28)],'#7dffc4',3.5);circ(C.X(20*k2),C.Y(20*k2/28),6,'#7dffc4','#13232e',1.5);}
+  alphaDo(seg(u,.46,.5),()=>tag(C.X(20)+12,C.Y(20/28)+30,'實際量測',{size:16,bg:'#7dffc4'}));
+  const k3=seg(u,.5,.64);if(k3>0){ctx.setLineDash([6,6]);ln([C.X(20),C.Y(20/28),C.X(20+8*k3),C.Y((20+8*k3)/28)],'#7dffc4',3);ctx.setLineDash([]);}
+  alphaDo(seg(u,.62,.66),()=>{ln([C.X(20),C.Y(.12),C.X(28),C.Y(.12)],'#f2c230',2.5);ln([C.X(20),C.Y(.07),C.X(20),C.Y(.17)],'#f2c230',2.5);ln([C.X(28),C.Y(.07),C.X(28),C.Y(.17)],'#f2c230',2.5);
+   tag(C.X(24),C.Y(.12)-36,'剩餘壽命約 8 年',{size:16,bg:'#f2c230',align:'center'});});
+  card(60,660,700,140,{bg:'rgba(7,27,39,.75)'});
+  wt(84,712,'場址風況比設計假設溫和，疲勞累積較慢',18,'#fff',600);
+  wt(84,756,'但螺栓、焊道與葉片仍要逐項檢查確認',18,'rgba(227,236,238,.8)',600);
+  /* 右：評估步驟 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'延壽評估的步驟',20,'#f2c230',700);
+  const ST=[['資料回顧','SCADA 運轉資料、維修與故障紀錄'],['現場檢查','塔架螺栓、焊道、葉片、基礎'],['載重重算','以實際風況重新計算疲勞'],['做出決定','延壽、換機或除役']],T0=[.06,.22,.4,.7];
+  let cur=-1;T0.forEach((t,i)=>{if(u>=t)cur=i;});
+  ST.forEach(([n,s],i)=>{const y=226+i*104,on=u>=T0[i];alphaDo(on?1:.35,()=>{const c=i<cur?'#7dffc4':i===cur?'#f2c230':'rgba(227,236,238,.6)';
+   box(824,y,692,86,i===cur?'rgba(242,194,48,.12)':'rgba(255,255,255,.04)',c,i===cur?2.5:1);
+   circ(864,y+43,20,i<cur?'#7dffc4':'#16384c',c,2);wt(864,y+50,String(i+1),20,i<cur?'#13232e':c,800,'center',COND);
+   wt(902,y+38,n,19,c,700);wt(902,y+68,s,17,'#fff',600);});});
+  const OP=[['延壽','#7dffc4'],['換機','#f2c230'],['除役','#ff9d7a']];
+  OP.forEach(([n,c],i)=>alphaDo(seg(u,.74+i*.06,.78+i*.06),()=>{const x=844+i*226;box(x,660,200,80,'rgba(255,255,255,.05)',c,2);wt(x+100,710,n,22,c,800,'center');}));
+  wt(1170,778,'IEC TS 61400-28　DNV-ST-0262',15,'rgba(227,236,238,.55)',600,'center');
  }},
 
-/* 3 ─────────────────────────────── 水平軸與垂直軸 */
-{t:'水平軸與垂直軸',en:'Horizontal or vertical axis',dur:13,
- d:'小型風機有兩大類。水平軸風機和大型風機一樣面向來風，但多半沒有偏航馬達，而是靠尾舵像風向標一樣自動對風，效率較高、技術成熟。垂直軸風機的主軸直立，不論風從哪個方向來都能轉動，發電機可以放在地面附近，常見的有靠升力旋轉的達里厄式，以及靠阻力推動的薩佛紐斯式。垂直軸機型對紊流與風向變化較能適應，但功率係數通常較低；任何風機都無法超過 59.3% 的貝茲極限。',
- s:[[0,'水平軸：尾舵像風向標一樣自動對風'],[.3,'垂直軸：不論風從哪裡來都能轉'],[.55,'達里厄式靠升力，薩佛紐斯式靠阻力'],[.75,'效率比一比，上限是 59.3% 的貝茲極限']],
+/* 3 ─────────────────────────────── 換機 */
+{t:'換機：以少換多',en:'Repowering: fewer, bigger machines',dur:14,
+ d:'換機（repowering）是在原場址拆掉舊風機，換上單機容量更大的新機。新機的葉片更長、輪轂更高，能接觸到更穩定的風，所以部數可以減少，總容量與發電量反而增加。以台電石門風場的更新案為例，原有 6 部 0.66 MW 機組，規劃換成 3 部單機 5 MW 以下的新機，總裝置容量上限 15 MW，2026 年通過環評。換機可以沿用場址、道路與併網線路，但仍要重新評估噪音、生態與景觀。',
+ s:[[0,'舊場址：6 部 0.66 MW 風機'],[.28,'拆除舊機，換上 3 部大型新機'],[.52,'部數減半，總容量上限約為 3.8 倍'],[.74,'沿用場址與併網點，仍須重新環評']],
  draw(u){
   diagBG();
-  const wd=.55*Math.sin(TT*.55)+.25*Math.sin(TT*1.3);   // 風向擺動（弧度）
-  /* 左：水平軸俯視 */
-  card(60,160,700,370,{bg:'rgba(7,27,39,.75)'});wt(84,200,'水平軸（俯視）',20,'#f2c230',700);
-  const hx=250,hy=350,la=wd*.9;
-  ctx.save();ctx.beginPath();ctx.rect(62,220,696,308);ctx.clip();
-  for(let i=0;i<4;i++){const y=260+i*56,x=90+((TT*120+i*50)%70);ctx.save();ctx.translate(hx,hy);ctx.rotate(wd);ctx.translate(-hx,-hy);arrow(x,y,x+50,y,'rgba(125,200,220,.85)',2.5);ctx.restore();}
-  ctx.restore();
-  ctx.save();ctx.translate(hx,hy);ctx.rotate(la);
-  box(-10,-90,8,180,'#f4f6f7','#13232e',1.2);rrp(-4,-14,70,28,6);ctx.fillStyle='#dfe5e8';ctx.fill();ctx.strokeStyle='#13232e';ctx.lineWidth=1.2;ctx.stroke();
-  ln([66,0,150,0],'#9aa3a8',3);poly([150,-4,200,-34,214,-34,214,34,200,34,150,4],'#f2c230','#13232e',1.2);
-  circ(-8,0,9,'#dfe5e8','#13232e',1.2);
-  ctx.restore();
-  lab(hx+Math.cos(la)*200,hy+Math.sin(la)*200,'尾舵',{dx:-40,dy:70,st:'s',a:band(u,.04,.5)});
-  lab(hx-6*Math.cos(la)+90*Math.sin(la),hy-6*Math.sin(la)-90*Math.cos(la),'轉子',{dx:-70,dy:30,st:'l',a:band(u,.04,.5)});
-  const HL=[['尾舵自動對風','構造簡單',.06],['效率較高','機型成熟',.14]];
-  HL.forEach(([a,b,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=300+i*90;box(556,y,6,64,'#f2c230');wt(574,y+26,a,17,'#fff',700);wt(574,y+54,b,16,'rgba(227,236,238,.8)',600);}));
-  /* 右：垂直軸俯視 */
-  card(800,160,740,370,{bg:'rgba(7,27,39,.75)'});wt(824,200,'垂直軸（俯視）',20,'#f2c230',700);
-  ctx.save();ctx.beginPath();ctx.rect(802,220,736,308);ctx.clip();
-  for(let i=0;i<4;i++){const y=260+i*56,x=830+((TT*120+i*50)%60);ctx.save();ctx.translate(1170,360);ctx.rotate(wd);ctx.translate(-1170,-360);arrow(x,y,x+44,y,'rgba(125,200,220,.85)',2.5);ctx.restore();}
-  ctx.restore();
-  const da=seg(u,.28,.36),r1=TT*1.8;
-  alphaDo(.35+.65*da,()=>{const cx=1020,cy=350,R=80;ring(cx,cy,R,'rgba(227,236,238,.25)',1.5);circ(cx,cy,8,'#dfe5e8','#13232e',1.2);
-   for(let i=0;i<3;i++){const a=r1+i*TAU/3,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;ln([cx,cy,x,y],'#9aa3a8',1.5);foil(x,y,58,a+Math.PI/2,'#f4f6f7');}
-   wt(cx,462,'達里厄式',18,'#fff',700,'center');wt(cx,488,'升力型',15,'#7dffc4',600,'center');});
-  alphaDo(.35+.65*da,()=>{const cx=1320,cy=350,a=TT*1.1,R=56;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
-   ctx.lineWidth=7;ctx.strokeStyle='#f4f6f7';ctx.beginPath();ctx.arc(-R/2+6,0,R/2,0,Math.PI);ctx.stroke();ctx.beginPath();ctx.arc(R/2-6,0,R/2,Math.PI,TAU);ctx.stroke();ctx.restore();
-   ring(cx,cy,R+12,'rgba(227,236,238,.25)',1.5);circ(cx,cy,7,'#dfe5e8','#13232e',1.2);
-   wt(cx,462,'薩佛紐斯式',18,'#fff',700,'center');wt(cx,488,'阻力型',15,'#7dc8dc',600,'center');});
-  alphaDo(band(u,.3,.6),()=>tag(1170,256,'任何風向都能轉',{size:16,bg:'#7dffc4',align:'center'}));
-  /* 下：功率係數 */
-  card(60,560,1480,240,{bg:'rgba(7,27,39,.75)'});wt(84,600,'功率係數 Cp（典型最大值，示例）',20,'#f2c230',700);
-  const X0=300,X1=1400,Xc=v=>X0+(X1-X0)*v/.6;
-  ln([X0,628,X0,780],'rgba(255,255,255,.4)',1.2);
-  [0,.2,.4,.6].forEach(v=>wt(Xc(v),796,String(v.toFixed(1)),15,'rgba(227,236,238,.7)',600,'center',COND));
-  const CP=[['水平軸',.4,'#f2c230'],['達里厄式',.35,'#7dffc4'],['薩佛紐斯式',.18,'#7dc8dc']];
-  CP.forEach(([n,v,c],i)=>{const k=ease(seg(u,.58+i*.06,.68+i*.06)),y=636+i*46;wt(X0-16,y+24,n,17,'#fff',700,'right');
-   box(X0,y+4,(Xc(v)-X0)*k,30,c);if(k>.9)wt(Xc(v)+10,y+28,v.toFixed(2),19,'#fff',700,'left',COND);});
-  const bz=seg(u,.78,.84);if(bz>0)alphaDo(bz,()=>{ctx.setLineDash([7,5]);ln([Xc(.593),622,Xc(.593),778],'#e8572a',2.5);ctx.setLineDash([]);wt(Xc(.593)-10,620,'貝茲極限 0.593',16,'#ff9d7a',700,'right');});
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'同一場址的更新（示意）',20,'#f2c230',700);
+  const g1=420,g2=770;
+  ln([80,g1,740,g1],'rgba(164,135,106,.8)',3);ln([80,g2,740,g2],'rgba(164,135,106,.8)',3);
+  const fo=1-seg(u,.26,.36);
+  wt(84,250,'更新前：6 部 × 0.66 MW',18,'#fff',700);
+  for(let i=0;i<6;i++){const x=150+i*104;alphaDo(lerp(.25,1,fo),()=>{const hy=g1-100;poly([x-4,g1,x-2,hy,x+2,hy,x+4,g1],'#eef2f4','rgba(0,0,0,.35)',1);box(x-7,hy-5,14,9,'#dfe5e8');rotorF(x,hy,44,TT*1.6+i,1,0);});}
+  const fi=ease(seg(u,.3,.46));
+  wt(84,482,'更新後：3 部 × 5 MW',18,fi>0?'#f2c230':'rgba(227,236,238,.4)',700);
+  [180,410,640].forEach((x,i)=>{const H=170*fi;if(H<2)return;const hy=g2-H;poly([x-8,g2,x-4,hy,x+4,hy,x+8,g2],'#eef2f4','rgba(0,0,0,.35)',1);box(x-12,hy-7,24,13,'#dfe5e8');
+   alphaDo(seg(u,.4,.46),()=>rotorF(x,hy,95,TT*.8+i*1.3,1,0));});
+  alphaDo(seg(u,.46,.5),()=>{wt(740,g2+22,'輪轂更高、葉片更長',15,'rgba(227,236,238,.75)',600,'right');});
+  /* 右：容量比較 */
+  const C=chartBox(800,160,740,350,{title:'總裝置容量（石門更新案，上限值）',x0:0,x1:2,y0:0,y1:16,xt:[],yt:[0,5,10,15],yl:'MW',pl:80,pt:80,pb:56,gx:0,gy:3});
+  const B=[['更新前',3.96,'#7dc8dc',.04],['更新後',15,'#f2c230',.46]];
+  B.forEach(([n,v,c,t],i)=>{const k=ease(seg(u,t,t+.1)),x0=C.X(i+.25),x1=C.X(i+.75);
+   if(k>0){box(x0,C.Y(v*k),x1-x0,C.Y(0)-C.Y(v*k),c);wt((x0+x1)/2,C.Y(v*k)-12,trf('{n} MW',{n:(v*k).toFixed(v<10?2:0)}),24,'#fff',700,'center',COND);}
+   wt((x0+x1)/2,C.Y(0)+32,n,18,'rgba(227,236,238,.85)',600,'center');});
+  card(800,540,740,260,{bg:'rgba(7,27,39,.75)'});wt(824,580,'換機的重點',20,'#7dffc4',700);
+  const PT=[['沿用原場址、道路與併網點','#7dffc4',.56],['部數減半，容量上限約 3.8 倍','#f2c230',.62],['重新評估噪音、生態與景觀','#ff9d7a',.76]];
+  PT.forEach(([s,c,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=604+i*62;box(824,y,692,50,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);box(824,y,6,50,c);wt(846,y+33,s,18,'#fff',600);}));
  }},
 
-/* 4 ─────────────────────────────── 低風速的功率曲線 */
-{t:'低風速的功率曲線',en:'Power curves at low wind speeds',dur:14,
- d:'風中的功率與風速的三次方成正比，風速加倍，功率變為 8 倍。小型風機常裝在風況普通的地方，因此看的是低風速區段：典型 10 kW 機組約在 3 m/s 開始發電，11 m/s 才達到額定功率。一年之中的風速大致呈韋伯分布，年平均 5 m/s 的場址，最常出現的風速只有 4 m/s 左右。估算年發電量時，要把每個風速的功率乘上出現時數再加總。年均風速從 4 m/s 提高到 5 m/s，年發電量約增加一倍，所以選址比選機型更重要。',
- s:[[0,'功率與風速的三次方成正比'],[.25,'典型 10 kW 機組：3 m/s 起轉，11 m/s 額定'],[.5,'年均 5 m/s 的場址，風速分布集中在低風速'],[.75,'年均風速差 1 m/s，年發電量差約一倍']],
+/* 4 ─────────────────────────────── 反向拆除 */
+{t:'反向拆除',en:'Dismantling in reverse',dur:14,side:true,
+ d:'拆除風機大致是吊裝的倒帶。先停機、鎖定轉子，排空齒輪油與液壓油並切斷電力。主吊機把轉子連同三支葉片整組吊下，在接近地面時由輔助吊機扶住下方葉片，讓轉子轉為水平放在地上；接著吊下機艙，再由上而下一段一段拆下塔架。吊裝需要在風速限制內進行，拆下的大件會在現場再分解，鋼製塔架與機艙內的銅、鋼大多可以直接回收。',
+ s:[[0,'停機、鎖定轉子並排空油料'],[.1,'主吊機把轉子整組吊下'],[.32,'接近地面時轉為水平放下'],[.46,'吊下機艙'],[.72,'由上而下拆除塔架']],
+ cam:u=>({x:800,y:420,s:1}),
+ draw(u){
+  const g=gyy(TX),hy=RT[1];
+  [[150,0],[1500,1]].forEach(([x,i])=>tree(x,10+4*Math.sin(TT*2.4+i)));
+  /* 轉子路徑 */
+  const rk=seg(u,.1,.42);
+  const rp=K(rk,[[0,TX,hy],[.15,TX,hy-34],[.55,600,320],[.8,540,430],[1,540,g-14]]);
+  const rsy=lerp(1,.22,ease(seg(rk,.7,1)));
+  /* 機艙路徑 */
+  const nk=seg(u,.46,.7);const np=K(nk,[[0,TX,hy],[.2,TX,hy-40],[.6,1010,300],[1,1250,g-22]]);
+  /* 塔架上段 */
+  const tk=seg(u,.72,.96);const tY0=hy+8,tY1=g-H4*.6;     // 上段範圍
+  const tc=(tY0+tY1)/2,tp=K(tk,[[0,TX,tc],[.2,TX,tc-40],[.6,1200,380],[1,1400,g-14]]);
+  const tang=Math.PI/2*ease(seg(tk,.7,1));
+  /* 地上的物件 */
+  towerF(TX,g,tk>0?tY1:hy,H4,0);
+  if(nk===0){nacF(TX,hy,H4);}
+  else{nacF(np[0],np[1],H4);}
+  rotorF(rp[0],rp[1],R4,ROT0,rsy,0);
+  if(tk>0){ctx.save();ctx.translate(tp[0],tp[1]);ctx.rotate(-tang);const L=tY1-tY0;const wb=H4*.05+6,f0=.6,wa=lerp(wb,H4*.028+4,f0);
+   poly([-wa,L/2,-(H4*.028+4),-L/2,(H4*.028+4),-L/2,wa,L/2],'#eef2f4','rgba(0,0,0,.3)',1);ctx.restore();}
+  /* 吊機 */
+  let hx,hk,sl=null;
+  if(u<.44){hx=rp[0];hk=rp[1]-26;sl=[rp[0]-8,rp[1]-6,rp[0]+8,rp[1]-6];}
+  else if(u<.72){const k=seg(u,.42,.46);hx=lerp(540,np[0],k);hk=lerp(g-120,np[1]-40,k);if(u>=.46)sl=[np[0]-20,np[1]-14,np[0]+20,np[1]-14];}
+  else{const k=seg(u,.7,.72);const L=(tY1-tY0)/2;hx=lerp(1250,tp[0],k);hk=lerp(g-120,tp[1]-L*Math.cos(tang)-30,k);if(u>=.72)sl=[tp[0]-6,tp[1]-L*Math.cos(tang)-4,tp[0]+6,tp[1]-L*Math.cos(tang)-4];}
+  const mp=crawler(1000);const mh=crane(mp.x,mp.y,520,hx,hk,{col:'#e9b21f'});if(sl)slings(mh.x,mh.hy,sl);
+  /* 輔助吊機扶住下方葉片 */
+  if(rk>.6&&rk<1){const a=band(rk,.6,.98);alphaDo(a,()=>{const tx=rp[0],ty=rp[1]+R4*rsy;ln([tx,ty,tx-120,ty-180],'rgba(30,35,40,.7)',1);});}
+  person(TX-60,g,'#e8572a',2.2);person(TX+40,g,'#e8572a',2.2);
+  lab(TX,hy,'鎖定轉子',{dx:-150,dy:-50,st:'s',a:band(u,0,.12)});
+  lab(rp[0],rp[1],'轉子整組吊下',{dx:-150,dy:-40,st:'s',a:band(u,.14,.34)});
+  lab(rp[0]-R4*.6,rp[1],'轉為水平放下',{dx:-80,dy:-90,st:'g',a:band(u,.34,.5)});
+  lab(np[0],np[1],'機艙',{dx:120,dy:-60,st:'s',a:band(u,.48,.7)});
+  lab(tp[0],tp[1],'塔架上段',{dx:-150,dy:-60,st:'s',a:band(u,.74,.98)});
+  lab(mp.x,mp.y-10,'主吊機',{dx:120,dy:40,st:'l',a:band(u,.04,.26)});
+ },
+ hud(u){hudPanel(250,182,'拆除進度',seg(u,.03,.08),w=>{
+  const R=[['鎖定轉子',0,.1],['吊下轉子',.1,.44],['吊下機艙',.46,.7],['拆除塔架',.72,.96]];
+  R.forEach(([n,a,b],i)=>hrow(56+i*32,n,u>=b?'完成':u>=a?'進行中':'—',w,u>=b?'#7dffc4':u>=a?'#f2c230':'#fff'));});}},
+
+/* 5 ─────────────────────────────── 葉片切割 */
+{t:'葉片現場切割與運輸',en:'Cutting blades on site',dur:13,side:true,
+ d:'鋼材和銅很好回收，難題在葉片。葉片由玻璃纖維、環氧樹脂與輕木或泡棉芯材層層黏合，強度高、重量輕，卻很難拆開。整支長葉片要動用特殊車輛才能運出，所以常在現場先用鑽石鋼索鋸或水刀切成數段，切割時以灑水或集塵設備抑制粉塵，作業人員配戴防護具。切成數公尺長的段落後，用一般卡車就能載到處理廠。',
+ s:[[0,'拆下的葉片平放在地上'],[.18,'用鑽石鋼索鋸切成數段'],[.4,'灑水與集塵，抑制玻纖粉塵'],[.62,'切段後用一般卡車載運']],
+ cam:u=>({x:760,y:470,s:1.25}),
+ draw(u){
+  const g=gyy(760),y=g-22,x0=1080,L=620;
+  [[260,0],[1240,1]].forEach(([x,i])=>tree(x,10+4*Math.sin(TT*2.4+i)));
+  const cuts=[0,.26,.5,.74,1],CT=[.18,.3,.42];
+  const load=seg(u,.66,.76);
+  /* 支架 */
+  [.1,.4,.62,.88].forEach(f=>{const x=x0-L*f;box(x-10,y-4,20,y>0?g-y+4:0,'#6f7a80');});
+  for(let i=0;i<4;i++){const sh=(i?ease(seg(u,CT[Math.min(i-1,2)],CT[Math.min(i-1,2)]+.08)):0)*-14*i;
+   const done=i<3?u>=CT[i]+.06:true;const gone=load>(i+1)/5;
+   if(!gone)ctx.save(),ctx.translate(sh,0),bladeSide(x0,y,L,cuts[i],cuts[i+1]),ctx.restore();}
+  /* 鋼索鋸 */
+  const ci=CT.findIndex(t=>u>=t&&u<t+.1);
+  if(ci>=0){const k=seg(u,CT[ci],CT[ci]+.1),cx=x0-L*cuts[ci+1]-14*(ci+1)*0;
+   box(cx-16,y-80,32,18,'#e9b21f','rgba(0,0,0,.3)',1);ln([cx,y-62,cx,lerp(y-34,y,k)],'#d0d6da',2);
+   const r=rng(ci*7+Math.floor(TT*12));for(let i=0;i<14;i++){const a=r()*Math.PI,d=r()*30;circ(cx+Math.cos(a)*d,lerp(y-30,y-4,k)-Math.sin(a)*d*.6,1.6,'rgba(210,214,216,.75)');}
+   person(cx+28,g,'#e8572a',2.4);}
+  /* 灑水 */
+  const wa=band(u,.38,.6);if(wa>0)alphaDo(wa,()=>{const cx=x0-L*.5;for(let i=0;i<10;i++){const k=((TT*1.5+i/10)%1);circ(cx+40-k*40,y-70+k*60,2,'#7dc8dc');}ln([cx+60,g,cx+40,y-70],'#3d4750',2);});
+  /* 卡車 */
+  const tx=u<.62?2000:u<.7?lerp(1500,620,ease(seg(u,.62,.7))):u<.82?620:lerp(620,-200,easeIn(seg(u,.82,1)));
+  truck(tx,g+56,true,'#7dc8dc',()=>{const n=Math.round(load*4);for(let i=0;i<n;i++)box(4+(i%2)*44,-46-Math.floor(i/2)*12,40,12,'#eef2f4','rgba(0,0,0,.4)',1);});
+  lab(x0-L*.45,y-26,'退役葉片',{dx:-80,dy:-90,st:'l',a:band(u,0,.18)});
+  lab(x0-L*.26,y-60,'鑽石鋼索鋸',{dx:-120,dy:-70,st:'s',a:band(u,.18,.4)});
+  lab(x0-L*.5,y-50,'灑水抑制粉塵',{dx:110,dy:-90,st:'g',a:band(u,.4,.62)});
+  lab(tx-60,g+20,'一般卡車載運',{dx:-60,dy:-110,st:'s',a:band(u,.68,.9)});
+ },
+ hud(u){hudPanel(250,182,'葉片處理（示例）',seg(u,.03,.08),w=>{const n=u<.24?1:u<.36?2:u<.48?3:4;
+  hrow(56,'葉片長度','23 m',w,'#fff');
+  hrow(88,'每支重量','≈ 2 t',w,'#fff');
+  hrow(120,'切割段數',trf('{n} 段',{n:u<.18?1:n}),w,'#f2c230');
+  hrow(152,'運輸',u<.62?'待切割':u<.82?'裝車中':'送往處理廠',w,u<.62?'#fff':'#7dffc4');});}},
+
+/* 6 ─────────────────────────────── 葉片材料去哪裡 */
+{t:'葉片材料的去處',en:'Where blade materials go',dur:14,
+ d:'一部風機總質量約 85–90% 是塔架、機艙裡的鋼材與金屬，可以熔煉再利用；剩下的大多是葉片的複合材料。退役葉片的處理途徑包括：機械粉碎後做成填料或板材；送進水泥窯共處理，玻璃纖維成為水泥原料、樹脂提供熱能；以熱解在數百度下分解樹脂，回收纖維與油氣；新一代可回收葉片則改用能在溶液中分離的樹脂。奧地利、德國、荷蘭、芬蘭已禁止複合材料掩埋，台灣也已將退役葉片納入回收再利用管理。',
+ s:[[0,'風機質量多為鋼材，可直接回收'],[.25,'葉片複合材料是回收的難題'],[.42,'粉碎、水泥窯共處理、熱解'],[.75,'可回收葉片：樹脂可分離再利用']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,860,640,{title:'功率曲線與風速分布（示例）',x0:0,x1:20,y0:0,y1:12,xt:[0,5,10,15,20],yt:[0,5,10],xl:'風速 m/s',yl:'功率 kW',pl:80,pt:80,pb:64,gx:4,gy:4});
-  /* 三次方參考 */
-  const k0=seg(u,.02,.2);if(k0>0){ctx.beginPath();for(let i=0;i<=100;i++){const v=20*i/100*k0,p=10*Math.pow(v/11,3);if(p>12.5)break;i?ctx.lineTo(C.X(v),C.Y(p)):ctx.moveTo(C.X(v),C.Y(p));}ctx.setLineDash([6,5]);ctx.strokeStyle='rgba(227,236,238,.55)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);}
-  alphaDo(band(u,.06,.3),()=>tag(C.X(8.6),C.Y(11),'∝ 風速³',{size:16,bg:'#fff'}));
-  /* 風速分布 */
-  const wk=seg(u,.48,.6);if(wk>0){ctx.beginPath();ctx.moveTo(C.X(0),C.Y(0));for(let i=0;i<=100;i++){const v=20*i/100;ctx.lineTo(C.X(v),C.Y(wb(v,5)*60*wk));}ctx.lineTo(C.X(20),C.Y(0));ctx.closePath();ctx.fillStyle='rgba(125,200,220,.28)';ctx.fill();ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2;ctx.stroke();
-   alphaDo(wk,()=>tag(C.X(11.5),C.Y(3.2),'年均 5 m/s 的風速分布',{size:16,bg:'#7dc8dc'}));}
-  /* 功率曲線 */
-  const vk=20*seg(u,.22,.46);if(vk>0){ctx.beginPath();for(let i=0;i<=200;i++){const v=vk*i/200;i?ctx.lineTo(C.X(v),C.Y(pc(v))):ctx.moveTo(C.X(v),C.Y(pc(v)));}ctx.strokeStyle='#f2c230';ctx.lineWidth=4;ctx.stroke();circ(C.X(vk),C.Y(pc(vk)),6,'#f2c230','#13232e',1.5);}
-  alphaDo(band(u,.26,.5),()=>{tag(C.X(3),C.Y(1.6),'切入 3 m/s',{size:16,bg:'#7dffc4',align:'center'});});
-  alphaDo(band(u,.34,.5),()=>{tag(C.X(11),C.Y(10)-30,'額定 11 m/s',{size:16,bg:'#f2c230',align:'center'});});
-  /* 右：年發電量 */
-  card(960,160,580,640,{bg:'rgba(7,27,39,.75)'});wt(984,200,'年發電量（10 kW，示例）',20,'#f2c230',700);
-  const AE=[[4,6700,7.7],[5,13600,15.5],[6,21900,25.0]],B0=660,BH=380/22000;
-  AE.forEach(([v,e,cf],i)=>{const k=ease(seg(u,.66+i*.07,.76+i*.07)),x=1030+i*170,h=e*BH*k;
-   box(x,B0-h,110,h,i===1?'#f2c230':'rgba(242,194,48,.55)');
-   wt(x+55,B0+34,trf('年均 {n} m/s',{n:v}),17,'#fff',700,'center');
-   if(k>0){wt(x+55,B0-h-40,trf('{n} 度',{n:Math.round(e*k/100)*100}),19,'#fff',700,'center',COND);wt(x+55,B0-h-14,trf('容量因數 {n}%',{n:(cf*k).toFixed(1)}),15,'rgba(227,236,238,.8)',600,'center');}});
-  ln([1000,B0,1520,B0],'rgba(255,255,255,.5)',1.4);
-  alphaDo(seg(u,.86,.92),()=>tag(1250,740,'風速多 1 m/s，發電量約多一倍',{size:16,bg:'#7dffc4',align:'center'}));
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});
+  wt(84,200,'一部風機的質量組成（示例）',20,'#f2c230',700);
+  const k1=ease(seg(u,.04,.2)),bx=84,bw=652;
+  box(bx,230,bw,56,'rgba(255,255,255,.05)','rgba(255,255,255,.2)',1);
+  box(bx,230,bw*.88*k1,56,'#7dffc4');if(k1>.5)wt(bx+14,268,'鋼材與金屬 約 88%',18,'#13232e',700);
+  const k1b=seg(u,.18,.24);box(bx+bw*.88,230,bw*.12*k1b,56,'#ff9d7a');
+  alphaDo(seg(u,.2,.26),()=>{wt(bx+bw,314,'葉片等複合材料',16,'#ff9d7a',700,'right');});
+  alphaDo(seg(u,.26,.32),()=>{
+   wt(84,380,'一支葉片的材料（示例）',20,'#f2c230',700);
+   const M=[['玻璃纖維',.6,'#7dc8dc'],['樹脂與膠',.3,'#f2c230'],['芯材與其他',.1,'#b37cff']];let x=bx;
+   M.forEach(([n,f,c],i)=>{const w=bw*f*ease(seg(u,.28+i*.04,.34+i*.04));box(x,410,w,56,c);x+=bw*f;});
+   M.forEach(([n,f,c],i)=>{const y=500+i*44;box(84,y,22,22,c);wt(120,y+18,n,18,'#fff',600);wt(736,y+18,trf('約 {n}%',{n:Math.round(f*100)}),18,'#fff',700,'right',COND);});
+  });
+  alphaDo(seg(u,.82,.88),()=>{box(84,664,652,112,'rgba(232,87,42,.1)','rgba(255,157,122,.6)',1.5);
+   wt(104,706,'奧地利、德國、荷蘭、芬蘭',18,'#ff9d7a',700);wt(104,746,'已禁止複合材料進入掩埋場',18,'#fff',600);});
+  /* 右：途徑 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'退役葉片的處理途徑',20,'#f2c230',700);
+  const sx=900,sy=500;
+  box(sx-70,sy-40,140,80,'rgba(242,194,48,.15)','#f2c230',2);wt(sx,sy-4,'退役葉片',18,'#f2c230',700,'center');wt(sx,sy+24,'切段',16,'#fff',600,'center');
+  const RT2=[['機械粉碎','填料、板材、建材',.4],['水泥窯共處理','玻纖成原料、樹脂供熱',.5],['熱解','數百度分解樹脂，回收纖維',.6],['可回收葉片','樹脂可在溶液中分離',.74]];
+  RT2.forEach(([n,s,t],i)=>{const y=232+i*134,on=seg(u,t,t+.06),c=i===3?'#7dffc4':'#7dc8dc';
+   alphaDo(lerp(.25,1,on),()=>{ctx.setLineDash(on>0?[]:[5,5]);ln([sx+70,sy,1010,y+56],on>0?c:'rgba(227,236,238,.4)',2);ctx.setLineDash([]);
+    box(1010,y,506,112,on>0?'rgba(125,200,220,.08)':'rgba(255,255,255,.03)',on>0?c:'rgba(227,236,238,.3)',on>0?2:1);
+    wt(1034,y+46,n,20,c,700);wt(1034,y+84,s,17,'#fff',600);});
+   if(on>0){const k=(TT*.8+i*.25)%1;circ(lerp(sx+70,1010,k),lerp(sy,y+56,k),4,c);}});
  }},
 
-/* 5 ─────────────────────────────── 屋頂與亂流 */
-{t:'屋頂上的亂流',en:'Turbulence over the roof',dur:13,side:true,
- base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:false});drawGround();},
- d:'把風機裝在屋頂看似省了塔架，實際上風經過建築物時會在屋頂邊緣分離，屋頂上方與建築物後方形成風速低、方向亂的紊流區。在這裡運轉的風機發電量少，還會把振動與噪音傳進室內，結構也要重新檢核。常用的經驗法則是：葉片最低點至少高出周圍 90 m 內最高障礙物 9 m。塔架型小風機的塔架費用雖高，卻能讓轉子進入較穩定的風，通常比屋頂型划算。',
- s:[[0,'風吹過建築物，在屋頂邊緣分離'],[.25,'屋頂上方與後方形成紊流區'],[.48,'屋頂型風機：風亂、振動與噪音'],[.7,'塔架型：葉片最低點高出障礙物 9 m 以上']],
- cam:u=>({x:820,y:430,s:1.12}),
+/* 7 ─────────────────────────────── 基礎拆除與復原 */
+{t:'基礎拆除與土地復原',en:'Removing foundations, restoring land',dur:13,side:true,
+ d:'風機的擴展式基礎是數百立方公尺的鋼筋混凝土，大部分埋在地下。常見做法是開挖基礎周圍，用破碎機打除墩座與上部混凝土，到地表下約 1 公尺，再回填土壤恢復耕作或植生；也有地區要求整座基礎全部移除。打下的混凝土碎塊可做為級配料，鋼筋分離後回收。若是換機，新基礎通常另選位置興建，原地則恢復成土地，由主管機關與地主確認復原結果。',
+ s:[[0,'塔架拆除後，只剩地上的基礎墩座'],[.16,'開挖周圍，以破碎機打除上部混凝土'],[.48,'打除到地表下約 1 公尺'],[.62,'鋼筋與混凝土碎塊分開回收'],[.8,'回填土壤，恢復植生']],
+ cam:u=>({x:760,y:610,s:1.55}),
  draw(u){
-  const bx=360,bw=240,bh=12*PXM,bg=gyy(bx+bw/2);
-  /* 流線 */
-  const fa=seg(u,.02,.1);
-  alphaDo(fa,()=>{for(let j=0;j<6;j++){const y0=bg-bh-120+j*40;ctx.beginPath();for(let x=VX0;x<=VX1;x+=10){const dx=x-(bx+bw/2),bump=j<3?Math.exp(-(dx*dx)/(2*260*260))*(90-j*22):0;ctx.lineTo(x,y0-bump);}ctx.strokeStyle='rgba(255,255,255,.45)';ctx.lineWidth=1.5;ctx.stroke();}
-   const r=rng(3);for(let i=0;i<14;i++){const x=VX0+((r()*2000+TT*300)%(VX1-VX0));const y=bg-bh-120+r()*200;ln([x,y,x+30,y],'rgba(255,255,255,.7)',1.6);}});
-  /* 紊流區 */
-  const ta=band(u,.2,1);
-  if(ta>0)alphaDo(ta,()=>{ctx.beginPath();ctx.moveTo(bx,bg-bh);ctx.quadraticCurveTo(bx+bw*.5,bg-bh-110,bx+bw+80,bg-bh-70);ctx.quadraticCurveTo(bx+bw+300,bg-bh+20,bx+bw+420,bg);ctx.lineTo(bx+bw,bg);ctx.closePath();ctx.fillStyle='rgba(232,87,42,.16)';ctx.fill();ctx.setLineDash([6,5]);ctx.strokeStyle='rgba(232,87,42,.8)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);
-   for(let i=0;i<7;i++){const ph=TT*1.4+i*1.3,x=bx+60+((i*67+TT*50)%(bw+300)),y=bg-bh-10+Math.sin(ph)*18+(x>bx+bw?(x-bx-bw)*.25:-40);ctx.beginPath();ctx.arc(x,y,12,ph,ph+4.2);ctx.strokeStyle='rgba(255,157,122,.9)';ctx.lineWidth=2;ctx.stroke();}});
-  /* 建築 */
-  box(bx,bg-bh,bw,bh,'#cfd6d9','rgba(0,0,0,.35)',1);
-  for(let r=0;r<3;r++)for(let c=0;c<5;c++)box(bx+18+c*44,bg-bh+16+r*44,26,24,'#6f8ea0','rgba(0,0,0,.25)',1);
-  /* 屋頂型 */
-  const sh=band(u,.42,.7)*Math.sin(TT*23)*2.5,rx=bx+bw/2;
-  ctx.save();ctx.translate(sh,0);smallT(rx,bg-bh,4*PXM,2*PXM,TT*(2+1.5*Math.sin(TT*2.3)));ctx.restore();
-  if(band(u,.42,.7)>0)alphaDo(band(u,.42,.7),()=>{for(let i=0;i<3;i++){const k=((TT*1.2+i/3)%1);ctx.beginPath();ctx.arc(rx,bg-bh+10,20+k*40,Math.PI*.1,Math.PI*.9);ctx.strokeStyle=`rgba(255,157,122,${(1-k).toFixed(3)})`;ctx.lineWidth=2;ctx.stroke();}});
-  tree(820,1.3);
-  /* 塔架型：障礙物最高 12 m → 葉片最低點 21 m */
-  const TX=1240,g=gyy(TX),R=3.5*PXM,H=(12+9+3.5)*PXM;
-  smallT(TX,g,H,R,TT*2.8);
-  const tk=band(u,.66,1);
-  if(tk>0)alphaDo(tk,()=>{ctx.setLineDash([6,5]);ln([bx,bg-bh,TX+80,bg-bh],'rgba(255,255,255,.75)',1.5);ln([TX-R-40,g-H+R,TX+80,g-H+R],'#7dffc4',1.5);ctx.setLineDash([]);
-   arrow(TX+70,bg-bh,TX+70,g-H+R+2,'#7dffc4',2);arrow(TX+70,g-H+R,TX+70,bg-bh-2,'#7dffc4',2);
-   ln([bx,g+30,TX,g+30],'rgba(255,255,255,.8)',1.5);ln([bx,g+22,bx,g+38],'rgba(255,255,255,.8)',1.5);ln([TX,g+22,TX,g+38],'rgba(255,255,255,.8)',1.5);});
-  lab(bx,bg-bh,'屋頂邊緣氣流分離',{dx:-120,dy:-70,st:'l',a:band(u,.04,.3)});
-  lab(bx+bw+160,bg-bh+60,'紊流區',{dx:40,dy:-120,st:'w',a:band(u,.22,.5)});
-  lab(rx,bg-bh-4*PXM,'屋頂型：振動與噪音',{dx:-60,dy:-110,st:'w',a:band(u,.44,.7)});
-  lab(TX+70,(bg-bh+g-H+R)/2,'高出 9 m 以上',{dx:90,dy:0,st:'g',a:band(u,.68,1)});
-  lab((bx+TX)/2,g+30,'90 m 內的障礙物',{dx:0,dy:60,st:'l',a:band(u,.72,1)});
+  const X=700,g=gyy(X),D=50;          // D：地表下約 1 m
+  const pit=ease(seg(u,.08,.2)),brk=seg(u,.18,.5),fill=ease(seg(u,.76,.92)),grass=seg(u,.88,1);
+  /* 開挖坑 */
+  const pw=lerp(70,170,pit),pd=D+10;
+  if(pit>0&&fill<1){poly([X-pw,g,X+pw,g,X+pw-20,g+pd,X-pw+20,g+pd],'#6b5236');ln([X-pw,g,X-pw+20,g+pd,X+pw-20,g+pd,X+pw,g],'#4f3c27',2);}
+  /* 底板（保留） */
+  poly([X-60,g+D,X+60,g+D,X+190,g+120,X-190,g+120],'#9aa3a8','rgba(0,0,0,.4)',1);box(X-190,g+120,380,40,'#8d989f','rgba(0,0,0,.4)',1);
+  ctx.setLineDash([5,5]);ln([X-180,g+140,X+180,g+140],'rgba(40,50,60,.55)',1.5);ctx.setLineDash([]);
+  /* 墩座（被打除的部分） */
+  const top=lerp(g-24,g+D,brk);
+  if(top<g+D-1){box(X-46,top,92,g+D-top,'#a7b0b4','rgba(0,0,0,.4)',1);
+   if(brk<.15)for(let i=-3;i<=3;i++)ln([X+i*12,top,X+i*12,top-10],'#5b6670',2.5);
+   if(brk>0&&brk<1){const r=rng(Math.floor(TT*14));for(let i=0;i<10;i++)circ(X-40+r()*80,top-r()*16,2+r()*3,'#c4cbce');
+    for(let i=0;i<4;i++)ln([X-30+i*20,top,X-26+i*20+(r()-.5)*8,top-14],'#b56a3c',1.8);}}
+  /* 碎塊堆 */
+  const pile=seg(u,.2,.5)*(1-seg(u,.62,.74));
+  if(pile>0){const r=rng(3);for(let i=0;i<26*pile;i++)circ(X-260+r()*90,g-4-r()*24*pile,4+r()*5,'#b5bcc0','rgba(0,0,0,.25)',.8);
+   for(let i=0;i<6*pile;i++)ln([X-270+r()*90,g-6-r()*20,X-240+r()*90,g-10-r()*20],'#b56a3c',2);}
+  /* 回填 */
+  if(fill>0){alphaDo(fill,()=>{poly([X-pw,g,X+pw,g,X+pw-20,g+pd,X-pw+20,g+pd],'#8a6a45');box(X-46,g+2,92,D-2,'#8a6a45');});
+   ctx.strokeStyle='#5c8a3f';ctx.lineWidth=1.2;ctx.beginPath();for(let x=X-pw;x<=X+pw;x+=5){const h=(3+(x%4))*grass;ctx.moveTo(x,g);ctx.lineTo(x+1,g-h);}ctx.stroke();}
+  /* 挖土機 */
+  const ex=u<.6?lerp(1000,930,seg(u,.06,.16)):u<.76?930:lerp(930,960,seg(u,.76,.8));
+  const hammer=u>=.18&&u<.52,drop=hammer?Math.abs(Math.sin(TT*16))*6+(top-g)+26:fill>0?-10:20;
+  excavator(ex,gyy(ex),ex-X-10,drop,hammer);
+  /* 卡車載走 */
+  const tk=seg(u,.6,.76);if(tk>0&&tk<1){const tx=lerp(360,-200,easeIn(seg(tk,.5,1)));truck(tx,g,true,'#e8572a',()=>{if(tk>.3)for(let i=0;i<5;i++)circ(18+i*14,-38-(i%2)*6,7,'#b5bcc0');});}
+  ctx.setLineDash([6,5]);alphaDo(band(u,.44,.8),()=>{ln([X-200,g+D,X+200,g+D],'#f2c230',2);});ctx.setLineDash([]);
+  lab(X,g-24,'基礎墩座',{dx:-120,dy:-60,st:'l',a:band(u,0,.16)});
+  lab(X+30,g-30,'錨栓',{dx:90,dy:-70,st:'l',a:band(u,0,.16)});
+  lab(X-20,top,'破碎機打除',{dx:-130,dy:-80,st:'s',a:band(u,.2,.46)});
+  lab(X+200,g+D,'地表下約 1 m',{dx:90,dy:30,st:'s',a:band(u,.46,.8)});
+  lab(X+150,g+130,'底板留在地下',{dx:70,dy:60,st:'l',a:band(u,.5,.78)});
+  lab(X-230,g-14,'混凝土碎塊與鋼筋',{dx:-40,dy:-90,st:'g',a:band(u,.6,.74)});
+  lab(X,g-4,'覆土植生',{dx:-110,dy:-80,st:'g',a:band(u,.84,1)});
  },
- hud(u){hudPanel(250,150,'風況比較（示例）',seg(u,.03,.08),w=>{const on=u>.48;
-  hrow(56,'屋頂 風速',trf('{n} m/s',{n:wsNow(3.8,.9).toFixed(1)}),w,'#ff9d7a');
-  hrow(88,'屋頂 紊流強度',u<.22?'—':'35%',w,'#ff9d7a');
-  hrow(120,'塔架 風速',on?trf('{n} m/s',{n:wsNow(5.2,.6).toFixed(1)}):'—',w,'#7dffc4');});}},
-
-/* 6 ─────────────────────────────── 離島微電網 */
-{t:'離島微電網',en:'An island microgrid',dur:14,side:true,
- base:()=>{},
- d:'離島的電力過去多半依靠柴油發電機，燃料要用船運，發電成本高，也受天候影響。把小型或中型風機、太陽光電與儲能電池接進同一個微電網，由控制器即時分配：白天陽光充足時光電供電並替電池充電，入夜後由風機與電池接手，只有兩者都不夠時才啟動柴油機補足。柴油機從主角變成備援，燃料用量與排放隨之下降。電池也負責平滑風力與日照的快速變動，讓電壓與頻率維持穩定。',
- s:[[0,'離島村落原本靠柴油發電'],[.22,'白天：光電供電，同時替電池充電'],[.5,'入夜：風機與電池接手供電'],[.78,'兩者不足時，柴油機才補上']],
- cam:u=>({x:820,y:440,s:1.1}),
- draw(u){
-  const hr=lerp(8,30,u)%24,day=clamp(1-Math.abs(hr-12.5)/6.5,0,1),dk=1-day;
-  landSky(GY,{sun:{x:lerp(300,1500,clamp((hr-6)/13,0,1)),y:hr<6.3||hr>18.7?760:420-340*Math.sin(Math.PI*clamp((hr-6)/13,0,1))},dusk:clamp(dk*1.2,0,1),clouds:false});
-  if(dk>.4)alphaDo((dk-.4)/.6*.55,()=>box(VX0,VY0,VX1-VX0,VY1-VY0,'#0b1a2a'));
-  /* 海 */
-  ctx.beginPath();ctx.moveTo(VX0,GY+10);for(let x=VX0;x<=330;x+=8)ctx.lineTo(x,GY+10+3*Math.sin(x*.05+TT*2));ctx.lineTo(330,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle='#1f7f99';ctx.fill();
-  ctx.save();ctx.beginPath();ctx.rect(330,VY0,VX1,VY1-VY0+40);ctx.clip();drawGround();ctx.restore();
-  poly([300,VY1+20,330,GY+10,360,gyy(360),380,VY1+20],'#c4a678');
-  const P=pw6(u);
-  /* 設施 */
-  const W1=[440,540],WX=W1;WX.forEach(x=>smallT(x,gyy(x),22*PXM*.8,6*PXM*.8,TT*(1.2+P.w/40)));
-  for(let i=0;i<4;i++)solarPanel(680+i*62,gyy(680+i*62),54,22,{glint:day>.5});
-  const bx=960;box(bx,gyy(bx)-50,110,50,'#dfe5e8','rgba(0,0,0,.35)',1);for(let i=0;i<4;i++)box(bx+10+i*25,gyy(bx)-42,16,34,'#b9c3c9');
-  const bl=P.b<0?'#7dffc4':P.b>0?'#f2c230':'#9aa3a8';circ(bx+100,gyy(bx)-42,4,bl);
-  const dx=1110;box(dx,gyy(dx)-44,90,44,'#8d989f','rgba(0,0,0,.35)',1);ln([dx+70,gyy(dx)-44,dx+70,gyy(dx)-80],'#5b6b74',6);
-  if(P.d>0){for(let i=0;i<4;i++){const k=((TT*.6+i/4)%1);alphaDo(1-k,()=>circ(dx+70+k*20,gyy(dx)-86-k*50,6+k*12,'rgba(120,120,120,.6)'));}}
-  const cx=1250;cabinet(cx-20,gyy(cx),40,52,'#dfe5e8');
-  [1330,1400,1470].forEach((x,i)=>{house(x,gyy(x+25),50,40,i%2?'#e9dcc6':'#dde6ea');if(dk>.35)alphaDo(dk,()=>{box(x+9,gyy(x+25)-29,10,10,'#f2c230');box(x+31,gyy(x+25)-29,10,10,'#f2c230');});});
-  /* 母線與潮流 */
-  const bus=gyy(900)+34;ln([440,bus,1480,bus],'rgba(40,50,60,.8)',3);
-  const drop=(x,on,dir)=>{const Q=dir>0?[x,gyy(x)+2,x,bus]:[x,bus,x,gyy(x)+2];ln([x,gyy(x)+2,x,bus],'rgba(40,50,60,.8)',2.5);if(on)flow(Q,3,.8,'#f2c230',3.5);};
-  drop(490,P.w>1,1);drop(770,P.s>1,1);drop(bx+55,Math.abs(P.b)>1,P.b>0?1:-1);drop(dx+45,P.d>1,1);drop(1430,true,-1);
-  lab(490,gyy(490)-22*PXM*.8,'小型風機',{dx:-60,dy:-60,st:'s',a:band(u,.02,1)});
-  lab(770,gyy(770)-40,'太陽光電',{dx:0,dy:-120,st:'s',a:band(u,.02,1)});
-  lab(bx+55,gyy(bx)-50,P.b<0?'儲能：充電':'儲能：放電',{dx:-20,dy:-150,st:'g',a:band(u,.2,1)});
-  lab(dx+45,gyy(dx)-44,'柴油發電機',{dx:60,dy:-100,st:P.d>1?'w':'n',a:band(u,.02,1)});
-  lab(cx,gyy(cx)-52,'微電網控制器',{dx:40,dy:70,st:'l',a:band(u,.1,.4)});
- },
- hud(u){hudPanel(250,214,'離島電力（示例）',seg(u,.03,.08),w=>{const P=pw6(u),hr=Math.floor(lerp(8,30,u)%24);
-  hrow(56,'時間',trf('{n}:00',{n:String(hr).padStart(2,'0')}),w,'#fff');
-  hrow(86,'負載',trf('{n} kW',{n:P.L.toFixed(0)}),w,'#fff');
-  hrow(116,'風力',trf('{n} kW',{n:P.w.toFixed(0)}),w,'#f2c230');
-  hrow(146,'光電',trf('{n} kW',{n:P.s.toFixed(0)}),w,'#f2c230');
-  hrow(176,'儲能',P.b<0?trf('充電 {n} kW',{n:(-P.b).toFixed(0)}):trf('放電 {n} kW',{n:P.b.toFixed(0)}),w,'#7dffc4');
-  hrow(206,'柴油',trf('{n} kW',{n:P.d.toFixed(0)}),w,P.d>1?'#ff9d7a':'#fff');});}},
-
-/* 7 ─────────────────────────────── 風光互補 */
-{t:'風與光的互補',en:'Wind and sun work in shifts',dur:13,
- d:'風和陽光的出力時段不同，是分散式系統喜歡把兩者搭配的原因。一天之中，光電集中在中午，許多沿海與離島場址的風在夜間與清晨也有出力；一年之中，台灣冬半年的東北季風帶來強風，夏季則日照較強。兩者相加的曲線比各自平滑，所需的儲能與柴油備援就少。在台灣，1 kW 以上不及 30 kW 的陸域風力可申請躉購，114 年度費率為每度 7.4110 元；機組的性能與安全可依 CNS 15176-2 驗證，澎湖並設有中小型風機測試場。',
- s:[[0,'一天之中：光電集中在中午，風在夜間也有出力'],[.3,'一年之中：冬季東北季風強，夏季日照強'],[.55,'兩者相加更平滑，需要的儲能較少'],[.75,'台灣：小型風力可申請躉購，並有驗證與測試場']],
- draw(u){
-  diagBG();
-  const pvD=h=>Math.max(0,Math.sin(Math.PI*(h-6)/12.5)),wD=h=>.45+.2*Math.cos(TAU*(h-3)/24);
-  const C=chartBox(60,160,700,400,{title:'一天的出力（示例）',x0:0,x1:24,y0:0,y1:1.4,xt:[0,6,12,18,24],yt:[],xl:'時',yl:'相對出力',pl:60,pt:80,pb:60,gx:4,gy:2});
-  const k1=seg(u,.02,.26);
-  const curve=(C,f,x1,col,lw,fill)=>{ctx.beginPath();const N=120;for(let i=0;i<=N;i++){const x=x1*i/N;i?ctx.lineTo(C.X(x),C.Y(f(x))):ctx.moveTo(C.X(x),C.Y(f(x)));}if(fill){ctx.lineTo(C.X(x1),C.Y(0));ctx.lineTo(C.X(0),C.Y(0));ctx.closePath();ctx.fillStyle=fill;ctx.fill();}else{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();}};
-  if(k1>0){curve(C,pvD,24*k1,'#f2c230',3.5);curve(C,wD,24*k1,'#7dc8dc',3.5);}
-  const sk=seg(u,.5,.6);if(sk>0)alphaDo(sk,()=>curve(C,h=>pvD(h)*.8+wD(h),24,'#7dffc4',3));
-  /* 右：季節 */
-  const pvM=m=>.55+.35*Math.cos(TAU*(m-7)/12),wM=m=>.6+.4*Math.cos(TAU*(m-1)/12);
-  const C2=chartBox(800,160,740,400,{title:'一年的出力（示例）',x0:1,x1:12,y0:0,y1:1.8,xt:[1,3,5,7,9,11],yt:[],xl:'月',yl:'相對出力',pl:60,pt:80,pb:60,gx:11,gy:2});
-  const k2=seg(u,.28,.5);
-  const mc=(f,x1,col,lw)=>{ctx.beginPath();const N=110;for(let i=0;i<=N;i++){const m=1+(x1-1)*i/N;i?ctx.lineTo(C2.X(m),C2.Y(f(m))):ctx.moveTo(C2.X(m),C2.Y(f(m)));}ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();};
-  if(k2>0){mc(pvM,1+11*k2,'#f2c230',3.5);mc(wM,1+11*k2,'#7dc8dc',3.5);}
-  if(sk>0)alphaDo(sk,()=>mc(m=>pvM(m)+wM(m)*.9,12,'#7dffc4',3));
-  alphaDo(band(u,.34,.6),()=>tag(C2.X(1.4),C2.Y(1.25),'東北季風',{size:16,bg:'#7dc8dc'}));
-  /* 圖例 */
-  [['光電','#f2c230'],['風力','#7dc8dc'],['相加','#7dffc4']].forEach(([n,c],i)=>{const x=560+i*66;box(x-16,183,12,12,c);wt(x,194,n,15,'#fff',600);});
-  [['光電','#f2c230'],['風力','#7dc8dc'],['相加','#7dffc4']].forEach(([n,c],i)=>{const x=1340+i*66;box(x-16,183,12,12,c);wt(x,194,n,15,'#fff',600);});
-  /* 下：台灣情境 */
-  const TW=[['躉購費率','7.4110 元/度','114 年度，1 kW 以上不及 30 kW'],['國家標準','CNS 15176-2','小型風力機的設計要求'],['測試場','澎湖','中小型風機性能與耐久測試']];
-  TW.forEach(([n,v,s],i)=>alphaDo(seg(u,.74+i*.06,.8+i*.06),()=>{const x=60+i*500;card(x,590,480,210,{bg:'rgba(7,27,39,.75)'});
-   wt(x+24,632,n,19,'#7dffc4',700);wt(x+24,700,v,34,'#f2c230',700,'left',COND);wt(x+24,760,s,17,'rgba(227,236,238,.85)',600);}));
- }}
+ hud(u){hudPanel(250,150,'基礎拆除（示例）',seg(u,.03,.08),w=>{
+  hrow(56,'打除進度',trf('{n}%',{n:Math.round(100*seg(u,.18,.5))}),w,'#f2c230');
+  hrow(88,'鋼筋',u<.62?'分離中':'送回收',w,u<.62?'#fff':'#7dffc4');
+  hrow(120,'土地',u<.8?'施工中':'復原',w,u<.8?'#fff':'#7dffc4');});}}
 ]};
-/* 離島一天的電力平衡（示例）：負載、風、光、柴油、儲能 */
-function pw6(u){const hr=lerp(8,30,u)%24,day=Math.max(0,Math.sin(Math.PI*(hr-6)/13));
-  const L=120+50*Math.exp(-Math.pow((hr-19.5)/2.5,2))+20*day,s=day*190,w=55+25*Math.sin(TT*.8)+(hr>18||hr<6?20:0);
-  let net=s+w-L,b=0,d=0;
-  if(net>0)b=-Math.min(net,90);else{b=Math.min(-net,hr>1&&hr<7?20:120);d=Math.max(0,-net-b);}
-  return {L,s,w,b,d};}
 
-/* 陸域風電系列 第 8 集：小型風機與分散式應用 — 英日翻譯 */
+/* 陸域風電系列 第 9 集：除役、延壽與葉片回收 — 英日翻譯 */
 Object.assign(DICT,{
-"陸域風電系列":["Onshore Wind Series", "陸上風力発電シリーズ"],
-"小型風機與分散式應用":["Small wind turbines and distributed use", "小形風車と分散型利用"],
-"不是每一部風機都有百公尺高。小型風機立在農舍旁、漁港邊或離島村落，發的電就近使用。這一集比較水平軸與垂直軸的設計，看低風速場址的功率曲線與年發電量，說明為什麼屋頂上往往不是好位置，以及小風機如何和太陽光電、儲能一起撐起離島微電網。":["Not every wind turbine stands a hundred metres tall. Small turbines stand beside farmhouses, fishing harbours and island villages, and their power is used close by. This episode compares horizontal- and vertical-axis designs, looks at power curves and annual energy at low-wind sites, explains why a rooftop is rarely a good spot, and shows how small turbines work with solar and batteries to run an island microgrid.", "すべての風車が高さ 100 m あるわけではありません。小形風車は農家の横や漁港、離島の集落に立ち、発電した電気をその場で使います。本編では水平軸と垂直軸の設計を比べ、低風速サイトでのパワーカーブと年間発電量を確かめ、屋根の上がなぜ良い設置場所になりにくいのか、そして小形風車が太陽光発電や蓄電池と組み合わさって離島のマイクログリッドを支える仕組みを見ていきます。"],
-"IEC 61400-2 小型風機的掃掠面積上限，約為直徑 16 m":["Upper limit of swept area for a small wind turbine under IEC 61400-2, about a 16 m diameter", "IEC 61400-2 における小形風車の受風面積の上限。直径約 16 m に相当"],
-"貝茲極限：理論上風機最多能從風中擷取的能量比例":["Betz limit: the largest share of the wind's energy a turbine can capture in theory", "ベッツの限界：理論上、風車が風から取り出せるエネルギーの最大割合"],
-"倍":["times", "倍"],
-"8倍":["8times", "8倍"],
-"≈ 2倍":["≈ 2times", "≈ 2倍"],
-"風速變為 2 倍時，風中的功率變為 2³ = 8 倍":["When wind speed doubles, the power in the wind rises 2³ = 8 times", "風速が 2 倍になると、風のもつパワーは 2³ = 8 倍になる"],
-"經驗法則：葉片最低點至少高出 90 m 內障礙物 9 m":["Rule of thumb: the lowest blade tip should clear any obstacle within 90 m by at least 9 m", "経験則：ブレードの最下点を 90 m 以内の障害物より 9 m 以上高くする"],
-"同一部 10 kW 風機，年均風速 5 m/s 與 4 m/s 場址的年發電量比（示例）":["Annual energy of the same 10 kW turbine at a 5 m/s site versus a 4 m/s site (example)", "同じ 10 kW 風車の、年平均風速 5 m/s と 4 m/s のサイトでの年間発電量の比（例）"],
-"元/度":["NTD/kWh", "元/kWh"],
-"7.4110元/度":["7.4110NTD/kWh", "7.4110元/kWh"],
-"114 年度陸域風力 1 瓩以上不及 30 瓩的躉購費率":["Taiwan's 2025 feed-in tariff for onshore wind from 1 kW up to 30 kW", "台湾の 2025 年度（民国 114 年度）陸上風力 1 kW 以上 30 kW 未満の固定価格買取価格"],
-"說明：本集為教育用途示意動畫，風機、建築與離島電力設施的比例經過簡化，時間已壓縮。小型風機掃掠面積 ≤ 200 m²、電壓低於 AC 1000 V／DC 1500 V 依 IEC 61400-2 與國家標準 CNS 15176-2；貝茲極限 16/27 ≈ 59.3% 為理論值；「葉片最低點高出 90 m（300 ft）內障礙物 9 m（30 ft）」為美國能源部等機構常用的經驗法則，實際須依場址評估；114 年度陸域風力 1 瓩以上不及 30 瓩躉購費率 7.4110 元/度依經濟部公告，各年度費率請以最新公告為準；澎湖設有中小型風機測試場。10 kW 風機的功率曲線（切入 3 m/s、額定 11 m/s）、以韋伯分布 k=2 估算的年發電量（年均 4、5、6 m/s 約 6,700、13,600、21,900 度）、各型風機的典型功率係數、屋頂與塔架的風速與紊流強度、離島負載與各電源出力、日夜與季節出力曲線皆為典型範例，並非特定機型或案場資料。":["Note: this is an educational illustration. The proportions of the turbines, buildings and island power facilities are simplified, and time is compressed. The small-turbine limits of ≤ 200 m² swept area and below 1000 V AC / 1500 V DC follow IEC 61400-2 and Taiwan's national standard CNS 15176-2. The Betz limit of 16/27 ≈ 59.3% is a theoretical value. The rule that the lowest blade tip should clear obstacles within 90 m (300 ft) by 9 m (30 ft) is a rule of thumb used by the US Department of Energy and others; real siting needs a site assessment. The 2025 feed-in tariff of NTD 7.4110 per kWh for onshore wind from 1 kW up to 30 kW follows the announcement by Taiwan's Ministry of Economic Affairs; always check the latest announcement for other years. Penghu hosts a test site for small and medium wind turbines. The 10 kW power curve (cut-in 3 m/s, rated 11 m/s), the annual energy estimated with a Weibull distribution of k = 2 (about 6,700, 13,600 and 21,900 kWh at mean speeds of 4, 5 and 6 m/s), the typical power coefficients of each design, the rooftop and tower wind speeds and turbulence intensity, the island load and generator outputs, and the daily and seasonal output curves are all typical examples, not data from a specific turbine model or site.", "説明：本編は教育用の模式アニメーションで、風車、建物、離島の電力設備の比率は簡略化し、時間は圧縮しています。小形風車の受風面積 200 m² 以下、電圧 AC 1000 V／DC 1500 V 未満は IEC 61400-2 と台湾の国家規格 CNS 15176-2 によります。ベッツの限界 16/27 ≈ 59.3% は理論値です。「ブレードの最下点を 90 m（300 ft）以内の障害物より 9 m（30 ft）高くする」は米国エネルギー省などが用いる経験則で、実際はサイトごとの評価が必要です。2025 年度（民国 114 年度）の陸上風力 1 kW 以上 30 kW 未満の買取価格 7.4110 元/kWh は台湾経済部の公告によります。各年度の価格は最新の公告を確認してください。澎湖には中小形風車の試験場があります。10 kW 風車のパワーカーブ（カットイン 3 m/s、定格 11 m/s）、ワイブル分布 k=2 で推定した年間発電量（年平均 4、5、6 m/s で約 6,700、13,600、21,900 kWh）、各形式の代表的なパワー係数、屋根とタワーの風速と乱流強度、離島の負荷と各電源の出力、1 日と季節の出力曲線はすべて代表例で、特定の機種やサイトのデータではありません。"],
-"在自家旁邊發電":["Power beside the farmhouse", "自宅の横で発電する"],
-"小型風機是容量從數百瓦到數十瓩的風力發電機，常見於農場、漁港、山區工作站與離島。以一部 10 kW 機組為例，轉子直徑約 7 m，裝在 18 m 高的塔架上，和農舍差不多是同一個尺度。葉片帶動發電機產生變動的交流電，經控制器與變流器整理成穩定的電力，先供自家使用，多餘的電再併入電網。它的價值不在規模，而在電就在用電的地方產生，不需要長距離輸電。":["Small wind turbines range from a few hundred watts to a few tens of kilowatts and are common on farms, at fishing harbours, at mountain stations and on islands. A typical 10 kW unit has a rotor about 7 m across on an 18 m tower, roughly the same scale as a farmhouse. The blades drive a generator that produces variable AC power, which a controller and inverter turn into stable electricity. The household uses it first and exports any surplus to the grid. The value lies not in size but in generating power where it is used, with no long-distance transmission.", "小形風車は出力数百 W から数十 kW の風力発電機で、農場、漁港、山間の作業所、離島などでよく使われます。10 kW 機を例にとると、ロータ直径は約 7 m、高さ 18 m のタワーに載り、農家とほぼ同じスケールです。ブレードが発電機を回して変動する交流を生み、コントローラとインバータが安定した電力に整えます。まず自家で使い、余った電気は系統へ送ります。価値は規模ではなく、使う場所で発電し、長距離の送電が要らないことにあります。"],
-"農舍旁的一部 10 kW 小型風機":["A 10 kW small turbine beside a farmhouse", "農家の横に立つ 10 kW の小形風車"],
-"轉子直徑 7 m，塔架 18 m 高":["A 7 m rotor on an 18 m tower", "ロータ直径 7 m、タワー高さ 18 m"],
-"控制器與變流器把電整理成穩定的交流電":["A controller and inverter deliver stable AC power", "コントローラとインバータが安定した交流に整える"],
-"先供自家使用，多餘的電併入電網":["Used at home first, surplus exported to the grid", "まず自家で使い、余剰は系統へ送る"],
-"小型風機 10 kW":["10 kW small turbine", "10 kW 小形風車"],
-"轉子直徑 7 m":["7 m rotor", "ロータ直径 7 m"],
-"塔架 18 m":["18 m tower", "タワー 18 m"],
-"控制器與變流器":["Controller and inverter", "コントローラとインバータ"],
-"自用，餘電併網":["Self-use, surplus exported", "自家消費、余剰は売電"],
-"小型風機（示例）":["Small turbine (example)", "小形風車（例）"],
-"風速":["Wind speed", "風速"],
-"輸出功率":["Output", "出力"],
-"今日發電":["Energy today", "本日の発電量"],
-"{n} 度":["{n} kWh", "{n} kWh"],
-"額定容量":["Rated power", "定格出力"],
-"多小才算小":["How small is small", "どこまでが小形か"],
-"國際標準 IEC 61400-2 把轉子掃掠面積不超過 200 m²、輸出電壓低於交流 1000 V 或直流 1500 V 的風機定義為小型風機，台灣的國家標準 CNS 15176-2 採用同樣的界線。200 m² 相當於直徑約 16 m 的轉子。一部 10 kW 機組的直徑約 7 m、掃掠面積約 38 m²；而 4 MW 級的大型陸域風機直徑約 136 m，掃掠面積超過 14,000 m²，是小型上限的 70 多倍。":["The international standard IEC 61400-2 defines a small wind turbine as one with a rotor swept area of no more than 200 m² and an output voltage below 1000 V AC or 1500 V DC, and Taiwan's national standard CNS 15176-2 uses the same limits. 200 m² corresponds to a rotor about 16 m across. A 10 kW unit is about 7 m in diameter with a swept area of about 38 m², while a 4 MW-class onshore turbine is about 136 m across with a swept area of more than 14,000 m², over 70 times the small-turbine limit.", "国際規格 IEC 61400-2 は、ロータの受風面積が 200 m² 以下で、出力電圧が交流 1000 V または直流 1500 V 未満の風車を小形風車と定義しており、台湾の国家規格 CNS 15176-2 も同じ区分を用いています。200 m² は直径約 16 m のロータに相当します。10 kW 機は直径約 7 m、受風面積約 38 m² ですが、4 MW 級の大形陸上風車は直径約 136 m、受風面積は 14,000 m² を超え、小形の上限の 70 倍以上です。"],
-"同一比例尺下，小型風機幾乎看不見":["At the same scale, small turbines almost vanish", "同じ縮尺では小形風車はほとんど見えない"],
-"放大來看：10 kW 與 1 kW 機組":["Zoomed in: 10 kW and 1 kW units", "拡大すると：10 kW 機と 1 kW 機"],
-"IEC 61400-2：掃掠面積不超過 200 m²":["IEC 61400-2: swept area up to 200 m²", "IEC 61400-2：受風面積 200 m² 以下"],
-"大型風機的掃掠面積是上限的 70 多倍":["A large turbine sweeps over 70 times that limit", "大形風車の受風面積は上限の 70 倍以上"],
-"與大型風機比一比（同一比例尺）":["Compared with a large turbine (same scale)", "大形風車との比較（同一縮尺）"],
-"4 MW 級：輪轂 110 m、直徑 136 m":["4 MW class: 110 m hub, 136 m rotor", "4 MW 級：ハブ高 110 m、直径 136 m"],
-"放大 3 倍":["3× zoom", "3 倍に拡大"],
-"掃掠面積（同一比例尺）":["Swept area (same scale)", "受風面積（同一縮尺）"],
-"小型上限":["Small limit", "小形の上限"],
-"大型":["Large", "大形"],
-"小型風機的定義":["Defining a small turbine", "小形風車の定義"],
-"IEC 61400-2：掃掠面積 ≤ 200 m²":["IEC 61400-2: swept area ≤ 200 m²", "IEC 61400-2：受風面積 ≤ 200 m²"],
-"輸出電壓低於 AC 1000 V／DC 1500 V":["Output below 1000 V AC / 1500 V DC", "出力電圧 AC 1000 V／DC 1500 V 未満"],
-"台灣國家標準 CNS 15176-2 同樣界線":["Taiwan's CNS 15176-2 uses the same limits", "台湾の国家規格 CNS 15176-2 も同じ区分"],
-"水平軸與垂直軸":["Horizontal or vertical axis", "水平軸と垂直軸"],
-"小型風機有兩大類。水平軸風機和大型風機一樣面向來風，但多半沒有偏航馬達，而是靠尾舵像風向標一樣自動對風，效率較高、技術成熟。垂直軸風機的主軸直立，不論風從哪個方向來都能轉動，發電機可以放在地面附近，常見的有靠升力旋轉的達里厄式，以及靠阻力推動的薩佛紐斯式。垂直軸機型對紊流與風向變化較能適應，但功率係數通常較低；任何風機都無法超過 59.3% 的貝茲極限。":["Small turbines come in two main families. Horizontal-axis turbines face the wind like large turbines, but most have no yaw motor; a tail vane turns them into the wind like a weathervane. They are more efficient and technically mature. Vertical-axis turbines have an upright shaft and turn whichever way the wind blows, and the generator can sit near the ground. Common types are the lift-driven Darrieus and the drag-driven Savonius. Vertical-axis designs cope better with turbulence and shifting winds but usually have a lower power coefficient, and no turbine can exceed the Betz limit of 59.3%.", "小形風車には大きく 2 種類あります。水平軸風車は大形風車と同じく風に正対しますが、多くはヨーモータを持たず、尾翼が風見鶏のように自動で風上を向かせます。効率が高く、技術も成熟しています。垂直軸風車は主軸が垂直で、どの方向から風が来ても回り、発電機を地上近くに置けます。代表的なのは揚力で回るダリウス形と、抗力で回るサボニウス形です。垂直軸形は乱流や風向の変化に強い一方、パワー係数は一般に低めです。どの風車も 59.3% のベッツの限界を超えることはできません。"],
-"水平軸：尾舵像風向標一樣自動對風":["Horizontal axis: a tail vane steers it into the wind", "水平軸：尾翼が風見鶏のように風上を向かせる"],
-"垂直軸：不論風從哪裡來都能轉":["Vertical axis: turns in wind from any direction", "垂直軸：どの方向の風でも回る"],
-"達里厄式靠升力，薩佛紐斯式靠阻力":["Darrieus uses lift, Savonius uses drag", "ダリウス形は揚力、サボニウス形は抗力で回る"],
-"效率比一比，上限是 59.3% 的貝茲極限":["Comparing efficiency against the 59.3% Betz limit", "効率を比較、上限はベッツの限界 59.3%"],
-"水平軸（俯視）":["Horizontal axis (top view)", "水平軸（上面図）"],
-"尾舵":["Tail vane", "尾翼"],
-"轉子":["Rotor", "ロータ"],
-"尾舵自動對風":["Tail vane yaws it", "尾翼で自動的に風に向く"],
-"構造簡單":["Simple build", "構造が簡単"],
-"效率較高":["Higher efficiency", "効率が高い"],
-"機型成熟":["Mature designs", "機種が成熟"],
-"垂直軸（俯視）":["Vertical axis (top view)", "垂直軸（上面図）"],
-"達里厄式":["Darrieus", "ダリウス形"],
-"升力型":["Lift type", "揚力形"],
-"薩佛紐斯式":["Savonius", "サボニウス形"],
-"阻力型":["Drag type", "抗力形"],
-"任何風向都能轉":["Any wind direction", "どの風向でも回る"],
-"功率係數 Cp（典型最大值，示例）":["Power coefficient Cp (typical peak, example)", "パワー係数 Cp（代表的な最大値、例）"],
-"水平軸":["Horizontal axis", "水平軸"],
-"貝茲極限 0.593":["Betz limit 0.593", "ベッツの限界 0.593"],
-"低風速的功率曲線":["Power curves at low wind speeds", "低風速のパワーカーブ"],
-"風中的功率與風速的三次方成正比，風速加倍，功率變為 8 倍。小型風機常裝在風況普通的地方，因此看的是低風速區段：典型 10 kW 機組約在 3 m/s 開始發電，11 m/s 才達到額定功率。一年之中的風速大致呈韋伯分布，年平均 5 m/s 的場址，最常出現的風速只有 4 m/s 左右。估算年發電量時，要把每個風速的功率乘上出現時數再加總。年均風速從 4 m/s 提高到 5 m/s，年發電量約增加一倍，所以選址比選機型更重要。":["The power in the wind rises with the cube of wind speed: double the speed and the power is eight times higher. Small turbines are often installed where the wind is only moderate, so the low-speed part of the curve matters most. A typical 10 kW unit starts generating at about 3 m/s and reaches rated power only at 11 m/s. Wind speeds over a year roughly follow a Weibull distribution, and at a site with a 5 m/s mean, the most frequent speed is only about 4 m/s. Annual energy is estimated by multiplying the power at each speed by the hours it occurs and adding them up. Raising the mean speed from 4 to 5 m/s roughly doubles the annual energy, which is why siting matters more than the choice of model.", "風のもつパワーは風速の 3 乗に比例し、風速が 2 倍になるとパワーは 8 倍になります。小形風車は風況がそれほど良くない場所に置かれることが多いため、低風速の部分が重要です。代表的な 10 kW 機は約 3 m/s で発電を始め、11 m/s でようやく定格出力に達します。1 年間の風速はおおむねワイブル分布に従い、年平均 5 m/s のサイトでは最も多く現れる風速は 4 m/s 程度にすぎません。年間発電量は、各風速での出力にその出現時間を掛けて合計して求めます。年平均風速が 4 m/s から 5 m/s に上がると年間発電量はほぼ倍になるため、機種選びより立地選びが大切です。"],
-"功率與風速的三次方成正比":["Power rises with the cube of wind speed", "出力は風速の 3 乗に比例する"],
-"典型 10 kW 機組：3 m/s 起轉，11 m/s 額定":["A typical 10 kW unit: cut-in 3 m/s, rated 11 m/s", "代表的な 10 kW 機：3 m/s で起動、11 m/s で定格"],
-"年均 5 m/s 的場址，風速分布集中在低風速":["At a 5 m/s site, most hours are at low speeds", "年平均 5 m/s のサイトでは低い風速が大半を占める"],
-"年均風速差 1 m/s，年發電量差約一倍":["1 m/s more mean wind roughly doubles the energy", "年平均風速が 1 m/s 違うと発電量はほぼ倍違う"],
-"功率曲線與風速分布（示例）":["Power curve and wind distribution (example)", "パワーカーブと風速分布（例）"],
-"風速 m/s":["Wind speed m/s", "風速 m/s"],
-"功率 kW":["Power kW", "出力 kW"],
-"∝ 風速³":["∝ speed³", "∝ 風速³"],
-"年均 5 m/s 的風速分布":["Wind distribution, 5 m/s mean", "年平均 5 m/s の風速分布"],
-"切入 3 m/s":["Cut-in 3 m/s", "カットイン 3 m/s"],
-"額定 11 m/s":["Rated 11 m/s", "定格 11 m/s"],
-"年發電量（10 kW，示例）":["Annual energy (10 kW, example)", "年間発電量（10 kW、例）"],
-"年均 {n} m/s":["Mean {n} m/s", "年平均 {n} m/s"],
-"容量因數 {n}%":["Capacity factor {n}%", "設備利用率 {n}%"],
-"風速多 1 m/s，發電量約多一倍":["1 m/s more wind, about twice the energy", "風速が 1 m/s 増えると発電量はほぼ倍"],
-"屋頂上的亂流":["Turbulence over the roof", "屋根の上の乱流"],
-"把風機裝在屋頂看似省了塔架，實際上風經過建築物時會在屋頂邊緣分離，屋頂上方與建築物後方形成風速低、方向亂的紊流區。在這裡運轉的風機發電量少，還會把振動與噪音傳進室內，結構也要重新檢核。常用的經驗法則是：葉片最低點至少高出周圍 90 m 內最高障礙物 9 m。塔架型小風機的塔架費用雖高，卻能讓轉子進入較穩定的風，通常比屋頂型划算。":["Mounting a turbine on a roof seems to save the cost of a tower, but wind flowing over a building separates at the roof edge, leaving a turbulent zone of slow, chaotic air above the roof and behind the building. A turbine there produces little energy, transmits vibration and noise into the rooms below, and requires the structure to be rechecked. A common rule of thumb is that the lowest blade tip should be at least 9 m above the tallest obstacle within 90 m. A tower costs more, but it lifts the rotor into steadier wind and usually pays off better than a rooftop mount.", "風車を屋根に載せればタワーが要らないように思えますが、風は建物を越えるとき屋根の端で剥離し、屋根の上と建物の後ろに風速が低く向きの乱れた乱流域ができます。そこで回る風車は発電量が少なく、振動と騒音を室内に伝え、建物の構造も再確認が必要になります。よく使われる経験則は、ブレードの最下点を周囲 90 m 以内で最も高い障害物より 9 m 以上高くすることです。タワー形はタワーの費用がかかるものの、ロータを安定した風の中に置けるため、多くの場合は屋根置きより割に合います。"],
-"風吹過建築物，在屋頂邊緣分離":["Wind separates at the roof edge", "風は建物を越え、屋根の端で剥離する"],
-"屋頂上方與後方形成紊流區":["A turbulent zone forms above and behind the roof", "屋根の上と後方に乱流域ができる"],
-"屋頂型風機：風亂、振動與噪音":["Rooftop turbine: rough wind, vibration and noise", "屋根置き風車：乱れた風、振動、騒音"],
-"塔架型：葉片最低點高出障礙物 9 m 以上":["On a tower: lowest tip 9 m above obstacles", "タワー形：ブレード最下点を障害物より 9 m 以上高く"],
-"屋頂邊緣氣流分離":["Flow separation", "屋根端の剥離"],
-"紊流區":["Turbulent zone", "乱流域"],
-"屋頂型：振動與噪音":["Rooftop: vibration, noise", "屋根置き：振動と騒音"],
-"高出 9 m 以上":["9 m or more above", "9 m 以上高く"],
-"90 m 內的障礙物":["Obstacles within 90 m", "90 m 以内の障害物"],
-"風況比較（示例）":["Wind comparison (example)", "風況の比較（例）"],
-"屋頂 風速":["Roof wind", "屋根 風速"],
-"屋頂 紊流強度":["Roof turbulence", "屋根 乱流強度"],
-"塔架 風速":["Tower wind", "タワー 風速"],
-"離島微電網":["An island microgrid", "離島のマイクログリッド"],
-"離島的電力過去多半依靠柴油發電機，燃料要用船運，發電成本高，也受天候影響。把小型或中型風機、太陽光電與儲能電池接進同一個微電網，由控制器即時分配：白天陽光充足時光電供電並替電池充電，入夜後由風機與電池接手，只有兩者都不夠時才啟動柴油機補足。柴油機從主角變成備援，燃料用量與排放隨之下降。電池也負責平滑風力與日照的快速變動，讓電壓與頻率維持穩定。":["Island power has long relied on diesel generators. The fuel arrives by ship, so generation is expensive and vulnerable to the weather. Connecting small or medium wind turbines, solar panels and batteries to one microgrid lets a controller share the load in real time: in the daytime solar supplies the village and charges the batteries, after dark the turbines and batteries take over, and the diesel sets start only when both fall short. Diesel moves from the main source to backup, cutting fuel use and emissions. The batteries also smooth fast swings in wind and sunshine to keep voltage and frequency stable.", "離島の電力は長くディーゼル発電機に頼ってきました。燃料は船で運ぶため発電コストが高く、天候の影響も受けます。小形・中形風車、太陽光発電、蓄電池を一つのマイクログリッドにつなげば、コントローラがリアルタイムで配分します。昼は太陽光が給電しながら蓄電池を充電し、夜は風車と蓄電池が引き継ぎ、どちらも足りないときだけディーゼル発電機を起動します。ディーゼルは主役からバックアップになり、燃料使用量と排出が減ります。蓄電池は風と日射の急な変動もならし、電圧と周波数を安定に保ちます。"],
-"離島村落原本靠柴油發電":["The island village once ran on diesel", "離島の集落はもともとディーゼル発電に頼っていた"],
-"白天：光電供電，同時替電池充電":["Daytime: solar supplies power and charges batteries", "昼：太陽光が給電し、蓄電池も充電する"],
-"入夜：風機與電池接手供電":["Night: wind and batteries take over", "夜：風車と蓄電池が給電を引き継ぐ"],
-"兩者不足時，柴油機才補上":["Diesel fills in only when both fall short", "両方が足りないときだけディーゼルが補う"],
-"小型風機":["Small turbines", "小形風車"],
-"太陽光電":["Solar PV", "太陽光発電"],
-"儲能：充電":["Battery: charging", "蓄電池：充電"],
-"儲能：放電":["Battery: discharging", "蓄電池：放電"],
-"柴油發電機":["Diesel generator", "ディーゼル発電機"],
-"微電網控制器":["Microgrid controller", "マイクログリッド制御装置"],
-"離島電力（示例）":["Island power (example)", "離島の電力（例）"],
-"時間":["Time", "時刻"],
-"負載":["Load", "負荷"],
-"風力":["Wind", "風力"],
-"光電":["Solar", "太陽光"],
-"儲能":["Battery", "蓄電池"],
-"充電 {n} kW":["Charging {n} kW", "充電 {n} kW"],
-"放電 {n} kW":["Discharging {n} kW", "放電 {n} kW"],
-"柴油":["Diesel", "ディーゼル"],
-"{n}:00":["{n}:00", "{n}:00"],
-"風與光的互補":["Wind and sun work in shifts", "風と光の補完"],
-"風和陽光的出力時段不同，是分散式系統喜歡把兩者搭配的原因。一天之中，光電集中在中午，許多沿海與離島場址的風在夜間與清晨也有出力；一年之中，台灣冬半年的東北季風帶來強風，夏季則日照較強。兩者相加的曲線比各自平滑，所需的儲能與柴油備援就少。在台灣，1 kW 以上不及 30 kW 的陸域風力可申請躉購，114 年度費率為每度 7.4110 元；機組的性能與安全可依 CNS 15176-2 驗證，澎湖並設有中小型風機測試場。":["Wind and sunshine produce at different times, which is why distributed systems like to pair them. Over a day, solar output peaks around noon, while at many coastal and island sites the wind also blows at night and in the early morning. Over a year, Taiwan's northeast monsoon brings strong winds in the cooler half of the year, while summer brings more sunshine. The combined curve is smoother than either one alone, so less storage and diesel backup are needed. In Taiwan, onshore wind from 1 kW up to 30 kW qualifies for the feed-in tariff, set at NTD 7.4110 per kWh for 2025. Performance and safety can be certified under CNS 15176-2, and Penghu has a test site for small and medium turbines.", "風と日射は出力の時間帯が異なるため、分散型システムでは両者を組み合わせることが好まれます。1 日のうちでは、太陽光は正午ごろに集中し、多くの沿岸や離島のサイトでは夜間や早朝にも風があります。1 年のうちでは、台湾では冬の半年に北東季節風が強い風をもたらし、夏は日射が強くなります。両者を合わせた曲線はそれぞれ単独より滑らかで、必要な蓄電池やディーゼルのバックアップが少なくて済みます。台湾では 1 kW 以上 30 kW 未満の陸上風力が固定価格買取の対象で、2025 年度（民国 114 年度）の価格は 1 kWh あたり 7.4110 元です。性能と安全性は CNS 15176-2 に基づいて認証でき、澎湖には中小形風車の試験場があります。"],
-"一天之中：光電集中在中午，風在夜間也有出力":["Over a day: solar peaks at noon, wind also blows at night", "1 日では：太陽光は正午に集中し、風は夜も出力がある"],
-"一年之中：冬季東北季風強，夏季日照強":["Over a year: winter monsoon winds, summer sunshine", "1 年では：冬は北東季節風が強く、夏は日射が強い"],
-"兩者相加更平滑，需要的儲能較少":["Combined output is smoother, needing less storage", "合わせると滑らかになり、必要な蓄電池が減る"],
-"台灣：小型風力可申請躉購，並有驗證與測試場":["Taiwan: a feed-in tariff, certification and a test site", "台湾：小形風力は固定価格買取の対象、認証と試験場もある"],
-"一天的出力（示例）":["Daily output (example)", "1 日の出力（例）"],
-"時":["Hour", "時"],
-"相對出力":["Relative output", "相対出力"],
-"一年的出力（示例）":["Yearly output (example)", "1 年の出力（例）"],
-"月":["Month", "月"],
-"東北季風":["NE monsoon", "北東季節風"],
-"相加":["Sum", "合計"],
-"躉購費率":["Feed-in tariff", "固定買取価格"],
-"7.4110 元/度":["NTD 7.4110/kWh", "7.4110 元/kWh"],
-"114 年度，1 kW 以上不及 30 kW":["2025, from 1 kW up to 30 kW", "2025 年度、1 kW 以上 30 kW 未満"],
-"國家標準":["National standard", "国家規格"],
-"小型風力機的設計要求":["Design requirements for small turbines", "小形風車の設計要件"],
-"測試場":["Test site", "試験場"],
-"澎湖":["Penghu", "澎湖"],
-"中小型風機性能與耐久測試":["Performance and durability tests", "中小形風車の性能・耐久試験"]
+"陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
+"除役、延壽與葉片回收":["Decommissioning, life extension and blade recycling","撤去、延命とブレードのリサイクル"],
+"風機的設計壽命通常是 20 年。台灣第一批陸域風機已陸續屆齡，接下來要決定延壽、換成更大的新機，或拆除除役。這一集看剩餘壽命怎麼評估、換機如何以少換多、風機怎麼反向拆除，以及最難處理的複合材料葉片能回收成什麼。":["A wind turbine is usually designed for 20 years. Taiwan's first onshore turbines are reaching that age, and owners must choose between extending their life, replacing them with larger machines, or taking them down. This episode looks at how remaining life is assessed, how repowering replaces many turbines with fewer, how a turbine is dismantled in reverse, and what the hardest part, the composite blades, can be recycled into.","風車の設計寿命は通常 20 年です。台湾で最初に建てられた陸上風車は次々に寿命を迎え、延命するか、より大きな新機に建て替えるか、撤去するかを決めなければなりません。本編では、余寿命の評価方法、少ない台数で置き換えるリパワリング、建設の逆順で進める解体、そして最も扱いにくい複合材ブレードが何にリサイクルされるのかを見ていきます。"],
+"年":["years","年"],
+"IEC 61400-1 風機的設計壽命至少 20 年":["Minimum design life of a turbine under IEC 61400-1","IEC 61400-1 による風車の設計寿命（20 年以上）"],
+"台電評估以更新零組件延壽，可提升的發電效率":["Output gain Taipower estimates from life extension with upgraded components","台湾電力が見込む、部品更新による延命での発電効率の向上"],
+"台電石門風場更新案：單機容量上限擴大約 7.5 倍":["Taipower's Shimen repowering: unit rating cap up about 7.5 times","台湾電力・石門風力発電所の更新計画：単機容量の上限は約 7.5 倍に"],
+"一部風機總質量中可回收的比例，主要是鋼材與金屬":["Share of a turbine's total mass that can be recycled, mostly steel and metals","風車の総重量のうちリサイクル可能な割合。主に鋼材と金属"],
+"歐洲風電業承諾退役葉片全部再使用、回收或回收能源":["European wind industry pledge to reuse, recycle or recover all decommissioned blades","欧州の風力業界が掲げる、撤去したブレードを全量リユース・リサイクル・エネルギー回収する目標"],
+"基礎常見拆除到地表下約 1 公尺再覆土（示例）":["Foundations are often removed to about 1 m below ground and covered (example)","基礎は地表下約 1 m まで撤去して覆土することが多い（例）"],
+"說明：本集為教育用途示意動畫，風機、吊機與基礎比例經過簡化，拆除與回收過程的時間已壓縮。設計壽命 20 年依 IEC 61400-1；延壽評估依 IEC TS 61400-28:2025 與 DNV-ST-0262 的架構；台電以零組件更新延壽可提升發電效率 5–10%，以及石門風場以 3 部單機 5 MW 以下、總裝置容量 15 MW 以下的新機更新原 6 部 0.66 MW 機組並於 2026 年通過環評，引自台電與中央社等公開報導，數值為計畫上限；風機總質量 85–90% 可回收、歐洲風電業承諾退役葉片 100% 再使用回收、奧地利、德國、荷蘭、芬蘭禁止複合材料掩埋，引自 WindEurope 公開資料。疲勞損傷曲線與剩餘壽命 8 年、葉片材料比例、葉片長度 23 m 與重量、切割段數、熱解溫度、拆除深度約 1 m、累計發電量與可用率皆為典型範例，實際依機型、合約與主管機關要求而定，並非特定案場資料。":["Note: this is an educational illustration. The proportions of the turbines, cranes and foundations are simplified, and the timing of dismantling and recycling is compressed. The 20-year design life follows IEC 61400-1, and the life-extension assessment follows the framework of IEC TS 61400-28:2025 and DNV-ST-0262. Taipower's estimate of a 5–10% output gain from life extension with upgraded components, and the Shimen project, which replaces six 0.66 MW units with three new turbines of up to 5 MW each and up to 15 MW in total and passed its environmental impact assessment in 2026, come from Taipower and public news reports such as the Central News Agency; the figures are planning caps. The 85–90% recyclable share of turbine mass, the European industry pledge on 100% blade reuse and recycling, and the landfill bans on composites in Austria, Germany, the Netherlands and Finland come from WindEurope. The fatigue curves and 8-year remaining life, blade material shares, 23 m blade length and weight, number of cuts, pyrolysis temperature, removal depth of about 1 m, cumulative energy and availability are typical examples that depend on the turbine model, contracts and authorities, not data from a specific site.","説明：本編は教育用の模式アニメーションで、風車、クレーン、基礎の比率は簡略化し、解体とリサイクルの時間は圧縮しています。設計寿命 20 年は IEC 61400-1 により、延命評価は IEC TS 61400-28:2025 と DNV-ST-0262 の枠組みによります。台湾電力による部品更新での延命で発電効率 5〜10% 向上の見込み、および石門風力発電所で 0.66 MW 機 6 基を単機 5 MW 以下・総設備容量 15 MW 以下の新機 3 基に更新し、2026 年に環境影響評価を通過した計画は、台湾電力や中央通訊社などの公開報道によるもので、数値は計画上の上限です。風車総重量の 85〜90% がリサイクル可能なこと、欧州風力業界のブレード 100% リユース・リサイクルの目標、オーストリア、ドイツ、オランダ、フィンランドの複合材埋立禁止は WindEurope の公開資料によります。疲労損傷曲線と余寿命 8 年、ブレードの材料比率、ブレード長 23 m と重量、切断数、熱分解温度、撤去深さ約 1 m、累計発電量と稼働率はすべて代表例で、機種、契約、当局の要求により異なり、特定のサイトのデータではありません。"],
+
+"服役二十年的風機":["Twenty years in service","運転 20 年の風車"],
+"風機設計時依 IEC 61400-1 以至少 20 年的壽命計算疲勞強度。台灣本島的商業風場從 2000 年代初開始運轉，第一批單機 660 kW 左右的風機已陸續屆滿 20 年。二十年間葉片前緣被雨滴與沙塵磨損、塔架塗裝老化，控制器與變流器的零件也可能停產。屆齡不代表馬上要拆，但業主必須做決定：繼續運轉需要證明結構仍然安全，換機或除役則要重新規劃。":["Under IEC 61400-1, a turbine's fatigue strength is designed for a life of at least 20 years. Commercial wind farms on Taiwan's main island began operating in the early 2000s, and the first turbines of about 660 kW are now reaching 20 years. Over two decades, rain and sand wear down the blade leading edges, the tower coating ages, and spare parts for controllers and converters may go out of production. Reaching the design life does not mean immediate removal, but the owner must decide: continued operation requires proof that the structure is still safe, while repowering or decommissioning needs new planning.","風車は IEC 61400-1 に基づき、20 年以上の寿命で疲労強度を設計します。台湾本島の商用風力発電所は 2000 年代初めに運転を始め、最初期の 660 kW 前後の風車が次々に 20 年を迎えています。20 年の間に雨滴や砂塵でブレード前縁が摩耗し、タワーの塗装は劣化し、制御装置やコンバータの部品も生産終了になることがあります。寿命到達はすぐに撤去することを意味しませんが、事業者は判断を迫られます。運転を続けるには構造が安全であることを示す必要があり、リパワリングや撤去には新たな計画が必要です。"],
+"海岸邊的第一代風機已運轉二十年":["First-generation coastal turbines have run for 20 years","海岸の第一世代風車が運転 20 年を迎える"],
+"葉片前緣磨損、塔架塗裝老化":["Worn leading edges and an aging tower coating","ブレード前縁の摩耗とタワー塗装の劣化"],
+"控制系統零件逐漸停產":["Control-system parts are going out of production","制御系の部品が生産終了に"],
+"屆滿設計壽命：延壽、換機或除役":["End of design life: extend, repower or remove","設計寿命到達：延命、リパワリング、撤去"],
+"葉片前緣磨損":["Leading-edge wear","前縁の摩耗"],
+"塔架塗裝老化":["Aging coating","塗装の劣化"],
+"控制器零件停產":["Obsolete controller parts","制御装置の部品終了"],
+"設計壽命 20 年":["20-year design life","設計寿命 20 年"],
+"第一代風機（示例）":["First-gen turbine (example)","第一世代風車（例）"],
+"運轉年數":["Years in service","運転年数"],
+"{n} 年":["{n} yr","{n} 年"],
+"單機容量":["Unit rating","単機容量"],
+"累計發電":["Total energy","累計発電量"],
+"狀態":["Status","状態"],
+"運轉中":["Running","運転中"],
+"屆滿設計壽命":["Design life reached","設計寿命到達"],
+
+"延壽評估：還能轉幾年":["How many more years?","延命評価：あと何年回せるか"],
+"設計壽命是以設計風況計算的疲勞極限，實際場址的風況若比假設溫和，結構累積的疲勞損傷就比較少。延壽評估先整理 SCADA 運轉資料與維修紀錄，再到現場檢查塔架螺栓、焊道、葉片與基礎，最後用實際風況重新計算載重，推估剩餘壽命。IEC TS 61400-28 與 DNV-ST-0262 提供這套評估的架構。結論可能是延壽數年、更換主要零組件，或判定不宜繼續運轉。":["The design life is a fatigue limit calculated for design wind conditions. If the real site is milder than assumed, the structure accumulates less fatigue damage. A life-extension assessment first gathers SCADA operating data and maintenance records, then inspects tower bolts, welds, blades and foundations on site, and finally recalculates loads with the actual wind conditions to estimate the remaining life. IEC TS 61400-28 and DNV-ST-0262 provide the framework. The outcome may be several more years of operation, replacement of major components, or a finding that the turbine should not continue.","設計寿命は設計風況で計算した疲労の限界です。実際のサイトの風況が想定より穏やかなら、構造に蓄積する疲労損傷は少なくなります。延命評価では、まず SCADA の運転データと保守記録を整理し、次に現地でタワーのボルト、溶接部、ブレード、基礎を点検し、最後に実際の風況で荷重を再計算して余寿命を推定します。IEC TS 61400-28 と DNV-ST-0262 がその枠組みを示しています。結論は数年の延命、主要部品の交換、または運転継続は不適切という判断になることもあります。"],
+"設計曲線：第 20 年累積損傷達到允許值":["Design curve: damage hits the limit in year 20","設計曲線：20 年目に累積損傷が許容値に達する"],
+"實際風況較溫和，損傷累積較慢":["Milder real winds mean slower damage","実際の風況は穏やかで、損傷の蓄積は遅い"],
+"延伸曲線：推估剩餘壽命":["Extending the curve estimates remaining life","曲線を延ばして余寿命を推定"],
+"檢查與重算後，決定延壽、換機或除役":["After inspection and recalculation: extend, repower or remove","点検と再計算の後、延命・リパワリング・撤去を決める"],
+"累積疲勞損傷（示意）":["Cumulative fatigue damage (illustrative)","累積疲労損傷（模式図）"],
+"累積損傷":["Damage","累積損傷"],
+"允許值":["Limit","許容値"],
+"設計：第 20 年":["Design: year 20","設計：20 年目"],
+"實際量測":["Measured","実測"],
+"剩餘壽命約 8 年":["About 8 years left","余寿命 約 8 年"],
+"場址風況比設計假設溫和，疲勞累積較慢":["The site is milder than designed for, so fatigue builds slowly","サイトの風況は設計想定より穏やかで、疲労の蓄積は遅い"],
+"但螺栓、焊道與葉片仍要逐項檢查確認":["Bolts, welds and blades must still be checked one by one","それでもボルト、溶接部、ブレードは一つずつ点検する"],
+"延壽評估的步驟":["Steps of the assessment","延命評価の手順"],
+"資料回顧":["Data review","データの確認"],
+"SCADA 運轉資料、維修與故障紀錄":["SCADA data, maintenance and fault logs","SCADA データ、保守と故障の記録"],
+"現場檢查":["Site inspection","現地点検"],
+"塔架螺栓、焊道、葉片、基礎":["Tower bolts, welds, blades, foundation","タワーのボルト、溶接部、ブレード、基礎"],
+"載重重算":["Load recalculation","荷重の再計算"],
+"以實際風況重新計算疲勞":["Recalculate fatigue with actual winds","実際の風況で疲労を再計算"],
+"做出決定":["Decision","判断"],
+"延壽、換機或除役":["Extend, repower or remove","延命、リパワリング、撤去"],
+"延壽":["Extend","延命"],
+"換機":["Repower","リパワリング"],
+"除役":["Remove","撤去"],
+
+"換機：以少換多":["Repowering: fewer, bigger machines","リパワリング：少ない台数で大きく"],
+"換機（repowering）是在原場址拆掉舊風機，換上單機容量更大的新機。新機的葉片更長、輪轂更高，能接觸到更穩定的風，所以部數可以減少，總容量與發電量反而增加。以台電石門風場的更新案為例，原有 6 部 0.66 MW 機組，規劃換成 3 部單機 5 MW 以下的新機，總裝置容量上限 15 MW，2026 年通過環評。換機可以沿用場址、道路與併網線路，但仍要重新評估噪音、生態與景觀。":["Repowering means removing old turbines from an existing site and installing new ones with a larger unit rating. The new machines have longer blades and taller hubs that reach steadier winds, so fewer turbines are needed while total capacity and output rise. Taipower's Shimen wind farm is an example: its six 0.66 MW units are planned to be replaced by three new turbines of up to 5 MW each, with total capacity capped at 15 MW; the plan passed its environmental impact assessment in 2026. Repowering can reuse the site, access roads and grid connection, but noise, ecology and landscape still have to be assessed again.","リパワリングとは、既存のサイトで古い風車を撤去し、単機容量の大きい新機に建て替えることです。新機はブレードが長くハブも高いため、より安定した風を受けられ、台数を減らしても総容量と発電量は増えます。台湾電力の石門風力発電所の更新計画では、既設の 0.66 MW 機 6 基を、単機 5 MW 以下の新機 3 基に置き換え、総設備容量の上限は 15 MW です。2026 年に環境影響評価を通過しました。リパワリングではサイト、道路、系統連系線を引き継げますが、騒音、生態、景観は改めて評価する必要があります。"],
+"舊場址：6 部 0.66 MW 風機":["Old site: six 0.66 MW turbines","既設サイト：0.66 MW 機 6 基"],
+"拆除舊機，換上 3 部大型新機":["Old units come down, three large ones go up","旧機を撤去し、大型新機 3 基を建てる"],
+"部數減半，總容量上限約為 3.8 倍":["Half the turbines, up to about 3.8 times the capacity","台数は半分、総容量の上限は約 3.8 倍"],
+"沿用場址與併網點，仍須重新環評":["Site and grid point are reused, but a new EIA is needed","サイトと連系点は引き継ぐが、環境影響評価は再度必要"],
+"同一場址的更新（示意）":["Repowering one site (illustrative)","同じサイトでの更新（模式図）"],
+"更新前：6 部 × 0.66 MW":["Before: 6 × 0.66 MW","更新前：0.66 MW × 6 基"],
+"更新後：3 部 × 5 MW":["After: 3 × 5 MW","更新後：5 MW × 3 基"],
+"輪轂更高、葉片更長":["Taller hubs, longer blades","ハブはより高く、ブレードはより長く"],
+"總裝置容量（石門更新案，上限值）":["Total capacity (Shimen plan, cap)","総設備容量（石門の更新計画、上限）"],
+"{n} MW":["{n} MW","{n} MW"],
+"更新前":["Before","更新前"],
+"更新後":["After","更新後"],
+"換機的重點":["Key points of repowering","リパワリングのポイント"],
+"沿用原場址、道路與併網點":["Reuse the site, roads and grid point","サイト、道路、連系点を引き継ぐ"],
+"部數減半，容量上限約 3.8 倍":["Half the units, about 3.8× the capacity cap","台数半分、容量上限は約 3.8 倍"],
+"重新評估噪音、生態與景觀":["Reassess noise, ecology and landscape","騒音、生態、景観を再評価"],
+
+"反向拆除":["Dismantling in reverse","逆順の解体"],
+"拆除風機大致是吊裝的倒帶。先停機、鎖定轉子，排空齒輪油與液壓油並切斷電力。主吊機把轉子連同三支葉片整組吊下，在接近地面時由輔助吊機扶住下方葉片，讓轉子轉為水平放在地上；接著吊下機艙，再由上而下一段一段拆下塔架。吊裝需要在風速限制內進行，拆下的大件會在現場再分解，鋼製塔架與機艙內的銅、鋼大多可以直接回收。":["Dismantling a turbine is roughly erection played backward. The turbine is stopped, the rotor locked, gear and hydraulic oil drained and the power isolated. The main crane lowers the rotor with all three blades as one piece; near the ground a tailing crane holds the lower blade so the rotor turns horizontal and is laid on the ground. Next the nacelle comes down, and the tower is removed section by section from the top. Lifts must stay within wind-speed limits. The large parts are broken down further on site, and most of the steel tower and the copper and steel in the nacelle can go straight to recycling.","風車の解体は、ほぼ据付の逆再生です。まず停止してロータをロックし、ギアオイルと作動油を抜き、電源を切り離します。メインクレーンがロータを 3 枚のブレードごと一体で吊り下ろし、地面近くで補助クレーンが下側のブレードを支えて、ロータを水平にして地面に置きます。続いてナセルを吊り下ろし、タワーを上から 1 段ずつ解体します。吊り作業は風速の制限内で行います。取り外した大型部品は現地でさらに分解し、鋼製タワーやナセル内の銅と鋼の多くはそのままリサイクルできます。"],
+"停機、鎖定轉子並排空油料":["Stop, lock the rotor and drain the oils","停止し、ロータをロックして油を抜く"],
+"主吊機把轉子整組吊下":["The main crane lowers the whole rotor","メインクレーンがロータを一体で吊り下ろす"],
+"接近地面時轉為水平放下":["Near the ground it turns flat and is set down","地面近くで水平にして置く"],
+"吊下機艙":["Lower the nacelle","ナセルを吊り下ろす"],
+"由上而下拆除塔架":["Remove the tower from the top down","タワーを上から解体する"],
+"鎖定轉子":["Lock rotor","ロータをロック"],
+"轉子整組吊下":["Rotor lowered whole","ロータを一体で吊下ろし"],
+"轉為水平放下":["Laid flat","水平にして設置"],
+"機艙":["Nacelle","ナセル"],
+"塔架上段":["Top tower section","タワー上段"],
+"主吊機":["Main crane","メインクレーン"],
+"拆除進度":["Dismantling","解体の進捗"],
+"吊下轉子":["Lower rotor","ロータ吊下ろし"],
+"吊下機艙":["Lower nacelle","ナセル吊下ろし"],
+"拆除塔架":["Remove tower","タワー解体"],
+"完成":["Done","完了"],
+"進行中":["In progress","作業中"],
+
+"葉片現場切割與運輸":["Cutting blades on site","ブレードの現地切断と輸送"],
+"鋼材和銅很好回收，難題在葉片。葉片由玻璃纖維、環氧樹脂與輕木或泡棉芯材層層黏合，強度高、重量輕，卻很難拆開。整支長葉片要動用特殊車輛才能運出，所以常在現場先用鑽石鋼索鋸或水刀切成數段，切割時以灑水或集塵設備抑制粉塵，作業人員配戴防護具。切成數公尺長的段落後，用一般卡車就能載到處理廠。":["Steel and copper are easy to recycle; the problem is the blades. They are built from glass fibre, epoxy resin and balsa or foam cores bonded in layers, which makes them strong and light but hard to take apart. A whole blade needs a special vehicle to move, so blades are often cut into sections on site with a diamond wire saw or water jet. Water sprays or dust extraction keep the dust down, and workers wear protective equipment. Once cut into pieces a few metres long, they can be carried to a processing plant on ordinary trucks.","鋼材と銅はリサイクルしやすく、難しいのはブレードです。ブレードはガラス繊維、エポキシ樹脂、バルサ材や発泡材のコアを層状に接着したもので、強くて軽い反面、分解が困難です。1 本のままでは特殊車両が必要なため、現地でダイヤモンドワイヤーソーやウォータージェットを使って数本に切断することが多く、散水や集じん装置で粉じんを抑え、作業員は保護具を着用します。数メートルの長さに切れば、一般のトラックで処理工場へ運べます。"],
+"拆下的葉片平放在地上":["The removed blade lies flat on the ground","取り外したブレードを地面に寝かせる"],
+"用鑽石鋼索鋸切成數段":["A diamond wire saw cuts it into sections","ダイヤモンドワイヤーソーで数本に切断"],
+"灑水與集塵，抑制玻纖粉塵":["Water and dust extraction control fibre dust","散水と集じんでガラス繊維の粉じんを抑える"],
+"切段後用一般卡車載運":["The sections leave on an ordinary truck","切断後は一般のトラックで運ぶ"],
+"退役葉片":["Retired blade","撤去ブレード"],
+"鑽石鋼索鋸":["Diamond wire saw","ダイヤモンドワイヤーソー"],
+"灑水抑制粉塵":["Water spray for dust","散水で粉じん抑制"],
+"一般卡車載運":["Ordinary truck","一般トラックで輸送"],
+"葉片處理（示例）":["Blade handling (example)","ブレード処理（例）"],
+"葉片長度":["Blade length","ブレード長"],
+"每支重量":["Weight each","1 本の重量"],
+"切割段數":["Sections","切断数"],
+"{n} 段":["{n}","{n} 本"],
+"運輸":["Transport","輸送"],
+"待切割":["Awaiting cut","切断待ち"],
+"裝車中":["Loading","積込み中"],
+"送往處理廠":["To the plant","処理工場へ"],
+
+"葉片材料的去處":["Where blade materials go","ブレード材料の行き先"],
+"一部風機總質量約 85–90% 是塔架、機艙裡的鋼材與金屬，可以熔煉再利用；剩下的大多是葉片的複合材料。退役葉片的處理途徑包括：機械粉碎後做成填料或板材；送進水泥窯共處理，玻璃纖維成為水泥原料、樹脂提供熱能；以熱解在數百度下分解樹脂，回收纖維與油氣；新一代可回收葉片則改用能在溶液中分離的樹脂。奧地利、德國、荷蘭、芬蘭已禁止複合材料掩埋，台灣也已將退役葉片納入回收再利用管理。":["About 85–90% of a turbine's total mass is steel and other metals in the tower and nacelle, which can be melted down and reused; most of the rest is the composite in the blades. Routes for retired blades include mechanical grinding into fillers or boards; co-processing in cement kilns, where the glass fibre becomes a cement raw material and the resin supplies heat; pyrolysis, which breaks down the resin at several hundred degrees to recover fibres, oil and gas; and new recyclable blades whose resin can be separated in a solution. Austria, Germany, the Netherlands and Finland have banned composites from landfill, and Taiwan has brought retired blades under its recycling and reuse management.","風車の総重量の約 85〜90% はタワーやナセルの鋼材と金属で、溶かして再利用できます。残りの多くはブレードの複合材です。撤去ブレードの処理方法には、機械的に粉砕して充填材や板材にする方法、セメントキルンでの混焼処理（ガラス繊維はセメント原料に、樹脂は熱源になる）、数百度で樹脂を分解して繊維と油・ガスを回収する熱分解、そして溶液中で樹脂を分離できる新世代のリサイクル可能ブレードがあります。オーストリア、ドイツ、オランダ、フィンランドは複合材の埋立を禁止しており、台湾も撤去ブレードをリサイクル・再利用の管理対象に加えています。"],
+"風機質量多為鋼材，可直接回收":["Most turbine mass is steel and recycles directly","風車の重量の大半は鋼材で、そのまま再利用できる"],
+"葉片複合材料是回收的難題":["Blade composites are the hard part","ブレードの複合材がリサイクルの難題"],
+"粉碎、水泥窯共處理、熱解":["Grinding, cement kilns and pyrolysis","粉砕、セメントキルン混焼、熱分解"],
+"可回收葉片：樹脂可分離再利用":["Recyclable blades: the resin separates for reuse","リサイクル可能ブレード：樹脂を分離して再利用"],
+"一部風機的質量組成（示例）":["Turbine mass breakdown (example)","風車の重量構成（例）"],
+"鋼材與金屬 約 88%":["Steel and metals ≈ 88%","鋼材と金属 約 88%"],
+"葉片等複合材料":["Blades and other composites","ブレードなどの複合材"],
+"一支葉片的材料（示例）":["Blade materials (example)","ブレード 1 本の材料（例）"],
+"玻璃纖維":["Glass fibre","ガラス繊維"],
+"樹脂與膠":["Resin and adhesive","樹脂と接着剤"],
+"芯材與其他":["Core and other","コア材ほか"],
+"約 {n}%":["≈ {n}%","約 {n}%"],
+"奧地利、德國、荷蘭、芬蘭":["Austria, Germany, the Netherlands, Finland","オーストリア、ドイツ、オランダ、フィンランド"],
+"已禁止複合材料進入掩埋場":["have banned composites from landfill","は複合材の埋立を禁止"],
+"退役葉片的處理途徑":["Routes for retired blades","撤去ブレードの処理方法"],
+"切段":["Cut up","切断済み"],
+"機械粉碎":["Mechanical grinding","機械的粉砕"],
+"填料、板材、建材":["Fillers, boards, building materials","充填材、板材、建材"],
+"水泥窯共處理":["Cement kiln co-processing","セメントキルン混焼"],
+"玻纖成原料、樹脂供熱":["Fibre as raw material, resin as fuel","ガラス繊維は原料に、樹脂は熱源に"],
+"熱解":["Pyrolysis","熱分解"],
+"數百度分解樹脂，回收纖維":["Resin broken down at a few hundred °C","数百度で樹脂を分解し繊維を回収"],
+"可回收葉片":["Recyclable blades","リサイクル可能ブレード"],
+"樹脂可在溶液中分離":["Resin separates in a solution","樹脂を溶液中で分離できる"],
+
+"基礎拆除與土地復原":["Removing foundations, restoring land","基礎の撤去と土地の復元"],
+"風機的擴展式基礎是數百立方公尺的鋼筋混凝土，大部分埋在地下。常見做法是開挖基礎周圍，用破碎機打除墩座與上部混凝土，到地表下約 1 公尺，再回填土壤恢復耕作或植生；也有地區要求整座基礎全部移除。打下的混凝土碎塊可做為級配料，鋼筋分離後回收。若是換機，新基礎通常另選位置興建，原地則恢復成土地，由主管機關與地主確認復原結果。":["A turbine's spread foundation is several hundred cubic metres of reinforced concrete, mostly underground. A common approach is to dig around it, break off the pedestal and upper concrete with a breaker to about 1 m below ground, then backfill with soil for farming or planting; some regions require the whole foundation to be removed. The broken concrete can be used as aggregate, and the rebar is separated and recycled. When a site is repowered, new foundations are usually built in new positions, and the old spots are returned to land, with the authorities and landowners confirming the restoration.","風車の拡底式基礎は数百立方メートルの鉄筋コンクリートで、大部分が地中にあります。一般的には基礎の周囲を掘削し、ブレーカでペデスタルと上部のコンクリートを地表下約 1 m まではつり、土を埋め戻して耕作や植生を回復します。基礎全体の撤去を求める地域もあります。はつったコンクリート塊は骨材として使え、鉄筋は分別してリサイクルします。リパワリングの場合、新しい基礎は通常別の位置に建て、元の場所は土地に戻し、当局と地権者が復元結果を確認します。"],
+"塔架拆除後，只剩地上的基礎墩座":["With the tower gone, only the pedestal remains","タワー撤去後、地上には基礎のペデスタルだけが残る"],
+"開挖周圍，以破碎機打除上部混凝土":["Dig around it and break off the upper concrete","周囲を掘削し、ブレーカで上部コンクリートをはつる"],
+"打除到地表下約 1 公尺":["Break it down to about 1 m below ground","地表下約 1 m まではつる"],
+"鋼筋與混凝土碎塊分開回收":["Rebar and concrete rubble are recycled separately","鉄筋とコンクリート塊を分けてリサイクル"],
+"回填土壤，恢復植生":["Backfill with soil and let plants return","土を埋め戻し、植生を回復"],
+"基礎墩座":["Pedestal","基礎ペデスタル"],
+"錨栓":["Anchor bolts","アンカーボルト"],
+"破碎機打除":["Breaker","ブレーカではつり"],
+"地表下約 1 m":["≈ 1 m below ground","地表下 約 1 m"],
+"底板留在地下":["Slab stays buried","底版は地中に残す"],
+"混凝土碎塊與鋼筋":["Rubble and rebar","コンクリート塊と鉄筋"],
+"覆土植生":["Soil and planting","覆土と植生"],
+"基礎拆除（示例）":["Foundation removal (example)","基礎撤去（例）"],
+"打除進度":["Breaking","はつり進捗"],
+"{n}%":["{n}%","{n}%"],
+"鋼筋":["Rebar","鉄筋"],
+"分離中":["Separating","分別中"],
+"送回收":["To recycling","リサイクルへ"],
+"土地":["Land","土地"],
+"施工中":["Works","工事中"],
+"復原":["Restored","復元済み"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

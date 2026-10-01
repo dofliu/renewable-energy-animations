@@ -705,6 +705,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生命週期",
+            "en": "Life cycle",
+            "ja": "ライフサイクル"
+          },
+          "episodes": [
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "除役、延壽與葉片回收",
+                "en": "Decommissioning, life extension and blade recycling",
+                "ja": "撤去、延命とブレードのリサイクル"
+              },
+              "sub": {
+                "zh": "設計壽命與延壽評估、換機以少換多、反向拆除、葉片切割與回收途徑、基礎拆除與土地復原",
+                "en": "Design life and life-extension assessment, repowering with fewer bigger turbines, reverse dismantling, blade cutting and recycling routes, foundation removal and land restoration",
+                "ja": "設計寿命と延命評価、少ない台数でのリパワリング、逆順の解体、ブレードの切断とリサイクル方法、基礎の撤去と土地の復元"
+              }
+            }
+          ]
         }
       ]
     },
