@@ -1052,6 +1052,20 @@
                 "en": "Wave height and period, point absorbers, hydraulic and linear generator PTO, moorings and typhoons",
                 "ja": "波高と周期、ポイントアブソーバー、油圧式と直動リニア発電機、係留と台風"
               }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "潮流發電",
+                "en": "Tidal stream power",
+                "ja": "潮流発電"
+              },
+              "sub": {
+                "zh": "潮汐成因與大小潮、潮流功率與流速三次方、海床固定式與浮動式、平潮安裝",
+                "en": "Why tides happen, power and the cube of flow speed, seabed vs floating turbines, slack-water installation",
+                "ja": "潮汐の成り立ちと大潮・小潮、流速の 3 乗とパワー、海底設置式と浮体式、憩流での据え付け"
+              }
             }
           ]
         }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep01.js｜海洋能系列</title>
+<title>ep02.js｜海洋能系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="海洋能系列" data-en="Ocean Energy series" data-ja="海洋エネルギーシリーズ">海洋能系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 潮流發電 →" data-en="02 Tidal stream power →" data-ja="02 潮流発電 →">02 潮流發電 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="海洋能系列" data-en="Ocean Energy series" data-ja="海洋エネルギーシリーズ">海洋能系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 波浪發電：點吸收式浮標" data-en="← 01 Wave power: the point absorber buoy" data-ja="← 01 波力発電：ポイントアブソーバー型ブイ">← 01 波浪發電：點吸收式浮標</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep01.js｜海洋能系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜海洋能系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,359 +543,390 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 海洋能系列 第 1 集：波浪發電：點吸收式浮標 */
-const SW={y:430,A:24,L:380,sp:1.1,bed:820};          // 湧浪參數
-const BX=560,BED=820,CX=1400;                        // 主浮標位置、海床、海岸線
-const PWR='#f2c230',WAV='#58b8d0',OIL='#ff8a60',MAG='#b37cff';
-const fyAt=x=>swellY(x,SW);
+/* 海洋能系列 第 2 集：潮流發電 */
+const SURF=330,BED=800,TX=560,HY=610,CX=1340;          // 海面、海床、渦輪位置、輪轂高度、海岸
+const PWR='#f2c230',WAV='#58b8d0',MAG='#b37cff';
 function pl(P,col,lw){const a=[];P.forEach(p=>a.push(p[0],p[1]));ln(a,col,lw);}
 function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
   let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
 function flowDots(P,n,col,a,sp,r){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],r||4.5,col));}}
-/* 浮體（世界座標，中心 x,y，縮放 s） */
-function floatBody(x,y,s,tilt,cut){ctx.save();ctx.translate(x,y);ctx.rotate(tilt||0);ctx.scale(s,s);
-  rrp(-56,-30,112,58,16);ctx.fillStyle='#e3b53a';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.stroke();
-  box(-56,-6,112,8,'#2a3a46');ln([0,-30,0,-78],'#5c6770',3);box(-10,-60,20,6,'#5c6770');
-  circ(0,-80,5,Math.sin(TT*3)>0?'#fff4c0':'#8d7a3a');
-  if(cut){box(-20,-24,40,46,'#2a3a46');box(-14,-20,28,20,'#1f7f99');ln([0,0,0,26],'#c9d1d6',5);}
-  ctx.restore();}
-function anchorBlock(x){box(x-44,BED-26,88,26,'#6a747a','rgba(0,0,0,.35)',1);box(x-10,BED-40,20,16,'#8d989f');}
-/* 一座浮標：回傳浮體底部座標 */
-function wec(x,s,cut){const y=fyAt(x)-6*s,t=Math.atan((fyAt(x+30)-fyAt(x-30))/60)*.6;
-  ln([x,y+28*s,x,BED-40],'#2a3a46',Math.max(2,3*s));floatBody(x,y,s,t,cut);anchorBlock(x);return [x,y+28*s];}
-/* 海岸與岸上變電站 */
-function coast(){poly([CX,1000,CX,770,CX+40,560,CX+70,450,CX+110,420,1800,410,1800,1000],'#8c7a5e');
-  poly([CX+70,450,CX+110,420,1800,410,1800,432,CX+120,440],'#7a9a55');
-  const x=CX+180,g=412;fence(x-10,x+120,g+2);box(x+14,g-50,74,46,'#8d989f','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++){box(x+24+i*22,g-72,6,22,'#c9d1d6');circ(x+27+i*22,g-74,4,'#e3e8ec');}}
-const P_CAB=()=>[[BX+30,BED-12],[900,BED-4],[1200,BED-4],[CX+10,780],[CX+50,560],[CX+90,450],[CX+226,405]];
-function bubbles(){const R=rng(5);for(let i=0;i<18;i++){const x=R()*1400,p=(TT*.15+R())%1,y=BED-20-p*340;alphaDo(.4*(1-p),()=>circ(x+6*Math.sin(TT+i),y,2+R()*2,'rgba(255,255,255,.5)'));}}
-function fishes(){for(let i=0;i<5;i++){const x=((TT*30+i*260)%1700)-50,y=640+40*Math.sin(i*2.1)+8*Math.sin(TT+i);poly([x,y,x-22,y-7,x-22,y+7],'rgba(20,50,70,.6)');poly([x-22,y,x-32,y-6,x-32,y+6],'rgba(20,50,70,.6)');}}
-function seaScene(o){o=o||{};landSky(SW.y,{clouds:true,dusk:o.dusk||0});drawSwell(SW);bubbles();fishes();
-  pl(P_CAB(),'#1a1a1a',4);coast();
-  wec(1020,.55);wec(1200,.45);return wec(BX,1,o.cut);}
-function wavePower(H,T){return .49*H*H*T;}
+/* 水流線：ph 為累積位移（px），v 為目前流速（m/s，決定線長與透明度） */
+function streaks(x0,x1,y0,y1,n,ph,v,seed,col){const R=rng(seed||3),W=x1-x0,L=10+Math.abs(v)*14,dir=v>=0?1:-1;
+  for(let i=0;i<n;i++){const bx=R()*W,y=y0+R()*(y1-y0),sp=.7+R()*.6,x=x0+(((bx+ph*sp)%W)+W)%W;
+   alphaDo(clamp(Math.abs(v)/2.5)*.7*(Math.min(x-x0,x1-x)>40?1:Math.min(x-x0,x1-x)/40),()=>ln([x,y,x-dir*L,y],col||'rgba(227,240,245,.75)',2));}}
+/* 側視轉子：轉子平面垂直水流，看到的是葉片的投影 */
+function rotorSide(x,y,R,ang,s){s=s||1;for(let k=0;k<3;k++){const a=ang+k*TAU/3,ty=y+R*Math.cos(a),tx=x-R*Math.sin(a)*.16;
+  poly([x-7*s,y,x+7*s,y,tx+2.5*s,ty,tx-2.5*s,ty],'#e3e8ec','rgba(0,0,0,.35)',1);}
+  ctx.beginPath();ctx.ellipse(x-6*s,y,14*s,16*s,0,0,TAU);ctx.fillStyle='#f2c230';ctx.fill();}
+/* 海床式潮流渦輪：nac=false 只畫基座 */
+function seabedTurbine(x,hy,bed,s,ang,o){o=o||{};const cx=x+45*s;
+  ln([x-70*s,bed,cx,bed-50*s,x+150*s,bed],'#8d989f',8*s);ln([cx,bed-50*s,cx,bed],'#8d989f',8*s);
+  [x-70*s,x+150*s,cx].forEach(px=>box(px-22*s,bed-16*s,44*s,16*s,'#6a747a','rgba(0,0,0,.35)',1));
+  box(cx-11*s,hy+10*s,22*s,bed-50*s-hy-10*s,'#c9d1d6','rgba(0,0,0,.3)',1);
+  if(o.nac!==false)nacelle(x,hy,s,ang);}
+function nacelle(x,hy,s,ang){rrp(x-6*s,hy-18*s,112*s,36*s,14*s);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.2;ctx.stroke();
+  box(x+20*s,hy-4*s,70*s,6*s,'#e8572a');rotorSide(x-14*s,hy,120*s,ang,s);}
+const P_CAB=()=>[[TX+150,BED-6],[1000,BED-4],[CX,BED-6],[1400,600],[1450,SURF+10],[1480,SURF-22],[1560,SURF-30]];
+function coast(){poly([CX,1000,CX,BED,1400,600,1450,SURF+10,1480,SURF-20,1800,SURF-30,1800,1000],'#8c7a5e');
+  poly([1450,SURF+10,1480,SURF-20,1800,SURF-30,1800,SURF-14,1490,SURF-6],'#7a9a55');
+  const x=1530,g=SURF-30;fence(x-10,x+120,g+2);box(x+14,g-50,74,46,'#8d989f','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++){box(x+24+i*22,g-72,6,22,'#c9d1d6');circ(x+27+i*22,g-74,4,'#e3e8ec');}}
+function island(){poly([60,SURF,110,SURF-26,180,SURF-44,260,SURF-38,330,SURF-20,400,SURF],'#6f8a72');}
+function waterBody(){const g=ctx.createLinearGradient(0,SURF,0,BED);g.addColorStop(0,'#2a7fa0');g.addColorStop(1,'#123c55');
+  ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(-200,1000);for(let x=-200;x<=1800;x+=10)ctx.lineTo(x,SURF+3*Math.sin(x*.03-TT*2)+2*Math.sin(x*.011+TT));ctx.lineTo(1800,1000);ctx.closePath();ctx.fill();
+  box(-200,BED,2000,200,'#b59a6a');box(-200,BED,2000,8,'#9c845a');
+  const R=rng(9);for(let i=0;i<40;i++){const x=R()*1600-100,y=BED+14+R()*160;circ(x,y,2+R()*3,'rgba(80,60,40,.35)');}}
+function fishes(){for(let i=0;i<4;i++){const x=((TT*40+i*330)%1700)-50,y=430+50*Math.sin(i*2.1)+8*Math.sin(TT+i);poly([x,y,x-22,y-7,x-22,y+7],'rgba(10,40,60,.6)');poly([x-22,y,x-32,y-6,x-32,y+6],'rgba(10,40,60,.6)');}}
+function channelScene(ph,v){landSky(SURF,{clouds:false});island();waterBody();streaks(-100,1340,SURF+30,BED-20,46,ph,v,4);fishes();pl(P_CAB(),'#1a1a1a',4);coast();}
+/* 半日潮流速（m/s，正為漲潮流向） */
+const tideV=h=>2.8*Math.sin(TAU*h/12.42);
+const tPow=v=>{const a=Math.abs(v);return a<1?0:Math.min(1,(a*a*a-1)/(2.5*2.5*2.5-1));};
+/* 安裝分鏡的流速與累積位移 */
+const insV=u=>u<.3?lerp(2.4,.2,ease(u/.3)):u<.8?.2:lerp(.2,.9,seg(u,.8,1));
+const insPh=u=>{let s=0;const n=40;for(let i=0;i<n;i++)s+=insV(u*i/n)*u/n;return s*13*60+TT*12;};
 /* 台灣輪廓（經緯度） */
 const TW=[[121.5,25.3],[121.9,25.12],[122.0,25.0],[121.85,24.6],[121.8,24.3],[121.6,23.9],[121.5,23.4],[121.3,22.9],[121.0,22.6],[120.85,21.92],[120.7,22.0],[120.6,22.3],[120.3,22.55],[120.15,22.9],[120.1,23.1],[120.15,23.5],[120.3,23.9],[120.6,24.3],[120.8,24.6],[121.0,24.9],[121.2,25.1],[121.4,25.25]];
 
-const EP={no:1,slug:'ocean-energy',seriesName:'海洋能系列',t:'波浪發電：點吸收式浮標',en:'Wave power: the point absorber buoy',
-lede:'海浪是風把能量交給海面的結果，一波接一波把能量送到岸邊。這一集從波浪能量的大小怎麼算談起，看點吸收式浮標如何隨浪上下運動，比較液壓與直驅線性發電機兩種動力擷取方式，再介紹錨繫、海纜與颱風海況的挑戰，以及台灣的波浪能潛力。',
-facts:[['0.49','kW/m','每公尺波峰寬的波能流係數：P ≈ 0.49 × H² × T'],
-['15–20','kW/m','台灣東北部、澎湖西側與巴士海峽的波能流密度'],
-['約 10','GW','台灣周邊海域波浪能蘊藏量估計'],
-['3','處','蘇澳港規劃的離岸式波浪發電試驗區'],
-['50–100','MW','業界預估 2030 年前的波浪能裝置容量'],
-['300','kW','國外直徑 9 m 點吸收式浮標的單機容量（示例）']],
-note:'說明：本集為教育用途示意動畫，浮標外觀、水深與波浪比例經過壓縮調整。波能流公式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m，H 為示性波高、T 為能量週期）為海洋工程通用式；台灣波能流密度 15–20 kW/m 與蘊藏量約 10 GW 取自國科會科技大觀園與中央氣象署科普資料；蘇澳港 3 處試驗區與 2030 年 50–100 MW 預估取自 Reccessary 專家觀點；直徑 9 m、300 kW 浮標與水深約 45 m 參考 CorPower C4 在葡萄牙的公開資料。每月波能、張力、出力與颱風存活模式等數值為典型範例。',
-base:()=>seaScene(),
+const EP={no:2,slug:'ocean-energy',seriesName:'海洋能系列',t:'潮流發電',en:'Tidal stream power',
+lede:'月球與太陽的引力讓海面每天漲落兩次，海水在海峽與水道間來回奔流。這一集從潮汐的成因談起，看潮流渦輪如何像水下風機一樣發電，為什麼海水的流速稍微增加、能量就大幅上升，比較海床固定式與浮動式兩種設計，再看安裝如何搶在平潮時段進行，以及台灣的潮流能潛力。',
+facts:[['約 12.4','小時','半日潮的週期，一天約有兩次漲潮流與兩次退潮流'],
+['約 830','倍','海水密度約 1,025 kg/m³，約為空氣的 830 倍'],
+['8','倍','潮流功率與流速三次方成正比，流速加倍、功率變 8 倍'],
+['6','MW','蘇格蘭 MeyGen 第一期：4 部 1.5 MW 海床式渦輪'],
+['10.2','GWh','MeyGen 第一期 2023 年的淨發電量'],
+['3.5','m/s','台灣北端富貴角外海實測的最大表層流速']],
+note:'說明：本集為教育用途示意動畫，渦輪外觀、水深與流速比例經過壓縮調整。潮流功率 P = ½ρAv³ 為流體力學通用式（海水密度取 1,025 kg/m³）；月球引潮力約為太陽的 2.2 倍、半日潮週期約 12.42 小時、大小潮週期約 14.8 天為海洋學通用數值；MeyGen 第一期 4 部 1.5 MW、轉子直徑 18 m、高 22.5 m、約 1,500 噸、水深約 35 m、流速可達 5 m/s 與 2023 年淨發電 10.2 GWh 取自 SAE Renewables 公開資料與相關報導；Orbital O2 全長 72 m、2 部 1 MW、轉子直徑 20 m 取自 Orbital Marine Power 與 EMEC 公開資料；富貴角流速取自發表於期刊的實測研究；澎湖吼門水道潛能、2012 年澎湖跨海大橋試驗平台與基隆嶼至和平島間的全潛式機組測試取自國內大學研究與報導。每日流速曲線、出力、轉速與安裝時段等數值為典型範例。',
+base:()=>channelScene(TT*60*2.4,2.4),
 shots:[
-{t:'海上的點吸收式浮標',en:'A point absorber at sea',dur:13,side:true,
- d:'點吸收式浮標是最常見的波浪發電裝置之一。浮體漂在海面上，湧浪通過時跟著上下起伏；浮體透過繫纜連到海床基礎，海床幾乎不動，兩者之間的相對運動就由浮體裡的動力擷取系統（PTO）轉成電力。電力經動態海纜與海底電纜送到岸上變電站併網。一座浮標容量約數十到數百瓩，實際案場會把多座浮標排成陣列，共用海纜與併網設備。',
- s:[[0,'湧浪一波接一波通過浮標'],[.26,'浮體隨浪起伏，繫纜連到海床基礎'],[.52,'浮體與海床的相對運動轉成電力'],[.76,'電力經海底電纜送上岸併網']],
- cam:u=>camMix({x:800,y:480,s:1},{x:700,y:500,s:1.12},ease(seg(u,.1,.6))),
- draw(u){},
+{t:'海峽中的潮流渦輪',en:'A tidal turbine in the channel',dur:13,side:true,
+ d:'潮流發電把海水流動的動能轉成電力，原理和風力發電很像：水流推動轉子葉片，帶動機艙裡的發電機。差別在於渦輪整座沉在水下，通常設在島嶼與陸地之間的狹窄水道，因為海水被擠進窄處，流速會明顯加快。以蘇格蘭 MeyGen 為例，渦輪安裝在約 35 m 深的海床上，轉子直徑 18 m，電力經海底電纜送到岸上變電站併網，海面上幾乎看不到設施。',
+ s:[[0,'島嶼與陸地之間的水道，潮流來回奔流'],[.26,'整座渦輪沉在海床上，水流推動轉子'],[.52,'機艙內的發電機把轉動變成電力'],[.76,'電力經海底電纜送上岸併網']],
+ cam:u=>camMix({x:800,y:470,s:1},{x:720,y:560,s:1.2},ease(seg(u,.1,.6))),
+ draw(u){seabedTurbine(TX,HY,BED,1,TT*1.3);},
  fx(u){
   flowDots(P_CAB(),8,PWR,band(u,.74,1),.25,4);
-  const y=fyAt(BX);
-  lab(BX,y-40,'浮體',{dx:-60,dy:-90,st:'s',a:band(u,.24,.52)});
-  lab(BX,640,'繫纜',{dx:70,dy:-20,a:band(u,.26,.52)});
-  lab(BX,BED-30,'海床基礎',{dx:-90,dy:-40,a:band(u,.26,.52)});
-  lab(BX,y,'動力擷取（PTO）',{dx:110,dy:-80,st:'s',a:band(u,.5,.76)});
+  alphaDo(band(u,.02,.28),()=>{arrow(140,450,330,450,'#7dffc4',4);});
+  lab(240,450,'潮流',{dx:0,dy:-60,st:'g',a:band(u,.02,.3)});
+  lab(TX-14,HY-120,'轉子葉片',{dx:-110,dy:-50,st:'s',a:band(u,.24,.52)});
+  lab(TX+45,BED-50,'海床基座',{dx:-150,dy:20,a:band(u,.26,.52)});
+  lab(TX+60,HY,'發電機（機艙）',{dx:120,dy:-80,st:'s',a:band(u,.5,.76)});
   lab(1100,BED-4,'海底電纜',{dx:0,dy:-60,st:'s',a:band(u,.74,1)});
-  lab(CX+226,360,'岸上變電站',{dx:-40,dy:-40,st:'g',a:band(u,.78,1),minor:true});
+  lab(1560,SURF-80,'岸上變電站',{dx:-60,dy:-50,st:'g',a:band(u,.78,1),minor:true});
  },
- hud(u){hudPanel(240,150,'海況與出力（示例）',seg(u,.05,.1),w=>{const p=Math.max(0,120+90*Math.sin(TT*1.1))*ease(seg(u,.48,.6));
-  hrow(56,'示性波高','2.0 m',w,WAV);hrow(88,'週期','8 s',w,'#fff');hrow(120,'輸出',Math.round(p)+' kW',w,PWR);});}},
+ hud(u){hudPanel(240,150,'流況與出力（示例）',seg(u,.05,.1),w=>{const v=2.4+.15*Math.sin(TT*.7),p=1.5*tPow(v)*ease(seg(u,.48,.6));
+  hrow(56,'流速',trf('{n} m/s',{n:v.toFixed(1)}),w,WAV);hrow(88,'轉速','12 rpm',w,'#fff');hrow(120,'輸出',trf('{n} MW',{n:p.toFixed(2)}),w,PWR);});}},
 
-{t:'波浪能量從哪裡來',en:'Where wave energy comes from',dur:13,
- d:'風吹過海面，把能量傳給海水形成波浪；風越強、吹得越久、吹過的距離越遠，波浪就越大。波浪能用每公尺波峰寬度的功率表示，稱為波能流密度，約等於 0.49 乘上波高的平方再乘上週期，單位是 kW/m。波高加倍，能量變成四倍，所以選址時最看重波高。示性波高 2 m、週期 8 s 的湧浪，每公尺波峰約帶有 16 kW 的功率。',
- s:[[0,'風把能量交給海面，形成波浪'],[.26,'波高 H 與週期 T 決定波浪的能量'],[.5,'波能流：P ≈ 0.49 × H² × T'],[.74,'波高加倍，能量變成四倍']],
+{t:'潮汐從哪裡來',en:'Where tides come from',dur:14,
+ d:'潮汐來自月球與太陽的引潮力。月球把地球朝向它的一側海水拉近，背對的一側則因離心作用同樣隆起，形成兩個海水隆起。地球每天自轉一圈，海岸會經過兩次隆起，所以多數地方一天有兩次高潮、兩次低潮，週期約 12.4 小時。太陽的引潮力約為月球的一半；新月與滿月時日月成一直線，力量相加形成大潮，上下弦月時互相抵消成小潮，大小潮約每 14.8 天循環一次。',
+ s:[[0,'月球的引力讓海水在兩側隆起'],[.26,'地球自轉，海岸一天經過兩次高潮'],[.5,'日月成一直線時形成大潮'],[.74,'日月成直角時形成小潮，約 14.8 天循環']],
  draw(u){
   diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'波高與週期',20,'#f2c230',700);
-  /* 風 */
-  const wa=seg(u,.02,.1);for(let i=0;i<4;i++){const p=(TT*.6+i/4)%1;alphaDo(wa*(1-Math.abs(p-.5)*2),()=>arrow(120+p*400,260+i*26,180+p*400,260+i*26,'rgba(227,236,238,.8)',2.5));}
-  alphaDo(wa,()=>wt(640,290,'風',20,'#fff',700,'center'));
-  /* 波形 */
-  const Y0=500,A=60,L=380,X0=100,X1=740,ph=TT*1.4,wy=x=>Y0-A*Math.sin(TAU*(x-X0)/L-ph);
-  ctx.beginPath();ctx.moveTo(X0,720);for(let x=X0;x<=X1;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(X1,720);ctx.closePath();ctx.fillStyle='rgba(88,184,208,.35)';ctx.fill();
-  ctx.beginPath();for(let x=X0;x<=X1;x+=4)ctx.lineTo(x,wy(x));ctx.strokeStyle='#7dc8dc';ctx.lineWidth=3;ctx.stroke();
-  const ha=band(u,.24,1);if(ha>0)alphaDo(ha,()=>{ctx.setLineDash([6,6]);ln([X0,Y0-A,X1,Y0-A],'rgba(242,194,48,.7)',1.5);ln([X0,Y0+A,X1,Y0+A],'rgba(242,194,48,.7)',1.5);ctx.setLineDash([]);
-   arrow(180,Y0,180,Y0-A+4,PWR,2.5);arrow(180,Y0,180,Y0+A-4,PWR,2.5);wt(196,Y0+8,'波高 H',19,PWR,700,'left');
-   arrow(330,640,330+L,640,'#7dffc4',2.5);arrow(330+L,640,330,640,'#7dffc4',2.5);wt(330+L/2,680,'一個週期 T 通過一個波長',18,'#7dffc4',700,'center');});
-  /* 公式 */
-  alphaDo(seg(u,.5,.56),()=>{card(90,720,660,64,{bg:'rgba(242,194,48,.12)',st:'rgba(242,194,48,.6)'});wt(420,762,'P ≈ 0.49 × H² × T（kW/m）',22,PWR,700,'center',COND);});
-  /* 右：圖表 */
-  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'波能流密度與波高',20,'#f2c230',700);
-  const c=chartBox(840,220,680,520,{x0:0,x1:4,y0:0,y1:80,xt:[0,1,2,3,4],yt:[0,20,40,60,80],xl:'示性波高 H（m）',yl:'kW/m'});
-  const S=[[6,'rgba(227,236,238,.9)','T = 6 s',.3],[8,'#7dffc4','T = 8 s',.4],[10,'#ff8a60','T = 10 s',.5]];
-  S.forEach(([T,col,n,t0])=>{const f=ease(seg(u,t0,t0+.2));if(f<=0)return;const P=[];for(let i=0;i<=40;i++){const H=4*i/40;P.push({x:c.X(H),y:c.Y(wavePower(H,T))});}
-   pathLine(partial(P,f),col,3);alphaDo(seg(u,t0+.16,t0+.22),()=>wt(c.X(4)-6,c.Y(wavePower(4,T))-10,n,17,col,700,'right',COND));});
-  const ka=seg(u,.72,.78);if(ka>0)alphaDo(ka,()=>{const x=c.X(2),y=c.Y(wavePower(2,8));circ(x,y,7,PWR);ln([x,y,x,c.Y(0)],'rgba(242,194,48,.5)',1.5);
-   const qx=c.X(.2)+150,qy=c.Y(62);ln([x,y,qx,qy+45],'rgba(242,194,48,.6)',1.5);card(qx-150,qy-45,300,90,{bg:'rgba(7,27,39,.92)',st:PWR});wt(qx,qy-9,'H 2 m、T 8 s',18,'#fff',700,'center');wt(qx,qy+25,trf('約 {n} kW/m',{n:wavePower(2,8).toFixed(1)}),20,PWR,700,'center',COND);});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'月球、地球與兩個隆起',20,'#f2c230',700);
+  const ex=330,ey=390,ma=0;
+  ctx.save();ctx.translate(ex,ey);ctx.beginPath();ctx.ellipse(0,0,150,112,ma,0,TAU);ctx.fillStyle='rgba(88,184,208,.45)';ctx.fill();ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  circ(ex,ey,96,'#2f5d46','rgba(255,255,255,.3)',1.5);circ(ex,ey,96,'rgba(31,127,153,.25)');
+  /* 自轉中的海岸點 */
+  const ra=TT*.9,px=ex+96*Math.cos(ra),py=ey+96*Math.sin(ra),tide=Math.abs(Math.cos(ra));
+  const pa=seg(u,.24,.3);alphaDo(pa,()=>{circ(px,py,8,PWR);arrow(ex+60*Math.cos(ra-.5),ey+60*Math.sin(ra-.5),ex+60*Math.cos(ra-.1),ey+60*Math.sin(ra-.1),'rgba(227,236,238,.7)',2);
+   wt(ex,ey+8,tide>.6?'高潮':tide<.4?'低潮':'',20,PWR,700,'center');});
+  circ(690,ey,28,'#cfd6da','rgba(0,0,0,.3)',1);wt(690,ey+60,'月球',18,'#fff',700,'center');
+  alphaDo(seg(u,.04,.12),()=>{arrow(500,ey,620,ey,'rgba(227,236,238,.8)',2.5);wt(560,ey-16,'引潮力',17,'rgba(227,236,238,.9)',600,'center');});
+  wt(ex,ey+146,'兩個隆起',18,'#7dc8dc',700,'center');
+  /* 底部：大潮與小潮 */
+  const mini=(x,lab,col,a,perp)=>alphaDo(a,()=>{card(x,570,330,214,{bg:'rgba(7,27,39,.9)',st:col});wt(x+20,606,lab,19,col,700);
+   const cy=690,sx=x+44,exx=x+180;circ(sx,cy,18,'#ffd36b');wt(sx,cy+44,'太陽',16,'#ffd36b',700,'center');
+   ctx.save();ctx.translate(exx,cy);ctx.beginPath();if(perp)ctx.ellipse(0,0,46,40,0,0,TAU);else ctx.ellipse(0,0,60,34,0,0,TAU);ctx.fillStyle='rgba(88,184,208,.5)';ctx.fill();ctx.restore();circ(exx,cy,26,'#2f5d46');
+   const mx=perp?exx:x+290,my=perp?cy-62:cy;circ(mx,my,10,'#cfd6da');});
+  mini(80,'大潮：日月成一直線','#7dffc4',seg(u,.5,.56),false);
+  mini(430,'小潮：日月成直角','#ff8a60',seg(u,.74,.8),true);
+  /* 右：潮位圖 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'15 天的潮位變化（示意）',20,'#f2c230',700);
+  const c=chartBox(840,220,680,520,{x0:0,x1:15,y0:-2,y1:2,xt:[0,3,6,9,12,15],yt:[-2,-1,0,1,2],xl:'天',yl:'潮位（m）'});
+  const f=ease(seg(u,.06,.5)),P=[];for(let i=0;i<=900;i++){const d=15*i/900,h=1.3*(1+.46*Math.cos(TAU*d/14.77))*Math.cos(TAU*d*24/12.42)/1.46*1.4;P.push({x:c.X(d),y:c.Y(h)});}
+  pathLine(partial(P,f),'#7dc8dc',1.6);
+  alphaDo(seg(u,.5,.56),()=>{ring(c.X(.4),c.Y(1.75),14,'#7dffc4',2);wt(c.X(.6),c.Y(1.92),'大潮',17,'#7dffc4',700,'left');ring(c.X(14.6),c.Y(1.6),14,'#7dffc4',2);});
+  alphaDo(seg(u,.74,.8),()=>{ring(c.X(7.4),c.Y(.75),14,'#ff8a60',2);wt(c.X(7.4),c.Y(1.3),'小潮',17,'#ff8a60',700,'center');
+   ctx.setLineDash([6,6]);ln([c.X(0),c.Y(-1.95),c.X(14.77),c.Y(-1.95)],'rgba(242,194,48,.6)',1.5);ctx.setLineDash([]);wt(c.X(7.4),c.Y(-1.7),'約 14.8 天',17,PWR,700,'center',COND);});
  }},
 
-{t:'點吸收式浮標怎麼運作',en:'How a point absorber works',dur:14,
- d:'點吸收式浮標的直徑通常只有數公尺，比波長小得多，因此不論波浪從哪個方向來，都能從四周吸收能量，好像一個「點」。浮體受浮力推動上下運動，繫纜另一端固定在海床，動力擷取系統就在兩者之間拉伸與收縮。若讓浮體的運動節奏和波浪同步，形成共振，位移可以比波高大好幾倍；國外業者以相位控制讓浮體在 1 m 的浪中上下移動約 3 m，吸收更多能量。',
- s:[[0,'浮體直徑遠小於波長，像一個點'],[.24,'四面八方來的波浪都能吸收'],[.48,'浮體與海床之間的相對運動推動 PTO'],[.72,'共振與相位控制，讓浮體動得比浪更大']],
+{t:'漲潮流與退潮流',en:'Flood and ebb currents',dur:13,
+ d:'潮位升降時，海水在水道中來回流動：漲潮時往一個方向流，退潮時反向，中間約有短暫的平潮，流速接近零。所以潮流渦輪的出力也是一天四次由低到高、再由高到低。機組在流速約 1 m/s 時開始發電，到額定流速後維持滿載。轉子必須能兩個方向都發電，有的機組讓機艙轉向，有的把葉片角度翻轉 180 度。潮流的時間和大小可以依天文計算提前多年預測，這是它和風、太陽最大的不同。',
+ s:[[0,'漲潮流與退潮流，一天來回兩次'],[.26,'流速在平潮時接近零，再反向增加'],[.52,'流速超過約 1 m/s 開始發電，到額定後滿載'],[.76,'潮流可依天文計算提前多年預測']],
  draw(u){
   diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'側視：浮體、PTO 與繫纜',20,'#f2c230',700);
-  const Y0=380,A=40,L=520,ph=TT*1.4,wy=x=>Y0-A*Math.sin(TAU*(x-80)/L-ph),X=420;
-  ctx.beginPath();ctx.moveTo(80,760);for(let x=80;x<=760;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(760,760);ctx.closePath();ctx.fillStyle='rgba(29,102,144,.55)';ctx.fill();
-  ctx.beginPath();for(let x=80;x<=760;x+=4)ctx.lineTo(x,wy(x));ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2.5;ctx.stroke();
-  box(80,740,680,40,'#b59a6a');
-  const amp=lerp(1,1.8,ease(seg(u,.72,.8))),fy=Y0-A*amp*Math.sin(TAU*(X-80)/L-ph-.3*amp);
-  ln([X,fy+60,X,712],'#e3e8ec',3);box(X-50,712,100,28,'#6a747a');
-  /* 浮體剖面：PTO 缸體 */
-  rrp(X-80,fy-40,160,80,20);ctx.fillStyle='#e3b53a';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.stroke();
-  const pa=band(u,.46,1);box(X-22,fy-30,44,72,pa>0?'rgba(242,194,48,'+(.25+.5*pa)+')':'#2a3a46','rgba(0,0,0,.4)',1);
-  const rod=clamp((fy-Y0)/(A*1.8),-1,1);box(X-16,fy-10+rod*14,32,10,'#c9d1d6');ln([X,fy+rod*14,X,fy+60],'#c9d1d6',5);
-  const aa=band(u,.46,1);if(aa>0)alphaDo(aa,()=>{arrow(X+120,Y0,X+120,Y0-60,'#7dffc4',3);arrow(X+120,Y0,X+120,Y0+60,'#7dffc4',3);wt(X+140,Y0+8,'相對運動',18,'#7dffc4',700,'left');});
-  wt(X-100,fy+6,'浮體',18,'#fff',700,'right');alphaDo(pa,()=>wt(X,fy-52,'PTO',18,PWR,700,'center',COND));
-  wt(X+30,650,'繫纜',17,'rgba(227,236,238,.9)',600,'left');wt(X+64,732,'海床基礎',17,'rgba(227,236,238,.9)',600,'left');
-  /* 右上：俯視 */
-  card(820,150,720,310,{bg:'rgba(7,27,39,.75)'});wt(844,196,'俯視：從各方向吸收',20,'#f2c230',700);
-  const cx=1180,cy=320,da=seg(u,.2,.3);
-  for(let i=0;i<3;i++){const p=(TT*.35+i/3)%1;ring(cx,cy,20+p*110,'rgba(125,200,220,'+(.6*(1-p))+')',2);}
-  if(da>0)alphaDo(da,()=>{for(let k=0;k<6;k++){const a=k*TAU/6+.3,r=120;arrow(cx+Math.cos(a)*r,cy+Math.sin(a)*r*.9,cx+Math.cos(a)*40,cy+Math.sin(a)*36,'#7dc8dc',2.5);}});
-  circ(cx,cy,18,'#e3b53a','rgba(0,0,0,.4)',1.5);wt(1510,440,'直徑數公尺，遠小於波長',17,'rgba(227,236,238,.85)',600,'right');
-  /* 右下：共振 */
-  card(820,490,720,310,{bg:'rgba(7,27,39,.75)'});wt(844,536,'共振與相位控制（示例）',20,'#f2c230',700);
-  const gx0=860,gx1=1500,gy=660;ln([gx0,gy,gx1,gy],'rgba(255,255,255,.15)',1);
-  const curve=(am,col,lw,f,sh)=>{const P=[];for(let i=0;i<=80;i++){const x=gx0+(gx1-gx0)*i/80;P.push({x,y:gy-am*Math.sin(i/80*TAU*2-TT*1.4+sh)});}pathLine(partial(P,f),col,lw);};
-  curve(26,'#7dc8dc',2.5,1,0);const ra=ease(seg(u,.72,.84));if(ra>0)curve(26+52*ra,PWR,3,1,-.4);
-  wt(gx0,776,'波浪 1 m',17,'#7dc8dc',700,'left');alphaDo(ra,()=>wt(gx1,776,'浮體位移 約 3 m',17,PWR,700,'right'));
+  const hr=lerp(0,25,u),v=tideV(hr);
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'水道剖面：流向反轉',20,'#f2c230',700);
+  box(80,250,680,360,'rgba(29,102,144,.55)');box(80,610,680,40,'#b59a6a');
+  /* 流線 */
+  const R=rng(11);for(let i=0;i<22;i++){const bx=R()*680,y=270+R()*320,x=80+((bx+TT*v*90)%680+680)%680,L=10+Math.abs(v)*12;alphaDo(clamp(Math.abs(v)/2)*.8,()=>ln([x,y,x-Math.sign(v)*L,y],'rgba(227,240,245,.8)',2));}
+  /* 渦輪：依流向轉身 */
+  const flip=v<0?-1:1,ang=TT*1.4*tPow(v)+TT*.2;ctx.save();ctx.translate(420,450);ctx.scale(flip*.9,.9);
+  box(34,20,18,170,'#c9d1d6');rrp(-6,-18,112,36,14);ctx.fillStyle='#e3e8ec';ctx.fill();rotorSide(-14,0,110,ang,.9);ctx.restore();
+  const dir=Math.abs(v)<.5?'平潮':v>0?'漲潮流':'退潮流',dc=Math.abs(v)<.5?'rgba(227,236,238,.9)':v>0?'#7dffc4':'#7dc8dc';
+  tag(420,290,dir,{bg:'rgba(7,27,39,.85)',fg:dc,size:20,align:'center'});
+  if(Math.abs(v)>=.5)arrow(v>0?220:620,700,v>0?620:220,700,dc,4);
+  wt(420,752,trf('流速 {n} m/s',{n:Math.abs(v).toFixed(1)}),22,dc,700,'center',COND);
+  /* 右：流速與出力 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'一天的流速與出力（示例）',20,'#f2c230',700);
+  const c=chartBox(840,220,680,500,{x0:0,x1:25,y0:-3,y1:3,xt:[0,6,12,18,24],yt:[-3,-2,-1,0,1,2,3],xl:'小時',yl:'m/s'});
+  ln([c.X(0),c.Y(0),c.X(25),c.Y(0)],'rgba(255,255,255,.3)',1);
+  const pa=seg(u,.5,.56);if(pa>0)alphaDo(pa*.8,()=>{ctx.beginPath();ctx.moveTo(c.X(0),c.Y(-3));for(let i=0;i<=250;i++){const h=hr*i/250;ctx.lineTo(c.X(h),c.Y(-3+2*tPow(tideV(h))));}ctx.lineTo(c.X(hr),c.Y(-3));ctx.closePath();ctx.fillStyle='rgba(242,194,48,.45)';ctx.fill();});
+  const P=[];for(let i=0;i<=250;i++){const h=hr*i/250;P.push({x:c.X(h),y:c.Y(tideV(h))});}pathLine(P,'#7dc8dc',3);
+  circ(c.X(hr),c.Y(v),7,'#fff');
+  alphaDo(seg(u,.26,.32),()=>{[6.21,12.42,18.63].forEach(h=>{if(h<=hr)ring(c.X(h),c.Y(0),10,'rgba(227,236,238,.9)',2);});wt(c.X(6.21),c.Y(.35),'平潮',16,'rgba(227,236,238,.9)',700,'center');});
+  alphaDo(pa,()=>{wt(c.X(24.6),c.Y(-2.55),'出力',17,PWR,700,'right');ctx.setLineDash([5,5]);ln([c.X(0),c.Y(1),c.X(25),c.Y(1)],'rgba(242,194,48,.5)',1.2);ctx.setLineDash([]);wt(c.X(24.6),c.Y(1.15),'約 1 m/s 開始發電',16,PWR,600,'right');});
+  alphaDo(seg(u,.76,.82),()=>{card(870,740,620,48,{bg:'rgba(125,255,196,.12)',st:'rgba(125,255,196,.6)'});wt(1180,772,'潮汐表可提前多年預測發電量',19,'#7dffc4',700,'center');});
  }},
 
-{t:'動力擷取：液壓與直驅',en:'Power take-off: hydraulic vs direct drive',dur:14,
- d:'浮體的運動慢而有力，每秒只有一兩公尺，方向還不斷反轉，動力擷取系統要把它變成穩定的電力。液壓式用活塞把油壓進蓄壓器，再以固定壓力推動液壓馬達與發電機，能平滑波浪起伏、承受很大的力，但油路元件多、需要定期保養。直驅線性發電機讓裝有磁鐵的動子直接在線圈中往復移動發電，零件少、效率高，但低速大推力使發電機又大又重，輸出電壓與頻率不斷變化，要靠變流器整理後才能併網。',
- s:[[0,'浮體運動慢、力量大，方向不斷反轉'],[.24,'液壓式：活塞壓油，蓄壓器平滑出力'],[.52,'直驅式：磁鐵在線圈中往復，直接發電'],[.78,'變流器把變動的電整理成穩定的交流電']],
+{t:'為什麼海水流得慢也有力',en:'Why slow water is powerful',dur:13,
+ d:'流體的功率可寫成 P = ½ρAv³：ρ 是密度、A 是轉子掃掠面積、v 是流速。海水的密度約 1,025 kg/m³，約為空氣的 830 倍，所以每秒 2 到 3 m 的潮流，每平方公尺就帶有數千到上萬瓦的功率，同樣出力所需的轉子比風機小得多。功率又與流速的三次方成正比，流速加倍、功率變成 8 倍，因此選址最重視流速。轉子實際只能擷取其中約 35 到 45%。',
+ s:[[0,'功率 P = ½ρAv³，密度與流速是關鍵'],[.26,'海水密度約為空氣的 830 倍'],[.5,'流速加倍，功率變成 8 倍'],[.76,'所以潮流渦輪要找流速最快的水道']],
  draw(u){
   diagBG();
-  const L=band(u,.2,1),R=band(u,.5,1),hl=(k,on)=>on?'rgba(242,194,48,.7)':'rgba(255,255,255,.12)';
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(0,u>=.24&&u<.52)});wt(84,196,'液壓式 PTO',20,'#f2c230',700);
-  card(820,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(1,u>=.52)});wt(844,196,'直驅線性發電機',20,'#f2c230',700);
-  const st=Math.sin(TT*1.6);
-  /* 液壓：活塞缸 → 蓄壓器 → 馬達 → 發電機 */
-  box(110,250,70,220,'#44535c','rgba(255,255,255,.3)',1);const py=330+st*50;box(114,py,62,16,'#c9d1d6');ln([145,py,145,240],'#c9d1d6',6);
-  alphaDo(.8,()=>box(114,py+16,62,454-py,'rgba(255,138,96,.45)'));
-  wt(145,500,'活塞缸',17,'#fff',700,'center');
-  rrp(270,270,70,170,34);ctx.fillStyle='#8d989f';ctx.fill();wt(305,470,'蓄壓器',17,'#fff',700,'center');
-  circ(470,350,44,'#5c6770','rgba(255,255,255,.3)',1);for(let i=0;i<4;i++){const a=TT*3*L+i*TAU/4;ln([470,350,470+Math.cos(a)*36,350+Math.sin(a)*36],'#c9d1d6',4);}wt(470,430,'液壓馬達',17,'#fff',700,'center');
-  ln([514,350,580,350],'#8d989f',8);box(580,300,130,100,'#1f7f99','rgba(255,255,255,.3)',1);wt(645,430,'發電機',17,'#fff',700,'center');
-  const Po=[[180,440],[230,440],[230,400],[270,400]],Pa=[[340,350],[426,350]],Pr=[[470,394],[470,450],[180,450]];
-  [Po,Pa,Pr].forEach(P=>pl(P,'rgba(141,152,159,.8)',5));flowDots(Po,3,OIL,L,.6,5);flowDots(Pa,3,OIL,L,.6,5);flowDots(Pr,5,'#ff9d7a',L*.6,.3,4);
-  alphaDo(L,()=>{for(let i=0;i<3;i++){const p=(TT*1.2+i/3)%1;ln([712,340+i*12,712+30*p,340+i*12],PWR,3);}});
-  /* 右：線性發電機 */
-  const cx=1000,cy=280;for(let i=0;i<8;i++)box(cx-60,cy+i*24,20,18,'#c77d3a','rgba(0,0,0,.3)',1);for(let i=0;i<8;i++)box(cx+40,cy+i*24,20,18,'#c77d3a','rgba(0,0,0,.3)',1);
-  const my=cy-30+st*50;for(let i=0;i<6;i++)box(cx-30,my+i*30,60,28,i%2?'#e8572a':'#58b8d0','rgba(0,0,0,.35)',1);ln([cx,my,cx,cy-60],'#c9d1d6',6);
-  wt(cx,cy+230,'線圈（定子）＋磁鐵（動子）',17,'#fff',700,'center');
-  /* 輸出波形 */
-  const ox=1120,oy=340;ln([ox,oy,1500,oy],'rgba(255,255,255,.15)',1);
-  if(R>0)alphaDo(R,()=>{const P=[];for(let i=0;i<=120;i++){const t=i/120,env=Math.abs(Math.sin(t*TAU*1-TT*1.6));P.push({x:ox+380*t,y:oy-60*env*Math.sin(t*TAU*9-TT*8)});}pathLine(P,MAG,2);wt(1310,440,'電壓與頻率不斷變化',17,MAG,700,'center');});
-  const ia=seg(u,.78,.84);if(ia>0)alphaDo(ia,()=>{box(1120,470,160,60,'#44535c','rgba(255,255,255,.3)',1);wt(1200,508,'變流器',18,'#fff',700,'center');arrow(1290,500,1340,500,PWR,3);
-   const P=[];for(let i=0;i<=60;i++){const t=i/60;P.push({x:1350+150*t,y:500-26*Math.sin(t*TAU*3-TT*4)});}pathLine(P,'#7dffc4',2.5);});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'海水與空氣的密度',20,'#f2c230',700);
+  alphaDo(seg(u,.02,.08),()=>{card(90,220,660,70,{bg:'rgba(242,194,48,.12)',st:'rgba(242,194,48,.6)'});wt(420,267,'P = ½ ρ A v³',28,PWR,700,'center',COND);});
+  const da=ease(seg(u,.24,.4));
+  box(140,340,560,56,'rgba(255,255,255,.08)');box(140,340,560*da,56,'#58b8d0');wt(150,326,'海水 1,025 kg/m³',18,'#7dc8dc',700,'left');
+  box(140,450,560,56,'rgba(255,255,255,.08)');box(140,450,Math.max(3,560*da/830),56,'#e3e8ec');wt(150,436,'空氣 1.2 kg/m³',18,'#fff',700,'left');
+  alphaDo(seg(u,.32,.38),()=>wt(700,540,'約 830 倍',26,PWR,700,'right',COND));
+  /* 轉子大小比較 */
+  const ra=seg(u,.38,.46);alphaDo(ra,()=>{wt(84,600,'同樣出力，轉子小得多（示意）',18,'rgba(227,236,238,.9)',600);
+   ring(230,710,36,'#7dc8dc',3);circ(230,710,5,'#7dc8dc');wt(300,716,'潮流渦輪',17,'#7dc8dc',700,'left');
+   ring(560,710,82,'rgba(227,236,238,.6)',2);circ(560,710,5,'#fff');wt(652,716,'風機',17,'#fff',700,'left');});
+  /* 右：功率密度曲線 */
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(844,196,'每平方公尺的潮流功率',20,'#f2c230',700);
+  const c=chartBox(840,220,680,520,{x0:0,x1:4,y0:0,y1:35,xt:[0,1,2,3,4],yt:[0,10,20,30],xl:'流速 v（m/s）',yl:'kW/m²'});
+  const pd=v=>.5*1.025*v*v*v,f=ease(seg(u,.08,.5)),P=[];for(let i=0;i<=60;i++){const v=4*i/60;P.push({x:c.X(v),y:c.Y(pd(v))});}pathLine(partial(P,f),'#7dc8dc',3);
+  const mk=(v,a,col)=>alphaDo(a,()=>{const x=c.X(v),y=c.Y(pd(v));circ(x,y,7,col);ln([x,y,x,c.Y(0)],col,1.5);wt(x-12,y-14,trf('{n} kW/m²',{n:pd(v).toFixed(1)}),18,col,700,'right',COND);});
+  mk(1.5,seg(u,.5,.56),'#7dffc4');mk(3,seg(u,.56,.62),PWR);
+  alphaDo(seg(u,.6,.66),()=>{card(c.X(.3),c.Y(30),300,80,{bg:'rgba(7,27,39,.92)',st:PWR});wt(c.X(.3)+150,c.Y(30)+34,'流速 1.5 → 3 m/s',18,'#fff',700,'center');wt(c.X(.3)+150,c.Y(30)+66,'功率 × 8',22,PWR,700,'center',COND);});
+  alphaDo(seg(u,.76,.82),()=>wt(1510,770,'實際可擷取約 35–45%',17,'rgba(227,236,238,.85)',600,'right'));
+ }},
+
+{t:'海床固定式與浮動式',en:'Seabed-mounted vs floating',dur:14,
+ d:'潮流渦輪主要有兩種固定方式。海床固定式把整座機組放在海底，以三腳架與壓艙塊靠重量站穩，不受海面風浪影響，也不妨礙船隻通行，但維修要用大型工作船把機艙吊上來。浮動式把轉子掛在浮體下方，以錨鏈固定在海床，可以利用接近海面、流速較快的水層，維修時把轉子腳架升出水面即可作業，但要承受風浪與颱風的負載。蘇格蘭的 MeyGen 與 Orbital O2 分別是兩種型式的代表。',
+ s:[[0,'海床固定式：三腳架與壓艙塊靠重量站穩'],[.26,'不受風浪影響，但維修要吊起機艙'],[.5,'浮動式：轉子掛在浮體下方，以錨鏈固定'],[.76,'轉子腳架可升出水面，維修較方便']],
+ draw(u){
+  diagBG();
+  const L=band(u,0,1),R=seg(u,.48,.54),hl=on=>on?'rgba(242,194,48,.7)':'rgba(255,255,255,.12)';
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(u<.5)});wt(84,196,'海床固定式',20,'#f2c230',700);
+  card(820,150,720,650,{bg:'rgba(7,27,39,.75)',st:hl(u>=.5)});wt(844,196,'浮動式',20,'#f2c230',700);
+  /* 左：水體 */
+  box(80,240,680,300,'rgba(29,102,144,.5)');box(80,540,680,24,'#b59a6a');
+  for(let i=0;i<10;i++){const x=80+((i*68+TT*80)%680);alphaDo(.5,()=>ln([x,300+i%4*60,x-20,300+i%4*60],'rgba(227,240,245,.8)',2));}
+  seabedTurbine(330,400,540,.62,TT*1.2);
+  alphaDo(seg(u,.02,.08),()=>{wt(560,330,'MeyGen AR1500',18,'#fff',700,'left',COND);wt(560,362,'1.5 MW・轉子 18 m',17,'rgba(227,236,238,.85)',600,'left');wt(560,392,'高 22.5 m・約 1,500 t',17,'rgba(227,236,238,.85)',600,'left');});
+  /* 右：浮動式 */
+  box(840,280,680,284,'rgba(29,102,144,.5)');  ctx.beginPath();ctx.moveTo(840,280);for(let x=840;x<=1520;x+=6)ctx.lineTo(x,280+4*Math.sin(x*.04-TT*2));ctx.strokeStyle='#7dc8dc';ctx.lineWidth=2;ctx.stroke();
+  const fx0=1020,fy0=282+3*Math.sin(TT*1.2),up=seg(u,.76,.86);
+  rrp(fx0,fy0-14,320,28,12);ctx.fillStyle='#e3b53a';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.2;ctx.stroke();
+  [fx0+30,fx0+290].forEach(lx=>{const ang=lerp(0,Math.PI*.5,ease(up))*(lx<fx0+160?1:-1);
+   ctx.save();ctx.translate(lx,fy0);ctx.rotate(ang);box(-7,0,14,120,'#c9d1d6','rgba(0,0,0,.3)',1);ctx.translate(0,140);
+   rrp(-10,-14,40,28,10);ctx.fillStyle='#e3e8ec';ctx.fill();rotorSide(-14,0,60,TT*1.5*(1-up),.6);ctx.restore();});
+  alphaDo(L,()=>{ln([fx0+10,fy0+10,880,560],'#5c6770',2.5);ln([fx0+310,fy0+10,1490,560],'#5c6770',2.5);});
+  box(840,560,680,24,'#b59a6a');
+  alphaDo(R,()=>{wt(860,250,'Orbital O2',18,'#fff',700,'left',COND);wt(1500,250,'全長 72 m・2 × 1 MW・轉子 20 m',17,'rgba(227,236,238,.85)',600,'right');});
+  alphaDo(R,()=>wt(880,540,'錨鏈',16,'rgba(227,236,238,.85)',600,'left'));
   /* 優缺點 */
-  const pc=(x,y,good,bad,a)=>alphaDo(a,()=>{tag(x,y,'優點',{bg:'rgba(125,255,196,.2)',fg:'#7dffc4',size:16});wt(x+60,y+6,good,18,'#fff',600,'left');
-   tag(x,y+54,'限制',{bg:'rgba(232,87,42,.2)',fg:'#ff8a60',size:16});wt(x+60,y+60,bad,18,'#fff',600,'left');});
-  pc(100,640,'出力平滑、承受大力量','油路元件多、需定期保養',L);
-  pc(860,640,'零件少、效率高','體積大且重、需要變流器',R);
+  const pc=(x,y,good,bad,a1,a2)=>{alphaDo(a1,()=>{tag(x,y,'優點',{bg:'rgba(125,255,196,.2)',fg:'#7dffc4',size:16});wt(x+76,y+6,good,18,'#fff',600,'left');});
+   alphaDo(a2,()=>{tag(x,y+60,'限制',{bg:'rgba(232,87,42,.2)',fg:'#ff8a60',size:16});wt(x+76,y+66,bad,18,'#fff',600,'left');});};
+  pc(100,640,'不受風浪影響、不妨礙航行','維修需大型船吊起機艙',seg(u,.02,.08),seg(u,.26,.32));
+  pc(860,640,'利用表層較快的流速','需承受風浪與颱風負載',seg(u,.5,.56),seg(u,.5,.56));
+  alphaDo(seg(u,.76,.82),()=>wt(1500,740,'腳架升起，在水面上維修',17,'#7dffc4',700,'right'));
  }},
 
-{t:'錨繫與海纜',en:'Moorings and cables',dur:13,side:true,
- d:'浮標要在大浪中留在原地，錨繫系統是關鍵。張力式繫纜把浮體拉向海床基礎，基礎可用重力式混凝土塊、樁或吸力式沉箱，視海床是砂、泥或岩盤而定。浮標上下起伏，電纜不能繃直，所以從浮體到海床之間用帶浮力模組的動態海纜，彎成緩和的 S 形吸收運動，再接到固定在海床上的海底電纜送往岸邊。國外試驗案例多設在離岸數公里、水深約 40 到 50 m 的海域。',
- s:[[0,'鏡頭潛入水下，看浮標怎麼固定'],[.24,'張力式繫纜把浮體拉向海床基礎'],[.5,'動態海纜彎成 S 形，吸收浮體起伏'],[.76,'海底電纜沿海床送往岸上變電站']],
- cam:u=>camMix({x:800,y:480,s:1},{x:720,y:600,s:1.4},ease(seg(u,.02,.2))),
+{t:'搶在平潮時安裝',en:'Installing at slack water',dur:13,side:true,
+ d:'潮流渦輪設在流速最快的地方，安裝與維修卻需要水流平靜。工作船先以動態定位停在基座正上方，等潮流減慢；平潮時段通常只有數十分鐘到一兩個小時，船上的吊機要在這段時間內把機艙與轉子放到海床基座上，以導引機構對準並鎖固，再把機組電纜接上海底電纜。錯過平潮就得等下一次，大約六個多小時後。作業規劃會依潮汐表與天氣預報排定時程。',
+ s:[[0,'工作船停在基座上方，等待潮流減慢'],[.3,'平潮時段開始，吊機放下機艙與轉子'],[.62,'機艙對準基座並鎖固'],[.82,'接上電纜，潮流再起前完成作業']],
+ base:u=>channelScene(insPh(u),insV(u)),
+ cam:u=>camMix({x:760,y:470,s:1.05},{x:700,y:520,s:1.15},ease(seg(u,.3,.7))),
  draw(u){
-  const y=fyAt(BX)+22,a=band(u,.46,1);
-  if(a>0)alphaDo(a,()=>{const P=[];for(let i=0;i<=30;i++){const t=i/30;P.push({x:BX+20+t*180,y:lerp(y,BED-10,t)-90*Math.sin(t*Math.PI)*(1-t*.3)+(1-t)*(fyAt(BX)-SW.y)*.3});}
-   pathLine(P,'#1a1a1a',4);for(let k=0;k<4;k++){const p=P[10+k*2];circ(p.x,p.y,7,'#e3b53a','rgba(0,0,0,.4)',1);}});
+  const ny=lerp(SURF-10,HY,ease(seg(u,.3,.72))),bx=TX+45;
+  seabedTurbine(TX,HY,BED,1,0,{nac:false});
+  /* 工作船 */
+  const vy=SURF+2*Math.sin(TT*1.3);poly([TX-260,vy-30,TX+300,vy-30,TX+270,vy+16,TX-230,vy+16],'#c74a2a','rgba(0,0,0,.35)',1.5);
+  box(TX-230,vy-90,110,60,'#e3e8ec','rgba(0,0,0,.3)',1);box(TX-215,vy-80,80,16,'#1f7f99');
+  ln([TX+250,vy-30,TX+250,vy-100,bx,vy-112],'#e9b21f',8);
+  ln([bx,vy-112,bx,ny-24],'#2a3a46',2);box(bx-10,ny-30,20,10,'#e9b21f');
+  ctx.save();ctx.beginPath();ctx.rect(-200,-200,2000,ny+400);ctx.clip();nacelle(TX,ny,1,.3);ctx.restore();
+  const ca=seg(u,.82,.9);if(ca>0)alphaDo(ca,()=>ln([bx,BED-44,TX+150,BED-6],'#1a1a1a',4));
  },
  fx(u){
-  flowDots(P_CAB(),8,PWR,band(u,.74,1),.25,4);
-  lab(BX,700,'張力式繫纜',{dx:-110,dy:-30,st:'s',a:band(u,.22,.5)});
-  lab(BX,BED-26,'海床基礎',{dx:-80,dy:-50,a:band(u,.22,.5)});
-  lab(BX+110,fyAt(BX)+60,'動態海纜',{dx:90,dy:-40,st:'s',a:band(u,.5,.78)});
-  lab(BX+100,540,'浮力模組',{dx:110,dy:30,a:band(u,.52,.78),minor:true});
-  lab(900,BED-4,'海底電纜',{dx:40,dy:-50,st:'g',a:band(u,.76,1)});
+  lab(TX-180,SURF-60,'工作船（動態定位）',{dx:120,dy:-60,a:band(u,.02,.3)});
+  lab(TX+45,BED-50,'海床基座',{dx:-150,dy:-30,a:band(u,.04,.3)});
+  const ny=lerp(SURF-10,HY,ease(seg(u,.3,.72)));
+  lab(TX+60,ny,'機艙與轉子',{dx:150,dy:-50,st:'s',a:band(u,.32,.62)});
+  lab(TX+45,HY+30,'導引與鎖固',{dx:150,dy:20,st:'g',a:band(u,.62,.82)});
+  lab(TX+120,BED-20,'電纜接頭',{dx:120,dy:-40,st:'s',a:band(u,.82,1)});
  },
- hud(u){hudPanel(240,150,'錨繫（示例）',seg(u,.05,.1),w=>{const t=Math.round(600+300*Math.sin(TT*1.1));
-  hrow(56,'水深','約 45 m',w,WAV);hrow(88,'繫纜張力',trf('{n} kN',{n:t}),w,'#fff');hbar(14,100,w-28,t/1000,PWR);hrow(136,'離岸距離','約 4 km',w,'#7dffc4');});}},
+ hud(u){hudPanel(240,150,'作業窗口（示例）',seg(u,.03,.08),w=>{const v=insV(u),ok=v<.5;
+  hrow(56,'流速',trf('{n} m/s',{n:v.toFixed(1)}),w,ok?'#7dffc4':'#ff8a60');hbar(14,68,w-28,v/2.5,ok?'#7dffc4':'#ff8a60');
+  hrow(104,'狀態',ok?'平潮：可作業':'等待',w,ok?'#7dffc4':'#fff');hrow(136,'窗口','約 1 小時',w,PWR);});}},
 
-{t:'海況與颱風',en:'Sea states and typhoons',dur:13,
- d:'波浪能隨季節變化很大。台灣東北部每年有半年以上吹東北季風，秋冬的波浪能明顯較高，夏季風浪較小，卻可能遇上颱風。浮標的設計要在兩件事之間取得平衡：一般海況盡量多發電，極端海況則要活下來。浪太大時控制系統會限制出力與衝程；颱風來襲時進入存活模式，例如把浮體鎖定或壓入水中，讓巨浪從上方通過。颱風期間的示性波高可超過 10 m，是設計的最大考驗。',
- s:[[0,'東北季風季節，波浪能明顯較高'],[.26,'夏季風浪較小，但有颱風威脅'],[.5,'一般海況發電，大浪時限制出力'],[.74,'颱風來襲：進入存活模式，讓巨浪通過']],
+{t:'台灣的潮流能',en:'Tidal stream energy in Taiwan',dur:13,
+ d:'台灣的潮流能資源集中在地形收窄、流速較快的海域。北端富貴角外海的實測研究顯示，表層最大流速可超過 3.5 m/s；基隆嶼與和平島之間也有強勁的潮流，國內大學曾在此測試全潛式潮流發電機組。澎湖的吼門水道與西嶼外海被評估為較具潛能的區域，2012 年也曾在澎湖跨海大橋下進行潮流發電平台試驗。國外則以蘇格蘭 MeyGen 最具規模，第一期 6 MW 在 2023 年淨發電 10.2 GWh。',
+ s:[[0,'潮流能集中在地形收窄的海域'],[.24,'富貴角外海表層流速可超過 3.5 m/s'],[.5,'基隆與澎湖都曾進行潮流發電測試'],[.76,'蘇格蘭 MeyGen 已累積多年商轉經驗']],
  draw(u){
   diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'台灣東北部每月波能（示意）',20,'#f2c230',700);
-  const M=[22,20,15,10,7,5,5,6,9,16,22,24],c=chartBox(80,220,680,520,{x0:.5,x1:12.5,y0:0,y1:30,xt:[1,2,3,4,5,6,7,8,9,10,11,12],yt:[0,10,20,30],xl:'月份',yl:'kW/m'});
-  M.forEach((v,i)=>{const f=ease(seg(u,.02+i*.02,.12+i*.02)),x=c.X(i+1),w=c.pw/12*.62,win=i>=9||i<=2;box(x-w/2,c.Y(v*f),w,c.Y(0)-c.Y(v*f),win?'#58b8d0':'rgba(88,184,208,.45)');});
-  alphaDo(seg(u,.02,.1),()=>wt(c.X(1.5),c.Y(27.5),'東北季風',17,'#7dc8dc',700,'center'));
-  alphaDo(seg(u,.26,.32),()=>{for(let m=7;m<=9;m++){const x=c.X(m);ring(x,c.Y(12),10,'#ff8a60',2);}wt(c.X(8),c.Y(16),'颱風',17,'#ff8a60',700,'center');});
-  /* 右：運轉模式 */
-  const modes=[['一般海況','發電','#7dffc4',.5,1],['大浪','限制出力與衝程','#f2c230',.6,1.8],['颱風','存活模式','#ff8a60',.74,3]];
-  modes.forEach(([t,s,col,t0,H],i)=>{const a=seg(u,t0,t0+.06),y=160+i*214;alphaDo(Math.max(.25,a),()=>{
-   card(820,y,720,196,{bg:'rgba(7,27,39,.75)',st:a>0?col:'rgba(255,255,255,.12)'});wt(844,y+42,t,20,col,700);wt(844,y+78,s,18,'#fff',600);
-   const A=10*H,x0=1120,x1=1510,wy=x=>y+110-A*Math.sin(TAU*(x-x0)/200-TT*1.3);ctx.beginPath();ctx.moveTo(x0,y+186);for(let x=x0;x<=x1;x+=4)ctx.lineTo(x,wy(x));ctx.lineTo(x1,y+186);ctx.closePath();ctx.fillStyle='rgba(29,102,144,.6)';ctx.fill();
-   const bx=1300,by=i===2?y+150:wy(bx)-(i===1?4:0);ln([bx,by+14,bx,y+186],'#e3e8ec',2);rrp(bx-26,by-12,52,26,8);ctx.fillStyle='#e3b53a';ctx.fill();
-   if(i===2)wt(844,y+150,'示性波高可超過 10 m',17,'#ff9d7a',600);});});
- }},
-
-{t:'台灣的波浪能',en:'Wave energy in Taiwan',dur:14,
- d:'台灣四面環海，波浪能資源以東北部、東部外海、澎湖西側與巴士海峽較佳，波能流密度約 15 到 20 kW/m；西岸與西南沿海多在 10 kW/m 以下。估計周邊海域的蘊藏量約 10 GW。颱風與地震頻繁，國外機組不一定適合台灣，國內正發展適合在地海況的技術。蘇澳港已規劃 3 處離岸式波浪發電試驗區，業界預估 2030 年前裝置容量可達 50 到 100 MW。',
- s:[[0,'東北部與東部外海的波浪能較佳'],[.24,'高能海域約 15–20 kW/m'],[.48,'周邊海域蘊藏量估計約 10 GW'],[.72,'蘇澳港規劃 3 處離岸式試驗區']],
- draw(u){
-  diagBG();
-  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'波能流密度分布（示意）',20,'#f2c230',700);
+  card(60,150,720,650,{bg:'rgba(7,27,39,.75)'});wt(84,196,'潮流能較佳的海域（示意）',20,'#f2c230',700);
   const MX=l=>180+(l-119)*170,MY=a=>190+(25.6-a)*140;
-  const ka=seg(u,.02,.1),kb=seg(u,.24,.32);
-  const blob=(l,b,rx,ry,col,a)=>{if(a<=0)return;const x=MX(l),y=MY(b);ctx.save();ctx.translate(x,y);ctx.scale(1,ry/rx);const g=ctx.createRadialGradient(0,0,0,0,0,rx);g.addColorStop(0,col+'.55)');g.addColorStop(1,col+'0)');
-   alphaDo(a,()=>{ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,rx,0,TAU);ctx.fill();});ctx.restore();};
-  blob(122.15,24.9,120,150,'rgba(255,138,96,',kb);blob(121.9,23.5,90,150,'rgba(255,138,96,',kb);blob(119.4,23.6,90,90,'rgba(255,138,96,',kb);blob(120.9,21.6,110,70,'rgba(255,138,96,',kb);
-  blob(119.95,23.2,70,200,'rgba(125,200,220,',ka);
   const pts=[];TW.forEach(([l,a])=>pts.push(MX(l),MY(a)));poly(pts,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',2);
-  circ(MX(119.6),MY(23.55),10,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',1.5);
-  alphaDo(kb,()=>{wt(MX(122.2),MY(25.55),'15–20 kW/m',18,'#ff9d7a',700,'center',COND);wt(MX(119.3),MY(24.15),'澎湖西側',16,'#ff9d7a',700,'center');wt(MX(121.55),MY(21.6),'巴士海峽',16,'#ff9d7a',700,'left');});
-  alphaDo(ka,()=>wt(MX(119.85),MY(22.3),'西南沿海 <10 kW/m',16,'#7dc8dc',700,'center'));
-  const sa=seg(u,.72,.78);if(sa>0){const x=MX(121.87),y=MY(24.6),p=(TT*.8)%1;alphaDo(sa,()=>{alphaDo(1-p,()=>ring(x,y,8+16*p,PWR,2));circ(x,y,8,PWR);wt(x-16,y+6,'蘇澳港',18,PWR,700,'right');});}
+  circ(MX(119.6),MY(23.55),12,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',1.5);circ(MX(119.45),MY(23.6),7,'rgba(122,154,85,.6)','rgba(227,236,238,.7)',1.5);
+  const site=(l,a,t,col,t0,al,dx,dy)=>{const sa=seg(u,t0,t0+.06);if(sa<=0)return;const x=MX(l),y=MY(a),p=(TT*.8)%1;
+   alphaDo(sa,()=>{alphaDo(1-p,()=>ring(x,y,8+16*p,col,2));circ(x,y,7,col);wt(x+(dx||0),y+(dy||0),t,17,col,700,al);});};
+  site(121.53,25.3,'富貴角','#ff9d7a',.24,'right',-16,-10);
+  site(121.8,25.16,'基隆嶼－和平島',PWR,.5,'center',0,34);
+  site(119.55,23.66,'澎湖吼門水道',PWR,.56,'center',0,-20);
+  site(119.6,23.53,'跨海大橋試驗',PWR,.6,'center',0,32);
+  alphaDo(seg(u,.02,.1),()=>{for(let i=0;i<5;i++){const p=(TT*.4+i/5)%1;alphaDo(1-Math.abs(p-.5)*2,()=>arrow(MX(120.15),MY(24.8-p*.8),MX(120.15),MY(24.6-p*.8),'#7dc8dc',2.5));}wt(MX(120.0),MY(25.0),'台灣海峽潮流',16,'#7dc8dc',700,'center');});
   /* 右：數字卡 */
-  const R=[['高能海域波能流','15–20 kW/m','東北部、澎湖西側、巴士海峽',.24,'#ff8a60'],['周邊海域蘊藏量','約 10 GW','理論估計值',.48,'#7dc8dc'],['蘇澳港試驗區','3 處','離岸式波浪發電',.72,'#f2c230'],['2030 年預估','50–100 MW','業界預估裝置容量',.84,'#7dffc4']];
+  const R=[['富貴角外海表層流速','> 3.5 m/s','期刊實測研究',.24,'#ff8a60'],['國內測試','基隆・澎湖','全潛式機組與試驗平台',.5,'#f2c230'],['MeyGen 第一期','6 MW','4 部 1.5 MW 海床式渦輪',.76,'#7dc8dc'],['MeyGen 2023 年淨發電','10.2 GWh','海床式潮流陣列的商轉實績',.86,'#7dffc4']];
   R.forEach(([t,v,s,t0,col],i)=>alphaDo(seg(u,t0,t0+.06),()=>{const y=160+i*162;card(820,y,720,146,{bg:'rgba(7,27,39,.75)'});box(820,y,8,146,col);wt(850,y+44,t,19,'rgba(227,236,238,.9)',600);
    wt(850,y+106,v,40,col,700,'left',COND);wt(1510,y+106,s,17,'rgba(227,236,238,.8)',500,'right');}));
  }}
 ]};
 
-/* 波浪發電：點吸收式浮標 translations: Traditional Chinese → [English, Japanese] */
+/* 潮流發電 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"海洋能系列":["Ocean Energy Series","海洋エネルギーシリーズ"],
-"波浪發電：點吸收式浮標":["Wave power: the point absorber buoy","波力発電：ポイントアブソーバー型ブイ"],
-"海浪是風把能量交給海面的結果，一波接一波把能量送到岸邊。這一集從波浪能量的大小怎麼算談起，看點吸收式浮標如何隨浪上下運動，比較液壓與直驅線性發電機兩種動力擷取方式，再介紹錨繫、海纜與颱風海況的挑戰，以及台灣的波浪能潛力。":["Ocean waves are energy handed from the wind to the sea surface, carried toward the coast one wave after another. This episode starts with how wave energy is calculated, shows how a point absorber buoy rides up and down on the swell, compares hydraulic and direct-drive linear generator power take-off, then looks at moorings, cables and the challenge of typhoon sea states, and finally Taiwan's wave energy potential.","海の波は、風が海面に渡したエネルギーが一波ずつ岸へ運ばれてくるものです。このエピソードでは波のエネルギーの大きさの求め方から始め、ポイントアブソーバー型ブイが波に合わせて上下する仕組みを見たうえで、油圧式と直動リニア発電機の二つの動力変換方式を比較し、係留・海底ケーブル・台風時の海象という課題、そして台湾の波力エネルギーの可能性を紹介します。"],
-"每公尺波峰寬的波能流係數：P ≈ 0.49 × H² × T":["Wave power per metre of crest: P ≈ 0.49 × H² × T","波峰幅 1 m あたりの波パワー係数：P ≈ 0.49 × H² × T"],
-"台灣東北部、澎湖西側與巴士海峽的波能流密度":["Wave power density off NE Taiwan, west of Penghu and in the Bashi Channel","台湾北東部・澎湖西側・バシー海峡の波パワー密度"],
-"約 10":["About 10","約 10"],
-"台灣周邊海域波浪能蘊藏量估計":["Estimated wave energy resource around Taiwan","台湾周辺海域の波力エネルギー賦存量の推計"],
-"處":["sites","か所"],
-"蘇澳港規劃的離岸式波浪發電試驗區":["Offshore wave energy test zones planned at Su'ao Port","蘇澳港で計画された沖合波力発電の試験区域"],
-"業界預估 2030 年前的波浪能裝置容量":["Industry estimate of installed wave capacity by 2030","業界が見込む 2030 年までの波力発電の設備容量"],
-"國外直徑 9 m 點吸收式浮標的單機容量（示例）":["Rating of a 9 m diameter point absorber abroad (example)","海外の直径 9 m ポイントアブソーバーの単機容量（例）"],
-"說明：本集為教育用途示意動畫，浮標外觀、水深與波浪比例經過壓縮調整。波能流公式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m，H 為示性波高、T 為能量週期）為海洋工程通用式；台灣波能流密度 15–20 kW/m 與蘊藏量約 10 GW 取自國科會科技大觀園與中央氣象署科普資料；蘇澳港 3 處試驗區與 2030 年 50–100 MW 預估取自 Reccessary 專家觀點；直徑 9 m、300 kW 浮標與水深約 45 m 參考 CorPower C4 在葡萄牙的公開資料。每月波能、張力、出力與颱風存活模式等數值為典型範例。":["Note: this is an illustrative educational animation; buoy appearance, water depth and wave proportions are compressed. The wave power formula P ≈ ρg²H²T/64π (about 0.49 H²T kW/m, with H the significant wave height and T the energy period) is standard in ocean engineering. Taiwan's wave power density of 15–20 kW/m and resource of about 10 GW come from NSTC Science and Technology Vista and Central Weather Administration outreach material; the three Su'ao Port test zones and the 50–100 MW estimate for 2030 come from a Reccessary expert column; the 9 m, 300 kW buoy and about 45 m water depth refer to public information on the CorPower C4 in Portugal. Monthly wave power, tension, output and typhoon survival mode values are typical examples.","説明：本エピソードは教育用の模式アニメーションで、ブイの外観、水深、波の比率は圧縮して描いています。波パワーの式 P ≈ ρg²H²T／64π（約 0.49 H²T kW/m、H は有義波高、T はエネルギー周期）は海洋工学の一般式です。台湾の波パワー密度 15–20 kW/m と賦存量約 10 GW は国家科学及技術委員会「科技大観園」と中央気象署の解説資料、蘇澳港の試験区域 3 か所と 2030 年 50–100 MW の見込みは Reccessary の専門家コラム、直径 9 m・300 kW のブイと水深約 45 m はポルトガルの CorPower C4 の公開資料を参考にしています。月別の波パワー、張力、出力、台風時のサバイバルモードの数値は典型的な例です。"],
-"海上的點吸收式浮標":["A point absorber at sea","海上のポイントアブソーバー"],
-"點吸收式浮標是最常見的波浪發電裝置之一。浮體漂在海面上，湧浪通過時跟著上下起伏；浮體透過繫纜連到海床基礎，海床幾乎不動，兩者之間的相對運動就由浮體裡的動力擷取系統（PTO）轉成電力。電力經動態海纜與海底電纜送到岸上變電站併網。一座浮標容量約數十到數百瓩，實際案場會把多座浮標排成陣列，共用海纜與併網設備。":["The point absorber is one of the most common wave energy devices. A float sits on the sea surface and rises and falls as the swell passes. It is tethered to a foundation on the seabed, which barely moves, and the power take-off (PTO) inside the float turns the relative motion between the two into electricity. Power travels through a dynamic cable and a subsea export cable to an onshore substation and the grid. A single buoy is rated from tens to hundreds of kilowatts, so real projects arrange many buoys in an array that shares cables and grid connection equipment.","ポイントアブソーバーは最も一般的な波力発電装置の一つです。浮体は海面に浮かび、うねりが通過するたびに上下します。浮体は係留索で海底基礎につながっており、ほとんど動かない海底との相対運動を、浮体内の動力変換装置（PTO）が電力に変えます。電力はダイナミックケーブルと海底ケーブルで陸上変電所へ送られ、系統に連系されます。ブイ 1 基の容量は数十〜数百 kW 程度のため、実際の発電所では多数のブイをアレイ状に並べ、ケーブルと連系設備を共用します。"],
-"湧浪一波接一波通過浮標":["Swells roll past the buoy one after another","うねりが次々とブイを通過する"],
-"浮體隨浪起伏，繫纜連到海床基礎":["The float rides the waves, tethered to a seabed foundation","浮体は波に合わせて上下し、係留索で海底基礎につながる"],
-"浮體與海床的相對運動轉成電力":["Relative motion between float and seabed becomes electricity","浮体と海底の相対運動を電力に変える"],
-"電力經海底電纜送上岸併網":["Power goes ashore by subsea cable to the grid","電力は海底ケーブルで陸へ送られ系統に連系"],
-"浮體":["Float","浮体"],
-"繫纜":["Tether","係留索"],
-"海床基礎":["Seabed foundation","海底基礎"],
-"動力擷取（PTO）":["Power take-off (PTO)","動力変換装置（PTO）"],
-"海底電纜":["Export cable","海底ケーブル"],
-"岸上變電站":["Onshore substation","陸上変電所"],
-"海況與出力（示例）":["Sea state (example)","海象と出力（例）"],
-"示性波高":["Sig. wave height","有義波高"],
-"週期":["Period","周期"],
-"輸出":["Output","出力"],
-"波浪能量從哪裡來":["Where wave energy comes from","波のエネルギーはどこから来るのか"],
-"風吹過海面，把能量傳給海水形成波浪；風越強、吹得越久、吹過的距離越遠，波浪就越大。波浪能用每公尺波峰寬度的功率表示，稱為波能流密度，約等於 0.49 乘上波高的平方再乘上週期，單位是 kW/m。波高加倍，能量變成四倍，所以選址時最看重波高。示性波高 2 m、週期 8 s 的湧浪，每公尺波峰約帶有 16 kW 的功率。":["Wind blowing across the sea hands its energy to the water and builds waves; the stronger the wind, the longer it blows and the farther it travels over open water, the bigger the waves. Wave energy is expressed as power per metre of wave crest, called wave power density, roughly 0.49 times the wave height squared times the period, in kW/m. Doubling the wave height quadruples the energy, which is why wave height matters most when choosing a site. A swell with a significant wave height of 2 m and a period of 8 s carries about 16 kW per metre of crest.","風が海面を吹き渡るとエネルギーが海水に伝わり、波ができます。風が強く、長く、遠くまで吹くほど波は大きくなります。波のエネルギーは波峰幅 1 m あたりのパワーで表し、波パワー密度と呼びます。およそ 0.49 × 波高の二乗 × 周期で、単位は kW/m です。波高が 2 倍になるとエネルギーは 4 倍になるため、立地選定では波高が最も重視されます。有義波高 2 m、周期 8 s のうねりは、波峰 1 m あたり約 16 kW のパワーを運びます。"],
-"風把能量交給海面，形成波浪":["Wind hands its energy to the sea, making waves","風が海面にエネルギーを渡し、波ができる"],
-"波高 H 與週期 T 決定波浪的能量":["Wave height H and period T set the energy","波高 H と周期 T が波のエネルギーを決める"],
-"波能流：P ≈ 0.49 × H² × T":["Wave power: P ≈ 0.49 × H² × T","波パワー：P ≈ 0.49 × H² × T"],
-"波高加倍，能量變成四倍":["Double the height and the energy quadruples","波高が 2 倍ならエネルギーは 4 倍"],
-"波高與週期":["Wave height and period","波高と周期"],
-"H 2 m、T 8 s":["H 2 m, T 8 s","H 2 m・T 8 s"],
-"P ≈ 0.49 × H² × T（kW/m）":["P ≈ 0.49 × H² × T (kW/m)","P ≈ 0.49 × H² × T（kW/m）"],
-"風":["Wind","風"],
-"波高 H":["Height H","波高 H"],
-"一個週期 T 通過一個波長":["One wavelength passes in one period T","周期 T で 1 波長が通過"],
-"波能流密度與波高":["Wave power vs wave height","波パワー密度と波高"],
-"示性波高 H（m）":["Significant wave height H (m)","有義波高 H（m）"],
-"約 {n} kW/m":["About {n} kW/m","約 {n} kW/m"],
-"點吸收式浮標怎麼運作":["How a point absorber works","ポイントアブソーバーの仕組み"],
-"點吸收式浮標的直徑通常只有數公尺，比波長小得多，因此不論波浪從哪個方向來，都能從四周吸收能量，好像一個「點」。浮體受浮力推動上下運動，繫纜另一端固定在海床，動力擷取系統就在兩者之間拉伸與收縮。若讓浮體的運動節奏和波浪同步，形成共振，位移可以比波高大好幾倍；國外業者以相位控制讓浮體在 1 m 的浪中上下移動約 3 m，吸收更多能量。":["A point absorber is usually only a few metres across, much smaller than a wavelength, so it can absorb energy from waves arriving from any direction, as if it were a single point. Buoyancy drives the float up and down, the far end of the tether is fixed to the seabed, and the power take-off stretches and contracts between the two. If the float's motion is timed to match the waves and resonates with them, its travel can be several times the wave height; one developer abroad uses phase control to move the float about 3 m up and down in a 1 m wave, capturing more energy.","ポイントアブソーバーの直径は通常数 m と波長よりずっと小さいため、波がどの方向から来ても周囲からエネルギーを吸収でき、まるで一つの「点」のように働きます。浮体は浮力で上下し、係留索の反対側は海底に固定され、その間で動力変換装置が伸び縮みします。浮体の動きを波と同調させて共振させると、変位は波高の数倍になります。海外のメーカーは位相制御により、1 m の波で浮体を約 3 m 上下させ、より多くのエネルギーを吸収しています。"],
-"浮體直徑遠小於波長，像一個點":["Much smaller than a wavelength, like a point","浮体は波長よりずっと小さく、点のように働く"],
-"四面八方來的波浪都能吸收":["It absorbs waves from every direction","あらゆる方向からの波を吸収できる"],
-"浮體與海床之間的相對運動推動 PTO":["Float–seabed relative motion drives the PTO","浮体と海底の相対運動で PTO を駆動"],
-"共振與相位控制，讓浮體動得比浪更大":["Resonance and phase control amplify the motion","共振と位相制御で浮体を波より大きく動かす"],
-"側視：浮體、PTO 與繫纜":["Side view: float, PTO, tether","側面：浮体・PTO・係留索"],
-"相對運動":["Relative motion","相対運動"],
-"俯視：從各方向吸收":["Top view: any direction","上から：全方向から吸収"],
-"直徑數公尺，遠小於波長":["A few metres wide, far below a wavelength","直径数 m、波長よりずっと小さい"],
-"共振與相位控制（示例）":["Resonance and phase control (example)","共振と位相制御（例）"],
-"波浪 1 m":["Wave 1 m","波 1 m"],
-"浮體位移 約 3 m":["Float travel about 3 m","浮体の変位 約 3 m"],
-"動力擷取：液壓與直驅":["Power take-off: hydraulic vs direct drive","動力変換：油圧式と直動式"],
-"浮體的運動慢而有力，每秒只有一兩公尺，方向還不斷反轉，動力擷取系統要把它變成穩定的電力。液壓式用活塞把油壓進蓄壓器，再以固定壓力推動液壓馬達與發電機，能平滑波浪起伏、承受很大的力，但油路元件多、需要定期保養。直驅線性發電機讓裝有磁鐵的動子直接在線圈中往復移動發電，零件少、效率高，但低速大推力使發電機又大又重，輸出電壓與頻率不斷變化，要靠變流器整理後才能併網。":["The float moves slowly but with great force, only a metre or two per second, and keeps reversing direction; the power take-off has to turn this into steady electricity. A hydraulic PTO uses a piston to pump oil into an accumulator, which then drives a hydraulic motor and generator at constant pressure, smoothing out the waves and handling very large forces, but it has many hydraulic parts that need regular maintenance. A direct-drive linear generator moves a translator carrying magnets back and forth through coils to generate power directly, with few parts and high efficiency, but the low speed and high force make the generator large and heavy, and its voltage and frequency vary constantly, so a power converter must condition the output before it reaches the grid.","浮体の動きは遅く力強く、毎秒 1〜2 m ほどで、向きも絶えず反転します。動力変換装置はこれを安定した電力に変えなければなりません。油圧式はピストンで油をアキュムレータに押し込み、一定の圧力で油圧モータと発電機を回すため、波の変動を平滑化でき大きな力にも耐えますが、油圧部品が多く定期的な保守が必要です。直動リニア発電機は磁石を載せた可動子をコイルの中で往復させて直接発電し、部品が少なく効率も高い一方、低速・大推力のため発電機が大きく重くなり、電圧と周波数も絶えず変わるので、電力変換器で整えてから系統に連系します。"],
-"浮體運動慢、力量大，方向不斷反轉":["Slow, powerful motion that keeps reversing","浮体の動きは遅く力強く、向きが絶えず反転"],
-"液壓式：活塞壓油，蓄壓器平滑出力":["Hydraulic: piston pumps oil, accumulator smooths","油圧式：ピストンで油を圧送、アキュムレータで平滑化"],
-"直驅式：磁鐵在線圈中往復，直接發電":["Direct drive: magnets move through coils","直動式：磁石がコイル内を往復し直接発電"],
-"變流器把變動的電整理成穩定的交流電":["A converter turns it into steady AC","電力変換器で安定した交流に整える"],
-"液壓式 PTO":["Hydraulic PTO","油圧式 PTO"],
-"直驅線性發電機":["Direct-drive linear generator","直動リニア発電機"],
-"活塞缸":["Cylinder","油圧シリンダ"],
-"蓄壓器":["Accumulator","アキュムレータ"],
-"液壓馬達":["Hydraulic motor","油圧モータ"],
-"發電機":["Generator","発電機"],
-"線圈（定子）＋磁鐵（動子）":["Coils (stator) + magnets (translator)","コイル（固定子）＋磁石（可動子）"],
-"電壓與頻率不斷變化":["Voltage and frequency vary","電圧と周波数が変動"],
-"變流器":["Converter","電力変換器"],
-"優點":["Pros","長所"],
-"限制":["Cons","制約"],
-"出力平滑、承受大力量":["Smooth output, high force","出力が滑らか、大きな力に耐える"],
-"油路元件多、需定期保養":["Many parts, regular upkeep","部品が多く定期保守が必要"],
-"零件少、效率高":["Few parts, efficient","部品が少なく高効率"],
-"體積大且重、需要變流器":["Large, heavy, needs converter","大きく重く、変換器が必要"],
-"錨繫與海纜":["Moorings and cables","係留と海底ケーブル"],
-"浮標要在大浪中留在原地，錨繫系統是關鍵。張力式繫纜把浮體拉向海床基礎，基礎可用重力式混凝土塊、樁或吸力式沉箱，視海床是砂、泥或岩盤而定。浮標上下起伏，電纜不能繃直，所以從浮體到海床之間用帶浮力模組的動態海纜，彎成緩和的 S 形吸收運動，再接到固定在海床上的海底電纜送往岸邊。國外試驗案例多設在離岸數公里、水深約 40 到 50 m 的海域。":["The mooring system is what keeps a buoy on station in heavy seas. A taut tether pulls the float toward a seabed foundation, which may be a gravity concrete block, a pile or a suction caisson depending on whether the seabed is sand, mud or rock. Because the buoy keeps rising and falling, the cable cannot be pulled tight, so a dynamic cable fitted with buoyancy modules runs from the float to the seabed in a gentle S-shape that absorbs the motion, then joins a subsea export cable fixed to the seabed that carries power ashore. Test sites abroad are typically a few kilometres offshore in water about 40 to 50 m deep.","荒天の中でブイをその場にとどめるには係留システムが鍵となります。緊張係留索が浮体を海底基礎へ引き寄せ、基礎には海底が砂・泥・岩盤のどれかに応じて重力式コンクリートブロック、杭、サクションバケットを使います。ブイは上下し続けるためケーブルを張り詰めることはできず、浮体から海底までは浮力モジュール付きのダイナミックケーブルを緩やかな S 字に曲げて動きを吸収し、海底に固定した海底ケーブルにつないで陸へ送ります。海外の試験サイトの多くは、離岸数 km、水深約 40〜50 m の海域にあります。"],
-"鏡頭潛入水下，看浮標怎麼固定":["Diving below to see how the buoy is held","水中に潜り、ブイの固定方法を見る"],
-"張力式繫纜把浮體拉向海床基礎":["A taut tether pulls the float to its foundation","緊張係留索が浮体を海底基礎へ引き寄せる"],
-"動態海纜彎成 S 形，吸收浮體起伏":["A dynamic cable in an S-shape absorbs motion","S 字のダイナミックケーブルが上下動を吸収"],
-"海底電纜沿海床送往岸上變電站":["The export cable runs along the seabed ashore","海底ケーブルが海底を通って陸上変電所へ"],
-"張力式繫纜":["Taut tether","緊張係留索"],
-"動態海纜":["Dynamic cable","ダイナミックケーブル"],
-"浮力模組":["Buoyancy modules","浮力モジュール"],
-"錨繫（示例）":["Mooring (example)","係留（例）"],
-"水深":["Water depth","水深"],
-"約 45 m":["About 45 m","約 45 m"],
-"繫纜張力":["Tether tension","係留張力"],
-"離岸距離":["Offshore","離岸距離"],
-"約 4 km":["About 4 km","約 4 km"],
-"海況與颱風":["Sea states and typhoons","海象と台風"],
-"波浪能隨季節變化很大。台灣東北部每年有半年以上吹東北季風，秋冬的波浪能明顯較高，夏季風浪較小，卻可能遇上颱風。浮標的設計要在兩件事之間取得平衡：一般海況盡量多發電，極端海況則要活下來。浪太大時控制系統會限制出力與衝程；颱風來襲時進入存活模式，例如把浮體鎖定或壓入水中，讓巨浪從上方通過。颱風期間的示性波高可超過 10 m，是設計的最大考驗。":["Wave energy varies greatly with the seasons. Northeastern Taiwan has the northeast monsoon for more than half the year, so wave energy is clearly higher in autumn and winter; summer seas are calmer but typhoons may strike. A buoy's design has to balance two goals: generate as much as possible in normal seas and survive extreme ones. When waves grow too large, the control system limits output and stroke; when a typhoon arrives the buoy enters survival mode, for example locking the float or pulling it underwater so the huge waves pass over it. Significant wave heights during typhoons can exceed 10 m, the toughest test for the design.","波力エネルギーは季節によって大きく変わります。台湾北東部では一年の半分以上北東季節風が吹き、秋冬は波のエネルギーが明らかに大きく、夏は波が穏やかな一方で台風に見舞われることがあります。ブイの設計では、通常の海象ではできるだけ多く発電し、極端な海象では生き残るという二つの目標のバランスを取ります。波が大きすぎると制御システムが出力とストロークを制限し、台風が来るとサバイバルモードに入り、浮体をロックしたり水中に沈めたりして大波を上に通します。台風時の有義波高は 10 m を超えることがあり、設計上の最大の試練です。"],
-"東北季風季節，波浪能明顯較高":["Monsoon season brings much higher wave energy","北東季節風の季節は波力エネルギーが大きい"],
-"夏季風浪較小，但有颱風威脅":["Summer seas are calmer, but typhoons threaten","夏は波が穏やかだが、台風の脅威がある"],
-"一般海況發電，大浪時限制出力":["Generate normally, limit output in big waves","通常は発電し、高波時は出力を制限"],
-"颱風來襲：進入存活模式，讓巨浪通過":["Typhoon: survival mode lets huge waves pass","台風時はサバイバルモードで大波をやり過ごす"],
-"台灣東北部每月波能（示意）":["Monthly wave power, NE Taiwan (illustrative)","台湾北東部の月別波パワー（模式）"],
-"月份":["Month","月"],
-"東北季風":["NE monsoon","北東季節風"],
-"颱風":["Typhoon","台風"],
-"一般海況":["Normal seas","通常の海象"],
-"發電":["Generating","発電"],
-"大浪":["Large waves","高波"],
-"限制出力與衝程":["Limit output and stroke","出力とストロークを制限"],
-"存活模式":["Survival mode","サバイバルモード"],
-"示性波高可超過 10 m":["Sig. wave height can exceed 10 m","有義波高は 10 m を超えることも"],
-"台灣的波浪能":["Wave energy in Taiwan","台湾の波力エネルギー"],
-"台灣四面環海，波浪能資源以東北部、東部外海、澎湖西側與巴士海峽較佳，波能流密度約 15 到 20 kW/m；西岸與西南沿海多在 10 kW/m 以下。估計周邊海域的蘊藏量約 10 GW。颱風與地震頻繁，國外機組不一定適合台灣，國內正發展適合在地海況的技術。蘇澳港已規劃 3 處離岸式波浪發電試驗區，業界預估 2030 年前裝置容量可達 50 到 100 MW。":["Taiwan is surrounded by sea. The best wave resources are off the northeast and east coasts, west of Penghu and in the Bashi Channel, with wave power densities of about 15 to 20 kW/m, while the west and southwest coasts are mostly below 10 kW/m. The resource around Taiwan is estimated at about 10 GW. With frequent typhoons and earthquakes, devices developed abroad do not always suit Taiwan, so local teams are developing technology for local sea conditions. Su'ao Port has planned three offshore wave energy test zones, and industry expects installed capacity to reach 50 to 100 MW by 2030.","台湾は四方を海に囲まれています。波力資源は北東部・東部沖、澎湖西側、バシー海峡が良好で、波パワー密度は約 15〜20 kW/m、西岸と南西沿岸は多くが 10 kW/m 以下です。周辺海域の賦存量は約 10 GW と推計されています。台風や地震が多いため海外の装置が台湾に適するとは限らず、国内では地元の海象に合った技術の開発が進められています。蘇澳港では沖合波力発電の試験区域が 3 か所計画され、業界は 2030 年までに設備容量が 50〜100 MW に達すると見込んでいます。"],
-"東北部與東部外海的波浪能較佳":["The NE and east coasts have the best waves","北東部と東部沖の波力資源が良好"],
-"高能海域約 15–20 kW/m":["High-energy waters: about 15–20 kW/m","高エネルギー海域は約 15–20 kW/m"],
-"周邊海域蘊藏量估計約 10 GW":["The resource around Taiwan: about 10 GW","周辺海域の賦存量は約 10 GW と推計"],
-"蘇澳港規劃 3 處離岸式試驗區":["Su'ao Port plans three offshore test zones","蘇澳港に沖合試験区域を 3 か所計画"],
-"波能流密度分布（示意）":["Wave power density (illustrative)","波パワー密度の分布（模式）"],
-"澎湖西側":["West of Penghu","澎湖西側"],
-"巴士海峽":["Bashi Channel","バシー海峡"],
-"西南沿海 <10 kW/m":["SW coast <10 kW/m","南西沿岸 <10 kW/m"],
-"蘇澳港":["Su'ao Port","蘇澳港"],
-"東北部、澎湖西側、巴士海峽":["NE, W of Penghu, Bashi","北東部・澎湖西側・バシー海峡"],
-"高能海域波能流":["High-energy waters","高エネルギー海域"],
-"周邊海域蘊藏量":["Resource around Taiwan","周辺海域の賦存量"],
-"約 10 GW":["About 10 GW","約 10 GW"],
-"理論估計值":["Theoretical estimate","理論推計値"],
-"蘇澳港試驗區":["Su'ao Port test zones","蘇澳港の試験区域"],
-"3 處":["3 sites","3 か所"],
-"離岸式波浪發電":["Offshore wave energy","沖合波力発電"],
-"2030 年預估":["2030 estimate","2030 年の見込み"],
-"業界預估裝置容量":["Industry estimate","業界の見込み容量"]
+"海洋能系列":["Ocean Energy Series", "海洋エネルギーシリーズ"],
+"潮流發電":["Tidal stream power", "潮流発電"],
+"月球與太陽的引力讓海面每天漲落兩次，海水在海峽與水道間來回奔流。這一集從潮汐的成因談起，看潮流渦輪如何像水下風機一樣發電，為什麼海水的流速稍微增加、能量就大幅上升，比較海床固定式與浮動式兩種設計，再看安裝如何搶在平潮時段進行，以及台灣的潮流能潛力。":["The pull of the Moon and Sun makes the sea rise and fall twice a day, sending water rushing back and forth through straits and channels. This episode starts with what causes the tides, shows how a tidal turbine generates power much like an underwater wind turbine, explains why a small increase in flow speed brings a large jump in energy, compares seabed-mounted and floating designs, follows an installation timed to slack water, and closes with Taiwan's tidal stream potential.", "月と太陽の引力によって海面は一日に二回満ち引きし、海水は海峡や水道を行き来します。このエピソードでは潮汐の成り立ちから始め、潮流タービンが水中の風車のように発電する仕組み、流速が少し上がるだけでエネルギーが大きく増える理由を見たうえで、海底設置式と浮体式の二つの設計を比較し、憩流（転流）の時間帯をねらった据え付け作業、そして台湾の潮流エネルギーの可能性を紹介します。"],
+"約 12.4":["About 12.4", "約 12.4"],
+"小時":["hours", "時間"],
+"半日潮的週期，一天約有兩次漲潮流與兩次退潮流":["Period of the semidiurnal tide: about two flood and two ebb currents a day", "半日周潮の周期。一日に上げ潮流と下げ潮流がそれぞれ約 2 回"],
+"約 830":["About 830", "約 830"],
+"倍":["times", "倍"],
+"海水密度約 1,025 kg/m³，約為空氣的 830 倍":["Seawater is about 1,025 kg/m³, roughly 830 times denser than air", "海水の密度は約 1,025 kg/m³ で、空気の約 830 倍"],
+"潮流功率與流速三次方成正比，流速加倍、功率變 8 倍":["Tidal power scales with the cube of flow speed: double the speed, 8 times the power", "潮流のパワーは流速の 3 乗に比例し、流速が 2 倍になるとパワーは 8 倍"],
+"蘇格蘭 MeyGen 第一期：4 部 1.5 MW 海床式渦輪":["MeyGen Phase 1, Scotland: four 1.5 MW seabed-mounted turbines", "スコットランド MeyGen 第 1 期：1.5 MW 海底設置式タービン 4 基"],
+"MeyGen 第一期 2023 年的淨發電量":["Net generation of MeyGen Phase 1 in 2023", "MeyGen 第 1 期の 2023 年の正味発電量"],
+"台灣北端富貴角外海實測的最大表層流速":["Maximum measured surface current off Cape Fuguei, Taiwan's northern tip", "台湾北端の富貴角沖で実測された最大表層流速"],
+"說明：本集為教育用途示意動畫，渦輪外觀、水深與流速比例經過壓縮調整。潮流功率 P = ½ρAv³ 為流體力學通用式（海水密度取 1,025 kg/m³）；月球引潮力約為太陽的 2.2 倍、半日潮週期約 12.42 小時、大小潮週期約 14.8 天為海洋學通用數值；MeyGen 第一期 4 部 1.5 MW、轉子直徑 18 m、高 22.5 m、約 1,500 噸、水深約 35 m、流速可達 5 m/s 與 2023 年淨發電 10.2 GWh 取自 SAE Renewables 公開資料與相關報導；Orbital O2 全長 72 m、2 部 1 MW、轉子直徑 20 m 取自 Orbital Marine Power 與 EMEC 公開資料；富貴角流速取自發表於期刊的實測研究；澎湖吼門水道潛能、2012 年澎湖跨海大橋試驗平台與基隆嶼至和平島間的全潛式機組測試取自國內大學研究與報導。每日流速曲線、出力、轉速與安裝時段等數值為典型範例。":["Note: this is an illustrative educational animation; turbine appearance, water depth and flow proportions are compressed. Tidal stream power P = ½ρAv³ is the standard fluid mechanics formula (seawater density taken as 1,025 kg/m³). The Moon's tide-generating force being about 2.2 times the Sun's, the semidiurnal period of about 12.42 hours and the spring-neap cycle of about 14.8 days are standard oceanographic values. MeyGen Phase 1 figures (four 1.5 MW turbines, 18 m rotors, 22.5 m tall, about 1,500 t, about 35 m water depth, currents up to 5 m/s and 10.2 GWh net generation in 2023) come from SAE Renewables public information and press coverage. Orbital O2 figures (72 m long, two 1 MW turbines, 20 m rotors) come from Orbital Marine Power and EMEC. The Cape Fuguei current speed comes from a peer-reviewed field measurement study; the Houmen Channel potential in Penghu, the 2012 test platform under the Penghu Great Bridge and the fully submerged unit tested between Keelung Islet and Heping Island come from Taiwanese university research and news reports. Daily flow curves, output, rotor speed and installation windows are typical examples.", "説明：本エピソードは教育用の模式アニメーションで、タービンの外観、水深、流速の比率は圧縮して描いています。潮流のパワー P = ½ρAv³ は流体力学の一般式です（海水密度は 1,025 kg/m³）。月の起潮力が太陽の約 2.2 倍であること、半日周潮の周期約 12.42 時間、大潮・小潮の周期約 14.8 日は海洋学の一般的な値です。MeyGen 第 1 期の 1.5 MW × 4 基、ローター直径 18 m、高さ 22.5 m、約 1,500 t、水深約 35 m、流速最大 5 m/s、2023 年の正味発電量 10.2 GWh は SAE Renewables の公開資料と報道によります。Orbital O2 の全長 72 m、1 MW × 2 基、ローター直径 20 m は Orbital Marine Power と EMEC の公開資料によります。富貴角の流速は学術誌に掲載された実測研究、澎湖・吼門水道の潜在量、2012 年の澎湖跨海大橋での試験プラットフォーム、基隆嶼と和平島の間での全没水型ユニットの試験は台湾の大学の研究と報道によります。一日の流速曲線、出力、回転数、据え付けの時間帯などの数値は典型的な例です。"],
+"海峽中的潮流渦輪":["A tidal turbine in the channel", "海峡の潮流タービン"],
+"潮流發電把海水流動的動能轉成電力，原理和風力發電很像：水流推動轉子葉片，帶動機艙裡的發電機。差別在於渦輪整座沉在水下，通常設在島嶼與陸地之間的狹窄水道，因為海水被擠進窄處，流速會明顯加快。以蘇格蘭 MeyGen 為例，渦輪安裝在約 35 m 深的海床上，轉子直徑 18 m，電力經海底電纜送到岸上變電站併網，海面上幾乎看不到設施。":["Tidal stream power turns the kinetic energy of moving seawater into electricity, much like wind power: the current pushes the rotor blades, which drive a generator in the nacelle. The difference is that the whole turbine sits underwater, usually in a narrow channel between an island and the mainland, because water squeezed into a narrow passage speeds up noticeably. At MeyGen in Scotland, turbines stand on the seabed in about 35 m of water with 18 m rotors, and power runs through a subsea cable to an onshore substation and the grid, leaving almost nothing visible at the surface.", "潮流発電は流れる海水の運動エネルギーを電力に変えるもので、原理は風力発電とよく似ています。潮流がローターブレードを回し、ナセル内の発電機を駆動します。違いはタービン全体が水中に沈んでいることで、多くは島と本土の間の狭い水道に設置されます。狭い場所に押し込まれた海水は流速が大きく上がるためです。スコットランドの MeyGen では水深約 35 m の海底にローター直径 18 m のタービンを設置し、電力は海底ケーブルで陸上変電所へ送られて系統に連系されます。海面上にはほとんど設備が見えません。"],
+"島嶼與陸地之間的水道，潮流來回奔流":["In the channel between island and mainland, the tide rushes back and forth", "島と本土の間の水道を潮流が行き来する"],
+"整座渦輪沉在海床上，水流推動轉子":["The whole turbine sits on the seabed as the current turns the rotor", "タービン全体が海底に沈み、潮流がローターを回す"],
+"機艙內的發電機把轉動變成電力":["A generator in the nacelle turns rotation into electricity", "ナセル内の発電機が回転を電力に変える"],
+"電力經海底電纜送上岸併網":["Power goes ashore by subsea cable to the grid", "電力は海底ケーブルで陸へ送られ系統に連系"],
+"潮流":["Tidal current", "潮流"],
+"轉子葉片":["Rotor blades", "ローターブレード"],
+"海床基座":["Seabed base", "海底基礎"],
+"發電機（機艙）":["Generator (nacelle)", "発電機（ナセル）"],
+"海底電纜":["Export cable", "海底ケーブル"],
+"岸上變電站":["Onshore substation", "陸上変電所"],
+"流況與出力（示例）":["Flow and output (example)", "流況と出力（例）"],
+"流速":["Flow speed", "流速"],
+"轉速":["Rotor speed", "回転数"],
+"輸出":["Output", "出力"],
+"潮汐從哪裡來":["Where tides come from", "潮汐はどこから来るのか"],
+"潮汐來自月球與太陽的引潮力。月球把地球朝向它的一側海水拉近，背對的一側則因離心作用同樣隆起，形成兩個海水隆起。地球每天自轉一圈，海岸會經過兩次隆起，所以多數地方一天有兩次高潮、兩次低潮，週期約 12.4 小時。太陽的引潮力約為月球的一半；新月與滿月時日月成一直線，力量相加形成大潮，上下弦月時互相抵消成小潮，大小潮約每 14.8 天循環一次。":["Tides come from the tide-generating forces of the Moon and Sun. The Moon pulls the ocean on the near side of Earth toward it, while the far side bulges outward too through the centrifugal effect, creating two bulges of water. As Earth turns once a day, a coastline passes through both bulges, so most places see two high and two low tides a day, with a period of about 12.4 hours. The Sun's tidal force is about half the Moon's. At new and full moon the Sun and Moon line up and their forces add to give spring tides; at the quarter moons they partly cancel to give neap tides. The spring-neap cycle repeats about every 14.8 days.", "潮汐は月と太陽の起潮力によって起こります。月は地球の月に面した側の海水を引き寄せ、反対側でも遠心力の効果で海水が盛り上がり、二つの膨らみができます。地球が一日一回自転すると海岸は二つの膨らみを通過するため、多くの場所で一日に満潮と干潮が二回ずつあり、周期は約 12.4 時間です。太陽の起潮力は月の約半分で、新月と満月のときは太陽と月が一直線に並んで力が重なり大潮に、上弦・下弦のときは打ち消し合って小潮になります。大潮と小潮は約 14.8 日ごとに繰り返します。"],
+"月球的引力讓海水在兩側隆起":["The Moon's pull raises the sea on two sides", "月の引力で海水が両側に盛り上がる"],
+"地球自轉，海岸一天經過兩次高潮":["As Earth turns, a coast passes two high tides a day", "地球が自転し、海岸は一日に二回満潮を迎える"],
+"日月成一直線時形成大潮":["Sun and Moon in line give spring tides", "太陽と月が一直線に並ぶと大潮"],
+"日月成直角時形成小潮，約 14.8 天循環":["At right angles they give neap tides, a 14.8-day cycle", "直角に並ぶと小潮、約 14.8 日周期"],
+"月球、地球與兩個隆起":["Moon, Earth and two bulges", "月・地球と二つの膨らみ"],
+"高潮":["High tide", "満潮"],
+"低潮":["Low tide", "干潮"],
+"月球":["Moon", "月"],
+"引潮力":["Tidal force", "起潮力"],
+"兩個隆起":["Two bulges", "二つの膨らみ"],
+"太陽":["Sun", "太陽"],
+"大潮：日月成一直線":["Spring: Sun and Moon aligned", "大潮：太陽と月が一直線"],
+"小潮：日月成直角":["Neap: at right angles", "小潮：太陽と月が直角"],
+"15 天的潮位變化（示意）":["Tide level over 15 days (schematic)", "15 日間の潮位変化（模式）"],
+"天":["days", "日"],
+"潮位（m）":["Tide (m)", "潮位（m）"],
+"大潮":["Spring", "大潮"],
+"小潮":["Neap", "小潮"],
+"約 14.8 天":["About 14.8 days", "約 14.8 日"],
+"漲潮流與退潮流":["Flood and ebb currents", "上げ潮流と下げ潮流"],
+"潮位升降時，海水在水道中來回流動：漲潮時往一個方向流，退潮時反向，中間約有短暫的平潮，流速接近零。所以潮流渦輪的出力也是一天四次由低到高、再由高到低。機組在流速約 1 m/s 時開始發電，到額定流速後維持滿載。轉子必須能兩個方向都發電，有的機組讓機艙轉向，有的把葉片角度翻轉 180 度。潮流的時間和大小可以依天文計算提前多年預測，這是它和風、太陽最大的不同。":["As the tide rises and falls, water flows back and forth through the channel: one way on the flood, the opposite way on the ebb, with a brief slack water in between when the current almost stops. So a tidal turbine's output climbs and falls four times a day. A unit starts generating at about 1 m/s and runs at full load once the current reaches its rated speed. The rotor must work in both directions, so some designs yaw the nacelle around and others pitch the blades through 180 degrees. Because tides follow astronomy, their timing and strength can be predicted years ahead, which is the biggest difference from wind and solar.", "潮位が上下すると、海水は水道を行き来します。上げ潮では一方向に、下げ潮では逆方向に流れ、その間に流速がほぼゼロになる短い憩流（転流）があります。そのため潮流タービンの出力は一日に四回、低から高へ、高から低へと変化します。流速約 1 m/s で発電を始め、定格流速に達すると全負荷で運転します。ローターは両方向で発電する必要があり、ナセルを回頭させる機種や、ブレードのピッチを 180 度反転させる機種があります。潮流の時刻と強さは天文計算で何年も先まで予測でき、これが風力や太陽光との最大の違いです。"],
+"漲潮流與退潮流，一天來回兩次":["Flood and ebb currents, twice each a day", "上げ潮流と下げ潮流が一日に二往復"],
+"流速在平潮時接近零，再反向增加":["At slack water the flow nearly stops, then builds the other way", "憩流で流速はほぼゼロになり、逆向きに強まる"],
+"流速超過約 1 m/s 開始發電，到額定後滿載":["Output starts near 1 m/s and peaks at rated speed", "約 1 m/s を超えると発電を始め、定格で全負荷"],
+"潮流可依天文計算提前多年預測":["Tidal flows can be predicted years ahead from astronomy", "潮流は天文計算で何年も先まで予測できる"],
+"水道剖面：流向反轉":["Channel section: flow reverses", "水道断面：流向の反転"],
+"平潮":["Slack water", "憩流"],
+"漲潮流":["Flood", "上げ潮流"],
+"退潮流":["Ebb", "下げ潮流"],
+"流速 {n} m/s":["Flow {n} m/s", "流速 {n} m/s"],
+"一天的流速與出力（示例）":["Flow and output over a day (example)", "一日の流速と出力（例）"],
+"出力":["Output", "出力"],
+"約 1 m/s 開始發電":["Cut-in about 1 m/s", "約 1 m/s で発電開始"],
+"潮汐表可提前多年預測發電量":["Tide tables predict output years ahead", "潮汐表で何年も先の発電量を予測できる"],
+"為什麼海水流得慢也有力":["Why slow water is powerful", "遅い流れでも力強い理由"],
+"流體的功率可寫成 P = ½ρAv³：ρ 是密度、A 是轉子掃掠面積、v 是流速。海水的密度約 1,025 kg/m³，約為空氣的 830 倍，所以每秒 2 到 3 m 的潮流，每平方公尺就帶有數千到上萬瓦的功率，同樣出力所需的轉子比風機小得多。功率又與流速的三次方成正比，流速加倍、功率變成 8 倍，因此選址最重視流速。轉子實際只能擷取其中約 35 到 45%。":["The power in a moving fluid is P = ½ρAv³, where ρ is density, A is the rotor's swept area and v is flow speed. Seawater is about 1,025 kg/m³, roughly 830 times denser than air, so a tidal current of 2 to 3 m/s carries several to more than ten kilowatts per square metre, and a much smaller rotor than a wind turbine's delivers the same output. Power also rises with the cube of speed: double the speed and the power grows eightfold, which is why site selection focuses on flow speed. In practice a rotor captures only about 35 to 45% of it.", "流体のパワーは P = ½ρAv³ で表されます。ρ は密度、A はローターの受風（受流）面積、v は流速です。海水の密度は約 1,025 kg/m³ で空気の約 830 倍あるため、毎秒 2〜3 m の潮流でも 1 m² あたり数 kW から 10 kW 以上のパワーがあり、同じ出力なら風車よりずっと小さなローターで足ります。さらにパワーは流速の 3 乗に比例し、流速が 2 倍になるとパワーは 8 倍になるため、立地選定では流速が最も重視されます。実際にローターが取り出せるのはその約 35〜45% です。"],
+"功率 P = ½ρAv³，密度與流速是關鍵":["Power P = ½ρAv³: density and speed are what matter", "パワー P = ½ρAv³、鍵は密度と流速"],
+"海水密度約為空氣的 830 倍":["Seawater is about 830 times denser than air", "海水の密度は空気の約 830 倍"],
+"流速加倍，功率變成 8 倍":["Double the speed, eight times the power", "流速が 2 倍でパワーは 8 倍"],
+"所以潮流渦輪要找流速最快的水道":["So tidal turbines seek the fastest channels", "だから潮流タービンは最も速い水道を探す"],
+"海水與空氣的密度":["Density of seawater and air", "海水と空気の密度"],
+"海水 1,025 kg/m³":["Seawater 1,025 kg/m³", "海水 1,025 kg/m³"],
+"空氣 1.2 kg/m³":["Air 1.2 kg/m³", "空気 1.2 kg/m³"],
+"約 830 倍":["About 830×", "約 830 倍"],
+"同樣出力，轉子小得多（示意）":["Same output, much smaller rotor (schematic)", "同じ出力ならローターはずっと小さい（模式）"],
+"潮流渦輪":["Tidal turbine", "潮流タービン"],
+"風機":["Wind turbine", "風車"],
+"每平方公尺的潮流功率":["Tidal power per square metre", "1 m² あたりの潮流パワー"],
+"流速 v（m/s）":["Flow speed v (m/s)", "流速 v（m/s）"],
+"流速 1.5 → 3 m/s":["Flow 1.5 → 3 m/s", "流速 1.5 → 3 m/s"],
+"功率 × 8":["Power × 8", "パワー × 8"],
+"實際可擷取約 35–45%":["About 35–45% can be captured", "実際に取り出せるのは約 35–45%"],
+"海床固定式與浮動式":["Seabed-mounted vs floating", "海底設置式と浮体式"],
+"潮流渦輪主要有兩種固定方式。海床固定式把整座機組放在海底，以三腳架與壓艙塊靠重量站穩，不受海面風浪影響，也不妨礙船隻通行，但維修要用大型工作船把機艙吊上來。浮動式把轉子掛在浮體下方，以錨鏈固定在海床，可以利用接近海面、流速較快的水層，維修時把轉子腳架升出水面即可作業，但要承受風浪與颱風的負載。蘇格蘭的 MeyGen 與 Orbital O2 分別是兩種型式的代表。":["Tidal turbines are held in place in two main ways. A seabed-mounted unit sits on the seafloor on a tripod with ballast blocks that keep it in place by weight. It is unaffected by surface wind and waves and does not obstruct shipping, but maintenance requires a large vessel to lift the nacelle. A floating unit hangs its rotors beneath a buoyant hull moored to the seabed by chains. It can use the faster water near the surface, and for maintenance the rotor legs swing up out of the water, but it must withstand wind, wave and typhoon loads. MeyGen and the Orbital O2 in Scotland represent the two types.", "潮流タービンの固定方法は主に二つあります。海底設置式は三脚架台とバラストブロックの重量で海底に据え付けるもので、海面の風や波の影響を受けず、船舶の航行も妨げませんが、メンテナンスには大型作業船でナセルを吊り上げる必要があります。浮体式は浮体の下にローターを吊り下げ、チェーンで海底に係留するもので、海面近くの流速の速い層を利用でき、メンテナンス時はローターの脚を水面上に引き上げて作業できますが、風・波・台風の荷重に耐えなければなりません。スコットランドの MeyGen と Orbital O2 がそれぞれの代表例です。"],
+"海床固定式：三腳架與壓艙塊靠重量站穩":["Seabed-mounted: a tripod and ballast hold it by weight", "海底設置式：三脚架台とバラストの重量で安定"],
+"不受風浪影響，但維修要吊起機艙":["Unaffected by waves, but the nacelle must be lifted for repairs", "波の影響を受けないが、保守ではナセルを吊り上げる"],
+"浮動式：轉子掛在浮體下方，以錨鏈固定":["Floating: rotors hang below a hull moored by chains", "浮体式：浮体の下にローターを吊り、チェーンで係留"],
+"轉子腳架可升出水面，維修較方便":["The rotor legs swing up for easier maintenance", "ローターの脚を水面上に上げて保守しやすい"],
+"海床固定式":["Seabed-mounted", "海底設置式"],
+"浮動式":["Floating", "浮体式"],
+"1.5 MW・轉子 18 m":["1.5 MW, 18 m rotor", "1.5 MW・ローター 18 m"],
+"高 22.5 m・約 1,500 t":["22.5 m tall, about 1,500 t", "高さ 22.5 m・約 1,500 t"],
+"全長 72 m・2 × 1 MW・轉子 20 m":["72 m long, 2 × 1 MW, 20 m rotors", "全長 72 m・1 MW × 2・ローター 20 m"],
+"錨鏈":["Mooring chain", "係留チェーン"],
+"優點":["Pros", "利点"],
+"限制":["Limits", "課題"],
+"不受風浪影響、不妨礙航行":["No wave loads, no shipping conflict", "波の影響なし、航行を妨げない"],
+"維修需大型船吊起機艙":["Large vessel to lift nacelle", "保守に大型船でナセルを吊り上げ"],
+"利用表層較快的流速":["Uses faster surface flow", "表層の速い流れを利用"],
+"需承受風浪與颱風負載":["Must take wave and typhoon loads", "風・波・台風の荷重に耐える必要"],
+"腳架升起，在水面上維修":["Legs raised for surface maintenance", "脚を上げて水面上で保守"],
+"搶在平潮時安裝":["Installing at slack water", "憩流をねらって据え付け"],
+"潮流渦輪設在流速最快的地方，安裝與維修卻需要水流平靜。工作船先以動態定位停在基座正上方，等潮流減慢；平潮時段通常只有數十分鐘到一兩個小時，船上的吊機要在這段時間內把機艙與轉子放到海床基座上，以導引機構對準並鎖固，再把機組電纜接上海底電纜。錯過平潮就得等下一次，大約六個多小時後。作業規劃會依潮汐表與天氣預報排定時程。":["Tidal turbines sit where the current is fastest, yet installation and maintenance need calm water. A vessel holds position over the base with dynamic positioning and waits for the current to ease. Slack water typically lasts from tens of minutes to an hour or two, and within that window the crane must lower the nacelle and rotor onto the seabed base, align and lock it with a guide mechanism, and connect the unit's cable to the export cable. Missing slack water means waiting for the next one, a little over six hours later, so work is scheduled from tide tables and weather forecasts.", "潮流タービンは流れの最も速い場所に設置されますが、据え付けや保守には穏やかな流れが必要です。作業船はダイナミックポジショニングで基礎の真上に留まり、潮流が弱まるのを待ちます。憩流の時間は通常数十分から 1〜2 時間ほどで、その間にクレーンでナセルとローターを海底基礎に降ろし、ガイド機構で位置を合わせて固定し、ユニットのケーブルを海底ケーブルに接続します。憩流を逃すと次の機会は 6 時間あまり後になるため、作業は潮汐表と天気予報をもとに計画されます。"],
+"工作船停在基座上方，等待潮流減慢":["A vessel holds over the base, waiting for the current to ease", "作業船が基礎の上で潮流が弱まるのを待つ"],
+"平潮時段開始，吊機放下機艙與轉子":["Slack water begins and the crane lowers the nacelle and rotor", "憩流が始まり、クレーンでナセルとローターを降ろす"],
+"機艙對準基座並鎖固":["The nacelle is aligned with the base and locked", "ナセルを基礎に合わせて固定"],
+"接上電纜，潮流再起前完成作業":["The cable is connected before the current returns", "ケーブルを接続し、潮流が戻る前に作業完了"],
+"工作船（動態定位）":["Vessel (DP)", "作業船（DP）"],
+"機艙與轉子":["Nacelle and rotor", "ナセルとローター"],
+"導引與鎖固":["Guide and lock", "ガイドと固定"],
+"電纜接頭":["Cable connector", "ケーブル接続部"],
+"作業窗口（示例）":["Work window (example)", "作業可能時間（例）"],
+"狀態":["Status", "状態"],
+"平潮：可作業":["Slack: go", "憩流：作業可"],
+"等待":["Waiting", "待機"],
+"窗口":["Window", "作業時間"],
+"約 1 小時":["About 1 h", "約 1 時間"],
+"台灣的潮流能":["Tidal stream energy in Taiwan", "台湾の潮流エネルギー"],
+"台灣的潮流能資源集中在地形收窄、流速較快的海域。北端富貴角外海的實測研究顯示，表層最大流速可超過 3.5 m/s；基隆嶼與和平島之間也有強勁的潮流，國內大學曾在此測試全潛式潮流發電機組。澎湖的吼門水道與西嶼外海被評估為較具潛能的區域，2012 年也曾在澎湖跨海大橋下進行潮流發電平台試驗。國外則以蘇格蘭 MeyGen 最具規模，第一期 6 MW 在 2023 年淨發電 10.2 GWh。":["Taiwan's tidal stream resource is concentrated where the coastline narrows and currents speed up. Field measurements off Cape Fuguei at the island's northern tip show maximum surface currents above 3.5 m/s. Strong tidal flows also run between Keelung Islet and Heping Island, where a Taiwanese university has tested a fully submerged tidal turbine. In Penghu, the Houmen Channel and the waters off Xiyu are assessed as the most promising areas, and in 2012 a tidal power test platform was trialled beneath the Penghu Great Bridge. Abroad, MeyGen in Scotland is the largest project, with its 6 MW first phase generating 10.2 GWh net in 2023.", "台湾の潮流エネルギー資源は、地形がくびれて流速が速くなる海域に集中しています。北端の富貴角沖での実測研究では、表層の最大流速は 3.5 m/s を超えます。基隆嶼と和平島の間にも強い潮流があり、台湾の大学が全没水型の潮流発電ユニットを試験しました。澎湖では吼門水道と西嶼沖が有望な海域と評価され、2012 年には澎湖跨海大橋の下で潮流発電プラットフォームの試験も行われました。海外ではスコットランドの MeyGen が最大規模で、6 MW の第 1 期は 2023 年に正味 10.2 GWh を発電しました。"],
+"潮流能集中在地形收窄的海域":["Tidal energy concentrates where the coast narrows", "潮流エネルギーは地形がくびれた海域に集中"],
+"富貴角外海表層流速可超過 3.5 m/s":["Surface currents off Cape Fuguei exceed 3.5 m/s", "富貴角沖の表層流速は 3.5 m/s を超える"],
+"基隆與澎湖都曾進行潮流發電測試":["Tidal power has been tested off Keelung and in Penghu", "基隆と澎湖で潮流発電の試験が行われた"],
+"蘇格蘭 MeyGen 已累積多年商轉經驗":["MeyGen in Scotland has years of commercial operation", "スコットランドの MeyGen は長年の商業運転実績"],
+"潮流能較佳的海域（示意）":["Promising tidal sites (schematic)", "潮流エネルギーの有望海域（模式）"],
+"富貴角":["Cape Fuguei", "富貴角"],
+"基隆嶼－和平島":["Keelung Islet–Heping Is.", "基隆嶼－和平島"],
+"澎湖吼門水道":["Houmen Channel, Penghu", "澎湖・吼門水道"],
+"跨海大橋試驗":["Great Bridge trial", "跨海大橋の試験"],
+"台灣海峽潮流":["Taiwan Strait tides", "台湾海峡の潮流"],
+"富貴角外海表層流速":["Surface current off Cape Fuguei", "富貴角沖の表層流速"],
+"期刊實測研究":["Peer-reviewed field data", "学術誌の実測研究"],
+"國內測試":["Taiwan trials", "台湾での試験"],
+"基隆・澎湖":["Keelung, Penghu", "基隆・澎湖"],
+"全潛式機組與試驗平台":["Submerged unit and test platform", "全没水型ユニットと試験台"],
+"MeyGen 第一期":["MeyGen Phase 1", "MeyGen 第 1 期"],
+"4 部 1.5 MW 海床式渦輪":["Four 1.5 MW seabed turbines", "1.5 MW 海底設置式 × 4 基"],
+"MeyGen 2023 年淨發電":["MeyGen net output, 2023", "MeyGen 2023 年の正味発電量"],
+"海床式潮流陣列的商轉實績":["A seabed tidal array in commercial use", "海底設置式アレイの商業運転実績"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
