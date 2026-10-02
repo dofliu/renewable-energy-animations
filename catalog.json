@@ -1152,6 +1152,20 @@
                 "en": "60 Hz frequency, inertia, primary and secondary control, central dispatch, the duck curve",
                 "ja": "60 Hz の周波数、慣性、一次・二次調整、中央給電、ダックカーブ"
               }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "虛擬電廠與需量反應",
+                "en": "Virtual power plants and demand response",
+                "ja": "仮想発電所とデマンドレスポンス"
+              },
+              "sub": {
+                "zh": "分散式資源聚合、需量反應、電力交易平台的備轉服務、儲能與電動車",
+                "en": "Aggregating distributed resources, demand response, reserve services on the trading platform, storage and EVs",
+                "ja": "分散型リソースの集約、デマンドレスポンス、電力取引の予備力、蓄電池と EV"
+              }
             }
           ]
         }

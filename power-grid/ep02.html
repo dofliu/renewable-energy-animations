@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep01.js｜電網系列</title>
+<title>ep02.js｜電網系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="電網與能源轉型系列" data-en="Power Grid series" data-ja="電力系統シリーズ">電網與能源轉型系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="02 虛擬電廠與需量反應 →" data-en="02 Virtual power plants and demand response →" data-ja="02 仮想発電所とデマンドレスポンス →">02 虛擬電廠與需量反應 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="電網與能源轉型系列" data-en="Power Grid series" data-ja="電力系統シリーズ">電網與能源轉型系列</span></a><span class="sp"></span><a href="ep01.html"><span data-zh="← 01 電網如何平衡供需" data-en="← 01 How the grid balances supply and demand" data-ja="← 01 電力系統はどう需給を合わせるか">← 01 電網如何平衡供需</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep01.js｜電網系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep02.js｜電網系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,371 +543,383 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 電網系列 第 1 集：電網如何平衡供需 */
+/* 電網系列 第 2 集：虛擬電廠與需量反應 */
 const gyy=x=>groundY(x);
-const PX1=800,PX2=1060;                                   // 兩座輸電鐵塔
-const BTX=[590,670];                                      // 儲能貨櫃左緣
-const CITY=(()=>{const r=rng(9),a=[];let x=1172;while(x<1560){const w=40+r()*44,h=80+r()*170;a.push({x,w,h,s:r()*1000|0});x+=w+6+r()*10;}return a;})();
-/* 沿折線 P 取比例 f 的點 */
-function ptAt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
-  let r=clamp(f)*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
-function flowDots(P,n,col,a,sp){if(a<=0)return;for(let k=0;k<n;k++){const f=((TT*(sp||.3))+k/n)%1,p=ptAt(P,f);alphaDo(a,()=>circ(p[0],p[1],4.5,col));}}
-function wire(x0,y0,x1,y1,col){ctx.strokeStyle=col||'#394650';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo((x0+x1)/2,(y0+y1)/2+18,x1,y1);ctx.stroke();}
-function pylon(x,y){ctx.strokeStyle='#5c6770';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-34,y);ctx.lineTo(x-6,y-230);ctx.lineTo(x+6,y-230);ctx.lineTo(x+34,y);
-  for(let k=0;k<6;k++){const t=k/6,t2=(k+1)/6;ctx.moveTo(lerp(x-34,x-6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x+34,x+6,t2),lerp(y,y-230,t2));ctx.moveTo(lerp(x+34,x+6,t),lerp(y,y-230,t));ctx.lineTo(lerp(x-34,x-6,t2),lerp(y,y-230,t2));}
-  ctx.moveTo(x-60,y-200);ctx.lineTo(x+60,y-200);ctx.moveTo(x-46,y-170);ctx.lineTo(x+46,y-170);ctx.stroke();}
-/* 燃氣複循環電廠：k 為出力比例（0–1），影響煙羽 */
-function gasPlant(x,y,k){
-  box(x,y-100,160,100,'#c9d1d6','rgba(0,0,0,.25)',1);poly([x-6,y-100,x+80,y-128,x+166,y-100],'#aeb8be');
-  wins(x+14,y-80,6,24,14,20,'#5e6d76');
-  box(x+160,y-130,60,130,'#b3bdc3','rgba(0,0,0,.25)',1);for(let i=0;i<4;i++)box(x+168,y-120+i*28,44,4,'#8d989f');
-  box(x+186,y-240,22,110,'#8d989f');box(x+184,y-244,26,6,'#6f7a80');box(x+186,y-222,22,6,'#e8572a');
-  for(let q=0;q<5;q++){const p=(TT*.35+q/5)%1;alphaDo((.2+.6*k)*(1-p),()=>circ(x+197+p*60+8*Math.sin(p*6+q),y-250-p*90,8+p*18*(.5+k),'rgba(245,245,245,.8)'));}
-  box(x+226,y-60,50,60,'#dfe5e8','rgba(0,0,0,.25)',1);for(let i=0;i<3;i++)box(x+232+i*15,y-86,6,26,'#c9a38c');
+const CLX=800,CLY=222;                                    // 聚合平台雲端
+/* 各資源：中心 x、頂端高度 */
+const RES={fac:[180,150],mall:[415,160],bat:[595,58],ev:[775,72],home:[1020,112],agg:[1262,150],tpc:[1462,176]};
+const rTop=k=>{const r=RES[k];return [r[0],gyy(r[0])-r[1]];};
+function factory(x,y,k){                                  // k：製程運轉比例 0–1
+  box(x,y-110,240,110,'#c9d1d6','rgba(0,0,0,.25)',1);
+  for(let i=0;i<4;i++)poly([x+i*60,y-110,x+i*60+60,y-110,x+i*60+60,y-150],'#aeb8be','rgba(0,0,0,.2)',1);
+  for(let i=0;i<8;i++)box(x+14+i*28,y-90,18,22,i/8<k?'#ffd98a':'#5e6d76');
+  box(x+100,y-42,40,42,'#5e6d76');
+  for(let i=0;i<3;i++){const p=(TT*(.3+.6*k)+i/3)%1;alphaDo(k*.8,()=>circ(x+30+p*180,y-58,3,'#f2c230'));}
 }
-function battSmall(x,y){box(x,y-38,70,38,'#e3e8ec','rgba(0,0,0,.3)',1);ctx.strokeStyle='rgba(0,0,0,.12)';ctx.beginPath();for(let i=1;i<9;i++){ctx.moveTo(x+i*7.8,y-35);ctx.lineTo(x+i*7.8,y-3);}ctx.stroke();box(x+6,y-30,16,5,'#2d8f5a');box(x-2,y-40,74,3,'#aeb8be');}
-function dispatchCenter(x,y){box(x,y-110,130,110,'#dfe5e8','rgba(0,0,0,.3)',1);for(let r=0;r<3;r++)wins(x+12,y-96+r*30,5,22,14,16,'#3d6f8e');box(x+50,y-26,30,26,'#5e6d76');
-  ln([x+110,y-110,x+110,y-176],'#5c6770',3);circ(x+110,y-180,6,'#e8572a');}
-function substation(x,y){box(x,y-60,52,60,'#8d989f');for(let i=0;i<3;i++){box(x+8+i*14,y-86,6,26,'#c9a38c');}}
-/* 城市：lit 0–1 表示夜間點燈比例 */
-function city(lit){for(const b of CITY){const y=gyy(b.x+b.w/2);box(b.x,y-b.h,b.w,b.h+10,'#6f7f89','rgba(0,0,0,.25)',1);const r=rng(b.s);
-  for(let yy=y-b.h+10;yy<y-12;yy+=16)for(let xx=b.x+6;xx<b.x+b.w-8;xx+=12){const on=r()<lit*.85;box(xx,yy,7,9,on?'#ffd98a':'#2c3e4a');}}}
-/* 場景：燃氣電廠、光電、儲能、鐵塔、調度中心、城市 */
+function mall(x,y,lit,ac){
+  box(x,y-150,170,150,'#dfe5e8','rgba(0,0,0,.3)',1);box(x,y-150,170,22,'#1f7f99');
+  for(let r=0;r<3;r++)for(let c=0;c<5;c++)box(x+12+c*32,y-116+r*34,22,22,r*5+c<lit*15?'#ffd98a':'#3d6f8e');
+  box(x+60,y-30,50,30,'#5e6d76');
+  for(let i=0;i<2;i++){box(x+20+i*80,y-166,46,16,'#aeb8be');const a=TT*6*ac;ln([x+43+i*80+9*Math.cos(a),y-158,x+43+i*80-9*Math.cos(a),y-158],'#5e6d76',2);}
+  box(x+178,y-34,46,34,'#8d989f','rgba(0,0,0,.3)',1);box(x+184,y-26,14,8,'#e8572a');
+}
+function battery(x,y,glow){for(let j=0;j<2;j++){const bx=x+j*66;box(bx,y-50,60,50,'#e3e8ec','rgba(0,0,0,.3)',1);ctx.strokeStyle='rgba(0,0,0,.12)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(bx+i*10,y-46);ctx.lineTo(bx+i*10,y-4);}ctx.stroke();box(bx+6,y-42,14,5,glow?'#7dffc4':'#2d8f5a');box(bx-2,y-53,64,4,'#aeb8be');}}
+function car(x,y,col){poly([x,y-12,x+6,y-26,x+20,y-36,x+52,y-36,x+64,y-24,x+74,y-20,x+74,y-12],col,'rgba(0,0,0,.3)',1);box(x+24,y-33,24,10,'#bfe3f0');circ(x+16,y-10,8,'#2c3e4a');circ(x+58,y-10,8,'#2c3e4a');}
+function evStation(x,y,on){
+  box(x,y-76,170,6,'#8d989f');ln([x+6,y-70,x+6,y],'#8d989f',4);ln([x+164,y-70,x+164,y],'#8d989f',4);
+  for(let j=0;j<2;j++){const px=x+20+j*80;box(px,y-50,14,50,'#dfe5e8','rgba(0,0,0,.3)',1);box(px+3,y-44,8,6,on?'#7dffc4':'#ff9d7a');car(px+18,y,j?'#7ea9cc':'#c9d1d6');
+    ctx.strokeStyle='#2c3e4a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px+14,y-30);ctx.quadraticCurveTo(px+22,y-14,px+26,y-24);ctx.stroke();}
+}
+function house(x,y,lit){box(x,y-58,80,58,'#e8dccb','rgba(0,0,0,.25)',1);poly([x-8,y-58,x+40,y-98,x+88,y-58],'#9b6b55');
+  ctx.save();ctx.beginPath();ctx.moveTo(x+44,y-94);ctx.lineTo(x+82,y-63);ctx.lineTo(x+70,y-63);ctx.lineTo(x+38,y-89);ctx.closePath();ctx.fillStyle='#2b4f6e';ctx.fill();ctx.restore();
+  box(x+12,y-42,18,16,lit?'#ffd98a':'#3d6f8e');box(x+50,y-42,18,16,lit?'#ffd98a':'#3d6f8e');box(x+34,y-26,14,26,'#6b4e3d');}
+function aggOffice(x,y){box(x,y-110,110,110,'#dfe5e8','rgba(0,0,0,.3)',1);for(let r=0;r<3;r++)wins(x+12,y-96+r*30,4,24,14,16,'#3d6f8e');box(x+40,y-26,30,26,'#5e6d76');ln([x+90,y-110,x+90,y-150],'#5c6770',3);circ(x+90,y-152,5,'#7dffc4');}
+function dispatchCenter(x,y){box(x,y-110,140,110,'#dfe5e8','rgba(0,0,0,.3)',1);for(let r=0;r<3;r++)wins(x+12,y-96+r*30,5,24,14,16,'#3d6f8e');box(x+55,y-26,30,26,'#5e6d76');ln([x+120,y-110,x+120,y-176],'#5c6770',3);circ(x+120,y-180,6,'#e8572a');}
+function cloudIcon(a){alphaDo(a,()=>{ctx.fillStyle='rgba(14,42,59,.88)';ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.beginPath();
+  [[-62,8,30],[-24,-10,40],[22,-6,36],[60,10,28]].forEach(([dx,dy,r])=>{ctx.moveTo(CLX+dx+r,CLY+dy);ctx.arc(CLX+dx,CLY+dy,r,0,TAU);});ctx.fill();
+  ctx.beginPath();ctx.arc(CLX-62,CLY+8,30,Math.PI*.5,Math.PI*1.5);ctx.arc(CLX-24,CLY-10,40,Math.PI*1.1,Math.PI*1.75);ctx.arc(CLX+22,CLY-6,36,Math.PI*1.3,Math.PI*1.95);ctx.arc(CLX+60,CLY+10,28,Math.PI*1.5,Math.PI*.5);ctx.closePath();ctx.stroke();
+  wt(CLX,CLY+14,'聚合平台',20,'#7dffc4',700,'center');});}
+/* 雲端到資源的通訊線 */
+function sigLine(k,a,col){if(a<=0)return;const [x,y]=rTop(k);ctx.save();ctx.setLineDash([8,7]);ctx.lineDashOffset=-TT*36;
+  alphaDo(a,()=>{ctx.strokeStyle=col||'rgba(125,255,196,.85)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(CLX,CLY+36);ctx.quadraticCurveTo((CLX+x)/2,CLY+60,x,y-8);ctx.stroke();});ctx.restore();ctx.setLineDash([]);}
 function scene(o){
-  o=o||{};const k=o.k===undefined?.6:o.k;
-  gasPlant(70,gyy(180),k);
-  for(let i=0;i<5;i++){const x=350+i*46;solarPanel(x,gyy(x),42,22,{h:32,glint:o.glint});}
-  BTX.forEach(x=>battSmall(x,gyy(x+35)));
-  pylon(PX1,gyy(PX1));pylon(PX2,gyy(PX2));
-  dispatchCenter(880,gyy(945));substation(1110,gyy(1136));
-  city(o.lit||0);
-  wire(346,gyy(346)-120,PX1-60,gyy(PX1)-200);wire(PX1+60,gyy(PX1)-200,PX2-60,gyy(PX2)-200);wire(PX2+60,gyy(PX2)-200,1136,gyy(1136)-86);
-  wire(545,gyy(545)-40,PX1-46,gyy(PX1)-170,'rgba(57,70,80,.7)');wire(740,gyy(740)-30,PX1-46,gyy(PX1)-170,'rgba(57,70,80,.7)');
-  wire(PX1+46,gyy(PX1)-170,PX2-46,gyy(PX2)-170,'rgba(57,70,80,.7)');
+  o=o||{};
+  factory(60,gyy(180),o.fk===undefined?1:o.fk);
+  mall(330,gyy(415),o.lit||0,o.ac===undefined?1:o.ac);
+  battery(530,gyy(595),o.bg);
+  evStation(690,gyy(775),o.ev===undefined?true:o.ev);
+  [890,980,1070].forEach(x=>house(x,gyy(x+40),(o.lit||0)>.3));
+  aggOffice(1207,gyy(1262));
+  dispatchCenter(1392,gyy(1462));
 }
-const PMAIN=()=>[[346,gyy(346)-120],[PX1,gyy(PX1)-200],[PX2,gyy(PX2)-200],[1136,gyy(1136)-86]];
-const PSOL=()=>[[545,gyy(545)-40],[PX1-46,gyy(PX1)-170],[PX2-46,gyy(PX2)-170]];
-const PBAT=()=>[[740,gyy(740)-30],[PX1-46,gyy(PX1)-170],[PX2-46,gyy(PX2)-170]];
-/* 頻率事件曲線 */
-const fHi=t=>{const s=t-1;return s<=0?60:60-.45*(1-Math.exp(-s/2.5))+.25*(1-Math.exp(-s/6));};
-const fLo=t=>{const s=t-1;return s<=0?60:60-.7*(1-Math.exp(-s/1.1))+.35*(1-Math.exp(-s/3));};
-const fEv=t=>{const D=.1*(1-Math.exp(-t/3)),O=.12*(t/5)*Math.exp(1-t/5),R=Math.exp(-Math.max(0,t-30)/90);return 60-(D+O)*R;};
-const LX=Math.log10(601),xm=t=>Math.log10(1+t)/LX;
-/* 典型夏季平日負載與光電（GW，示意） */
+/* 典型夏季平日負載（GW，示意，與第 1 集相同形狀） */
 const LOADP=[[0,31],[3,28],[5,27.5],[7,30],[9,35],[11,38.5],[13,40],[14.5,40.5],[16,39.5],[18,38],[19.5,38.5],[21,37],[23,33],[24,31]];
 const loadAt=h=>{const P=LOADP,n=P.length;for(let i=1;i<n;i++)if(h<=P[i][0]){const a=P[i-1],b=P[i],t=(h-a[0])/(b[0]-a[0]),y0=(P[i-2]||a)[1],y3=(P[i+1]||b)[1];
-  return .5*((2*a[1])+(-y0+b[1])*t+(2*y0-5*a[1]+4*b[1]-y3)*t*t+(-y0+3*a[1]-3*b[1]+y3)*t*t*t);}return 31;};  // Catmull-Rom
-const solarAt=h=>h>5.8&&h<18.4?11*Math.sin(Math.PI*(h-5.8)/12.6):0;
-const netAt=h=>loadAt(h)-solarAt(h);
+  return .5*((2*a[1])+(-y0+b[1])*t+(2*y0-5*a[1]+4*b[1]-y3)*t*t+(-y0+3*a[1]-3*b[1]+y3)*t*t*t);}return 31;};
+const drAt=h=>1.2*clamp((h-17.5)*2)*clamp((21.5-h)*2);
+const gs=(h,c,w)=>Math.exp(-((h-c)*(h-c))/(2*w*w));
+const evRaw=h=>.08+.85*gs(h,20,1.6);
+const evSmart=h=>.08+.32*gs(h,13,2)+.42*Math.max(gs(h,2,1.6),gs(h,26,1.6));
+const batP=h=>(h>=10&&h<14)?-4:(h>=17&&h<21)?4:0;
 
-const EP={no:1,slug:'power-grid',seriesName:'電網系列',t:'電網如何平衡供需',en:'How the grid balances supply and demand',
-lede:'電無法大量儲存在電線裡，發多少電就要同時用掉多少。這一集從台灣電網的 60 Hz 頻率談起，看轉動慣量、一次調頻與二次調頻如何在幾秒到幾分鐘內接力穩住電網，以及太陽光電增加之後，傍晚的「鴨子曲線」帶來什麼挑戰。',
-facts:[['60','Hz','台灣電網的標準頻率；台電正常運轉範圍為 59.9–60.1 Hz'],
-['59.5','Hz','台電系統安全運轉的頻率下限，再往下會由低頻電驛自動卸載'],
-['約 4,100','萬瓩','台灣電網近年的夏季尖峰負載，約 41 GW'],
-['5','%','調速機常見的速度調定率（示例）：頻率變化 5% 時，機組出力變化 100%'],
-['1','秒','儲能參與台電調頻備轉（dReg）要求的反應時間'],
-['約 15.7','GW','截至 2026 年 3 月底，台灣太陽光電累計裝置容量']],
-note:'說明：本集為教育用途示意動畫，電廠、城市與設備比例經過調整。頻率範圍依台電「電力調度要點」（正常 59.9–60.1 Hz、電源不足時 59.8–60.2 Hz）與台電說明的安全運轉下限 59.5 Hz；頻率事件曲線、轉動慣量比較、調速機速度調定率 5% 與調度指令功率皆為典型範例；一日負載與光電曲線為依台電公開用電曲線形狀繪製的示意，並非特定日期資料；光電裝置容量引自經濟部能源署統計。實際數值依系統狀況與台電規範而定。',
+const EP={no:2,slug:'power-grid',seriesName:'電網系列',t:'虛擬電廠與需量反應',en:'Virtual power plants and demand response',
+lede:'平衡電網不一定要蓋新電廠。工廠、商場、儲能、充電站與家戶的用電與設備，經過聚合商整合後，可以像一座電廠一樣接受調度。這一集看虛擬電廠如何運作、需量反應怎麼進行，以及儲能與電動車如何參與台電的電力交易平台。',
+facts:[['2021','年','台電電力交易平台於 11 月正式啟用，開放儲能、需量反應與自用發電設備參與輔助服務'],
+['1','秒','調頻備轉（dReg）要求的反應時間，由頻率自動控制充放電'],
+['10','分鐘','即時備轉的反應時間，並需維持至少 1 小時'],
+['30','分鐘','補充備轉的反應時間，並需維持至少 2 小時'],
+['1','MW','參與交易的最低容量；未達門檻的小型資源可聚合後參與'],
+['117','萬瓩','台電公布 2023 年最高負載日，需量競價措施抑低的尖峰負載']],
+note:'說明：本集為教育用途示意動畫，建築與設備比例經過調整。電力交易平台啟用時間、調頻備轉 1 秒、即時備轉 10 分鐘（維持 1 小時）、補充備轉 30 分鐘（維持 2 小時）與 1 MW 參與門檻，依台電電力交易平台公開說明與產業報導整理；需量競價抑低量引自台電公布的 2023 年資料。虛擬電廠各資源容量、一日負載與抑低曲線、電動車充電負載與儲能充放電排程皆為典型範例，並非特定案場資料；實際規格與報酬依台電最新規範而定。',
 base:()=>{landSky(GY,{sun:{x:1300,y:120},clouds:false});drawGround();},
 shots:[
-{t:'一張隨時平衡的網',en:'A network in constant balance',dur:12,side:true,
- d:'電網把發電廠、太陽光電、儲能與千萬用戶連在一起。電無法大量存在電線裡，每一秒發出來的電，都要同時被用掉。早上工廠開工、午後冷氣全開，用電不斷變化，發電端就得跟著增減。台灣電網近年夏季尖峰負載約 4,100 萬瓩（41 GW），而且是一個與其他國家不相連的獨立電網，所有的平衡都要靠自己完成。',
- s:[[0,'電廠、光電與儲能，透過輸電線送電到城市'],[.28,'每一秒發出的電，都要同時被用掉'],[.55,'用電增加，發電端就得跟著增加'],[.78,'台灣是獨立電網，平衡只能靠自己']],
- cam:u=>camMix({x:800,y:440,s:1.02},{x:800,y:445,s:1.08},ease(seg(u,.1,.6))),
+{t:'散落各處的小電廠',en:'Small power plants everywhere',dur:13,side:true,
+ d:'電網上除了大型電廠，還有大量分散的資源：工廠可以暫停部分製程，商場可以調整空調，儲能系統可以隨時充放電，電動車充電站可以延後充電，家戶屋頂也有太陽光電。每一個資源單獨看都很小，多半不到 1 MW，難以直接參與電網調度；但數量龐大，加起來的調節能力相當可觀。關鍵在於如何把它們連起來、一起指揮。',
+ s:[[0,'工廠、商場、儲能、充電站與家戶分散各處'],[.3,'每一個資源都能調整用電或放電'],[.55,'單一資源太小，難以直接參與調度'],[.78,'連上聚合平台，就能一起接受指揮']],
+ cam:u=>camMix({x:800,y:440,s:1.02},{x:800,y:445,s:1.06},ease(seg(u,.1,.6))),
  draw(u){
-  const k=lerp(.55,.85,ease(seg(u,.55,.75)));
-  scene({k,glint:true,lit:.15});
-  flowDots(PMAIN(),10,'#f2c230',seg(u,.08,.16),.25);
-  flowDots(PSOL(),5,'#7dffc4',seg(u,.12,.2),.3);
-  lab(250,gyy(250)-130,'燃氣電廠',{dx:-30,dy:-90,st:'s',a:band(u,.04,.5)});
-  lab(440,gyy(440)-40,'太陽光電',{dx:-20,dy:-110,a:band(u,.08,.5)});
-  lab(630,gyy(630)-38,'儲能',{dx:10,dy:-80,a:band(u,.12,.5)});
-  lab(PX2,gyy(PX2)-200,'輸電線路',{dx:30,dy:-50,a:band(u,.16,.5)});
-  lab(1330,gyy(1330)-160,'城市用電',{dx:-20,dy:-70,st:'l',a:band(u,.2,1)});
-  lab(250,gyy(250)-240,'增加出力',{dx:60,dy:-40,st:'g',a:band(u,.58,1)});
+  scene({bg:false});
+  const c=seg(u,.78,.88);cloudIcon(c);
+  ['fac','mall','bat','ev','home','agg'].forEach((k,i)=>sigLine(k,c*seg(u,.8+i*.02,.86+i*.02)));
+  lab(180,gyy(180)-130,'工廠',{dx:-20,dy:-90,st:'s',a:band(u,.04,.55)});
+  lab(415,gyy(415)-150,'商場',{dx:20,dy:-60,a:band(u,.08,.55)});
+  lab(595,gyy(595)-50,'儲能系統',{dx:-10,dy:-110,st:'g',a:band(u,.12,.55)});
+  lab(775,gyy(775)-76,'充電站',{dx:20,dy:-90,a:band(u,.16,.55)});
+  lab(1030,gyy(1030)-96,'家戶屋頂光電',{dx:10,dy:-80,a:band(u,.2,.55)});
+  lab(1262,gyy(1262)-110,'聚合商',{dx:-10,dy:-70,st:'g',a:band(u,.82,1)});
  },
- hud(u){hudPanel(240,150,'電網即時狀態（示例）',seg(u,.05,.1),w=>{const d=lerp(34.2,36.8,ease(seg(u,.5,.72))),g=lerp(34.2,36.8,ease(seg(u,.56,.78)));const f=60-(d-g)*.05;
-  hrow(56,'用電',d.toFixed(1)+' GW',w,'#fff');hrow(88,'發電',g.toFixed(1)+' GW',w,'#f2c230');hrow(120,'頻率',f.toFixed(2)+' Hz',w,Math.abs(f-60)>.05?'#ff8a60':'#7dffc4');});}},
+ hud(u){hudPanel(240,150,'分散式資源（示例）',seg(u,.05,.1),w=>{const n=Math.round(lerp(0,1200,ease(seg(u,.1,.6))));
+  hrow(56,'資源數量',n.toLocaleString('en-US'),w,'#fff');hrow(88,'單一容量','< 1 MW',w,'#ff9d7a');hrow(120,'聚合後',u>.78?'10 MW':'—',w,'#7dffc4');});}},
 
-{t:'頻率：供需的溫度計',en:'Frequency: the thermometer of balance',dur:13,
- d:'電網的頻率就像供需的溫度計。台灣的交流電每秒正負交替 60 次，也就是 60 Hz。發電大於用電，發電機轉得更快，頻率上升；用電大於發電，發電機被拖慢，頻率下降。台電規定正常運轉範圍為 59.9 至 60.1 Hz，電源不足時放寬到 59.8 至 60.2 Hz；59.5 Hz 是安全運轉的下限，再往下就會由低頻電驛自動切斷部分用戶，避免全面停電。',
- s:[[0,'發電與用電平衡時，頻率維持 60 Hz'],[.3,'用電大於發電，頻率往下掉'],[.58,'發電大於用電，頻率往上升'],[.86,'調整發電，頻率回到 60 Hz']],
+{t:'什麼是虛擬電廠',en:'What is a virtual power plant',dur:13,
+ d:'虛擬電廠（VPP）沒有煙囪也沒有汽機，它是一套軟體與通訊系統。聚合商在每個資源裝設智慧電表與控制器，即時量測用電與出力，預測當下能調整多少容量，再把電網的調度指令拆分給各個資源執行。對調度中心來說，上千個小資源合起來就像一部可以升降出力的機組。台電電力交易平台的參與門檻為 1 MW，小型資源可以聚合後一起投標。',
+ s:[[0,'虛擬電廠是一套軟體與通訊系統'],[.3,'把各個資源的可調容量加總起來'],[.6,'合計超過 1 MW，就能參與電力交易'],[.8,'對調度中心來說，就像一部機組']],
  draw(u){
   diagBG();
-  const p1=ease(seg(u,.3,.42)),p2=ease(seg(u,.58,.7)),p3=ease(seg(u,.86,.95));
-  const G=4+2*p2,L=4+p1+p3,tl=L-G,f=60-.15*tl,ang=tl*.1;
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'供給與需求的蹺蹺板',20,'#f2c230',700);
-  poly([410,560,370,640,450,640],'#c9d1d6');
-  ctx.save();ctx.translate(410,560);ctx.rotate(ang);box(-270,-8,540,12,'#c9d1d6');
-  const stack=(x0,n,col)=>{for(let i=0;i<Math.ceil(n-.001);i++){const fr=clamp(n-i);alphaDo(fr,()=>box(x0,-10-34*(i+1),110,30,col,'rgba(255,255,255,.4)',1));}};
-  stack(-260,G,'#f2c230');stack(150,L,'#7dc8dc');ctx.restore();
-  wt(155,690,'發電（供給）',20,'#f2c230',700,'center');wt(665,690,'用電（需求）',20,'#7dc8dc',700,'center');
-  const msg=tl>.5?['用電大於發電：頻率下降','#ff9d7a']:tl<-.5?['發電大於用電：頻率上升','#ff9d7a']:['供需平衡：60 Hz','#7dffc4'];
-  alphaDo(seg(u,.04,.1),()=>tag(410,750,msg[0],{size:18,bg:msg[1],align:'center'}));
-  /* 右：頻率計 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'頻率計',20,'#f2c230',700);
-  const cx=1010,cy=480,R=160,A0=Math.PI*5/6,SW=Math.PI*4/3,va=v=>A0+clamp((v-59.4)/1.2)*SW;
-  const arc=(v0,v1,col,lw)=>{ctx.beginPath();ctx.arc(cx,cy,R,va(v0),va(v1));ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();};
-  arc(59.4,60.6,'rgba(255,255,255,.12)',22);arc(59.4,59.5,'#e8572a',22);arc(60.5,60.6,'#e8572a',22);arc(59.8,60.2,'rgba(242,194,48,.8)',22);arc(59.9,60.1,'#7dffc4',22);
-  [59.5,60,60.5].forEach(v=>{const a=va(v);ln([cx+Math.cos(a)*(R-16),cy+Math.sin(a)*(R-16),cx+Math.cos(a)*(R-34),cy+Math.sin(a)*(R-34)],'#fff',2);wt(cx+Math.cos(a)*(R-58),cy+Math.sin(a)*(R-58)+6,String(v),17,'rgba(227,236,238,.9)',700,'center',COND);});
-  const na=va(f);ln([cx,cy,cx+Math.cos(na)*(R-20),cy+Math.sin(na)*(R-20)],'#fff',4);circ(cx,cy,10,'#fff');
-  wt(cx,cy+96,f.toFixed(2)+' Hz',40,Math.abs(f-60)>.1?'#ff9d7a':'#7dffc4',700,'center',COND);
-  const LG=[['#7dffc4','59.9–60.1 Hz','正常運轉範圍'],['rgba(242,194,48,.8)','59.8–60.2 Hz','電源不足時的範圍'],['#e8572a','59.5 Hz','安全下限','再低即自動卸載']];
-  LG.forEach(([c,v,t1,t2],i)=>alphaDo(seg(u,.12+i*.05,.18+i*.05),()=>{const y=330+i*110;box(1224,y-16,18,18,c);wt(1254,y,v,20,'#fff',700,'left',COND);wt(1254,y+28,t1,16,'rgba(227,236,238,.85)',500);if(t2)wt(1254,y+52,t2,16,'rgba(227,236,238,.85)',500);}));
+  const R=[['工廠製程降載',3,'#f2c230'],['商場空調調整',1.5,'#7dc8dc'],['儲能系統',4,'#7dffc4'],['電動車充電站',.8,'#b37cff'],['換電站',.5,'#ff9d7a'],['家戶與小型光電',.2,'#dfe5e8']];
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'分散的資源與可調容量（示例）',20,'#f2c230',700);
+  R.forEach(([n,v,c],i)=>alphaDo(seg(u,.03+i*.035,.08+i*.035),()=>{const y=268+i*84;box(84,y-18,10,22,c);wt(106,y,n,18,'#fff',600);
+   box(360,y-16,v*72*ease(seg(u,.05+i*.035,.14+i*.035)),18,c);wt(370+v*72,y,v.toFixed(1)+' MW',17,'rgba(227,236,238,.9)',700,'left',COND);}));
+  alphaDo(seg(u,.3,.36),()=>{ln([84,762,736,762],'rgba(255,255,255,.2)',1);wt(84,752-30,'每個資源都裝有智慧電表與控制器',16,'rgba(227,236,238,.8)',500);});
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'聚合成一座虛擬電廠',20,'#f2c230',700);
+  const B0=760,SC=44,bx=880;let acc=0;
+  ln([bx-20,B0,bx+160,B0],'rgba(255,255,255,.5)',2);
+  R.forEach(([n,v,c],i)=>{const k=ease(seg(u,.3+i*.04,.36+i*.04));if(k<=0){return;}const h=v*SC,y=B0-(acc+v)*SC;
+   alphaDo(k,()=>box(bx,y-(1-k)*60,140,h,c,'rgba(7,27,39,.9)',1.5));acc+=v*k;});
+  alphaDo(seg(u,.52,.58),()=>{ctx.setLineDash([8,6]);ln([bx-20,B0-SC,bx+190,B0-SC],'#e8572a',2);ctx.setLineDash([]);wt(bx+198,B0-SC+6,'1 MW 參與門檻',16,'#ff9d7a',700);});
+  wt(bx+70,B0-acc*SC-16,acc.toFixed(1)+' MW',26,'#fff',700,'center',COND);
+  const ST=[['即時量測','智慧電表回傳數據','#7dc8dc',.6],['預測可調容量','估計能升降多少','#f2c230',.67],['分配調度指令','拆給各資源執行','#7dffc4',.74]];
+  ST.forEach(([a,b,c],i)=>alphaDo(seg(u,ST[i][3],ST[i][3]+.05),()=>{const y=280+i*120;card(1130,y,380,96,{bg:'rgba(255,255,255,.04)',st:c});wt(1152,y+38,(i+1)+'. '+tr(a),19,c,700);wt(1152,y+72,b,16,'rgba(227,236,238,.85)',500);}));
+  alphaDo(seg(u,.82,.88),()=>tag(1320,700,'像一部可升降出力的機組',{size:17,bg:'#7dffc4',align:'center'}));
  }},
 
-{t:'轉動慣量：第一道緩衝',en:'Inertia: the first cushion',dur:13,
- d:'火力、水力與核能電廠的發電機是數十到數百公噸的旋轉機械，與電網同步轉動，2 極機組在 60 Hz 下每分鐘轉 3,600 圈。一部機組突然跳脫時，其他機組的轉子會自動釋放旋轉動能補上缺口，讓頻率不會瞬間崩落，這就是轉動慣量。慣量越大，頻率下降越慢，調度與控制系統越有時間反應。太陽光電與風機經變流器併網，本身不提供慣量，需要靠電網構建型變流器或儲能提供「合成慣量」。',
- s:[[0,'發電機轉子與電網同步旋轉，儲存大量動能'],[.3,'一部機組跳脫，轉子釋放動能補上缺口'],[.55,'慣量越小，頻率下降得越快、越深'],[.78,'變流器併網的電源，需要另外提供合成慣量']],
+{t:'需量反應：少用也是一種發電',en:'Demand response: using less is also supply',dur:13,
+ d:'需量反應是請用戶在電網吃緊時少用電，效果等同多發一份電。台電的做法包括「計畫性減少用電」，以電價優惠鼓勵用戶把用電移到離峰；以及「需量競價」，由用戶提出願意抑低的容量與價格，台電依價格高低擇優採用。執行時以用戶平常的用電基準線比較實際用電，計算抑低量並給付回饋金。台電公布 2023 年最高負載日，需量競價抑低了約 117 萬瓩。',
+ s:[[0,'傍晚尖峰，電網備轉容量吃緊'],[.3,'台電發布通知，用戶在指定時段降低用電'],[.55,'尖峰被削減，等同多了一部機組'],[.78,'依基準線計算抑低量，給付回饋金']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'旋轉中的發電機組',20,'#f2c230',700);
-  const cx=410,cy=410,sl=u<.3?1:1-.06*ease(seg(u,.3,.6)),rot=TT*2.2*sl;
-  circ(cx,cy,150,'#1c3144','#c9d1d6',3);circ(cx,cy,118,'#23405a');
-  for(let i=0;i<6;i++){const a=rot+i*Math.PI/3;ln([cx+Math.cos(a)*30,cy+Math.sin(a)*30,cx+Math.cos(a)*140,cy+Math.sin(a)*140],'#7dc8dc',6);}
-  circ(cx,cy,30,'#c9d1d6');
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;alphaDo(.8,()=>circ(cx+Math.cos(a)*134,cy+Math.sin(a)*134,7,'#f2c230'));}
-  alphaDo(seg(u,.04,.1),()=>{wt(cx,612,'E = ½ J ω²',30,'#fff',700,'center',COND);wt(cx,650,'轉子儲存的旋轉動能',17,'rgba(227,236,238,.85)',500,'center');});
-  alphaDo(seg(u,.1,.16),()=>wt(cx,238,'60 Hz · 3,600 rpm（2 極）',18,'#7dffc4',700,'center',COND));
-  alphaDo(seg(u,.32,.38)*(1-seg(u,.74,.78)),()=>tag(cx,700,'釋放動能，補上缺口',{size:17,bg:'#f2c230',align:'center'}));
-  alphaDo(seg(u,.78,.84),()=>{tag(84,700,'同步機組：自帶慣量',{size:16,bg:'#7dffc4'});tag(84,752,'光電與風機：需合成慣量',{size:16,bg:'#dfe5e8'});});
-  const C=chartBox(800,160,740,640,{title:'失去一部機組後的頻率（示意）',x0:0,x1:10,y0:59.3,y1:60.05,xt:[0,2,4,6,8,10],yt:[59.4,59.6,59.8,60],xl:'秒',yl:'Hz',pl:84,pt:60,pb:56,gx:5,gy:3});
-  ctx.setLineDash([8,6]);ln([C.px,C.Y(59.5),C.px+C.pw,C.Y(59.5)],'#e8572a',2);ctx.setLineDash([]);
-  wt(C.px+C.pw-8,C.Y(59.5)+24,'59.5 Hz 安全下限',16,'#ff9d7a',700,'right');
-  const tE=10*seg(u,.3,.92);
-  const curve=(fn,col,lw)=>{if(tE<=0)return;ctx.beginPath();for(let t=0;t<=tE;t+=.05){const x=C.X(t),y=C.Y(fn(t));t?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();};
-  curve(fHi,'#7dffc4',3.5);
-  alphaDo(seg(u,.55,.6),()=>curve(fLo,'#ff8a60',3.5));
-  alphaDo(seg(u,.32,.38),()=>{ctx.setLineDash([4,5]);ln([C.X(1),C.py,C.X(1),C.py+C.ph],'rgba(255,255,255,.5)',1.5);ctx.setLineDash([]);wt(C.X(1)+10,C.py+24,'機組跳脫',16,'#fff',600);});
-  alphaDo(seg(u,.45,.5),()=>wt(C.X(9.8),C.Y(fHi(9))-16,'慣量大：下降較慢',17,'#7dffc4',700,'right'));
-  alphaDo(seg(u,.62,.68),()=>wt(C.X(9.8),C.Y(59.62)+34,'慣量小：下降較快、較深',17,'#ff9d7a',700,'right'));
-  alphaDo(seg(u,.66,.72),()=>{ln([C.X(1),C.Y(60),C.X(2.1),C.Y(59.42)],'rgba(255,255,255,.7)',2);wt(C.X(2.25),C.Y(59.42)+4,'頻率變化率（RoCoF）',16,'#fff',600);});
+  const C=chartBox(60,160,1000,640,{title:'夏季平日負載與需量反應（示意）',x0:12,x1:24,y0:30,y1:42,xt:[12,15,18,21,24],yt:[30,34,38,42],xl:'時',yl:'GW',pl:76,pt:60,pb:56,gx:4,gy:3});
+  const line=(fn,H,col,lw,dash)=>{if(H<=12)return;ctx.beginPath();for(let h=12;h<=H;h+=.05){const x=C.X(h),y=C.Y(fn(h));h>12?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;if(dash)ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);};
+  const s1=seg(u,.02,.25),w=seg(u,.3,.36),s2=seg(u,.4,.62);
+  alphaDo(w,()=>{box(C.X(17.5),C.py,C.X(21.5)-C.X(17.5),C.ph,'rgba(242,194,48,.1)');wt((C.X(17.5)+C.X(21.5))/2,C.py+26,'需量反應時段',16,'#f2c230',700,'center');});
+  line(loadAt,12+12*s1,s2>0?'rgba(227,236,238,.75)':'rgba(227,236,238,.95)',3,s2>0?[8,6]:null);
+  if(s2>0){const H=12+12*s2;ctx.beginPath();for(let h=17.5;h<=Math.min(H,21.5);h+=.05)(h>17.5?ctx.lineTo:ctx.moveTo).call(ctx,C.X(h),C.Y(loadAt(h)));for(let h=Math.min(H,21.5);h>=17.5;h-=.05)ctx.lineTo(C.X(h),C.Y(loadAt(h)-drAt(h)));ctx.closePath();ctx.fillStyle='rgba(125,255,196,.3)';ctx.fill();
+   line(h=>loadAt(h)-drAt(h),H,'#7dffc4',3.5);}
+  alphaDo(band(u,.12,.4),()=>wt(C.X(14.5),C.Y(loadAt(14.5))-16,'總用電',17,'#fff',700,'center'));
+  alphaDo(seg(u,.4,.46),()=>wt(C.X(15),C.Y(loadAt(15))-16,'基準線（原本的用電）',17,'rgba(227,236,238,.9)',700,'center'));
+  alphaDo(seg(u,.56,.62),()=>{const x=C.X(19.5);arrow(x,C.Y(loadAt(19.5))+4,x,C.Y(loadAt(19.5)-1.2)+4,'#7dffc4',3);tag(x,C.Y(loadAt(19.5)-1.2)+42,'尖峰抑低 約 1.2 GW',{size:16,bg:'#7dffc4',align:'center'});});
+  card(1100,160,440,640,{bg:'rgba(7,27,39,.75)'});wt(1124,200,'需量反應怎麼進行',20,'#f2c230',700);
+  const T=[['台電發布需求','前一天或當天通知','#7dc8dc',.3],['用戶降低用電','製程調整、空調、自用發電','#f2c230',.42],['與基準線比較','計算實際抑低量','#7dffc4',.7],['取得回饋金','依抑低量與得標價格','#7dffc4',.8]];
+  T.forEach(([a,b,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const y=232+i*138;card(1124,y,392,116,{bg:'rgba(255,255,255,.04)',st:c});box(1124,y,6,116,c);wt(1146,y+44,a,19,c,700);wt(1146,y+84,b,16,'rgba(227,236,238,.88)',500);}));
  }},
 
-{t:'一次調頻與二次調頻',en:'Primary and secondary frequency control',dur:14,
- d:'慣量只能爭取幾秒鐘，接下來由三道防線接手。一次調頻：每部機組的調速機感測到頻率下降，就依速度調定率自動增加出力，常見設定為 5%，也就是頻率變化 5% 時出力變化 100%；它能在數秒到數十秒內止住頻率下滑，但會停在略低於 60 Hz 的位置。二次調頻：中央調度中心的自動發電控制（AGC）計算缺口，在數分鐘內調整頻控機組出力，把頻率拉回 60 Hz。之後再由調度員重新安排機組與備轉容量。',
- s:[[0,'機組跳脫後，頻率在數秒內下滑'],[.22,'慣量先緩衝，爭取幾秒鐘'],[.42,'一次調頻：調速機自動增加出力，止住下滑'],[.66,'二次調頻：AGC 在數分鐘內拉回 60 Hz']],
+{t:'電力交易平台的備轉服務',en:'Reserve services on the trading platform',dur:14,
+ d:'台電電力交易平台於 2021 年啟用，以日前市場採購輔助服務。依反應速度分成幾種：調頻備轉（dReg）要在 1 秒內依頻率自動充放電，主要由電池儲能提供；即時備轉要在 10 分鐘內補上缺口，並維持至少 1 小時；補充備轉要在 30 分鐘內反應，維持至少 2 小時。需量反應、自用發電機與聚合後的虛擬電廠，都可依自己的能力選擇投標的項目，像接力賽一樣分工。',
+ s:[[0,'輔助服務依反應速度分成幾種'],[.25,'調頻備轉：1 秒內自動充放電'],[.5,'即時備轉：10 分鐘內補上缺口'],[.72,'補充備轉：30 分鐘內反應，撐得更久']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,1480,400,{title:'機組跳脫後，三道防線依序接手（示意）',x0:0,x1:1,y0:59.76,y1:60.04,xt:[],yt:[59.8,59.9,60],yl:'Hz',pl:92,pt:58,pb:50,gx:0,gy:3});
-  box(C.px,C.Y(60.04),C.pw,C.Y(59.9)-C.Y(60.04),'rgba(125,255,196,.07)');
-  [[0,'0'],[1,'1 秒'],[10,'10 秒'],[30,'30 秒'],[60,'1 分'],[300,'5 分'],[600,'10 分']].forEach(([t,s])=>{const x=C.X(xm(t));ln([x,C.py+C.ph,x,C.py+C.ph+6],'rgba(255,255,255,.5)',1.5);wt(x,C.py+C.ph+28,s,16,'rgba(227,236,238,.85)',600,'center',COND);});
-  const sR=seg(u,.06,.9);
-  if(sR>0){ctx.beginPath();for(let i=0;i<=400*sR;i++){const t=Math.pow(10,i/400*LX)-1,x=C.X(xm(t)),y=C.Y(fEv(t));i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#fff';ctx.lineWidth=3.5;ctx.stroke();}
-  alphaDo(seg(u,.3,.36),()=>{const x=C.X(xm(6)),y=C.Y(fEv(6));circ(x,y,7,'#ff9d7a');wt(x+14,y+24,trf('最低點 {f} Hz',{f:fEv(6).toFixed(2)}),16,'#ff9d7a',700,'left');});
-  alphaDo(seg(u,.56,.62),()=>{const x=C.X(xm(40)),y=C.Y(fEv(40));circ(x,y,7,'#f2c230');wt(x-14,y-14,'一次調頻穩住',16,'#f2c230',700,'right');});
-  alphaDo(seg(u,.86,.9),()=>{const x=C.X(xm(560)),y=C.Y(fEv(560));circ(x,y,7,'#7dffc4');wt(x-10,y-16,'回到 60 Hz',16,'#7dffc4',700,'right');});
-  const RW=[[0,6,'慣量響應','旋轉動能自然釋放','#7dc8dc',.2],[2,60,'一次調頻','調速機依頻差自動增加出力','#f2c230',.42],[30,600,'二次調頻（AGC）','調度中心自動拉回 60 Hz','#7dffc4',.66]];
-  RW.forEach(([t0,t1,n,ds,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const x0=C.X(xm(t0)),x1=C.X(xm(t1)),y=596+i*70;
-   rrp(x0,y,x1-x0,60,6);ctx.fillStyle='rgba(7,27,39,.8)';ctx.fill();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.stroke();box(x0,y,6,60,c);
-   wt(x0+18,y+26,n,18,c,700);wt(x0+18,y+50,ds,16,'rgba(227,236,238,.9)',500);}));
-  alphaDo(seg(u,.2,.26),()=>wt(60,628,'時間',16,'rgba(227,236,238,.7)',600));
+  const SV=[['調頻備轉（dReg）','1 秒','依頻率自動充放電','主要：電池儲能','#7dffc4',.2],['即時備轉','10 分鐘','維持至少 1 小時','需量反應、自用發電機','#f2c230',.45],['補充備轉','30 分鐘','維持至少 2 小時','需量反應、自用發電機','#7dc8dc',.68]];
+  SV.forEach(([n,t,a,b,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const x=60+i*500;card(x,160,480,300,{bg:'rgba(7,27,39,.8)',st:c});box(x,160,480,6,c);
+   wt(x+24,206,n,20,c,700);wt(x+24,286,t,46,'#fff',700,'left',COND);wt(x+24,318,'反應時間',16,'rgba(227,236,238,.75)',500);wt(x+24,366,a,18,'#fff',600);wt(x+24,410,b,17,'rgba(227,236,238,.85)',500);}));
+  /* 下：對數時間軸 */
+  card(60,490,1480,310,{bg:'rgba(7,27,39,.75)'});wt(84,530,'缺口出現後，誰先接手（對數時間軸）',19,'#f2c230',700);
+  alphaDo(seg(u,.04,.1),()=>tag(1516,522,'參與門檻：≥ 1 MW，可聚合',{size:15,bg:'#dfe5e8',align:'right'}));
+  const L0=Math.log10(.5),L1=Math.log10(4*3600),X=t=>140+(Math.log10(t)-L0)/(L1-L0)*1340,AY=760;
+  ln([X(.5),AY,X(14400),AY],'rgba(255,255,255,.6)',2);
+  [[1,'1 秒'],[10,'10 秒'],[60,'1 分'],[600,'10 分'],[1800,'30 分'],[3600,'1 小時'],[7200,'2 小時'],[14400,'4 小時']].forEach(([t,s])=>{ln([X(t),AY,X(t),AY+7],'rgba(255,255,255,.6)',1.5);wt(X(t),AY+30,s,15,'rgba(227,236,238,.85)',600,'center',COND);});
+  const BR=[[1,14400,'持續依頻率調節','#7dffc4',.25,0],[600,600+3600,'維持 ≥ 1 小時','#f2c230',.5,1],[1800,1800+7200,'維持 ≥ 2 小時','#7dc8dc',.74,2]];
+  BR.forEach(([t0,t1,s,c,a0,i])=>{const k=ease(seg(u,a0,a0+.12));if(k<=0)return;const y=572+i*56,x0=X(t0),x1=lerp(x0,X(t1),k);
+   circ(x0,y+16,8,c);alphaDo(.55,()=>{rrp(x0,y+4,x1-x0,24,4);ctx.fillStyle=c;ctx.fill();});
+   alphaDo(seg(u,a0+.06,a0+.1),()=>wt(x0+14,y-4,s,16,c,700,'left'));});
  }},
 
-{t:'中央調度中心',en:'The central dispatch center',dur:12,side:true,
- d:'台電中央調度中心 24 小時監看全台的頻率、負載與每一部機組。它依用電預測事先排定機組，保留足夠的備轉容量；AGC 每隔幾秒送出指令，調整頻控機組出力。近年台電也透過電力交易平台採購輔助服務，讓電池儲能、抽蓄水力與需量反應參與調頻與備轉。儲能反應最快，1 秒內就能動作，燃氣機組則在數分鐘內升載接手。',
- s:[[0,'調度中心 24 小時監看頻率與負載'],[.3,'AGC 每隔幾秒送出調整指令'],[.52,'儲能 1 秒內放電，先頂住缺口'],[.72,'燃氣機組在數分鐘內升載接手']],
- cam:u=>camMix({x:800,y:440,s:1.02},{x:780,y:450,s:1.1},ease(seg(u,.05,.4))),
+{t:'一道調度指令',en:'One dispatch order',dur:13,side:true,
+ d:'當電網出現缺口，台電調度中心向得標的聚合商送出指令，例如「10 分鐘內抑低 10 MW」。聚合平台依各資源當下的狀況分配任務：儲能立刻放電，工廠暫停部分產線，商場把空調溫度調高一度，充電站暫緩充電。各資源的反應以秒到分鐘計，平台即時回報合計響應量，直到達成指令；事件結束後再依序恢復，避免反彈造成新的尖峰。',
+ s:[[0,'調度中心送出指令：10 分鐘內抑低 10 MW'],[.25,'聚合平台把任務拆給各個資源'],[.45,'儲能放電、工廠降載、充電暫緩'],[.75,'合計響應達到 10 MW，回報調度中心']],
+ cam:u=>camMix({x:800,y:440,s:1.02},{x:800,y:430,s:1.04},ease(seg(u,.05,.4))),
  draw(u){
-  const k=lerp(.55,.95,ease(seg(u,.72,.95))),b=band(u,.52,.9);
-  scene({k,glint:true,lit:.2});
-  const sig=seg(u,.3,.36);
-  if(sig>0){const ax=990,ay=gyy(945)-180;ctx.save();ctx.setLineDash([10,8]);ctx.lineDashOffset=-TT*40;
-   alphaDo(sig,()=>{ctx.strokeStyle='#e8572a';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(600,ay-150,290,gyy(180)-250);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(820,ay-40,705,gyy(705)-50);ctx.stroke();});ctx.restore();ctx.setLineDash([]);}
-  flowDots(PBAT(),5,'#f2c230',b,.45);
-  flowDots(PMAIN(),10,'#f2c230',seg(u,.72,.8),.25+.15*k);
-  lab(945,gyy(945)-110,'中央調度中心',{dx:30,dy:-120,st:'s',a:band(u,.02,1)});
-  lab(990,gyy(945)-180,'AGC 指令',{dx:80,dy:-30,st:'w',a:band(u,.3,.6)});
-  lab(670,gyy(670)-40,'儲能：放電',{dx:-30,dy:-120,st:'g',a:band(u,.52,1)});
-  lab(250,gyy(250)-240,'燃氣機組：升載',{dx:40,dy:-40,st:'s',a:band(u,.72,1)});
+  const r=k=>ease(seg(u,.45+k*.05,.6+k*.05));
+  scene({fk:1-.6*r(1),ac:1-.7*r(2),ev:r(3)<.5,bg:r(0)>.2});
+  cloudIcon(1);
+  const s0=seg(u,.02,.1);
+  if(s0>0){const [x,y]=rTop('tpc');ctx.save();ctx.setLineDash([10,8]);ctx.lineDashOffset=-TT*40;alphaDo(s0,()=>{ctx.strokeStyle='#e8572a';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x+20,y-6);ctx.quadraticCurveTo(1150,CLY-80,CLX+80,CLY);ctx.stroke();});ctx.restore();ctx.setLineDash([]);}
+  ['fac','mall','bat','ev','home'].forEach((k,i)=>sigLine(k,seg(u,.25+i*.03,.3+i*.03)));
+  const MW=[['fac',3],['mall',1.5],['bat',4],['ev',.8],['home',.7]];
+  MW.forEach(([k,v],i)=>{const kk=[1,2,0,3,4][i];const a=seg(u,.48+kk*.05,.54+kk*.05);if(a<=0)return;const [x,y]=rTop(k);alphaDo(a,()=>tag(x,y-30,'−'+(v*r(kk)).toFixed(1)+' MW',{size:15,bg:'#7dffc4',align:'center'}));});
+  lab(1462,gyy(1462)-110,'台電調度中心',{dx:-20,dy:-160,st:'w',a:band(u,.02,.4)});
+  lab(CLX,CLY+36,'聚合平台分派',{dx:-160,dy:30,st:'g',a:band(u,.25,.45)});
+  lab(595,gyy(595)-50,'儲能放電',{dx:-60,dy:-150,st:'g',a:band(u,.6,1)});
+  lab(775,gyy(775)-50,'充電暫緩',{dx:60,dy:-150,a:band(u,.66,1)});
  },
- hud(u){hudPanel(240,150,'調度資訊（示例）',seg(u,.05,.1),w=>{const r=ease(seg(u,.52,.95));const f=lerp(59.9,60,r),p=Math.round(300*ease(seg(u,.3,.5)));
-  hrow(56,'系統頻率',f.toFixed(2)+' Hz',w,f<59.97?'#ff8a60':'#7dffc4');hrow(88,'AGC 指令','+'+p+' MW',w,'#f2c230');hrow(120,'備轉容量率','≥ 10%',w,'#7dffc4');});}},
+ hud(u){hudPanel(240,150,'調度事件（示例）',seg(u,.05,.1),w=>{const r=k=>ease(seg(u,.45+k*.05,.6+k*.05));const tot=4*r(0)+3*r(1)+1.5*r(2)+.8*r(3)+.7*r(4);
+  hrow(56,'調度指令','−10.0 MW',w,'#ff9d7a');hrow(88,'合計響應',(-tot).toFixed(1)+' MW',w,tot>9.95?'#7dffc4':'#f2c230');hrow(120,'狀態',tot>9.95?'達成':(u>.25?'執行中':'待命'),w,tot>9.95?'#7dffc4':'#fff');});}},
 
-{t:'一天的負載與鴨子曲線',en:'The daily load and the duck curve',dur:14,
- d:'用電一天之中起伏明顯：清晨最低，午後冷氣全開時達到高峰，晚上仍維持高檔。太陽光電中午發電最多，把其他電廠需要供應的「淨負載」壓低；太陽下山後光電歸零，淨負載在傍晚快速上升。畫成圖時，中午凹下像鴨肚、傍晚翹起像鴨頭，稱為鴨子曲線。電網必須在兩、三個小時內升載數百萬瓩，這需要燃氣機組、抽蓄水力與儲能一起接力。',
- s:[[0,'一天的用電：清晨最低，午後最高'],[.28,'太陽光電中午發電最多'],[.5,'扣掉光電後的淨負載，形狀像一隻鴨子'],[.74,'傍晚太陽下山，淨負載快速上升']],
+{t:'儲能與電動車的角色',en:'The role of storage and EVs',dur:13,
+ d:'儲能與電動車是最靈活的虛擬電廠資源。電動車若一下班回家就充電，充電負載會疊在傍晚尖峰上；透過智慧充電，把充電移到中午光電多的時段或深夜離峰，不影響隔天出門，卻能削減尖峰。電池儲能則可以中午吸收多餘的光電、傍晚放電支援尖峰，台電的「電能移轉複合動態調節備轉（E-dReg）」就是這種用法，同時兼顧調頻與移轉電能。',
+ s:[[0,'下班後同時充電，疊在傍晚尖峰上'],[.3,'智慧充電把充電移到中午與深夜'],[.55,'儲能中午充電，吸收多餘的光電'],[.78,'傍晚放電，支援用電尖峰']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,1060,640,{title:'夏季平日的負載與光電（示意）',x0:0,x1:24,y0:0,y1:45,xt:[0,6,12,18,24],yt:[0,10,20,30,40],xl:'時',yl:'GW',pl:76,pt:60,pb:56,gx:4,gy:4});
-  const line=(fn,H,col,lw,dash)=>{if(H<=0)return;ctx.beginPath();for(let h=0;h<=H;h+=.1){const x=C.X(h),y=C.Y(fn(h));h?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;if(dash)ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);};
-  const s1=seg(u,.02,.25),s2=seg(u,.28,.46),s3=seg(u,.5,.7);
-  if(s2>0){ctx.beginPath();ctx.moveTo(C.X(0),C.Y(0));for(let h=0;h<=24*s2;h+=.1)ctx.lineTo(C.X(h),C.Y(solarAt(h)));ctx.lineTo(C.X(24*s2),C.Y(0));ctx.closePath();ctx.fillStyle='rgba(242,194,48,.35)';ctx.fill();line(solarAt,24*s2,'#f2c230',2.5);}
-  line(loadAt,24*s1,'rgba(227,236,238,.9)',3,s3>0?[8,6]:null);
-  line(netAt,24*s3,'#ff8a60',4);
-  alphaDo(band(u,.14,.7),()=>wt(C.X(14.5),C.Y(loadAt(14.5))-14,'總用電',17,'#fff',700,'center'));
-  alphaDo(seg(u,.4,.46),()=>wt(C.X(12),C.Y(solarAt(12))-14,'太陽光電',17,'#f2c230',700,'center'));
-  alphaDo(seg(u,.62,.68),()=>wt(C.X(12.5),C.Y(netAt(12.5))+32,'淨負載',17,'#ff9d7a',700,'center'));
-  const rp=seg(u,.74,.8);
-  alphaDo(rp,()=>{const a=netAt(16),b=netAt(19.5);box(C.X(16),C.py,C.X(19.5)-C.X(16),C.ph,'rgba(232,87,42,.12)');arrow(C.X(17.7),C.Y(a)+10,C.X(17.7),C.Y(b)+6,'#e8572a',3);
-   tag(C.X(17.7),C.Y(b)-34,trf('約 {n} 小時升載 {g} GW',{n:'3.5',g:(b-a).toFixed(1)}),{size:16,bg:'#e8572a',align:'center',fg:'#fff'});});
-  /* 右：說明卡 */
-  card(1160,160,380,640,{bg:'rgba(7,27,39,.75)'});wt(1184,200,'為什麼像鴨子？',20,'#f2c230',700);
-  const T=[['中午','光電大量發電','淨負載凹下＝鴨肚','#f2c230',.5],['傍晚','光電歸零、用電仍高','淨負載翹起＝鴨頭','#ff9d7a',.74],['對策','燃氣、抽蓄、儲能','快速升載接力','#7dffc4',.86]];
-  T.forEach(([h,l1,l2,c,a0],i)=>alphaDo(seg(u,a0,a0+.06),()=>{const y=250+i*170;card(1184,y,332,146,{bg:'rgba(255,255,255,.04)',st:c});wt(1206,y+38,h,20,c,700);wt(1206,y+76,l1,17,'#fff',600);wt(1206,y+110,l2,17,'rgba(227,236,238,.85)',500);}));
+  const A=chartBox(60,160,720,640,{title:'社區電動車充電負載（示意）',x0:0,x1:24,y0:0,y1:1,xt:[0,6,12,18,24],yt:[0,.5,1],xl:'時',yl:'MW',pl:70,pt:60,pb:56,gx:4,gy:2});
+  const line=(C,fn,H,col,lw,dash)=>{if(H<=0)return;ctx.beginPath();for(let h=0;h<=H;h+=.1){const x=C.X(h),y=C.Y(fn(h));h?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=lw;if(dash)ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);};
+  const s1=seg(u,.02,.22),s2=seg(u,.3,.5);
+  alphaDo(.6,()=>box(A.X(17),A.py,A.X(21)-A.X(17),A.ph,'rgba(232,87,42,.1)'));
+  alphaDo(seg(u,.02,.06),()=>wt(A.X(19),A.py+A.ph-14,'傍晚尖峰',15,'#ff9d7a',700,'center'));
+  line(A,evRaw,24*s1,'#ff8a60',3.5,s2>0?[8,6]:null);
+  line(A,evSmart,24*s2,'#7dffc4',3.5);
+  alphaDo(band(u,.14,1),()=>wt(A.X(20)-20,A.Y(.93)-6,'下班即充電',16,'#ff9d7a',700,'right'));
+  alphaDo(seg(u,.44,.5),()=>{wt(A.X(13),A.Y(evSmart(13))-16,'中午充電',16,'#7dffc4',700,'center');wt(A.X(3),A.Y(evSmart(2))-16,'深夜充電',16,'#7dffc4',700,'left');});
+  const B=chartBox(820,160,720,640,{title:'儲能一天的充放電排程（示意）',x0:0,x1:24,y0:-5,y1:5,xt:[0,6,12,18,24],yt:[-4,0,4],xl:'時',yl:'MW',pl:70,pt:60,pb:56,gx:4,gy:2});
+  ln([B.px,B.Y(0),B.px+B.pw,B.Y(0)],'rgba(255,255,255,.5)',1.5);
+  const s3=seg(u,.55,.72),s4=seg(u,.78,.92);
+  for(let h=0;h<24;h++){const p=batP(h);if(!p)continue;const k=p<0?clamp(s3*4-(h-10)):clamp(s4*4-(h-17));if(k<=0)continue;const x=B.X(h)+3,w=B.X(h+1)-B.X(h)-6;
+   alphaDo(k,()=>{if(p<0)box(x,B.Y(0),w,B.Y(p)-B.Y(0),'#7dc8dc');else box(x,B.Y(p),w,B.Y(0)-B.Y(p),'#7dffc4');});}
+  alphaDo(seg(u,.62,.68),()=>wt(B.X(12),B.Y(-4)+30,'中午充電：吸收光電',16,'#7dc8dc',700,'center'));
+  alphaDo(seg(u,.86,.92),()=>wt(B.X(19),B.Y(4)-14,'傍晚放電：支援尖峰',16,'#7dffc4',700,'center'));
+  const soc=Math.round(10+80*ease(s3)-80*ease(s4));
+  alphaDo(seg(u,.55,.6),()=>tag(B.px+12,B.py+24,trf('電量 {n}%',{n:soc}),{size:16,bg:'#dfe5e8'}));
  }},
 
-{t:'傍晚的接力',en:'The evening relay',dur:13,side:true,
- d:'傍晚是電網最忙碌的時段。太陽光電出力在一、兩個小時內從數百萬瓩降到零，城市的燈光卻一盞盞亮起。調度中心讓燃氣機組逐步升載、抽蓄水力轉為發電，儲能把中午存下的電放出來，全程維持頻率在 60 Hz 附近。再生能源越多，電網越需要這種靈活的資源；下一集將介紹虛擬電廠與需量反應，看用戶端如何一起幫忙平衡供需。',
- s:[[0,'下午四點，光電仍在發電'],[.3,'太陽西下，光電出力快速減少'],[.55,'燃氣升載、儲能放電，一起補上缺口'],[.8,'城市亮燈，頻率仍穩在 60 Hz']],
- base:u=>{const k=seg(u,.25,.85);landSky(GY,{sun:{x:lerp(1100,1480,seg(u,0,.85)),y:lerp(200,600,ease(seg(u,.05,.85)))},dusk:k,clouds:false});drawGround();},
+{t:'傍晚的虛擬電廠',en:'The virtual power plant at dusk',dur:12,side:true,
+ d:'太陽下山、城市亮燈的傍晚，正是虛擬電廠最能發揮的時段。儲能放出中午存下的電，工廠與商場在約定時段降低用電，電動車把充電延後到深夜，這些分散的調整加起來，減輕了燃氣機組快速升載的壓力，也減少為了短暫尖峰而興建的備用電廠。再生能源越多，電網越需要這種來自用戶端的彈性；電網的平衡，不再只是發電廠的工作。',
+ s:[[0,'傍晚，光電出力減少，用電仍在高峰'],[.3,'儲能放電，工廠與商場降低用電'],[.55,'電動車延後充電，避開尖峰'],[.8,'分散的彈性，一起守住電網平衡']],
+ base:u=>{const k=seg(u,.05,.7);landSky(GY,{sun:{x:lerp(1180,1480,seg(u,0,.8)),y:lerp(260,620,ease(seg(u,0,.8)))},dusk:k,clouds:false});drawGround();},
  cam:u=>({x:800,y:440,s:1.02}),
  draw(u){
-  const h=lerp(16,20,seg(u,.02,.95)),pv=solarAt(h)/11,k=lerp(.55,1,ease(seg(u,.4,.8))),dk=seg(u,.25,.85);
-  scene({k,glint:pv>.3,lit:ease(seg(u,.5,.95))});
+  const dk=seg(u,.05,.7),r=ease(seg(u,.3,.5));
+  scene({fk:1-.6*r,ac:1-.7*r,ev:u<.55,bg:u>.3,lit:ease(seg(u,.2,.8))});
   alphaDo(dk*.3,()=>box(VX0,VY0,VX1-VX0,VY1-VY0,'#0e1a2a'));
-  flowDots(PSOL(),5,'#7dffc4',clamp(pv*1.5),.3);
-  flowDots(PBAT(),5,'#f2c230',seg(u,.55,.62),.45);
-  flowDots(PMAIN(),10,'#f2c230',1,.25+.15*k);
-  lab(440,gyy(440)-40,'光電出力下降',{dx:-20,dy:-110,st:'w',a:band(u,.3,.62)});
-  lab(250,gyy(250)-240,'燃氣升載',{dx:50,dy:-40,st:'s',a:band(u,.55,1)});
-  lab(670,gyy(670)-40,'儲能放電',{dx:10,dy:-110,st:'g',a:band(u,.58,1)});
-  lab(1330,gyy(1330)-160,'城市亮燈',{dx:-20,dy:-70,st:'l',a:band(u,.8,1)});
+  cloudIcon(1);
+  ['fac','mall','bat','ev','home'].forEach(k=>sigLine(k,.7));
+  lab(595,gyy(595)-50,'儲能放電',{dx:-60,dy:-150,st:'g',a:band(u,.3,1)});
+  lab(180,gyy(180)-130,'工廠降載',{dx:-20,dy:-90,st:'s',a:band(u,.34,1)});
+  lab(775,gyy(775)-50,'延後充電',{dx:60,dy:-150,a:band(u,.55,1)});
+  lab(1020,gyy(1020)-60,'家戶亮燈',{dx:30,dy:-120,st:'l',a:band(u,.8,1)});
  },
- hud(u){hudPanel(240,182,'傍晚供電（示意）',seg(u,.05,.1),w=>{const h=lerp(16,20,seg(u,.02,.95)),s=solarAt(h),bt=2*ease(seg(u,.55,.75));
-  hrow(56,'時間',trf('{h}:{m}',{h:Math.floor(h),m:String(Math.floor((h%1)*60)).padStart(2,'0')}),w,'#fff');hrow(86,'太陽光電',s.toFixed(1)+' GW',w,'#f2c230');hrow(116,'儲能',bt.toFixed(1)+' GW',w,'#7dffc4');hrow(146,'其他電廠',(loadAt(h)-s-bt).toFixed(1)+' GW',w,'#ff9d7a');hrow(172,'頻率','60.00 Hz',w,'#7dffc4');});}}
+ hud(u){hudPanel(240,182,'傍晚供需（示意）',seg(u,.05,.1),w=>{const h=lerp(17,19.5,seg(u,.02,.95)),r=ease(seg(u,.3,.6));
+  hrow(56,'時間',trf('{h}:{m}',{h:Math.floor(h),m:String(Math.floor((h%1)*60)).padStart(2,'0')}),w,'#fff');hrow(86,'系統負載',loadAt(h).toFixed(1)+' GW',w,'#fff');hrow(116,'虛擬電廠',(1.2*r).toFixed(1)+' GW',w,'#7dffc4');hrow(146,'燃氣升載',(3.4-1.2*r).toFixed(1)+' GW',w,'#f2c230');hrow(172,'頻率','60.00 Hz',w,'#7dffc4');});}}
 ]};
 
-/* 電網如何平衡供需 translations: Traditional Chinese → [English, Japanese] */
+/* 虛擬電廠與需量反應 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
 "電網系列":["Power Grid Series","電力系統シリーズ"],
-"電網如何平衡供需":["How the grid balances supply and demand","電力系統はどう需給を合わせるか"],
-"電無法大量儲存在電線裡，發多少電就要同時用掉多少。這一集從台灣電網的 60 Hz 頻率談起，看轉動慣量、一次調頻與二次調頻如何在幾秒到幾分鐘內接力穩住電網，以及太陽光電增加之後，傍晚的「鴨子曲線」帶來什麼挑戰。":["Electricity cannot be stored in the wires, so every unit generated must be used at the same moment. This episode starts from the 60 Hz frequency of Taiwan's grid and shows how inertia, primary control and secondary control take turns to steady the grid within seconds to minutes, and what challenge the evening \"duck curve\" brings as solar power grows.","電気は電線の中にためておけないため、発電した分をその瞬間に使い切る必要があります。本エピソードでは台湾の電力系統の 60 Hz という周波数から出発し、慣性、一次調整、二次調整が数秒から数分のあいだにリレーで系統を安定させる仕組みと、太陽光発電の増加で夕方に生じる「ダックカーブ」の課題を解説します。"],
-"台灣電網的標準頻率；台電正常運轉範圍為 59.9–60.1 Hz":["Standard frequency of Taiwan's grid; Taipower's normal operating range is 59.9–60.1 Hz","台湾の電力系統の標準周波数。台電の通常運用範囲は 59.9–60.1 Hz"],
-"台電系統安全運轉的頻率下限，再往下會由低頻電驛自動卸載":["Taipower's lower frequency limit for safe operation; below it, under-frequency relays shed load automatically","台電系統の安全運用の下限周波数。これを下回ると周波数低下リレーが自動で負荷を遮断"],
-"約 4,100":["about 41,000","約 4,100"],
-"萬瓩":["MW","万kW"],
-"台灣電網近年的夏季尖峰負載，約 41 GW":["Recent summer peak load on Taiwan's grid, about 41 GW","近年の台湾の夏季ピーク負荷、約 41 GW"],
-"調速機常見的速度調定率（示例）：頻率變化 5% 時，機組出力變化 100%":["Typical governor droop (example): a 5% change in frequency moves unit output by 100%","ガバナの一般的な速度調定率（例）：周波数が 5% 変化すると出力が 100% 変化"],
+"虛擬電廠與需量反應":["Virtual power plants and demand response","仮想発電所とデマンドレスポンス"],
+"平衡電網不一定要蓋新電廠。工廠、商場、儲能、充電站與家戶的用電與設備，經過聚合商整合後，可以像一座電廠一樣接受調度。這一集看虛擬電廠如何運作、需量反應怎麼進行，以及儲能與電動車如何參與台電的電力交易平台。":["Balancing the grid does not always require new power plants. Once an aggregator links the loads and equipment of factories, malls, storage, charging stations and homes, they can be dispatched like a single power plant. This episode shows how a virtual power plant works, how demand response is carried out, and how storage and electric vehicles take part in Taipower's electricity trading platform.","系統の需給調整には、必ずしも新しい発電所が必要なわけではありません。工場、商業施設、蓄電池、充電ステーション、家庭の需要や設備をアグリゲーターが束ねれば、一つの発電所のように給電指令に応えられます。本エピソードでは、仮想発電所の仕組み、デマンドレスポンスの進め方、そして蓄電池と電気自動車が台電の電力取引プラットフォームに参加する方法を紹介します。"],
+"年":["","年"],
+"台電電力交易平台於 11 月正式啟用，開放儲能、需量反應與自用發電設備參與輔助服務":["Taipower's electricity trading platform launched in November, opening ancillary services to storage, demand response and on-site generators","台電の電力取引プラットフォームが 11 月に本格稼働。蓄電池、デマンドレスポンス、自家発電設備がアンシラリーサービスに参加可能に"],
 "秒":["s","秒"],
-"儲能參與台電調頻備轉（dReg）要求的反應時間":["Response time required of storage in Taipower's frequency regulation reserve (dReg)","台電の周波数調整予備力（dReg）で蓄電池に求められる応答時間"],
-"約 15.7":["about 15.7","約 15.7"],
-"截至 2026 年 3 月底，台灣太陽光電累計裝置容量":["Taiwan's cumulative installed solar PV capacity as of the end of March 2026","2026 年 3 月末時点の台湾の太陽光発電累計設備容量"],
-"說明：本集為教育用途示意動畫，電廠、城市與設備比例經過調整。頻率範圍依台電「電力調度要點」（正常 59.9–60.1 Hz、電源不足時 59.8–60.2 Hz）與台電說明的安全運轉下限 59.5 Hz；頻率事件曲線、轉動慣量比較、調速機速度調定率 5% 與調度指令功率皆為典型範例；一日負載與光電曲線為依台電公開用電曲線形狀繪製的示意，並非特定日期資料；光電裝置容量引自經濟部能源署統計。實際數值依系統狀況與台電規範而定。":["Note: this is an illustrative educational animation; the scale of power plants, the city and equipment has been adjusted. Frequency ranges follow Taipower's Power Dispatching Guidelines (normal 59.9–60.1 Hz, 59.8–60.2 Hz when supply is short) and the 59.5 Hz safe-operation floor described by Taipower. The frequency event curves, the inertia comparison, the 5% governor droop and the dispatch power are typical examples. The daily load and solar curves are sketches based on the shape of Taipower's published load curves, not data from a specific day. Solar capacity is from Energy Administration (MOEA) statistics. Actual values depend on system conditions and Taipower rules.","説明：本作は教育用の模式アニメーションで、発電所・都市・設備の縮尺は調整しています。周波数範囲は台電「電力調度要点」（通常 59.9–60.1 Hz、供給力不足時 59.8–60.2 Hz）と台電が示す安全運用の下限 59.5 Hz に基づきます。周波数変動の曲線、慣性の比較、ガバナ速度調定率 5%、給電指令の出力はいずれも典型例です。1 日の負荷と太陽光の曲線は台電が公開する需要曲線の形をもとにした模式図で、特定日のデータではありません。太陽光の設備容量は経済部エネルギー署の統計によります。実際の値は系統の状況と台電の規定により異なります。"],
+"調頻備轉（dReg）要求的反應時間，由頻率自動控制充放電":["Response time required for frequency regulation reserve (dReg), with charging and discharging controlled automatically by frequency","周波数調整予備力（dReg）に求められる応答時間。周波数に応じて自動で充放電"],
+"分鐘":["min","分"],
+"即時備轉的反應時間，並需維持至少 1 小時":["Response time for spinning reserve, which must be held for at least 1 hour","即時予備力の応答時間。少なくとも 1 時間の継続が必要"],
+"補充備轉的反應時間，並需維持至少 2 小時":["Response time for supplemental reserve, which must be held for at least 2 hours","補充予備力の応答時間。少なくとも 2 時間の継続が必要"],
+"參與交易的最低容量；未達門檻的小型資源可聚合後參與":["Minimum capacity to trade; smaller resources can join by being aggregated","取引参加の最低容量。これに満たない小規模リソースはアグリゲーションで参加可能"],
+"117":["1,170","117"],
+"萬瓩":["MW","万kW"],
+"台電公布 2023 年最高負載日，需量競價措施抑低的尖峰負載":["Peak load cut by demand bidding on the highest-load day of 2023, as reported by Taipower (about 1.17 GW)","台電が公表した 2023 年最大負荷日に、需要入札で抑制したピーク負荷（約 1.17 GW）"],
+"說明：本集為教育用途示意動畫，建築與設備比例經過調整。電力交易平台啟用時間、調頻備轉 1 秒、即時備轉 10 分鐘（維持 1 小時）、補充備轉 30 分鐘（維持 2 小時）與 1 MW 參與門檻，依台電電力交易平台公開說明與產業報導整理；需量競價抑低量引自台電公布的 2023 年資料。虛擬電廠各資源容量、一日負載與抑低曲線、電動車充電負載與儲能充放電排程皆為典型範例，並非特定案場資料；實際規格與報酬依台電最新規範而定。":["Note: this is an illustrative educational animation; buildings and equipment are not to scale. The platform launch date, the 1-second dReg response, the 10-minute spinning reserve (held for 1 hour), the 30-minute supplemental reserve (held for 2 hours) and the 1 MW participation threshold are compiled from Taipower's public descriptions of its electricity trading platform and industry reports; the demand-bidding reduction is from Taipower's 2023 figures. Resource capacities in the virtual power plant, the daily load and reduction curves, the EV charging load and the storage schedule are typical examples, not data from specific sites. Actual specifications and payments follow Taipower's latest rules.","説明：本作は教育用の模式アニメーションで、建物と設備の縮尺は調整しています。電力取引プラットフォームの開始時期、周波数調整予備力の 1 秒、即時予備力の 10 分（1 時間継続）、補充予備力の 30 分（2 時間継続）、参加下限 1 MW は、台電の電力取引プラットフォームの公開説明と業界報道に基づきます。需要入札の抑制量は台電が公表した 2023 年のデータです。仮想発電所の各リソース容量、1 日の負荷と抑制曲線、EV 充電負荷、蓄電池の充放電スケジュールはいずれも典型例で、特定の施設のデータではありません。実際の仕様と報酬は台電の最新規定によります。"],
 /* 分鏡 1 */
-"一張隨時平衡的網":["A network in constant balance","常に釣り合う電力網"],
-"電網把發電廠、太陽光電、儲能與千萬用戶連在一起。電無法大量存在電線裡，每一秒發出來的電，都要同時被用掉。早上工廠開工、午後冷氣全開，用電不斷變化，發電端就得跟著增減。台灣電網近年夏季尖峰負載約 4,100 萬瓩（41 GW），而且是一個與其他國家不相連的獨立電網，所有的平衡都要靠自己完成。":["The grid links power plants, solar farms, storage and millions of customers. Electricity cannot be stored in the wires in bulk, so every second the power generated must be consumed at the same moment. Factories start up in the morning and air conditioners run at full tilt in the afternoon; as demand changes, generation must follow. Taiwan's recent summer peak load is about 41 GW, and it is an isolated grid with no links to other countries, so it must keep the balance entirely on its own.","電力系統は発電所、太陽光発電、蓄電池、そして数千万の需要家を結んでいます。電気は電線に大量にためられないため、毎秒発電した電気をその瞬間に使い切る必要があります。朝は工場が動き出し、午後は冷房がフル稼働するなど需要は刻々と変わり、発電側はそれに合わせて増減しなければなりません。台湾の近年の夏季ピーク負荷は約 4,100 万 kW（41 GW）で、他国と連系していない独立系統のため、需給の釣り合いはすべて自力で保つ必要があります。"],
-"電廠、光電與儲能，透過輸電線送電到城市":["Power plants, solar and storage send power to the city over transmission lines","発電所・太陽光・蓄電池から送電線で都市へ送電"],
-"每一秒發出的電，都要同時被用掉":["Every second, the power generated must be used at once","毎秒、発電した電気はその場で使い切られる"],
-"用電增加，發電端就得跟著增加":["When demand rises, generation has to rise with it","需要が増えれば、発電も合わせて増やす"],
-"台灣是獨立電網，平衡只能靠自己":["Taiwan is an isolated grid and must balance on its own","台湾は独立系統、需給調整は自力で行う"],
-"燃氣電廠":["Gas power plant","ガス火力発電所"],
-"太陽光電":["Solar PV","太陽光発電"],
-"儲能":["Storage","蓄電池"],
-"輸電線路":["Transmission line","送電線"],
-"城市用電":["City demand","都市の電力需要"],
-"增加出力":["Output up","出力増加"],
-"電網即時狀態（示例）":["Grid status (example)","系統の状態（例）"],
-"用電":["Demand","需要"],
-"發電":["Generation","発電"],
-"頻率":["Frequency","周波数"],
+"散落各處的小電廠":["Small power plants everywhere","各地に散らばる小さな発電所"],
+"電網上除了大型電廠，還有大量分散的資源：工廠可以暫停部分製程，商場可以調整空調，儲能系統可以隨時充放電，電動車充電站可以延後充電，家戶屋頂也有太陽光電。每一個資源單獨看都很小，多半不到 1 MW，難以直接參與電網調度；但數量龐大，加起來的調節能力相當可觀。關鍵在於如何把它們連起來、一起指揮。":["Besides large power plants, the grid holds a great many distributed resources: factories can pause part of their production, malls can adjust air conditioning, storage systems can charge or discharge at any time, EV charging stations can delay charging, and homes have rooftop solar. Each resource is small on its own, mostly under 1 MW, and hard to dispatch directly. But there are so many of them that their combined flexibility is considerable. The key is to connect them and direct them together.","系統には大規模発電所のほかに、多数の分散型リソースがあります。工場は一部の工程を止められ、商業施設は空調を調整でき、蓄電池はいつでも充放電でき、EV 充電ステーションは充電を遅らせられ、家庭の屋根には太陽光発電があります。一つひとつは小さく、多くは 1 MW 未満で、単独では給電指令に参加しにくいものの、数が非常に多いため合計の調整力はかなりの規模になります。鍵は、それらをつなぎ、まとめて制御することです。"],
+"工廠、商場、儲能、充電站與家戶分散各處":["Factories, malls, storage, chargers and homes are spread out","工場・商業施設・蓄電池・充電所・家庭が各地に分散"],
+"每一個資源都能調整用電或放電":["Each resource can adjust its demand or discharge","どのリソースも需要や放電を調整できる"],
+"單一資源太小，難以直接參與調度":["Each one alone is too small to dispatch directly","単独では小さすぎて給電指令に参加しにくい"],
+"連上聚合平台，就能一起接受指揮":["Linked to an aggregation platform, they act together","アグリゲーション基盤につなげば一体で制御できる"],
+"工廠":["Factory","工場"],
+"商場":["Mall","商業施設"],
+"儲能系統":["Storage system","蓄電システム"],
+"充電站":["EV chargers","充電ステーション"],
+"家戶屋頂光電":["Rooftop solar","住宅屋根の太陽光"],
+"聚合商":["Aggregator","アグリゲーター"],
+"聚合平台":["Aggregator","集約基盤"],
+"分散式資源（示例）":["Distributed resources (example)","分散型リソース（例）"],
+"資源數量":["Resources","リソース数"],
+"單一容量":["Each","単体容量"],
+"聚合後":["Aggregated","集約後"],
 /* 分鏡 2 */
-"頻率：供需的溫度計":["Frequency: the thermometer of balance","周波数：需給の温度計"],
-"電網的頻率就像供需的溫度計。台灣的交流電每秒正負交替 60 次，也就是 60 Hz。發電大於用電，發電機轉得更快，頻率上升；用電大於發電，發電機被拖慢，頻率下降。台電規定正常運轉範圍為 59.9 至 60.1 Hz，電源不足時放寬到 59.8 至 60.2 Hz；59.5 Hz 是安全運轉的下限，再往下就會由低頻電驛自動切斷部分用戶，避免全面停電。":["Grid frequency works like a thermometer for the balance of supply and demand. Taiwan's alternating current reverses 60 times a second: 60 Hz. When generation exceeds demand, generators spin faster and frequency rises; when demand exceeds generation, generators are dragged down and frequency falls. Taipower's normal operating range is 59.9 to 60.1 Hz, widened to 59.8 to 60.2 Hz when supply is short. 59.5 Hz is the floor for safe operation; below it, under-frequency relays automatically disconnect some customers to avoid a total blackout.","系統周波数は需給バランスの温度計のようなものです。台湾の交流電気は 1 秒間に 60 回プラスとマイナスが入れ替わり、これが 60 Hz です。発電が需要を上回ると発電機の回転が速まり周波数が上がり、需要が発電を上回ると発電機が引き戻されて周波数が下がります。台電の通常運用範囲は 59.9～60.1 Hz、供給力不足時は 59.8～60.2 Hz に広げられます。59.5 Hz は安全運用の下限で、これを下回ると周波数低下リレーが一部の需要家を自動で切り離し、全域停電を防ぎます。"],
-"發電與用電平衡時，頻率維持 60 Hz":["With supply and demand balanced, frequency stays at 60 Hz","需給が釣り合うと、周波数は 60 Hz を維持"],
-"用電大於發電，頻率往下掉":["Demand exceeds supply, so frequency drops","需要が発電を上回り、周波数が低下"],
-"發電大於用電，頻率往上升":["Supply exceeds demand, so frequency rises","発電が需要を上回り、周波数が上昇"],
-"調整發電，頻率回到 60 Hz":["Generation is adjusted and frequency returns to 60 Hz","発電を調整し、周波数は 60 Hz に戻る"],
-"供給與需求的蹺蹺板":["The supply–demand seesaw","供給と需要のシーソー"],
-"發電（供給）":["Generation (supply)","発電（供給）"],
-"用電（需求）":["Consumption (demand)","消費（需要）"],
-"用電大於發電：頻率下降":["Demand > supply: frequency falls","需要＞発電：周波数低下"],
-"發電大於用電：頻率上升":["Supply > demand: frequency rises","発電＞需要：周波数上昇"],
-"供需平衡：60 Hz":["Balanced: 60 Hz","需給均衡：60 Hz"],
-"頻率計":["Frequency meter","周波数計"],
-"正常運轉範圍":["Normal operating range","通常運用範囲"],
-"電源不足時的範圍":["Range when supply is short","供給力不足時の範囲"],
-"安全下限":["Safety floor","安全運用の下限"],
-"再低即自動卸載":["Load shedding below this","下回ると自動負荷遮断"],
+"什麼是虛擬電廠":["What is a virtual power plant","仮想発電所とは"],
+"虛擬電廠（VPP）沒有煙囪也沒有汽機，它是一套軟體與通訊系統。聚合商在每個資源裝設智慧電表與控制器，即時量測用電與出力，預測當下能調整多少容量，再把電網的調度指令拆分給各個資源執行。對調度中心來說，上千個小資源合起來就像一部可以升降出力的機組。台電電力交易平台的參與門檻為 1 MW，小型資源可以聚合後一起投標。":["A virtual power plant (VPP) has no chimney and no turbine; it is a system of software and communications. The aggregator installs smart meters and controllers at each resource, measures demand and output in real time, forecasts how much capacity can be adjusted at the moment, and then splits the grid's dispatch orders among the resources. To the dispatch center, a thousand small resources together look like one generating unit that can ramp up or down. Taipower's trading platform has a 1 MW participation threshold, so small resources bid together after aggregation.","仮想発電所（VPP）には煙突もタービンもなく、ソフトウェアと通信のシステムです。アグリゲーターは各リソースにスマートメーターと制御装置を設置し、需要と出力をリアルタイムで計測し、その時点で調整できる容量を予測したうえで、系統からの給電指令を各リソースに割り振ります。給電指令所から見れば、数千の小さなリソースが出力を上げ下げできる一台の発電機のように見えます。台電の電力取引プラットフォームの参加下限は 1 MW で、小規模リソースは集約して一緒に入札できます。"],
+"虛擬電廠是一套軟體與通訊系統":["A VPP is a system of software and communications","仮想発電所はソフトと通信のシステム"],
+"把各個資源的可調容量加總起來":["It adds up the flexible capacity of every resource","各リソースの調整可能容量を合計する"],
+"合計超過 1 MW，就能參與電力交易":["Above 1 MW in total, it can trade on the platform","合計 1 MW を超えれば電力取引に参加できる"],
+"對調度中心來說，就像一部機組":["To the dispatch center, it looks like one unit","給電指令所からは一台の発電機に見える"],
+"工廠製程降載":["Factory process cut","工場の工程抑制"],
+"商場空調調整":["Mall air conditioning","商業施設の空調"],
+"電動車充電站":["EV charging station","EV 充電ステーション"],
+"換電站":["Battery swap station","バッテリー交換所"],
+"家戶與小型光電":["Homes and small PV","家庭と小規模太陽光"],
+"分散的資源與可調容量（示例）":["Resources and flexible capacity (example)","分散リソースと調整容量（例）"],
+"每個資源都裝有智慧電表與控制器":["Each resource has a smart meter and controller","各リソースにスマートメーターと制御装置"],
+"聚合成一座虛擬電廠":["Aggregated into one virtual power plant","集約して一つの仮想発電所に"],
+"1 MW 參與門檻":["1 MW threshold","1 MW 参加下限"],
+"即時量測":["Real-time metering","リアルタイム計測"],
+"智慧電表回傳數據":["Smart meters report data","スマートメーターがデータ送信"],
+"預測可調容量":["Forecast flexibility","調整可能容量を予測"],
+"估計能升降多少":["How much can go up or down","どれだけ増減できるか推定"],
+"分配調度指令":["Split dispatch orders","給電指令を割り振る"],
+"拆給各資源執行":["Each resource does its share","各リソースが分担して実行"],
+"像一部可升降出力的機組":["Like a unit that ramps up and down","出力を増減できる発電機のように"],
 /* 分鏡 3 */
-"轉動慣量：第一道緩衝":["Inertia: the first cushion","慣性：最初の緩衝"],
-"火力、水力與核能電廠的發電機是數十到數百公噸的旋轉機械，與電網同步轉動，2 極機組在 60 Hz 下每分鐘轉 3,600 圈。一部機組突然跳脫時，其他機組的轉子會自動釋放旋轉動能補上缺口，讓頻率不會瞬間崩落，這就是轉動慣量。慣量越大，頻率下降越慢，調度與控制系統越有時間反應。太陽光電與風機經變流器併網，本身不提供慣量，需要靠電網構建型變流器或儲能提供「合成慣量」。":["Generators in thermal, hydro and nuclear plants are rotating machines weighing tens to hundreds of tonnes, spinning in step with the grid; a two-pole unit turns 3,600 times a minute at 60 Hz. When one unit trips suddenly, the rotors of the others automatically release kinetic energy to fill the gap, so frequency does not collapse instantly. This is inertia. The greater the inertia, the slower frequency falls and the more time controls and dispatchers have to respond. Solar and wind connect through inverters and provide no inertia of their own; grid-forming inverters or storage must supply \"synthetic inertia\".","火力・水力・原子力発電所の発電機は数十～数百トンの回転機械で、系統と同期して回っています。2 極機は 60 Hz で毎分 3,600 回転します。1 台が突然脱落すると、ほかの発電機の回転子が自然に回転エネルギーを放出して不足を補い、周波数が一気に崩れるのを防ぎます。これが慣性です。慣性が大きいほど周波数の低下は緩やかになり、制御や給電の対応時間を稼げます。太陽光や風力はインバータを介して連系するため自ら慣性を持たず、グリッドフォーミングインバータや蓄電池による「疑似慣性」が必要です。"],
-"發電機轉子與電網同步旋轉，儲存大量動能":["Generator rotors spin in step with the grid, storing kinetic energy","発電機の回転子は系統と同期し、大きな運動エネルギーを持つ"],
-"一部機組跳脫，轉子釋放動能補上缺口":["A unit trips; rotors release energy to fill the gap","1 台が脱落、回転子がエネルギーを放出して補う"],
-"慣量越小，頻率下降得越快、越深":["With less inertia, frequency falls faster and deeper","慣性が小さいほど、周波数は速く深く下がる"],
-"變流器併網的電源，需要另外提供合成慣量":["Inverter-based sources need to provide synthetic inertia","インバータ電源には疑似慣性の付与が必要"],
-"旋轉中的發電機組":["A spinning generator","回転する発電機"],
-"轉子儲存的旋轉動能":["Kinetic energy stored in the rotor","回転子に蓄えられた回転エネルギー"],
-"60 Hz · 3,600 rpm（2 極）":["60 Hz · 3,600 rpm (2-pole)","60 Hz · 3,600 rpm（2 極）"],
-"釋放動能，補上缺口":["Releases energy to fill the gap","エネルギーを放出して補う"],
-"同步機組：自帶慣量":["Synchronous units: built-in inertia","同期発電機：慣性を持つ"],
-"光電與風機：需合成慣量":["Solar and wind: need synthetic inertia","太陽光・風力：疑似慣性が必要"],
-"失去一部機組後的頻率（示意）":["Frequency after losing a unit (illustrative)","発電機脱落後の周波数（模式図）"],
-"59.5 Hz 安全下限":["59.5 Hz safety floor","59.5 Hz 安全下限"],
-"機組跳脫":["Unit trips","発電機脱落"],
-"慣量大：下降較慢":["High inertia: slower fall","慣性大：低下が緩やか"],
-"慣量小：下降較快、較深":["Low inertia: faster, deeper fall","慣性小：低下が速く深い"],
-"頻率變化率（RoCoF）":["Rate of change (RoCoF)","周波数変化率（RoCoF）"],
-/* 分鏡 4 */
-"一次調頻與二次調頻":["Primary and secondary frequency control","一次調整と二次調整"],
-"慣量只能爭取幾秒鐘，接下來由三道防線接手。一次調頻：每部機組的調速機感測到頻率下降，就依速度調定率自動增加出力，常見設定為 5%，也就是頻率變化 5% 時出力變化 100%；它能在數秒到數十秒內止住頻率下滑，但會停在略低於 60 Hz 的位置。二次調頻：中央調度中心的自動發電控制（AGC）計算缺口，在數分鐘內調整頻控機組出力，把頻率拉回 60 Hz。之後再由調度員重新安排機組與備轉容量。":["Inertia buys only a few seconds; after that, layered defenses take over. Primary control: each unit's governor senses the frequency drop and raises output automatically according to its droop, commonly set at 5%, meaning a 5% change in frequency moves output by 100%. It halts the decline within seconds to tens of seconds, but settles slightly below 60 Hz. Secondary control: automatic generation control (AGC) at the central dispatch center calculates the shortfall and adjusts regulating units over several minutes, bringing frequency back to 60 Hz. Dispatchers then rearrange units and reserves.","慣性が稼げるのは数秒だけで、その後は段階的な防御が引き継ぎます。一次調整：各発電機のガバナが周波数低下を検知し、速度調定率に従って自動で出力を増やします。一般的な設定は 5% で、周波数が 5% 変化すると出力が 100% 変化します。数秒～数十秒で低下を止めますが、60 Hz よりやや低い位置で落ち着きます。二次調整：中央給電指令所の自動発電制御（AGC）が不足量を計算し、数分かけて調整用発電機の出力を変えて周波数を 60 Hz に戻します。その後、給電員が発電機と予備力を組み直します。"],
-"機組跳脫後，頻率在數秒內下滑":["After a unit trips, frequency slides within seconds","発電機脱落後、周波数は数秒で低下"],
-"慣量先緩衝，爭取幾秒鐘":["Inertia cushions first, buying a few seconds","まず慣性が緩衝し、数秒を稼ぐ"],
-"一次調頻：調速機自動增加出力，止住下滑":["Primary control: governors raise output and stop the fall","一次調整：ガバナが出力を増やし低下を止める"],
-"二次調頻：AGC 在數分鐘內拉回 60 Hz":["Secondary control: AGC restores 60 Hz within minutes","二次調整：AGC が数分で 60 Hz に戻す"],
-"機組跳脫後，三道防線依序接手（示意）":["After a unit trip, three defenses take over in turn (illustrative)","発電機脱落後、3 段の防御が順に引き継ぐ（模式図）"],
-"1 秒":["1 s","1 秒"],"10 秒":["10 s","10 秒"],"30 秒":["30 s","30 秒"],"1 分":["1 min","1 分"],"5 分":["5 min","5 分"],"10 分":["10 min","10 分"],
-"最低點 {f} Hz":["Nadir {f} Hz","最低点 {f} Hz"],
-"一次調頻穩住":["Primary control holds","一次調整で安定"],
-"回到 60 Hz":["Back to 60 Hz","60 Hz に復帰"],
-"慣量響應":["Inertial response","慣性応答"],
-"旋轉動能自然釋放":["Rotating mass releases energy","回転エネルギーを自然に放出"],
-"一次調頻":["Primary control","一次調整"],
-"調速機依頻差自動增加出力":["Governors raise output on frequency error","ガバナが周波数偏差に応じ出力増"],
-"二次調頻（AGC）":["Secondary control (AGC)","二次調整（AGC）"],
-"調度中心自動拉回 60 Hz":["Dispatch center restores 60 Hz","給電指令所が 60 Hz に戻す"],
-"時間":["Time","時刻"],
-/* 分鏡 5 */
-"中央調度中心":["Central dispatch center","中央給電指令所"],
-"台電中央調度中心 24 小時監看全台的頻率、負載與每一部機組。它依用電預測事先排定機組，保留足夠的備轉容量；AGC 每隔幾秒送出指令，調整頻控機組出力。近年台電也透過電力交易平台採購輔助服務，讓電池儲能、抽蓄水力與需量反應參與調頻與備轉。儲能反應最快，1 秒內就能動作，燃氣機組則在數分鐘內升載接手。":["Taipower's central dispatch center monitors frequency, load and every generating unit across Taiwan around the clock. It schedules units in advance from demand forecasts and keeps enough operating reserve, while AGC sends commands every few seconds to adjust regulating units. In recent years Taipower has also procured ancillary services through its power trading platform, letting battery storage, pumped hydro and demand response provide regulation and reserves. Storage responds fastest, within 1 second, while gas units ramp up and take over within minutes.","台電の中央給電指令所は、全台湾の周波数・負荷・すべての発電機を 24 時間監視しています。需要予測に基づいて発電機を事前に計画し、十分な運転予備力を確保します。AGC は数秒ごとに指令を送り、調整用発電機の出力を変えます。近年は電力取引プラットフォームでアンシラリーサービスを調達し、蓄電池、揚水発電、デマンドレスポンスも周波数調整や予備力に参加しています。蓄電池は 1 秒以内に最も速く応答し、ガス火力は数分で出力を上げて引き継ぎます。"],
-"調度中心 24 小時監看頻率與負載":["The dispatch center watches frequency and load 24/7","給電指令所が周波数と負荷を 24 時間監視"],
-"AGC 每隔幾秒送出調整指令":["AGC sends adjustment commands every few seconds","AGC が数秒ごとに調整指令を送信"],
-"儲能 1 秒內放電，先頂住缺口":["Storage discharges within 1 s to hold the gap","蓄電池が 1 秒以内に放電し不足を支える"],
-"燃氣機組在數分鐘內升載接手":["Gas units ramp up and take over within minutes","ガス火力が数分で出力を上げ引き継ぐ"],
-"AGC 指令":["AGC command","AGC 指令"],
-"儲能：放電":["Storage: discharging","蓄電池：放電"],
-"燃氣機組：升載":["Gas unit: ramping up","ガス火力：出力上昇"],
-"調度資訊（示例）":["Dispatch data (example)","給電情報（例）"],
-"系統頻率":["System frequency","系統周波数"],
-"備轉容量率":["Reserve margin","予備率"],
-/* 分鏡 6 */
-"一天的負載與鴨子曲線":["The daily load and the duck curve","1 日の負荷とダックカーブ"],
-"用電一天之中起伏明顯：清晨最低，午後冷氣全開時達到高峰，晚上仍維持高檔。太陽光電中午發電最多，把其他電廠需要供應的「淨負載」壓低；太陽下山後光電歸零，淨負載在傍晚快速上升。畫成圖時，中午凹下像鴨肚、傍晚翹起像鴨頭，稱為鴨子曲線。電網必須在兩、三個小時內升載數百萬瓩，這需要燃氣機組、抽蓄水力與儲能一起接力。":["Demand swings through the day: lowest before dawn, peaking in the afternoon when air conditioners run flat out, and staying high into the night. Solar output peaks at noon and pushes down the \"net load\" that other plants must supply; after sunset solar drops to zero and net load climbs quickly in the evening. Plotted, the midday dip looks like a duck's belly and the evening rise like its head, hence the duck curve. The grid must ramp up several gigawatts within two to three hours, which takes gas units, pumped hydro and storage working in relay.","電力需要は 1 日のうちに大きく変動します。明け方が最も低く、冷房がフル稼働する午後にピークを迎え、夜も高い水準が続きます。太陽光は正午に最も多く発電し、ほかの電源が賄う「正味負荷（ネットロード）」を押し下げます。日没後に太陽光がゼロになると、夕方に正味負荷が急上昇します。グラフにすると昼のくぼみがアヒルの腹、夕方の立ち上がりが頭のように見えるため、ダックカーブと呼ばれます。系統は 2～3 時間で数百万 kW の出力増加が必要で、ガス火力、揚水発電、蓄電池のリレーが欠かせません。"],
-"一天的用電：清晨最低，午後最高":["Daily demand: lowest at dawn, highest in the afternoon","1 日の需要：明け方が最低、午後が最高"],
-"太陽光電中午發電最多":["Solar output peaks at noon","太陽光は正午に発電量が最大"],
-"扣掉光電後的淨負載，形狀像一隻鴨子":["Net load after solar is shaped like a duck","太陽光を差し引いた正味負荷はアヒルの形"],
-"傍晚太陽下山，淨負載快速上升":["At sunset, net load climbs quickly","日没とともに正味負荷が急上昇"],
-"夏季平日的負載與光電（示意）":["Summer weekday load and solar (illustrative)","夏の平日の負荷と太陽光（模式図）"],
+"需量反應：少用也是一種發電":["Demand response: using less is also supply","デマンドレスポンス：使わないことも供給力"],
+"需量反應是請用戶在電網吃緊時少用電，效果等同多發一份電。台電的做法包括「計畫性減少用電」，以電價優惠鼓勵用戶把用電移到離峰；以及「需量競價」，由用戶提出願意抑低的容量與價格，台電依價格高低擇優採用。執行時以用戶平常的用電基準線比較實際用電，計算抑低量並給付回饋金。台電公布 2023 年最高負載日，需量競價抑低了約 117 萬瓩。":["Demand response asks customers to use less electricity when the grid is tight, which has the same effect as generating more. Taipower's programs include planned load reduction, which uses tariff discounts to move demand off-peak, and demand bidding, in which customers offer the capacity and price at which they will cut load and Taipower accepts the most economical bids. During an event, actual use is compared with each customer's normal baseline to calculate the reduction and the payment. Taipower reports that on the highest-load day of 2023, demand bidding cut about 1.17 GW of peak load.","デマンドレスポンスは、系統がひっ迫したときに需要家に電気の使用を控えてもらう仕組みで、発電を増やすのと同じ効果があります。台電の制度には、料金割引で需要をオフピークに移す「計画的な需要抑制」と、需要家が抑制できる容量と価格を提示し、台電が経済的なものから採用する「需要入札」があります。実施時には、需要家の通常の使用量を示すベースラインと実際の使用量を比べて抑制量を算定し、報酬を支払います。台電によれば、2023 年の最大負荷日に需要入札で約 117 万 kW を抑制しました。"],
+"傍晚尖峰，電網備轉容量吃緊":["At the evening peak, reserves run tight","夕方のピーク、予備力がひっ迫"],
+"台電發布通知，用戶在指定時段降低用電":["Taipower issues a notice; customers cut use in the set hours","台電が通知、需要家は指定時間帯に使用を抑制"],
+"尖峰被削減，等同多了一部機組":["The peak is shaved, like adding a generating unit","ピークを削減、発電機一台を増やしたのと同じ"],
+"依基準線計算抑低量，給付回饋金":["Reductions are measured against a baseline and paid","ベースラインで抑制量を算定し報酬を支払う"],
+"夏季平日負載與需量反應（示意）":["Summer weekday load and demand response (illustrative)","夏の平日の負荷とデマンドレスポンス（模式）"],
 "時":["h","時"],
+"需量反應時段":["DR window","DR 実施時間帯"],
 "總用電":["Total demand","総需要"],
-"淨負載":["Net load","正味負荷"],
-"約 {n} 小時升載 {g} GW":["+{g} GW in about {n} h","約 {n} 時間で {g} GW 増"],
-"為什麼像鴨子？":["Why a duck?","なぜアヒル？"],
-"中午":["Midday","昼"],
-"光電大量發電":["Solar output is high","太陽光が大量に発電"],
-"淨負載凹下＝鴨肚":["Net load dips = belly","正味負荷のくぼみ＝腹"],
-"傍晚":["Evening","夕方"],
-"光電歸零、用電仍高":["Solar gone, demand still high","太陽光ゼロ、需要は高いまま"],
-"淨負載翹起＝鴨頭":["Net load rises = head","正味負荷の立ち上がり＝頭"],
-"對策":["Response","対策"],
-"燃氣、抽蓄、儲能":["Gas, pumped hydro, storage","ガス火力・揚水・蓄電池"],
-"快速升載接力":["Ramp up fast in relay","リレーで素早く出力増"],
+"基準線（原本的用電）":["Baseline (normal use)","ベースライン（通常の需要）"],
+"尖峰抑低 約 1.2 GW":["Peak cut about 1.2 GW","ピーク抑制 約 1.2 GW"],
+"需量反應怎麼進行":["How demand response works","デマンドレスポンスの流れ"],
+"台電發布需求":["Taipower calls an event","台電が要請を発令"],
+"前一天或當天通知":["Notice a day ahead or same day","前日または当日に通知"],
+"用戶降低用電":["Customers cut use","需要家が使用を抑制"],
+"製程調整、空調、自用發電":["Processes, AC, on-site generation","工程調整・空調・自家発電"],
+"與基準線比較":["Compare with baseline","ベースラインと比較"],
+"計算實際抑低量":["Measure the actual cut","実際の抑制量を算定"],
+"取得回饋金":["Receive payment","報酬を受け取る"],
+"依抑低量與得標價格":["Based on cut and bid price","抑制量と落札価格に応じて"],
+/* 分鏡 4 */
+"電力交易平台的備轉服務":["Reserve services on the trading platform","電力取引プラットフォームの予備力"],
+"台電電力交易平台於 2021 年啟用，以日前市場採購輔助服務。依反應速度分成幾種：調頻備轉（dReg）要在 1 秒內依頻率自動充放電，主要由電池儲能提供；即時備轉要在 10 分鐘內補上缺口，並維持至少 1 小時；補充備轉要在 30 分鐘內反應，維持至少 2 小時。需量反應、自用發電機與聚合後的虛擬電廠，都可依自己的能力選擇投標的項目，像接力賽一樣分工。":["Taipower's electricity trading platform opened in 2021 and procures ancillary services in a day-ahead market. The services are graded by response speed. Frequency regulation reserve (dReg) must charge or discharge automatically with frequency within 1 second and is mainly provided by battery storage. Spinning reserve must fill a shortfall within 10 minutes and hold it for at least 1 hour. Supplemental reserve must respond within 30 minutes and hold for at least 2 hours. Demand response, on-site generators and aggregated virtual power plants each bid into the services that suit them, sharing the work like a relay race.","台電の電力取引プラットフォームは 2021 年に始まり、前日市場でアンシラリーサービスを調達しています。応答速度によって種類が分かれます。周波数調整予備力（dReg）は 1 秒以内に周波数に応じて自動で充放電する必要があり、主に蓄電池が担います。即時予備力は 10 分以内に不足分を補い、少なくとも 1 時間継続します。補充予備力は 30 分以内に応答し、少なくとも 2 時間継続します。デマンドレスポンス、自家発電機、集約された仮想発電所は、それぞれの能力に合った項目に入札し、リレーのように役割を分担します。"],
+"輔助服務依反應速度分成幾種":["Ancillary services are graded by response speed","アンシラリーサービスは応答速度で分類"],
+"調頻備轉：1 秒內自動充放電":["Frequency regulation: automatic response within 1 s","周波数調整予備力：1 秒以内に自動充放電"],
+"即時備轉：10 分鐘內補上缺口":["Spinning reserve: fills the gap within 10 min","即時予備力：10 分以内に不足を補う"],
+"補充備轉：30 分鐘內反應，撐得更久":["Supplemental reserve: within 30 min, lasts longer","補充予備力：30 分以内に応答し長く支える"],
+"調頻備轉（dReg）":["Frequency regulation (dReg)","周波数調整予備力（dReg）"],
+"1 秒":["1 s","1 秒"],
+"依頻率自動充放電":["Auto charge/discharge","周波数に応じ自動充放電"],
+"主要：電池儲能":["Mainly battery storage","主に蓄電池"],
+"即時備轉":["Spinning reserve","即時予備力"],
+"10 分鐘":["10 min","10 分"],
+"維持至少 1 小時":["Held at least 1 hour","少なくとも 1 時間継続"],
+"需量反應、自用發電機":["DR, on-site generators","DR・自家発電機"],
+"補充備轉":["Supplemental reserve","補充予備力"],
+"30 分鐘":["30 min","30 分"],
+"維持至少 2 小時":["Held at least 2 hours","少なくとも 2 時間継続"],
+"反應時間":["Response time","応答時間"],
+"缺口出現後，誰先接手（對數時間軸）":["After a shortfall, who steps in first (log time axis)","不足発生後、誰が先に動くか（対数時間軸）"],
+"參與門檻：≥ 1 MW，可聚合":["Threshold: ≥ 1 MW, aggregation allowed","参加下限：≥ 1 MW、集約可"],
+"10 秒":["10 s","10 秒"],
+"1 分":["1 min","1 分"],
+"10 分":["10 min","10 分"],
+"30 分":["30 min","30 分"],
+"1 小時":["1 h","1 時間"],
+"2 小時":["2 h","2 時間"],
+"4 小時":["4 h","4 時間"],
+"持續依頻率調節":["Continuous regulation","周波数に応じ継続調整"],
+"維持 ≥ 1 小時":["Held ≥ 1 h","≥ 1 時間継続"],
+"維持 ≥ 2 小時":["Held ≥ 2 h","≥ 2 時間継続"],
+/* 分鏡 5 */
+"一道調度指令":["One dispatch order","一つの給電指令"],
+"當電網出現缺口，台電調度中心向得標的聚合商送出指令，例如「10 分鐘內抑低 10 MW」。聚合平台依各資源當下的狀況分配任務：儲能立刻放電，工廠暫停部分產線，商場把空調溫度調高一度，充電站暫緩充電。各資源的反應以秒到分鐘計，平台即時回報合計響應量，直到達成指令；事件結束後再依序恢復，避免反彈造成新的尖峰。":["When the grid falls short, Taipower's dispatch center sends an order to the winning aggregator, for example \"cut 10 MW within 10 minutes\". The aggregation platform assigns tasks according to each resource's current state: storage discharges at once, the factory pauses some production lines, the mall raises its air-conditioning setpoint by one degree, and the charging station holds off charging. Each resource responds within seconds to minutes, and the platform reports the total response in real time until the order is met. After the event, resources are restored in stages to avoid a rebound that would create a new peak.","系統に不足が生じると、台電の給電指令所は落札したアグリゲーターに「10 分以内に 10 MW 抑制」などの指令を送ります。アグリゲーション基盤は各リソースの状況に応じて作業を割り振ります。蓄電池は即座に放電し、工場は一部の生産ラインを止め、商業施設は空調の設定温度を 1 度上げ、充電ステーションは充電を一時停止します。各リソースは数秒から数分で応答し、基盤は合計の応答量をリアルタイムで報告して指令の達成まで続けます。イベント終了後は、リバウンドで新たなピークが生じないよう順に元へ戻します。"],
+"調度中心送出指令：10 分鐘內抑低 10 MW":["Dispatch orders: cut 10 MW within 10 minutes","給電指令：10 分以内に 10 MW 抑制"],
+"聚合平台把任務拆給各個資源":["The platform splits the task among resources","集約基盤が各リソースに作業を割り振る"],
+"儲能放電、工廠降載、充電暫緩":["Storage discharges, the factory cuts, charging pauses","蓄電池放電・工場抑制・充電を一時停止"],
+"合計響應達到 10 MW，回報調度中心":["Total response reaches 10 MW and is reported","合計応答が 10 MW に達し、指令所へ報告"],
+"台電調度中心":["Taipower dispatch","台電給電指令所"],
+"聚合平台分派":["Platform assigns","集約基盤が割り振り"],
+"儲能放電":["Storage discharging","蓄電池が放電"],
+"充電暫緩":["Charging paused","充電を一時停止"],
+"調度事件（示例）":["Dispatch event (example)","給電イベント（例）"],
+"調度指令":["Order","指令"],
+"合計響應":["Response","合計応答"],
+"狀態":["Status","状態"],
+"達成":["Met","達成"],
+"執行中":["Running","実行中"],
+"待命":["Standby","待機"],
+/* 分鏡 6 */
+"儲能與電動車的角色":["The role of storage and EVs","蓄電池と電気自動車の役割"],
+"儲能與電動車是最靈活的虛擬電廠資源。電動車若一下班回家就充電，充電負載會疊在傍晚尖峰上；透過智慧充電，把充電移到中午光電多的時段或深夜離峰，不影響隔天出門，卻能削減尖峰。電池儲能則可以中午吸收多餘的光電、傍晚放電支援尖峰，台電的「電能移轉複合動態調節備轉（E-dReg）」就是這種用法，同時兼顧調頻與移轉電能。":["Storage and electric vehicles are the most flexible VPP resources. If EVs all charge as soon as their drivers get home, the charging load stacks on top of the evening peak. Smart charging moves it to midday, when solar is plentiful, or to the off-peak hours after midnight; the cars are still ready the next morning, and the peak is reduced. Battery storage can soak up surplus solar at noon and discharge to support the evening peak. Taipower's energy-shifting dynamic regulation reserve (E-dReg) works this way, combining frequency regulation with energy shifting.","蓄電池と電気自動車は、最も柔軟な仮想発電所のリソースです。帰宅後すぐに充電すると、充電負荷が夕方のピークに重なります。スマート充電で、太陽光の多い昼間や深夜のオフピークに充電を移せば、翌朝の利用に影響なくピークを削減できます。蓄電池は昼に余った太陽光を吸収し、夕方に放電してピークを支えます。台電の「電力量シフト複合ダイナミック調整予備力（E-dReg）」はこの使い方で、周波数調整と電力量のシフトを両立します。"],
+"下班後同時充電，疊在傍晚尖峰上":["Charging after work piles onto the evening peak","帰宅後の一斉充電が夕方のピークに重なる"],
+"智慧充電把充電移到中午與深夜":["Smart charging shifts it to midday and night","スマート充電で昼と深夜に移す"],
+"儲能中午充電，吸收多餘的光電":["Storage charges at noon on surplus solar","蓄電池は昼に余剰太陽光で充電"],
+"傍晚放電，支援用電尖峰":["It discharges in the evening to meet the peak","夕方に放電してピークを支える"],
+"社區電動車充電負載（示意）":["Neighborhood EV charging load (illustrative)","地域の EV 充電負荷（模式）"],
+"傍晚尖峰":["Evening peak","夕方のピーク"],
+"下班即充電":["Charge on arrival","帰宅即充電"],
+"中午充電":["Midday charging","昼に充電"],
+"深夜充電":["Night charging","深夜に充電"],
+"儲能一天的充放電排程（示意）":["Daily storage schedule (illustrative)","蓄電池の 1 日の充放電（模式）"],
+"中午充電：吸收光電":["Noon: charge on solar","昼：太陽光で充電"],
+"傍晚放電：支援尖峰":["Evening: discharge","夕方：放電で支援"],
+"電量 {n}%":["SOC {n}%","残量 {n}%"],
 /* 分鏡 7 */
-"傍晚的接力":["The evening relay","夕方のリレー"],
-"傍晚是電網最忙碌的時段。太陽光電出力在一、兩個小時內從數百萬瓩降到零，城市的燈光卻一盞盞亮起。調度中心讓燃氣機組逐步升載、抽蓄水力轉為發電，儲能把中午存下的電放出來，全程維持頻率在 60 Hz 附近。再生能源越多，電網越需要這種靈活的資源；下一集將介紹虛擬電廠與需量反應，看用戶端如何一起幫忙平衡供需。":["Evening is the grid's busiest time. Within an hour or two, solar output falls from several gigawatts to zero, just as city lights come on one by one. The dispatch center ramps up gas units, switches pumped hydro to generating, and has storage release the energy it saved at noon, keeping frequency near 60 Hz throughout. The more renewables there are, the more the grid needs flexible resources like these. The next episode looks at virtual power plants and demand response, and how customers can help balance supply and demand.","夕方は系統が最も忙しい時間帯です。太陽光の出力は 1～2 時間で数百万 kW からゼロまで下がり、その一方で都市の明かりが次々と灯ります。給電指令所はガス火力の出力を段階的に上げ、揚水発電を発電運転に切り替え、蓄電池に昼にためた電気を放出させて、周波数を 60 Hz 付近に保ち続けます。再生可能エネルギーが増えるほど、こうした柔軟な資源が必要になります。次回は仮想発電所（VPP）とデマンドレスポンスを取り上げ、需要家が需給調整にどう参加するかを紹介します。"],
-"下午四點，光電仍在發電":["At 4 p.m., solar is still generating","午後 4 時、太陽光はまだ発電中"],
-"太陽西下，光電出力快速減少":["As the sun sets, solar output falls fast","日が傾き、太陽光の出力が急減"],
-"燃氣升載、儲能放電，一起補上缺口":["Gas ramps up and storage discharges to fill the gap","ガス火力の出力増と蓄電池の放電で不足を補う"],
-"城市亮燈，頻率仍穩在 60 Hz":["City lights come on; frequency holds at 60 Hz","街に明かりが灯り、周波数は 60 Hz を維持"],
-"光電出力下降":["Solar output falling","太陽光出力低下"],
-"燃氣升載":["Gas ramping up","ガス火力出力増"],
-"儲能放電":["Storage discharging","蓄電池放電"],
-"城市亮燈":["City lights on","街の点灯"],
-"傍晚供電（示意）":["Evening supply (illustrative)","夕方の供給（模式）"],
-"其他電廠":["Other plants","その他電源"],
-"{h}:{m}":["{h}:{m}","{h}:{m}"]
+"傍晚的虛擬電廠":["The virtual power plant at dusk","夕方の仮想発電所"],
+"太陽下山、城市亮燈的傍晚，正是虛擬電廠最能發揮的時段。儲能放出中午存下的電，工廠與商場在約定時段降低用電，電動車把充電延後到深夜，這些分散的調整加起來，減輕了燃氣機組快速升載的壓力，也減少為了短暫尖峰而興建的備用電廠。再生能源越多，電網越需要這種來自用戶端的彈性；電網的平衡，不再只是發電廠的工作。":["Dusk, when the sun sets and city lights come on, is when a virtual power plant is most useful. Storage releases the energy saved at noon, factories and malls cut use during the agreed hours, and EVs postpone charging until late at night. Added together, these scattered adjustments ease the pressure on gas units to ramp up quickly and reduce the need to build standby plants for brief peaks. The more renewables there are, the more the grid needs this flexibility from the demand side; balancing the grid is no longer the job of power plants alone.","日が沈み街に明かりがともる夕方こそ、仮想発電所が最も力を発揮する時間帯です。蓄電池は昼にためた電気を放出し、工場と商業施設は約束した時間帯に使用を抑え、電気自動車は充電を深夜に遅らせます。こうした分散した調整を合わせると、ガス火力の急速な出力上昇の負担が軽くなり、短時間のピークのためだけに予備の発電所を建てる必要も減ります。再生可能エネルギーが増えるほど、系統には需要側からの柔軟性が必要になります。系統の需給調整は、もはや発電所だけの仕事ではありません。"],
+"傍晚，光電出力減少，用電仍在高峰":["At dusk, solar fades while demand stays high","夕方、太陽光が減っても需要は高いまま"],
+"儲能放電，工廠與商場降低用電":["Storage discharges; factories and malls cut use","蓄電池が放電、工場と商業施設が使用抑制"],
+"電動車延後充電，避開尖峰":["EVs delay charging to avoid the peak","EV は充電を遅らせてピークを回避"],
+"分散的彈性，一起守住電網平衡":["Scattered flexibility keeps the grid in balance","分散した柔軟性が系統の釣り合いを守る"],
+"工廠降載":["Factory cuts load","工場が負荷抑制"],
+"延後充電":["Charging delayed","充電を延期"],
+"家戶亮燈":["Homes light up","家庭に明かり"],
+"傍晚供需（示意）":["Evening balance (illustrative)","夕方の需給（模式）"],
+"時間":["Time","時刻"],
+"系統負載":["Load","系統負荷"],
+"虛擬電廠":["VPP","仮想発電所"],
+"燃氣升載":["Gas ramp","ガス火力増"],
+"頻率":["Frequency","周波数"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
