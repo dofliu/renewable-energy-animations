@@ -680,6 +680,20 @@
                 "en": "SCADA, blade repair, gearbox condition monitoring, availability, noise and bird monitoring",
                 "ja": "SCADA、ブレード補修、増速機の状態監視、稼働率、騒音と鳥類のモニタリング"
               }
+            },
+            {
+              "no": 16,
+              "file": "ep16.html",
+              "title": {
+                "zh": "風機年度定檢",
+                "en": "The annual turbine inspection",
+                "ja": "風車の年次定期点検"
+              },
+              "sub": {
+                "zh": "停機上鎖掛牌、登塔與升降機檢查、螺栓扭力抽檢、齒輪箱油品與潤滑、剎車變槳電池與安全鏈測試、解鎖復機",
+                "en": "Lockout and tagout, climbing and lift checks, bolt torque spot checks, gearbox oil and lubrication, brake, pitch backup and safety chain tests, unlocking and restart",
+                "ja": "ロックアウト・タグアウト、昇塔と昇降機点検、ボルトトルク抜き取り点検、増速機の油と潤滑、ブレーキ・ピッチ電池・セーフティチェーン試験、ロック解除と再起動"
+              }
             }
           ]
         },

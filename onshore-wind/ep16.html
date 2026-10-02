@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep03.js｜陸域風電系列</title>
+<title>ep16.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep06.html"><span data-zh="← 06 風機的控制與保護" data-en="← 06 Turbine control and protection" data-ja="← 06 風車の制御と保護">← 06 風機的控制與保護</span></a><a href="ep16.html"><span data-zh="16 風機年度定檢 →" data-en="16 The annual turbine inspection →" data-ja="16 風車の年次定期点検 →">16 風機年度定檢 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep03.html"><span data-zh="← 03 陸域風場運維" data-en="← 03 Operating and maintaining an onshore wind farm" data-ja="← 03 陸上風力発電所の運用・保守">← 03 陸域風場運維</span></a><a href="ep04.html"><span data-zh="04 風場選址與風資源評估 →" data-en="04 Choosing a site and assessing the wind →" data-ja="04 風力発電所の立地選定と風況評価 →">04 風場選址與風資源評估 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep03.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep16.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,14 +543,11 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 3 集：陸域風場運維 */
+/* 陸域風電系列 第 16 集：風機年度定檢 */
 const gyy=x=>groundY(x);
-const VR=10,VIN=3,VOUT=25;                               // 功率曲線參數（m/s，典型範例，同第 2 集）
-const pwr=v=>{if(v<VIN||v>VOUT)return 0;const x=(v*v*v-27)/(VR*VR*VR-27);return 4.2*x/Math.pow(1+Math.pow(x,10),.1);};
-/* 正視的葉片：w 為寬度比例（取自第 2 集） */
+/* 正視的葉片與風機（沿用第 3 集） */
 function bladeF(cx,cy,a,L,w){w=w===undefined?1:w;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
   const k=Math.max(.18,w);poly([8,-5*k,8+L*.2,-10*k,8+L,-1.5*k,8+L,1.5*k,8+L*.2,8*k,8,5*k],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
-/* 正視的風機：底 (x,gy)，輪轂高 H，葉片長 R，轉角 rot */
 function turbine(x,gy,H,R,rot,o){o=o||{};const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
   poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],o.tc||'#eef2f4','rgba(0,0,0,.3)',1);
   box(x-R*.1,hy-R*.08,R*.2,R*.13,'#e3e8ec','rgba(0,0,0,.3)',1);
@@ -559,437 +556,471 @@ function turbine(x,gy,H,R,rot,o){o=o||{};const hy=gy-H,w0=Math.max(4,R*.09),w1=M
 function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
   for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
    alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
+/* 轉角積分：f(x) 為轉速倍率，讓停機與啟動平順 */
 function spin(u,dur,f){let a=0;const N=120;for(let i=0;i<N;i++){const x=u*(i+.5)/N;a+=f(x);}return a*u*dur/N;}
-/* 運維中心建築：左下角 (x,gy) */
-function omBuilding(x,w,h){const g=gyy(x+w/2);box(x,g-h,w,h,'#dfe5e8','rgba(0,0,0,.3)',1);box(x-6,g-h-8,w+12,10,'#9aa3a8');
-  wins(x+16,g-h+22,Math.floor((w-24)/40),40,26,20,'#2a3a46');box(x+w-46,g-44,28,44,'#6f7a80');
-  ln([x+30,g-h-8,x+30,g-h-70],'#6f7a80',3);circ(x+30,g-h-72,5,'#e8572a');return {ax:x+30,ay:g-h-72};}
-/* 小型四軸無人機 */
-function drone(x,y,s){s=s||1;ln([x-14*s,y,x+14*s,y],'#2b3137',2.5*s);box(x-6*s,y-3*s,12*s,7*s,'#394650');
-  for(const d of [-14,14]){ln([x+d*s-8*s,y-3*s,x+d*s+8*s,y-3*s],'rgba(40,50,60,.8)',1.5*s);}circ(x,y+5*s,2.4*s,'#e8572a');}
-/* 小鳥（V 字） */
-function vbird(x,y,s,ph){const f=Math.sin(ph)*4*s;ln([x-8*s,y-f,x,y,x+8*s,y-f],'#1f2a30',1.8);}
-/* 簡易房屋 */
-function house(x,w,h,col){const g=gyy(x+w/2);box(x,g-h,w,h,col||'#e9dcc7','rgba(0,0,0,.3)',1);poly([x-6,g-h,x+w/2,g-h-h*.55,x+w+6,g-h],'#a8583e','rgba(0,0,0,.3)',1);wins(x+10,g-h+14,2,w/2-4,w/4,h*.3,'#2a3a46');}
+/* 掛鎖與標籤 */
+function padlock(x,y,s,col){s=s||1;ctx.beginPath();ctx.arc(x,y-6*s,6*s,Math.PI,0);ctx.strokeStyle='#cfd6db';ctx.lineWidth=2.6*s;ctx.stroke();
+  box(x-9*s,y-6*s,18*s,15*s,col||'#e8572a','rgba(0,0,0,.4)',1);circ(x,y+1*s,2*s,'#13232e');}
+function lotoTag(x,y,s){s=s||1;ln([x,y,x+6*s,y+10*s],'#cfd6db',1.4);poly([x+2*s,y+10*s,x+22*s,y+10*s,x+22*s,y+38*s,x+2*s,y+38*s],'#f2c230','rgba(0,0,0,.4)',1);
+  box(x+5*s,y+20*s,14*s,3*s,'#13232e');box(x+5*s,y+27*s,10*s,3*s,'#13232e');}
+/* 打勾記號 */
+function chk(x,y,col){ring(x,y,10,col||'#7dffc4',2);ln([x-6,y,x-1,y+6,x+7,y-6],col||'#7dffc4',2.5);}
+/* 剖開的塔架：底 (x,gy)，高 H，底寬 wb、頂寬 wt */
+function towerCut(x,gy,H,wb,wtp){const top=gy-H,hw=y=>lerp(wb,wtp,(gy-y)/H)/2;
+  poly([x-hw(gy),gy,x-hw(top),top,x+hw(top),top,x+hw(gy),gy],'#cfd6db','rgba(0,0,0,.35)',1.5);
+  const k=7;poly([x-hw(gy)+k,gy,x-hw(top)+k,top+4,x+hw(top)-k,top+4,x+hw(gy)-k,gy],'#26343d');
+  [.34,.67].forEach(f=>{const y=gy-H*f;ln([x-hw(y),y,x+hw(y),y],'#8a99a3',4);box(x-hw(y)+k,y-2,hw(y)*2-2*k,5,'#5b6a73');});
+  return {top,hw};}
 
-/* 分鏡 2：散點資料（可重現） */
-const SCAT=(()=>{const r=rng(31),a=[];for(let i=0;i<150;i++){const v=2+r()*16;a.push([v,Math.max(0,pwr(v)*(1+(r()-.5)*.08)),r()]);}return a;})();
-const SCAT_B=(()=>{const r=rng(47),a=[];for(let i=0;i<60;i++){const v=3+r()*14;const k=v<12?.9:1;a.push([v,Math.max(0,pwr(v)*k*(1+(r()-.5)*.06)),r()]);}return a;})();
-const SIG=[['輪轂風速','m/s',7.6,'#7dc8dc'],['輸出功率','MW',2.1,'#f2c230'],['轉子轉速','rpm',8.5,'#fff'],['槳距角','°',0.4,'#fff'],
- ['偏航角','°',212,'#fff'],['齒輪箱油溫','°C',58,'#ff9d7a'],['軸承溫度','°C',64,'#ff9d7a'],['發電機溫度','°C',71,'#ff9d7a']];
+/* 分鏡 4：法蘭螺栓配置（俯視） */
+const NB=60,PICK=[3,13,23,33,43,53];
+/* 分鏡 5：油品分析報告 */
+const OIL=[['黏度（40 °C）','318 cSt','ISO VG 320 ± 10%'],['含水量','180 ppm','< 500 ppm'],['鐵（Fe）','12 ppm','< 50 ppm'],['清淨度 ISO 4406','17/15/12','≤ 18/16/13']];
+/* 分鏡 6：安全鏈的開關 */
+const SAFE=['緊急停止按鈕','超速保護','振動開關','扭纜開關','控制器監看'];
 
-const EP={no:3,slug:'onshore-wind',seriesName:'陸域風電系列',t:'陸域風場運維',en:'Operating and maintaining an onshore wind farm',
-lede:'風機蓋好之後，要穩定運轉二十年。這一集走進運維現場：看 SCADA 如何即時回報每一台風機、葉片怎麼檢修、齒輪箱如何靠振動與油品提早發現問題，以及風場如何監測噪音與鳥類。',
-facts:[['10','分鐘','SCADA 常用的資料彙整間隔：每筆記錄平均值、最大、最小與標準差'],
-['≥ 97','%','業界常用的風機可用率目標，約等於全年停機少於 11 天'],
-['76','%','美國 NREL 齒輪箱可靠度資料庫中，源自軸承的齒輪箱損壞比例'],
-['36','dB(A)','風力發電機組 20–200 Hz 低頻噪音夜間管制值（第一、二類管制區）'],
-['6 / 12','個月','半年與年度保養的典型間隔，油品取樣也常每半年一次（示例）'],
-['168','部','台電陸域風機數量，裝置容量約 297 MW（經濟部 2022 年新聞稿）']],
-note:'說明：本集為教育用途示意動畫，風機、建築與地景比例經過調整。SCADA 以 10 分鐘統計值記錄為業界常見做法；齒輪箱損壞 76% 源自軸承引自美國 NREL 齒輪箱可靠度資料庫；風力發電機組噪音管制值依環境部「噪音管制標準」（20–200 Hz 夜間第一、二類管制區 36 dB(A)、第三類 41 dB(A)、第四類 44 dB(A)；全頻於背景音量較高時採增量不超過 5 dB(A) 管制，於陳情人指定之室內地點量測）；台電 168 部陸域風機與 297 MW 引自經濟部新聞稿。可用率 97%、保養月份與項目、SCADA 讀值、功率曲線散點、振動頻譜、溫度趨勢、噪音分布與雷達偵測畫面皆為典型範例，並非特定案場資料；實際做法依各風場、機型與主管機關規定而定。',
+const EP={no:16,slug:'onshore-wind',seriesName:'陸域風電系列',t:'風機年度定檢',en:'The annual turbine inspection',
+lede:'每一台風機每年都要停下來做一次完整的健康檢查。這一集跟著技師登塔：先停機上鎖掛牌，再抽檢螺栓扭力、取樣齒輪箱油品、補充潤滑脂，最後測試剎車、變槳備用電池與安全鏈，確認一切正常才解鎖復機。',
+facts:[['10','%','年度定檢常見的螺栓扭力抽檢比例，抽到鬆動就擴大為全數複查（示例）'],
+['57','條','職業安全衛生設施規則：機械檢查、修理前應停止運轉，並上鎖或設置標示'],
+['8–12','小時','一台約 2 MW 風機年度保養，兩人小組在塔上作業的典型工時'],
+['6','個月','齒輪箱油品取樣與濾芯檢查的典型間隔（示例）'],
+['90','°','緊急順槳的目標槳距角：葉片轉到與風平行，讓轉子減速停下'],
+['1','年','升降機、防墜器與救援器材的定期檢查週期（示例）']],
+note:'說明：本集為教育用途示意動畫，風機、塔架與機艙比例經過調整。停機上鎖或標示的要求依勞動部「職業安全衛生設施規則」第 57 條（機械之掃除、上油、檢查、修理或調整有危害之虞時，應停止運轉並採上鎖或設置標示等措施，並對彈簧、液壓、氣壓等蓄積能量採取洩壓或隔離措施），國際上可參考美國 OSHA 29 CFR 1910.147 與 1910.269；年度保養抽檢約 10% 螺栓與兩人小組 8–12 小時工時為業界文獻常見說法。作業風速上限、扭力與轉角判定值、油品分析數值與警戒值、變槳測試時間、保養間隔與檢查項目皆為典型範例，並非特定案場或機型資料；實際做法依各風機製造商手冊、風場程序與主管機關規定而定。',
 base:()=>{landSky(GY,{sun:{x:1260,y:130},clouds:false});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 控制室 */
-{t:'看得見每一台風機',en:'Every turbine, seen from the control room',dur:13,side:true,
- d:'陸域風場的風機分散在沿海數公里的範圍，運維人員不可能天天爬上每一座塔架。每台風機都有控制器，持續量測風速、功率、轉速、槳距角、偏航角與各部位溫度，透過光纖把數據送回運維中心，這套系統稱為監控與資料擷取系統（SCADA）。運維人員在中控室就能看到整個風場的即時狀態，也能遠端重新啟動或停機。台電已把分散各地的陸域風機納入遠端集中監控。',
- s:[[0,'沿海的風場，每一台風機都在回報數據'],[.3,'數百個訊號，經光纖傳到運維中心'],[.56,'中控室一眼看出哪台正常、哪台異常'],[.8,'異常警報出現，運維人員開始判斷']],
- cam:u=>camMix({x:800,y:450,s:1},{x:820,y:440,s:1.04},ease(seg(u,.1,.8))),
+/* 1 ─────────────────────────────── 定檢日 */
+{t:'定檢日的準備',en:'Preparing for inspection day',dur:12,side:true,
+ d:'年度定檢通常排在風小的季節，台灣西部沿海多選在春夏之間，避開東北季風最強、發電最多的月份。出發前，運維團隊確認天氣與風速，作業風速必須低於製造商規定的上限，並準備好工單、備品、潤滑脂、油品取樣瓶與扭力工具。抵達現場後，先通知中控室，由中控遠端讓風機停機，葉片轉到順槳位置，轉子慢慢停下，技師才走進塔門。',
+ s:[[0,'風小的日子，運維工程車駛向今天的定檢風機'],[.3,'確認風速低於作業上限，並通知中控室'],[.52,'中控遠端停機，葉片順槳，轉子慢慢停下'],[.78,'技師帶著工具與備品，準備進入塔門']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:760,y:470,s:1.15},ease(seg(u,.55,.9))),
  draw(u){
-  const TS=[[140,240,120],[360,250,125],[580,260,130],[800,250,125]];
-  const Ts=TS.map(([x,h,r],i)=>turbine(x,gyy(x),h,r,TT*1.5+i*1.9));
-  windLines(170,560,20,240,.9,4,60);
-  const A=omBuilding(1060,250,100);
-  /* 光纖：地下沿線 */
-  const fy=GY+26;alphaDo(seg(u,.26,.34),()=>{ctx.setLineDash([10,6]);ln([140,fy,1110,fy],'#f2c230',2.5);ctx.setLineDash([]);
-   Ts.forEach(T=>ln([T.x,gyy(T.x),T.x,fy],'rgba(242,194,48,.7)',1.5));ln([1110,fy,1110,gyy(1110)],'rgba(242,194,48,.7)',1.5);});
-  /* 資料封包 */
-  alphaDo(seg(u,.3,.36),()=>{for(let i=0;i<4;i++)for(let k=0;k<3;k++){const p=(TT*.35+k/3+i*.13)%1,x0=TS[i][0],x=lerp(x0,1110,p);circ(x,fy,4,i===2?'#e8572a':'#7dffc4');}});
-  /* 異常風機閃爍 */
-  const T3=Ts[2];alphaDo(seg(u,.72,.76)*(.5+.5*Math.sin(TT*8)),()=>ring(T3.x,T3.y,26,'#e8572a',4));
-  /* 中控畫面 */
-  const k=ease(seg(u,.5,.58));if(k>0)alphaDo(k,()=>{const x0=930,y0=345;card(x0,y0,560,160,{bg:'rgba(7,27,39,.88)'});
-   wt(x0+18,y0+30,'遠端監控畫面（示例）',17,'#f2c230',700);
-   for(let i=0;i<12;i++){const cx=x0+18+(i%6)*89,cy=y0+48+Math.floor(i/6)*54,bad=i===2&&u>.72;
-    box(cx,cy,80,44,bad?'rgba(232,87,42,.35)':'rgba(125,255,196,.12)',bad?'#e8572a':'rgba(125,255,196,.6)',1.5);
-    wt(cx+8,cy+18,'WTG '+String(i+1).padStart(2,'0'),14,'rgba(227,236,238,.9)',700,'left',COND);
-    const f=bad?.35:.55+.35*Math.abs(nz(i*1.3+TT*.2));box(cx+8,cy+28,64*f,7,bad?'#e8572a':'#7dffc4');}});
-  lab(Ts[1].x,Ts[1].y,'風機控制器',{dx:60,dy:-70,st:'l',a:band(u,.05,.3)});
-  lab(700,fy,'光纖通訊',{dx:0,dy:60,st:'s',a:band(u,.3,.55)});
-  lab(1185,gyy(1185)-100,'運維中心',{dx:0,dy:-50,a:band(u,.12,.5)});
-  lab(T3.x,T3.y+30,'齒輪箱溫度偏高',{dx:-70,dy:90,st:'w',a:band(u,.74,1)});
+  const sp=x=>x<.48?1:x<.72?lerp(1,0,ease(seg(x,.48,.72))):0;
+  const T0=turbine(260,gyy(260),230,115,TT*1.2+1.3);
+  const T=turbine(700,gyy(700),320,170,spin(u,12,sp)*1.1);
+  windLines(170,520,12,170,.7,5,50);
+  /* 工程車 */
+  const tx=lerp(1560,900,easeOut(seg(u,0,.32)));
+  ctx.save();ctx.translate(tx,gyy(tx));ctx.scale(.62,.62);truck(0,0,true,'#f4f6f7',()=>{box(4,-48,60,14,'#f2c230');});ctx.restore();
+  /* 塔門 */
+  box(688,gyy(700)-30,24,30,'#6f7a80','rgba(0,0,0,.4)',1);
+  /* 技師 */
+  const kw=seg(u,.74,.96);if(u>.34)[0,1].forEach(j=>{const x=lerp(tx-90-j*18,722+j*14,ease(kw));person(x,gyy(x),j?'#f2c230':'#e8572a',2.2);});
+  alphaDo(band(u,.3,.5),()=>{const x=tx-60,y=gyy(tx)-70;card(x-20,y-60,170,46,{bg:'rgba(7,27,39,.88)'});wt(x+65,y-30,'通知中控室',17,'#f2c230',700,'center');});
+  lab(tx-40,gyy(tx)-30,'運維工程車',{dx:20,dy:-80,st:'l',a:band(u,.08,.3)});
+  lab(T.x,T.y,'遠端停機',{dx:130,dy:-50,st:'w',a:band(u,.5,.7)});
+  lab(T.x-5,T.y+110,'葉片順槳',{dx:-130,dy:30,st:'s',a:band(u,.56,.78)});
+  lab(700,gyy(700)-18,'塔門',{dx:-90,dy:-40,a:band(u,.76,1)});
  },
- hud(u){hudPanel(250,150,'風場即時概況（示例）',seg(u,.05,.1),w=>{const bad=u>.72;
-  hrow(56,'運轉台數',bad?'11 / 12':'12 / 12',w,bad?'#ff9d7a':'#7dffc4');hrow(88,'風場出力',trf('{p} MW',{p:(bad?21.3:24.6+.4*nz(TT*.3)).toFixed(1)}),w,'#f2c230');hrow(120,'警報',bad?'1':'0',w,bad?'#ff9d7a':'#fff');});}},
+ hud(u){hudPanel(250,150,'作業前確認（示例）',seg(u,.08,.14),w=>{const ws=6.4+.5*nz(TT*.4);
+  hrow(56,'輪轂風速',trf('{v} m/s',{v:ws.toFixed(1)}),w,'#7dffc4');hrow(88,'作業上限','12 m/s',w,'#ff9d7a');
+  hrow(120,'風機狀態',u<.5?'運轉中':u<.72?'停機中':'已停機',w,u<.5?'#7dffc4':'#f2c230');});}},
 
-/* 2 ─────────────────────────────── SCADA 數據 */
-{t:'SCADA 數據怎麼讀',en:'Reading SCADA data',dur:13,
- d:'SCADA 每秒取樣，但通常以 10 分鐘為一筆彙整，記錄平均值、最大值、最小值與標準差。一台風機常有數百個訊號，運維上最常看的是風速、功率、轉速、槳距角、偏航角，以及齒輪箱油溫、軸承與發電機溫度。把一年的 10 分鐘資料畫在風速—功率圖上，正常的風機會緊貼保證功率曲線；若一台風機在同樣風速下持續少發 5–10%，就要檢查葉片、槳距角或偏航是否出了問題。',
- s:[[0,'每 10 分鐘，SCADA 記下一筆完整的運轉紀錄'],[.3,'風速與功率畫在一起，正常風機貼著功率曲線'],[.52,'這台風機在中低風速時持續少發電'],[.78,'可能是葉片侵蝕、槳距或偏航出了問題']],
+/* 2 ─────────────────────────────── LOTO */
+{t:'停機上鎖掛牌',en:'Lockout and tagout',dur:14,
+ d:'風機停下來不代表安全。轉子可能被風再次推動，690 伏特與中壓電路仍可能帶電，液壓蓄壓器與變槳備用電池裡也存著能量。職業安全衛生設施規則第 57 條要求，機械檢查、修理前應停止運轉，並上鎖或設置標示，對液壓等蓄積能量要洩壓或隔離。實務上稱為上鎖掛牌（LOTO）：插入轉子鎖定銷、斷開電源並洩壓，每位技師掛上自己的鎖與標籤，最後驗電確認零能量，才開始動手。',
+ s:[[0,'停下來的風機，仍藏著好幾種能量'],[.3,'插入轉子鎖定銷，斷電並洩放液壓'],[.56,'每位技師掛上自己的鎖與標籤'],[.8,'驗電確認零能量，才開始作業']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'SCADA 每 10 分鐘一筆紀錄（示例）',20,'#f2c230',700);
-  SIG.forEach(([n,un,v,c],i)=>alphaDo(seg(u,.02+i*.03,.06+i*.03),()=>{const y=262+i*62;
-   wt(84,y+6,n,18,'#fff',700);
-   ctx.beginPath();for(let j=0;j<=40;j++){const x=320+j*6.5,yy=y-4+11*nz(j*.35+i*2.1+TT*.25);j?ctx.lineTo(x,yy):ctx.moveTo(x,yy);}ctx.strokeStyle=c;ctx.lineWidth=2;ctx.stroke();
-   const vv=v+(i<3?.3*nz(TT*.4+i):0);wt(736,y+6,(vv>=100?Math.round(vv):vv.toFixed(1))+' '+un,19,c,700,'right',COND);
-   ln([84,y+26,736,y+26],'rgba(255,255,255,.08)',1);}));
-  alphaDo(seg(u,.2,.26),()=>tag(410,748,'每筆：平均、最大、最小、標準差',{size:16,bg:'#dfe5e8',align:'center'}));
-  const C=chartBox(800,160,740,640,{title:'風速與功率散佈圖（示例）',x0:0,x1:20,y0:0,y1:5,xt:[0,5,10,15,20],yt:[0,1,2,3,4,5],xl:'風速 m/s',yl:'MW',pl:76,pt:70,pb:70,gx:4,gy:5});
-  const nA=Math.floor(SCAT.length*seg(u,.28,.46));
-  for(let i=0;i<nA;i++){const [v,p]=SCAT[i];circ(C.X(v),C.Y(p),3.4,'rgba(125,255,196,.6)');}
-  alphaDo(seg(u,.3,.36),()=>{ctx.setLineDash([7,6]);ctx.beginPath();for(let s=VIN;s<=20;s+=.1){const x=C.X(s),y=C.Y(pwr(s));s===VIN?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle='#fff';ctx.lineWidth=2.5;ctx.stroke();ctx.setLineDash([]);
-   wt(C.X(19.6),C.Y(4.2)-14,'保證功率曲線',16,'#fff',700,'right');});
-  const nB=Math.floor(SCAT_B.length*seg(u,.52,.66));
-  for(let i=0;i<nB;i++){const [v,p]=SCAT_B[i];circ(C.X(v),C.Y(p),4,'#ff9d7a');}
-  alphaDo(seg(u,.3,.36),()=>{circ(C.px+24,C.py+30,5,'rgba(125,255,196,.8)');wt(C.px+36,C.py+36,'正常風機',16,'#7dffc4',700);});
-  alphaDo(seg(u,.52,.58),()=>{circ(C.px+24,C.py+62,5,'#ff9d7a');wt(C.px+36,C.py+68,'WTG 03',16,'#ff9d7a',700,'left',COND);});
-  alphaDo(seg(u,.6,.66),()=>tag(C.X(14),C.Y(1.6),'同樣風速，少發約 5–10%',{size:17,bg:'#ff9d7a',align:'center'}));
-  alphaDo(seg(u,.78,.84),()=>tag(C.X(14),C.Y(.9),'檢查：葉片、槳距、偏航',{size:17,bg:'#f2c230',align:'center'}));
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'要隔離的能量來源',20,'#f2c230',700);
+  /* 簡化機艙 */
+  rrp(200,300,420,170,26);ctx.fillStyle='rgba(227,232,236,.1)';ctx.fill();ctx.strokeStyle='rgba(227,232,236,.6)';ctx.lineWidth=2;ctx.stroke();
+  circ(180,385,40,'#dfe5e8','rgba(0,0,0,.4)',1.5);box(380,470,60,40,'rgba(227,232,236,.18)','rgba(227,232,236,.45)',1.5);
+  box(220,372,120,24,'#9aa3a8');box(330,345,120,80,'#6f7a80');box(460,350,130,70,'#58b8d0');
+  const EN=[[180,385,'轉子旋轉','轉子鎖定銷',.28],[520,385,'690 V／中壓電','斷路器上鎖',.36],[390,325,'液壓蓄壓器','洩壓歸零',.42],[180,310,'變槳備用電池','隔離開關',.48],[410,492,'塔底開關櫃','上鎖並掛牌',.54]];
+  EN.forEach(([x,y,t,act,at],i)=>{const ok=u>at;alphaDo(seg(u,.04+i*.03,.08+i*.03),()=>{
+   const p=(TT*1.4+i*.3)%1;if(!ok)alphaDo(1-p,()=>ring(x,y,10+p*22,'#e8572a',2));
+   circ(x,y,11,ok?'#7dffc4':'#e8572a','#13232e',2);});});
+  /* 左下：清單 */
+  EN.forEach(([x,y,t,act,at],i)=>alphaDo(seg(u,.04+i*.03,.08+i*.03),()=>{const ok=u>at,yy=528+i*52;
+   circ(98,yy-6,7,ok?'#7dffc4':'#e8572a');wt(116,yy,t,17,'#fff',700);
+   wt(736,yy,ok?act:'有能量',17,ok?'#7dffc4':'#ff9d7a',700,'right');}));
+  alphaDo(seg(u,.28,.34),()=>{ln([140,385,152,385],'#f2c230',5);box(150,378,10,14,'#f2c230');});
+  /* 右：步驟 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'上鎖掛牌的順序',20,'#f2c230',700);
+  const ST=['通知中控、取得工作許可','停機並順槳','插入轉子鎖定銷','斷開電源、洩放蓄壓','個人上鎖並掛標籤','驗電，確認零能量'];
+  ST.forEach((t,i)=>{const on=u>.06+i*.13,cur=on&&u<.06+(i+1)*.13;const y=236+i*66;
+   box(830,y,430,52,cur?'rgba(242,194,48,.2)':'rgba(255,255,255,.04)',on?'#f2c230':'rgba(255,255,255,.14)',cur?2:1);
+   circ(858,y+26,15,on?'#f2c230':'rgba(255,255,255,.12)');wt(858,y+33,String(i+1),18,on?'#13232e':'rgba(227,236,238,.6)',800,'center',COND);
+   wt(886,y+33,t,18,on?'#fff':'rgba(227,236,238,.55)',700);});
+  /* 鎖箱 */
+  const kl=seg(u,.56,.66);if(kl>0)alphaDo(kl,()=>{const hx=1400,hy=330;
+   box(hx-62,hy-50,124,190,'#5b6a73','rgba(0,0,0,.4)',1.5);box(hx-40,hy-30,80,40,'#3b4850');ln([hx,hy+10,hx,hy+30],'#cfd6db',4);
+   ln([hx-46,hy+38,hx+46,hy+38],'#cfd6db',4);
+   [-30,0,30].forEach((dx,j)=>{const a=seg(u,.58+j*.03,.62+j*.03);if(a>0)alphaDo(a,()=>{padlock(hx+dx,hy+58,1.1,['#e8572a','#58b8d0','#7dffc4'][j]);lotoTag(hx+dx-6,hy+70,.8);});});
+   wt(hx,hy+170,'一人一鎖一鑰',16,'#f2c230',700,'center');});
+  alphaDo(seg(u,.82,.88),()=>tag(1170,662,'零能量確認：測試啟動應無反應',{size:17,bg:'#7dffc4',align:'center'}));
+  alphaDo(seg(u,.86,.92),()=>wt(1170,730,'設施規則第 57 條：停機、上鎖或設置標示',17,'rgba(227,236,238,.85)',600,'center'));
  }},
 
-/* 3 ─────────────────────────────── 葉片檢修 */
-{t:'葉片檢修',en:'Inspecting and repairing blades',dur:14,side:true,
- d:'葉片是風機最外露的部件，葉尖線速度可達每秒 70–80 公尺，雨滴、砂粒與鹽分長年撞擊，前緣塗層會逐漸剝蝕，讓氣流變亂、發電量下降數個百分點。葉尖也是雷擊最常落下的地方，靠內部的接收器與導線把電流導入地面。檢查時先停機、把葉片轉到朝下並鎖定轉子，再以無人機或地面長焦相機拍攝整支葉片；發現損傷後，技師以繩索垂降到葉片旁，打磨並補上前緣保護層。',
- s:[[0,'風機停機，把要檢查的葉片轉到朝下'],[.22,'無人機沿著葉片飛行，拍下每一段表面'],[.45,'影像顯示葉尖前緣被雨滴與砂粒侵蝕'],[.65,'技師以繩索垂降，打磨並補上保護塗層']],
- cam:u=>camMix({x:780,y:420,s:1.05},{x:540,y:390,s:2.1},ease(seg(u,.12,.3))),
+/* 3 ─────────────────────────────── 登塔 */
+{t:'登塔：升降機與防墜',en:'Climbing: service lift and fall arrest',dur:13,side:true,
+ d:'現代風機的塔架高約 80 至 120 公尺，裡面有爬梯與服務升降機，每隔一段設有休息平台。登塔前，技師檢查安全帶、防墜器與救援器材，掛上沿爬梯設置的防墜滑軌，即使搭升降機也要接上獨立的防墜系統。年度定檢也會檢查升降機本身：鋼索磨耗、限位開關、超速防墜裝置與緊急下降功能。上到機艙後，先確認轉子鎖定銷到位，再打開機艙罩開始工作。',
+ s:[[0,'塔架內有爬梯、升降機與分段的休息平台'],[.25,'技師穿戴安全帶，接上獨立的防墜系統'],[.5,'升降機的鋼索、限位與防墜裝置逐項檢查'],[.78,'抵達機艙，確認轉子鎖定銷到位']],
+ cam:u=>camMix({x:800,y:420,s:1},{x:900,y:330,s:1.25},ease(seg(u,.62,.9))),
  draw(u){
-  const TX=700,rot=Math.PI-3*Math.pow(1-seg(u,0,.2),2);
-  const T=turbine(TX,gyy(TX),300,210,rot,{tc:'#b9c3ca'});
-  ctx.save();ctx.translate(880,gyy(880));ctx.scale(.4,.4);truck(0,0,false,'#f4f6f7');ctx.restore();
-  const tipY=T.y+8+210;
-  /* 前緣侵蝕：葉尖附近的斑點 */
-  const rep=seg(u,.82,.94),r=rng(9);
-  for(let i=0;i<22;i++){const f=.66+r()*.3,y=T.y+8+210*f,w=10-8.5*(f-.2)/.8,x=TX-w*(.2+r()*.7);
-   if(r()<rep)continue;circ(x,y,1.2+r()*1.3,'#b8743c');}
-  if(rep>0)alphaDo(rep,()=>{ctx.beginPath();ctx.moveTo(TX-5,T.y+8+210*.66);ctx.lineTo(TX-2,tipY-4);ctx.strokeStyle='#8fb4c4';ctx.lineWidth=3;ctx.stroke();});
-  /* 無人機 */
-  const dp=seg(u,.2,.62);
-  if(dp>0&&dp<1||band(u,.2,.66)>0){const yy=T.y+30+180*(.5-.5*Math.cos(dp*Math.PI*2)),xx=TX-32+4*Math.sin(TT*2);
-   alphaDo(band(u,.18,.66),()=>{drone(xx,yy+Math.sin(TT*5)*2,.6);if(Math.sin(TT*6)>.9)alphaDo(.6,()=>poly([xx+6,yy,xx+30,yy-8,xx+30,yy+8],'rgba(255,248,222,.8)'));});
-   lab(xx,yy,'無人機',{dx:-80,dy:-30,st:'l',a:band(u,.22,.44)});}
-  /* 巡檢影像 */
-  const ki=band(u,.4,.66);if(ki>0)alphaDo(ki,()=>{const x0=330,y0=380;card(x0,y0,260,140,{bg:'rgba(7,27,39,.9)',st:'rgba(242,194,48,.8)'});
-   wt(x0+12,y0+24,'巡檢影像（示例）',14,'#f2c230',700);
-   poly([x0+20,y0+50,x0+240,y0+74,x0+240,y0+96,x0+20,y0+126],'#eef2f4','rgba(0,0,0,.4)',1);
-   const q=rng(4);for(let i=0;i<26;i++){const t=q();circ(x0+30+t*200,y0+52+t*24+q()*6,1.5+q()*2.5,'#b8743c');}
-   circ(x0+226,y0+86,4,'#394650');});
-  /* 繩索作業 */
-  const kr=ease(seg(u,.62,.76));
-  if(kr>0){[-1,1].forEach((sd,j)=>{const px=TX+sd*18,py=lerp(T.y+20,T.y+8+210*.78,kr);
-   ln([TX+sd*6,T.y-6,px,py-22],'rgba(40,40,40,.85)',1.2);person(px,py,j?'#f2c230':'#e8572a',2);
-   if(u>.82&&u<.94&&j===0)for(let k=0;k<5;k++){const t=(TT*1.3+k*.2)%1;circ(px-6-t*18,py-10+t*26,1.3,'rgba(230,230,230,.8)');}});}
-  lab(TX,T.y,'轉子鎖定',{dx:120,dy:-60,st:'s',a:band(u,.14,.36)});
-  lab(TX-6,T.y+8+210*.84,'前緣侵蝕',{dx:110,dy:40,st:'w',a:band(u,.44,.78)});
-  lab(TX+18,T.y+8+210*.72,'繩索作業技師',{dx:120,dy:-50,a:band(u,.66,.9)});
-  lab(TX-3,T.y+8+210*.8,'修補前緣保護層',{dx:-120,dy:30,st:'g',a:band(u,.86,1)});
-  lab(TX,tipY,'葉尖雷擊接收器',{dx:100,dy:40,st:'l',a:band(u,.28,.46)});
- }},
-
-/* 4 ─────────────────────────────── 齒輪箱與振動 */
-{t:'聽出齒輪箱的異音',en:'Listening to the gearbox',dur:14,
- d:'齒輪箱把轉子每分鐘約十轉的轉速，提升到發電機需要的每分鐘一千多轉，是最貴也最難更換的部件之一。美國 NREL 的統計中，約 76% 的齒輪箱損壞源自軸承。狀態監測系統（CMS）在主軸承、齒輪箱與發電機裝上振動感測器，高頻取樣後做頻譜分析，軸承剛出現剝落時，特定頻率就會冒出尖峰。再配合油品分析檢查金屬顆粒、含水量與黏度，趨勢越過警戒值時，就能提前備料，排在風小的日子更換。',
- s:[[0,'打開機艙：主軸、齒輪箱與發電機'],[.25,'振動感測器聽出軸承初期損傷的頻率'],[.5,'油品取樣，檢查金屬顆粒與含水量'],[.74,'趨勢越過警戒值，提前安排更換']],
- draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'機艙內的傳動系統（剖面示意）',20,'#f2c230',700);
-  rrp(120,330,600,240,30);ctx.fillStyle='rgba(227,232,236,.1)';ctx.fill();ctx.strokeStyle='rgba(227,232,236,.6)';ctx.lineWidth=2;ctx.stroke();
-  box(380,570,70,210,'rgba(227,232,236,.25)','rgba(227,232,236,.5)',1.5);
-  circ(110,450,46,'#dfe5e8','rgba(0,0,0,.4)',1.5);
-  const rs=TT*.9;for(let i=0;i<3;i++){const a=rs+i*TAU/3;ln([110,450,110+Math.cos(a)*40,450+Math.sin(a)*40],'rgba(0,0,0,.25)',3);}
-  box(150,438,120,24,'#9aa3a8');box(190,420,34,60,'#7dc8dc','rgba(0,0,0,.4)',1);
-  box(270,390,170,120,'#6f7a80','rgba(0,0,0,.5)',1.5);
-  const gr=(x,y,r,s)=>{circ(x,y,r,'#8d989f','#394650',2);for(let i=0;i<8;i++){const a=s+i*TAU/8;ln([x,y,x+Math.cos(a)*r,y+Math.sin(a)*r],'#394650',1.5);}};
-  gr(320,450,42,rs);gr(392,420,22,-rs*3);gr(400,478,16,rs*6);
-  box(440,468,70,14,'#9aa3a8');box(510,405,160,110,'#58b8d0','rgba(0,0,0,.4)',1.5);
-  for(let i=0;i<6;i++)ln([525+i*24,412,525+i*24,508],'rgba(0,0,0,.2)',2);
-  wt(207,400,'主軸承',16,'#7dc8dc',700,'center');wt(355,378,'齒輪箱',17,'#fff',700,'center');wt(590,395,'發電機',17,'#7dc8dc',700,'center');
-  wt(355,540,'約 10 rpm → 約 1,500 rpm',16,'rgba(227,236,238,.85)',600,'center');
-  const SN=[[207,480],[290,392],[420,510],[590,515]];
-  alphaDo(seg(u,.2,.26),()=>{SN.forEach(([x,y],i)=>{circ(x,y,6,'#f2c230','#13232e',1.5);const p=(TT*.8+i*.25)%1;alphaDo(1-p,()=>ring(x,y,6+p*24,'#f2c230',2));});
-   tag(620,640,'振動感測器（CMS）',{size:16,bg:'#f2c230',align:'center'});});
-  alphaDo(seg(u,.5,.56),()=>{const bx=130,by=600;ln([300,510,300,560,bx+12,560,bx+12,by],'#e8a33a',2);
-   box(bx,by,24,40,'rgba(232,163,58,.7)','#fff',1.5);box(bx+5,by-8,14,8,'#dfe5e8');
-   wt(bx+36,by+14,'油品取樣',17,'#e8a33a',700);wt(bx+36,by+40,'金屬顆粒・含水量・黏度',16,'rgba(227,236,238,.85)',600);});
-  /* 右上：頻譜 */
-  const C=chartBox(800,160,740,310,{title:'振動頻譜（示例）',x0:0,x1:10,y0:0,y1:1,xt:[],yt:[],xl:'頻率',yl:'振幅',pl:60,pt:60,pb:44,gx:5,gy:2});
-  const g=ease(seg(u,.28,.46));
-  ctx.beginPath();for(let f=0;f<=10;f+=.04){const b=.08+.05*Math.abs(nz(f*6+TT*1.5))+.5*Math.exp(-Math.pow((f-1.2)/.08,2))+.3*Math.exp(-Math.pow((f-2.4)/.08,2));
-   const d=g*(.6*Math.exp(-Math.pow((f-6.3)/.07,2))+.28*Math.exp(-Math.pow((f-5.9)/.07,2))+.28*Math.exp(-Math.pow((f-6.7)/.07,2)));
-   const x=C.X(f),y=C.Y(Math.min(.98,b+d));f?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.stroke();
-  wt(C.X(1.2),C.Y(.62),'轉速頻率',15,'rgba(227,236,238,.8)',600,'center');
-  alphaDo(seg(u,.36,.42),()=>{circ(C.X(6.3),C.Y(.72),10,null,'#e8572a',2.5);wt(C.X(6.3)+16,C.Y(.78),'軸承缺陷頻率',17,'#ff9d7a',700,'left');});
-  /* 右下：趨勢 */
-  const D=chartBox(800,490,740,310,{title:'軸承溫度與振動趨勢（示例）',x0:0,x1:12,y0:0,y1:1,xt:[0,3,6,9,12],yt:[],xl:'月',pl:60,pt:60,pb:52,gx:4,gy:2});
-  const lv=m=>.22+.02*Math.sin(m*2.3)+(m>6?.055*Math.pow(m-6,1.6):0);
-  ctx.setLineDash([7,6]);ln([D.px,D.Y(.62),D.px+D.pw,D.Y(.62)],'#e8572a',2);ctx.setLineDash([]);wt(D.px+10,D.Y(.62)-10,'警戒值',16,'#ff9d7a',700);
-  const mE=10.6*seg(u,.56,.8);if(mE>0){ctx.beginPath();for(let m=0;m<=mE;m+=.1){const x=D.X(m),y=D.Y(Math.min(.95,lv(m)));m?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle='#f2c230';ctx.lineWidth=3;ctx.stroke();}
-  alphaDo(seg(u,.78,.84),()=>{const m=10.3;circ(D.X(m),D.Y(lv(m)),8,'#ff9d7a','#13232e',2);tag(D.X(6.6),D.Y(.84),'備料並排定更換',{size:17,bg:'#7dffc4',align:'center'});});
- }},
-
-/* 5 ─────────────────────────────── 保養與可用率 */
-{t:'定期保養與可用率',en:'Scheduled service and availability',dur:13,
- d:'除了發現問題才維修，風機也有固定的保養週期，常見是半年一次例行保養、一年一次較完整的年度保養。內容包括檢查塔架與葉片螺栓扭力、補充潤滑脂與更換濾芯、油品取樣、測試變槳與偏航系統，以及升降設備與安全裝置。台灣西部沿海秋冬東北季風最強，也是發電最多的時候，保養多排在風小的季節。衡量運維成果的指標是可用率，業界常以 97% 以上為目標，相當於全年停機少於約 11 天。',
- s:[[0,'保養排進行事曆，避開季風最強的月份'],[.3,'每次保養檢查螺栓、潤滑、油品與控制系統'],[.55,'可用率：一年之中可以運轉的時間比例'],[.8,'業界常以 97% 以上為目標']],
- draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'一年的保養行事曆（示例）',20,'#f2c230',700);
-  const WS=[8.6,8.2,7.1,5.8,4.9,4.6,4.4,4.8,5.9,7.8,8.8,9.0];   // 月平均風速（示意）
-  const mx=i=>100+i*52,by=470;
-  WS.forEach((v,i)=>{const g=ease(seg(u,.02+i*.012,.1+i*.012));box(mx(i),by-v*22*g,40,v*22*g,v>7?'rgba(125,200,220,.75)':'rgba(125,200,220,.35)');
-   wt(mx(i)+20,by+24,trf('{m} 月',{m:i+1}),15,'rgba(227,236,238,.85)',600,'center');});
-  alphaDo(seg(u,.08,.14),()=>{wt(84,250,'月平均風速',16,'#7dc8dc',700);tag(mx(10)+20,by-230,'東北季風',{size:15,bg:'#7dc8dc',align:'center'});
-   box(mx(6),by-150,mx(8)+40-mx(6),150,'rgba(232,87,42,.12)');wt(mx(7)+20,by-128,'颱風季',15,'#ff9d7a',700,'center');});
-  [[3,'半年保養'],[8,'年度保養']].forEach(([i,t],j)=>alphaDo(seg(u,.14+j*.06,.2+j*.06),()=>{const x=mx(i)+20;
-   poly([x,by-150,x-10,by-168,x+10,by-168],'#f2c230');ln([x,by-150,x,by],'rgba(242,194,48,.7)',2);tag(x,by-190,t,{size:15,bg:'#f2c230',align:'center'});}));
-  const IT=['螺栓扭力','潤滑與濾芯','油品取樣','變槳與偏航','升降與安全設備','葉片外觀'];
-  IT.forEach((t,i)=>alphaDo(seg(u,.3+i*.03,.34+i*.03),()=>{const x=90+(i%2)*330,y=560+Math.floor(i/2)*66;
-   box(x,y,300,50,'rgba(255,255,255,.05)','rgba(255,255,255,.14)',1);ring(x+23,y+25,10,'#7dffc4',2);
-   ln([x+17,y+25,x+22,y+31,x+30,y+19],'#7dffc4',2.5);wt(x+46,y+32,t,18,'#fff',700);}));
-  /* 右：可用率 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'可用率怎麼算',20,'#f2c230',700);
-  alphaDo(seg(u,.52,.58),()=>{wt(1170,270,'可用率 = 可運轉時數 ÷ 全年時數',22,'#fff',700,'center');});
-  const bx=850,bw=640,byy=330,f=seg(u,.56,.78);
-  box(bx,byy,bw,46,'rgba(255,255,255,.06)','rgba(255,255,255,.2)',1);
-  const DN=[[.30,.01,'#f2c230'],[.66,.01,'#f2c230'],[.12,.006,'#b37cff'],[.47,.008,'#b37cff'],[.85,.006,'#7dc8dc']];
-  if(f>0){box(bx,byy,bw*f,46,'rgba(125,255,196,.55)');DN.forEach(([p,w,c])=>{if(p<f)box(bx+bw*p,byy,Math.max(4,bw*w),46,c);});}
-  wt(bx,byy+74,'1 月',15,'rgba(227,236,238,.75)',600,'left');wt(bx+bw,byy+74,'12 月',15,'rgba(227,236,238,.75)',600,'right');
-  alphaDo(seg(u,.6,.66),()=>{[['可運轉','#7dffc4'],['計畫保養','#f2c230'],['故障維修','#b37cff'],['等待零件','#7dc8dc']].forEach(([t,c],i)=>{const x=850+i*165;box(x,byy+100,16,16,c);wt(x+24,byy+114,t,16,'rgba(227,236,238,.9)',600);});});
-  const av=lerp(90,97.2,ease(seg(u,.6,.82)));
-  alphaDo(seg(u,.6,.66),()=>{wt(1170,630,av.toFixed(1)+'%',72,'#7dffc4',700,'center',COND);wt(1170,670,'全年可用率',18,'rgba(227,236,238,.9)',700,'center');});
-  alphaDo(seg(u,.82,.88),()=>tag(1170,730,'停機少於約 263 小時，約 11 天',{size:17,bg:'#f2c230',align:'center'}));
- }},
-
-/* 6 ─────────────────────────────── 噪音與鳥類 */
-{t:'噪音與鳥類監測',en:'Monitoring noise and birds',dur:14,side:true,
- d:'風場運轉後還要對環境負責。風機的聲音來自葉片劃過空氣與機艙內的齒輪箱，隨距離逐漸減弱。台灣的噪音管制標準把風力發電機組獨立列管，量測點在陳情民眾指定的住家室內；20–200 Hz 低頻噪音在第一、二類管制區夜間不得超過 36 dB(A)。生態方面，西部沿海是候鳥遷徙路線，風場依環評承諾進行鳥類調查與風機下方的撞擊巡查，部分風場以雷達偵測鳥群，必要時讓風機降速或暫停。',
- s:[[0,'風機運轉的聲音，隨距離逐漸減弱'],[.25,'依法在民眾住家室內量測，低頻有專屬標準'],[.5,'鳥類雷達持續掃描風場上空'],[.72,'鳥群接近時，風機降速暫停，讓牠們通過']],
- cam:u=>({x:800,y:450,s:1}),
- draw(u){
-  const TX=380,sp=x=>x<.66?1.1:x<.76?lerp(1.1,0,ease(seg(x,.66,.76))):x<.93?0:lerp(0,1.1,seg(x,.93,1));
-  const rot=spin(u,14,sp);
-  const T=turbine(TX,gyy(TX),270,150,rot);
-  /* 噪音等值線 */
-  const kn=band(u,.02,.5);if(kn>0)alphaDo(kn,()=>{[[220,'45'],[420,'40'],[640,'35']].forEach(([r,t],i)=>{const p=(TT*.25+i*.33)%1;
-    ctx.setLineDash([8,8]);ctx.beginPath();ctx.arc(T.x,T.y,r,-Math.PI/2+.25,.52);ctx.strokeStyle=`rgba(242,194,48,${.85-i*.2})`;ctx.lineWidth=2.5;ctx.stroke();ctx.setLineDash([]);
-    const a=.3;wt(T.x+Math.cos(a)*r+8,T.y+Math.sin(a)*r,t+' dB(A)',16,'#13232e',700,'left',COND);});});
-  house(1000,110,70);house(1150,90,60,'#dfe5e8');house(1290,120,74);
-  alphaDo(band(u,.22,.5),()=>{const x=1055,y=gyy(1055)-26;box(x-8,y-10,16,14,'#f2c230','#13232e',1);});
-  /* 鳥類雷達 */
-  const RX=760,RY=gyy(760);box(RX-14,RY-40,28,40,'#9aa3a8','rgba(0,0,0,.3)',1);
-  const ra=TT*2.2;ctx.save();ctx.translate(RX,RY-46);box(-20,-4,40,8,'#dfe5e8');ctx.restore();
-  const kr=seg(u,.46,.52);if(kr>0)alphaDo(kr*.5,()=>{const a0=-Math.PI+((ra%Math.PI)+Math.PI)%Math.PI;
-    ctx.beginPath();ctx.moveTo(RX,RY-46);ctx.arc(RX,RY-46,560,a0-.12,a0+.12);ctx.closePath();ctx.fillStyle='rgba(125,255,196,.35)';ctx.fill();
-    ctx.setLineDash([4,8]);ctx.beginPath();ctx.arc(RX,RY-46,560,-Math.PI,0);ctx.strokeStyle='rgba(125,255,196,.5)';ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([]);});
-  /* 鳥群 */
-  const bp=seg(u,.5,.98);if(bp>0&&bp<1){const cx=lerp(1400,-150,bp),cy=250+30*Math.sin(bp*3);
-   const F=[[0,0],[-16,-10],[-16,10],[-32,-20],[-32,20],[-48,-30],[16,-6]];
-   F.forEach(([dx,dy],i)=>vbird(cx-dx,cy+dy,1.3,TT*9+i));
-   alphaDo(band(u,.6,.76),()=>ring(cx+20,cy,44,'#e8572a',2.5));
-   lab(cx+20,cy+40,'偵測到鳥群',{dx:0,dy:60,st:'w',a:band(u,.6,.76)});}
-  lab(T.x+230,T.y-40,'噪音隨距離減弱',{dx:40,dy:-60,st:'s',a:band(u,.05,.26)});
-  lab(1055,gyy(1055)-30,'住家室內量測點',{dx:-40,dy:-90,a:band(u,.24,.5)});
-  lab(RX,RY-46,'鳥類雷達',{dx:80,dy:-50,st:'g',a:band(u,.48,.66)});
-  lab(T.x,T.y,'降速暫停',{dx:120,dy:-40,st:'w',a:band(u,.74,.94)});
+  const X=920,G=gyy(X),H=500,C=towerCut(X,G,H,150,96),top=C.top;
+  /* 機艙與停住的轉子 */
+  box(X-60,top-56,190,56,'#e3e8ec','rgba(0,0,0,.35)',1.5);
+  ctx.save();ctx.translate(X-74,top-30);
+  poly([-6,0,-12,-30,-4,-240,4,-240,8,-30],'#f4f6f7','rgba(0,0,0,.35)',1);poly([-6,0,-10,30,-3,240,4,240,8,30],'#f4f6f7','rgba(0,0,0,.35)',1);
+  ctx.restore();circ(X-74,top-30,16,'#dfe5e8','rgba(0,0,0,.4)',1.5);
+  const lockOn=u>.8;box(X-52,top-36,18,10,lockOn?'#f2c230':'#9aa3a8');
+  /* 爬梯與防墜滑軌 */
+  const lx=X-C.hw(G)+18;ln([lx,G,X-C.hw(top)+18,top+6],'#9aa3a8',2);ln([lx+14,G,X-C.hw(top)+32,top+6],'#9aa3a8',2);
+  for(let y=G-10;y>top+10;y-=14){const f=(G-y)/H,a=lerp(lx,X-C.hw(top)+18,f);ln([a,y,a+14,y],'#9aa3a8',1.5);}
+  ln([lx+7,G,X-C.hw(top)+25,top+6],'#f2c230',2);
+  /* 升降機 */
+  const rx=X+C.hw(G)-40,rx2=X+C.hw(top)-40;ln([rx,G,rx2,top+6],'rgba(200,210,215,.7)',1.2);ln([rx+20,G,rx2+20,top+6],'rgba(200,210,215,.7)',1.2);
+  const lp=ease(seg(u,.3,.74)),ly=lerp(G-4,top+54,lp),lxx=lerp(rx,rx2,(G-ly)/H);
+  box(lxx-4,ly-40,30,40,'#e9b21f','rgba(0,0,0,.4)',1.5);box(lxx,ly-34,22,14,'#2a3a46');
+  if(u<.3||u>.74)alphaDo(1,()=>{});
+  /* 技師 */
+  const p1=u<.3?lerp(X+90,lxx+11,ease(seg(u,.12,.3))):lxx+11;const y1=u<.3?G:ly-2;
+  if(u<.8)person(p1,y1,'#e8572a',2.2);else person(X+30,top+50,'#e8572a',2.2);
+  const p2y=lerp(G,G-140,ease(seg(u,.3,.8))),p2x=lerp(lx,X-C.hw(top)+18,(G-p2y)/H)+7;person(p2x,p2y,'#f2c230',2.2);
+  alphaDo(band(u,.22,.5),()=>{ln([p2x,p2y-14,p2x,p2y-26],'#f2c230',2);circ(p2x,p2y-26,3,'#13232e');});
+  /* 檢查鋼索 */
+  alphaDo(band(u,.5,.76),()=>{const p=(TT*.6)%1,yy=lerp(G-20,top+40,p);ring(lerp(rx,rx2,(G-yy)/H)+10,yy,12,'#7dffc4',2.5);});
+  lab(X,G-H*.34,'休息平台',{dx:-150,dy:-10,a:band(u,.02,.26)});
+  lab(lx+7,G-200,'爬梯與防墜滑軌',{dx:-150,dy:20,st:'s',a:band(u,.04,.5)});
+  lab(p2x,p2y-26,'安全帶與防墜器',{dx:-150,dy:-40,st:'l',a:band(u,.24,.5)});
+  lab(lxx+11,ly-40,'服務升降機',{dx:150,dy:-30,st:'l',a:band(u,.28,.56)});
+  lab(rx+10,G-80,'檢查鋼索與限位開關',{dx:150,dy:20,st:'g',a:band(u,.5,.78)});
+  lab(X-43,top-31,'轉子鎖定銷',{dx:-30,dy:-90,st:'s',a:band(u,.8,1)});
  },
- hud(u){hudPanel(250,150,'噪音監測（示例）',band(u,.05,.46),w=>{
-  hrow(56,'低頻量測值',trf('{d} dB(A)',{d:(31.4+.6*nz(TT*.5)).toFixed(1)}),w,'#7dffc4');hrow(88,'夜間管制值','36 dB(A)',w,'#ff9d7a');hrow(120,'管制區','第二類',w,'#fff');});}},
+ hud(u){hudPanel(250,150,'登塔前檢查（示例）',band(u,.06,.6),w=>{
+  hrow(56,'安全帶與防墜器',u>.2?'合格':'檢查中',w,u>.2?'#7dffc4':'#fff');hrow(88,'升降機鋼索',u>.6?'合格':'檢查中',w,u>.6?'#7dffc4':'#fff');hrow(120,'救援器材',u>.26?'合格':'檢查中',w,u>.26?'#7dffc4':'#fff');});}},
 
-/* 7 ─────────────────────────────── 運維循環與台灣挑戰 */
-{t:'運維的循環',en:'The O&M cycle',dur:13,
- d:'運維不是一次性的工作，而是一個循環：SCADA 與 CMS 持續監測，資料分析找出異常並判斷原因，排定人力、零件與吊機，完成維修後再從數據確認出力回到正常。能及早發現，就能把突發故障變成計畫中的工作。台灣沿海風場還有在地的考驗：颱風前要檢查設備，颱風中風機順槳停機並持續監控；海風帶來的鹽霧會腐蝕塔架與電氣設備，需要防蝕塗裝與機艙空氣過濾。做好這些，風機才能穩定運轉約二十年的設計壽命。',
- s:[[0,'監測、診斷、排程、維修，再回到監測'],[.3,'及早發現，把故障變成計畫中的工作'],[.55,'颱風、鹽霧與季風，是台灣沿海風場的考驗'],[.8,'好的運維，讓風機穩定運轉二十年']],
+/* 4 ─────────────────────────────── 螺栓 */
+{t:'螺栓扭力抽檢',en:'Spot-checking bolt torque',dur:13,
+ d:'風機靠數千根高強度螺栓把塔架各段、葉根與輪轂、主軸承座與偏航軸承連在一起。長期的振動與交變載重會讓螺栓預力逐漸鬆弛，一旦預力不足，螺栓就容易疲勞斷裂。新機投產後的首次保養通常全數複查；之後的年度定檢多抽檢約 10% 的螺栓，以液壓扭力扳手施加規定扭力：螺帽不再轉動即為合格，若明顯轉動，代表預力已流失，該處法蘭就要擴大為全數複查並記錄。',
+ s:[[0,'塔架法蘭由一整圈高強度螺栓鎖緊'],[.28,'每年抽檢約一成，用液壓扳手施加規定扭力'],[.52,'螺帽不轉動即合格，數據逐根記錄'],[.74,'這一根轉動了，整圈擴大為全數複查']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'預測性維護的循環',20,'#f2c230',700);
-  const cx=410,cy=490,R=210,N=['監測','診斷','排程','維修','驗證'],SUB=['SCADA / CMS','找出原因','人力・零件','現場作業','出力恢復'];
-  ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=3;ctx.stroke();
-  const pr=seg(u,.04,.5);
-  if(pr>0){ctx.beginPath();ctx.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+TAU*pr);ctx.strokeStyle='#f2c230';ctx.lineWidth=4;ctx.stroke();
-   const a=-Math.PI/2+TAU*pr;circ(cx+Math.cos(a)*R,cy+Math.sin(a)*R,8,'#f2c230');}
-  N.forEach((t,i)=>{const a=-Math.PI/2+i*TAU/5,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R,on=pr>=i/5-.001;
-   circ(x,y,50,on?'#16384c':'#0e2a3b',on?'#f2c230':'rgba(255,255,255,.3)',3);
-   wt(x,y+2,t,20,on?'#f2c230':'rgba(227,236,238,.6)',800,'center');wt(x,y+24,SUB[i],13,'rgba(227,236,238,.8)',600,'center');});
-  alphaDo(seg(u,.3,.36),()=>{wt(cx,cy-6,'及早發現',22,'#7dffc4',800,'center');wt(cx,cy+26,'故障 → 計畫工作',18,'#fff',700,'center');});
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'台灣沿海風場的考驗',20,'#f2c230',700);
-  const CH=[['颱風','颱風前檢查設備','颱風中順槳停機、持續監控','#ff9d7a'],['鹽霧','防蝕塗裝與定期補漆','機艙與電氣室空氣過濾','#7dc8dc'],['東北季風','秋冬風大、發電多','保養排在風小的季節','#7dffc4']];
-  CH.forEach(([h,a,b,c],i)=>alphaDo(seg(u,.52+i*.06,.58+i*.06),()=>{const y=250+i*150;
-   box(830,y,680,128,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);box(830,y,6,128,c);
-   const ix=900,iy=y+64;
-   if(i===0){ctx.beginPath();for(let t=0;t<14;t+=.1){const r=4+t*2.6,q=t-TT*2;ctx.lineTo(ix+Math.cos(q)*r,iy+Math.sin(q)*r);}ctx.strokeStyle=c;ctx.lineWidth=3;ctx.stroke();}
-   else if(i===1){for(let k=0;k<7;k++){const p=(TT*.5+k/7)%1;circ(ix-30+k*10,iy-30+p*60,3.2,c);}}
-   else{for(let k=0;k<4;k++){const p=(TT*.8+k*.25)%1;ln([ix-36+p*20,iy-24+k*16,ix+4+p*20,iy-24+k*16],c,3);}}
-   wt(960,y+42,h,21,c,800);wt(960,y+76,a,18,'#fff',600);wt(960,y+106,b,18,'rgba(227,236,238,.85)',600);}));
-  alphaDo(seg(u,.8,.86),()=>tag(1170,760,'目標：穩定運轉約 20 年設計壽命',{size:17,bg:'#f2c230',align:'center'}));
- }}
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'塔架法蘭（俯視示意）',20,'#f2c230',700);
+  const cx=410,cy=490,R=220;
+  ctx.beginPath();ctx.arc(cx,cy,R+34,0,TAU);ctx.arc(cx,cy,R-34,0,TAU,true);ctx.fillStyle='rgba(154,163,168,.35)';ctx.fill('evenodd');
+  ring(cx,cy,R+34,'rgba(227,232,236,.5)',2);ring(cx,cy,R-34,'rgba(227,232,236,.5)',2);
+  const full=seg(u,.78,.98),bad=PICK[4];
+  for(let i=0;i<NB;i++){const a=-Math.PI/2+i*TAU/NB,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;
+   const pk=PICK.indexOf(i),done=pk>=0&&u>.3+pk*.07,isBad=i===bad&&u>.58;
+   const fullDone=full>0&&((i-bad+NB)%NB)/NB<full;
+   let col='#cfd6db';if(fullDone)col='#7dffc4';if(pk>=0&&u>.24)col='#f2c230';if(done)col='#7dffc4';if(isBad&&full<1)col='#e8572a';
+   circ(x,y,9,col,'#13232e',1.5);}
+  /* 扳手 */
+  const ci=Math.min(5,Math.floor(seg(u,.3,.72)*6));if(u>.28&&u<.76){const i=PICK[ci],a=-Math.PI/2+i*TAU/NB,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;
+   ring(x,y,18,'#f2c230',3);const ox=cx+Math.cos(a)*(R-90),oy=cy+Math.sin(a)*(R-90);ln([x,y,ox,oy],'#e9b21f',9);box(ox-14,oy-14,28,28,'#e9b21f','#13232e',1.5);}
+  wt(cx,cy-10,'60 根螺栓',22,'#fff',700,'center');
+  wt(cx,cy+22,trf('抽檢 {n} 根',{n:6}),18,'#f2c230',700,'center');
+  alphaDo(seg(u,.78,.84),()=>tag(cx,cy+66,'擴大為全數複查',{size:16,bg:'#e8572a',fg:'#fff',align:'center'}));
+  /* 右上：抽檢位置 */
+  card(800,160,740,250,{bg:'rgba(7,27,39,.75)'});wt(824,200,'年度抽檢的螺栓連接',20,'#f2c230',700);
+  [['塔架法蘭',0],['葉根與輪轂',1],['主軸承座',2],['偏航軸承',3]].forEach(([t,i])=>alphaDo(seg(u,.06+i*.04,.1+i*.04),()=>{const x=830+(i%2)*350,y=236+Math.floor(i/2)*78;
+   box(x,y,330,60,'rgba(255,255,255,.05)','rgba(255,255,255,.14)',1);circ(x+30,y+30,10,'#cfd6db','#13232e',1.5);wt(x+56,y+37,t,19,'#fff',700);}));
+  /* 右下：結果長條 */
+  const Cc=chartBox(800,430,740,370,{title:'抽檢結果：螺帽轉角（示例）',x0:0,x1:6,y0:0,y1:40,xt:[],yt:[0,10,20,30,40],yl:'°',pl:70,pt:62,pb:56,gx:6,gy:4});
+  ctx.setLineDash([7,6]);ln([Cc.px,Cc.Y(20),Cc.px+Cc.pw,Cc.Y(20)],'#e8572a',2);ctx.setLineDash([]);wt(Cc.px+Cc.pw-8,Cc.Y(20)-10,'判定值 20°',16,'#ff9d7a',700,'right');
+  const AN=[2,3,1,4,32,2];
+  AN.forEach((v,k)=>{const g=ease(seg(u,.32+k*.07,.38+k*.07));if(g<=0)return;const x=Cc.X(k+.5)-26,b=v>20;
+   box(x,Cc.Y(v*g),52,Cc.Y(0)-Cc.Y(v*g),b?'#ff9d7a':'#7dffc4');
+   wt(x+26,Cc.Y(0)+28,trf('第 {n} 根',{n:PICK[k]+1}),14,'rgba(227,236,238,.85)',600,'center');
+   wt(x+26,Cc.Y(v*g)-10,trf('{d}°',{d:Math.round(v*g)}),16,b?'#ff9d7a':'#7dffc4',700,'center',COND);});
+ }},
+
+/* 5 ─────────────────────────────── 油品與潤滑 */
+{t:'齒輪箱油品與潤滑',en:'Gearbox oil and lubrication',dur:14,side:false,
+ d:'齒輪箱裡的潤滑油同時負責潤滑與散熱，也記錄了齒輪與軸承的健康。技師從取樣閥抽取運轉溫度下的油樣，送實驗室分析黏度、含水量、金屬元素與顆粒清淨度；鐵含量上升或清淨度變差，常是磨耗加劇的早期訊號。同時檢查濾芯前後的壓差並更換濾芯。主軸承、變槳軸承、偏航軸承與發電機軸承則靠自動潤滑泵定量注入潤滑脂，定檢時補滿油脂桶、檢查管路，並清除被擠出的舊脂。',
+ s:[[0,'從取樣閥抽出油樣，送實驗室分析'],[.3,'黏度、含水量、金屬與清淨度都在範圍內'],[.55,'檢查濾芯壓差，換上新濾芯'],[.76,'補滿自動潤滑系統，清除擠出的舊脂']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'機艙內的潤滑點（剖面示意）',20,'#f2c230',700);
+  rrp(120,300,600,230,30);ctx.fillStyle='rgba(227,232,236,.1)';ctx.fill();ctx.strokeStyle='rgba(227,232,236,.6)';ctx.lineWidth=2;ctx.stroke();
+  box(380,530,70,260,'rgba(227,232,236,.22)','rgba(227,232,236,.45)',1.5);
+  circ(110,415,46,'#dfe5e8','rgba(0,0,0,.4)',1.5);
+  box(150,403,120,24,'#9aa3a8');box(190,385,34,60,'#7dc8dc','rgba(0,0,0,.4)',1);
+  box(270,355,170,120,'#6f7a80','rgba(0,0,0,.5)',1.5);
+  const gr=(x,y,r)=>{circ(x,y,r,'#8d989f','#394650',2);for(let i=0;i<8;i++){const a=i*TAU/8+.2;ln([x,y,x+Math.cos(a)*r,y+Math.sin(a)*r],'#394650',1.5);}};
+  gr(320,415,42);gr(392,385,22);gr(400,443,16);
+  /* 油位 */
+  box(272,448,166,25,'rgba(232,163,58,.55)');
+  box(440,433,70,14,'#9aa3a8');box(510,370,160,110,'#58b8d0','rgba(0,0,0,.4)',1.5);
+  wt(207,368,'主軸承',16,'#7dc8dc',700,'center');wt(355,343,'齒輪箱',17,'#fff',700,'center');wt(590,360,'發電機',17,'#7dc8dc',700,'center');
+  /* 取樣 */
+  const ks=seg(u,.02,.1);alphaDo(ks,()=>{const bx=230,by=560;ln([300,475,300,520,bx+12,520,bx+12,by],'#e8a33a',2);
+   const fl=seg(u,.06,.24);box(bx,by,24,44,'rgba(255,255,255,.12)','#fff',1.5);box(bx+2,by+44-40*fl,20,40*fl,'rgba(232,163,58,.85)');box(bx+5,by-8,14,8,'#dfe5e8');
+   wt(bx-14,by+30,'油樣',17,'#e8a33a',700,'right');});
+  /* 濾芯 */
+  const kf=seg(u,.52,.58);alphaDo(kf,()=>{const fx=470,fy=560,nw=u>.66;box(fx,fy,44,90,nw?'#dfe5e8':'#a07a3c','rgba(0,0,0,.4)',1.5);
+   for(let i=0;i<7;i++)ln([fx+5,fy+10+i*11,fx+39,fy+10+i*11],'rgba(0,0,0,.25)',2);ln([fx+22,fy,fx+22,477],'#e8a33a',2);
+   wt(fx+58,fy+30,'濾芯',17,'#fff',700);wt(fx+58,fy+58,nw?'已更換':'壓差偏高',16,nw?'#7dffc4':'#ff9d7a',700);});
+  /* 自動潤滑 */
+  const kg=seg(u,.74,.8);alphaDo(kg,()=>{const px=600,py=600;box(px,py,70,80,'#394650','rgba(255,255,255,.4)',1.5);
+   const lv=lerp(.25,.95,ease(seg(u,.78,.9)));box(px+8,py+8,54,64,'rgba(255,255,255,.08)');box(px+8,py+8+64*(1-lv),54,64*lv,'#f2c230');
+   wt(px+35,py+104,'自動潤滑泵',16,'#f2c230',700,'center');
+   [[207,445],[110,370],[590,480],[410,530]].forEach(([x,y],i)=>{ctx.setLineDash([5,5]);ln([px+35,py,px+35,py-30,x,py-30,x,y],'rgba(242,194,48,.7)',1.6);ctx.setLineDash([]);
+    const p=(TT*.5+i*.25)%1;circ(x,y,6,'#f2c230','#13232e',1.5);});
+   wt(84,770,'主軸承・變槳軸承・偏航軸承・發電機軸承',16,'rgba(227,236,238,.85)',600);});
+  /* 右：報告 */
+  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'油品分析報告（示例）',20,'#f2c230',700);
+  wt(830,250,'項目',16,'rgba(227,236,238,.7)',600);wt(1210,250,'結果',16,'rgba(227,236,238,.7)',600,'right');wt(1510,250,'參考範圍',16,'rgba(227,236,238,.7)',600,'right');
+  OIL.forEach(([n,v,ref],i)=>alphaDo(seg(u,.26+i*.05,.3+i*.05),()=>{const y=300+i*70;
+   box(824,y-30,692,56,'rgba(255,255,255,.04)','rgba(255,255,255,.12)',1);
+   wt(840,y+6,n,18,'#fff',700);wt(1210,y+6,v,20,'#7dffc4',700,'right',COND);wt(1470,y+6,ref,16,'rgba(227,236,238,.8)',600,'right');chk(1494,y);}));
+  /* 鐵含量趨勢 */
+  const D=chartBox(800,590,740,210,{title:'',x0:0,x1:6,y0:0,y1:60,xt:[],yt:[0,50],yl:'Fe ppm',pl:90,pt:22,pb:30,gx:6,gy:2});
+  ctx.setLineDash([7,6]);ln([D.px,D.Y(50),D.px+D.pw,D.Y(50)],'#e8572a',2);ctx.setLineDash([]);wt(D.px+D.pw-8,D.Y(50)-8,'警戒值',15,'#ff9d7a',700,'right');
+  const FE=[8,9,11,10,12,12],nE=Math.floor(6*seg(u,.44,.56)+.001);
+  for(let i=0;i<nE;i++){circ(D.X(i+.5),D.Y(FE[i]),6,'#f2c230');if(i)ln([D.X(i-.5),D.Y(FE[i-1]),D.X(i+.5),D.Y(FE[i])],'#f2c230',2);}
+  alphaDo(seg(u,.5,.56),()=>wt(D.px+10,D.Y(30),'每半年一筆，看趨勢',15,'rgba(227,236,238,.85)',600));
+ }},
+
+/* 6 ─────────────────────────────── 剎車、變槳、安全鏈 */
+{t:'剎車、變槳電池與安全鏈',en:'Brakes, pitch backup and the safety chain',dur:14,
+ d:'風機最重要的保護，是在任何異常下都能把葉片轉到 90 度順槳，讓轉子減速。即使電網斷電，變槳系統也要靠備用電池或超級電容獨力完成，所以定檢時會切斷主電源，實際測試各葉片緊急順槳的時間是否在規定內。安全鏈則是一條獨立於控制軟體的串聯迴路，串起緊急停止按鈕、超速保護、振動開關與扭纜開關，任何一個開關跳脫，就直接觸發緊急順槳。另外量測剎車片厚度並測試機械剎車的作動。',
+ s:[[0,'切斷主電源，只靠備用電池讓葉片順槳'],[.3,'三支葉片都在規定時間內轉到 90 度'],[.52,'逐一觸發安全鏈上的每一個開關'],[.76,'任何一個跳脫，風機都立即緊急順槳']],
+ draw(u){
+  diagBG();
+  const C=chartBox(60,160,700,640,{title:'緊急順槳測試（示例）',x0:0,x1:12,y0:0,y1:100,xt:[0,2,4,6,8,10,12],yt:[0,30,60,90],xl:'秒',yl:'槳距角 °',pl:80,pt:70,pb:70,gx:6,gy:3});
+  ctx.setLineDash([7,6]);ln([C.X(10),C.Y(0),C.X(10),C.Y(100)],'#e8572a',2);ln([C.X(0),C.Y(90),C.X(12),C.Y(90)],'rgba(255,255,255,.45)',1.5);ctx.setLineDash([]);
+  wt(C.X(10)-8,C.Y(96),'規定時間',16,'#ff9d7a',700,'right');wt(C.X(.2),C.Y(90)-10,'順槳 90°',16,'#fff',700);
+  const BL=[[7.6,'#7dffc4','葉片 A'],[8.1,'#7dc8dc','葉片 B'],[8.9,'#b37cff','葉片 C']];
+  const te=12*seg(u,.06,.46);
+  BL.forEach(([tf,col,n],j)=>{if(te<=0)return;ctx.beginPath();for(let t=0;t<=te;t+=.05){const a=t<tf?90*easeOut(Math.min(1,t/tf))*.98+0*t:90;const y=C.Y(Math.min(90,a));t?ctx.lineTo(C.X(t),y):ctx.moveTo(C.X(t),y);}
+   ctx.strokeStyle=col;ctx.lineWidth=3;ctx.stroke();
+   alphaDo(seg(u,.32,.38),()=>{circ(C.X(6.2),C.Y(30)+j*34,6,col);wt(C.X(6.2)+14,C.Y(30)+j*34+6,trf('{n}：{t} 秒',{n:tr(n),t:tf.toFixed(1)}),16,col,700);});});
+  alphaDo(seg(u,.38,.44),()=>tag(C.X(7.6),C.Y(52),'全部在規定時間內',{size:17,bg:'#7dffc4',align:'center'}));
+  /* 右上：安全鏈 */
+  card(800,160,740,420,{bg:'rgba(7,27,39,.75)'});wt(824,200,'安全鏈：獨立的串聯迴路',20,'#f2c230',700);
+  const trip=Math.min(4,Math.floor(seg(u,.52,.9)*5)),tripping=u>.52&&u<.92;
+  const sx=i=>870+i*130,sy=300;
+  ln([840,sy,1500,sy],'#7dffc4',3);ln([1500,sy,1500,500,840,500,840,sy],'rgba(125,255,196,.6)',2);
+  SAFE.forEach((t,i)=>{const open=tripping&&i===trip&&(TT*1.6)%1<.6;const x=sx(i);
+   box(x-6,sy-6,12,12,'#0e2a3b');circ(x-24,sy,5,'#fff');circ(x+24,sy,5,'#fff');
+   if(open){ln([x-24,sy,x+20,sy-26],'#e8572a',4);}else ln([x-24,sy,x+24,sy],'#7dffc4',4);
+   wt(x,sy+40+(i%2)*30,t,15,open?'#ff9d7a':'rgba(227,236,238,.9)',700,'center');
+   if(u>.52+(i+1)*.076)chk(x,sy-40);});
+  box(1080,470,180,60,'#16384c','#f2c230',2);wt(1170,507,'安全繼電器',18,'#f2c230',700,'center');
+  alphaDo(seg(u,.56,.62),()=>{const on=tripping&&(TT*1.6)%1<.6;tag(1170,420,on?'跳脫 → 緊急順槳與剎車':'迴路閉合：允許運轉',{size:16,bg:on?'#e8572a':'#7dffc4',fg:on?'#fff':'#13232e',align:'center'});});
+  /* 右下：剎車 */
+  card(800,600,740,200,{bg:'rgba(7,27,39,.75)'});wt(824,640,'機械剎車',20,'#f2c230',700);
+  const ky=seg(u,.06,.12);alphaDo(ky,()=>{box(860,670,24,110,'#9aa3a8','rgba(0,0,0,.4)',1);ctx.save();
+   box(884,690,16,70,'#e8a33a');box(840,690,16,70,'#e8a33a');ctx.restore();
+   wt(940,700,'剎車片厚度',17,'#fff',700);wt(940,734,'14 mm（下限 5 mm）',17,'#7dffc4',700);
+   wt(1220,700,'作動與釋放測試',17,'#fff',700);wt(1220,734,'油壓、作動時間正常',17,'#7dffc4',700);});
+ }},
+
+/* 7 ─────────────────────────────── 復機 */
+{t:'解鎖與復機',en:'Unlocking and returning to service',dur:12,side:true,
+ d:'所有項目完成後，技師清點工具、收起廢油與舊濾芯，確認機艙與塔內沒有遺留人員與物品。拆除上鎖掛牌的順序與上鎖相反，而且每一把鎖只能由掛上它的人親自取下；拔出轉子鎖定銷、恢復電源後，再通知中控室啟動。風機先以低速運轉，確認振動、溫度與變槳正常，才回到滿載。定檢報告與油品分析結果存進維護系統，成為下一次定檢與預測性維護的比較基準。',
+ s:[[0,'清點工具與廢油，確認塔內沒有遺留人員'],[.28,'每人親手取下自己的鎖，拔出轉子鎖定銷'],[.52,'通知中控啟動，風機重新開始轉動'],[.78,'定檢報告存檔，成為下一年的比較基準']],
+ draw(u){
+  const sp=x=>x<.52?0:x<.8?ease(seg(x,.52,.8)):1;
+  turbine(240,gyy(240),230,115,TT*1.2+.4);
+  const T=turbine(620,gyy(620),320,170,spin(u,12,sp)*1.1+.3);
+  windLines(170,520,14,180,.5+.4*seg(u,.5,.8),9,50);
+  box(608,gyy(620)-30,24,30,'#6f7a80','rgba(0,0,0,.4)',1);
+  /* 門口的鎖 */
+  [0,1].forEach(j=>{const a=1-seg(u,.3+j*.08,.36+j*.08);if(a>0)alphaDo(a,()=>padlock(640+j*16,gyy(620)-14,.8,j?'#58b8d0':'#e8572a'));});
+  const kw=seg(u,.06,.3);[0,1].forEach(j=>{const x=lerp(640+j*14,760+j*24,ease(kw));person(x,gyy(x),j?'#f2c230':'#e8572a',2.2);});
+  ctx.save();ctx.translate(900,gyy(900));ctx.scale(.62,.62);truck(0,0,true,'#f4f6f7',()=>{box(4,-48,60,14,'#f2c230');});ctx.restore();
+  /* 報告卡 */
+  const kc=seg(u,.6,.68);if(kc>0)alphaDo(kc,()=>{const x0=1010,y0=380;card(x0,y0,520,300,{bg:'rgba(7,27,39,.9)'});
+   wt(x0+20,y0+36,'年度定檢報告（示例）',19,'#f2c230',700);
+   const IT=['上鎖掛牌與解除','升降機與防墜設備','螺栓扭力抽檢','油品取樣與濾芯','潤滑脂補充','剎車、變槳與安全鏈'];
+   IT.forEach((t,i)=>{const y=y0+82+Math.floor(i/2)*66,x=x0+20+(i%2)*250;alphaDo(seg(u,.64+i*.03,.68+i*.03),()=>{chk(x+12,y-6);wt(x+32,y,t,16,'#fff',700);});});
+   alphaDo(seg(u,.84,.9),()=>tag(x0+260,y0+272,'存入維護系統，作為下次比較基準',{size:15,bg:'#7dffc4',align:'center'}));});
+  lab(648,gyy(620)-16,'各自取下自己的鎖',{dx:-130,dy:-70,st:'s',a:band(u,.26,.5)});
+  lab(T.x,T.y,'低速試運轉',{dx:130,dy:-50,st:'g',a:band(u,.52,.76)});
+ },
+ hud(u){hudPanel(250,150,'復機狀態（示例）',seg(u,.5,.56),w=>{const p=seg(u,.6,.95);
+  hrow(56,'檢查項目','42 / 42',w,'#7dffc4');hrow(88,'輸出功率',trf('{p} MW',{p:(2.1*p).toFixed(1)}),w,'#f2c230');hrow(120,'振動',p>0?'正常':'—',w,'#7dffc4');});}}
 ]};
 
-/* 陸域風電系列 第 3 集：陸域風場運維 — 英日翻譯 */
+/* 陸域風電系列 第 16 集：風機年度定檢 — 英日翻譯 */
 Object.assign(DICT,{
 "陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
-"陸域風場運維":["Operating and maintaining an onshore wind farm","陸上風力発電所の運用・保守"],
-"風機蓋好之後，要穩定運轉二十年。這一集走進運維現場：看 SCADA 如何即時回報每一台風機、葉片怎麼檢修、齒輪箱如何靠振動與油品提早發現問題，以及風場如何監測噪音與鳥類。":["Once a turbine is built, it has to run reliably for twenty years. This episode goes inside wind farm operations and maintenance: how SCADA reports on every turbine in real time, how blades are inspected and repaired, how vibration and oil analysis catch gearbox problems early, and how a wind farm monitors noise and birds.","風車は建てた後、20 年にわたり安定して運転しなければなりません。本編では運用・保守（O&M）の現場に入り、SCADA が各風車の状態をリアルタイムで伝える仕組み、ブレードの点検と補修、振動と油の分析による増速機の異常の早期発見、そして騒音と鳥類のモニタリングを見ていきます。"],
-"分鐘":["min","分"],
+"風機年度定檢":["The annual turbine inspection","風車の年次定期点検"],
+"每一台風機每年都要停下來做一次完整的健康檢查。這一集跟著技師登塔：先停機上鎖掛牌，再抽檢螺栓扭力、取樣齒輪箱油品、補充潤滑脂，最後測試剎車、變槳備用電池與安全鏈，確認一切正常才解鎖復機。":["Once a year, every turbine is stopped for a full health check. This episode follows the technicians up the tower: they stop the machine and apply lockout and tagout, spot-check bolt torque, sample the gearbox oil and top up grease, then test the brakes, pitch backup batteries and safety chain, and only unlock and restart once everything checks out.","すべての風車は年に一度、停止して全面的な健康診断を受けます。本編では技術者とともにタワーに登ります。まず停止してロックアウト・タグアウトを行い、ボルトのトルクを抜き取り点検し、増速機の油をサンプリングしてグリースを補給します。最後にブレーキ、ピッチのバックアップ電池、セーフティチェーンを試験し、すべて正常と確認してからロックを外して再起動します。"],
+"%":["%","%"],
+"條":["Article","条"],
+"小時":["hours","時間"],
 "個月":["months","か月"],
-"部":["turbines","基"],
-"SCADA 常用的資料彙整間隔：每筆記錄平均值、最大、最小與標準差":["Common SCADA logging interval: each record holds the mean, maximum, minimum and standard deviation","SCADA で一般的な集計間隔：各レコードに平均・最大・最小・標準偏差を記録"],
-"業界常用的風機可用率目標，約等於全年停機少於 11 天":["A common industry availability target, equal to less than about 11 days of downtime a year","業界で一般的な稼働率の目標。年間の停止が約 11 日未満に相当"],
-"美國 NREL 齒輪箱可靠度資料庫中，源自軸承的齒輪箱損壞比例":["Share of gearbox failures caused by bearings in the US NREL Gearbox Reliability Database","米国 NREL の増速機信頼性データベースで、軸受に起因する増速機損傷の割合"],
-"風力發電機組 20–200 Hz 低頻噪音夜間管制值（第一、二類管制區）":["Night-time limit for 20–200 Hz low-frequency noise from wind turbines in Taiwan (Class 1 and 2 control areas)","台湾の風力発電機 20–200 Hz 低周波騒音の夜間基準値（第 1・2 種管制区）"],
-"半年與年度保養的典型間隔，油品取樣也常每半年一次（示例）":["Typical intervals for semi-annual and annual service; oil is often sampled every six months too (example)","半年点検と年次点検の代表的な間隔。油のサンプリングも半年ごとが多い（例）"],
-"台電陸域風機數量，裝置容量約 297 MW（經濟部 2022 年新聞稿）":["Onshore turbines operated by Taipower, about 297 MW in total (Ministry of Economic Affairs, 2022)","台湾電力の陸上風車の基数。設備容量は約 297 MW（経済部、2022 年発表）"],
-"說明：本集為教育用途示意動畫，風機、建築與地景比例經過調整。SCADA 以 10 分鐘統計值記錄為業界常見做法；齒輪箱損壞 76% 源自軸承引自美國 NREL 齒輪箱可靠度資料庫；風力發電機組噪音管制值依環境部「噪音管制標準」（20–200 Hz 夜間第一、二類管制區 36 dB(A)、第三類 41 dB(A)、第四類 44 dB(A)；全頻於背景音量較高時採增量不超過 5 dB(A) 管制，於陳情人指定之室內地點量測）；台電 168 部陸域風機與 297 MW 引自經濟部新聞稿。可用率 97%、保養月份與項目、SCADA 讀值、功率曲線散點、振動頻譜、溫度趨勢、噪音分布與雷達偵測畫面皆為典型範例，並非特定案場資料；實際做法依各風場、機型與主管機關規定而定。":["Note: This is a schematic animation for education; the proportions of turbines, buildings and landscape are adjusted. Logging SCADA data as 10-minute statistics is common industry practice. The figure that 76% of gearbox failures stem from bearings comes from the US NREL Gearbox Reliability Database. Wind turbine noise limits follow Taiwan's Noise Control Standards issued by the Ministry of Environment (20–200 Hz at night: 36 dB(A) in Class 1 and 2 areas, 41 dB(A) in Class 3 and 44 dB(A) in Class 4; for the full band, where background noise is high, the increase must not exceed 5 dB(A); measurements are made indoors at a location chosen by the complainant). Taipower's 168 onshore turbines and 297 MW come from a Ministry of Economic Affairs press release. The 97% availability, maintenance months and items, SCADA readings, power-curve scatter, vibration spectrum, temperature trend, noise contours and radar display are typical examples, not data from a specific site; actual practice depends on each wind farm, turbine model and regulator.","説明：本編は教育用の模式アニメーションで、風車、建物、地形の縮尺は調整しています。SCADA を 10 分間の統計値で記録するのは業界で一般的な方法です。増速機損傷の 76% が軸受に起因するという値は米国 NREL の増速機信頼性データベースによります。風力発電機の騒音基準は台湾環境部の「騒音管制標準」に基づきます（20–200 Hz 夜間：第 1・2 種管制区 36 dB(A)、第 3 種 41 dB(A)、第 4 種 44 dB(A)。全周波数帯は暗騒音が高い場合、増加量 5 dB(A) 以内で管理し、苦情申立人が指定する屋内で測定）。台湾電力の陸上風車 168 基と 297 MW は経済部の発表によります。稼働率 97%、点検の時期と項目、SCADA の値、パワーカーブの散布点、振動スペクトル、温度トレンド、騒音分布、レーダー画面はいずれも代表的な例で、特定の発電所のデータではありません。実際の運用は発電所、機種、所管機関の規定によって異なります。"],
+"°":["°","°"],
+"年":["year","年"],
+"年度定檢常見的螺栓扭力抽檢比例，抽到鬆動就擴大為全數複查（示例）":["Share of bolts commonly torque-checked at the annual service; a loose one triggers a check of every bolt (example)","年次点検で一般的なボルトトルク抜き取り率。緩みが見つかれば全数点検に拡大（例）"],
+"職業安全衛生設施規則：機械檢查、修理前應停止運轉，並上鎖或設置標示":["Taiwan's Occupational Safety and Health Facilities Regulations: stop machinery and lock it out or tag it before inspection or repair","台湾の職業安全衛生設備規則：機械の点検・修理前に運転を止め、施錠または表示を行う"],
+"8–12":["8–12","8–12"],
+"一台約 2 MW 風機年度保養，兩人小組在塔上作業的典型工時":["Typical up-tower time for a two-person crew doing the annual service on a 2 MW-class turbine","2 MW 級風車の年次保守で、2 人の班がタワー上で作業する代表的な時間"],
+"齒輪箱油品取樣與濾芯檢查的典型間隔（示例）":["Typical interval for gearbox oil sampling and filter checks (example)","増速機の油サンプリングとフィルター点検の代表的な間隔（例）"],
+"緊急順槳的目標槳距角：葉片轉到與風平行，讓轉子減速停下":["Target pitch angle in an emergency feather: blades turn edge-on to the wind so the rotor slows and stops","緊急フェザリングの目標ピッチ角：ブレードを風と平行にしてロータを減速・停止"],
+"升降機、防墜器與救援器材的定期檢查週期（示例）":["Periodic inspection cycle for the service lift, fall arresters and rescue kit (example)","昇降機、墜落阻止器、救助器材の定期点検周期（例）"],
+"說明：本集為教育用途示意動畫，風機、塔架與機艙比例經過調整。停機上鎖或標示的要求依勞動部「職業安全衛生設施規則」第 57 條（機械之掃除、上油、檢查、修理或調整有危害之虞時，應停止運轉並採上鎖或設置標示等措施，並對彈簧、液壓、氣壓等蓄積能量採取洩壓或隔離措施），國際上可參考美國 OSHA 29 CFR 1910.147 與 1910.269；年度保養抽檢約 10% 螺栓與兩人小組 8–12 小時工時為業界文獻常見說法。作業風速上限、扭力與轉角判定值、油品分析數值與警戒值、變槳測試時間、保養間隔與檢查項目皆為典型範例，並非特定案場或機型資料；實際做法依各風機製造商手冊、風場程序與主管機關規定而定。":["Note: This is a schematic animation for education; the proportions of turbines, towers and nacelles are adjusted. The requirement to stop, lock out or tag equipment follows Article 57 of Taiwan's Occupational Safety and Health Facilities Regulations issued by the Ministry of Labor (when cleaning, oiling, inspecting, repairing or adjusting machinery could endanger workers, the machine must be stopped and locked out or tagged, and energy stored in springs, hydraulics or pneumatics must be released or isolated); internationally, see US OSHA 29 CFR 1910.147 and 1910.269. Checking about 10% of bolts at the annual service and an 8–12 hour up-tower time for a two-person crew are commonly cited in industry literature. The working wind-speed limit, torque and rotation-angle criteria, oil analysis values and alarm limits, pitch test times, service intervals and check items are typical examples, not data for a specific site or turbine model; actual practice depends on each manufacturer's manual, wind farm procedures and the regulator.","説明：本編は教育用の模式アニメーションで、風車、タワー、ナセルの縮尺は調整しています。停止と施錠・表示の要件は台湾労働部の「職業安全衛生設備規則」第 57 条によります（機械の清掃、給油、点検、修理、調整で危険のおそれがある場合は運転を停止し、施錠または表示などの措置をとり、ばね・油圧・空気圧などの蓄積エネルギーは放出または遮断する）。国際的には米国 OSHA 29 CFR 1910.147 と 1910.269 が参考になります。年次保守で約 10% のボルトを点検すること、2 人の班で 8–12 時間という作業時間は業界文献でよく示される値です。作業風速の上限、トルクと回転角の判定値、油分析の値と警戒値、ピッチ試験の時間、保守間隔と点検項目はいずれも代表的な例で、特定の発電所や機種のデータではありません。実際の方法はメーカーのマニュアル、発電所の手順、所管機関の規定によって異なります。"],
 /* 分鏡 1 */
-"看得見每一台風機":["Every turbine, seen from the control room","すべての風車が見える"],
-"陸域風場的風機分散在沿海數公里的範圍，運維人員不可能天天爬上每一座塔架。每台風機都有控制器，持續量測風速、功率、轉速、槳距角、偏航角與各部位溫度，透過光纖把數據送回運維中心，這套系統稱為監控與資料擷取系統（SCADA）。運維人員在中控室就能看到整個風場的即時狀態，也能遠端重新啟動或停機。台電已把分散各地的陸域風機納入遠端集中監控。":["The turbines of an onshore wind farm are spread over several kilometres of coastline, and technicians cannot climb every tower each day. Each turbine has a controller that continuously measures wind speed, power, rotor speed, pitch angle, yaw angle and temperatures throughout the machine, and sends the data over fibre-optic cable to the O&M centre. This is the supervisory control and data acquisition system (SCADA). From the control room, operators see the live status of the whole farm and can restart or stop turbines remotely. Taipower has brought its scattered onshore turbines under centralised remote monitoring.","陸上風力発電所の風車は沿岸の数キロにわたって点在しており、保守員が毎日すべてのタワーに登ることはできません。各風車には制御装置があり、風速、出力、回転数、ピッチ角、ヨー角、各部の温度を常時計測し、光ファイバーで O&M センターへ送ります。この仕組みを監視制御・データ収集システム（SCADA）と呼びます。制御室では発電所全体の状態をリアルタイムで確認でき、遠隔で再起動や停止もできます。台湾電力は各地の陸上風車を遠隔集中監視に統合しています。"],
-"沿海的風場，每一台風機都在回報數據":["Along the coast, every turbine reports its data","沿岸の風力発電所で、各風車がデータを送る"],
-"數百個訊號，經光纖傳到運維中心":["Hundreds of signals travel by fibre to the O&M centre","数百の信号が光ファイバーで O&M センターへ"],
-"中控室一眼看出哪台正常、哪台異常":["The control room sees at a glance which turbine is off","制御室で正常と異常をひと目で確認"],
-"異常警報出現，運維人員開始判斷":["An alarm appears and the team starts to diagnose","異常アラームが出て、保守員が判断を始める"],
-"遠端監控畫面（示例）":["Remote monitoring screen (example)","遠隔監視画面（例）"],
-"風機控制器":["Turbine controller","風車制御装置"],
-"光纖通訊":["Fibre-optic link","光ファイバー通信"],
-"運維中心":["O&M centre","O&M センター"],
-"齒輪箱溫度偏高":["Gearbox running hot","増速機の温度が高い"],
-"風場即時概況（示例）":["Wind farm live (example)","発電所の状況（例）"],
-"運轉台數":["Running","運転台数"],
-"風場出力":["Farm output","発電所出力"],
-"警報":["Alarms","アラーム"],
+"定檢日的準備":["Preparing for inspection day","定期点検日の準備"],
+"年度定檢通常排在風小的季節，台灣西部沿海多選在春夏之間，避開東北季風最強、發電最多的月份。出發前，運維團隊確認天氣與風速，作業風速必須低於製造商規定的上限，並準備好工單、備品、潤滑脂、油品取樣瓶與扭力工具。抵達現場後，先通知中控室，由中控遠端讓風機停機，葉片轉到順槳位置，轉子慢慢停下，技師才走進塔門。":["The annual inspection is usually scheduled in the low-wind season; on Taiwan's west coast that means spring and summer, avoiding the months when the northeast monsoon is strongest and generation is highest. Before setting out, the O&M team checks the weather and wind speed, which must be below the manufacturer's working limit, and prepares the work order, spare parts, grease, oil sample bottles and torque tools. On site, they first notify the control room, which stops the turbine remotely. The blades turn to the feathered position and the rotor slowly comes to rest before the technicians walk through the tower door.","年次点検は通常、風の弱い季節に組まれます。台湾西部沿岸では春から夏が多く、北東季節風が最も強く発電量が多い月を避けます。出発前に保守チームは天候と風速を確認します。作業時の風速はメーカーが定める上限未満でなければなりません。作業指示書、予備品、グリース、油サンプル瓶、トルク工具も準備します。現地に着くとまず制御室に連絡し、遠隔で風車を停止します。ブレードがフェザー位置に回り、ロータがゆっくり止まってから、技術者はタワーの扉に入ります。"],
+"風小的日子，運維工程車駛向今天的定檢風機":["On a calm day, the service van heads to today's turbine","風の弱い日、保守車両が今日の点検風車へ向かう"],
+"確認風速低於作業上限，並通知中控室":["Wind is below the working limit; the control room is notified","風速が作業上限未満であることを確認し、制御室に連絡"],
+"中控遠端停機，葉片順槳，轉子慢慢停下":["The control room stops it remotely; blades feather and the rotor slows","制御室が遠隔停止。ブレードをフェザーにし、ロータが減速"],
+"技師帶著工具與備品，準備進入塔門":["Technicians carry tools and spares to the tower door","技術者が工具と予備品を持ってタワーの扉へ"],
+"通知中控室":["Notify control room","制御室に連絡"],
+"運維工程車":["Service van","保守車両"],
+"遠端停機":["Remote stop","遠隔停止"],
+"葉片順槳":["Blades feathered","フェザリング"],
+"塔門":["Tower door","タワー扉"],
+"作業前確認（示例）":["Pre-work check (example)","作業前確認（例）"],
+"輪轂風速":["Hub wind","ハブ風速"],
+"作業上限":["Work limit","作業上限"],
+"風機狀態":["Status","状態"],
+"運轉中":["Running","運転中"],
+"停機中":["Stopping","停止中"],
+"已停機":["Stopped","停止済み"],
 /* 分鏡 2 */
-"SCADA 數據怎麼讀":["Reading SCADA data","SCADA データの読み方"],
-"SCADA 每秒取樣，但通常以 10 分鐘為一筆彙整，記錄平均值、最大值、最小值與標準差。一台風機常有數百個訊號，運維上最常看的是風速、功率、轉速、槳距角、偏航角，以及齒輪箱油溫、軸承與發電機溫度。把一年的 10 分鐘資料畫在風速—功率圖上，正常的風機會緊貼保證功率曲線；若一台風機在同樣風速下持續少發 5–10%，就要檢查葉片、槳距角或偏航是否出了問題。":["SCADA samples every second, but data are usually aggregated into 10-minute records holding the mean, maximum, minimum and standard deviation. A turbine often has hundreds of signals; the ones watched most are wind speed, power, rotor speed, pitch angle and yaw angle, plus gearbox oil, bearing and generator temperatures. Plot a year of 10-minute data on a wind-speed-versus-power chart and a healthy turbine hugs its warranted power curve. If one turbine keeps producing 5–10% less at the same wind speed, the team checks its blades, pitch angle and yaw.","SCADA は毎秒サンプリングしますが、通常は 10 分ごとに 1 レコードとして集計し、平均値、最大値、最小値、標準偏差を記録します。1 基の風車には数百の信号があり、運用で最もよく見るのは風速、出力、回転数、ピッチ角、ヨー角と、増速機の油温、軸受温度、発電機温度です。1 年分の 10 分値を風速と出力のグラフに描くと、正常な風車は保証パワーカーブに沿います。同じ風速で出力が 5–10% 低い状態が続く風車は、ブレード、ピッチ角、ヨーに問題がないかを点検します。"],
-"每 10 分鐘，SCADA 記下一筆完整的運轉紀錄":["Every 10 minutes, SCADA logs a full operating record","10 分ごとに SCADA が運転記録を 1 件残す"],
-"風速與功率畫在一起，正常風機貼著功率曲線":["Plotted together, healthy turbines follow the power curve","風速と出力を重ねると、正常な風車はカーブに沿う"],
-"這台風機在中低風速時持續少發電":["This turbine underperforms at low and mid winds","この風車は中低風速で出力不足が続く"],
-"可能是葉片侵蝕、槳距或偏航出了問題":["Blade erosion, pitch or yaw may be the cause","ブレードの侵食、ピッチやヨーの不具合が疑われる"],
-"SCADA 每 10 分鐘一筆紀錄（示例）":["One SCADA record every 10 min (example)","SCADA の 10 分値レコード（例）"],
-"輪轂風速":["Hub wind speed","ハブ高さ風速"],
-"輸出功率":["Power output","出力"],
-"轉子轉速":["Rotor speed","ロータ回転数"],
-"槳距角":["Pitch angle","ピッチ角"],
-"偏航角":["Yaw angle","ヨー角"],
-"齒輪箱油溫":["Gearbox oil temp","増速機油温"],
-"軸承溫度":["Bearing temp","軸受温度"],
-"發電機溫度":["Generator temp","発電機温度"],
-"每筆：平均、最大、最小、標準差":["Each: mean, max, min, std dev","各レコード：平均・最大・最小・標準偏差"],
-"風速與功率散佈圖（示例）":["Wind speed vs power scatter (example)","風速と出力の散布図（例）"],
-"風速 m/s":["Wind speed m/s","風速 m/s"],
-"保證功率曲線":["Warranted power curve","保証パワーカーブ"],
-"正常風機":["Healthy turbines","正常な風車"],
-"同樣風速，少發約 5–10%":["5–10% less at the same wind","同じ風速で約 5–10% 少ない"],
-"檢查：葉片、槳距、偏航":["Check blades, pitch, yaw","点検：ブレード・ピッチ・ヨー"],
+"停機上鎖掛牌":["Lockout and tagout","ロックアウト・タグアウト"],
+"風機停下來不代表安全。轉子可能被風再次推動，690 伏特與中壓電路仍可能帶電，液壓蓄壓器與變槳備用電池裡也存著能量。職業安全衛生設施規則第 57 條要求，機械檢查、修理前應停止運轉，並上鎖或設置標示，對液壓等蓄積能量要洩壓或隔離。實務上稱為上鎖掛牌（LOTO）：插入轉子鎖定銷、斷開電源並洩壓，每位技師掛上自己的鎖與標籤，最後驗電確認零能量，才開始動手。":["A stopped turbine is not yet a safe one. The wind can push the rotor round again, the 690-volt and medium-voltage circuits may still be live, and energy is stored in hydraulic accumulators and pitch backup batteries. Article 57 of Taiwan's Occupational Safety and Health Facilities Regulations requires machinery to be stopped and locked out or tagged before inspection or repair, with stored energy such as hydraulic pressure released or isolated. In practice this is lockout and tagout (LOTO): the rotor lock pin goes in, power is disconnected and pressure released, each technician attaches their own lock and tag, and only after a test confirms zero energy does work begin.","風車が止まっただけでは安全ではありません。ロータは風で再び回る可能性があり、690 V と中圧の回路はまだ充電されているかもしれません。油圧アキュムレータやピッチのバックアップ電池にもエネルギーが蓄えられています。台湾の職業安全衛生設備規則第 57 条は、機械の点検・修理前に運転を止め、施錠または表示を行い、油圧などの蓄積エネルギーを放出または遮断するよう求めています。実務ではロックアウト・タグアウト（LOTO）と呼びます。ロータロックピンを差し込み、電源を切って圧力を抜き、技術者一人ひとりが自分の錠と札を掛け、検電でゼロエネルギーを確認してから作業を始めます。"],
+"停下來的風機，仍藏著好幾種能量":["A stopped turbine still holds several kinds of energy","止まった風車にも、まだ複数のエネルギーが残る"],
+"插入轉子鎖定銷，斷電並洩放液壓":["Insert the rotor lock pin, cut power and release hydraulics","ロータロックピンを挿入し、電源遮断と油圧放出"],
+"每位技師掛上自己的鎖與標籤":["Each technician attaches their own lock and tag","技術者一人ひとりが自分の錠と札を掛ける"],
+"驗電確認零能量，才開始作業":["Work starts only after zero energy is verified","検電でゼロエネルギーを確認してから作業開始"],
+"要隔離的能量來源":["Energy sources to isolate","遮断すべきエネルギー源"],
+"轉子旋轉":["Rotor rotation","ロータの回転"],
+"轉子鎖定銷":["Rotor lock pin","ロータロックピン"],
+"690 V／中壓電":["690 V / MV power","690 V／中圧電源"],
+"斷路器上鎖":["Breaker locked","遮断器に施錠"],
+"液壓蓄壓器":["Hydraulic accumulator","油圧アキュムレータ"],
+"洩壓歸零":["Pressure released","圧力ゼロ"],
+"變槳備用電池":["Pitch backup battery","ピッチ用バックアップ電池"],
+"隔離開關":["Isolator open","断路器で遮断"],
+"塔底開關櫃":["Tower-base switchgear","タワー基部の開閉装置"],
+"上鎖並掛牌":["Locked and tagged","施錠・札掛け"],
+"有能量":["Energised","エネルギーあり"],
+"上鎖掛牌的順序":["Lockout sequence","ロックアウトの手順"],
+"通知中控、取得工作許可":["Notify control, get work permit","制御室に連絡、作業許可"],
+"停機並順槳":["Stop and feather","停止してフェザリング"],
+"插入轉子鎖定銷":["Insert rotor lock pin","ロータロックピン挿入"],
+"斷開電源、洩放蓄壓":["Isolate power, bleed pressure","電源遮断、蓄圧を放出"],
+"個人上鎖並掛標籤":["Personal lock and tag","個人の錠と札を掛ける"],
+"驗電，確認零能量":["Test for zero energy","検電、ゼロエネルギー確認"],
+"一人一鎖一鑰":["One lock per person","一人一錠一鍵"],
+"零能量確認：測試啟動應無反應":["Zero-energy check: start test must do nothing","ゼロエネルギー確認：起動試験で反応なし"],
+"設施規則第 57 條：停機、上鎖或設置標示":["Facilities Regulations Art. 57: stop, lock out or tag","設備規則第 57 条：停止し、施錠または表示"],
 /* 分鏡 3 */
-"葉片檢修":["Inspecting and repairing blades","ブレードの点検と補修"],
-"葉片是風機最外露的部件，葉尖線速度可達每秒 70–80 公尺，雨滴、砂粒與鹽分長年撞擊，前緣塗層會逐漸剝蝕，讓氣流變亂、發電量下降數個百分點。葉尖也是雷擊最常落下的地方，靠內部的接收器與導線把電流導入地面。檢查時先停機、把葉片轉到朝下並鎖定轉子，再以無人機或地面長焦相機拍攝整支葉片；發現損傷後，技師以繩索垂降到葉片旁，打磨並補上前緣保護層。":["Blades are the most exposed part of a turbine. Their tips move at 70–80 m/s, and years of impacts from rain, sand and salt gradually wear away the leading-edge coating, disturbing the airflow and cutting output by a few percent. The tips are also where lightning strikes most often; receptors and down conductors inside the blade carry the current to ground. For an inspection the turbine is stopped, the blade is turned to point downward and the rotor is locked; a drone or a ground-based telephoto camera then photographs the whole blade. When damage is found, rope-access technicians descend beside the blade, sand the surface and apply a new leading-edge protection layer.","ブレードは風車で最も外気にさらされる部品です。翼端の速度は毎秒 70–80 m に達し、雨粒や砂、塩分が長年当たることで前縁の塗膜が少しずつはがれ、気流が乱れて発電量が数パーセント下がります。翼端は落雷が最も多い場所でもあり、内部のレセプターと導線で電流を地面へ逃がします。点検では風車を止め、ブレードを真下に向けてロータをロックし、ドローンや地上の望遠カメラでブレード全体を撮影します。損傷が見つかれば、ロープアクセスの技術者がブレードの横へ降り、研磨して前縁保護層を補修します。"],
-"風機停機，把要檢查的葉片轉到朝下":["The turbine stops with the blade to inspect pointing down","風車を止め、点検するブレードを真下に向ける"],
-"無人機沿著葉片飛行，拍下每一段表面":["A drone flies along the blade, photographing every section","ドローンがブレードに沿って飛び、表面を撮影"],
-"影像顯示葉尖前緣被雨滴與砂粒侵蝕":["Images show erosion on the tip's leading edge","画像で翼端前縁の雨粒・砂による侵食を確認"],
-"技師以繩索垂降，打磨並補上保護塗層":["Rope-access technicians sand it and apply a new coating","技術者がロープで降下し、研磨して保護塗装を補修"],
-"無人機":["Drone","ドローン"],
-"巡檢影像（示例）":["Inspection image (example)","点検画像（例）"],
-"轉子鎖定":["Rotor locked","ロータロック"],
-"前緣侵蝕":["Leading-edge erosion","前縁侵食"],
-"繩索作業技師":["Rope-access technicians","ロープアクセス技術者"],
-"修補前緣保護層":["Leading-edge repair","前縁保護層を補修"],
-"葉尖雷擊接收器":["Tip lightning receptor","翼端の雷レセプター"],
+"登塔：升降機與防墜":["Climbing: service lift and fall arrest","タワー昇降：昇降機と墜落防止"],
+"現代風機的塔架高約 80 至 120 公尺，裡面有爬梯與服務升降機，每隔一段設有休息平台。登塔前，技師檢查安全帶、防墜器與救援器材，掛上沿爬梯設置的防墜滑軌，即使搭升降機也要接上獨立的防墜系統。年度定檢也會檢查升降機本身：鋼索磨耗、限位開關、超速防墜裝置與緊急下降功能。上到機艙後，先確認轉子鎖定銷到位，再打開機艙罩開始工作。":["Modern turbine towers stand roughly 80 to 120 metres tall, with a ladder and a service lift inside and rest platforms at intervals. Before climbing, technicians check their harnesses, fall arresters and rescue kit, and clip onto the fall-arrest rail that runs along the ladder; even when riding the lift, they stay attached to an independent fall-arrest system. The annual inspection also covers the lift itself: wire rope wear, limit switches, the overspeed safety device and the emergency descent function. In the nacelle, they first confirm the rotor lock pin is engaged before opening the cover and starting work.","現代の風車のタワーは高さ約 80〜120 m で、内部にははしごと昇降機があり、一定の間隔で休憩床が設けられています。登る前に技術者は安全帯、墜落阻止器、救助器材を点検し、はしごに沿った墜落防止レールに接続します。昇降機に乗る場合も独立した墜落防止システムにつなぎます。年次点検では昇降機自体も点検します。ワイヤロープの摩耗、リミットスイッチ、過速度防止装置、緊急降下機能です。ナセルに着いたら、まずロータロックピンが確実に入っていることを確認してから、カバーを開けて作業を始めます。"],
+"塔架內有爬梯、升降機與分段的休息平台":["Inside the tower: a ladder, a lift and rest platforms","タワー内には、はしご、昇降機、休憩床がある"],
+"技師穿戴安全帶，接上獨立的防墜系統":["Technicians wear harnesses clipped to a separate fall-arrest system","技術者は安全帯を着け、独立した墜落防止系に接続"],
+"升降機的鋼索、限位與防墜裝置逐項檢查":["Lift wire rope, limits and safety device are checked one by one","昇降機のワイヤ、リミット、安全装置を一つずつ点検"],
+"抵達機艙，確認轉子鎖定銷到位":["In the nacelle, the rotor lock pin is confirmed in place","ナセルに到着し、ロータロックピンを確認"],
+"休息平台":["Rest platform","休憩床"],
+"爬梯與防墜滑軌":["Ladder and fall-arrest rail","はしごと墜落防止レール"],
+"安全帶與防墜器":["Harness and arrester","安全帯と墜落阻止器"],
+"服務升降機":["Service lift","昇降機"],
+"檢查鋼索與限位開關":["Check rope and limits","ワイヤとリミット点検"],
+"登塔前檢查（示例）":["Pre-climb check (example)","昇塔前点検（例）"],
+"合格":["Pass","合格"],
+"檢查中":["Checking","点検中"],
+"升降機鋼索":["Lift rope","昇降機ワイヤ"],
+"救援器材":["Rescue kit","救助器材"],
 /* 分鏡 4 */
-"聽出齒輪箱的異音":["Listening to the gearbox","増速機の異音を聞き取る"],
-"齒輪箱把轉子每分鐘約十轉的轉速，提升到發電機需要的每分鐘一千多轉，是最貴也最難更換的部件之一。美國 NREL 的統計中，約 76% 的齒輪箱損壞源自軸承。狀態監測系統（CMS）在主軸承、齒輪箱與發電機裝上振動感測器，高頻取樣後做頻譜分析，軸承剛出現剝落時，特定頻率就會冒出尖峰。再配合油品分析檢查金屬顆粒、含水量與黏度，趨勢越過警戒值時，就能提前備料，排在風小的日子更換。":["The gearbox steps the rotor's roughly ten revolutions per minute up to the more than one thousand the generator needs, and it is one of the most expensive and hardest parts to replace. In statistics from the US NREL, about 76% of gearbox failures stem from bearings. A condition monitoring system (CMS) fits vibration sensors to the main bearing, gearbox and generator, samples at high frequency and analyses the spectrum; as soon as a bearing starts to spall, a peak appears at a characteristic frequency. Combined with oil analysis for metal particles, water content and viscosity, a trend that crosses the alert level lets the team order parts in advance and schedule the replacement on a calm day.","増速機はロータの毎分約 10 回転を、発電機に必要な毎分 1,000 回転以上に増速する部品で、最も高価で交換が難しい部品の一つです。米国 NREL の統計では、増速機の損傷の約 76% が軸受に起因します。状態監視システム（CMS）は主軸受、増速機、発電機に振動センサーを取り付け、高速サンプリングしたデータをスペクトル分析します。軸受にはく離が生じ始めると、特定の周波数にピークが現れます。油中の金属粒子、水分、粘度を調べる油分析と組み合わせ、トレンドが警戒値を超えた時点で部品を手配し、風の弱い日に交換を計画できます。"],
-"打開機艙：主軸、齒輪箱與發電機":["Inside the nacelle: main shaft, gearbox and generator","ナセル内部：主軸、増速機、発電機"],
-"振動感測器聽出軸承初期損傷的頻率":["Vibration sensors pick up the frequency of early bearing damage","振動センサーが軸受初期損傷の周波数をとらえる"],
-"油品取樣，檢查金屬顆粒與含水量":["Oil samples are checked for metal particles and water","油をサンプリングし、金属粒子と水分を確認"],
-"趨勢越過警戒值，提前安排更換":["When the trend crosses the alert level, a replacement is planned","トレンドが警戒値を超え、交換を前倒しで計画"],
-"機艙內的傳動系統（剖面示意）":["Drivetrain inside the nacelle (section)","ナセル内の駆動系（断面模式図）"],
+"螺栓扭力抽檢":["Spot-checking bolt torque","ボルトトルクの抜き取り点検"],
+"風機靠數千根高強度螺栓把塔架各段、葉根與輪轂、主軸承座與偏航軸承連在一起。長期的振動與交變載重會讓螺栓預力逐漸鬆弛，一旦預力不足，螺栓就容易疲勞斷裂。新機投產後的首次保養通常全數複查；之後的年度定檢多抽檢約 10% 的螺栓，以液壓扭力扳手施加規定扭力：螺帽不再轉動即為合格，若明顯轉動，代表預力已流失，該處法蘭就要擴大為全數複查並記錄。":["A turbine relies on thousands of high-strength bolts to join the tower sections, blade roots and hub, main bearing housing and yaw bearing. Years of vibration and cyclic loading slowly relax bolt preload, and a bolt that has lost preload is prone to fatigue failure. The first service after commissioning usually re-checks every bolt; at later annual inspections, about 10% are sampled. A hydraulic torque wrench applies the specified torque: if the nut does not turn, the bolt passes. If it turns noticeably, preload has been lost, and every bolt in that flange is then checked and recorded.","風車は数千本の高力ボルトで、タワーの各段、翼根とハブ、主軸受台、ヨー軸受をつないでいます。長年の振動と繰り返し荷重でボルトの予張力は徐々に低下し、予張力が不足するとボルトは疲労破断しやすくなります。運転開始後の初回点検では通常全数を再確認し、その後の年次点検では約 10% を抜き取ります。油圧トルクレンチで規定トルクをかけ、ナットが回らなければ合格です。はっきり回った場合は予張力が失われているため、そのフランジは全数点検に拡大して記録します。"],
+"塔架法蘭由一整圈高強度螺栓鎖緊":["A tower flange is clamped by a full ring of high-strength bolts","タワーのフランジは一周の高力ボルトで締結"],
+"每年抽檢約一成，用液壓扳手施加規定扭力":["About one in ten is checked each year with a hydraulic wrench","毎年約 1 割を油圧レンチで規定トルクまで締める"],
+"螺帽不轉動即合格，數據逐根記錄":["If the nut does not turn it passes; each result is logged","ナットが回らなければ合格。1 本ずつ記録"],
+"這一根轉動了，整圈擴大為全數複查":["This one turned, so the whole ring gets checked","この 1 本が回ったため、全数点検に拡大"],
+"塔架法蘭（俯視示意）":["Tower flange (top view)","タワーフランジ（平面図）"],
+"60 根螺栓":["60 bolts","ボルト 60 本"],
+"抽檢 {n} 根":["{n} sampled","{n} 本を抜き取り"],
+"擴大為全數複查":["Check all bolts","全数点検に拡大"],
+"年度抽檢的螺栓連接":["Bolted joints sampled each year","年次点検で抜き取るボルト接合部"],
+"塔架法蘭":["Tower flanges","タワーフランジ"],
+"葉根與輪轂":["Blade root and hub","翼根とハブ"],
+"主軸承座":["Main bearing housing","主軸受台"],
+"偏航軸承":["Yaw bearing","ヨー軸受"],
+"抽檢結果：螺帽轉角（示例）":["Result: nut rotation (example)","結果：ナット回転角（例）"],
+"判定值 20°":["Limit 20°","判定値 20°"],
+"第 {n} 根":["No. {n}","{n} 番"],
+"{d}°":["{d}°","{d}°"],
+/* 分鏡 5 */
+"齒輪箱油品與潤滑":["Gearbox oil and lubrication","増速機の油と潤滑"],
+"齒輪箱裡的潤滑油同時負責潤滑與散熱，也記錄了齒輪與軸承的健康。技師從取樣閥抽取運轉溫度下的油樣，送實驗室分析黏度、含水量、金屬元素與顆粒清淨度；鐵含量上升或清淨度變差，常是磨耗加劇的早期訊號。同時檢查濾芯前後的壓差並更換濾芯。主軸承、變槳軸承、偏航軸承與發電機軸承則靠自動潤滑泵定量注入潤滑脂，定檢時補滿油脂桶、檢查管路，並清除被擠出的舊脂。":["Gearbox oil both lubricates and cools, and it also carries a record of gear and bearing health. Technicians draw a sample at operating temperature from the sampling valve and send it to a lab for viscosity, water content, wear metals and particle cleanliness; rising iron or worsening cleanliness is often an early sign of accelerating wear. They also check the pressure drop across the filter and fit a new element. The main, pitch, yaw and generator bearings are greased in metered doses by an automatic lubrication pump; at the inspection the reservoir is refilled, the lines checked and purged old grease cleaned away.","増速機の潤滑油は潤滑と冷却を担い、歯車と軸受の健康状態の記録でもあります。技術者はサンプリング弁から運転温度の油を採取し、粘度、水分、金属元素、粒子の清浄度を分析に出します。鉄分の増加や清浄度の悪化は、摩耗が進んでいる初期の兆候であることが多いです。あわせてフィルター前後の差圧を確認し、エレメントを交換します。主軸受、ピッチ軸受、ヨー軸受、発電機軸受には自動給脂ポンプがグリースを定量供給しており、点検時にはタンクを補充し、配管を点検し、押し出された古いグリースを清掃します。"],
+"從取樣閥抽出油樣，送實驗室分析":["An oil sample is drawn from the valve for lab analysis","サンプリング弁から油を採り、分析へ"],
+"黏度、含水量、金屬與清淨度都在範圍內":["Viscosity, water, metals and cleanliness are within range","粘度、水分、金属、清浄度はすべて範囲内"],
+"檢查濾芯壓差，換上新濾芯":["Filter pressure drop is checked and a new element fitted","フィルター差圧を確認し、新しいエレメントに交換"],
+"補滿自動潤滑系統，清除擠出的舊脂":["The auto-lube system is refilled and old grease removed","自動給脂装置を補充し、古いグリースを清掃"],
+"機艙內的潤滑點（剖面示意）":["Lubrication points in the nacelle (cutaway)","ナセル内の潤滑箇所（断面図）"],
 "主軸承":["Main bearing","主軸受"],
 "齒輪箱":["Gearbox","増速機"],
 "發電機":["Generator","発電機"],
-"約 10 rpm → 約 1,500 rpm":["About 10 rpm → about 1,500 rpm","約 10 rpm → 約 1,500 rpm"],
-"振動感測器（CMS）":["Vibration sensors (CMS)","振動センサー（CMS）"],
-"油品取樣":["Oil sampling","油のサンプリング"],
-"金屬顆粒・含水量・黏度":["Metal particles, water, viscosity","金属粒子・水分・粘度"],
-"振動頻譜（示例）":["Vibration spectrum (example)","振動スペクトル（例）"],
-"頻率":["Frequency","周波数"],
-"振幅":["Amplitude","振幅"],
-"轉速頻率":["Shaft speed","回転周波数"],
-"軸承缺陷頻率":["Bearing defect frequency","軸受欠陥周波数"],
-"軸承溫度與振動趨勢（示例）":["Bearing temperature and vibration trend (example)","軸受温度と振動のトレンド（例）"],
-"月":["Month","月"],
-"警戒值":["Alert level","警戒値"],
-"備料並排定更換":["Order parts, plan replacement","部品手配と交換計画"],
-/* 分鏡 5 */
-"定期保養與可用率":["Scheduled service and availability","定期点検と稼働率"],
-"除了發現問題才維修，風機也有固定的保養週期，常見是半年一次例行保養、一年一次較完整的年度保養。內容包括檢查塔架與葉片螺栓扭力、補充潤滑脂與更換濾芯、油品取樣、測試變槳與偏航系統，以及升降設備與安全裝置。台灣西部沿海秋冬東北季風最強，也是發電最多的時候，保養多排在風小的季節。衡量運維成果的指標是可用率，業界常以 97% 以上為目標，相當於全年停機少於約 11 天。":["Besides repairs when problems are found, turbines follow a fixed service cycle, commonly a routine service every six months and a more thorough annual service. The work includes checking the torque of tower and blade bolts, regreasing and changing filters, oil sampling, testing the pitch and yaw systems, and checking the service lift and safety equipment. On Taiwan's west coast the northeast monsoon is strongest in autumn and winter, which is also when turbines produce the most, so service is usually scheduled in the calmer seasons. The key measure of O&M performance is availability; the industry commonly targets 97% or more, which means less than about 11 days of downtime a year.","不具合が見つかったときの修理に加え、風車には決まった点検周期があり、半年ごとの定期点検と、より詳しい年次点検が一般的です。内容はタワーとブレードのボルトのトルク確認、グリースの補給とフィルター交換、油のサンプリング、ピッチ・ヨーシステムの試験、昇降設備と安全装置の点検などです。台湾西部沿岸では秋冬の北東季節風が最も強く、発電量も最も多い時期なので、点検は風の弱い季節に組まれます。O&M の成果を測る指標は稼働率で、業界では 97% 以上を目標とすることが多く、年間の停止が約 11 日未満に相当します。"],
-"保養排進行事曆，避開季風最強的月份":["Service is scheduled away from the strongest monsoon months","点検は季節風が最も強い月を避けて計画"],
-"每次保養檢查螺栓、潤滑、油品與控制系統":["Each service checks bolts, lubrication, oil and controls","点検ごとにボルト、潤滑、油、制御系を確認"],
-"可用率：一年之中可以運轉的時間比例":["Availability: the share of the year a turbine can run","稼働率：1 年のうち運転可能な時間の割合"],
-"業界常以 97% 以上為目標":["The industry commonly targets 97% or more","業界では 97% 以上が一般的な目標"],
-"一年的保養行事曆（示例）":["A year of service (example)","年間の点検カレンダー（例）"],
-"{m} 月":["M{m}","{m}月"],
-"1 月":["Jan","1月"],
-"12 月":["Dec","12月"],
-"月平均風速":["Monthly mean wind","月平均風速"],
-"東北季風":["NE monsoon","北東季節風"],
-"颱風季":["Typhoons","台風シーズン"],
-"半年保養":["6-month service","半年点検"],
-"年度保養":["Annual service","年次点検"],
-"螺栓扭力":["Bolt torque","ボルトトルク"],
-"潤滑與濾芯":["Grease and filters","潤滑とフィルター"],
-"變槳與偏航":["Pitch and yaw","ピッチとヨー"],
-"升降與安全設備":["Lift and safety gear","昇降設備と安全装置"],
-"葉片外觀":["Blade surface","ブレード外観"],
-"可用率怎麼算":["How availability is calculated","稼働率の計算"],
-"可用率 = 可運轉時數 ÷ 全年時數":["Availability = available hours ÷ hours in a year","稼働率 = 運転可能時間 ÷ 年間時間"],
-"可運轉":["Available","運転可能"],
-"計畫保養":["Planned service","計画点検"],
-"故障維修":["Fault repair","故障修理"],
-"等待零件":["Awaiting parts","部品待ち"],
-"全年可用率":["Annual availability","年間稼働率"],
-"停機少於約 263 小時，約 11 天":["Under about 263 hours down, about 11 days","停止は約 263 時間未満、約 11 日"],
+"油樣":["Sample","油サンプル"],
+"濾芯":["Filter","フィルター"],
+"已更換":["Replaced","交換済み"],
+"壓差偏高":["High ΔP","差圧高め"],
+"自動潤滑泵":["Auto-lube pump","自動給脂ポンプ"],
+"主軸承・變槳軸承・偏航軸承・發電機軸承":["Main, pitch, yaw and generator bearings","主軸受・ピッチ軸受・ヨー軸受・発電機軸受"],
+"油品分析報告（示例）":["Oil analysis report (example)","油分析報告（例）"],
+"項目":["Item","項目"],
+"結果":["Result","結果"],
+"參考範圍":["Reference","基準範囲"],
+"黏度（40 °C）":["Viscosity (40 °C)","粘度（40 °C）"],
+"含水量":["Water","水分"],
+"鐵（Fe）":["Iron (Fe)","鉄（Fe）"],
+"清淨度 ISO 4406":["Cleanliness ISO 4406","清浄度 ISO 4406"],
+"警戒值":["Alarm limit","警戒値"],
+"每半年一筆，看趨勢":["One sample every six months: watch the trend","半年ごとに 1 点、傾向を見る"],
 /* 分鏡 6 */
-"噪音與鳥類監測":["Monitoring noise and birds","騒音と鳥類のモニタリング"],
-"風場運轉後還要對環境負責。風機的聲音來自葉片劃過空氣與機艙內的齒輪箱，隨距離逐漸減弱。台灣的噪音管制標準把風力發電機組獨立列管，量測點在陳情民眾指定的住家室內；20–200 Hz 低頻噪音在第一、二類管制區夜間不得超過 36 dB(A)。生態方面，西部沿海是候鳥遷徙路線，風場依環評承諾進行鳥類調查與風機下方的撞擊巡查，部分風場以雷達偵測鳥群，必要時讓風機降速或暫停。":["A running wind farm also has environmental responsibilities. Turbine sound comes from the blades cutting through the air and from the gearbox in the nacelle, and it fades with distance. Taiwan's Noise Control Standards list wind turbines as a separate category, measured indoors at a home chosen by the resident who files the complaint; at night, 20–200 Hz low-frequency noise must not exceed 36 dB(A) in Class 1 and 2 control areas. For wildlife, the west coast lies on a migratory bird route, so wind farms carry out bird surveys and collision searches beneath the turbines as committed in their environmental impact assessments. Some use radar to detect flocks and slow or pause turbines when needed.","運転中の風力発電所には環境への責任もあります。風車の音はブレードが空気を切る音とナセル内の増速機の音で、距離とともに小さくなります。台湾の騒音管制標準は風力発電機を独立した区分で規定し、苦情を申し立てた住民が指定する住宅の屋内で測定します。20–200 Hz の低周波騒音は、第 1・2 種管制区の夜間で 36 dB(A) を超えてはなりません。生態面では、西部沿岸は渡り鳥の移動経路にあたるため、発電所は環境影響評価での約束に基づき鳥類調査と風車下の衝突調査を行います。レーダーで鳥の群れを検知し、必要に応じて風車を減速・停止する発電所もあります。"],
-"風機運轉的聲音，隨距離逐漸減弱":["Turbine sound fades with distance","風車の音は距離とともに小さくなる"],
-"依法在民眾住家室內量測，低頻有專屬標準":["By law it is measured inside homes, with a low-frequency limit","法令に基づき住宅屋内で測定、低周波にも基準がある"],
-"鳥類雷達持續掃描風場上空":["A bird radar keeps scanning the sky over the farm","鳥類レーダーが発電所の上空を走査"],
-"鳥群接近時，風機降速暫停，讓牠們通過":["When a flock nears, the turbine slows and pauses to let it pass","鳥の群れが近づくと、風車は減速・停止して通過を待つ"],
-"偵測到鳥群":["Flock detected","鳥の群れを検知"],
-"噪音隨距離減弱":["Noise fades with distance","騒音は距離で減衰"],
-"住家室內量測點":["Indoor measuring point","住宅屋内の測定点"],
-"鳥類雷達":["Bird radar","鳥類レーダー"],
-"降速暫停":["Slowed and paused","減速・一時停止"],
-"噪音監測（示例）":["Noise monitoring (example)","騒音監視（例）"],
-"低頻量測值":["Low-freq level","低周波測定値"],
-"夜間管制值":["Night limit","夜間基準値"],
-"管制區":["Area","管制区"],
-"第二類":["Class 2","第 2 種"],
+"剎車、變槳電池與安全鏈":["Brakes, pitch backup and the safety chain","ブレーキ、ピッチ電池とセーフティチェーン"],
+"風機最重要的保護，是在任何異常下都能把葉片轉到 90 度順槳，讓轉子減速。即使電網斷電，變槳系統也要靠備用電池或超級電容獨力完成，所以定檢時會切斷主電源，實際測試各葉片緊急順槳的時間是否在規定內。安全鏈則是一條獨立於控制軟體的串聯迴路，串起緊急停止按鈕、超速保護、振動開關與扭纜開關，任何一個開關跳脫，就直接觸發緊急順槳。另外量測剎車片厚度並測試機械剎車的作動。":["A turbine's most important protection is the ability to pitch its blades to 90 degrees under any fault, slowing the rotor. Even if the grid is lost, the pitch system must do this on its own backup batteries or ultracapacitors, so at the inspection the main supply is cut and each blade's emergency feathering time is tested against the specification. The safety chain is a series circuit independent of the control software, linking the emergency stop buttons, overspeed protection, vibration switch and cable-twist switch; if any one of them trips, emergency feathering is triggered directly. Technicians also measure brake pad thickness and test that the mechanical brake applies and releases.","風車にとって最も重要な保護は、どんな異常時でもブレードを 90 度のフェザー位置まで回してロータを減速できることです。系統が停電しても、ピッチ系はバックアップ電池やウルトラキャパシタだけでこれを行わなければなりません。そのため点検では主電源を切り、各ブレードの緊急フェザリング時間が規定内かを実際に試験します。セーフティチェーンは制御ソフトから独立した直列回路で、非常停止ボタン、過速度保護、振動スイッチ、ケーブルねじれスイッチをつないでいます。どれか一つでも作動すれば、直ちに緊急フェザリングが働きます。さらにブレーキパッドの厚さを測り、機械ブレーキの作動も試験します。"],
+"切斷主電源，只靠備用電池讓葉片順槳":["Main power is cut; backup batteries alone feather the blades","主電源を切り、バックアップ電池だけでフェザリング"],
+"三支葉片都在規定時間內轉到 90 度":["All three blades reach 90 degrees within the time limit","3 枚とも規定時間内に 90 度に到達"],
+"逐一觸發安全鏈上的每一個開關":["Each switch on the safety chain is triggered in turn","セーフティチェーンの各スイッチを順に作動"],
+"任何一個跳脫，風機都立即緊急順槳":["Any single trip sends the turbine into emergency feathering","どれか一つでも作動すれば直ちに緊急フェザリング"],
+"緊急順槳測試（示例）":["Emergency feathering test (example)","緊急フェザリング試験（例）"],
+"秒":["s","秒"],
+"槳距角 °":["Pitch °","ピッチ角 °"],
+"規定時間":["Time limit","規定時間"],
+"順槳 90°":["Feathered 90°","フェザー 90°"],
+"葉片 A":["Blade A","ブレード A"],
+"葉片 B":["Blade B","ブレード B"],
+"葉片 C":["Blade C","ブレード C"],
+"{n}：{t} 秒":["{n}: {t} s","{n}：{t} 秒"],
+"全部在規定時間內":["All within limit","すべて規定時間内"],
+"安全鏈：獨立的串聯迴路":["Safety chain: an independent series loop","セーフティチェーン：独立した直列回路"],
+"緊急停止按鈕":["E-stop","非常停止"],
+"超速保護":["Overspeed","過速度保護"],
+"振動開關":["Vibration","振動スイッチ"],
+"扭纜開關":["Cable twist","ねじれスイッチ"],
+"控制器監看":["Watchdog","ウォッチドッグ"],
+"安全繼電器":["Safety relay","安全リレー"],
+"跳脫 → 緊急順槳與剎車":["Trip → feather and brake","作動 → 緊急フェザーとブレーキ"],
+"迴路閉合：允許運轉":["Loop closed: run permitted","回路閉：運転許可"],
+"機械剎車":["Mechanical brake","機械ブレーキ"],
+"剎車片厚度":["Pad thickness","パッド厚さ"],
+"14 mm（下限 5 mm）":["14 mm (min 5 mm)","14 mm（下限 5 mm）"],
+"作動與釋放測試":["Apply and release test","作動・解放試験"],
+"油壓、作動時間正常":["Pressure and timing OK","油圧・作動時間正常"],
 /* 分鏡 7 */
-"運維的循環":["The O&M cycle","O&M のサイクル"],
-"運維不是一次性的工作，而是一個循環：SCADA 與 CMS 持續監測，資料分析找出異常並判斷原因，排定人力、零件與吊機，完成維修後再從數據確認出力回到正常。能及早發現，就能把突發故障變成計畫中的工作。台灣沿海風場還有在地的考驗：颱風前要檢查設備，颱風中風機順槳停機並持續監控；海風帶來的鹽霧會腐蝕塔架與電氣設備，需要防蝕塗裝與機艙空氣過濾。做好這些，風機才能穩定運轉約二十年的設計壽命。":["O&M is not a one-off job but a cycle: SCADA and CMS monitor continuously, data analysis spots anomalies and finds their cause, crews, parts and cranes are scheduled, and after the repair the data confirm that output is back to normal. Catching problems early turns sudden breakdowns into planned work. Coastal wind farms in Taiwan also face local challenges: equipment is checked before a typhoon, and during one the turbines feather their blades, shut down and stay under monitoring. Salt spray carried by the sea wind corrodes towers and electrical equipment, so anti-corrosion coatings and nacelle air filtration are needed. Done well, all this keeps a turbine running reliably through its design life of about twenty years.","O&M は一度きりの作業ではなくサイクルです。SCADA と CMS が常時監視し、データ分析で異常を見つけて原因を判断し、人員、部品、クレーンを手配します。修理後はデータで出力が正常に戻ったことを確認します。早期に発見できれば、突発的な故障を計画的な作業に変えられます。台湾沿岸の風力発電所には地域特有の課題もあります。台風の前には設備を点検し、台風中はブレードをフェザリングして停止し、監視を続けます。海風が運ぶ塩害はタワーや電気設備を腐食させるため、防食塗装とナセルの空気ろ過が必要です。これらを確実に行うことで、風車は約 20 年の設計寿命を安定して運転できます。"],
-"監測、診斷、排程、維修，再回到監測":["Monitor, diagnose, schedule, repair, then monitor again","監視、診断、計画、修理、そして再び監視へ"],
-"及早發現，把故障變成計畫中的工作":["Early detection turns failures into planned work","早期発見で、故障を計画的な作業に変える"],
-"颱風、鹽霧與季風，是台灣沿海風場的考驗":["Typhoons, salt and monsoons test coastal farms","台風、塩害、季節風が台湾沿岸の発電所の課題"],
-"好的運維，讓風機穩定運轉二十年":["Good O&M keeps a turbine running for twenty years","良い O&M が風車の 20 年の安定運転を支える"],
-"預測性維護的循環":["The predictive maintenance cycle","予知保全のサイクル"],
-"監測":["Monitor","監視"],
-"診斷":["Diagnose","診断"],
-"排程":["Schedule","計画"],
-"維修":["Repair","修理"],
-"驗證":["Verify","検証"],
-"找出原因":["Find cause","原因特定"],
-"人力・零件":["Crew, parts","人員・部品"],
-"現場作業":["On site","現場作業"],
-"出力恢復":["Output back","出力回復"],
-"及早發現":["Catch it early","早期発見"],
-"故障 → 計畫工作":["Failure → planned work","故障 → 計画作業"],
-"台灣沿海風場的考驗":["Challenges on Taiwan's coast","台湾沿岸の発電所の課題"],
-"颱風":["Typhoons","台風"],
-"颱風前檢查設備":["Check equipment before a typhoon","台風前に設備を点検"],
-"颱風中順槳停機、持續監控":["Feather, shut down and keep monitoring","台風中はフェザリング停止し監視を継続"],
-"鹽霧":["Salt spray","塩害"],
-"防蝕塗裝與定期補漆":["Anti-corrosion coating and touch-ups","防食塗装と定期的な補修塗装"],
-"機艙與電氣室空氣過濾":["Air filtration for nacelle and switchgear","ナセルと電気室の空気ろ過"],
-"秋冬風大、發電多":["Strong wind, high output in autumn and winter","秋冬は風が強く発電量が多い"],
-"保養排在風小的季節":["Service is planned in calmer seasons","点検は風の弱い季節に"],
-"目標：穩定運轉約 20 年設計壽命":["Goal: reliable running for a ~20-year design life","目標：約 20 年の設計寿命を安定運転"]
+"解鎖與復機":["Unlocking and returning to service","ロック解除と運転再開"],
+"所有項目完成後，技師清點工具、收起廢油與舊濾芯，確認機艙與塔內沒有遺留人員與物品。拆除上鎖掛牌的順序與上鎖相反，而且每一把鎖只能由掛上它的人親自取下；拔出轉子鎖定銷、恢復電源後，再通知中控室啟動。風機先以低速運轉，確認振動、溫度與變槳正常，才回到滿載。定檢報告與油品分析結果存進維護系統，成為下一次定檢與預測性維護的比較基準。":["When every item is done, the technicians count their tools, pack up waste oil and old filters, and make sure no one and nothing is left in the nacelle or tower. Locks and tags come off in the reverse order they went on, and each lock may only be removed by the person who fitted it. Once the rotor lock pin is withdrawn and power restored, the control room is asked to start the turbine. It first runs at low speed while vibration, temperatures and pitch are confirmed normal, then returns to full load. The inspection report and oil analysis results go into the maintenance system as the baseline for the next inspection and for predictive maintenance.","すべての項目が終わると、技術者は工具を数え、廃油と古いフィルターを回収し、ナセルとタワー内に人や物が残っていないことを確認します。ロックアウト・タグアウトの解除は施錠と逆の順で行い、各錠は掛けた本人しか外せません。ロータロックピンを抜き、電源を復旧したら、制御室に起動を依頼します。風車はまず低速で運転し、振動、温度、ピッチが正常であることを確認してから全負荷に戻ります。点検報告と油分析の結果は保守システムに保存され、次回点検と予知保全の比較基準になります。"],
+"清點工具與廢油，確認塔內沒有遺留人員":["Tools and waste oil are counted; no one is left in the tower","工具と廃油を確認し、タワー内に人が残っていないか確認"],
+"每人親手取下自己的鎖，拔出轉子鎖定銷":["Each person removes their own lock; the rotor pin comes out","各自が自分の錠を外し、ロータロックピンを抜く"],
+"通知中控啟動，風機重新開始轉動":["The control room restarts it and the rotor turns again","制御室が起動し、風車が再び回り出す"],
+"定檢報告存檔，成為下一年的比較基準":["The report is filed as next year's baseline","点検報告を保存し、翌年の比較基準に"],
+"年度定檢報告（示例）":["Annual inspection report (example)","年次点検報告（例）"],
+"上鎖掛牌與解除":["Lockout and release","ロックアウトと解除"],
+"升降機與防墜設備":["Lift and fall arrest","昇降機と墜落防止"],
+"油品取樣與濾芯":["Oil sample and filter","油サンプルとフィルター"],
+"潤滑脂補充":["Grease top-up","グリース補給"],
+"剎車、變槳與安全鏈":["Brake, pitch, safety chain","ブレーキ・ピッチ・安全回路"],
+"存入維護系統，作為下次比較基準":["Saved as the baseline for next time","保守システムに保存し次回の基準に"],
+"各自取下自己的鎖":["Own locks removed","各自が自分の錠を外す"],
+"低速試運轉":["Low-speed test run","低速試運転"],
+"復機狀態（示例）":["Restart status (example)","再起動状態（例）"],
+"檢查項目":["Items","点検項目"],
+"輸出功率":["Output","出力"],
+"振動":["Vibration","振動"],
+"正常":["Normal","正常"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
