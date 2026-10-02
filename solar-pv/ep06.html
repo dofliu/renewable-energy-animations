@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep05.js｜太陽光電系列</title>
+<title>ep06.js｜太陽光電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="太陽光電系列" data-en="Solar PV series" data-ja="太陽光発電シリーズ">太陽光電系列</span></a><span class="sp"></span><a href="ep04.html"><span data-zh="← 04 漁電共生" data-en="← 04 Aquavoltaics: fish farms with solar" data-ja="← 04 養殖池と太陽光発電の共生">← 04 漁電共生</span></a><a href="ep06.html"><span data-zh="06 光電場運維與清洗 →" data-en="06 Operating and cleaning a solar farm →" data-ja="06 太陽光発電所の運用保守と洗浄 →">06 光電場運維與清洗 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="太陽光電系列" data-en="Solar PV series" data-ja="太陽光発電シリーズ">太陽光電系列</span></a><span class="sp"></span><a href="ep05.html"><span data-zh="← 05 水面型浮動式光電" data-en="← 05 Floating solar on water" data-ja="← 05 水上設置型フロート式太陽光発電">← 05 水面型浮動式光電</span></a><a href="index.html"><span data-zh="回到本系列 →" data-en="Back to the series →" data-ja="シリーズへ戻る →">回到本系列 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep05.js｜太陽光電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep06.js｜太陽光電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,400 +543,364 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 太陽光電系列 第 5 集：水面型浮動式光電 */
-const WL0=480,A0=330,A1=1170,UW=60;                       // 水面高度、浮台陣列左右端、每單元寬
+/* 太陽光電系列 第 6 集：光電場運維與清洗 */
+const ROWS=[200,420,640,860,1080],INVX=1240,HOUSE=1350;   // 支架排位置、組串變流器、監控室
 const E_Y='#f2c230',E_G='#7dffc4',E_W='#e8572a';
-const DEG=Math.PI/180;
-/* 水庫底部剖面：左岸、平坦庫底、右岸 */
-function botY(x){if(x<160)return 440;if(x<420)return lerp(440,800,(x-160)/260);if(x<1280)return 800+6*Math.sin(x*.02);if(x<1520)return lerp(800,440,(x-1280)/240);return 440;}
-function resBase(o){o=o||{};const wl=o.wl||WL0;
- landSky(440,{sun:{x:1260,y:120},clouds:o.clouds});
- ctx.beginPath();ctx.moveTo(VX0,wl);for(let x=VX0;x<=VX1;x+=20)ctx.lineTo(x,396+14*Math.sin(x*.006)+8*Math.sin(x*.017));ctx.lineTo(VX1,wl);ctx.closePath();ctx.fillStyle='#7f9c73';ctx.fill();
- const g=ctx.createLinearGradient(0,wl,0,820);g.addColorStop(0,'#4f9ab0');g.addColorStop(1,'#1c4d63');
- ctx.beginPath();ctx.moveTo(VX0,wl);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,wl+1.5*Math.sin(x*.05-TT*2));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle=g;ctx.fill();
- ln([VX0,wl,VX1,wl],'rgba(255,255,255,.45)',1.4);
- ctx.beginPath();ctx.moveTo(VX0,botY(VX0));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,botY(x));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle='#8a7458';ctx.fill();
- ctx.beginPath();ctx.moveTo(VX0,botY(VX0));for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,botY(x));ctx.strokeStyle='#6b5a45';ctx.lineWidth=3;ctx.stroke();
- box(VX0,436,160-VX0,6,'#7a9a55');box(1520,436,VX1-1520,6,'#7a9a55');
-}
-/* 單一浮台單元：主浮體＋模組＋走道浮體 */
-function floatUnit(x,wl,o){o=o||{};const y=wl+1.6*Math.sin(TT*1.6+x*.03);
- rrp(x-26,y-8,52,16,5);ctx.fillStyle='#e3e8ea';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();
- box(x+26,y-4,8,8,'#c2cacd');
- ln([x-20,y-8,x-20,y-18],'#8a99a3',3);
- ctx.save();ctx.translate(x-2,y-14);ctx.rotate(10*DEG);box(-24,-5,48,5,'#1f3f66');box(-24,-5,48,1.4,Math.sin(TT*1.3+x)>.95?'#fff':'#9fc3e6');ctx.restore();
- return y;}
-function floatArray(a,n,wl,dx){const N=Math.round((A1-A0)/UW)+1;if(n===undefined)n=N;dx=dx||0;alphaDo(a===undefined?1:a,()=>{for(let i=0;i<n;i++)floatUnit(A0+i*UW+dx,wl||WL0);});}
-function anchorBlock(x,y){box(x-18,y-16,36,16,'#8d9296','rgba(0,0,0,.35)',1);ln([x,y-16,x,y-22],'#555',3);}
-function moor(x0,y0,x1,y1,col,sag){ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo((x0+x1)/2,(y0+y1)/2+(sag===undefined?24:sag),x1,y1);ctx.strokeStyle=col||'#e6d9a8';ctx.lineWidth=2;ctx.stroke();}
-const ANC=[[A0,250],[A0+6*UW,650],[A1,1250]];                   // [浮台繫點, 錨碇塊位置]
-function moorings(a,dx,wl){wl=wl||WL0;dx=dx||0;alphaDo(a===undefined?1:a,()=>{
- ANC.forEach(([p,xa])=>{anchorBlock(xa,botY(xa));moor(p+dx,wl+8,xa,botY(xa)-22);});
- moor(A1+26+dx,wl-2,1540,432,'#e6d9a8',10);box(1532,420,14,18,'#4a555c');});}
-const CAB=[[1110,492],[1150,790],[1290,786],[1520,436],[1556,436]];
-function cable(a){alphaDo(a===undefined?1:a,()=>{pathLine(CAB,'#2b3137',4);
- box(1546,388,40,50,'#dfe5e8','rgba(0,0,0,.3)',1);box(1552,398,28,8,'#2b3137');circ(1578,426,3,E_G);});}
+const DEG=Math.PI/180,TA=12*DEG,TW=190;
+const gy=x=>groundY(x);
+/* 一排支架：o.dirt 積塵 0–1，o.clean 已清洗比例（由左往右），o.hot 熱斑位置（0–1） */
+function tbl(cx,o){o=o||{};const y=gy(cx),cy=y-62,tn=Math.tan(TA);
+ ln([cx-70,y,cx-70,cy+70*tn],'#8a99a3',5);ln([cx+70,y,cx+70,cy-70*tn],'#8a99a3',5);
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(-TA);box(-TW/2,-8,TW,8,'#1f3f66','rgba(0,0,0,.4)',1);
+ ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<6;i++){ctx.moveTo(-TW/2+TW*i/6,-8);ctx.lineTo(-TW/2+TW*i/6,0);}ctx.stroke();
+ box(-TW/2,-8,TW,1.6,o.glint?'#fff':'#9fc3e6');
+ const d=o.dirt||0,c=o.clean||0;if(d>0){const x0=-TW/2+TW*c;if(x0<TW/2)box(x0,-9,TW/2-x0,9,`rgba(150,118,74,${.75*d})`);}
+ ctx.restore();}
+function field(o){o=o||{};ROWS.forEach((x,i)=>tbl(x,{dirt:o.dirt,glint:Math.sin(TT*1.3+x)>.96,clean:o.cleanAt?o.cleanAt(i):0}));
+ ln([ROWS[0]+70,gy(ROWS[0])-20,ROWS[4]+70,gy(ROWS[4])-20,INVX-20,gy(INVX)-20],'#2b3137',2.5);}
+function inverter(){const y=gy(INVX);box(INVX-26,y-70,52,70,'#dfe5e8','rgba(0,0,0,.3)',1);box(INVX-18,y-58,36,10,'#2b3137');circ(INVX+14,y-30,3,E_G);
+ for(let i=0;i<3;i++)ln([INVX-18,y-38+i*7,INVX+4,y-38+i*7],'rgba(0,0,0,.25)',2);}
+function house(){const x=HOUSE,y=gy(x+70);box(x,y-110,170,110,'#e9e2cf','rgba(0,0,0,.3)',1);poly([x-10,y-110,x+180,y-110,x+170,y-126,x,y-126],'#6f7d86');
+ box(x+20,y-86,70,44,'#13232e');ln([x+26,y-52,x+40,y-66,x+54,y-58,x+68,y-76,x+84,y-70],E_G,2);box(x+110,y-80,40,80,'#8d989f');
+ ln([x+150,y-126,x+150,y-196],'#5d6a72',3);circ(x+150,y-198,5,E_Y);}
 function partialPt(P,f){let L=0;const d=[];for(let i=1;i<P.length;i++){const s=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);d.push(s);L+=s;}
  let r=f*L;for(let i=0;i<d.length;i++){if(r<=d[i]){const t=d[i]?r/d[i]:0;return [lerp(P[i][0],P[i+1][0],t),lerp(P[i][1],P[i+1][1],t)];}r-=d[i];}return P[P.length-1];}
 function flowDots(P,n,sp,col,a){if(a<=0)return;for(let k=0;k<n;k++){const f=(TT*sp+k/n)%1,p=partialPt(P,f);alphaDo(a,()=>circ(p[0],p[1],4,col));}}
-function workboat(x,wl){const y=wl+1.5*Math.sin(TT*1.8);poly([x-70,y-14,x+70,y-14,x+56,y+8,x-60,y+8],'#e9b21f','rgba(0,0,0,.35)',1);box(x+10,y-40,40,26,'#dfe5e8');box(x+16,y-34,12,8,'#5a7b92');
- ln([x-30,y-14,x-30,y-70,x-70,y-86],'#394650',4);return [x-70,y-86];}
-/* 圖解用的迷你浮台 */
-function miniFloat(x,y,w){rrp(x-w/2,y-5,w,10,3);ctx.fillStyle='#e3e8ea';ctx.fill();ctx.save();ctx.translate(x,y-10);ctx.rotate(10*DEG);box(-w/2+2,-4,w-4,4,'#1f3f66');box(-w/2+2,-4,w-4,1.2,'#9fc3e6');ctx.restore();}
-function spring(x0,y0,x1,y1,n){const dx=x1-x0,dy=y1-y0,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,px=-uy,py=ux;ctx.beginPath();ctx.moveTo(x0,y0);
- for(let i=1;i<n;i++){const t=i/n,s=(i%2?1:-1)*7;ctx.lineTo(x0+dx*t+px*s,y0+dy*t+py*s);}ctx.lineTo(x1,y1);ctx.strokeStyle=E_Y;ctx.lineWidth=2.2;ctx.stroke();}
+function drone(x,y){box(x-22,y-6,44,12,'#dfe5e8','rgba(0,0,0,.4)',1);ln([x-48,y-8,x+48,y-8],'#394650',3);
+ [-48,48].forEach(d=>{const w=22*Math.abs(Math.sin(TT*30+d));ln([x+d-w,y-12,x+d+w,y-12],'rgba(230,240,245,.9)',2.5);ln([x+d,y-8,x+d,y-12],'#394650',2);});
+ box(x-8,y+6,16,10,'#2b3137');circ(x,y+12,3,'#ff8a60');}
+/* 草：h 高度（px），cut 已除草的 x 位置 */
+function grass(x0,x1,h,cut){ctx.strokeStyle='#5c8a3f';ctx.lineWidth=2;ctx.beginPath();for(let x=x0;x<=x1;x+=7){const hh=(cut!==undefined&&x<cut)?4:h*(.7+.3*nz(x*.05));const y=gy(x);ctx.moveTo(x,y);ctx.lineTo(x+3,y-hh);}ctx.stroke();}
+function mower(x){const y=gy(x);box(x-34,y-26,68,18,'#e9b21f','rgba(0,0,0,.35)',1);box(x-6,y-44,22,18,'#394650');circ(x-22,y-6,8,'#222');circ(x+24,y-6,8,'#222');person(x+4,y-44,'#1f7f99',5);}
+function cleaner(x,ty){const y=gy(x);person(x,y,'#e8572a',6);ln([x+6,y-48,x+46,ty],'#dfe5e8',2.5);box(x+40,ty-3,14,6,E_Y);
+ for(let k=0;k<6;k++){const f=(TT*2+k/6)%1;alphaDo(1-f,()=>circ(x+50+f*10,ty+4+f*30,2.2,'#bfe8f2'));}}
+/* 模組正視圖（熱影像） */
+function heat(t){const c=[[59,42,122],[180,60,120],[232,87,42],[242,194,48],[255,250,220]];t=clamp(t)*4;const i=Math.min(3,Math.floor(t)),f=t-i,a=c[i],b=c[i+1];
+ return `rgb(${lerp(a[0],b[0],f)|0},${lerp(a[1],b[1],f)|0},${lerp(a[2],b[2],f)|0})`;}
 
-const EP={no:5,slug:'solar-pv',seriesName:'太陽光電系列',t:'水面型浮動式光電',en:'Floating solar on water',
-lede:'水庫、滯洪池與近岸水域的水面，也能架起太陽光電。模組裝在會浮的浮台上，靠錨碇與繫纜固定位置。這一集看浮台怎麼組成、錨碇如何因應水位升降與颱風，以及水面帶來的冷卻效果。',
-facts:[['9.99','MW','阿公店水庫：全台第一座水庫水面型光電，2019 年全數併聯'],
-['181','MW','彰濱崙尾東水面型光電：約 176 公頃、約 57 萬片模組'],
-['約 2.5','億度','彰濱崙尾東案場首年預估發電量'],
-['5–12','°','浮動式模組常見傾角，比地面型低，以減少風力'],
-['−0.35','%/°C','典型模組溫度係數：溫度每降 1 °C 約多發 0.35%（示例）'],
-['3','m','水位變化超過約 3 m 時，常改用可收放或配重式繫纜（設計建議）']],
-note:'說明：本集為教育用途示意動畫，浮台、錨碇與水深比例經過調整。阿公店水庫 9.99 MW 與運轉後水質監測依經濟部水利署新聞稿；彰濱崙尾東 181 MW、約 176 公頃、約 57 萬片模組與首年約 2.5 億度依開發商公開資料與媒體報導；浮動式系統由浮台、支撐結構、錨碇系統、水下電纜與光電系統組成。傾角 5–12°、水位差約 3 m 以上改用可收放繫纜為業界設計指引的典型值；案場容量 10 MWp、浮體浮力、溫差 6 °C、溫度係數 −0.35 %/°C 與設計風速皆為典型範例，實際數值依設備、地點與法規而定。',
-base:()=>resBase({clouds:false}),
+const EP={no:6,slug:'solar-pv',seriesName:'太陽光電系列',t:'光電場運維與清洗',en:'Operating and cleaning a solar farm',
+lede:'光電場併網之後要運轉二十年以上，發電量能不能維持，靠的是日常運維。這一集看監控系統如何從數據找出異常、無人機熱影像怎麼抓出熱斑，以及清洗、除草與颱風前後檢查各有什麼講究。',
+facts:[['≥ 600','W/m²','IEC TS 62446-3 建議的熱影像巡檢最低日照強度'],
+['5–10','%','模組清洗後常見可回復的發電量，依積塵程度與環境而異'],
+['75–85','%','地面型光電場常見的性能比（PR）範圍（示例）'],
+['17','級','屋頂型光電抗風要求：模組正負向須抗 17 級陣風'],
+['2','年','屋頂型光電定期檢驗與維護的週期'],
+['10','°C','熱斑溫差超過約 10 °C 時安排檢修（示例）']],
+note:'說明：本集為教育用途示意動畫，設備、人物與距離比例經過調整。熱影像巡檢最低日照 600 W/m² 依 IEC TS 62446-3:2017；清洗後可回復 5–10% 發電量為模組商與業界常見說法；屋頂型光電須抗 17 級陣風、每 2 年定期檢驗維護依經濟部能源署修法與媒體報導；颱風前後檢查扣件、壓板、螺栓與纜線依能源署宣導。性能比 75–85%、組串電流、熱斑溫差分級、積塵損失曲線與清洗時機皆為典型範例，實際依案場設計、設備規格與維運合約而定。',
+base:()=>{landSky(GY,{sun:{x:1060,y:120},clouds:false});drawGround();},
 shots:[
-{t:'水面上的光電場',en:'A solar farm that floats',dur:13,side:true,
- d:'水面型光電把模組裝在會浮的浮台上，設置在水庫、滯洪池、埤塘或近岸水域。它不占用陸地，也不必整地打樁。一座浮動式系統由五個部分組成：浮台、支撐結構、錨碇系統、水下電纜與光電模組。浮台用錨碇塊與繫纜固定在原位，產生的直流電經水下電纜送到岸上的變流器。以 10 MWp 為例，約需 20 公頃水面，一年可發約 1,200 萬度電（示例）。',
- s:[[0,'水庫的水面，也能設置太陽光電'],[.26,'模組裝在會浮的浮台上，一片片接成陣列'],[.52,'錨碇塊與繫纜把浮台固定在原位'],[.76,'電力經水下電纜送到岸上的變流器']],
- cam:u=>camMix(camMix({x:800,y:450,s:1},{x:800,y:540,s:1.3},ease(seg(u,.46,.6))),{x:800,y:450,s:1},ease(seg(u,.68,.8))),
+{t:'光電場的日常',en:'A day at the solar farm',dur:12,side:true,
+ d:'光電場併網後要運轉二十年以上，日常運維決定了發電量能不能維持。每一排模組的直流電先送進組串變流器，變流器除了轉成交流電，也記錄每一串的電壓、電流與告警。資料記錄器把這些數據連同日照計、模組溫度一起上傳到監控平台，維運人員在監控室或手機上就能看到全場狀況，發現異常再派人到現場處理。',
+ s:[[0,'光電場併網後，要運轉二十年以上'],[.28,'每一串模組的電力送進組串變流器'],[.54,'變流器與日照計的數據上傳監控平台'],[.78,'維運人員從數據發現異常，再到現場處理']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:1080,y:500,s:1.35},ease(seg(u,.3,.5))),
  draw(u){
-  const k=ease(seg(u,.2,.46));floatArray(1,Math.ceil(15*k));
-  const m=seg(u,.48,.58);moorings(m);cable(seg(u,.7,.8));
-  flowDots(CAB,6,.4,E_Y,seg(u,.78,.86));
-  lab(800,WL0+70,'水庫水面',{dx:-60,dy:80,st:'l',a:band(u,.04,.26)});
-  lab(A0+4*UW,WL0-16,'浮台陣列',{dx:-40,dy:-80,st:'s',a:band(u,.3,.54)});
-  lab(650,botY(650)-12,'錨碇塊',{dx:-60,dy:-60,a:band(u,.52,.78)});
-  lab(1320,478,'岸錨繫纜',{dx:-30,dy:90,a:band(u,.56,.8),minor:true});
-  lab(1220,788,'水下電纜',{dx:-40,dy:-60,a:band(u,.74,1)});
-  lab(1566,420,'岸上變流器',{dx:-90,dy:90,st:'g',a:band(u,.8,1)});
+  field();inverter();house();
+  const y=gy(INVX);flowDots([[ROWS[0]+70,gy(ROWS[0])-20],[INVX-20,y-20]],8,.35,E_Y,seg(u,.28,.36));
+  flowDots([[INVX+26,y-50],[HOUSE,y-50],[HOUSE+150,gy(HOUSE+70)-198]],5,.5,E_G,seg(u,.52,.6));
+  box(1180,y-58,6,58,'#5d6a72');box(1170,y-66,26,8,'#dfe5e8');
+  lab(ROWS[1],gy(ROWS[1])-70,'模組支架排',{dx:-30,dy:-90,st:'l',a:band(u,.04,.3)});
+  lab(INVX,y-70,'組串變流器',{dx:-60,dy:-80,st:'s',a:band(u,.3,.62)});
+  lab(1183,y-66,'日照計',{dx:-80,dy:-40,a:band(u,.5,.78),minor:true});
+  lab(HOUSE+60,gy(HOUSE+70)-110,'監控室',{dx:-40,dy:-90,st:'g',a:band(u,.56,1)});
+  lab(HOUSE+150,gy(HOUSE+70)-198,'資料上傳',{dx:-90,dy:20,a:band(u,.6,.9),minor:true});
  },
- hud(u){hudPanel(250,150,'案場概況（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.2,.46));
-  hrow(56,'裝置容量',(10*k).toFixed(1)+' MWp',w,'#f2c230');hrow(88,'占用水面',trf('約 {n} ha',{n:Math.round(20*k)}),w,'#fff');hrow(120,'年發電量',trf('約 {n} 萬度',{n:Math.round(1200*k),g:(12*k).toFixed(1)}),w,'#7dffc4');});}},
+ hud(u){hudPanel(250,150,'即時數據（示例）',seg(u,.05,.1),w=>{const k=ease(seg(u,.1,.5));
+  hrow(56,'日照',Math.round(820*k)+' W/m²',w,'#f2c230');hrow(88,'即時功率',(7.9*k).toFixed(1)+' MW',w,'#fff');hrow(120,'性能比',Math.round(81*k)+' %',w,'#7dffc4');});}},
 
-{t:'浮台的構造',en:'Inside a float unit',dur:13,
- d:'浮台多用高密度聚乙烯（HDPE）吹塑成中空浮體，添加抗紫外線配方，長期曬在陽光下也不易脆化。每片模組坐在一個主浮體上，以支撐架墊出傾角；主浮體之間用走道浮體連接，讓維運人員可以走進陣列。浮體之間以連接耳和插銷相扣，組成可隨水面起伏的整片浮台。設計時浮力要遠大於模組、支架與人員的重量，保留足夠的安全係數。',
- s:[[0,'把一個浮台單元拆開來看'],[.24,'主浮體承載模組，支撐架墊出傾角'],[.48,'走道浮體讓維運人員走進陣列'],[.72,'浮力要遠大於重量，保留安全係數']],
+{t:'從數據找異常',en:'Finding faults in the data',dur:12,
+ d:'監控的核心指標是性能比（PR）：實際發電量除以依當下日照、裝置容量算出的理論發電量。地面型案場的 PR 常見在 75% 到 85% 之間，它扣掉了天氣的影響，所以可以拿不同日子、不同案場互相比較。PR 突然下滑，就要往下比對各組串的電流：同一台變流器下的組串照到同樣的陽光，電流應該相近，明顯偏低的那一串，往往有接頭鬆脫、模組損壞或局部遮蔭。',
+ s:[[0,'監控平台比對實際發電與理論發電'],[.3,'性能比扣掉天氣影響，可以長期追蹤'],[.56,'同一台變流器下，各組串電流應該相近'],[.78,'偏低的組串，就是要派人檢查的地方']],
  draw(u){
   diagBG();
-  card(60,160,820,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'浮台單元（分解）',20,'#f2c230',700);
-  const sp=ease(seg(u,.08,.3))*(1-ease(seg(u,.62,.74)));
-  const cx=470,by=560;
-  /* 主浮體 */
-  alphaDo(seg(u,.04,.1),()=>{rrp(cx-190,by-40,380,80,14);ctx.fillStyle='#e3e8ea';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1.5;ctx.stroke();
-   ln([cx-150,by-20,cx+150,by-20],'rgba(0,0,0,.12)',2);ln([cx-150,by+10,cx+150,by+10],'rgba(0,0,0,.12)',2);});
-  /* 走道浮體 */
-  alphaDo(seg(u,.4,.46),()=>{const o=50*sp;rrp(cx+200+o,by-24,120,48,10);ctx.fillStyle='#c2cacd';ctx.fill();
-   for(let x=cx+212+o;x<cx+310+o;x+=16)ln([x,by-24,x+8,by+24],'rgba(0,0,0,.15)',2);
-   circ(cx+196+o/2,by,8,'#8a99a3');});
-  /* 支撐架與模組 */
-  const my=by-40-120*sp;
-  alphaDo(seg(u,.22,.28),()=>{ln([cx-150,by-40-60*sp,cx-150,my-40],'#8a99a3',6);ln([cx+130,by-40-60*sp,cx+130,my-2],'#8a99a3',6);});
-  alphaDo(seg(u,.18,.24),()=>{ctx.save();ctx.translate(cx,my-26-60*sp);ctx.rotate(8*DEG);box(-200,-14,400,14,'#1f3f66','rgba(0,0,0,.4)',1);
-   ctx.strokeStyle='rgba(160,200,240,.5)';ctx.lineWidth=1;ctx.beginPath();for(let i=1;i<10;i++){ctx.moveTo(-200+40*i,-14);ctx.lineTo(-200+40*i,0);}ctx.stroke();box(-200,-14,400,2,'#9fc3e6');ctx.restore();});
-  /* 水面 */
-  box(84,by+14,772,6,'rgba(88,184,208,.5)');wt(100,by+50,'水面',16,'#7dc8dc',600);
-  alphaDo(band(u,.1,.54),()=>{wt(cx-190,by+96,'主浮體（HDPE）',18,'#fff',600);wt(cx+215,by-190,'光電模組',18,'#f2c230',700);});
-  alphaDo(band(u,.26,.56),()=>wt(cx-330,by-130,'支撐架',18,'#fff',600));
-  alphaDo(band(u,.42,.62),()=>{wt(cx+200,by+96,'走道浮體',18,'#fff',600);wt(cx+160,by+130,'連接耳＋插銷',16,'rgba(227,236,238,.8)',500);});
-  alphaDo(seg(u,.66,.74),()=>{wt(84,760,'組裝完成後，隨水面起伏',17,'#7dffc4',600);});
-  /* 右：浮力與重量 */
-  card(920,160,620,640,{bg:'rgba(7,27,39,.75)'});wt(944,200,'浮力夠不夠（示例）',20,'#f2c230',700);
-  const B=[['模組','28 kg',28,'#58b8d0'],['浮體與支架','20 kg',20,'#58b8d0'],['維運人員','75 kg',75,'#b37cff'],['可提供浮力','250 kg',250,E_G]];
-  const bx=1110,bw=380;
-  B.forEach(([n,v,val,c],i)=>{const k=ease(seg(u,.62+i*.05,.7+i*.05)),y=280+i*84;
-   wt(944,y+22,n,18,'#fff',600);box(bx,y,bw,30,'rgba(255,255,255,.1)');box(bx,y,bw*val/250*k,30,c);
-   alphaDo(k,()=>wt(bx+bw,y+62,v,17,c===E_G?E_G:'rgba(227,236,238,.85)',700,'right',COND));});
-  alphaDo(seg(u,.86,.92),()=>{card(944,650,572,120,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});
-   wt(968,698,'浮力 ÷ 總重',19,'#fff',700);wt(1490,700,'≈ 2',30,E_G,700,'right',COND);
-   wt(968,742,'即使有人走上去，仍有一倍以上的餘裕',16,'rgba(227,236,238,.85)',500);});
+  card(60,160,800,640,{bg:'rgba(7,27,39,.75)'});
+  const c=chartBox(90,180,740,450,{title:'一天的發電功率（示例）',x0:6,x1:18,y0:0,y1:10,xt:[6,9,12,15,18],yt:[0,2,4,6,8,10],xl:'時',yl:'MW'});
+  const P=(h,s)=>s*9.6*Math.pow(Math.max(0,Math.sin((h-6)/12*Math.PI)),1.2);
+  const line=(s,col,f,dash)=>{ctx.beginPath();for(let h=6;h<=6+12*f+1e-6;h+=.1){const x=c.X(h),y=c.Y(P(h,s));h===6?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=3.5;if(dash)ctx.setLineDash([8,6]);ctx.stroke();ctx.setLineDash([]);};
+  const f1=ease(seg(u,.04,.24)),f2=ease(seg(u,.14,.34));
+  line(1,'rgba(227,236,238,.75)',f1,true);if(f2>0)line(.81,E_G,f2);
+  alphaDo(seg(u,.2,.26),()=>wt(c.X(8.9),c.Y(8.6),'理論發電',17,'rgba(227,236,238,.85)',700,'center'));
+  alphaDo(seg(u,.3,.36),()=>wt(c.X(12),c.Y(5.6),'實際發電',17,E_G,700,'center'));
+  const k=seg(u,.32,.42);
+  alphaDo(k,()=>{card(90,660,740,120,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});
+   wt(114,708,'性能比 PR ＝ 實際發電 ÷ 理論發電',19,'#fff',700);wt(806,712,trf('{n} %',{n:Math.round(81*ease(seg(u,.34,.46)))}),34,E_G,700,'right',COND);
+   wt(114,752,'地面型案場常見 75–85%（示例）',16,'rgba(227,236,238,.8)',500);});
+  card(900,160,640,640,{bg:'rgba(7,27,39,.75)'});wt(924,200,'同一台變流器的組串電流（示例）',20,'#f2c230',700);
+  const I=[9.1,9.0,9.2,8.9,9.1,7.4,9.0,9.1],bx=960,bw=58,base=640,sc=30;
+  ln([940,base,1516,base],'rgba(255,255,255,.4)',1.5);
+  I.forEach((v,i)=>{const kk=ease(seg(u,.52+i*.025,.6+i*.025)),x=bx+i*68,low=i===5,on=low&&u>.76;
+   box(x,base-v*sc*kk,bw,v*sc*kk,on?E_W:'#58b8d0');
+   wt(x+bw/2,base+30,String(i+1),17,on?'#ff9d7a':'rgba(227,236,238,.8)',700,'center',COND);
+   alphaDo(kk,()=>wt(x+bw/2,base-v*sc-12,v.toFixed(1),16,on?'#ff9d7a':'#fff',700,'center',COND));});
+  wt(924,base+66,'組串編號　單位：A',16,'rgba(227,236,238,.7)',500);
+  alphaDo(seg(u,.78,.84),()=>{tag(1060,250,'第 6 串偏低約 18%',{size:17,bg:E_W,fg:'#fff'});
+   wt(924,760,'可能原因：接頭鬆脫、模組損壞、局部遮蔭',16,'#fff',600);});
  }},
 
-{t:'錨碇：讓浮台待在原位',en:'Anchoring the array',dur:13,side:true,
- d:'浮台不能任由風和水流推著走，否則會撞上岸邊或擠壓電纜。常見做法是在水底放置混凝土錨碇塊，再以繫纜或錨鏈連到浮台外圍；靠近岸邊的區段則可用岸錨，把繫纜綁在岸上的固定樁。錨碇塊通常由工作船吊放到預定位置，數量與方位依風向、水深與底質計算。彰濱崙尾東案場便是先在陸上組好浮台，再拖到錨碇塊的位置固定。',
- s:[[0,'工作船把混凝土錨碇塊吊放到水底'],[.32,'在陸上組好的浮台，拖到錨碇的位置'],[.54,'繫纜連到浮台外圍，靠岸側用岸錨固定'],[.76,'風吹來時，繫纜拉住浮台不漂移']],
- cam:u=>camMix({x:700,y:600,s:1.45},{x:800,y:520,s:1.2},ease(seg(u,.5,.64))),
- draw(u){
-  const push=6*ease(seg(u,.74,.86))+2*Math.sin(TT*1.2)*seg(u,.74,.86);
-  const tw=ease(seg(u,.36,.52)),adx=push+260*(1-tw);
-  if(u>.34)floatArray(seg(u,.34,.4),undefined,WL0,adx);if(u>.5)cable(seg(u,.5,.56));
-  [ANC[0],ANC[2]].forEach(([p,xa])=>anchorBlock(xa,botY(xa)));
-  const ml=seg(u,.5,.6);if(ml>0)alphaDo(ml,()=>ANC.forEach(([p,xa])=>moor(p+push,WL0+8,xa,botY(xa)-22)));
-  /* 吊放中的錨碇塊 */
-  const bxp=lerp(260,720,ease(seg(u,0,.12)))-900*ease(seg(u,.3,.44));
-  const xa=ANC[1][1],drop=ease(seg(u,.12,.3));
-  if(bxp>-200){const hk=workboat(bxp,WL0),hx=hk[0],by=lerp(WL0+10,botY(xa),drop);
-   if(u<.3){ln([hx,hk[1],hx,by-22],'#dfe5e8',1.5);anchorBlock(hx,by);}
-   lab(hx,by-8,'混凝土錨碇塊',{dx:80,dy:-40,st:'s',a:band(u,.04,.28)});}
-  if(u>=.3)anchorBlock(xa,botY(xa));
-  const sh=seg(u,.58,.66);if(sh>0)alphaDo(sh,()=>{moor(A1+26+push,WL0-2,1540,432,'#e6d9a8',10);box(1532,420,14,18,'#4a555c');});
-  alphaDo(seg(u,.72,.8)*(1-seg(u,.96,1)),()=>{for(let i=0;i<3;i++){const y=WL0-70-i*26,o=(TT*120+i*60)%200;arrow(60+o,y,160+o,y,'rgba(255,255,255,.85)',2.5);}});
-  lab(A0+4*UW,WL0-14,'在陸上組好的浮台',{dx:0,dy:-90,st:'l',a:band(u,.38,.56)});
-  lab(xa+10,botY(xa)-60,'繫纜',{dx:70,dy:-40,a:band(u,.54,.74)});
-  lab(1539,428,'岸錨',{dx:-40,dy:-70,st:'l',a:band(u,.6,.8)});
-  lab(150,WL0-96,'季風',{dx:30,dy:-50,st:'w',a:band(u,.74,1)});
-  lab(A0+push,WL0+8,'外圍繫點',{dx:-60,dy:60,st:'g',a:band(u,.8,1),minor:true});
- },
- hud(u){hudPanel(250,150,'錨碇狀態（示例）',seg(u,.05,.1),w=>{const wd=seg(u,.74,.86);
-  hrow(56,'錨碇點',u>.64?'4 / 4':(u>.3?'3 / 4':'2 / 4'),w,'#fff');hrow(88,'風速',(3+9*wd).toFixed(0)+' m/s',w,'#f2c230');
-  hrow(120,'浮台位移',(2+10*wd).toFixed(0)+' cm',w,'#7dffc4');});}},
+{t:'無人機熱影像巡檢',en:'Drone thermal inspection',dur:12,side:true,
+ d:'模組內部的缺陷，肉眼往往看不出來，但會發熱。維運團隊用搭載紅外線熱像儀的無人機，沿著陣列以固定高度飛行拍攝，一個上午就能掃過數十公頃。依 IEC TS 62446-3，巡檢時模組面的日照強度至少要 600 W/m²，電流夠大，缺陷才會明顯升溫。影像經軟體拼接後，溫度異常的電池片會以亮點標出位置，再派人到現場確認與更換。',
+ s:[[0,'無人機載著紅外線熱像儀，沿陣列飛行'],[.3,'日照至少 600 W/m²，缺陷才會明顯發熱'],[.56,'熱影像上，異常的電池片呈現亮點'],[.8,'軟體標出位置，再派人到現場確認']],
+ cam:u=>({x:800,y:450,s:1}),
+ draw(u){field();inverter();
+  const dx=lerp(120,1120,ease(seg(u,.06,.86))),dy=300+6*Math.sin(TT*2);
+  alphaDo(.18,()=>poly([dx-6,dy+16,dx+6,dy+16,dx+70,gy(dx)-60,dx-70,gy(dx)-60],'#ffb27a'));
+  drone(dx,dy);
+  lab(dx,dy-10,'熱像無人機',{dx:-60,dy:-60,st:'s',a:band(u,.04,.4)});
+  lab(ROWS[2],gy(ROWS[2])-64,'掃描範圍',{dx:0,dy:110,a:band(u,.3,.56),minor:true});
+  /* 右上：熱影像拼接圖 */
+  const a=seg(u,.2,.3);
+  alphaDo(a,()=>{card(1010,140,540,330,{bg:'rgba(7,27,39,.88)'});wt(1032,176,'熱影像拼接（示意）',18,E_Y,700);
+   const g0x=1036,g0y=196,cw=27,ch=22,rev=seg(u,.06,.86)*20;
+   for(let r=0;r<10;r++)for(let q=0;q<18;q++){if(q>rev)continue;const hot=(r===6&&q===11),warm=(r===2&&q===4);
+    let t=.18+.08*hn(r,q);if(hot)t=.95;if(warm)t=.62;box(g0x+q*cw,g0y+r*ch,cw-2,ch-2,heat(t));}
+   ln([g0x+rev*cw,g0y,g0x+rev*cw,g0y+220],'rgba(255,255,255,.7)',1.5);
+   if(u>.6){ring(g0x+11*cw+12,g0y+6*ch+10,18+3*Math.sin(TT*5),E_Y,2.5);}
+   wt(1032,452,u>.6?'熱斑：比周圍高 24 °C':'掃描中…',16,u>.6?E_Y:'rgba(227,236,238,.8)',700);});
+ }},
 
-{t:'水位會升降',en:'When the water level changes',dur:14,
- d:'水庫在枯水期與豐水期的水位可相差好幾公尺，滯洪池在大雨時更會迅速漲水、雨後再排空。繫纜若綁得太緊，水位上升時會把浮台往下拉；綁得太鬆，低水位時浮台又會四處漂移，甚至擱淺在池邊。因此繫纜要預留長度，並串接彈性元件吸收變化；水位差超過約 3 公尺的場址，常改用可收放或配重式繫纜。低水位時，陣列也要停在夠深的位置，避免浮體擱淺。',
- s:[[0,'水位下降時，浮台跟著水面一起下降'],[.3,'繫纜上的彈性元件伸縮，保持張力'],[.55,'大雨後水位迅速上升，浮台隨之浮起'],[.76,'水位差大時，改用可收放的繫纜']],
+{t:'熱斑從哪裡來',en:'What causes a hot spot',dur:12,
+ d:'一片模組由 60 到 72 個電池片串聯，分成三段，每段並聯一顆旁路二極體。當某個電池片被鳥糞、落葉遮住，或內部隱裂，它就產生不了電流，反而被其他電池片推著電流通過，像電阻一樣發熱，形成熱斑。旁路二極體會讓電流繞過這一段，保護模組，但這段的發電量也就損失了。長期的熱斑會讓封裝材料變色、背板燒焦，因此要依溫差高低決定處理的優先順序。',
+ s:[[0,'一片模組分成三段，各有一顆旁路二極體'],[.28,'鳥糞或落葉遮住一個電池片'],[.5,'被遮的電池片發熱，旁路二極體導通'],[.74,'依溫差高低，排定處理的優先順序']],
  draw(u){
   diagBG();
-  card(60,160,940,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'剖面：滯洪池的水位變化（示意）',20,'#f2c230',700);
-  const HI=330,LO=560,lv=u<.5?ease(seg(u,.06,.44)):1-ease(seg(u,.54,.8)),wy=lerp(HI,LO,lv);
-  const bot=x=>x<200?lerp(290,700,(x-100)/100):x<860?700:lerp(700,290,(x-860)/100);
-  ctx.beginPath();ctx.moveTo(100,wy);ctx.lineTo(960,wy);ctx.lineTo(960,760);ctx.lineTo(100,760);ctx.closePath();ctx.fillStyle='rgba(88,184,208,.35)';ctx.fill();
-  ctx.beginPath();ctx.moveTo(90,290);for(let x=100;x<=960;x+=10)ctx.lineTo(x,Math.max(290,Math.min(700,bot(x))));ctx.lineTo(970,290);ctx.lineTo(970,770);ctx.lineTo(90,770);ctx.closePath();ctx.fillStyle='#6b5a45';ctx.fill();
-  ctx.setLineDash([6,5]);ln([200,HI,860,HI],'rgba(255,255,255,.5)',1.5);ln([200,LO,860,LO],'rgba(255,255,255,.5)',1.5);ctx.setLineDash([]);
-  wt(210,HI-10,'高水位',16,'rgba(227,236,238,.8)',600);wt(210,LO-10,'低水位',16,'rgba(227,236,238,.8)',600);
-  ln([200,wy,860,wy],'rgba(255,255,255,.7)',1.5);
-  for(let x=380;x<=680;x+=50)miniFloat(x,wy+Math.sin(TT*1.6+x*.03),44);
-  [[360,250],[700,810]].forEach(([p,xa])=>{box(xa-16,684,32,16,'#8d9296');const sx=lerp(p,xa,.55),sy=lerp(wy+6,684,.55);
-   ln([p,wy+6,sx,sy],'#e6d9a8',2);spring(sx,sy,xa,684,12);});
-  const d=Math.abs(lv)*3;
-  alphaDo(seg(u,.3,.38)*(1-seg(u,.5,.54)),()=>tag(620,630,'彈性元件伸長',{size:16,bg:E_Y,fg:'#13232e'}));
-  alphaDo(seg(u,.56,.62),()=>tag(620,630,'彈性元件收回',{size:16,bg:E_Y,fg:'#13232e'}));
-  /* 水位尺 */
-  ln([900,HI,900,LO],'rgba(255,255,255,.6)',2);ln([888,HI,912,HI],'#fff',2);ln([888,LO,912,LO],'#fff',2);
-  circ(900,wy,7,E_Y);wt(900,HI-30,trf('水位差 {n} m',{n:d.toFixed(1)}),18,E_Y,700,'center',COND);
-  /* 右：設計對策 */
-  card(1040,160,500,640,{bg:'rgba(7,27,39,.75)'});wt(1064,200,'設計對策',20,'#f2c230',700);
-  const IT=[['繫纜預留長度','跟得上最高與最低水位'],['串接彈性元件','吸收水位與波浪的變化'],['可收放或配重式繫纜','水位差約 3 m 以上時採用'],['避開淺水區','低水位時浮體不擱淺']];
+  card(60,160,880,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'模組內部（示意）',20,'#f2c230',700);
+  const mx=140,my=250,cw=60,ch=44,cols=10,rows=6;
+  const shade=ease(seg(u,.28,.36)),hot=ease(seg(u,.42,.52));
+  for(let r=0;r<rows;r++)for(let q=0;q<cols;q++){const x=mx+q*cw,y=my+r*ch,isS=(r===4&&q===6);
+   box(x,y,cw-4,ch-4,isS&&hot>0?heat(.25+.7*hot):'#1f3f66','rgba(160,200,240,.35)',1);}
+  /* 分段 */
+  [0,2,4].forEach((r,i)=>{ctx.setLineDash([5,5]);ln([mx-12,my+r*ch-2,mx+cols*cw+8,my+r*ch-2],'rgba(255,255,255,.35)',1.2);ctx.setLineDash([]);
+   const y=my+r*ch+ch-2,dxp=mx+cols*cw+40;box(dxp-14,y-10,28,20,i===2&&hot>.5?E_Y:'#8d989f');poly([dxp-6,y-6,dxp-6,y+6,dxp+5,y],'#13232e');
+   wt(mx-24,y+6,trf('第 {n} 段',{n:i+1}),15,'rgba(227,236,238,.75)',600,'right');});
+  alphaDo(band(u,.06,.4),()=>wt(mx+cols*cw+60,my-16,'旁路二極體',17,'#fff',600,'center'));
+  /* 遮蔽物 */
+  alphaDo(shade,()=>{const x=mx+6*cw+28,y=my+4*ch+20;circ(x,y,13,'#efe9d8');circ(x+8,y-6,7,'#e2dccb');});
+  alphaDo(band(u,.3,.5),()=>tag(mx+6*cw-40,my+4*ch-50,'鳥糞遮蔽',{size:16,bg:'#e3ecee',fg:'#13232e'}));
+  if(hot>0){const x=mx+6*cw+28,y=my+4*ch+20;alphaDo(hot*.5,()=>{const g=ctx.createRadialGradient(x,y,4,x,y,70);g.addColorStop(0,'rgba(255,160,90,.8)');g.addColorStop(1,'rgba(255,160,90,0)');ctx.fillStyle=g;ctx.fillRect(x-70,y-70,140,140);});}
+  /* 旁路電流 */
+  const by=seg(u,.52,.6);
+  if(by>0){const y0=my+4*ch,y1=my+6*ch-4,xr=mx+cols*cw+40;alphaDo(by,()=>{pathLine([[mx-6,y1+18],[xr+30,y1+18],[xr+30,y0-10],[mx+cols*cw+80,y0-10]],E_Y,2.5,[7,5]);
+   const f=(TT*.6)%1,p=partialPt([[mx-6,y1+18],[xr+30,y1+18],[xr+30,y0-10]],f);circ(p[0],p[1],5,E_Y);});
+   alphaDo(band(u,.54,.76),()=>wt(mx,y1+56,'電流繞過第 3 段：保護模組，但這段發電損失',16,E_Y,600));}
+  alphaDo(seg(u,.42,.5),()=>wt(84,650,'被遮的電池片變成電阻，局部升溫',17,'#ff9d7a',700));
+  /* 右：溫差分級 */
+  card(980,160,560,640,{bg:'rgba(7,27,39,.75)'});wt(1004,200,'依溫差分級（示例）',20,'#f2c230',700);
+  const L=[['< 10 °C','持續觀察','#7dffc4'],['10–20 °C','排定檢修','#f2c230'],['> 20 °C','優先處理或更換','#e8572a']];
+  L.forEach(([a,b,c],i)=>{const k=seg(u,.7+i*.06,.76+i*.06),y=270+i*130;alphaDo(.25+.75*k,()=>{
+   box(1004,y,14,90,c);wt(1040,y+38,a,30,c,700,'left',COND);wt(1040,y+76,b,19,'#fff',600);});});
+  alphaDo(seg(u,.9,.96),()=>wt(1004,720,'溫差＝異常處與周圍正常電池片的溫度差',15,'rgba(227,236,238,.8)',500));
+ }},
+
+{t:'清洗與除草',en:'Cleaning and weeding',dur:12,side:true,
+ d:'灰塵、鳥糞、工業落塵與沿海的鹽分會在模組表面累積，擋掉陽光。清洗多安排在清晨或傍晚，模組溫度較低，避免冷水碰到高溫玻璃造成熱衝擊；用軟毛刷搭配低壓清水或純水，不用強酸強鹼清潔劑，也不踩在模組上。支架下的雜草長高後會遮住模組下緣、阻礙巡檢，還可能在乾季引發火災，所以要定期割草，或改用覆蓋與植生管理。',
+ s:[[0,'灰塵與鳥糞在模組上累積，擋掉陽光'],[.28,'清晨用軟毛刷與清水，由排頭洗到排尾'],[.56,'支架下的雜草長高，會遮住模組下緣'],[.78,'定期割草，也方便巡檢與防火']],
+ base:()=>{landSky(GY,{sun:{x:260,y:230},dusk:.35,clouds:false});drawGround({grass:false});},
+ cam:u=>camMix({x:640,y:480,s:1.25},{x:800,y:470,s:1.1},ease(seg(u,.5,.62))),
+ draw(u){
+  const cl=seg(u,.24,.52);
+  const cut=lerp(80,1200,ease(seg(u,.62,.92)));
+  const gh=lerp(10,52,ease(seg(u,.5,.6)));
+  grass(VX0,VX1,gh,u>.62?cut:undefined);
+  ROWS.forEach((x,i)=>{const k=clamp(cl*ROWS.length-i);tbl(x,{dirt:ease(seg(u,0,.14)),clean:k});});
+  inverter();
+  const ci=Math.min(ROWS.length-1,Math.floor(cl*ROWS.length)),cf=cl*ROWS.length-ci;
+  if(u>.22&&u<.54){const cx=ROWS[ci]-TW/2+TW*clamp(cf)*.95,ty=gy(ROWS[ci])-62+(ROWS[ci]-cx)*Math.tan(TA)-6;cleaner(cx-52,ty);}
+  if(u>.6)mower(cut+30);
+  lab(ROWS[0]+40,gy(ROWS[0])-74,'積塵與鳥糞',{dx:-40,dy:-90,st:'w',a:band(u,.04,.26)});
+  lab(ROWS[1],gy(ROWS[1])-70,'軟毛刷＋低壓清水',{dx:40,dy:-110,st:'s',a:band(u,.3,.54)});
+  lab(ROWS[3]+60,gy(ROWS[3])-40,'雜草遮住下緣',{dx:40,dy:-100,st:'w',a:band(u,.56,.76)});
+  lab(cut+30,gy(cut)-30,'割草機',{dx:-40,dy:-90,st:'g',a:band(u,.66,1)});
+ },
+ hud(u){hudPanel(250,150,'清洗進度（示例）',seg(u,.05,.1),w=>{const cl=seg(u,.24,.52);
+  hrow(56,'已清洗',Math.round(ROWS.length*cl)+' / '+ROWS.length,w,'#fff');hrow(88,'積塵損失',(6*(1-cl)).toFixed(1)+' %',w,cl>.9?'#7dffc4':'#ff9d7a');
+  hrow(120,'模組溫度',Math.round(lerp(24,31,u))+' °C',w,'#f2c230');});}},
+
+{t:'積塵損失與清洗時機',en:'Soiling loss and when to clean',dur:12,
+ d:'積塵損失會隨乾燥天數慢慢累積，一場夠大的雨能把模組沖乾淨一大半。台灣中南部從秋天到隔年春天雨量少，東北季風又帶來塵土與鹽分，是損失最高的季節；梅雨與颱風季則有雨水自然清洗。清洗一次要花人力與水，所以業者會比較損失的電費與清洗成本，在損失接近門檻時安排清洗，乾季可能每一到兩個月洗一次，雨季則可以少洗。',
+ s:[[0,'不下雨的日子，積塵損失慢慢累積'],[.3,'下雨能自然沖掉大部分灰塵'],[.54,'中南部乾季損失最高，需要人工清洗'],[.78,'損失接近門檻時清洗，最划算']],
+ draw(u){
+  diagBG();
+  card(60,160,1000,640,{bg:'rgba(7,27,39,.75)'});
+  const c=chartBox(90,180,940,500,{title:'一年的積塵損失（示例：中南部地面型）',x0:0,x1:12,y0:0,y1:8,xt:[0,2,4,6,8,10,12],yt:[0,2,4,6,8],xl:'月',yl:'%'});
+  /* 月份 0=10 月起算 */
+  alphaDo(seg(u,.3,.38),()=>{box(c.X(7),c.Y(8),c.X(11)-c.X(7),c.Y(0)-c.Y(8),'rgba(88,184,208,.14)');wt((c.X(7)+c.X(11))/2,c.Y(7.4),'梅雨與颱風季',16,'#7dc8dc',700,'center');});
+  alphaDo(seg(u,.5,.58),()=>wt(c.X(3),c.Y(7.4),'乾季：東北季風帶來塵土與鹽分',16,'#ff9d7a',700,'center'));
+  const CLEAN=[1.6,3.3,5.0,6.6],showC=u>.56;
+  const L=(m)=>{let last=0,lv=0;const ev=[];if(showC)CLEAN.forEach(t=>ev.push([t,.15]));[7.3,8.1,8.9,9.6,10.4].forEach(t=>ev.push([t,.25]));ev.sort((a,b)=>a[0]-b[0]);
+   const gr=(v,dt,t)=>7.5-(7.5-v)*Math.exp(-dt*(t<7?.55:.15));
+   for(const [t,r] of ev){if(t>m)break;lv=gr(lv,t-last,t)*r;last=t;}return gr(lv,m-last,m);};
+  const f=ease(seg(u,.04,showC?.9:.5));
+  ctx.beginPath();for(let m=0;m<=12*f;m+=.02){const x=c.X(m),y=c.Y(L(m));m===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle=showC?E_G:'#ff8a60';ctx.lineWidth=3.5;ctx.stroke();
+  alphaDo(seg(u,.74,.8),()=>{ctx.setLineDash([8,6]);ln([c.X(0),c.Y(5),c.X(12),c.Y(5)],E_W,2);ctx.setLineDash([]);wt(c.X(12)-6,c.Y(5)-10,'清洗門檻 5%',16,'#ff9d7a',700,'right');});
+  if(showC)CLEAN.forEach((t,i)=>{if(t<12*f)alphaDo(1,()=>{arrow(c.X(t),c.Y(.4)+40,c.X(t),c.Y(.4)+8,E_Y,2);});});
+  alphaDo(seg(u,.6,.66),()=>wt(c.X(4.2),c.Y(0)+62,'黃色箭頭：人工清洗',16,E_Y,700,'center'));
+  wt(c.X(0),c.Y(0)+62,'10 月',15,'rgba(227,236,238,.7)',600,'left');
+  card(1100,160,440,640,{bg:'rgba(7,27,39,.75)'});wt(1124,200,'安排清洗時考量',20,'#f2c230',700);
+  const IT=[['損失的電費','積塵損失 × 發電量 × 電價'],['清洗成本','人力、用水、車輛'],['天氣預報','大雨將至就延後'],['乾季頻率','約 1–2 個月一次（示例）']];
   IT.forEach(([a,b],i)=>{const k=seg(u,.2+i*.16,.26+i*.16),y=270+i*130;alphaDo(.25+.75*k,()=>{
-   tag(1064,y,String(i+1),{size:17,bg:k>.5?E_Y:'rgba(255,255,255,.25)',fg:k>.5?'#13232e':'#fff'});
-   wt(1110,y+7,a,19,'#fff',700);wt(1110,y+43,b,16,'rgba(227,236,238,.8)',500);});});
+   tag(1124,y,String(i+1),{size:17,bg:k>.5?E_Y:'rgba(255,255,255,.25)',fg:k>.5?'#13232e':'#fff'});
+   wt(1170,y+7,a,19,'#fff',700);wt(1170,y+43,b,16,'rgba(227,236,238,.8)',500);});});
  }},
 
-{t:'抗風與颱風',en:'Standing up to wind and typhoons',dur:13,
- d:'水面開闊、沒有遮擋，風速通常比陸地大，颱風季更是設計的關鍵。浮動式模組的傾角多在 5 到 12 度，比地面型低，迎風面積小，作用在浮台與繫纜上的風力也隨之下降。大型案場會把陣列切成數個島塊，島塊之間留出間隙，避免力量一路累積到單一繫點；迎風側的錨碇點加密，颱風來臨前再逐一檢查繫纜、插銷與螺栓。',
- s:[[0,'水面開闊，風速通常比陸地更大'],[.26,'傾角壓低到 5–12 度，迎風面積變小'],[.52,'陣列切成島塊，力量不會集中在一處'],[.76,'迎風側加密錨碇，颱風前逐一檢查']],
+{t:'颱風前後的檢查',en:'Before and after a typhoon',dur:12,
+ d:'光電設備多以螺栓與壓板鎖固，在強風中持續震動，即使沒有鬆脫，也可能變形或磨損。颱風來臨前，維運人員會檢查並鎖緊壓板與螺栓、固定垂落的纜線、清通排水溝；颱風過後再巡查模組破損、支架變形、積水與漏電，確認安全後才恢復送電。能源署已要求屋頂型光電須抗 17 級陣風，並每 2 年定期檢驗維護。',
+ s:[[0,'強風會讓模組受到上掀的力量'],[.28,'颱風前鎖緊壓板與螺栓，固定纜線'],[.54,'颱風後巡查破損、變形、積水與漏電'],[.78,'屋頂型光電須抗 17 級陣風，每 2 年檢驗']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'傾角與風力（示意）',20,'#f2c230',700);
-  const R=[[340,'地面型 約 20°',20,1],[600,'浮動式 5–12°',10,.5]];
-  R.forEach(([y,t,ang,f],i)=>{const k=seg(u,.2+i*.1,.3+i*.1);
-   alphaDo(.3+.7*(i?k:1),()=>{wt(84,y-80,t,18,i?E_G:'#fff',700);
-    ctx.save();ctx.translate(420,y);ctx.rotate(-ang*DEG);box(-150,-10,300,10,'#1f3f66');box(-150,-10,300,2,'#9fc3e6');ctx.restore();
-    ln([290,y+50,550,y+50],'rgba(255,255,255,.3)',2);
-    for(let j=0;j<4;j++){const o=(TT*140+j*40)%160;alphaDo(Math.min(1,(160-o)/60),()=>arrow(110+o*.6,y-30+j*18,180+o*.6,y-30+j*18,'rgba(125,200,220,.9)',2));}
-    const L=260*f*(i?k:1);box(420,y+80,L,20,i?E_G:'#ff8a60');wt(410,y+97,'相對風力',16,'rgba(227,236,238,.8)',600,'right');});});
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'俯視：島塊與錨碇（示意）',20,'#f2c230',700);
-  const isl=ease(seg(u,.5,.62)),gap=24*isl,X0=960,Y0=300,W=420,H=300;
-  for(let r=0;r<2;r++)for(let c=0;c<3;c++){const w=(W-2*gap)/3,h=(H-gap)/2,x=X0+c*(w+gap),y=Y0+r*(h+gap);box(x,y,w,h,'rgba(31,63,102,.92)','rgba(160,200,240,.5)',1);
-   ctx.strokeStyle='rgba(160,200,240,.25)';ctx.lineWidth=1;ctx.beginPath();for(let yy=y+14;yy<y+h;yy+=14){ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);}ctx.stroke();}
-  const an=seg(u,.72,.8);
-  for(let i=0;i<5;i++){const y=Y0+20+i*(H-40)/4;ln([X0,y,X0-80,y],E_W,2);box(X0-92,y-6,12,12,E_W);}
-  alphaDo(an,()=>{for(let i=0;i<4;i++){const y=Y0+50+i*(H-100)/3;ln([X0,y,X0-110,y+(i<2?-16:16)],E_W,2);box(X0-122,y+(i<2?-22:10),12,12,E_W);}});
-  [[X0+W,Y0+60],[X0+W,Y0+H-60]].forEach(([x,y])=>{ln([x,y,x+60,y],'#e6d9a8',2);box(x+60,y-6,12,12,'#8d9296');});
-  for(let j=0;j<3;j++){const o=(TT*100+j*50)%120;arrow(836+o*.5,Y0+80+j*70,876+o*.5,Y0+80+j*70,'rgba(125,200,220,.9)',2.5);}
-  wt(846,Y0+H+44,'迎風側',17,'#ff9d7a',700);
-  alphaDo(seg(u,.52,.6),()=>wt(X0+W/2,Y0+H+44,'島塊之間留間隙',17,'#fff',600,'center'));
-  alphaDo(seg(u,.8,.88),()=>{card(824,700,692,80,{bg:'rgba(232,87,42,.12)',st:'rgba(232,87,42,.5)'});
-   wt(848,748,'颱風前：檢查繫纜、插銷與螺栓',19,'#fff',700);});
- }},
-
-{t:'水面帶來的冷卻',en:'Cooling from the water',dur:13,
- d:'太陽電池的溫度越高，發電效率越低。典型矽晶模組的溫度係數約每度 −0.35%，也就是溫度每降低 1 °C，發電約多 0.35%。水面的蒸發與較涼的空氣能讓模組降溫，示例中午間溫度比地面型低約 6 °C，發電約可多 2%。對水體來說，模組遮蔭可減少蒸發、抑制藻類增生；阿公店水庫運轉一年的監測顯示水質沒有異常，但仍需持續監測溶氧與水溫。',
- s:[[0,'白天模組受熱，溫度越高發電越少'],[.3,'水面上的模組，午間溫度較低'],[.55,'溫度低 6 °C，發電約可多 2%'],[.76,'遮蔭減少蒸發，水質仍需持續監測']],
- draw(u){
-  diagBG();
-  card(60,160,880,640,{bg:'rgba(7,27,39,.75)'});
-  const c=chartBox(90,180,820,590,{title:'模組溫度（示例：晴天）',x0:6,x1:18,y0:20,y1:70,xt:[6,9,12,15,18],yt:[20,30,40,50,60,70],xl:'時',yl:'°C'});
-  const T=(h,a,b)=>a+b*Math.pow(Math.max(0,Math.sin((h-6)/12*Math.PI)),1.3);
-  const draw1=(a,b,col,f)=>{ctx.beginPath();for(let h=6;h<=6+12*f;h+=.1){const x=c.X(h),y=c.Y(T(h,a,b));h===6?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle=col;ctx.lineWidth=3.5;ctx.stroke();};
-  const f1=ease(seg(u,.04,.3)),f2=ease(seg(u,.3,.54));
-  draw1(28,34,'#ff8a60',f1);if(f2>0)draw1(27,29,'#7dc8dc',f2);
-  alphaDo(seg(u,.2,.3),()=>{wt(c.X(8.2),c.Y(53),'地面型',17,'#ff9d7a',700,'center');});
-  alphaDo(seg(u,.46,.54),()=>{wt(c.X(15.8),c.Y(33),'水面型',17,'#7dc8dc',700,'center');
-   arrow(c.X(12),c.Y(62)+4,c.X(12),c.Y(56)-4,E_Y,2.5);wt(c.X(12)-12,c.Y(59)+6,'約 6 °C',17,E_Y,700,'right',COND);});
-  card(980,160,560,300,{bg:'rgba(7,27,39,.75)'});wt(1004,200,'溫度與發電（示例）',20,'#f2c230',700);
-  const k=seg(u,.54,.62);
-  alphaDo(.3+.7*k,()=>{wt(1004,262,'溫度係數',18,'#fff',600);wt(1516,262,'−0.35 %/°C',22,'#fff',700,'right',COND);
-   wt(1004,310,'午間溫差',18,'#fff',600);wt(1516,310,'6 °C',22,'#fff',700,'right',COND);
-   ln([1004,336,1516,336],'rgba(255,255,255,.25)',1.5);
-   wt(1004,388,'發電約可多',19,'#fff',700);wt(1516,392,trf('{n} %',{n:(2.1*ease(seg(u,.58,.7))).toFixed(1)}),34,E_G,700,'right',COND);
-   wt(1004,430,'6 × 0.35 ≈ 2.1',16,'rgba(227,236,238,.75)',600,'left',COND);});
-  card(980,490,560,310,{bg:'rgba(7,27,39,.75)'});wt(1004,530,'對水體的影響',20,'#f2c230',700);
-  const IT=[['遮蔭減少水分蒸發','g'],['抑制藻類增生','g'],['持續監測溶氧與水溫','w']];
-  IT.forEach(([t,s],i)=>{const kk=seg(u,.74+i*.05,.8+i*.05),y=592+i*62;alphaDo(kk,()=>{circ(1022,y-6,9,s==='g'?E_G:E_Y);wt(1046,y,t,19,'#fff',600);});});
-  alphaDo(seg(u,.9,.95),()=>wt(1004,778,'阿公店水庫：運轉一年水質無異常',16,'rgba(227,236,238,.85)',500));
- }},
-
-{t:'水庫、滯洪池與近岸水域',en:'Reservoirs, detention ponds and coastal waters',dur:13,
- d:'台灣的水面型光電主要出現在三類場址。水庫以供水為優先，阿公店水庫是全台第一座水庫水面型光電，2019 年全數併聯 9.99 MW。滯洪池平時水淺，大雨時要保留滯洪容量，錨碇必須適應劇烈的水位變化。彰濱工業區崙尾東的近岸水域則設置了 181 MW、約 176 公頃的大型案場，要面對潮汐、東北季風與颱風。無論哪一種，原本的水利功能都要優先。',
- s:[[0,'水面型光電在台灣主要有三類場址'],[.26,'水庫：以供水為優先，兼顧水質'],[.5,'滯洪池：保留滯洪容量，適應水位變化'],[.74,'近岸水域：面對潮汐、季風與颱風']],
- draw(u){
-  diagBG();
-  const a1=seg(u,.2,.3),a2=seg(u,.44,.54),a3=seg(u,.68,.78);
-  const C=[[60,a1,'水庫'],[570,a2,'滯洪池'],[1080,a3,'近岸水域']];
-  C.forEach(([x,a,t])=>{alphaDo(.35+.65*a,()=>{card(x,160,460,560,{bg:'rgba(7,27,39,.75)',st:a>.5?'rgba(242,194,48,.6)':'rgba(255,255,255,.16)'});wt(x+24,200,t,20,'#f2c230',700);});});
-  const pic=(x,a,fn)=>alphaDo(.35+.65*a,()=>{ctx.save();ctx.beginPath();ctx.rect(x+20,230,420,190);ctx.clip();fn();ctx.restore();});
-  pic(60,a1,()=>{box(80,230,420,190,'#9cc6df');poly([80,300,200,250,330,290,500,260,500,420,80,420],'#7f9c73');box(80,330,330,90,'#4f9ab0');poly([410,300,450,300,470,420,400,420],'#b0b6b8');
-   for(let x=120;x<=360;x+=34)miniFloat(x,334+Math.sin(TT*1.6+x*.03),28);});
-  pic(570,a2,()=>{box(590,230,420,190,'#9cc6df');box(590,330,420,90,'#7a9a55');const wy=360+12*Math.sin(TT*.8);poly([620,340,980,340,950,412,650,412],'#6b5a45');
-   box(636,wy,328,412-wy,'#4f9ab0');for(let x=670;x<=930;x+=34)miniFloat(x,wy+Math.sin(TT*1.6+x*.03),28);box(980,340,24,50,'#8d9296');});
-  pic(1080,a3,()=>{box(1100,230,420,190,'#9cc6df');const sw=x=>350+5*Math.sin(x*.04-TT*1.4);ctx.beginPath();ctx.moveTo(1100,sw(1100));for(let x=1100;x<=1520;x+=6)ctx.lineTo(x,sw(x));ctx.lineTo(1520,420);ctx.lineTo(1100,420);ctx.closePath();ctx.fillStyle='#3b93bb';ctx.fill();
-   box(1460,300,60,120,'#b0b6b8');for(let x=1130;x<=1430;x+=34)miniFloat(x,sw(x),28);for(let j=0;j<2;j++){const o=(TT*80+j*60)%120;arrow(1110+o,270+j*22,1150+o,270+j*22,'rgba(255,255,255,.8)',2);}});
-  const T=[[60,a1,['阿公店水庫 9.99 MW','全台第一座水庫水面型光電','2019 年全數併聯'],'需兼顧供水與水質'],
-   [570,a2,['屏東、台南等地滯洪池','水位隨降雨大幅變化','保留原本的滯洪容量'],'錨碇需適應水位差'],
-   [1080,a3,['彰濱崙尾東 181 MW','約 176 公頃、57 萬片模組','首年預估約 2.5 億度'],'面對潮汐、季風與颱風']];
-  T.forEach(([x,a,L,g])=>alphaDo(.35+.65*a,()=>{L.forEach((t,i)=>wt(x+24,478+i*40,t,i?17:19,i?'#fff':E_G,i?500:700));wt(x+24,680,g,16,'rgba(227,236,238,.75)',500);}));
-  alphaDo(seg(u,.86,.92),()=>{card(60,740,1480,60,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});wt(800,778,'共同原則：原本的水利功能優先，光電是附加的價值',19,'#fff',700,'center');});
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'風力與鎖固點（示意）',20,'#f2c230',700);
+  const cx=410,cy=470,wob=Math.sin(TT*9)*2*seg(u,.04,.2)*(1-seg(u,.3,.4));
+  ln([cx-130,690,cx-130,cy+26],'#8a99a3',8);ln([cx+130,690,cx+130,cy-30],'#8a99a3',8);box(60+24,690,652,8,'#6b5a45');
+  ctx.save();ctx.translate(cx,cy+wob);ctx.rotate(-12*DEG);box(-230,-14,460,14,'#1f3f66','rgba(0,0,0,.4)',1);box(-230,-14,460,2,'#9fc3e6');
+  box(-240,-4,480,8,'#b8c2c8');
+  [-130,130].forEach(x=>{const tight=seg(u,.32,.42);box(x-16,-20,32,10,tight>.5?E_G:'#d6dde1');circ(x,-15,4,'#394650');});ctx.restore();
+  for(let j=0;j<4;j++){const o=(TT*160+j*45)%180;alphaDo(Math.min(1,(180-o)/60)*seg(u,.02,.08),()=>arrow(100+o*.7,cy+80+j*20,170+o*.7,cy+60+j*20,'rgba(125,200,220,.9)',2.5));}
+  alphaDo(band(u,.06,.32),()=>{arrow(cx,cy-40,cx,cy-120,E_W,3);wt(cx+14,cy-100,'上掀力',18,'#ff9d7a',700);});
+  alphaDo(band(u,.32,1),()=>{wt(cx-150,cy+80,'壓板＋螺栓',17,E_G,700,'center');});
+  alphaDo(seg(u,.78,.84),()=>{card(84,700,652,80,{bg:'rgba(242,194,48,.1)',st:'rgba(242,194,48,.5)'});
+   wt(108,736,'屋頂型：抗 17 級陣風',19,'#fff',700);wt(108,766,'每 2 年定期檢驗與維護',16,'rgba(227,236,238,.85)',500);});
+  const LIST=[[800,'颱風前',.28,['鎖緊壓板與螺栓','固定垂落的纜線','清通排水溝','移除周邊易飛散物']],[1180,'颱風後',.54,['模組玻璃破損','支架變形或鏽蝕','變流器與箱體積水','絕緣與漏電量測']]];
+  LIST.forEach(([x,t,a0,it],j)=>{const a=seg(u,a0,a0+.06);alphaDo(.3+.7*a,()=>{card(x,160,360,560,{bg:'rgba(7,27,39,.75)',st:a>.5?'rgba(242,194,48,.6)':'rgba(255,255,255,.16)'});
+   wt(x+24,200,t,20,j?'#7dc8dc':E_Y,700);
+   it.forEach((s,i)=>{const k=seg(u,a0+.04+i*.04,a0+.08+i*.04),y=268+i*104;alphaDo(.25+.75*k,()=>{
+    box(x+24,y-20,24,24,'rgba(0,0,0,0)',k>.5?E_G:'rgba(255,255,255,.4)',2);if(k>.5)ln([x+29,y-8,x+35,y-2,x+44,y-16],E_G,3);
+    wt(x+60,y,s,18,'#fff',600);});});});});
+  alphaDo(seg(u,.82,.88),()=>{card(800,740,740,60,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.4)'});wt(1170,778,'確認安全後，才恢復送電',19,'#fff',700,'center');});
  }}
 ]};
 
-/* 太陽光電系列 第 5 集：水面型浮動式光電 — 英日翻譯 */
+/* 太陽光電系列 第 6 集：光電場運維與清洗 — 英日翻譯 */
 Object.assign(DICT,{
 "太陽光電系列":["Solar PV Series","太陽光発電シリーズ"],
-"水面型浮動式光電":["Floating solar on water","水上設置型フロート式太陽光発電"],
-"水庫、滯洪池與近岸水域的水面，也能架起太陽光電。模組裝在會浮的浮台上，靠錨碇與繫纜固定位置。這一集看浮台怎麼組成、錨碇如何因應水位升降與颱風，以及水面帶來的冷卻效果。":["Solar panels can also be installed on the surface of reservoirs, detention ponds and coastal waters. The modules sit on floats that are held in place by anchors and mooring lines. This episode looks at how a float platform is built, how the anchoring copes with changing water levels and typhoons, and the cooling effect of the water.","ため池や貯水池、調整池、沿岸水域の水面にも太陽光発電を設置できます。モジュールは水に浮くフロートに載せ、アンカーと係留索で位置を固定します。本編では、フロートの構成、水位変動や台風へのアンカーの対応、そして水面による冷却効果を見ていきます。"],
-"阿公店水庫：全台第一座水庫水面型光電，2019 年全數併聯":["Agongdian Reservoir: Taiwan's first floating solar plant on a reservoir, fully grid-connected in 2019","阿公店ダム貯水池：台湾初のダム湖上フロート式太陽光発電、2019 年に全量連系"],
-"彰濱崙尾東水面型光電：約 176 公頃、約 57 萬片模組":["Changbin Lunwei East floating solar: about 176 ha and about 570,000 modules","彰濱工業区・崙尾東の水上太陽光発電：約 176 ha、約 57 万枚のモジュール"],
-"約 2.5":["About 0.25","約 2.5"],
-"億度":["TWh","億kWh"],
-"彰濱崙尾東案場首年預估發電量":["Expected first-year output of the Changbin Lunwei East plant","彰濱・崙尾東発電所の初年度予想発電量"],
-"浮動式模組常見傾角，比地面型低，以減少風力":["Typical tilt of floating modules, lower than on land to reduce wind load","フロート式モジュールの一般的な傾斜角。風荷重を抑えるため地上設置より低い"],
-"典型模組溫度係數：溫度每降 1 °C 約多發 0.35%（示例）":["Typical module temperature coefficient: about 0.35% more output per 1 °C cooler (example)","モジュールの代表的な温度係数：1 °C 下がるごとに発電が約 0.35% 増える（例）"],
-"水位變化超過約 3 m 時，常改用可收放或配重式繫纜（設計建議）":["Where the water level varies by more than about 3 m, adjustable or counterweighted moorings are common (design guidance)","水位変動が約 3 m を超える場合は、巻き取り式やカウンターウェイト式の係留がよく使われる（設計指針）"],
-"說明：本集為教育用途示意動畫，浮台、錨碇與水深比例經過調整。阿公店水庫 9.99 MW 與運轉後水質監測依經濟部水利署新聞稿；彰濱崙尾東 181 MW、約 176 公頃、約 57 萬片模組與首年約 2.5 億度依開發商公開資料與媒體報導；浮動式系統由浮台、支撐結構、錨碇系統、水下電纜與光電系統組成。傾角 5–12°、水位差約 3 m 以上改用可收放繫纜為業界設計指引的典型值；案場容量 10 MWp、浮體浮力、溫差 6 °C、溫度係數 −0.35 %/°C 與設計風速皆為典型範例，實際數值依設備、地點與法規而定。":["Note: This is a schematic animation for education; the proportions of floats, anchors and water depth are adjusted. The 9.99 MW Agongdian Reservoir plant and its water-quality monitoring follow press releases from the Water Resources Agency, Ministry of Economic Affairs. The Changbin Lunwei East figures (181 MW, about 176 ha, about 570,000 modules and about 250 GWh in the first year) come from the developer's public information and media reports. A floating system consists of floats, support structures, anchoring, underwater cables and the PV system. A tilt of 5–12° and adjustable moorings for water-level ranges above about 3 m are typical values from industry design guidance. The 10 MWp site, float buoyancy, 6 °C temperature difference, −0.35 %/°C coefficient and wind speeds are typical examples; actual values depend on equipment, site and regulations.","説明：本編は教育用の模式アニメーションで、フロート、アンカー、水深の縮尺は調整しています。阿公店ダムの 9.99 MW と運転後の水質モニタリングは経済部水利署の発表に、彰濱・崙尾東の 181 MW、約 176 ha、約 57 万枚、初年度約 2.5 億kWh は事業者の公開資料と報道に基づきます。フロート式システムはフロート、架台、アンカー（係留）、水中ケーブル、太陽光発電システムで構成されます。傾斜角 5–12°、水位差約 3 m 以上で巻き取り式係留を用いる点は業界の設計指針の代表値です。10 MWp の発電所、フロートの浮力、温度差 6 °C、温度係数 −0.35 %/°C、風速はいずれも代表的な例で、実際の値は機器、立地、法規によって異なります。"],
-"水面上的光電場":["A solar farm that floats","水に浮かぶ太陽光発電所"],
-"水面型光電把模組裝在會浮的浮台上，設置在水庫、滯洪池、埤塘或近岸水域。它不占用陸地，也不必整地打樁。一座浮動式系統由五個部分組成：浮台、支撐結構、錨碇系統、水下電纜與光電模組。浮台用錨碇塊與繫纜固定在原位，產生的直流電經水下電纜送到岸上的變流器。以 10 MWp 為例，約需 20 公頃水面，一年可發約 1,200 萬度電（示例）。":["Floating solar mounts the modules on buoyant floats placed on reservoirs, detention ponds, irrigation ponds or coastal waters. It uses no land and needs no grading or piling. A floating system has five parts: floats, support structures, anchoring, underwater cables and the PV modules. Anchor blocks and mooring lines keep the platform in place, and the DC power travels through underwater cables to an inverter on shore. A 10 MWp plant needs about 20 ha of water surface and generates about 12 GWh a year (example).","水上太陽光発電は、水に浮くフロートにモジュールを載せ、ダム湖、調整池、ため池、沿岸水域に設置します。土地を使わず、造成や杭打ちも不要です。フロート式システムは、フロート、架台、アンカー（係留）、水中ケーブル、太陽光モジュールの五つで構成されます。フロートはアンカーブロックと係留索で固定され、発電した直流電力は水中ケーブルで岸のパワコンへ送られます。10 MWp の場合、必要な水面は約 20 ha、年間発電量は約 1,200 万kWh です（例）。"],
-"水庫的水面，也能設置太陽光電":["Solar power can go on a reservoir's surface too","ダム湖の水面にも太陽光発電を設置できる"],
-"模組裝在會浮的浮台上，一片片接成陣列":["Modules sit on floats joined into an array","モジュールをフロートに載せ、連結してアレイにする"],
-"錨碇塊與繫纜把浮台固定在原位":["Anchor blocks and mooring lines hold it in place","アンカーブロックと係留索でフロートを固定"],
-"電力經水下電纜送到岸上的變流器":["Power runs through underwater cable to a shore inverter","電力は水中ケーブルで岸のパワコンへ"],
-"水庫水面":["Reservoir","ダム湖の水面"],
-"浮台陣列":["Float array","フロートアレイ"],
-"錨碇塊":["Anchor block","アンカーブロック"],
-"岸錨繫纜":["Shore mooring","岸側係留"],
-"水下電纜":["Underwater cable","水中ケーブル"],
-"岸上變流器":["Shore inverter","岸のパワコン"],
-"案場概況（示例）":["Site (example)","発電所の概要（例）"],
-"裝置容量":["Capacity","設備容量"],
-"占用水面":["Water area","使用水面"],
-"約 {n} ha":["≈ {n} ha","約 {n} ha"],
-"年發電量":["Annual output","年間発電量"],
-"約 {n} 萬度":["≈ {g} GWh","約 {n} 万kWh"],
-"浮台的構造":["Inside a float unit","フロートの構造"],
-"浮台多用高密度聚乙烯（HDPE）吹塑成中空浮體，添加抗紫外線配方，長期曬在陽光下也不易脆化。每片模組坐在一個主浮體上，以支撐架墊出傾角；主浮體之間用走道浮體連接，讓維運人員可以走進陣列。浮體之間以連接耳和插銷相扣，組成可隨水面起伏的整片浮台。設計時浮力要遠大於模組、支架與人員的重量，保留足夠的安全係數。":["Most floats are hollow, blow-moulded high-density polyethylene (HDPE) with UV stabilisers, so they do not turn brittle after years in the sun. Each module sits on a main float, with a support frame setting its tilt. Walkway floats link the main floats so maintenance crews can walk into the array. Lugs and pins lock the floats together into a single platform that moves with the water. The buoyancy must far exceed the weight of the modules, frames and people, leaving a good safety margin.","フロートの多くは高密度ポリエチレン（HDPE）をブロー成形した中空体で、紫外線劣化防止剤を加えているため、長期間日光を浴びてももろくなりにくい構造です。モジュール1枚ごとにメインフロートに載せ、架台で傾斜をつけます。メインフロートの間は通路フロートでつなぎ、保守作業員がアレイ内を歩けるようにします。フロート同士は連結耳とピンで結合され、水面の動きに追従する一体の浮体になります。浮力はモジュール、架台、作業員の重量を大きく上回るよう設計し、十分な安全率を確保します。"],
-"把一個浮台單元拆開來看":["Take one float unit apart","フロートユニットを一つ分解して見る"],
-"主浮體承載模組，支撐架墊出傾角":["The main float carries the module; a frame sets the tilt","メインフロートがモジュールを支え、架台で傾斜をつける"],
-"走道浮體讓維運人員走進陣列":["Walkway floats let crews walk into the array","通路フロートで作業員がアレイ内を歩ける"],
-"浮力要遠大於重量，保留安全係數":["Buoyancy must far exceed the weight","浮力は重量を大きく上回るよう設計"],
-"浮台單元（分解）":["Float unit (exploded)","フロートユニット（分解図）"],
-"水面":["Water","水面"],
-"主浮體（HDPE）":["Main float (HDPE)","メインフロート（HDPE）"],
-"光電模組":["PV module","太陽光モジュール"],
-"支撐架":["Frame","架台"],
-"走道浮體":["Walkway float","通路フロート"],
-"連接耳＋插銷":["Lugs + pins","連結耳＋ピン"],
-"組裝完成後，隨水面起伏":["Assembled, it rides the water","組み立てると水面に追従して浮く"],
-"浮力夠不夠（示例）":["Enough buoyancy? (example)","浮力は足りるか（例）"],
-"模組":["Module","モジュール"],
-"浮體與支架":["Float + frame","フロートと架台"],
-"維運人員":["Worker","保守作業員"],
-"可提供浮力":["Buoyancy","浮力"],
-"浮力 ÷ 總重":["Buoyancy ÷ total weight","浮力 ÷ 総重量"],
-"即使有人走上去，仍有一倍以上的餘裕":["Even with a person on it, the margin is more than double","人が乗っても2倍以上の余裕がある"],
-"錨碇：讓浮台待在原位":["Anchoring the array","アンカー：フロートを定位置に保つ"],
-"浮台不能任由風和水流推著走，否則會撞上岸邊或擠壓電纜。常見做法是在水底放置混凝土錨碇塊，再以繫纜或錨鏈連到浮台外圍；靠近岸邊的區段則可用岸錨，把繫纜綁在岸上的固定樁。錨碇塊通常由工作船吊放到預定位置，數量與方位依風向、水深與底質計算。彰濱崙尾東案場便是先在陸上組好浮台，再拖到錨碇塊的位置固定。":["The platform cannot be left to drift with wind and currents, or it would hit the bank or crush its cables. The usual approach is to set concrete anchor blocks on the bottom and connect them to the edge of the array with mooring lines or chains. Near the shore, lines can be tied to fixed posts on land instead. A workboat lowers each anchor block into position, and their number and direction are calculated from wind, water depth and bottom soil. At Changbin Lunwei East, the floats were assembled on land and then towed out to the anchor positions.","フロートを風や水流のままに漂わせると、岸に衝突したりケーブルを圧迫したりします。一般的には水底にコンクリートのアンカーブロックを沈め、係留索やチェーンでアレイの外周につなぎます。岸に近い区画では、岸に立てた杭に係留索を結ぶ岸側係留も使われます。アンカーブロックは作業船で所定の位置に吊り下ろし、数と方向は風向、水深、底質から計算します。彰濱・崙尾東では、陸上でフロートを組み立ててからアンカーの位置まで曳航して固定しました。"],
-"工作船把混凝土錨碇塊吊放到水底":["A workboat lowers a concrete anchor block","作業船がコンクリートのアンカーを水底へ下ろす"],
-"在陸上組好的浮台，拖到錨碇的位置":["Floats assembled on land are towed into position","陸上で組んだフロートをアンカーの位置へ曳航"],
-"繫纜連到浮台外圍，靠岸側用岸錨固定":["Lines link the array edge; the shore side ties to a post","係留索を外周につなぎ、岸側は杭に係留"],
-"在陸上組好的浮台":["Pre-assembled floats","陸上で組んだフロート"],
-"風吹來時，繫纜拉住浮台不漂移":["When the wind blows, the lines hold the array","風が吹いても係留索がアレイを保持する"],
-"混凝土錨碇塊":["Concrete anchor","コンクリートアンカー"],
-"繫纜":["Mooring line","係留索"],
-"岸錨":["Shore post","岸側の杭"],
-"季風":["Monsoon wind","季節風"],
-"外圍繫點":["Edge mooring point","外周の係留点"],
-"錨碇狀態（示例）":["Moorings (example)","係留の状態（例）"],
-"錨碇點":["Anchors","アンカー"],
-"風速":["Wind speed","風速"],
-"浮台位移":["Drift","フロート変位"],
-"水位會升降":["When the water level changes","水位は上下する"],
-"水庫在枯水期與豐水期的水位可相差好幾公尺，滯洪池在大雨時更會迅速漲水、雨後再排空。繫纜若綁得太緊，水位上升時會把浮台往下拉；綁得太鬆，低水位時浮台又會四處漂移，甚至擱淺在池邊。因此繫纜要預留長度，並串接彈性元件吸收變化；水位差超過約 3 公尺的場址，常改用可收放或配重式繫纜。低水位時，陣列也要停在夠深的位置，避免浮體擱淺。":["A reservoir's level can differ by several metres between the dry and wet seasons, and a detention pond fills quickly in heavy rain and drains afterwards. If the mooring lines are too tight, rising water pulls the platform down; if they are too loose, the platform drifts at low water or even runs aground on the bank. So the lines are given extra length and fitted with elastic elements to absorb the change. Where the level varies by more than about 3 m, adjustable or counterweighted moorings are common. At low water the array must also stay over deep enough water so the floats do not ground.","ダム湖の水位は渇水期と豊水期で数メートル変わることがあり、調整池は大雨のときに急速に水位が上がり、雨の後に排水されます。係留索を張りすぎると水位上昇時にフロートを引き込み、緩すぎると低水位時にフロートが漂ったり、池の縁で着底したりします。そのため係留索には余長を持たせ、弾性部材を入れて変化を吸収します。水位差が約 3 m を超える場所では、巻き取り式やカウンターウェイト式の係留がよく使われます。低水位時でもアレイが十分な水深の位置にとどまり、フロートが着底しないようにします。"],
-"水位下降時，浮台跟著水面一起下降":["As the water drops, the floats drop with it","水位が下がると、フロートも一緒に下がる"],
-"繫纜上的彈性元件伸縮，保持張力":["Elastic elements stretch to keep the lines taut","係留索の弾性部材が伸縮して張力を保つ"],
-"大雨後水位迅速上升，浮台隨之浮起":["After heavy rain the water rises and the floats rise too","大雨で水位が急上昇し、フロートも浮き上がる"],
-"水位差大時，改用可收放的繫纜":["For large level changes, use adjustable moorings","水位差が大きい場合は巻き取り式係留にする"],
-"剖面：滯洪池的水位變化（示意）":["Section: level change in a detention pond (schematic)","断面：調整池の水位変化（模式図）"],
-"高水位":["High water","高水位"],
-"低水位":["Low water","低水位"],
-"彈性元件伸長":["Elastic element stretches","弾性部材が伸びる"],
-"彈性元件收回":["Elastic element retracts","弾性部材が縮む"],
-"水位差 {n} m":["Level drop {n} m","水位差 {n} m"],
-"設計對策":["Design measures","設計上の対策"],
-"繫纜預留長度":["Extra line length","係留索の余長"],
-"跟得上最高與最低水位":["Covers the highest and lowest levels","最高・最低水位に対応"],
-"串接彈性元件":["Elastic elements","弾性部材を直列に入れる"],
-"吸收水位與波浪的變化":["Absorb level changes and waves","水位や波の変化を吸収"],
-"可收放或配重式繫纜":["Adjustable or weighted lines","巻き取り式・カウンターウェイト式係留"],
-"水位差約 3 m 以上時採用":["Used when the range exceeds about 3 m","水位差が約 3 m 以上の場合に採用"],
-"避開淺水區":["Avoid shallow areas","浅い区域を避ける"],
-"低水位時浮體不擱淺":["No grounding at low water","低水位でもフロートが着底しない"],
-"抗風與颱風":["Standing up to wind and typhoons","風と台風への備え"],
-"水面開闊、沒有遮擋，風速通常比陸地大，颱風季更是設計的關鍵。浮動式模組的傾角多在 5 到 12 度，比地面型低，迎風面積小，作用在浮台與繫纜上的風力也隨之下降。大型案場會把陣列切成數個島塊，島塊之間留出間隙，避免力量一路累積到單一繫點；迎風側的錨碇點加密，颱風來臨前再逐一檢查繫纜、插銷與螺栓。":["Open water has nothing to block the wind, so wind speeds are usually higher than on land, and the typhoon season drives the design. Floating modules are usually tilted only 5 to 12 degrees, lower than ground-mounted systems, so they present less area to the wind and put less force on the floats and moorings. Large plants split the array into several islands with gaps between them, so forces do not build up onto a single mooring point. More anchors are placed on the windward side, and before a typhoon the lines, pins and bolts are checked one by one.","開けた水面には風を遮るものがなく、風速は通常陸上より大きいため、台風シーズンへの備えが設計の要になります。フロート式モジュールの傾斜角は多くが 5〜12 度で、地上設置より低く、受風面積が小さいため、フロートや係留索にかかる風荷重も小さくなります。大規模な発電所ではアレイをいくつかの島に分けて間隔をあけ、力が一つの係留点に集中しないようにします。風上側はアンカーを増やし、台風の前には係留索、ピン、ボルトを一つずつ点検します。"],
-"水面開闊，風速通常比陸地更大":["Open water usually means stronger wind than on land","開けた水面は陸上より風が強いことが多い"],
-"傾角壓低到 5–12 度，迎風面積變小":["A 5–12° tilt means less area facing the wind","傾斜角を 5〜12 度に抑えて受風面積を小さく"],
-"陣列切成島塊，力量不會集中在一處":["Splitting the array into islands spreads the load","アレイを島に分け、力を一点に集中させない"],
-"迎風側加密錨碇，颱風前逐一檢查":["Extra anchors windward; checks before typhoons","風上側にアンカーを増やし、台風前に点検"],
-"傾角與風力（示意）":["Tilt and wind load (schematic)","傾斜角と風荷重（模式図）"],
-"地面型 約 20°":["Ground-mounted ≈ 20°","地上設置 約 20°"],
-"浮動式 5–12°":["Floating 5–12°","フロート式 5–12°"],
-"相對風力":["Relative wind load","相対風荷重"],
-"俯視：島塊與錨碇（示意）":["Top view: islands and anchors (schematic)","上から見た島とアンカー（模式図）"],
-"迎風側":["Windward","風上側"],
-"島塊之間留間隙":["Gaps between islands","島の間に間隔をあける"],
-"颱風前：檢查繫纜、插銷與螺栓":["Before a typhoon: check lines, pins and bolts","台風前：係留索・ピン・ボルトを点検"],
-"水面帶來的冷卻":["Cooling from the water","水面による冷却"],
-"太陽電池的溫度越高，發電效率越低。典型矽晶模組的溫度係數約每度 −0.35%，也就是溫度每降低 1 °C，發電約多 0.35%。水面的蒸發與較涼的空氣能讓模組降溫，示例中午間溫度比地面型低約 6 °C，發電約可多 2%。對水體來說，模組遮蔭可減少蒸發、抑制藻類增生；阿公店水庫運轉一年的監測顯示水質沒有異常，但仍需持續監測溶氧與水溫。":["The hotter a solar cell gets, the less efficient it is. A typical crystalline silicon module has a temperature coefficient of about −0.35% per degree, so every 1 °C cooler gives about 0.35% more output. Evaporation and cooler air over water help the modules stay cooler; in this example they run about 6 °C cooler than on land at midday, producing about 2% more. For the water body, the shade reduces evaporation and curbs algae growth. A year of monitoring at Agongdian Reservoir found no abnormal water quality, but dissolved oxygen and water temperature still need regular monitoring.","太陽電池は温度が高いほど発電効率が下がります。一般的な結晶シリコンモジュールの温度係数は 1 度あたり約 −0.35% で、1 °C 下がるごとに発電量が約 0.35% 増えます。水面の蒸発と涼しい空気によってモジュールの温度が下がり、この例では昼間に地上設置より約 6 °C 低く、発電量は約 2% 多くなります。水域にとっては、日陰が蒸発を減らし、藻類の増殖を抑えます。阿公店ダムでは運転 1 年のモニタリングで水質に異常はありませんでしたが、溶存酸素と水温の継続的な監視が必要です。"],
-"白天模組受熱，溫度越高發電越少":["Modules heat up by day; hotter means less power","日中モジュールは熱くなり、高温ほど発電が減る"],
-"水面上的模組，午間溫度較低":["Modules on water run cooler at midday","水上のモジュールは昼間の温度が低い"],
-"溫度低 6 °C，發電約可多 2%":["6 °C cooler gives about 2% more power","6 °C 低いと発電は約 2% 増える"],
-"遮蔭減少蒸發，水質仍需持續監測":["Shade cuts evaporation; water quality is still monitored","日陰で蒸発が減る。水質は継続して監視"],
-"模組溫度（示例：晴天）":["Module temperature (example: sunny day)","モジュール温度（例：晴天）"],
+"光電場運維與清洗":["Operating and cleaning a solar farm","太陽光発電所の運用保守と洗浄"],
+"光電場併網之後要運轉二十年以上，發電量能不能維持，靠的是日常運維。這一集看監控系統如何從數據找出異常、無人機熱影像怎麼抓出熱斑，以及清洗、除草與颱風前後檢查各有什麼講究。":["Once connected to the grid, a solar farm runs for more than twenty years, and keeping its output up depends on day-to-day O&M. This episode looks at how monitoring finds faults in the data, how drone thermography spots hot spots, and what goes into cleaning, weeding and inspections before and after a typhoon.","系統連系した太陽光発電所は 20 年以上運転し、発電量を保てるかは日々の O&M にかかっています。本編では、監視システムがデータから異常を見つける方法、ドローンの赤外線サーモグラフィでホットスポットを探す方法、そして洗浄、除草、台風前後の点検のポイントを見ていきます。"],
+"IEC TS 62446-3 建議的熱影像巡檢最低日照強度":["Minimum irradiance for thermographic inspection under IEC TS 62446-3","IEC TS 62446-3 が定める赤外線点検の最低日射強度"],
+"模組清洗後常見可回復的發電量，依積塵程度與環境而異":["Output commonly recovered by cleaning, depending on soiling and environment","洗浄で回復する発電量の一般的な目安。汚れの程度と環境で異なる"],
+"地面型光電場常見的性能比（PR）範圍（示例）":["Common performance ratio (PR) range of ground-mounted plants (example)","地上設置型発電所の一般的なパフォーマンスレシオ（PR）の範囲（例）"],
+"級":["Beaufort","級"],
+"屋頂型光電抗風要求：模組正負向須抗 17 級陣風":["Rooftop PV wind requirement: modules must withstand Beaufort 17 gusts in both directions","屋根置き太陽光の耐風要件：モジュールは正負両方向で 17 級の突風に耐えること"],
+"年":["years","年"],
+"屋頂型光電定期檢驗與維護的週期":["Interval for periodic inspection and maintenance of rooftop PV","屋根置き太陽光の定期点検・保守の周期"],
+"熱斑溫差超過約 10 °C 時安排檢修（示例）":["Repairs are scheduled when a hot spot is more than about 10 °C warmer (example)","ホットスポットの温度差が約 10 °C を超えたら修理を手配（例）"],
+"說明：本集為教育用途示意動畫，設備、人物與距離比例經過調整。熱影像巡檢最低日照 600 W/m² 依 IEC TS 62446-3:2017；清洗後可回復 5–10% 發電量為模組商與業界常見說法；屋頂型光電須抗 17 級陣風、每 2 年定期檢驗維護依經濟部能源署修法與媒體報導；颱風前後檢查扣件、壓板、螺栓與纜線依能源署宣導。性能比 75–85%、組串電流、熱斑溫差分級、積塵損失曲線與清洗時機皆為典型範例，實際依案場設計、設備規格與維運合約而定。":["Note: This is a schematic animation for education; the proportions of equipment, people and distances are adjusted. The 600 W/m² minimum irradiance for thermography follows IEC TS 62446-3:2017. The 5–10% output recovered by cleaning is a common figure from module makers and the industry. The Beaufort 17 gust requirement and two-yearly inspection for rooftop PV follow regulatory amendments by the Energy Administration, Ministry of Economic Affairs, and media reports; checking fasteners, clamps, bolts and cables before and after typhoons follows Energy Administration guidance. The 75–85% performance ratio, string currents, hot-spot temperature classes, soiling-loss curve and cleaning timing are typical examples; actual values depend on plant design, equipment and O&M contracts.","説明：本編は教育用の模式アニメーションで、設備、人物、距離の縮尺は調整しています。赤外線点検の最低日射 600 W/m² は IEC TS 62446-3:2017 に、洗浄で 5–10% の発電量が回復する点はモジュールメーカーと業界の一般的な目安に基づきます。屋根置き太陽光が 17 級の突風に耐え、2 年ごとに定期点検・保守を行う点は経済部エネルギー署の法改正と報道に、台風前後に留め具、押さえ金具、ボルト、ケーブルを点検する点はエネルギー署の呼びかけに基づきます。PR 75–85%、ストリング電流、ホットスポットの温度差区分、汚れ損失の曲線、洗浄時期はいずれも代表的な例で、実際の値は発電所の設計、機器仕様、保守契約によって異なります。"],
+"光電場的日常":["A day at the solar farm","太陽光発電所の日常"],
+"光電場併網後要運轉二十年以上，日常運維決定了發電量能不能維持。每一排模組的直流電先送進組串變流器，變流器除了轉成交流電，也記錄每一串的電壓、電流與告警。資料記錄器把這些數據連同日照計、模組溫度一起上傳到監控平台，維運人員在監控室或手機上就能看到全場狀況，發現異常再派人到現場處理。":["A grid-connected solar farm runs for more than twenty years, and day-to-day O&M decides whether its output holds up. The DC power from each row goes first to a string inverter, which converts it to AC and also logs the voltage, current and alarms of every string. A data logger uploads these readings, together with the pyranometer and module temperature, to a monitoring platform. Technicians see the whole plant from the control room or a phone and send someone to the site when something looks wrong.","系統連系した太陽光発電所は 20 年以上運転し、日々の O&M が発電量を保てるかを左右します。各列の直流電力はまずストリングパワコンに送られ、パワコンは交流に変換するとともに、ストリングごとの電圧、電流、警報を記録します。データロガーはこれらを日射計やモジュール温度とともに監視プラットフォームへ送信し、保守担当者は監視室やスマートフォンで発電所全体の状況を確認し、異常があれば現地へ人を派遣します。"],
+"光電場併網後，要運轉二十年以上":["A connected solar farm runs for over twenty years","連系後の発電所は 20 年以上運転する"],
+"每一串模組的電力送進組串變流器":["Each string feeds power into a string inverter","各ストリングの電力をストリングパワコンへ"],
+"變流器與日照計的數據上傳監控平台":["Inverter and pyranometer data go to the platform","パワコンと日射計のデータを監視プラットフォームへ送信"],
+"維運人員從數據發現異常，再到現場處理":["Technicians spot faults in the data, then fix them on site","データで異常を見つけ、現地で対応する"],
+"模組支架排":["Module rows","モジュール架台列"],
+"組串變流器":["String inverter","ストリングパワコン"],
+"日照計":["Pyranometer","日射計"],
+"監控室":["Control room","監視室"],
+"資料上傳":["Data uplink","データ送信"],
+"即時數據（示例）":["Live data (example)","リアルタイムデータ（例）"],
+"日照":["Irradiance","日射"],
+"即時功率":["Power","出力"],
+"性能比":["PR","PR"],
+"從數據找異常":["Finding faults in the data","データから異常を見つける"],
+"監控的核心指標是性能比（PR）：實際發電量除以依當下日照、裝置容量算出的理論發電量。地面型案場的 PR 常見在 75% 到 85% 之間，它扣掉了天氣的影響，所以可以拿不同日子、不同案場互相比較。PR 突然下滑，就要往下比對各組串的電流：同一台變流器下的組串照到同樣的陽光，電流應該相近，明顯偏低的那一串，往往有接頭鬆脫、模組損壞或局部遮蔭。":["The key monitoring indicator is the performance ratio (PR): actual output divided by the theoretical output calculated from the current irradiance and installed capacity. Ground-mounted plants commonly reach a PR of 75% to 85%. Because it removes the effect of weather, PR can be compared across days and across plants. When PR suddenly drops, the next step is to compare string currents: strings on the same inverter receive the same sunlight and should carry similar currents, so a string that is clearly lower often has a loose connector, a damaged module or partial shading.","監視の中心となる指標はパフォーマンスレシオ（PR）で、実際の発電量を、その時の日射量と設備容量から計算した理論発電量で割った値です。地上設置型の PR は一般に 75% から 85% です。天候の影響を除いているため、日や発電所が違っても比較できます。PR が急に下がったら、次にストリングごとの電流を比べます。同じパワコンにつながるストリングは同じ日射を受けるので電流はほぼ同じはずで、明らかに低いストリングにはコネクタの緩み、モジュールの損傷、部分的な影などがよく見られます。"],
+"監控平台比對實際發電與理論發電":["The platform compares actual and expected output","監視プラットフォームで実発電と理論発電を比較"],
+"性能比扣掉天氣影響，可以長期追蹤":["PR removes the weather, so it can be tracked over years","PR は天候の影響を除き、長期的に追跡できる"],
+"同一台變流器下，各組串電流應該相近":["Strings on one inverter should carry similar currents","同じパワコンのストリング電流はほぼ同じはず"],
+"偏低的組串，就是要派人檢查的地方":["The low string is where a technician goes to check","低いストリングが点検に行く場所"],
+"一天的發電功率（示例）":["Output over a day (example)","1 日の発電出力（例）"],
 "時":["h","時"],
-"地面型":["On land","地上設置"],
-"水面型":["On water","水上設置"],
-"約 6 °C":["≈ 6 °C","約 6 °C"],
-"溫度與發電（示例）":["Temperature and output (example)","温度と発電量（例）"],
-"溫度係數":["Temp. coefficient","温度係数"],
-"午間溫差":["Midday difference","昼間の温度差"],
-"發電約可多":["Extra output","発電量の増加"],
+"理論發電":["Expected","理論発電"],
+"實際發電":["Actual","実発電"],
+"性能比 PR ＝ 實際發電 ÷ 理論發電":["PR = actual output ÷ expected output","PR ＝ 実発電量 ÷ 理論発電量"],
+"地面型案場常見 75–85%（示例）":["Ground-mounted plants: typically 75–85% (example)","地上設置型では一般に 75–85%（例）"],
+"同一台變流器的組串電流（示例）":["String currents on one inverter (example)","同一パワコンのストリング電流（例）"],
+"組串編號　單位：A":["String no. · Unit: A","ストリング番号　単位：A"],
+"組串編號":["String no.","ストリング番号"],
+"單位：A":["Unit: A","単位：A"],
+"第 6 串偏低約 18%":["String 6 is about 18% low","第 6 ストリングが約 18% 低い"],
+"可能原因：接頭鬆脫、模組損壞、局部遮蔭":["Possible causes: loose connector, damaged module, shading","考えられる原因：コネクタの緩み、モジュール損傷、部分的な影"],
 "{n} %":["{n} %","{n} %"],
-"對水體的影響":["Effects on the water","水域への影響"],
-"遮蔭減少水分蒸發":["Shade reduces evaporation","日陰で蒸発が減る"],
-"抑制藻類增生":["Curbs algae growth","藻類の増殖を抑える"],
-"持續監測溶氧與水溫":["Monitor oxygen and temperature","溶存酸素と水温を監視"],
-"阿公店水庫：運轉一年水質無異常":["Agongdian: no water-quality issues after a year","阿公店ダム：運転 1 年で水質に異常なし"],
-"水庫、滯洪池與近岸水域":["Reservoirs, detention ponds and coastal waters","ダム湖、調整池、沿岸水域"],
-"台灣的水面型光電主要出現在三類場址。水庫以供水為優先，阿公店水庫是全台第一座水庫水面型光電，2019 年全數併聯 9.99 MW。滯洪池平時水淺，大雨時要保留滯洪容量，錨碇必須適應劇烈的水位變化。彰濱工業區崙尾東的近岸水域則設置了 181 MW、約 176 公頃的大型案場，要面對潮汐、東北季風與颱風。無論哪一種，原本的水利功能都要優先。":["In Taiwan, floating solar is found mainly at three kinds of site. At reservoirs, water supply comes first; Agongdian Reservoir hosts Taiwan's first reservoir floating plant, fully connected at 9.99 MW in 2019. Detention ponds are usually shallow and must keep their flood storage in heavy rain, so the anchoring has to cope with sharp level changes. In the coastal waters of Lunwei East in the Changhua Coastal Industrial Park, a 181 MW plant covering about 176 ha faces tides, the northeast monsoon and typhoons. In every case, the original water-management function comes first.","台湾の水上太陽光発電は、主に三種類の場所に設置されています。ダム湖では給水が最優先で、阿公店ダムは台湾初のダム湖上フロート式発電所として、2019 年に 9.99 MW が全量連系しました。調整池はふだん水深が浅く、大雨時には洪水調節容量を確保しなければならないため、アンカーは急激な水位変化に対応する必要があります。彰化浜海工業区・崙尾東の沿岸水域には約 176 ha、181 MW の大規模発電所があり、潮汐、北東季節風、台風に向き合っています。いずれの場合も、本来の水利機能が優先されます。"],
-"水面型光電在台灣主要有三類場址":["Taiwan's floating solar sits on three kinds of site","台湾の水上太陽光発電は主に三種類の場所"],
-"水庫：以供水為優先，兼顧水質":["Reservoirs: water supply and quality come first","ダム湖：給水と水質を最優先"],
-"滯洪池：保留滯洪容量，適應水位變化":["Detention ponds: keep flood storage, handle level swings","調整池：洪水調節容量を確保し、水位変化に対応"],
-"近岸水域：面對潮汐、季風與颱風":["Coastal waters: tides, monsoon and typhoons","沿岸水域：潮汐、季節風、台風に対応"],
-"水庫":["Reservoir","ダム湖"],
-"滯洪池":["Detention pond","調整池"],
-"近岸水域":["Coastal waters","沿岸水域"],
-"阿公店水庫 9.99 MW":["Agongdian Reservoir 9.99 MW","阿公店ダム 9.99 MW"],
-"全台第一座水庫水面型光電":["Taiwan's first on a reservoir","台湾初のダム湖上発電所"],
-"2019 年全數併聯":["Fully connected in 2019","2019 年に全量連系"],
-"需兼顧供水與水質":["Must protect supply and quality","給水と水質の両立が必要"],
-"屏東、台南等地滯洪池":["Ponds in Pingtung, Tainan etc.","屏東、台南などの調整池"],
-"水位隨降雨大幅變化":["Levels swing with rainfall","降雨で水位が大きく変化"],
-"保留原本的滯洪容量":["Flood storage is kept","洪水調節容量を確保"],
-"錨碇需適應水位差":["Anchors must handle level swings","アンカーは水位差に対応"],
-"彰濱崙尾東 181 MW":["Changbin Lunwei East 181 MW","彰濱・崙尾東 181 MW"],
-"約 176 公頃、57 萬片模組":["≈ 176 ha, 570,000 modules","約 176 ha、57 万枚"],
-"首年預估約 2.5 億度":["≈ 250 GWh expected in year one","初年度 約 2.5 億kWh（予想）"],
-"面對潮汐、季風與颱風":["Tides, monsoon and typhoons","潮汐・季節風・台風に対応"],
-"共同原則：原本的水利功能優先，光電是附加的價值":["Common rule: water management first, solar is added value","共通原則：本来の水利機能が優先、太陽光は付加価値"]
+"無人機熱影像巡檢":["Drone thermal inspection","ドローンによる赤外線点検"],
+"模組內部的缺陷，肉眼往往看不出來，但會發熱。維運團隊用搭載紅外線熱像儀的無人機，沿著陣列以固定高度飛行拍攝，一個上午就能掃過數十公頃。依 IEC TS 62446-3，巡檢時模組面的日照強度至少要 600 W/m²，電流夠大，缺陷才會明顯升溫。影像經軟體拼接後，溫度異常的電池片會以亮點標出位置，再派人到現場確認與更換。":["Defects inside a module are often invisible to the eye, but they give off heat. The O&M team flies a drone carrying an infrared camera along the arrays at a fixed height, covering dozens of hectares in a morning. Under IEC TS 62446-3, the irradiance on the module plane must be at least 600 W/m² during inspection, so that the current is high enough for defects to heat up clearly. After the images are stitched together by software, abnormally hot cells show up as bright spots with their positions marked, and a technician is sent to confirm and replace them.","モジュール内部の欠陥は目では見えないことが多いものの、熱を出します。保守チームは赤外線カメラを積んだドローンをアレイに沿って一定の高さで飛ばし、午前中だけで数十 ha を撮影できます。IEC TS 62446-3 では、点検時のモジュール面日射強度は 600 W/m² 以上とされ、電流が十分に流れて初めて欠陥がはっきり発熱します。画像はソフトウェアでつなぎ合わせ、温度が異常なセルを明るい点として位置を示し、現地で確認・交換します。"],
+"無人機載著紅外線熱像儀，沿陣列飛行":["A drone with an infrared camera flies along the arrays","赤外線カメラを積んだドローンがアレイに沿って飛行"],
+"日照至少 600 W/m²，缺陷才會明顯發熱":["At 600 W/m² or more, defects heat up clearly","日射 600 W/m² 以上で欠陥がはっきり発熱"],
+"熱影像上，異常的電池片呈現亮點":["Faulty cells appear as bright spots in the thermal image","熱画像では異常なセルが明るい点になる"],
+"軟體標出位置，再派人到現場確認":["Software marks the spot for an on-site check","ソフトで位置を示し、現地で確認"],
+"熱像無人機":["Thermal drone","赤外線ドローン"],
+"掃描範圍":["Scan area","撮影範囲"],
+"熱影像拼接（示意）":["Stitched thermal map (schematic)","熱画像の合成（模式）"],
+"熱斑：比周圍高 24 °C":["Hot spot: 24 °C above its neighbours","ホットスポット：周囲より 24 °C 高い"],
+"掃描中…":["Scanning…","撮影中…"],
+"熱斑從哪裡來":["What causes a hot spot","ホットスポットはなぜできるか"],
+"一片模組由 60 到 72 個電池片串聯，分成三段，每段並聯一顆旁路二極體。當某個電池片被鳥糞、落葉遮住，或內部隱裂，它就產生不了電流，反而被其他電池片推著電流通過，像電阻一樣發熱，形成熱斑。旁路二極體會讓電流繞過這一段，保護模組，但這段的發電量也就損失了。長期的熱斑會讓封裝材料變色、背板燒焦，因此要依溫差高低決定處理的優先順序。":["A module has 60 to 72 cells in series, divided into three sections, each with a bypass diode in parallel. When a cell is covered by bird droppings or a leaf, or has an internal micro-crack, it can no longer produce current; instead the other cells force current through it and it heats up like a resistor, forming a hot spot. The bypass diode lets the current go around that section and protects the module, but the section's output is lost. A long-lasting hot spot can discolour the encapsulant and scorch the backsheet, so the temperature difference decides how urgently it is dealt with.","モジュールは 60–72 枚のセルを直列につなぎ、三つの区間に分け、各区間にバイパスダイオードを並列に入れています。セルが鳥の糞や落ち葉で覆われたり内部にマイクロクラックがあったりすると電流を作れず、逆に他のセルから電流を押し込まれて抵抗のように発熱し、ホットスポットになります。バイパスダイオードは電流をその区間の外へ迂回させてモジュールを守りますが、その区間の発電は失われます。ホットスポットが続くと封止材の変色やバックシートの焼損につながるため、温度差に応じて対応の優先順位を決めます。"],
+"一片模組分成三段，各有一顆旁路二極體":["A module has three sections, each with a bypass diode","モジュールは三区間、各区間にバイパスダイオード"],
+"鳥糞或落葉遮住一個電池片":["Bird droppings or a leaf cover one cell","鳥の糞や落ち葉がセルを一枚覆う"],
+"被遮的電池片發熱，旁路二極體導通":["The shaded cell heats; the bypass diode turns on","覆われたセルが発熱し、バイパスダイオードが導通"],
+"依溫差高低，排定處理的優先順序":["The temperature difference sets the repair priority","温度差に応じて対応の優先順位を決める"],
+"模組內部（示意）":["Inside a module (schematic)","モジュール内部（模式）"],
+"第 {n} 段":["Section {n}","区間 {n}"],
+"旁路二極體":["Bypass diodes","バイパスダイオード"],
+"鳥糞遮蔽":["Bird droppings","鳥の糞"],
+"電流繞過第 3 段：保護模組，但這段發電損失":["Current bypasses section 3: module safe, section output lost","電流は区間 3 を迂回：モジュールは守られるが発電は失われる"],
+"被遮的電池片變成電阻，局部升溫":["The covered cell acts as a resistor and heats up","覆われたセルが抵抗になり局所的に発熱"],
+"依溫差分級（示例）":["Classes by ΔT (example)","温度差による区分（例）"],
+"持續觀察":["Keep monitoring","経過観察"],
+"排定檢修":["Schedule repair","修理を計画"],
+"優先處理或更換":["Fix or replace first","優先して修理・交換"],
+"溫差＝異常處與周圍正常電池片的溫度差":["ΔT = hot area minus surrounding normal cells","温度差＝異常箇所と周囲の正常セルの温度差"],
+"清洗與除草":["Cleaning and weeding","洗浄と除草"],
+"灰塵、鳥糞、工業落塵與沿海的鹽分會在模組表面累積，擋掉陽光。清洗多安排在清晨或傍晚，模組溫度較低，避免冷水碰到高溫玻璃造成熱衝擊；用軟毛刷搭配低壓清水或純水，不用強酸強鹼清潔劑，也不踩在模組上。支架下的雜草長高後會遮住模組下緣、阻礙巡檢，還可能在乾季引發火災，所以要定期割草，或改用覆蓋與植生管理。":["Dust, bird droppings, industrial fallout and coastal salt build up on modules and block sunlight. Cleaning is usually done early in the morning or in the evening, when modules are cooler, so that cold water does not hit hot glass and cause thermal shock. Crews use soft brushes with low-pressure tap or purified water, avoid strong acid or alkaline detergents and never stand on the modules. Weeds under the racks can grow tall enough to shade the lower edge of the modules, get in the way of inspections and even start fires in the dry season, so they are mown regularly or controlled with ground cover and planting.","砂ぼこり、鳥の糞、工業由来の粉じん、沿岸の塩分はモジュール表面にたまり、日光を遮ります。洗浄は、モジュール温度が低い早朝か夕方に行うのが一般的で、冷水が高温のガラスに当たって熱衝撃を起こすのを避けます。柔らかいブラシと低圧の水道水または純水を使い、強酸・強アルカリの洗剤は使わず、モジュールの上にも乗りません。架台の下の雑草は伸びるとモジュール下端に影を作り、点検の妨げになり、乾季には火災の原因にもなるため、定期的に草刈りをするか、被覆や植生管理で抑えます。"],
+"灰塵與鳥糞在模組上累積，擋掉陽光":["Dust and droppings build up and block sunlight","砂ぼこりや鳥の糞がたまり日光を遮る"],
+"清晨用軟毛刷與清水，由排頭洗到排尾":["At dawn, soft brushes and water clean each row end to end","早朝、柔らかいブラシと水で列の端から端まで洗浄"],
+"支架下的雜草長高，會遮住模組下緣":["Tall weeds under the racks shade the module edge","架台下の雑草が伸び、モジュール下端に影を作る"],
+"定期割草，也方便巡檢與防火":["Regular mowing helps inspections and fire safety","定期的な草刈りは点検と防火にも役立つ"],
+"積塵與鳥糞":["Dust and droppings","砂ぼこりと鳥の糞"],
+"軟毛刷＋低壓清水":["Soft brush + low-pressure water","柔らかいブラシ＋低圧水"],
+"雜草遮住下緣":["Weeds shade the edge","雑草が下端を覆う"],
+"割草機":["Mower","草刈り機"],
+"清洗進度（示例）":["Cleaning (example)","洗浄の進み具合（例）"],
+"已清洗":["Rows cleaned","洗浄済み"],
+"積塵損失":["Soiling loss","汚れ損失"],
+"模組溫度":["Module temp.","モジュール温度"],
+"積塵損失與清洗時機":["Soiling loss and when to clean","汚れ損失と洗浄のタイミング"],
+"積塵損失會隨乾燥天數慢慢累積，一場夠大的雨能把模組沖乾淨一大半。台灣中南部從秋天到隔年春天雨量少，東北季風又帶來塵土與鹽分，是損失最高的季節；梅雨與颱風季則有雨水自然清洗。清洗一次要花人力與水，所以業者會比較損失的電費與清洗成本，在損失接近門檻時安排清洗，乾季可能每一到兩個月洗一次，雨季則可以少洗。":["Soiling loss builds up slowly with every dry day, and a heavy enough rain washes most of it away. In central and southern Taiwan, autumn to the following spring is dry and the northeast monsoon brings dust and salt, so losses are highest then; the plum-rain and typhoon seasons provide natural washing. Each cleaning costs labour and water, so operators weigh the lost electricity revenue against the cleaning cost and clean when the loss nears a threshold — perhaps every one to two months in the dry season and less often in the rainy season.","汚れ損失は晴れの日が続くほど少しずつ増え、まとまった雨が降れば大半が洗い流されます。台湾中南部では秋から翌春まで雨が少なく、北東季節風が砂ぼこりや塩分を運ぶため、損失が最も大きい季節になります。梅雨と台風の季節は雨が自然に洗ってくれます。洗浄には人手と水がかかるため、事業者は失われる売電収入と洗浄コストを比べ、損失がしきい値に近づいたときに洗浄します。乾季は 1–2 か月に 1 回程度、雨季は回数を減らせます。"],
+"不下雨的日子，積塵損失慢慢累積":["On dry days, soiling loss slowly builds","雨のない日は汚れ損失が少しずつ増える"],
+"下雨能自然沖掉大部分灰塵":["Rain washes off most of the dust","雨が砂ぼこりの大半を洗い流す"],
+"中南部乾季損失最高，需要人工清洗":["Losses peak in the dry season, so crews clean by hand","中南部の乾季は損失が最大、人手で洗浄"],
+"損失接近門檻時清洗，最划算":["Cleaning near the threshold pays off best","しきい値に近づいたら洗浄するのが最も経済的"],
+"一年的積塵損失（示例：中南部地面型）":["Soiling loss over a year (example: ground-mounted, central/south)","1 年の汚れ損失（例：中南部の地上設置型）"],
+"月":["month","月"],
+"梅雨與颱風季":["Plum rain & typhoons","梅雨と台風の季節"],
+"乾季：東北季風帶來塵土與鹽分":["Dry season: monsoon brings dust and salt","乾季：北東季節風が砂ぼこりと塩分を運ぶ"],
+"清洗門檻 5%":["Cleaning threshold 5%","洗浄しきい値 5%"],
+"黃色箭頭：人工清洗":["Yellow arrows: manual cleaning","黄色の矢印：人手による洗浄"],
+"10 月":["Oct","10 月"],
+"安排清洗時考量":["Planning a cleaning","洗浄計画の判断材料"],
+"損失的電費":["Lost revenue","失われる売電収入"],
+"積塵損失 × 發電量 × 電價":["Loss × output × tariff","汚れ損失 × 発電量 × 単価"],
+"清洗成本":["Cleaning cost","洗浄コスト"],
+"人力、用水、車輛":["Labour, water, vehicles","人手、水、車両"],
+"天氣預報":["Weather forecast","天気予報"],
+"大雨將至就延後":["Postpone if heavy rain is coming","大雨が近ければ延期"],
+"乾季頻率":["Dry-season interval","乾季の頻度"],
+"約 1–2 個月一次（示例）":["About every 1–2 months (example)","約 1–2 か月に 1 回（例）"],
+"颱風前後的檢查":["Before and after a typhoon","台風前後の点検"],
+"光電設備多以螺栓與壓板鎖固，在強風中持續震動，即使沒有鬆脫，也可能變形或磨損。颱風來臨前，維運人員會檢查並鎖緊壓板與螺栓、固定垂落的纜線、清通排水溝；颱風過後再巡查模組破損、支架變形、積水與漏電，確認安全後才恢復送電。能源署已要求屋頂型光電須抗 17 級陣風，並每 2 年定期檢驗維護。":["PV equipment is mostly held by bolts and clamps, which keep vibrating in strong winds and can deform or wear even if they do not come loose. Before a typhoon, technicians check and tighten clamps and bolts, secure hanging cables and clear drainage ditches. Afterwards they inspect for broken modules, bent racks, standing water and leakage current, and only restore power once everything is safe. The Energy Administration now requires rooftop PV to withstand Beaufort 17 gusts and to be inspected and maintained every two years.","太陽光発電設備の多くはボルトと押さえ金具で固定されており、強風の中で振動し続けると、緩まなくても変形や摩耗が起こり得ます。台風が来る前に、保守担当者は押さえ金具とボルトを点検して締め直し、垂れ下がったケーブルを固定し、排水溝を清掃します。台風の後はモジュールの破損、架台の変形、浸水、漏電を点検し、安全を確認してから送電を再開します。エネルギー署は屋根置き太陽光に 17 級の突風に耐えることと、2 年ごとの定期点検・保守を義務付けています。"],
+"強風會讓模組受到上掀的力量":["Strong wind puts an uplift force on the modules","強風でモジュールに吹き上げ力がかかる"],
+"颱風前鎖緊壓板與螺栓，固定纜線":["Before the typhoon, tighten clamps and bolts and secure cables","台風前に押さえ金具とボルトを締め、ケーブルを固定"],
+"颱風後巡查破損、變形、積水與漏電":["Afterwards, check for damage, water and leakage","台風後に破損、変形、浸水、漏電を点検"],
+"屋頂型光電須抗 17 級陣風，每 2 年檢驗":["Rooftop PV: Beaufort 17 gusts, inspected every 2 years","屋根置きは 17 級の突風に耐え、2 年ごとに点検"],
+"風力與鎖固點（示意）":["Wind load and fixings (schematic)","風荷重と固定点（模式）"],
+"上掀力":["Uplift","吹き上げ力"],
+"壓板＋螺栓":["Clamp + bolt","押さえ金具＋ボルト"],
+"屋頂型：抗 17 級陣風":["Rooftop: Beaufort 17 gusts","屋根置き：17 級の突風に耐える"],
+"每 2 年定期檢驗與維護":["Inspected and maintained every 2 years","2 年ごとに定期点検・保守"],
+"颱風前":["Before","台風前"],
+"鎖緊壓板與螺栓":["Tighten clamps and bolts","押さえ金具とボルトを締める"],
+"固定垂落的纜線":["Secure hanging cables","垂れたケーブルを固定"],
+"清通排水溝":["Clear drainage ditches","排水溝を清掃"],
+"移除周邊易飛散物":["Remove loose objects nearby","周囲の飛散物を撤去"],
+"颱風後":["After","台風後"],
+"模組玻璃破損":["Broken module glass","モジュールのガラス破損"],
+"支架變形或鏽蝕":["Bent or rusted racks","架台の変形・腐食"],
+"變流器與箱體積水":["Water in inverters and boxes","パワコンや箱内の浸水"],
+"絕緣與漏電量測":["Insulation and leakage tests","絶縁・漏電の測定"],
+"確認安全後，才恢復送電":["Power is restored only once it is safe","安全を確認してから送電を再開"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

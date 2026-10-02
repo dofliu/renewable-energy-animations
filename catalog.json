@@ -556,6 +556,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "運轉",
+            "en": "Operation",
+            "ja": "運転"
+          },
+          "episodes": [
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "光電場運維與清洗",
+                "en": "Operating and cleaning a solar farm",
+                "ja": "太陽光発電所の運用保守と洗浄"
+              },
+              "sub": {
+                "zh": "監控與性能比、無人機熱影像、熱斑成因、清洗與除草、颱風前後檢查",
+                "en": "Monitoring and PR, drone thermography, hot spots, cleaning and weeding, typhoon checks",
+                "ja": "監視と PR、ドローン赤外線点検、ホットスポット、洗浄と除草、台風前後の点検"
+              }
+            }
+          ]
         }
       ]
     },
