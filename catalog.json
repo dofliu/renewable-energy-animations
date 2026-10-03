@@ -708,6 +708,20 @@
                 "en": "Lockout and tagout, climbing and lift checks, bolt torque spot checks, gearbox oil and lubrication, brake, pitch backup and safety chain tests, unlocking and restart",
                 "ja": "ロックアウト・タグアウト、昇塔と昇降機点検、ボルトトルク抜き取り点検、増速機の油と潤滑、ブレーキ・ピッチ電池・セーフティチェーン試験、ロック解除と再起動"
               }
+            },
+            {
+              "no": 17,
+              "file": "ep17.html",
+              "title": {
+                "zh": "葉片修補",
+                "en": "Repairing a turbine blade",
+                "ja": "ブレードの補修"
+              },
+              "sub": {
+                "zh": "繩索作業與吊籃平台、前緣侵蝕成因、1:50 斜面打磨與玻纖積層、固化溫濕度窗口、前緣保護塗層與保護膠帶",
+                "en": "Rope access and blade platforms, why leading edges erode, 1:50 scarf grinding and glass-fibre laminating, the curing weather window, leading edge protection coatings and tapes",
+                "ja": "ロープアクセスと作業プラットフォーム、前縁侵食の原因、1:50 のスカーフ研削とガラス繊維積層、硬化の温湿度範囲、前縁保護塗料と保護テープ"
+              }
             }
           ]
         },
