@@ -345,6 +345,20 @@
                 "en": "Onshore substation and connection point, grid code, low-voltage ride-through, forecasting and curtailment",
                 "ja": "陸上変電所と連系点、グリッドコード、低電圧ライドスルー、発電予測と出力抑制"
               }
+            },
+            {
+              "no": 29,
+              "file": "ep29.html",
+              "title": {
+                "zh": "葉片巡檢與缺陷分級",
+                "en": "Blade inspection and damage grading",
+                "ja": "ブレード点検と損傷の等級分け"
+              },
+              "sub": {
+                "zh": "轉子 Y 字鎖定、無人機四趟自動航線、AI 影像辨識、葉片內部爬行機器人、雷擊與裂紋辨識、缺陷 5 級分類與處理期限",
+                "en": "Rotor locked in Y position, four-pass automated drone flights, AI image screening, internal crawler robots, lightning and crack identification, five damage categories and deadlines",
+                "ja": "ロータのY字ロック、4回の自動航路ドローン撮影、AI画像判定、ブレード内部のクローラーロボット、落雷とき裂の識別、損傷の5段階分類と対応期限"
+              }
             }
           ]
         },
