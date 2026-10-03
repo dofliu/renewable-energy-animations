@@ -373,6 +373,20 @@
                 "en": "Divers and ROVs, marine growth removal, cathodic protection readings, close weld inspection and scour surveys",
                 "ja": "潜水士とROVの役割分担、海洋生物の除去、電気防食電位の測定、溶接部の近接目視、洗掘測深"
               }
+            },
+            {
+              "no": 31,
+              "file": "ep31.html",
+              "title": {
+                "zh": "水下維修作業",
+                "en": "Subsea repair works",
+                "ja": "水中補修作業"
+              },
+              "sub": {
+                "zh": "潛水支援船與維修工單、加裝犧牲陽極、海纜保護套修復、拋石補強淘刷坑、潛水作業窗口與減壓",
+                "en": "Dive support vessels and work orders, anode retrofits, cable protection repair, rock placement in scour pits, dive windows and decompression",
+                "ja": "潜水支援船と作業指示、流電陽極の追加、ケーブル保護管の補修、洗掘孔への捨石、潜水作業の時間帯と減圧"
+              }
             }
           ]
         },
