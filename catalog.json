@@ -359,6 +359,20 @@
                 "en": "Rotor locked in Y position, four-pass automated drone flights, AI image screening, internal crawler robots, lightning and crack identification, five damage categories and deadlines",
                 "ja": "ロータのY字ロック、4回の自動航路ドローン撮影、AI画像判定、ブレード内部のクローラーロボット、落雷とき裂の識別、損傷の5段階分類と対応期限"
               }
+            },
+            {
+              "no": 30,
+              "file": "ep30.html",
+              "title": {
+                "zh": "水下結構檢查",
+                "en": "Subsea structure inspection",
+                "ja": "水中構造物の点検"
+              },
+              "sub": {
+                "zh": "潛水員與 ROV 分工、海生物附著清除、陰極保護電位量測、焊道近觀檢查、基礎淘刷測深",
+                "en": "Divers and ROVs, marine growth removal, cathodic protection readings, close weld inspection and scour surveys",
+                "ja": "潜水士とROVの役割分担、海洋生物の除去、電気防食電位の測定、溶接部の近接目視、洗掘測深"
+              }
             }
           ]
         },
