@@ -727,6 +727,20 @@
                 "en": "Start-up and grid connection, torque and pitch control regions, yawing, cut-out and typhoon shutdown, brakes and the safety chain",
                 "ja": "起動と系統並列、トルク制御とピッチ制御の領域、ヨーによる風向追従、カットアウトと台風時の停止、ブレーキとセーフティチェーン"
               }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "葉片的空氣動力",
+                "en": "Blade aerodynamics",
+                "ja": "ブレードの空気力学"
+              },
+              "sub": {
+                "zh": "翼型與攻角、升力阻力與升阻比、失速與氣流分離、葉根到葉尖的速度三角形、葉片扭轉角、變槳控制攻角",
+                "en": "Airfoils and angle of attack, lift, drag and L/D, stall and flow separation, velocity triangles from root to tip, blade twist, pitching to control the angle of attack",
+                "ja": "翼型と迎角、揚力・抗力と揚抗比、失速と気流のはく離、翼根から翼端までの速度三角形、ブレードのねじれ角、ピッチ制御による迎角調整"
+              }
             }
           ]
         },

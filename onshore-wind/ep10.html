@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep06.js｜陸域風電系列</title>
+<title>ep10.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep02.html"><span data-zh="← 02 風機如何把風變成電" data-en="← 02 How a wind turbine turns wind into electricity" data-ja="← 02 風車はどうやって風を電気に変えるのか">← 02 風機如何把風變成電</span></a><a href="ep10.html"><span data-zh="10 葉片的空氣動力 →" data-en="10 Blade aerodynamics →" data-ja="10 ブレードの空気力学 →">10 葉片的空氣動力 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep06.html"><span data-zh="← 06 風機的控制與保護" data-en="← 06 Turbine control and protection" data-ja="← 06 風車の制御と保護">← 06 風機的控制與保護</span></a><a href="ep03.html"><span data-zh="03 陸域風場運維 →" data-en="03 Operating and maintaining an onshore wind farm →" data-ja="03 陸上風力発電所の運用・保守 →">03 陸域風場運維 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep06.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep10.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,394 +543,348 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 6 集：風機的控制與保護 */
+/* 陸域風電系列 第 10 集：葉片的空氣動力 */
 const gyy=x=>groundY(x);
-const TX=640,HY=240;                                       // 風機塔架位置與輪轂高度（世界座標）
-const PW=3.6,VCI=3,VR=12,VCO=25,RMAX=15,TSR=8,RAD=60;      // 3.6 MW、切入／額定／切出風速、額定轉速、葉尖速比、轉子半徑（典型範例）
-const DEG=Math.PI/180;
-/* 運轉曲線（示例） */
-const pOf=v=>v<VCI||v>VCO?0:v>=VR?PW:PW*(v*v*v-VCI*VCI*VCI)/(VR*VR*VR-VCI*VCI*VCI);
-const rpmOf=v=>v>VCO?1:v<VCI?v*1.25:Math.min(RMAX,TSR*v/RAD*60/TAU);
-const pitchOf=v=>v<=VR?0:v<=VCO?24*Math.pow((v-VR)/(VCO-VR),.7):lerp(24,90,ease(clamp((v-VCO)/1.5,0,1)));
-const tqOf=v=>{const r=rpmOf(v);return r>0?pOf(v)/PW*RMAX/r*100:0;};
-/* 轉速關鍵影格 [[秒,rpm],…] 的轉角（積分）與內插 */
-function rotAt(t,K){const r0=K[0][1];if(t<=K[0][0])return r0*t*TAU/60;let a=r0*K[0][0];
-  for(let i=1;i<K.length;i++){const [ta,ra]=K[i-1],[tb,rb]=K[i];if(t<=tb){const rt=ra+(rb-ra)*(t-ta)/(tb-ta);a+=(ra+rt)/2*(t-ta);return a*TAU/60;}a+=(ra+rb)/2*(tb-ta);}
-  const L=K[K.length-1];return (a+L[1]*(t-L[0]))*TAU/60;}
-function rpmAt(t,K){if(t<=K[0][0])return K[0][1];for(let i=1;i<K.length;i++){const [ta,ra]=K[i-1],[tb,rb]=K[i];if(t<=tb)return ra+(rb-ra)*(t-ta)/(tb-ta);}return K[K.length-1][1];}
-/* 側視葉片：pitch 越大，側面看到的弦長越寬 */
-function bladeS(hx,hy,a,L,p){const c=Math.cos(a),s=Math.sin(a),dx=s*6,w=3+6*(p||0)/90;
-  poly([hx-w,hy,hx+w,hy,hx+dx+w*.5,hy-c*L,hx+dx-w*.5,hy-c*L],'#f4f6f7','rgba(0,0,0,.35)',1);}
-/* 側視風機；cut：外殼透明度（0 看得到內部），rot：轉子角度，p：槳距角 */
-function turbineSide(rot,cut,p){const g=gyy(TX);
-  poly([TX-18,g,TX-11,HY+36,TX+11,HY+36,TX+18,g],'#eef2f4','rgba(0,0,0,.3)',1);
-  const hx=TX-100;
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)<0)bladeS(hx,HY,a,200,p);}
-  box(TX-80,HY+26,260,10,'#8d989f');
-  box(TX-100,HY-6,110,12,'#9aa3a8','rgba(0,0,0,.4)',1);
-  for(let k=0;k<3;k++){const q=rot+k*TAU/3;if(Math.cos(q)>0)ln([TX-75,HY+5*Math.sin(q),TX+8,HY+5*Math.sin(q)],'rgba(0,0,0,.35)',1.5);}
-  box(TX-64,HY-18,18,36,'#7dc8dc','rgba(0,0,0,.45)',1);
-  box(TX+10,HY-26,75,54,'#6f7a80','rgba(0,0,0,.5)',1.5);
-  box(TX+85,HY-3,26,6,'#9aa3a8');
-  box(TX+90,HY-18,6,36,'#e8572a');
-  box(TX+110,HY-22,60,44,'#58b8d0','rgba(0,0,0,.45)',1);
-  for(let k=0;k<5;k++){const q=rot*12+k*TAU/5;if(Math.cos(q)>0)ln([TX+114,HY+18*Math.sin(q),TX+166,HY+18*Math.sin(q)],'rgba(0,0,0,.25)',2);}
-  box(TX-8,HY+36,16,8,'#394650');                                      // 偏航軸承
-  alphaDo(cut,()=>{rrp(TX-80,HY-32,260,68,8);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();});
-  alphaDo(1-cut,()=>{rrp(TX-80,HY-32,260,68,8);ctx.strokeStyle='rgba(40,50,60,.7)';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);ctx.stroke();ctx.setLineDash([]);});
-  poly([TX-80,HY-26,TX-112,HY-12,TX-118,HY,TX-112,HY+12,TX-80,HY+26],'#dfe5e8','rgba(0,0,0,.35)',1);
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)>=0)bladeS(hx,HY,a,200,p);}
-  metMast(TX+150,HY-32);
-  return {hx,hy:HY};}
-/* 機艙頂的風速計（杯式）與風向計 */
-function metMast(x,y){ln([x,y,x,y-26],'#6f7a80',2);ln([x-14,y-26,x+14,y-26],'#6f7a80',2);
-  const cx=x+14,cy=y-36;ln([cx,y-26,cx,cy],'#6f7a80',1.5);
-  for(let i=0;i<3;i++){const a=TT*6+i*TAU/3;ln([cx,cy,cx+Math.cos(a)*8,cy+Math.sin(a)*2],'#6f7a80',1);circ(cx+Math.cos(a)*8,cy+Math.sin(a)*2,2.6,'#dfe5e8','#394650',1);}
-  const vx=x-14;ln([vx,y-26,vx,y-34],'#6f7a80',1.5);ln([vx-6,y-36,vx+10,y-36],'#6f7a80',1.5);poly([vx+6,y-36,vx+14,y-42,vx+14,y-30],'#dfe5e8','#394650',1);}
-/* 風線 */
-function windLines(y0,y1,n,sp,a,seed,len,col){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
+/* 正視的葉片與風機（沿用第 3、16、17 集） */
+function bladeF(cx,cy,a,L,w){w=w===undefined?1:w;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+  const k=Math.max(.18,w);poly([8,-5*k,8+L*.2,-10*k,8+L,-1.5*k,8+L,1.5*k,8+L*.2,8*k,8,5*k],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
+function turbine(x,gy,H,R,rot,o){o=o||{};const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
+  poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],o.tc||'#eef2f4','rgba(0,0,0,.3)',1);
+  box(x-R*.1,hy-R*.08,R*.2,R*.13,'#e3e8ec','rgba(0,0,0,.3)',1);
+  for(let i=0;i<3;i++)bladeF(x,hy,rot+i*TAU/3-Math.PI/2,R,o.w);
+  circ(x,hy,Math.max(3,R*.07),'#dfe5e8','rgba(0,0,0,.4)',1);return {x,y:hy};}
+function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
   for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
-   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],col||'#ffffff',2));}ctx.lineCap='butt';}
-/* 齒輪 */
-function gearPath(x,y,r,Z,a){const th=Math.max(3,r*.08);
-  for(let i=0;i<=Z*4;i++){const q=a+i*TAU/(Z*4),k=(i%4===1||i%4===2)?1:0,rr=r+(k?th:0)-th*.5,px=x+Math.cos(q)*rr,py=y+Math.sin(q)*rr;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();}
-function gear(x,y,r,Z,a,fill){ctx.beginPath();gearPath(x,y,r,Z,a);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle='#394650';ctx.lineWidth=1.5;ctx.stroke();circ(x,y,r*.25,'#394650');}
-/* 葉片剖面（翼型）：LE 朝向角度 ang */
-function airfoil(x,y,L,ang,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.beginPath();
-  const T=s=>L*.15*5*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);
-  for(let i=0;i<=24;i++){const s=i/24;ctx.lineTo(L/2-s*L,-T(s)-L*.03*Math.sin(Math.PI*s));}
-  for(let i=24;i>=0;i--){const s=i/24;ctx.lineTo(L/2-s*L,T(s)*.7-L*.03*Math.sin(Math.PI*s));}
-  ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle='#13232e';ctx.lineWidth=2;ctx.stroke();ctx.restore();}
-/* 沿折線的位置與流動點 */
-function along(P,f){let L=0;const S=[];for(let i=2;i<P.length;i+=2){const d=Math.hypot(P[i]-P[i-2],P[i+1]-P[i-1]);S.push(d);L+=d;}
-  let t=((f%1)+1)%1*L;for(let i=0;i<S.length;i++){if(t<=S[i]){const k=t/S[i];return [lerp(P[i*2],P[i*2+2],k),lerp(P[i*2+1],P[i*2+3],k)];}t-=S[i];}return [P[P.length-2],P[P.length-1]];}
-function flow(P,n,sp,col,r){for(let i=0;i<n;i++){const [x,y]=along(P,TT*sp+i/n);circ(x,y,r||4,col);}}
-/* 塔底控制櫃、遠端監控中心、路樹 */
-function baseCab(){const g=gyy(TX),bx=TX+36;box(bx,g-46,70,46,'#dfe5e8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)ln([bx+10,g-36+i*10,bx+60,g-36+i*10],'rgba(0,0,0,.2)',2);circ(bx+62,g-40,3,'#7dffc4');}
-function ctrlRoom(x){const g=gyy(x);box(x-60,g-64,120,64,'#dfe5e8','rgba(0,0,0,.3)',1);poly([x-68,g-64,x,g-92,x+68,g-64],'#9aa3a8');
-  for(let i=0;i<3;i++)box(x-44+i*32,g-48,22,18,'#16384c');ln([x+40,g-92,x+40,g-130],'#6f7a80',2);}
-function tree(x,b){const g=gyy(x);ln([x,g,x+b*.3,g-40,x+b,g-72],'#5b4632',5);circ(x+b*1.1,g-84,24,'#3f6b45');circ(x+b*1.2-16,g-72,17,'#4a7a50');}
-function rain(a){if(a<=0)return;const r=rng(11);alphaDo(a,()=>{for(let i=0;i<140;i++){const x0=VX0-300+r()*(VX1-VX0+600),y=((r()*1000+TT*800)%1000)-100,x=x0+(y*.45);ln([x,y,x+12,y+24],'rgba(205,222,235,.45)',1.5);}});}
+   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
+/* 第一支葉片上 f 比例位置（0 葉根、1 葉尖） */
+function bladePt(T,rot,R,f){const a=rot-Math.PI/2,d=8+R*f;return {x:T.x+Math.cos(a)*d,y:T.y+Math.sin(a)*d};}
+const STC=['#ff9d7a','#f2c230','#7dffc4'];
+/* 翼型：以 1/4 弦長為轉軸，ang 為度數（正值機頭朝上） */
+function foil(cx,cy,c,t,ang,fill,st,m){m=m===undefined?.035:m;ctx.save();ctx.translate(cx,cy);ctx.rotate(ang*Math.PI/180);
+  const N=36,yt=x=>5*t*c*(.2969*Math.sqrt(x)-.126*x-.3516*x*x+.2843*x*x*x-.1015*x*x*x*x),yc=x=>4*m*c*x*(1-x),X=x=>(x-.25)*c;
+  ctx.beginPath();for(let i=0;i<=N;i++){const x=(1-Math.cos(Math.PI*(N-i)/N))/2;ctx.lineTo(X(x),-yc(x)-yt(x));}
+  for(let i=1;i<=N;i++){const x=(1-Math.cos(Math.PI*i/N))/2;ctx.lineTo(X(x),-yc(x)+yt(x));}
+  ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(st){ctx.strokeStyle=st;ctx.lineWidth=2;ctx.stroke();}ctx.restore();}
+function fpt(cx,cy,c,ang,x,y){const a=ang*Math.PI/180,lx=(x-.25)*c;return {x:cx+lx*Math.cos(a)-y*Math.sin(a),y:cy+lx*Math.sin(a)+y*Math.cos(a)};}
+/* 示例翼型特性：升力係數、阻力係數（典型範例，非特定翼型） */
+function Cl(a){if(a<11)return .11*(a+2);if(a<14)return 1.43+.12*Math.sin((a-11)/3*Math.PI/2);return 1.55-.5*ease(clamp((a-14)/6,0,1));}
+function Cd(a){let d=.006+.0001*(a-1)*(a-1);if(a>12)d+=.003*(a-12)*(a-12);return d;}
+/* 流線：sep 為失速程度 0–1 */
+function streamY(x,y0,cl,sep){const D=Math.exp(-Math.abs(y0)/170),up=y0<0?1-.7*sep:1;
+  return y0-34*cl*D*up*Math.exp(-Math.pow((x+30)/130,2))+14*cl*D*(1-.5*sep)/(1+Math.exp(-(x-90)/45));}
+function streams(cx,cy,al,sep,a,R){const cl=Cl(al);R=R||[-160,-115,-72,100,140,180];
+  alphaDo(a,()=>{R.forEach((y0,k)=>{const P=[];for(let x=-320;x<=330;x+=10)P.push(cx+x,cy+streamY(x,y0,cl,sep));
+    ln(P,'rgba(125,200,220,.35)',1.5);
+    for(let j=0;j<4;j++){const x=-320+((TT*160+j*165+k*53)%650);const y=cy+streamY(x,y0,cl,sep);
+     if(!(y0<0&&sep>.3&&x>40))ln([cx+x-14,y,cx+x,cy+streamY(x+14,y0,cl,sep)],'#7dc8dc',2.5);}});});}
+/* 失速渦流 */
+function vortices(cx,cy,c,ang,s){if(s<=0)return;alphaDo(s,()=>{[[.45,-.13,16],[.68,-.16,22],[.92,-.14,26],[1.15,-.08,22]].forEach(([fx,fy,r],i)=>{
+  const p=fpt(cx,cy,c,ang,fx,fy*c);const a0=TT*(3+i*.4)+i;ctx.beginPath();ctx.arc(p.x,p.y,r,a0,a0+4.6);ctx.strokeStyle='#ff9d7a';ctx.lineWidth=2.5;ctx.stroke();
+  ctx.beginPath();ctx.arc(p.x,p.y,r*.5,a0+2,a0+6);ctx.stroke();});});}
+/* 卡片內的一列：標籤＋數值 */
+function rowK(x,y,label,val,col,w){wt(x,y,label,18,'rgba(227,236,238,.85)',600);wt(x+w,y,val,22,col,700,'right',COND);}
+/* 速度三角形：轉速 13 rpm、轉子處軸向風速 6 m/s（來流 9 m/s 的 2/3） */
+const OM=13*TAU/60,VAX=6;
+const phiR=r=>Math.atan(VAX/(OM*r))*180/Math.PI;
+const AD=6;
 
-const EP={no:6,slug:'onshore-wind',seriesName:'陸域風電系列',t:'風機的控制與保護',en:'Turbine control and protection',
-lede:'風機多半無人看守，卻能自己起動、併網、追風、在颱風來時停機自保。這一集看控制器如何依風速切換轉矩與變槳控制、偏航系統怎麼對風，以及順槳與剎車組成的保護機制。',
-facts:[['3','m/s','切入風速：風速持續高於此值，風機才起動併聯（示例）'],
-['≈ 12','m/s','額定風速：以上改由變槳控制，功率維持額定（示例）'],
-['25','m/s','切出風速：10 分鐘平均超過此值即順槳停機（典型值）'],
-['≈ 90','°','順槳角度：葉片像風標一樣對著風，受力最小'],
-['57','m/s','IEC 61400-1 第 4 版 T 級（颱風級）參考風速，10 分鐘平均、50 年回歸期'],
-['2','套','獨立剎車：葉片變槳的氣動剎車與高速軸機械碟剎（常見設計）']],
-note:'說明：本集為教育用途示意動畫，機艙與設備比例經過簡化，偏航與停機動作的時間已壓縮。切入 3 m/s、額定約 12 m/s、切出 25 m/s 為大型變槳變速風機的典型值（例如 NREL 5 MW 參考風機為 3、11.4、25 m/s）；區間 2 以發電機轉矩追蹤最佳葉尖速比、區間 3 以變槳維持額定功率，為變速變槳風機的一般控制架構；IEC 61400-1 第 4 版新增 T 級，參考風速 57 m/s；颱風時順槳空轉並維持偏航對風、氣動與機械兩套剎車為常見設計。額定 3.6 MW、轉子半徑 60 m、葉尖速比 8、偏航觸發約 8°、偏航速度約每秒 0.5°、各時間軸、轉速與槳距角數值皆為典型範例，並非特定機型或案場資料。',
-base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:false});drawGround();},
+const EP={no:10,slug:'onshore-wind',seriesName:'陸域風電系列',t:'葉片的空氣動力',en:'Blade aerodynamics',
+lede:'葉片為什麼要做成又長又扭的形狀？這一集把葉片切成一片片翼型，看攻角如何決定升力與阻力、攻角太大為什麼會失速，再用葉根到葉尖的速度三角形解釋葉片的扭轉角，最後看變槳系統如何控制攻角。',
+facts:[['6','°','典型的設計攻角：翼型升阻比最高的附近（示例）'],
+['100+','L/D','乾淨翼型在設計攻角附近，升力可達阻力的 100 倍以上（示例）'],
+['12–16','°','常見風機翼型開始失速的攻角範圍（示例）'],
+['82','m/s','葉尖速度示例：60 m 葉片每分鐘 13 轉'],
+['2/3','倍','依貝茲理論，理想轉子處的風速約降為來流的三分之二'],
+['13.3','°','NREL 5 MW 參考風機葉片從葉根到葉尖的扭轉角']],
+note:'說明：本集為教育用途示意動畫，風機、葉片與翼型的比例經過調整，流線與渦流為示意繪製，阻力向量放大顯示。翼型的升力係數、阻力係數、升阻比曲線與失速角度為典型範例，並非特定翼型的風洞資料；實際數值依翼型、雷諾數與表面粗糙度而定。速度三角形以 60 m 葉片、每分鐘 13 轉、來流 9 m/s，並依貝茲理論取轉子處風速為來流的三分之二計算，忽略切向誘導速度；扭轉角 13.3° 引自 NREL 5 MW 參考風機定義（Jonkman 等，NREL/TP-500-38060，2009）。額定風速、槳距角與輸出功率為示例，實際依機型而定。',
+base:()=>{landSky(GY,{sun:{x:1240,y:150},clouds:false});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 風機的大腦 */
-{t:'風機的大腦',en:'The brain of a turbine',dur:13,side:true,
- d:'一部陸域風機大部分時間都在無人看守下自動運轉，靠的是機艙與塔底的控制系統。機艙頂端的風速計與風向計持續量測，控制器依據風況決定何時起動、葉片要轉到什麼角度、發電機要施加多少轉矩，以及機艙是否要轉向對風。轉速、溫度、振動等上百個訊號同時被監看，資料經由 SCADA 系統傳回遠端監控中心；一旦超出安全範圍，保護系統會自動讓風機停機。',
- s:[[0,'風機一直在量風、判斷、動作'],[.28,'機艙頂的風速計與風向計持續量測'],[.5,'控制器調整變槳、轉矩與偏航'],[.75,'運轉資料即時傳回遠端監控中心']],
- cam:u=>{const A={x:800,y:420,s:1},B={x:TX+10,y:HY+10,s:2.2};return u<.6?camMix(A,B,ease(seg(u,.24,.38))):camMix(B,A,ease(seg(u,.66,.78)));},
+/* 1 ─────────────────────────────── 一串翼型 */
+{t:'一支葉片，一串翼型',en:'A blade is a stack of airfoils',dur:13,side:true,
+ d:'從地面看，風機葉片像一片細長的板子，但沿著葉長任何一處切開，剖面都是一個翼型，和飛機機翼的原理相同。葉根靠近輪轂，剖面厚而寬，要承受整支葉片的彎矩；越往葉尖，翼型越薄、弦長越窄，角度也一路扭轉。以長約 60 公尺、每分鐘 13 轉的葉片為例，葉尖速度約 82 m/s，葉根附近卻只有十幾 m/s。同一支葉片上，每一段遇到的氣流其實都不一樣。',
+ s:[[0,'風場裡的葉片，看起來像一片細長的板子'],[.26,'沿葉長任何一處切開，剖面都是翼型'],[.52,'葉根厚而寬，葉尖薄而窄，角度也一路扭轉'],[.76,'越往外轉得越快，每一段遇到的氣流都不同']],
  draw(u){
-  windLines(120,560,18,240,.9,5,60);
-  turbineSide(TT*12*TAU/60,1,0);
-  baseCab();ctrlRoom(1250);
-  const g=gyy(TX);
-  alphaDo(seg(u,.76,.82),()=>{ctx.setLineDash([8,6]);ln([TX+71,g-46,TX+71,g-80,1290,gyy(1250)-130],'#7dffc4',2);ctx.setLineDash([]);
-   for(let i=0;i<3;i++){const k=((TT*.8+i/3)%1);alphaDo(1-k,()=>{ctx.beginPath();ctx.arc(1290,gyy(1250)-130,8+k*40,-2.4,-.7);ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.stroke();});}});
-  lab(TX+50,HY-32,'機艙',{dx:60,dy:-70,st:'l',a:band(u,.03,.22)});
-  lab(TX+71,g-46,'塔底控制櫃',{dx:90,dy:-60,st:'l',a:band(u,.05,.24)});
-  lab(TX+164,HY-68,'風速計',{dx:-100,dy:-70,st:'s',a:band(u,.36,.62)});
-  lab(TX+136,HY-72,'風向計',{dx:-190,dy:-40,st:'s',a:band(u,.4,.62)});
-  lab(TX-104,HY-10,'變槳系統（輪轂內）',{dx:-40,dy:110,st:'g',a:band(u,.46,.64)});
-  lab(TX,HY+40,'偏航系統',{dx:90,dy:80,st:'g',a:band(u,.5,.64)});
-  lab(TX+71,g-46,'主控制器（PLC）',{dx:90,dy:-70,st:'s',a:band(u,.8,1)});
-  lab(1250,gyy(1250)-80,'SCADA 遠端監控',{dx:-20,dy:-90,st:'g',a:band(u,.82,1)});
+  turbine(130,gyy(130),170,80,TT*1.1+.4);turbine(290,gyy(290),150,70,TT*1.2+1.9);
+  const rot=TT*1.0+.3,T=turbine(760,gyy(760),290,200,rot);
+  windLines(120,540,10,150,.5,5,50);
+  [.15,.5,.93].forEach((f,i)=>{const p=bladePt(T,rot,200,f);alphaDo(seg(u,.26+i*.06,.3+i*.06),()=>{circ(p.x,p.y,8,STC[i],'#13232e',2);});});
+  const mp=bladePt(T,rot,200,.6);
+  lab(mp.x,mp.y,'葉片長約 60 m',{dx:120,dy:-40,st:'l',a:band(u,.04,.26)});
+  lab(T.x,T.y,'輪轂',{dx:-110,dy:-50,a:band(u,.04,.26)});
+  /* 剖面卡 */
+  const ca=seg(u,.26,.32);if(ca>0)alphaDo(ca,()=>{card(920,360,620,330,{bg:'rgba(7,27,39,.86)'});wt(944,398,'切開葉片的剖面（示意）',20,'#f2c230',700);
+   const SEC=[[1040,170,.36,16,'葉根','厚而寬'],[1250,120,.22,5,'葉中','中等厚度'],[1440,70,.15,0,'葉尖','薄而窄']];
+   SEC.forEach(([x,c,t,ang,n,s],i)=>alphaDo(seg(u,.3+i*.08,.36+i*.08),()=>{const tw=lerp(0,ang,ease(seg(u,.52,.66)));
+    foil(x,520,c,t,tw,'#e9eef1','rgba(0,0,0,.4)');circ(x-c*.25-14,520,6,STC[i]);
+    wt(x,620,n,19,STC[i],700,'center');wt(x,652,s,16,'rgba(227,236,238,.85)',600,'center');}));
+   alphaDo(seg(u,.56,.62),()=>{arrow(1030,460,1460,460,'rgba(242,194,48,.7)',2);wt(1245,450,'扭轉角漸小',16,'#f2c230',700,'center');});});
  },
- hud(u){hudPanel(250,182,'風機狀態（示例）',seg(u,.05,.1),w=>{const v=9.2+.6*nz(TT*.5);
-  hrow(56,'風速',trf('{n} m/s',{n:v.toFixed(1)}),w,'#fff');hrow(88,'運轉狀態','併網發電',w,'#7dffc4');
-  hrow(120,'槳距角','0°',w,'#f2c230');hrow(152,'輸出功率',trf('{p} MW',{p:pOf(v).toFixed(2)}),w,'#f2c230');});}},
+ hud(u){hudPanel(250,150,'運轉狀態（示例）',seg(u,.06,.12),w=>{const ws=9+.4*nz(TT*.4);
+  hrow(56,'風速',trf('{v} m/s',{v:ws.toFixed(1)}),w,'#7dffc4');hrow(88,'轉速','13 rpm',w,'#fff');
+  hrow(120,'葉尖速度','82 m/s',w,'#f2c230');});}},
 
-/* 2 ─────────────────────────────── 起動與併聯 */
-{t:'從靜止到併聯',en:'From standstill to grid connection',dur:14,
- d:'風機從靜止到發電要經過一連串條件判斷。控制器先完成自我檢測，確認電網、油溫與各系統正常；接著確認風速在數分鐘內持續高於切入風速（示例 3 m/s），並讓機艙偏航對準風向。停機時葉片是順槳的，約 90°；起動時變槳系統把葉片轉到起動角度，讓轉子開始加速。當發電機轉速進入可併聯的範圍，變流器讓輸出與 60 Hz 電網同步，併聯開關才閉合，風機開始送電。',
- s:[[0,'併聯前先自我檢測、確認風況'],[.28,'偏航對風，葉片從順槳轉到起動角度'],[.46,'轉子加速到發電機的併聯轉速'],[.68,'併聯開關閉合，開始送電']],
+/* 2 ─────────────────────────────── 攻角、升力與阻力 */
+{t:'攻角、升力與阻力',en:'Angle of attack, lift and drag',dur:14,
+ d:'翼型弦線與迎面氣流之間的夾角稱為攻角（α）。氣流流過翼型，上表面流速較快、壓力較低，下表面壓力較高，產生垂直於來流的升力，同時也有與來流同向的阻力。攻角越大升力越大，但阻力也跟著增加。風機翼型追求的是升力與阻力的比值，也就是升阻比（L/D）：乾淨的翼型在約 6° 的設計攻角附近，升阻比可達 100 以上，這是葉片設計時瞄準的工作點。',
+ s:[[0,'翼型弦線與來流的夾角，就是攻角'],[.26,'上表面壓力低、下表面壓力高，產生升力'],[.5,'攻角加大，升力增加，阻力也跟著變大'],[.76,'約 6° 時升阻比最高，是葉片的設計工作點']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'起動程序（示例）',20,'#f2c230',700);
-  const ST=['自我檢測：電網、油溫、各系統','風速 > 3 m/s 持續數分鐘','偏航：機艙對準風向','變槳：90° → 起動角度','轉子加速到併聯轉速','與 60 Hz 同步，併聯開關閉合'],T0=[.04,.16,.26,.34,.46,.66];
-  let cur=-1;T0.forEach((t,i)=>{if(u>=t)cur=i;});
-  ST.forEach((s,i)=>{const y=236+i*90,on=u>=T0[i],a=on?1:.35;alphaDo(a,()=>{
-   const c=i<cur?'#7dffc4':i===cur?'#f2c230':'rgba(227,236,238,.6)';
-   box(84,y,652,68,i===cur?'rgba(242,194,48,.12)':'rgba(255,255,255,.04)',c,i===cur?2.5:1);
-   circ(122,y+34,20,i<cur?'#7dffc4':'#16384c',c,2);wt(122,y+42,i<cur?'✓':String(i+1),20,i<cur?'#13232e':c,800,'center',COND);
-   wt(160,y+42,s,19,'#fff',i===cur?700:600);});
-   if(i<5)alphaDo(a*.6,()=>ln([122,y+54,122,y+90],'rgba(227,236,238,.4)',2));});
-  /* 右：時間圖 */
-  const C=chartBox(800,160,740,640,{title:'起動過程的變化（示例）',x0:0,x1:120,y0:0,y1:110,xt:[0,30,60,90,120],yt:[0,50,100],xl:'時間 s',yl:'相對值 %',pl:80,pt:110,pb:70,gx:4,gy:2});
-  const tc=120*seg(u,.1,.9);
-  const S=[['槳距角','#f2c230',t=>t<35?100:t<60?lerp(100,4,ease((t-35)/25)):4],
-   ['轉子轉速','#7dffc4',t=>t<38?2:t<85?lerp(2,100,easeOut((t-38)/47)):100],
-   ['輸出功率','#ff9d7a',t=>t<85?0:lerp(0,38,easeOut(Math.min(1,(t-85)/30)))]];
-  S.forEach(([n,c,f],i)=>{wt(C.px+160+i*170,C.py-18,n,16,c,700);box(C.px+140+i*170,C.py-26,14,4,c);
-   if(tc>0){ctx.beginPath();for(let k=0;k<=80;k++){const t=tc*k/80;const x=C.X(t),y=C.Y(f(t));k?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.strokeStyle=c;ctx.lineWidth=3;ctx.stroke();circ(C.X(tc),C.Y(f(tc)),6,c,'#13232e',1.5);}});
-  alphaDo(seg(u,.66,.7),()=>{ctx.setLineDash([7,6]);ln([C.X(85),C.py,C.X(85),C.py+C.ph],'#fff',2);ctx.setLineDash([]);tag(C.X(85),C.py+30,'併聯',{size:16,bg:'#7dffc4',align:'center'});});
-  alphaDo(seg(u,.3,.36),()=>wt(C.X(47),C.Y(78),'葉片轉離順槳',16,'#f2c230',700,'center'));
+  const al=lerp(0,AD,ease(seg(u,.1,.28)))+lerp(0,4,ease(seg(u,.52,.64)))-lerp(0,4,ease(seg(u,.82,.92)));
+  const cl=Cl(al),cd=Cd(al);
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'翼型受力（剖面示意）',20,'#f2c230',700);
+  const cx=380,cy=420,c=340;
+  ctx.save();rrp(62,214,696,400,10);ctx.clip();streams(cx,cy,al,0,1,[-150,-108,-70,95,135,175]);ctx.restore();
+  /* 低壓、高壓區 */
+  alphaDo(seg(u,.26,.32)*.8,()=>{const p=fpt(cx,cy,c,al,.3,-70),q=fpt(cx,cy,c,al,.68,78);
+   wt(p.x,p.y,'低壓',17,'#7dc8dc',700,'center');wt(q.x,q.y,'高壓',17,'#ff9d7a',700,'center');});
+  foil(cx,cy,c,.15,al,'#e9eef1','rgba(0,0,0,.4)');
+  /* 弦線、來流方向與攻角 */
+  const le=fpt(cx,cy,c,al,0,0),te=fpt(cx,cy,c,al,1,0);
+  ctx.setLineDash([6,5]);ln([le.x-40*Math.cos(al*Math.PI/180),le.y-40*Math.sin(al*Math.PI/180),te.x,te.y],'rgba(242,194,48,.85)',1.5);
+  ln([le.x-40,le.y,le.x+250,le.y],'rgba(227,236,238,.6)',1.5);ctx.setLineDash([]);
+  if(al>.3){ctx.beginPath();ctx.arc(le.x,le.y,190,0,al*Math.PI/180);ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.stroke();}
+  wt(730,250,trf('α = {a}°',{a:al.toFixed(1)}),26,'#f2c230',700,'right',COND);
+  arrow(90,le.y,170,le.y,'#7dc8dc',3);wt(90,le.y-14,'來流',16,'#7dc8dc',700);
+  /* 升力與阻力 */
+  const ac=fpt(cx,cy,c,al,.25,0);
+  alphaDo(seg(u,.28,.34),()=>{const L=cl*150;arrow(ac.x,ac.y,ac.x,ac.y-L,'#7dffc4',4);wt(ac.x+12,ac.y-L+8,'升力',18,'#7dffc4',700);
+   const Dg=Math.max(22,cd*150*10);arrow(ac.x,ac.y,ac.x+Dg,ac.y,'#ff9d7a',4);});
+  alphaDo(seg(u,.28,.34),()=>wt(ac.x-30,ac.y+56,'阻力（放大 10 倍）',15,'#ff9d7a',700,'right'));
+  /* 數值 */
+  rowK(90,664,'升力係數 CL',cl.toFixed(2),'#7dffc4',640);rowK(90,710,'阻力係數 CD',cd.toFixed(4),'#ff9d7a',640);
+  rowK(90,756,'升阻比 L/D',Math.round(cl/cd).toString(),'#f2c230',640);
+  /* 右：兩張圖 */
+  const A=chartBox(800,160,740,310,{title:'升力係數與攻角（示例）',x0:0,x1:20,y0:0,y1:1.8,xt:[0,5,10,15,20],yt:[0,.5,1,1.5],xl:'攻角 α（°）',yl:'CL',pl:70,pt:64,pb:58,gx:4,gy:3});
+  const g=ease(seg(u,.04,.24));ctx.beginPath();for(let a=0;a<=20*g;a+=.25){const y=A.Y(Cl(a));a?ctx.lineTo(A.X(a),y):ctx.moveTo(A.X(a),y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3;ctx.stroke();
+  circ(A.X(al),A.Y(cl),8,'#f2c230','#13232e',2);
+  const B=chartBox(800,490,740,310,{title:'升阻比與攻角（示例）',x0:0,x1:20,y0:0,y1:120,xt:[0,5,10,15,20],yt:[0,40,80,120],xl:'攻角 α（°）',yl:'L/D',pl:70,pt:64,pb:58,gx:4,gy:3});
+  const g2=ease(seg(u,.5,.7));ctx.beginPath();for(let a=0;a<=20*g2;a+=.25){const y=B.Y(Cl(a)/Cd(a));a?ctx.lineTo(B.X(a),y):ctx.moveTo(B.X(a),y);}ctx.strokeStyle='#f2c230';ctx.lineWidth=3;ctx.stroke();
+  if(g2>0)circ(B.X(al),B.Y(cl/cd),8,'#f2c230','#13232e',2);
+  alphaDo(seg(u,.76,.82),()=>{ctx.setLineDash([5,5]);ln([B.X(6),B.Y(0),B.X(6),B.Y(118)],'rgba(242,194,48,.7)',1.5);ctx.setLineDash([]);
+   tag(B.X(6)+16,B.Y(112),'設計攻角約 6°',{size:16,bg:'#f2c230'});});
  }},
 
-/* 3 ─────────────────────────────── 運轉區間 */
-{t:'四個運轉區間',en:'Four operating regions',dur:14,
- d:'風機依風速分成幾個運轉區間。低於切入風速時，風能太少，風機待機空轉。區間 2 從切入到額定風速，葉片維持在最佳角度，控制器調整發電機轉矩，讓轉速跟著風速變化，保持最佳葉尖速比（示例約 8），盡量接近最大功率係數。超過額定風速後進入區間 3，改由變槳控制：葉片轉大角度，減少吸收的風能，讓轉速與功率維持在額定值。風速超過切出風速（典型 25 m/s），風機順槳停機。',
- s:[[0,'風速低於 3 m/s：待機，不發電'],[.25,'區間 2：調整發電機轉矩，追最大效率'],[.5,'區間 3：葉片變槳，功率維持額定'],[.78,'超過 25 m/s：順槳停機保護']],
+/* 3 ─────────────────────────────── 速度三角形 */
+{t:'葉根到葉尖的速度三角形',en:'Velocity triangles from root to tip',dur:14,side:true,
+ d:'葉片感受到的是相對風，由兩個速度合成：一是穿過轉子的風，依貝茲理論在轉子處約降為來流的三分之二，例如 9 m/s 的風剩下約 6 m/s；二是葉片本身運動造成的迎面風，大小等於該處的線速度。葉根 r = 10 m 處線速度約 14 m/s，相對風與旋轉面的夾角約 24°；到了葉尖 r = 60 m，線速度約 82 m/s，相對風幾乎貼著旋轉面吹來，夾角只剩約 4°。',
+ s:[[0,'相對風＝穿過轉子的風＋葉片運動的迎面風'],[.24,'葉根轉得慢，相對風斜斜地吹來，約 24°'],[.5,'越往外線速度越大，相對風越貼近旋轉面'],[.74,'要維持相同攻角，每一段葉片都得轉到不同角度']],
+ draw(u){
+  const rot=TT*1.0+.3,T=turbine(380,gyy(380),250,170,rot);
+  windLines(120,540,8,150,.45,7,50);
+  const RS=[10,30,60],NM=['葉根','葉中','葉尖'];
+  RS.forEach((r,i)=>{const a=seg(u,.06+i*.2,.12+i*.2);if(a<=0)return;const p=bladePt(T,rot,170,r/60*.95);alphaDo(a,()=>circ(p.x,p.y,8,STC[i],'#13232e',2));
+   const y=150+i*205;alphaDo(a,()=>{card(700,y,840,190,{bg:'rgba(7,27,39,.86)'});
+    wt(724,y+36,NM[i],20,STC[i],700);wt(724+wtw(NM[i],20,700)+14,y+36,trf('r = {r} m',{r}),18,'rgba(227,236,238,.85)',600,'left',COND);
+    const k=4.4,vt=OM*r,x0=740,y0=y+76,x1=x0+vt*k,y1=y0+VAX*k,ph=phiR(r);
+    arrow(x0,y0,x1,y0,'#7dc8dc',3);arrow(x1,y0,x1,y1,'#7dffc4',3);arrow(x0,y0,x1,y1,'#f2c230',4);
+    ctx.beginPath();ctx.arc(x0,y0,Math.min(90,vt*k*.6),0,ph*Math.PI/180);ctx.strokeStyle='rgba(242,194,48,.8)';ctx.lineWidth=1.5;ctx.stroke();
+    const tx=1180;rowK(tx,y+80,'葉片速度',trf('{v} m/s',{v:vt.toFixed(1)}),'#7dc8dc',330);
+    rowK(tx,y+118,'軸向風速','6.0 m/s','#7dffc4',330);rowK(tx,y+156,'相對風角 φ',trf('{p}°',{p:ph.toFixed(1)}),'#f2c230',330);
+    /* 對應的翼型角度 */
+    alphaDo(seg(u,.74,.82),()=>{const th=ph-AD;foil(800,y+142,110,.12+.06*(2-i),th,'#e9eef1','rgba(0,0,0,.4)');
+     wt(880,y+148,trf('安裝角 {t}°',{t:th.toFixed(1)}),16,'#fff',700);});});});
+  alphaDo(band(u,.04,.3),()=>{lab(T.x,T.y+120,'旋轉面',{dx:-90,dy:40,st:'l'});});
+ }},
+
+/* 4 ─────────────────────────────── 扭轉角 */
+{t:'葉片為什麼要扭轉',en:'Why the blade is twisted',dur:14,
+ d:'既然相對風角從葉根的約 24° 一路降到葉尖的約 4°，若葉片是一片平直的板子，葉根的攻角會大到失速，葉尖卻只剩很小的升力。所以葉片沿長度扭轉：每一段的安裝角等於相對風角減去設計攻角，讓整支葉片都在約 6° 的攻角附近工作。理想的扭轉在葉根附近變化最急，實際葉片還要兼顧結構與製造，例如 NREL 5 MW 參考風機從葉根到葉尖扭轉 13.3°。',
+ s:[[0,'相對風角從葉根到葉尖一路變小'],[.28,'安裝角＝相對風角－設計攻角'],[.52,'不扭轉的葉片：葉根失速，葉尖幾乎沒有升力'],[.74,'扭轉之後，整支葉片都在設計攻角附近工作']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,860,640,{title:'功率曲線與運轉區間（示例）',x0:0,x1:30,y0:0,y1:4.5,xt:[0,3,12,25,30],yt:[0,1,2,3,4],xl:'風速 m/s',yl:'功率 MW',pl:80,pt:70,pb:70,gx:6,gy:4});
-  const v=28*seg(u,.06,.86);
-  const RG=[[0,VCI,'區間 1','rgba(227,236,238,.06)','rgba(227,236,238,.8)'],[VCI,VR,'區間 2','rgba(125,255,196,.08)','#7dffc4'],[VR,VCO,'區間 3','rgba(242,194,48,.08)','#f2c230'],[VCO,30,'切出','rgba(232,87,42,.1)','#ff9d7a']];
-  RG.forEach(([a,b,n,f,c])=>{box(C.X(a),C.py,C.X(b)-C.X(a),C.ph,f);wt((C.X(a)+C.X(b))/2,C.py+28,n,17,c,700,'center');});
-  ctx.beginPath();for(let k=0;k<=280;k++){const x=v*k/280;const px=C.X(x),py=C.Y(pOf(x));k?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.strokeStyle='#f2c230';ctx.lineWidth=3.5;ctx.stroke();
-  ctx.setLineDash([6,6]);ln([C.X(v),C.py+40,C.X(v),C.py+C.ph],'rgba(255,255,255,.5)',1.5);ctx.setLineDash([]);
-  circ(C.X(v),C.Y(pOf(v)),8,'#7dffc4','#13232e',2);
-  wt(C.X(v),C.Y(pOf(v))-18,trf('{n} m/s',{n:v.toFixed(1)}),18,'#fff',700,'center',COND);
-  /* 右：控制器正在做什麼 */
-  card(960,160,580,640,{bg:'rgba(7,27,39,.75)'});wt(984,200,'控制器正在做什麼',20,'#f2c230',700);
-  const md=v<VCI?['待機空轉','#dfe5e8']:v<VR?['轉矩控制：追最大效率','#7dffc4']:v<=VCO?['變槳控制：維持額定','#f2c230']:['順槳停機','#e8572a'];
-  tag(1250,248,md[0],{size:18,bg:md[1],align:'center'});
-  const p=pitchOf(v),ay=390;
-  ctx.setLineDash([6,6]);ln([1250,300,1250,480],'rgba(227,236,238,.4)',1.5);ctx.setLineDash([]);
-  wt(1262,318,'旋轉平面',15,'rgba(227,236,238,.7)',600,'left');
-  for(let i=0;i<3;i++){const y=350+i*40,x=1000+((TT*60+i*30)%60);arrow(x,y,x+70,y,'rgba(125,200,220,.8)',2.5);}
-  wt(1030,480,'風',17,'#7dc8dc',700,'center');
-  airfoil(1250,ay,170,-Math.PI/2-p*DEG,'#dfe5e8');
-  arrow(1430,450,1430,330,'rgba(227,236,238,.6)',2);wt(1442,400,'旋轉方向',15,'rgba(227,236,238,.7)',600,'left');
-  wt(1250,510,trf('槳距角 {n}°',{n:p.toFixed(0)}),22,'#f2c230',700,'center',COND);
-  const R=[['轉子轉速',rpmOf(v)/RMAX,trf('{n} rpm',{n:rpmOf(v).toFixed(1)}),'#7dffc4'],['發電機轉矩',Math.min(1,tqOf(v)/100),trf('{n} %',{n:tqOf(v).toFixed(0)}),'#ff9d7a'],['槳距角',p/90,trf('{n}°',{n:p.toFixed(0)}),'#f2c230'],['輸出功率',pOf(v)/PW,trf('{p} MW',{p:pOf(v).toFixed(2)}),'#f2c230']];
-  R.forEach(([n,f,s,c],i)=>{const y=560+i*58;wt(984,y+18,n,17,'rgba(227,236,238,.85)',600);box(1150,y+4,240,16,'rgba(255,255,255,.08)');box(1150,y+4,240*clamp(f,0,1),16,c);wt(1516,y+20,s,19,c,700,'right',COND);});
+  const C=chartBox(60,160,700,640,{title:'沿葉長的角度變化（示例）',x0:0,x1:60,y0:-5,y1:35,xt:[0,10,20,30,40,50,60],yt:[0,10,20,30],xl:'距轉軸 r（m）',yl:'角度（°）',pl:76,pt:74,pb:70,gx:6,gy:4});
+  ln([C.X(0),C.Y(0),C.X(60),C.Y(0)],'rgba(255,255,255,.35)',1);
+  const draw1=(f,col,g)=>{if(g<=0)return;ctx.beginPath();for(let r=7;r<=7+53*g;r+=.5){const y=C.Y(f(r));r>7?ctx.lineTo(C.X(r),y):ctx.moveTo(C.X(r),y);}ctx.strokeStyle=col;ctx.lineWidth=3.5;ctx.stroke();};
+  draw1(phiR,'#f2c230',ease(seg(u,.04,.26)));draw1(r=>phiR(r)-AD,'#7dffc4',ease(seg(u,.28,.46)));
+  alphaDo(seg(u,.2,.26),()=>{circ(C.X(9),C.Y(31),6,'#f2c230');wt(C.X(9)+14,C.Y(31)+6,'相對風角 φ',17,'#f2c230',700);});
+  alphaDo(seg(u,.42,.48),()=>{circ(C.X(9),C.Y(27),6,'#7dffc4');wt(C.X(9)+14,C.Y(27)+6,'安裝角 θ = φ − 6°',17,'#7dffc4',700);
+   arrow(C.X(20),C.Y(phiR(20)-AD),C.X(20),C.Y(phiR(20)),'rgba(227,236,238,.8)',2,8);wt(C.X(20)+10,C.Y(phiR(20)-AD/2)+6,'α = 6°',16,'#fff',700,'left',COND);});
+  /* 右上：不扭轉 vs 扭轉 */
+  card(800,160,740,330,{bg:'rgba(7,27,39,.75)'});
+  const tw=ease(seg(u,.7,.8)),as=seg(u,.5,.56);
+  wt(824,200,tw<.5?'葉片不扭轉時':'葉片扭轉後',20,tw<.5?'#ff9d7a':'#7dffc4',700);
+  if(as>0)alphaDo(as,()=>{[10,30,60].forEach((r,i)=>{const x=920+i*230,y=330,ph=phiR(r),th=lerp(phiR(60)-AD,ph-AD,tw),al=ph-th;
+   const a=ph*Math.PI/180;arrow(x-120*Math.cos(a)-30,y-120*Math.sin(a),x-38*Math.cos(a)-30,y-38*Math.sin(a),'#7dc8dc',3);
+   const st=al>14;foil(x,y,150,.2-.04*i,th,st?'#ffd2c2':'#e9eef1','rgba(0,0,0,.4)');
+   vortices(x,y,150,th,st?seg(u,.54,.6)*(1-tw):0);
+   wt(x,y+92,['葉根','葉中','葉尖'][i],17,STC[i],700,'center');
+   wt(x,y+124,trf('α = {a}°',{a:al.toFixed(1)}),20,st?'#ff9d7a':(al<8?'#7dffc4':'#f2c230'),700,'center',COND);});});
+  /* 右下：重點 */
+  card(800,510,740,290,{bg:'rgba(7,27,39,.75)'});wt(824,550,'扭轉的設計取捨',20,'#f2c230',700);
+  [['理想扭轉約 20°，在葉根附近變化最急','#fff'],['葉根要承受彎矩，剖面厚、接近圓形','rgba(227,236,238,.9)'],['實際扭轉常較小，兼顧結構與製造','rgba(227,236,238,.9)'],['例：NREL 5 MW 參考風機扭轉 13.3°','#7dffc4']].forEach(([t,col],i)=>
+   alphaDo(seg(u,.3+i*.12,.36+i*.12),()=>{circ(836,594+i*52,5,'#f2c230');wt(854,600+i*52,t,18,col,600);}));
  }},
 
-/* 4 ─────────────────────────────── 偏航對風 */
-{t:'偏航：機艙跟著風轉',en:'Yawing into the wind',dur:14,
- d:'風向隨時在變，機艙要轉向對風，葉片才能完整吸收風能，也避免偏斜造成的額外負載。塔頂與機艙之間有一圈大型偏航軸承，外圍的齒環由數組偏航馬達驅動。控制器不會因風向小幅擺動就立即轉動，而是在偏航誤差持續超過設定值（示例約 8°）一段時間後才啟動，以每秒約半度的速度慢慢轉正，到位後由偏航剎車夾緊固定。機艙內的電纜向下垂入塔架，累計轉了幾圈後，風機會在低風時反向轉回解纜。',
- s:[[0,'風向改變，機艙與風向出現偏航誤差'],[.22,'誤差持續超過設定值，才決定轉動'],[.46,'偏航馬達帶動機艙，慢慢轉正'],[.8,'到位後偏航剎車夾緊固定']],
+/* 5 ─────────────────────────────── 失速 */
+{t:'攻角太大：失速',en:'Too steep: stall',dur:13,
+ d:'攻角超過某個角度，氣流無法再貼著上表面流動，會從翼型表面分離，形成紊亂的渦流，這就是失速。常見風機翼型大約在 12–16° 開始失速：升力不增反降，阻力急遽增加，葉片也會振動並產生噪音。早期的定槳距風機刻意利用失速，在強風時自動限制出力；現代大型風機則以變槳控制攻角，避開失速區，出力更平穩，載重也更容易掌握。',
+ s:[[0,'攻角逐漸加大，升力跟著增加'],[.3,'超過約 14°，氣流從上表面分離'],[.54,'升力驟降、阻力暴增，葉片振動加劇'],[.78,'現代風機以變槳控制攻角，避開失速區']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'俯視：機艙與風向（示意）',20,'#f2c230',700);
-  const phi=25*ease(seg(u,.08,.16)),th=25*ease(seg(u,.46,.82)),err=phi-th,cx=410,cy=530;
-  ctx.save();ctx.beginPath();ctx.rect(62,270,696,528);ctx.clip();
-  const dx=Math.cos(phi*DEG),dy=Math.sin(phi*DEG),r=rng(4);
-  for(let i=0;i<13;i++){const o=-300+i*50,s=((TT*110+r()*700)%700)-350,x=cx+dx*s-dy*o,y=cy+dy*s+dx*o;alphaDo(.55,()=>arrow(x,y,x+dx*50,y+dy*50,'#7dc8dc',2.5));}
-  ctx.restore();
-  circ(cx,cy,22,'#9aa3a8','#394650',1.5);
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(th*DEG);
-  rrp(-70,-28,210,56,6);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='#394650';ctx.lineWidth=1.5;ctx.stroke();
-  box(40,-20,60,40,'#58b8d0','rgba(0,0,0,.4)',1);
-  poly([-70,-22,-96,-12,-100,0,-96,12,-70,22],'#dfe5e8','#394650',1.5);
-  poly([-92,-12,-84,-12,-88,-220,-94,-220],'#f4f6f7','#394650',1.2);poly([-92,12,-84,12,-88,220,-94,220],'#f4f6f7','#394650',1.2);
-  ctx.setLineDash([8,6]);ln([-110,0,-330,0],'#f2c230',2);ctx.setLineDash([]);
-  ctx.restore();
-  /* 誤差角 */
-  ctx.setLineDash([8,6]);ln([cx-dx*110,cy-dy*110,cx-dx*330,cy-dy*330],'#7dc8dc',2);ctx.setLineDash([]);
-  if(Math.abs(err)>.5){ctx.beginPath();ctx.arc(cx,cy,300,Math.PI+th*DEG,Math.PI+phi*DEG);ctx.strokeStyle='#e8572a';ctx.lineWidth=4;ctx.stroke();}
-  const ec=Math.abs(err)>8?'#ff9d7a':'#7dffc4';
-  wt(84,254,trf('風向 {n}°',{n:phi.toFixed(0)}),20,'#7dc8dc',700,'left',COND);wt(290,254,trf('機艙 {n}°',{n:th.toFixed(0)}),20,'#f2c230',700,'left',COND);wt(496,254,trf('偏航誤差 {n}°',{n:err.toFixed(0)}),20,ec,700,'left',COND);
-  const st=u<.1?['已對準風向','#7dffc4']:u<.46?['誤差 > 8°：持續觀察中','#ff9d7a']:u<.82?['偏航馬達啟動（畫面加速）','#f2c230']:['到位，偏航剎車夾緊','#7dffc4'];
-  tag(410,768,st[0],{size:17,bg:st[1],align:'center'});
-  /* 右：偏航系統 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'偏航系統（示意）',20,'#f2c230',700);
-  const gx=1170,gy=420,GR=140,moving=u>=.46&&u<.82;
-  alphaDo(.5,()=>{circ(gx,gy,GR+42,'rgba(242,194,48,.08)','rgba(242,194,48,.5)',1.5);});
-  gear(gx,gy,GR,72,0,'#6f7a80');circ(gx,gy,GR-26,'#16384c','#394650',1.5);
-  wt(gx,gy-6,'偏航齒環',18,'#fff',700,'center');wt(gx,gy+20,'固定在塔頂',15,'rgba(227,236,238,.75)',600,'center');
-  for(let i=0;i<6;i++){const a=th*DEG*2+i*TAU/6+.26,R2=GR+17,px=gx+Math.cos(a)*R2,py=gy+Math.sin(a)*R2;gear(px,py,13,12,-th*DEG*2*GR/13,moving?'#f2c230':'#9aa3a8');}
-  for(let i=0;i<4;i++){const a=th*DEG*2+i*TAU/4+.78,px=gx+Math.cos(a)*(GR+4),py=gy+Math.sin(a)*(GR+4);ctx.save();ctx.translate(px,py);ctx.rotate(a);box(-7,-9,14,18,moving?'#6f7a80':'#e8572a','#13232e',1);ctx.restore();}
-  alphaDo(seg(u,.46,.52),()=>tag(gx+230,gy-150,'偏航馬達 × 6',{size:16,bg:'#f2c230',align:'center'}));
-  alphaDo(seg(u,.2,.26),()=>tag(gx-230,gy-150,'偏航剎車',{size:16,bg:'#e8572a',align:'center'}));
-  const RW=[['觸發','誤差持續超過約 8° 才轉（示例）',.24],['速度','約每秒 0.5°，到位後剎車夾緊（示例）',.5],['解纜','電纜累計扭轉數圈後反向轉回',.84]];
-  RW.forEach(([h,s,t],i)=>alphaDo(seg(u,t,t+.06),()=>{const y=630+i*52;box(830,y,680,44,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);wt(850,y+29,h,17,'#7dffc4',800);wt(930,y+29,s,17,'#fff',600);}));
+  const al=lerp(4,18,ease(seg(u,.04,.56))),sep=seg(al,13.2,16),cl=Cl(al),cd=Cd(al);
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'氣流分離（剖面示意）',20,sep>.3?'#ff9d7a':'#f2c230',700);
+  const cx=380,cy=430,c=320,sh=sep*2*Math.sin(TT*23);
+  ctx.save();rrp(62,214,696,420,10);ctx.clip();streams(cx,cy,al,sep,1,[-160,-115,-72,105,145,185]);ctx.restore();
+  foil(cx,cy+sh,c,.15,al,'#e9eef1','rgba(0,0,0,.4)');vortices(cx,cy+sh,c,al,sep);
+  const ac=fpt(cx,cy,c,al,.25,0);
+  arrow(ac.x,ac.y,ac.x,ac.y-cl*150,'#7dffc4',4);wt(ac.x+12,ac.y-cl*150+8,'升力',18,'#7dffc4',700);
+  arrow(ac.x,ac.y,ac.x+Math.max(22,Math.min(260,cd*150*10)),ac.y,'#ff9d7a',4);
+  wt(90,250,trf('α = {a}°',{a:al.toFixed(1)}),26,sep>.3?'#ff9d7a':'#f2c230',700,'left',COND);
+  alphaDo(sep,()=>{const p=fpt(cx,cy,c,al,.8,-.32*c);lab(p.x,p.y,'分離渦流',{dx:60,dy:-50,st:'w'});});
+  rowK(90,690,'升力係數 CL',cl.toFixed(2),'#7dffc4',640);rowK(90,736,'升阻比 L/D',Math.round(cl/cd).toString(),sep>.3?'#ff9d7a':'#f2c230',640);
+  /* 右上：CL 曲線 */
+  const A=chartBox(800,160,740,330,{title:'升力係數與失速（示例）',x0:0,x1:20,y0:0,y1:1.8,xt:[0,5,10,15,20],yt:[0,.5,1,1.5],xl:'攻角 α（°）',yl:'CL',pl:70,pt:64,pb:58,gx:4,gy:3});
+  box(A.X(14),A.py,A.X(20)-A.X(14),A.ph,'rgba(232,87,42,.16)');wt(A.X(17),A.py+26,'失速區',17,'#ff9d7a',700,'center');
+  ctx.beginPath();for(let a=0;a<=20;a+=.25){const y=A.Y(Cl(a));a?ctx.lineTo(A.X(a),y):ctx.moveTo(A.X(a),y);}ctx.strokeStyle='rgba(125,255,196,.45)';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();for(let a=0;a<=al;a+=.25){const y=A.Y(Cl(a));a?ctx.lineTo(A.X(a),y):ctx.moveTo(A.X(a),y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3.5;ctx.stroke();
+  circ(A.X(al),A.Y(cl),8,sep>.3?'#e8572a':'#f2c230','#13232e',2);
+  /* 右下：影響 */
+  card(800,510,740,290,{bg:'rgba(7,27,39,.75)'});wt(824,550,'失速的影響與對策',20,'#f2c230',700);
+  [['升力驟降、阻力暴增','#ff9d7a',.5],['葉片振動與噪音增加','#ff9d7a',.58],['早期定槳距風機：利用失速限制出力','rgba(227,236,238,.9)',.72],['現代大型風機：以變槳避開失速','#7dffc4',.8]].forEach(([t,col,k],i)=>
+   alphaDo(seg(u,k,k+.06),()=>{circ(836,594+i*52,5,col);wt(854,600+i*52,t,18,col,600);}));
  }},
 
-/* 5 ─────────────────────────────── 切出與颱風 */
-{t:'切出風速與颱風停機',en:'Cut-out and typhoon shutdown',dur:14,side:true,
- d:'風太大時，風機的任務從發電變成自保。10 分鐘平均風速超過切出風速（典型 25 m/s），或陣風超過設定值時，控制器讓三支葉片順槳到約 90°，轉子減速後進入慢速空轉，而不是用機械剎車硬鎖，以減少葉片與塔架的受力。颱風期間電網可能斷電，備用電源讓偏航系統持續把機艙對準風向，避免側風吹在整支葉片上。IEC 61400-1 第 4 版新增 T 級（颱風級），參考風速為 57 m/s，台灣選用機型時需一併評估。',
- s:[[0,'颱風接近，風速一路升高'],[.28,'超過切出風速 25 m/s：順槳停機'],[.5,'葉片順槳，轉子慢慢空轉，不硬鎖'],[.72,'備用電源讓機艙持續對準風向']],
- cam:u=>({x:700,y:420,s:1.02}),
+/* 6 ─────────────────────────────── 變槳控制攻角 */
+{t:'變槳控制攻角',en:'Pitching to control the angle of attack',dur:14,side:true,
+ d:'風速低於額定時，葉片維持在最佳槳距角，讓各段攻角接近設計值，盡量多捕捉風能。風速超過約 11 m/s 的額定風速後，轉速已達上限，若葉片不動，相對風角變大，攻角也跟著增加，出力會超過發電機的額定。這時變槳系統把整支葉片往順槳方向轉，槳距角加大、攻角變小，升力減少，出力維持在額定值。颱風或風速超過切出值時，葉片轉到約 90° 順槳，幾乎不再產生驅動力。',
+ s:[[0,'風速低於額定，葉片保持在最佳角度'],[.3,'風速超過約 11 m/s，葉片開始轉向順槳'],[.54,'槳距角加大、攻角變小，出力維持在額定'],[.8,'颱風或超過切出風速時，葉片轉到約 90° 停機']],
  draw(u){
-  const w=lerp(14,42,seg(u,.02,.72)),storm=seg(u,0,.5);
-  box(VX0-20,-600,VX1-VX0+40,2000,`rgba(22,32,42,${(.2+.4*storm).toFixed(3)})`);
-  rain(.3+.7*storm);
-  windLines(80,580,20+Math.round(20*storm),300+400*storm,1,7,90,'#dfe8ee');
-  const K=[[4.1,RMAX],[7,1.2]],t=u*14,cut=u>=.29;
-  const p=cut?lerp(pitchOf(VCO),90,ease(seg(u,.29,.45))):pitchOf(w);
-  [[260,0],[340,1],[1010,2],[1100,3],[1460,4]].forEach(([x,i])=>tree(x,6+22*storm+5*Math.sin(TT*3+i)));
-  turbineSide(rotAt(t,K),1,p);baseCab();
-  lab(TX-100,HY-100,trf('葉片順槳 {n}°',{n:p.toFixed(0)}),{dx:170,dy:-40,st:'s',a:band(u,.3,.62)});
-  lab(TX-100,HY,'轉子空轉（不鎖死）',{dx:-150,dy:80,st:'g',a:band(u,.5,.74)});
-  lab(TX+71,gyy(TX)-46,'備用電源',{dx:100,dy:-70,st:'s',a:band(u,.72,1)});
-  lab(TX,HY+40,'偏航持續對風',{dx:120,dy:70,st:'g',a:band(u,.74,1)});
-  lab(1100,gyy(1100)-120,'陣風與強降雨',{dx:0,dy:-90,st:'w',a:band(u,.06,.28)});
+  const v=lerp(8,15,ease(seg(u,.08,.62)))+11*ease(seg(u,.8,.88)),pt=Math.min(10,Math.max(0,v-11)*2.5);
+  const T=turbine(540,gyy(540),260,180,TT*1.0+.3);
+  windLines(120,540,8+Math.round(v-8),110+10*v,.5,9,50);
+  lab(T.x,T.y,'變槳軸承轉動整支葉片',{dx:120,dy:80,st:'s',a:band(u,.3,.62)});
+  /* 剖面卡：r = 30 m */
+  card(860,360,680,440,{bg:'rgba(7,27,39,.88)'});wt(884,398,'葉中剖面 r = 30 m（示例）',20,'#f2c230',700);
+  const ph=Math.atan(v*2/3/(OM*30))*180/Math.PI,th0=phiR(30)-AD,fe=ease(seg(u,.84,.96)),th=lerp(th0+pt,88,fe),al=ph-th,al0=ph-th0;
+  const cx=1170,cy=560,a=ph*Math.PI/180;
+  arrow(cx-230*Math.cos(a)-60,cy-230*Math.sin(a),cx-90*Math.cos(a)-60,cy-90*Math.sin(a),'#7dc8dc',3.5);
+  wt(cx-280,cy-60,'相對風',16,'#7dc8dc',700);
+  alphaDo(seg(u,.3,.4)*(1-fe)*.5,()=>{ctx.setLineDash([5,5]);foil(cx,cy,220,.16,th0,'rgba(255,255,255,.04)','rgba(255,157,122,.8)');ctx.setLineDash([]);});
+  foil(cx,cy,220,.16,th,'#e9eef1','rgba(0,0,0,.4)');
+  if(pt>0&&fe<.5)alphaDo(seg(u,.36,.42),()=>{ctx.beginPath();ctx.arc(cx,cy,130,th0*Math.PI/180,th*Math.PI/180);ctx.strokeStyle='#f2c230';ctx.lineWidth=2.5;ctx.stroke();
+   const e=th*Math.PI/180;wt(cx+140*Math.cos(e)+8,cy+140*Math.sin(e)+20,'往順槳方向',16,'#f2c230',700);});
+  rowK(884,716,'攻角 α',trf('{a}°',{a:al.toFixed(1)}),fe>.5?'#7dc8dc':'#7dffc4',620);
+  alphaDo(seg(u,.4,.46)*(1-fe),()=>rowK(884,760,'不變槳時的攻角',trf('{a}°',{a:al0.toFixed(1)}),'#ff9d7a',620));
+  alphaDo(fe,()=>rowK(884,760,'順槳停機','≈ 90°','#f2c230',620));
  },
- hud(u){hudPanel(250,182,'颱風停機（示例）',seg(u,.03,.08),w=>{const v=lerp(14,42,seg(u,.02,.72)),t=u*14,cut=u>=.29,r=rpmAt(t,[[4.1,RMAX],[7,1.2]]);
-  const p=cut?lerp(pitchOf(VCO),90,ease(seg(u,.29,.45))):pitchOf(v);
-  hrow(56,'平均風速',trf('{n} m/s',{n:v.toFixed(1)}),w,v>VCO?'#ff9d7a':'#fff');
-  hrow(88,'運轉狀態',!cut?'額定發電':u<.45?'順槳停機中':'颱風空轉',w,!cut?'#7dffc4':'#ff9d7a');
-  hrow(120,'轉子轉速',trf('{n} rpm',{n:r.toFixed(1)}),w,'#7dffc4');hrow(152,'槳距角',trf('{n}°',{n:p.toFixed(0)}),w,'#f2c230');});}},
-
-/* 6 ─────────────────────────────── 剎車與安全鏈 */
-{t:'兩套剎車與安全鏈',en:'Two brakes and a safety chain',dur:13,side:true,
- d:'風機至少有兩套能獨立讓轉子停下來的剎車。主要的是氣動剎車：三支葉片各有獨立的變槳驅動與備用電池或蓄壓器，即使失去電力也能順槳，通常單支葉片順槳就足以讓轉子減速。機械碟剎裝在高速軸上，主要在轉子已經變慢後把它完全停住，或作為停車剎車。維修人員進入輪轂前，還要插上轉子鎖定銷。超速、過度振動或按下緊急停止按鈕時，獨立於控制器的安全鏈會直接觸發停機。',
- s:[[0,'停機時，先用葉片變槳減速'],[.3,'每支葉片都有備用電源，斷電也能順槳'],[.5,'轉子變慢後，高速軸碟剎把它完全停住'],[.75,'進入輪轂維修前，插上轉子鎖定銷']],
- cam:u=>camMix({x:TX,y:HY,s:1.6},{x:615,y:205,s:2.3},ease(seg(u,.02,.2))),
- draw(u){
-  windLines(100,500,16,240,.8,9,60);
-  const K=[[.9,RMAX],[5.5,2],[7,.8],[7.6,0]],t=u*13,p=90*ease(seg(u,.07,.42));
-  turbineSide(rotAt(t,K),0,p);
-  /* 碟剎卡鉗 */
-  const k=ease(seg(u,.5,.56)),d=lerp(5,0,k);
-  box(TX+81-d,HY-26,8,14,'#394650');box(TX+97+d,HY-26,8,14,'#394650');box(TX+81-d,HY-32,24+2*d,6,'#6f7a80');
-  if(k>0)alphaDo(k*(.5+.3*Math.sin(TT*8)),()=>circ(TX+93,HY-18,14,'rgba(232,87,42,.35)'));
-  /* 轉子鎖定銷 */
-  const lk=ease(seg(u,.76,.84));box(TX-78,HY-22,6,44,'#8d989f','rgba(0,0,0,.4)',1);
-  box(TX-80,lerp(HY-62,HY-30,lk),10,22,'#f2c230','#13232e',1);
-  lab(TX-100,HY-120,'三支葉片各自變槳',{dx:-60,dy:-40,st:'s',a:band(u,.04,.3)});
-  lab(TX-106,HY,'備用電池／蓄壓器',{dx:-60,dy:80,st:'g',a:band(u,.3,.5)});
-  lab(TX+93,HY-30,'高速軸碟剎',{dx:40,dy:-80,st:'w',a:band(u,.5,.74)});
-  lab(TX-75,HY-40,'轉子鎖定銷',{dx:-30,dy:-90,st:'s',a:band(u,.76,1)});
- },
- hud(u){hudPanel(250,182,'停機程序（示例）',seg(u,.04,.09),w=>{const t=u*13,r=rpmAt(t,[[.9,RMAX],[5.5,2],[7,.8],[7.6,0]]),p=90*ease(seg(u,.07,.42));
-  hrow(56,'轉子轉速',trf('{n} rpm',{n:r.toFixed(1)}),w,'#7dffc4');hrow(88,'槳距角',trf('{n}°',{n:p.toFixed(0)}),w,'#f2c230');
-  hrow(120,'碟剎',u<.52?'鬆開':'夾緊',w,u<.52?'#fff':'#ff9d7a');hrow(152,'鎖定銷',u<.8?'未插入':'已插入',w,u<.8?'#fff':'#f2c230');});}}
+ hud(u){hudPanel(250,182,'變槳控制（示例）',seg(u,.04,.1),w=>{const v=lerp(8,15,ease(seg(u,.08,.62)))+11*ease(seg(u,.8,.88)),fe=ease(seg(u,.84,.96)),pt=lerp(Math.min(10,Math.max(0,v-11)*2.5),90,fe);
+  const P=fe>0?4.2*(1-fe):v<11?4.2*(v*v*v-27)/(1331-27):4.2;
+  hrow(56,'風速',trf('{v} m/s',{v:v.toFixed(1)}),w,'#7dffc4');hrow(88,'槳距角',trf('{p}°',{p:pt.toFixed(1)}),w,'#f2c230');
+  hrow(120,'輸出功率',trf('{p} MW',{p:P.toFixed(1)}),w,'#fff');hrow(152,'額定功率','4.2 MW',w,'#ff9d7a');});}}
 ]};
 
-/* 陸域風電系列 第 6 集：風機的控制與保護 — 英日翻譯 */
+/* 陸域風電系列 第 10 集：葉片的空氣動力 — 英日翻譯 */
 Object.assign(DICT,{
-"陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
-"風機的控制與保護":["Turbine control and protection","風車の制御と保護"],
-"風機多半無人看守，卻能自己起動、併網、追風、在颱風來時停機自保。這一集看控制器如何依風速切換轉矩與變槳控制、偏航系統怎麼對風，以及順槳與剎車組成的保護機制。":["Most wind turbines run unattended, yet they start up, connect to the grid, follow the wind and shut themselves down when a typhoon arrives. This episode looks at how the controller switches between torque and pitch control with wind speed, how the yaw system keeps the rotor facing the wind, and how feathering and brakes protect the machine.","風車の多くは無人で運転していますが、自ら起動し、系統に並列し、風を追い、台風が来れば停止して身を守ります。本編では、制御装置が風速に応じてトルク制御とピッチ制御を切り替える仕組み、ヨー装置による風向追従、そしてフェザリングとブレーキによる保護機構を見ていきます。"],
-"切入風速：風速持續高於此值，風機才起動併聯（示例）":["Cut-in speed: the turbine starts and connects only when the wind stays above this (example)","カットイン風速：風速がこれを上回り続けると起動・並列（例）"],
-"額定風速：以上改由變槳控制，功率維持額定（示例）":["Rated speed: above it, pitch control holds power at rated (example)","定格風速：これ以上はピッチ制御で定格出力を維持（例）"],
-"切出風速：10 分鐘平均超過此值即順槳停機（典型值）":["Cut-out speed: above this 10-minute mean, the blades feather and the turbine stops (typical)","カットアウト風速：10 分間平均がこれを超えるとフェザリングして停止（代表値）"],
-"順槳角度：葉片像風標一樣對著風，受力最小":["Feathered angle: the blade points into the wind like a vane, with minimal load","フェザー角：ブレードが風見のように風に向き、受ける力が最小になる"],
-"IEC 61400-1 第 4 版 T 級（颱風級）參考風速，10 分鐘平均、50 年回歸期":["IEC 61400-1 Ed. 4 Class T (typhoon) reference wind speed: 10-minute mean, 50-year return period","IEC 61400-1 第 4 版 T クラス（台風クラス）の基準風速。10 分間平均、再現期間 50 年"],
-"套":["systems","系統"],
-"獨立剎車：葉片變槳的氣動剎車與高速軸機械碟剎（常見設計）":["Independent brakes: aerodynamic braking by blade pitch and a mechanical disc brake on the high-speed shaft (common design)","独立したブレーキ：ピッチによる空力ブレーキと高速軸の機械式ディスクブレーキ（一般的な設計）"],
-"說明：本集為教育用途示意動畫，機艙與設備比例經過簡化，偏航與停機動作的時間已壓縮。切入 3 m/s、額定約 12 m/s、切出 25 m/s 為大型變槳變速風機的典型值（例如 NREL 5 MW 參考風機為 3、11.4、25 m/s）；區間 2 以發電機轉矩追蹤最佳葉尖速比、區間 3 以變槳維持額定功率，為變速變槳風機的一般控制架構；IEC 61400-1 第 4 版新增 T 級，參考風速 57 m/s；颱風時順槳空轉並維持偏航對風、氣動與機械兩套剎車為常見設計。額定 3.6 MW、轉子半徑 60 m、葉尖速比 8、偏航觸發約 8°、偏航速度約每秒 0.5°、各時間軸、轉速與槳距角數值皆為典型範例，並非特定機型或案場資料。":["Note: this is an educational, schematic animation. Nacelle and equipment proportions are simplified, and yaw and shutdown motions are time-compressed. Cut-in 3 m/s, rated about 12 m/s and cut-out 25 m/s are typical of large variable-speed, pitch-regulated turbines (the NREL 5 MW reference turbine uses 3, 11.4 and 25 m/s). Tracking the optimal tip-speed ratio with generator torque in Region 2 and holding rated power with pitch in Region 3 is the general control architecture of such turbines. IEC 61400-1 Ed. 4 added Class T with a reference wind speed of 57 m/s. Idling feathered while keeping yaw into the wind during typhoons, and having separate aerodynamic and mechanical brakes, are common designs. The 3.6 MW rating, 60 m rotor radius, tip-speed ratio of 8, yaw trigger of about 8°, yaw rate of about 0.5° per second, all time axes, rotor speeds and pitch angles are typical examples, not data for any specific turbine model or wind farm.","説明：本編は教育用の模式アニメーションです。ナセルと設備の比率は簡略化し、ヨーと停止動作の時間は短縮しています。カットイン 3 m/s、定格約 12 m/s、カットアウト 25 m/s は大型の可変速ピッチ制御風車の代表値です（NREL 5 MW 参照風車は 3、11.4、25 m/s）。領域 2 で発電機トルクにより最適周速比を追従し、領域 3 でピッチにより定格出力を維持するのは可変速ピッチ制御風車の一般的な制御構成です。IEC 61400-1 第 4 版では基準風速 57 m/s の T クラスが追加されました。台風時にフェザリングしてアイドリングしつつヨーで風に正対すること、空力と機械の 2 系統のブレーキを持つことは一般的な設計です。定格 3.6 MW、ロータ半径 60 m、周速比 8、ヨー起動約 8°、ヨー速度毎秒約 0.5°、各時間軸、回転数、ピッチ角の数値はいずれも代表的な例であり、特定の機種や発電所のデータではありません。"],
-"風機的大腦":["The brain of a turbine","風車の頭脳"],
-"一部陸域風機大部分時間都在無人看守下自動運轉，靠的是機艙與塔底的控制系統。機艙頂端的風速計與風向計持續量測，控制器依據風況決定何時起動、葉片要轉到什麼角度、發電機要施加多少轉矩，以及機艙是否要轉向對風。轉速、溫度、振動等上百個訊號同時被監看，資料經由 SCADA 系統傳回遠端監控中心；一旦超出安全範圍，保護系統會自動讓風機停機。":["An onshore wind turbine spends most of its life running automatically with nobody on site, relying on control systems in the nacelle and at the tower base. An anemometer and wind vane on the nacelle roof measure continuously, and the controller decides when to start, what angle the blades should take, how much torque the generator should apply and whether the nacelle should turn into the wind. Hundreds of signals such as speed, temperature and vibration are monitored at once, and the data are sent to a remote control centre through the SCADA system. If anything leaves its safe range, the protection system stops the turbine automatically.","陸上風車は、ほとんどの時間を無人で自動運転しており、それを支えるのがナセルとタワー基部の制御システムです。ナセル上の風速計と風向計が常時計測し、制御装置は風況に応じて、いつ起動するか、ブレードを何度にするか、発電機にどれだけのトルクをかけるか、ナセルを風に向けて旋回させるかを判断します。回転数、温度、振動など数百の信号を同時に監視し、データは SCADA システムで遠隔監視センターへ送られます。安全範囲を超えると、保護システムが自動的に風車を停止させます。"],
-"風機一直在量風、判斷、動作":["The turbine constantly measures, decides and acts","風車は常に風を測り、判断し、動作する"],
-"機艙頂的風速計與風向計持續量測":["An anemometer and vane on the nacelle keep measuring","ナセル上の風速計と風向計が常時計測"],
-"控制器調整變槳、轉矩與偏航":["The controller adjusts pitch, torque and yaw","制御装置がピッチ、トルク、ヨーを調整"],
-"運轉資料即時傳回遠端監控中心":["Operating data stream to a remote control centre","運転データを遠隔監視センターへ送信"],
-"機艙":["Nacelle","ナセル"],
-"塔底控制櫃":["Tower-base cabinet","タワー基部制御盤"],
-"風速計":["Anemometer","風速計"],
-"風向計":["Wind vane","風向計"],
-"變槳系統（輪轂內）":["Pitch system (in hub)","ピッチ装置（ハブ内）"],
-"偏航系統":["Yaw system","ヨー装置"],
-"主控制器（PLC）":["Main controller (PLC)","主制御装置（PLC）"],
-"SCADA 遠端監控":["SCADA monitoring","SCADA 遠隔監視"],
-"風機狀態（示例）":["Turbine status (example)","風車の状態（例）"],
-"風速":["Wind speed","風速"],
-"運轉狀態":["State","運転状態"],
-"併網發電":["Generating","系統連系発電"],
-"槳距角":["Pitch angle","ピッチ角"],
-"輸出功率":["Output","出力"],
-"從靜止到併聯":["From standstill to grid connection","停止から系統並列まで"],
-"風機從靜止到發電要經過一連串條件判斷。控制器先完成自我檢測，確認電網、油溫與各系統正常；接著確認風速在數分鐘內持續高於切入風速（示例 3 m/s），並讓機艙偏航對準風向。停機時葉片是順槳的，約 90°；起動時變槳系統把葉片轉到起動角度，讓轉子開始加速。當發電機轉速進入可併聯的範圍，變流器讓輸出與 60 Hz 電網同步，併聯開關才閉合，風機開始送電。":["Getting from standstill to generation takes a chain of checks. The controller first runs a self-test, confirming that the grid, oil temperatures and all systems are normal. It then checks that the wind has stayed above the cut-in speed (3 m/s in this example) for several minutes and yaws the nacelle into the wind. When stopped, the blades are feathered at about 90°; to start, the pitch system turns them to a start-up angle so the rotor begins to accelerate. Once the generator speed enters the range where it can connect, the converter synchronises the output with the 60 Hz grid, the grid breaker closes and the turbine starts exporting power.","風車が停止から発電に至るまでには、一連の条件判定があります。制御装置はまず自己診断を行い、系統、油温、各装置が正常であることを確認します。次に、風速が数分間続けてカットイン風速（例では 3 m/s）を上回っているかを確かめ、ナセルをヨーで風に向けます。停止中のブレードは約 90° にフェザリングされており、起動時にはピッチ装置が起動角まで戻してロータを加速させます。発電機回転数が並列可能な範囲に入ると、変換器が出力を 60 Hz の系統に同期させ、並列遮断器が投入されて送電が始まります。"],
-"併聯前先自我檢測、確認風況":["Self-test and wind check before connecting","並列前に自己診断と風況を確認"],
-"偏航對風，葉片從順槳轉到起動角度":["Yaw into the wind; blades pitch out of feather","ヨーで風に正対し、ブレードを起動角へ"],
-"轉子加速到發電機的併聯轉速":["The rotor speeds up to the connection speed","ロータが並列回転数まで加速"],
-"併聯開關閉合，開始送電":["The breaker closes and power flows","並列遮断器を投入し、送電開始"],
-"起動程序（示例）":["Start-up sequence (example)","起動手順（例）"],
-"自我檢測：電網、油溫、各系統":["Self-test: grid, oil, all systems","自己診断：系統、油温、各装置"],
-"風速 > 3 m/s 持續數分鐘":["Wind > 3 m/s for several minutes","風速 3 m/s 超が数分間継続"],
-"偏航：機艙對準風向":["Yaw: nacelle faces the wind","ヨー：ナセルを風向に合わせる"],
-"變槳：90° → 起動角度":["Pitch: 90° → start-up angle","ピッチ：90° → 起動角"],
-"轉子加速到併聯轉速":["Rotor reaches connection speed","ロータが並列回転数に到達"],
-"與 60 Hz 同步，併聯開關閉合":["Sync to 60 Hz, breaker closes","60 Hz に同期し、遮断器を投入"],
-"起動過程的變化（示例）":["During start-up (example)","起動中の変化（例）"],
-"時間 s":["Time s","時間 s"],
-"相對值 %":["Relative %","相対値 %"],
-"轉子轉速":["Rotor speed","ロータ回転数"],
-"併聯":["Connected","並列"],
-"葉片轉離順槳":["Blades leave feather","フェザー位置から戻す"],
-"四個運轉區間":["Four operating regions","4 つの運転領域"],
-"風機依風速分成幾個運轉區間。低於切入風速時，風能太少，風機待機空轉。區間 2 從切入到額定風速，葉片維持在最佳角度，控制器調整發電機轉矩，讓轉速跟著風速變化，保持最佳葉尖速比（示例約 8），盡量接近最大功率係數。超過額定風速後進入區間 3，改由變槳控制：葉片轉大角度，減少吸收的風能，讓轉速與功率維持在額定值。風速超過切出風速（典型 25 m/s），風機順槳停機。":["A turbine's operation is divided into regions by wind speed. Below cut-in there is too little energy, so the turbine waits and idles. In Region 2, from cut-in to rated wind speed, the blades stay at their optimum angle while the controller adjusts generator torque so that rotor speed follows the wind, holding the optimal tip-speed ratio (about 8 in this example) and staying close to the maximum power coefficient. Above rated wind speed, Region 3 hands over to pitch control: the blades turn to larger angles to shed energy, keeping rotor speed and power at their rated values. Beyond the cut-out speed (typically 25 m/s), the turbine feathers and stops.","風車の運転は風速によっていくつかの領域に分かれます。カットイン風速未満では風のエネルギーが少なすぎるため、待機してアイドリングします。カットインから定格風速までの領域 2 では、ブレードを最適角に保ったまま発電機トルクを調整し、回転数を風速に追従させて最適周速比（例では約 8）を維持し、最大出力係数に近づけます。定格風速を超える領域 3 ではピッチ制御に切り替わり、ブレード角を大きくして取り込むエネルギーを減らし、回転数と出力を定格に保ちます。カットアウト風速（代表値 25 m/s）を超えると、フェザリングして停止します。"],
-"風速低於 3 m/s：待機，不發電":["Below 3 m/s: standby, no power","3 m/s 未満：待機、発電なし"],
-"區間 2：調整發電機轉矩，追最大效率":["Region 2: generator torque chases peak efficiency","領域 2：発電機トルクで最大効率を追う"],
-"區間 3：葉片變槳，功率維持額定":["Region 3: blades pitch to hold rated power","領域 3：ピッチ制御で定格出力を維持"],
-"超過 25 m/s：順槳停機保護":["Above 25 m/s: feather and shut down","25 m/s 超：フェザリングして停止"],
-"功率曲線與運轉區間（示例）":["Power curve and operating regions (example)","パワーカーブと運転領域（例）"],
-"風速 m/s":["Wind speed m/s","風速 m/s"],
-"功率 MW":["Power MW","出力 MW"],
-"區間 1":["Region 1","領域 1"],
-"區間 2":["Region 2","領域 2"],
-"區間 3":["Region 3","領域 3"],
-"切出":["Cut-out","カットアウト"],
-"控制器正在做什麼":["What the controller is doing","制御装置の動作"],
-"待機空轉":["Standby idling","待機アイドリング"],
-"轉矩控制：追最大效率":["Torque control: peak efficiency","トルク制御：最大効率"],
-"變槳控制：維持額定":["Pitch control: hold rated","ピッチ制御：定格維持"],
-"順槳停機":["Feathered stop","フェザリング停止"],
-"旋轉平面":["Rotor plane","回転面"],
-"風":["Wind","風"],
-"旋轉方向":["Rotation","回転方向"],
-"槳距角 {n}°":["Pitch {n}°","ピッチ角 {n}°"],
-"發電機轉矩":["Gen. torque","発電機トルク"],
-"偏航：機艙跟著風轉":["Yawing into the wind","ヨー：ナセルが風を追う"],
-"風向隨時在變，機艙要轉向對風，葉片才能完整吸收風能，也避免偏斜造成的額外負載。塔頂與機艙之間有一圈大型偏航軸承，外圍的齒環由數組偏航馬達驅動。控制器不會因風向小幅擺動就立即轉動，而是在偏航誤差持續超過設定值（示例約 8°）一段時間後才啟動，以每秒約半度的速度慢慢轉正，到位後由偏航剎車夾緊固定。機艙內的電纜向下垂入塔架，累計轉了幾圈後，風機會在低風時反向轉回解纜。":["The wind keeps changing direction, so the nacelle must turn to face it, both to capture the full energy and to avoid extra loads from skewed flow. A large yaw bearing sits between the tower top and the nacelle, and its gear ring is driven by several yaw motors. The controller does not react to every small swing; only when the yaw error stays above a set value (about 8° in this example) for some time does it start turning, slowly, at roughly half a degree per second, and once aligned the yaw brakes clamp the nacelle in place. The cables hang from the nacelle down the tower, so after several accumulated turns the turbine unwinds them by yawing back during low wind.","風向は常に変わるため、ナセルを風に向けて旋回させることで、エネルギーを取りこぼさず、斜め流入による余分な荷重も避けます。タワー頂部とナセルの間には大型のヨー軸受があり、その歯車リングを複数のヨーモーターが駆動します。制御装置は風向の小さな揺れにはすぐ反応せず、ヨー偏差が設定値（例では約 8°）を一定時間超え続けたときに旋回を始め、毎秒約 0.5° でゆっくりと正対させ、位置が合うとヨーブレーキで固定します。ナセルからタワー内に垂れ下がるケーブルは、ねじれが数回転分たまると、弱風時に逆方向へ旋回して解消します。"],
-"風向改變，機艙與風向出現偏航誤差":["The wind shifts, creating a yaw error","風向が変わり、ヨー偏差が発生"],
-"誤差持續超過設定值，才決定轉動":["It yaws only if the error persists","偏差が続いたときだけ旋回を判断"],
-"偏航馬達帶動機艙，慢慢轉正":["Yaw motors slowly turn the nacelle","ヨーモーターがナセルをゆっくり旋回"],
-"到位後偏航剎車夾緊固定":["Once aligned, the yaw brakes clamp","正対後、ヨーブレーキで固定"],
-"俯視：機艙與風向（示意）":["Top view: nacelle and wind (schematic)","上面図：ナセルと風向（模式図）"],
-"風向 {n}°":["Wind {n}°","風向 {n}°"],
-"機艙 {n}°":["Nacelle {n}°","ナセル {n}°"],
-"偏航誤差 {n}°":["Error {n}°","ヨー偏差 {n}°"],
-"已對準風向":["Facing the wind","風に正対"],
-"誤差 > 8°：持續觀察中":["Error > 8°: monitoring","偏差 8° 超：監視中"],
-"偏航馬達啟動（畫面加速）":["Yaw motors on (sped up)","ヨーモーター作動（早送り）"],
-"到位，偏航剎車夾緊":["Aligned, yaw brakes on","正対、ヨーブレーキ作動"],
-"偏航系統（示意）":["Yaw system (schematic)","ヨー装置（模式図）"],
-"偏航齒環":["Yaw gear ring","ヨー歯車リング"],
-"固定在塔頂":["Fixed to tower top","タワー頂部に固定"],
-"偏航馬達 × 6":["Yaw motors × 6","ヨーモーター × 6"],
-"偏航剎車":["Yaw brakes","ヨーブレーキ"],
-"觸發":["Trigger","起動"],
-"誤差持續超過約 8° 才轉（示例）":["Error above about 8° for a while (example)","偏差約 8° 超が続いたら旋回（例）"],
-"速度":["Speed","速度"],
-"約每秒 0.5°，到位後剎車夾緊（示例）":["About 0.5° per second, then brakes clamp (example)","毎秒約 0.5°、正対後ブレーキ（例）"],
-"解纜":["Untwist","ケーブル解消"],
-"電纜累計扭轉數圈後反向轉回":["After several turns, yaw back to untwist cables","数回転ねじれたら逆旋回して戻す"],
-"切出風速與颱風停機":["Cut-out and typhoon shutdown","カットアウトと台風時の停止"],
-"風太大時，風機的任務從發電變成自保。10 分鐘平均風速超過切出風速（典型 25 m/s），或陣風超過設定值時，控制器讓三支葉片順槳到約 90°，轉子減速後進入慢速空轉，而不是用機械剎車硬鎖，以減少葉片與塔架的受力。颱風期間電網可能斷電，備用電源讓偏航系統持續把機艙對準風向，避免側風吹在整支葉片上。IEC 61400-1 第 4 版新增 T 級（颱風級），參考風速為 57 m/s，台灣選用機型時需一併評估。":["When the wind is too strong, the turbine's job changes from generating to protecting itself. When the 10-minute mean exceeds the cut-out speed (typically 25 m/s), or gusts exceed a set limit, the controller feathers all three blades to about 90°. The rotor slows and then idles slowly instead of being locked by the mechanical brake, which reduces loads on the blades and tower. During a typhoon the grid may fail, so backup power keeps the yaw system pointing the nacelle into the wind, avoiding side winds striking the full length of the blades. IEC 61400-1 Ed. 4 added Class T (typhoon) with a reference wind speed of 57 m/s, which turbine selection in Taiwan needs to take into account.","風が強すぎるとき、風車の役目は発電から自己防護に変わります。10 分間平均風速がカットアウト風速（代表値 25 m/s）を超えるか、突風が設定値を超えると、制御装置は 3 枚のブレードを約 90° にフェザリングします。ロータは減速したのち、機械式ブレーキで固定するのではなくゆっくりとアイドリングさせ、ブレードとタワーにかかる力を減らします。台風時は系統停電のおそれがあるため、バックアップ電源でヨー装置を動かし続け、ナセルを風に正対させて、ブレード全体に横風が当たるのを防ぎます。IEC 61400-1 第 4 版では基準風速 57 m/s の T クラス（台風クラス）が追加され、台湾での機種選定ではこれも合わせて評価する必要があります。"],
-"颱風接近，風速一路升高":["A typhoon approaches and the wind keeps rising","台風が接近し、風速が上がり続ける"],
-"超過切出風速 25 m/s：順槳停機":["Past the 25 m/s cut-out: feather and stop","カットアウト 25 m/s 超：フェザリング停止"],
-"葉片順槳，轉子慢慢空轉，不硬鎖":["Blades feathered, the rotor idles freely, not locked","フェザリングしてロータは固定せずアイドリング"],
-"備用電源讓機艙持續對準風向":["Backup power keeps the nacelle facing the wind","バックアップ電源でナセルを風に正対"],
-"葉片順槳 {n}°":["Blade pitch {n}°","ブレードピッチ {n}°"],
-"轉子空轉（不鎖死）":["Rotor idling, unlocked","ロータ　アイドリング"],
-"備用電源":["Backup power","バックアップ電源"],
-"偏航持續對風":["Yaw keeps facing wind","ヨーで風に正対"],
-"陣風與強降雨":["Gusts and heavy rain","突風と豪雨"],
-"颱風停機（示例）":["Typhoon shutdown (example)","台風時の停止（例）"],
-"平均風速":["Mean wind","平均風速"],
-"額定發電":["Rated output","定格発電"],
-"順槳停機中":["Feathering","フェザリング中"],
-"颱風空轉":["Storm idling","台風時アイドリング"],
-"兩套剎車與安全鏈":["Two brakes and a safety chain","2 系統のブレーキとセーフティチェーン"],
-"風機至少有兩套能獨立讓轉子停下來的剎車。主要的是氣動剎車：三支葉片各有獨立的變槳驅動與備用電池或蓄壓器，即使失去電力也能順槳，通常單支葉片順槳就足以讓轉子減速。機械碟剎裝在高速軸上，主要在轉子已經變慢後把它完全停住，或作為停車剎車。維修人員進入輪轂前，還要插上轉子鎖定銷。超速、過度振動或按下緊急停止按鈕時，獨立於控制器的安全鏈會直接觸發停機。":["A turbine has at least two braking systems that can each stop the rotor on their own. The main one is aerodynamic: each of the three blades has its own pitch drive with a backup battery or hydraulic accumulator, so it can feather even without power, and usually a single feathered blade is enough to slow the rotor. A mechanical disc brake on the high-speed shaft mainly brings an already slowed rotor to a full stop or serves as a parking brake. Before technicians enter the hub, a rotor lock pin is also inserted. Overspeed, excessive vibration or an emergency-stop button trips a safety chain that is independent of the controller and triggers a shutdown directly.","風車には、それぞれ単独でロータを止められるブレーキが少なくとも 2 系統あります。主となるのは空力ブレーキで、3 枚のブレードはそれぞれ独立したピッチ駆動装置とバックアップ用のバッテリーまたはアキュムレータを持ち、電源を失ってもフェザリングできます。通常は 1 枚がフェザリングするだけでもロータを減速できます。機械式ディスクブレーキは高速軸にあり、主に減速したロータを完全に止めるため、または駐車ブレーキとして使います。作業員がハブに入る前には、ロータロックピンも差し込みます。過回転、過大な振動、非常停止ボタンが作動すると、制御装置から独立したセーフティチェーンが直接停止させます。"],
-"停機時，先用葉片變槳減速":["To stop, the blades first pitch to slow down","停止時はまずピッチで減速"],
-"每支葉片都有備用電源，斷電也能順槳":["Each blade has backup power to feather in a blackout","各ブレードにバックアップ電源、停電でもフェザリング"],
-"轉子變慢後，高速軸碟剎把它完全停住":["Once slow, the high-speed disc brake stops it fully","減速後、高速軸ディスクブレーキで完全停止"],
-"進入輪轂維修前，插上轉子鎖定銷":["Before hub work, the rotor lock pin goes in","ハブ内作業前にロータロックピンを挿入"],
-"三支葉片各自變槳":["Three independent pitch drives","3 枚が独立してピッチ"],
-"備用電池／蓄壓器":["Battery / accumulator","バッテリー／アキュムレータ"],
-"高速軸碟剎":["High-speed disc brake","高速軸ディスクブレーキ"],
-"轉子鎖定銷":["Rotor lock pin","ロータロックピン"],
-"停機程序（示例）":["Shutdown sequence (example)","停止手順（例）"],
-"碟剎":["Disc brake","ディスクブレーキ"],
-"鬆開":["Released","解放"],
-"夾緊":["Applied","作動"],
-"鎖定銷":["Lock pin","ロックピン"],
-"未插入":["Out","未挿入"],
-"已插入":["In","挿入済み"]
+"陸域風電系列":["Onshore Wind Series", "陸上風力発電シリーズ"],
+"葉片的空氣動力":["Blade aerodynamics", "ブレードの空気力学"],
+"葉片為什麼要做成又長又扭的形狀？這一集把葉片切成一片片翼型，看攻角如何決定升力與阻力、攻角太大為什麼會失速，再用葉根到葉尖的速度三角形解釋葉片的扭轉角，最後看變槳系統如何控制攻角。":["Why are blades so long and twisted? This episode slices a blade into airfoils: how the angle of attack sets lift and drag, why too steep an angle causes stall, how velocity triangles from root to tip explain the blade's twist, and finally how the pitch system controls the angle of attack.", "ブレードはなぜ長く、ねじれた形をしているのでしょうか。本編ではブレードを翼型の断面に切り分け、迎角が揚力と抗力をどう決めるか、迎角が大きすぎるとなぜ失速するかを見たうえで、翼根から翼端までの速度三角形でブレードのねじれを説明し、最後にピッチ制御が迎角をどう調整するかを見ます。"],
+"典型的設計攻角：翼型升阻比最高的附近（示例）":["Typical design angle of attack, near the airfoil's best lift-to-drag ratio (example)", "代表的な設計迎角：翼型の揚抗比が最大となる付近（例）"],
+"乾淨翼型在設計攻角附近，升力可達阻力的 100 倍以上（示例）":["Near the design angle, a clean airfoil's lift can exceed 100 times its drag (example)", "清浄な翼型では設計迎角付近で揚力が抗力の 100 倍以上になる（例）"],
+"常見風機翼型開始失速的攻角範圍（示例）":["Angle-of-attack range where common turbine airfoils begin to stall (example)", "一般的な風車翼型が失速し始める迎角の範囲（例）"],
+"葉尖速度示例：60 m 葉片每分鐘 13 轉":["Example tip speed: a 60 m blade at 13 rpm", "翼端速度の例：60 m のブレードが毎分 13 回転"],
+"倍":["of inflow", "倍"],
+"依貝茲理論，理想轉子處的風速約降為來流的三分之二":["By Betz theory, wind at an ideal rotor slows to about two-thirds of the free stream", "ベッツ理論では、理想ロータ位置の風速は流入風速の約 3 分の 2 に低下"],
+"NREL 5 MW 參考風機葉片從葉根到葉尖的扭轉角":["Twist from root to tip of the NREL 5 MW reference turbine blade", "NREL 5 MW 参照風車ブレードの翼根から翼端までのねじれ角"],
+"說明：本集為教育用途示意動畫，風機、葉片與翼型的比例經過調整，流線與渦流為示意繪製，阻力向量放大顯示。翼型的升力係數、阻力係數、升阻比曲線與失速角度為典型範例，並非特定翼型的風洞資料；實際數值依翼型、雷諾數與表面粗糙度而定。速度三角形以 60 m 葉片、每分鐘 13 轉、來流 9 m/s，並依貝茲理論取轉子處風速為來流的三分之二計算，忽略切向誘導速度；扭轉角 13.3° 引自 NREL 5 MW 參考風機定義（Jonkman 等，NREL/TP-500-38060，2009）。額定風速、槳距角與輸出功率為示例，實際依機型而定。":["Note: This is a schematic animation for education; the proportions of turbines, blades and airfoils are adjusted, streamlines and vortices are illustrative, and the drag vector is exaggerated. The lift coefficient, drag coefficient, lift-to-drag curves and stall angles are typical examples, not wind-tunnel data for a specific airfoil; real values depend on the airfoil, Reynolds number and surface roughness. The velocity triangles assume a 60 m blade at 13 rpm in a 9 m/s free stream, with the wind at the rotor taken as two-thirds of the free stream per Betz theory and tangential induction neglected. The 13.3° twist is from the NREL 5 MW reference turbine definition (Jonkman et al., NREL/TP-500-38060, 2009). Rated wind speed, pitch angles and power output are examples and vary by turbine model.", "説明：本編は教育用の模式アニメーションで、風車、ブレード、翼型の縮尺は調整しており、流線と渦は模式的に描き、抗力ベクトルは拡大して表示しています。翼型の揚力係数、抗力係数、揚抗比の曲線と失速角は代表的な例で、特定翼型の風洞データではありません。実際の値は翼型、レイノルズ数、表面粗さによって異なります。速度三角形は長さ 60 m、毎分 13 回転のブレード、流入風速 9 m/s を想定し、ベッツ理論に基づきロータ位置の風速を流入風速の 3 分の 2 として計算し、接線方向の誘導速度は無視しています。ねじれ角 13.3° は NREL 5 MW 参照風車の定義（Jonkman ほか、NREL/TP-500-38060、2009）によります。定格風速、ピッチ角、出力は例であり、実際は機種によって異なります。"],
+"一支葉片，一串翼型":["A blade is a stack of airfoils", "1 枚のブレードは翼型の連なり"],
+"從地面看，風機葉片像一片細長的板子，但沿著葉長任何一處切開，剖面都是一個翼型，和飛機機翼的原理相同。葉根靠近輪轂，剖面厚而寬，要承受整支葉片的彎矩；越往葉尖，翼型越薄、弦長越窄，角度也一路扭轉。以長約 60 公尺、每分鐘 13 轉的葉片為例，葉尖速度約 82 m/s，葉根附近卻只有十幾 m/s。同一支葉片上，每一段遇到的氣流其實都不一樣。":["From the ground a blade looks like a long, slender board, but cut it anywhere along its length and the cross-section is an airfoil, working on the same principle as an aircraft wing. Near the hub, the root section is thick and wide to carry the bending moment of the whole blade; toward the tip the airfoil gets thinner, the chord narrower, and the angle keeps twisting. For a blade about 60 m long turning at 13 rpm, the tip moves at about 82 m/s while the root moves at only a dozen or so m/s. Every part of the same blade meets a different airflow.", "地上から見るとブレードは細長い板のようですが、長さ方向のどこで切っても断面は翼型で、航空機の翼と同じ原理で働きます。ハブに近い翼根は断面が厚く幅広で、ブレード全体の曲げモーメントを受け持ちます。翼端に向かうほど翼型は薄く、翼弦は狭くなり、角度も連続的にねじれていきます。長さ約 60 m、毎分 13 回転のブレードでは、翼端速度は約 82 m/s ですが、翼根付近は十数 m/s にすぎません。同じブレードでも、部位ごとに受ける気流はまったく異なります。"],
+"風場裡的葉片，看起來像一片細長的板子":["In the wind farm, a blade looks like a long, slender board", "風車のブレードは細長い板のように見える"],
+"沿葉長任何一處切開，剖面都是翼型":["Cut it anywhere along its length and you find an airfoil", "長さ方向のどこで切っても断面は翼型"],
+"葉根厚而寬，葉尖薄而窄，角度也一路扭轉":["Thick and wide at the root, thin and narrow at the tip, and twisted along the way", "翼根は厚く幅広、翼端は薄く細く、角度も連続的にねじれる"],
+"越往外轉得越快，每一段遇到的氣流都不同":["The farther out, the faster it moves, so each section meets different airflow", "外側ほど速く動き、部位ごとに受ける気流が異なる"],
+"葉片長約 60 m":["Blade about 60 m", "ブレード長 約 60 m"],
+"輪轂":["Hub", "ハブ"],
+"切開葉片的剖面（示意）":["Blade cross-sections (schematic)", "ブレードの断面（模式図）"],
+"葉根":["Root", "翼根"],
+"厚而寬":["Thick, wide", "厚く幅広"],
+"葉中":["Mid-span", "中央部"],
+"中等厚度":["Medium", "中程度の厚さ"],
+"葉尖":["Tip", "翼端"],
+"薄而窄":["Thin, narrow", "薄く細い"],
+"扭轉角漸小":["Twist decreases", "ねじれ角が減少"],
+"運轉狀態（示例）":["Operation (example)", "運転状態（例）"],
+"風速":["Wind speed", "風速"],
+"轉速":["Rotor speed", "回転数"],
+"葉尖速度":["Tip speed", "翼端速度"],
+"攻角、升力與阻力":["Angle of attack, lift and drag", "迎角、揚力と抗力"],
+"翼型弦線與迎面氣流之間的夾角稱為攻角（α）。氣流流過翼型，上表面流速較快、壓力較低，下表面壓力較高，產生垂直於來流的升力，同時也有與來流同向的阻力。攻角越大升力越大，但阻力也跟著增加。風機翼型追求的是升力與阻力的比值，也就是升阻比（L/D）：乾淨的翼型在約 6° 的設計攻角附近，升阻比可達 100 以上，這是葉片設計時瞄準的工作點。":["The angle between an airfoil's chord line and the oncoming flow is the angle of attack (α). As air flows past, it moves faster with lower pressure over the upper surface and has higher pressure below, producing lift perpendicular to the flow, along with drag in the flow direction. A larger angle of attack gives more lift, but also more drag. What a turbine airfoil aims for is the ratio of the two, the lift-to-drag ratio (L/D): near a design angle of about 6°, a clean airfoil can exceed an L/D of 100, and that is the operating point blade designers target.", "翼型の翼弦線と流れてくる気流とのなす角を迎角（α）といいます。気流が翼型を通過すると、上面では流速が速く圧力が低く、下面では圧力が高くなり、流れに垂直な揚力が生じると同時に、流れの方向に抗力も生じます。迎角が大きいほど揚力は増えますが、抗力も増加します。風車の翼型が目指すのは揚力と抗力の比、すなわち揚抗比（L/D）です。清浄な翼型は約 6° の設計迎角付近で揚抗比が 100 を超え、これがブレード設計で狙う動作点です。"],
+"翼型弦線與來流的夾角，就是攻角":["The angle between chord and flow is the angle of attack", "翼弦線と流入気流のなす角が迎角"],
+"上表面壓力低、下表面壓力高，產生升力":["Low pressure above and high pressure below create lift", "上面は低圧、下面は高圧となり揚力が生じる"],
+"攻角加大，升力增加，阻力也跟著變大":["A steeper angle adds lift, and drag grows too", "迎角を大きくすると揚力が増え、抗力も増える"],
+"約 6° 時升阻比最高，是葉片的設計工作點":["L/D peaks near 6°, the blade's design point", "約 6° で揚抗比が最大になり、ここが設計動作点"],
+"翼型受力（剖面示意）":["Forces on an airfoil (schematic)", "翼型にはたらく力（断面の模式図）"],
+"低壓":["Low pressure", "低圧"],
+"高壓":["High pressure", "高圧"],
+"來流":["Inflow", "流入風"],
+"升力":["Lift", "揚力"],
+"阻力（放大 10 倍）":["Drag (×10)", "抗力（10 倍に拡大）"],
+"升力係數 CL":["Lift coefficient CL", "揚力係数 CL"],
+"阻力係數 CD":["Drag coefficient CD", "抗力係数 CD"],
+"升阻比 L/D":["Lift-to-drag L/D", "揚抗比 L/D"],
+"升力係數與攻角（示例）":["Lift coefficient vs angle (example)", "揚力係数と迎角（例）"],
+"攻角 α（°）":["Angle of attack α (°)", "迎角 α（°）"],
+"升阻比與攻角（示例）":["Lift-to-drag vs angle (example)", "揚抗比と迎角（例）"],
+"設計攻角約 6°":["Design angle ≈ 6°", "設計迎角 約 6°"],
+"葉根到葉尖的速度三角形":["Velocity triangles from root to tip", "翼根から翼端までの速度三角形"],
+"葉片感受到的是相對風，由兩個速度合成：一是穿過轉子的風，依貝茲理論在轉子處約降為來流的三分之二，例如 9 m/s 的風剩下約 6 m/s；二是葉片本身運動造成的迎面風，大小等於該處的線速度。葉根 r = 10 m 處線速度約 14 m/s，相對風與旋轉面的夾角約 24°；到了葉尖 r = 60 m，線速度約 82 m/s，相對風幾乎貼著旋轉面吹來，夾角只剩約 4°。":["A blade feels the relative wind, made of two velocities. One is the wind passing through the rotor, which by Betz theory slows to about two-thirds of the free stream at the rotor, so a 9 m/s wind becomes about 6 m/s. The other is the headwind caused by the blade's own motion, equal to the local blade speed. At the root, r = 10 m, the blade moves at about 14 m/s and the relative wind meets the rotor plane at about 24°; at the tip, r = 60 m, the blade moves at about 82 m/s and the relative wind arrives almost along the rotor plane, at only about 4°.", "ブレードが感じるのは相対風で、二つの速度の合成です。一つはロータを通過する風で、ベッツ理論によりロータ位置では流入風速の約 3 分の 2 に低下し、例えば 9 m/s の風は約 6 m/s になります。もう一つはブレード自身の運動による向かい風で、その位置の周速度に等しくなります。翼根 r = 10 m では周速度が約 14 m/s で、相対風と回転面のなす角は約 24° です。翼端 r = 60 m では周速度が約 82 m/s となり、相対風はほぼ回転面に沿って吹き、その角度は約 4° にすぎません。"],
+"相對風＝穿過轉子的風＋葉片運動的迎面風":["Relative wind = wind through the rotor + headwind from blade motion", "相対風＝ロータを通過する風＋ブレード運動による向かい風"],
+"葉根轉得慢，相對風斜斜地吹來，約 24°":["The root moves slowly, so the relative wind comes in steeply, about 24°", "翼根は遅く、相対風は約 24° の角度で斜めに当たる"],
+"越往外線速度越大，相對風越貼近旋轉面":["Farther out the blade moves faster and the wind lies closer to the rotor plane", "外側ほど周速度が大きく、相対風は回転面に近づく"],
+"要維持相同攻角，每一段葉片都得轉到不同角度":["To keep the same angle of attack, each section must be set at a different angle", "同じ迎角を保つには、部位ごとに異なる角度が必要"],
+"葉片速度":["Blade speed", "周速度"],
+"軸向風速":["Axial wind", "軸方向風速"],
+"相對風角 φ":["Inflow angle φ", "流入角 φ"],
+"安裝角 {t}°":["Setting angle {t}°", "取付角 {t}°"],
+"旋轉面":["Rotor plane", "回転面"],
+"葉片為什麼要扭轉":["Why the blade is twisted", "ブレードはなぜねじれているのか"],
+"既然相對風角從葉根的約 24° 一路降到葉尖的約 4°，若葉片是一片平直的板子，葉根的攻角會大到失速，葉尖卻只剩很小的升力。所以葉片沿長度扭轉：每一段的安裝角等於相對風角減去設計攻角，讓整支葉片都在約 6° 的攻角附近工作。理想的扭轉在葉根附近變化最急，實際葉片還要兼顧結構與製造，例如 NREL 5 MW 參考風機從葉根到葉尖扭轉 13.3°。":["Since the inflow angle drops from about 24° at the root to about 4° at the tip, a straight, flat blade would stall at the root while producing little lift at the tip. So the blade is twisted along its length: each section's setting angle equals the inflow angle minus the design angle of attack, keeping the whole blade working near 6°. The ideal twist changes fastest near the root, and real blades must also balance structure and manufacturing; the NREL 5 MW reference turbine, for example, twists 13.3° from root to tip.", "流入角は翼根の約 24° から翼端の約 4° まで下がるため、ブレードがまっすぐな平板だと、翼根は迎角が大きすぎて失速し、翼端ではわずかな揚力しか生じません。そこでブレードは長さ方向にねじられています。各部位の取付角は流入角から設計迎角を引いた値で、ブレード全体が約 6° の迎角付近で働くようにします。理想的なねじれは翼根付近で最も急に変化しますが、実際のブレードは構造と製造とのバランスも必要で、例えば NREL 5 MW 参照風車は翼根から翼端まで 13.3° ねじれています。"],
+"相對風角從葉根到葉尖一路變小":["The inflow angle shrinks from root to tip", "流入角は翼根から翼端へ小さくなる"],
+"安裝角＝相對風角－設計攻角":["Setting angle = inflow angle − design angle of attack", "取付角＝流入角－設計迎角"],
+"不扭轉的葉片：葉根失速，葉尖幾乎沒有升力":["Without twist, the root stalls and the tip makes little lift", "ねじれがないと翼根は失速し、翼端はほとんど揚力を生まない"],
+"扭轉之後，整支葉片都在設計攻角附近工作":["With twist, the whole blade works near the design angle", "ねじることでブレード全体が設計迎角付近で働く"],
+"沿葉長的角度變化（示例）":["Angles along the blade (example)", "ブレード長さ方向の角度（例）"],
+"距轉軸 r（m）":["Radius r (m)", "回転軸からの距離 r（m）"],
+"角度（°）":["Angle (°)", "角度（°）"],
+"安裝角 θ = φ − 6°":["Setting angle θ = φ − 6°", "取付角 θ = φ − 6°"],
+"葉片不扭轉時":["Without twist", "ねじれがない場合"],
+"葉片扭轉後":["With twist", "ねじれがある場合"],
+"扭轉的設計取捨":["Twist trade-offs", "ねじれ設計の兼ね合い"],
+"理想扭轉約 20°，在葉根附近變化最急":["Ideal twist is about 20°, steepest near the root", "理想のねじれは約 20°、翼根付近で最も急"],
+"葉根要承受彎矩，剖面厚、接近圓形":["The root carries bending, so it is thick and nearly round", "翼根は曲げを受けるため厚く、円形に近い"],
+"實際扭轉常較小，兼顧結構與製造":["Real twist is often less, for structure and manufacturing", "実際のねじれは構造と製造を考え小さめ"],
+"例：NREL 5 MW 參考風機扭轉 13.3°":["E.g. NREL 5 MW reference turbine: 13.3°", "例：NREL 5 MW 参照風車は 13.3°"],
+"攻角太大：失速":["Too steep: stall", "迎角が大きすぎると失速"],
+"攻角超過某個角度，氣流無法再貼著上表面流動，會從翼型表面分離，形成紊亂的渦流，這就是失速。常見風機翼型大約在 12–16° 開始失速：升力不增反降，阻力急遽增加，葉片也會振動並產生噪音。早期的定槳距風機刻意利用失速，在強風時自動限制出力；現代大型風機則以變槳控制攻角，避開失速區，出力更平穩，載重也更容易掌握。":["Beyond a certain angle of attack, the air can no longer follow the upper surface; it separates from the airfoil and forms turbulent vortices. This is stall. Common turbine airfoils start to stall at about 12–16°: lift falls instead of rising, drag climbs sharply, and the blade vibrates and makes noise. Early fixed-pitch turbines used stall deliberately to limit output in strong winds; modern large turbines instead control the angle of attack by pitching and stay out of the stall region, giving smoother output and loads that are easier to manage.", "迎角がある角度を超えると、気流は上面に沿って流れられなくなり、翼型表面からはく離して乱れた渦を作ります。これが失速です。一般的な風車翼型は約 12–16° で失速し始め、揚力は増えるどころか急に下がり、抗力は急増し、ブレードは振動して騒音も出ます。初期の固定ピッチ風車は失速を意図的に利用して強風時の出力を制限していましたが、現代の大型風車はピッチ制御で迎角を調整して失速域を避け、出力をより安定させ、荷重も管理しやすくしています。"],
+"攻角逐漸加大，升力跟著增加":["As the angle of attack grows, lift increases", "迎角を大きくすると揚力も増える"],
+"超過約 14°，氣流從上表面分離":["Beyond about 14°, flow separates from the upper surface", "約 14° を超えると気流が上面からはく離"],
+"升力驟降、阻力暴增，葉片振動加劇":["Lift drops, drag soars and the blade shakes harder", "揚力が急減、抗力が急増し、振動が激しくなる"],
+"現代風機以變槳控制攻角，避開失速區":["Modern turbines pitch the blades to stay out of stall", "現代の風車はピッチ制御で失速域を避ける"],
+"氣流分離（剖面示意）":["Flow separation (schematic)", "気流のはく離（断面の模式図）"],
+"分離渦流":["Separated vortices", "はく離渦"],
+"升力係數與失速（示例）":["Lift coefficient and stall (example)", "揚力係数と失速（例）"],
+"失速區":["Stall", "失速域"],
+"失速的影響與對策":["Effects of stall and the remedy", "失速の影響と対策"],
+"升力驟降、阻力暴增":["Lift drops, drag soars", "揚力の急減、抗力の急増"],
+"葉片振動與噪音增加":["More vibration and noise", "振動と騒音の増加"],
+"早期定槳距風機：利用失速限制出力":["Early fixed-pitch turbines: stall limits power", "初期の固定ピッチ風車：失速で出力を制限"],
+"現代大型風機：以變槳避開失速":["Modern large turbines: pitch avoids stall", "現代の大型風車：ピッチ制御で失速を回避"],
+"變槳控制攻角":["Pitching to control the angle of attack", "ピッチ制御で迎角を調整"],
+"風速低於額定時，葉片維持在最佳槳距角，讓各段攻角接近設計值，盡量多捕捉風能。風速超過約 11 m/s 的額定風速後，轉速已達上限，若葉片不動，相對風角變大，攻角也跟著增加，出力會超過發電機的額定。這時變槳系統把整支葉片往順槳方向轉，槳距角加大、攻角變小，升力減少，出力維持在額定值。颱風或風速超過切出值時，葉片轉到約 90° 順槳，幾乎不再產生驅動力。":["Below rated wind speed, the blades stay at their optimum pitch so each section works near its design angle and captures as much energy as possible. Above the rated wind speed of about 11 m/s, rotor speed has reached its limit; if the blades stayed put, the inflow angle and the angle of attack would grow and output would exceed the generator's rating. So the pitch system turns each whole blade toward feather: the pitch angle increases, the angle of attack falls, lift is reduced and output holds at the rated value. In a typhoon or above the cut-out wind speed, the blades turn to about 90°, fully feathered, and produce almost no driving force.", "定格風速未満では、ブレードは最適なピッチ角に保たれ、各部位の迎角を設計値付近にして、できるだけ多くの風のエネルギーを取り込みます。風速が約 11 m/s の定格風速を超えると回転数は上限に達し、ブレードがそのままだと流入角とともに迎角も大きくなり、出力が発電機の定格を超えてしまいます。そこでピッチ制御がブレード全体をフェザー方向に回し、ピッチ角を大きくして迎角を小さくし、揚力を減らして出力を定格値に保ちます。台風時やカットアウト風速を超えたときは、ブレードを約 90° のフェザー位置まで回し、駆動力をほとんど生じないようにします。"],
+"風速低於額定，葉片保持在最佳角度":["Below rated wind, the blades stay at the best angle", "定格風速未満ではブレードを最適角度に保つ"],
+"風速超過約 11 m/s，葉片開始轉向順槳":["Above about 11 m/s, the blades start pitching toward feather", "約 11 m/s を超えるとフェザー方向へピッチを開始"],
+"槳距角加大、攻角變小，出力維持在額定":["More pitch, less angle of attack, output held at rated", "ピッチ角を増やし迎角を下げ、出力を定格に保つ"],
+"颱風或超過切出風速時，葉片轉到約 90° 停機":["In a typhoon or above cut-out, the blades feather to about 90° and stop", "台風時やカットアウト超過時は約 90° にフェザーして停止"],
+"變槳軸承轉動整支葉片":["Pitch bearing turns the blade", "ピッチ軸受がブレードを回す"],
+"葉中剖面 r = 30 m（示例）":["Mid-span section, r = 30 m (example)", "中央部の断面 r = 30 m（例）"],
+"相對風":["Relative wind", "相対風"],
+"往順槳方向":["Toward feather", "フェザー方向へ"],
+"攻角 α":["Angle of attack α", "迎角 α"],
+"不變槳時的攻角":["Without pitching", "ピッチ制御なしの迎角"],
+"順槳停機":["Feathered stop", "フェザー停止"],
+"變槳控制（示例）":["Pitch control (example)", "ピッチ制御（例）"],
+"槳距角":["Pitch angle", "ピッチ角"],
+"輸出功率":["Power output", "出力"],
+"額定功率":["Rated power", "定格出力"],
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
