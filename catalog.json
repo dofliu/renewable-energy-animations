@@ -192,6 +192,20 @@
                 "en": "Jacket vs monopile, pre-piling, stabbing and grouted connections",
                 "ja": "ジャケットとモノパイルの比較、プレパイリング、スタビングとグラウト接合"
               }
+            },
+            {
+              "no": 23,
+              "file": "ep23.html",
+              "title": {
+                "zh": "單樁與套管的製造",
+                "en": "How monopiles and jackets are made",
+                "ja": "モノパイルとジャケットの製造"
+              },
+              "sub": {
+                "zh": "厚板捲管、縱縫與環縫埋弧焊、超音波探傷、套管組裝與塗裝出貨",
+                "en": "Plate rolling, SAW long and circ seams, ultrasonic testing, jacket assembly and coating",
+                "ja": "厚板の曲げ加工、縦・周継手の SAW、超音波探傷、ジャケット組立と塗装・出荷"
+              }
             }
           ]
         },
