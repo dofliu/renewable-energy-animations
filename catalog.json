@@ -387,6 +387,20 @@
                 "en": "Dive support vessels and work orders, anode retrofits, cable protection repair, rock placement in scour pits, dive windows and decompression",
                 "ja": "潜水支援船と作業指示、流電陽極の追加、ケーブル保護管の補修、洗掘孔への捨石、潜水作業の時間帯と減圧"
               }
+            },
+            {
+              "no": 32,
+              "file": "ep32.html",
+              "title": {
+                "zh": "海上變電站的維護",
+                "en": "Maintaining the offshore substation",
+                "ja": "洋上変電所の保守"
+              },
+              "sub": {
+                "zh": "無人值守與遠端監控、變壓器油中氣體分析、GIS 的 SF₆ 密度與局部放電、定期登站、消防與救生設備",
+                "en": "Unmanned operation and remote monitoring, transformer dissolved gas analysis, SF₆ density and partial discharge in GIS, scheduled visits, fire and life-saving equipment",
+                "ja": "無人運転と遠隔監視、変圧器の油中ガス分析、GISのSF₆密度と部分放電、定期上陸、消火・救命設備"
+              }
             }
           ]
         },
