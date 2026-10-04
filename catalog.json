@@ -438,6 +438,20 @@
                 "en": "Class T turbines, typhoon shutdown and yaw, the 475-year earthquake, liquefaction and fatigue",
                 "ja": "T クラス風車、台風時の停止とヨー、475年設計地震、液状化と疲労"
               }
+            },
+            {
+              "no": 24,
+              "file": "ep24.html",
+              "title": {
+                "zh": "腐蝕防護與陰極保護",
+                "en": "Corrosion protection and cathodic protection",
+                "ja": "防食と電気防食"
+              },
+              "sub": {
+                "zh": "腐蝕分區、塗層系統、犧牲陽極與外加電流、電位監測",
+                "en": "Corrosion zones, coating systems, sacrificial anodes and impressed current, potential monitoring",
+                "ja": "腐食区分、塗装系、流電陽極と外部電源方式、電位モニタリング"
+              }
             }
           ]
         },

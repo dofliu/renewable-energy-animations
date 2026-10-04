@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep17.js｜離岸風場開發系列</title>
+<title>ep24.js｜離岸風場開發系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep32.html"><span data-zh="← 32 海上變電站的維護" data-en="← 32 Maintaining the offshore substation" data-ja="← 32 洋上変電所の保守">← 32 海上變電站的維護</span></a><a href="ep24.html"><span data-zh="24 腐蝕防護與陰極保護 →" data-en="24 Corrosion protection and cathodic protection →" data-ja="24 防食と電気防食 →">24 腐蝕防護與陰極保護 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep17.html"><span data-zh="← 17 颱風與地震的設計挑戰" data-en="← 17 Designing for typhoons and earthquakes" data-ja="← 17 台風と地震への設計">← 17 颱風與地震的設計挑戰</span></a><a href="ep18.html"><span data-zh="18 風機葉片的製造 →" data-en="18 How turbine blades are made →" data-ja="18 風車ブレードの製造 →">18 風機葉片的製造 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep17.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep24.js｜離岸風場開發系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -928,421 +928,432 @@ function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
 Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
 
 // KITS: marine
-/* ================= EP17 颱風與地震的設計挑戰 ================= */
+/* ================= EP24 腐蝕防護與陰極保護 ================= */
 /* complete fixed-bottom turbine at cx (monopile + TP + tower + nacelle + rotor) */
-function turb17(cx,ang){
+function turb24(cx,ang){
   const yb=bedY(cx)+130;drawPile(cx,yb,Math.PI/2,yb-PILE_TOP,PILE_W);drawTP(cx,TP_BOT);
   for(let k=0;k<3;k++)drawTowerSec(cx,TP_TOP-k*HS,k);
   drawNacelle(cx,TW_TOP,0,true);drawRotor(cx-44,TW_TOP-20,ang,3);
 }
+function far24(x,s,ang){const h=150*s,hx=x,hy=SEA-h;ln([x,SEA,x,hy],'rgba(235,240,243,.85)',3*s);
+  for(let i=0;i<3;i++){const a=ang-i*TAU/3;ln([hx,hy,hx+Math.cos(a)*70*s,hy+Math.sin(a)*70*s],'rgba(245,247,248,.9)',2.2*s);}circ(hx,hy,3*s,'#eef2f4');}
 /* text wrapped to a width (after translation) */
-function wrap17(x,y,t,maxW,size,col,weight,lh,align){
+function wrap24(x,y,t,maxW,size,col,weight,lh,align){
   t=tr(t);const cjk=LANG!=='en'&&CJK_RE.test(t),parts=cjk?[...t]:t.split(' ');let line='',n=0;
   const out=s=>{wt(x,y+n*lh,s,size,col,weight,align);n++;};
   for(const w of parts){const test=line?(cjk?line+w:line+' '+w):w;if(line&&wtw(test,size,weight)>maxW){if(cjk&&/^[，。、）」：；,.]$/.test(w)){out(test);line='';continue;}out(line);line=w;}else line=test;}
   if(line)out(line);return n;
 }
-/* rotor angle as a pure function of u: integrate the angular speed om(x) over the shot */
-function rotAng17(u,dur,om){let a=0;const n=60;for(let i=0;i<n;i++)a+=om(u*(i+.5)/n)*u/n*dur;return a;}
-
-/* ---------- shot 1: typhoon ---------- */
-const V1_17=u=>lerp(12,52,ease(seg(u,.02,.8)));          // 10-min mean wind at hub (example)
-const UC17=(()=>{let u=0;while(u<1&&V1_17(u)<25)u+=.001;return u;})();   // cut-out moment
-const om1_17=x=>x<UC17?1.25:lerp(1.25,.05,ease(seg(x,UC17,UC17+.12)));
-const sk17=u=>.3+.7*ease(seg(u,0,.7));                   // storm intensity 0–1
-const RAIN17=(()=>{const r=rng(17),a=[];for(let i=0;i<150;i++)a.push({x:r()*2000-200,y:r()*900,l:.6+r()*.6,sp:.8+r()*.5});return a;})();
-const SCL17=(()=>{const r=rng(71),a=[];for(let i=0;i<9;i++)a.push({x:r()*2400-400,y:40+r()*190,s:.9+r()*1.1,sp:.7+r()*.6});return a;})();
-function stormSky17(k){
-  drawSky();
-  ctx.fillStyle=`rgba(28,38,48,${.7*k})`;ctx.fillRect(VX0,VY0,VX1-VX0,SEA+10-VY0);
-  for(const c of SCL17){const x=((c.x+TT*60*c.sp*k+400)%2600+2600)%2600-400;
-    ctx.save();ctx.globalAlpha*=.85*k;ctx.beginPath();
-    [[0,0,34],[34,-14,40],[74,-4,32],[104,6,24],[-30,8,22]].forEach(([dx,dy,r])=>{ctx.moveTo(x+dx*c.s+r*c.s,c.y+dy*c.s);ctx.arc(x+dx*c.s,c.y+dy*c.s,r*c.s,0,TAU);});
-    ctx.fillStyle='#4a5864';ctx.fill();ctx.restore();}
+const PB24=bedY(TX); // seabed at the monopile
+const HW24=PILE_W/2;
+/* exposure zones beside the pile (world y, exaggerated) */
+const ZN24=[
+ {n:'大氣區',a:236,b:420,c:'125,200,220',p:'塗層',t:.1},
+ {n:'飛濺區',a:420,b:458,c:'232,87,42',p:'厚塗層＋腐蝕裕度',t:.24},
+ {n:'潮差區',a:458,b:488,c:'242,194,48',p:'塗層＋部分陰極保護',t:.38},
+ {n:'全浸區',a:488,b:PB24,c:'88,184,208',p:'塗層＋陰極保護',t:.52},
+ {n:'埋入區',a:PB24,b:PB24+50,c:'179,124,255',p:'陰極保護',t:.66}];
+/* sacrificial anode on stand-off (side view); rem 0–1 remaining; d=+1 right side */
+function anode24(x,y,rem,d){
+  const w=4+5*rem;box(d>0?x:x-6,y-2,6,4,'#6b7780');
+  box(d>0?x+6:x-6-w,y-16,w,32,rem>.6?'#c9d1d5':'#8f9aa2','#5b666e',.8);
+  if(rem<.6)for(let i=0;i<4;i++)circ(x+d*(6+w/2)+((i%2)-.5)*2,y-10+i*7,1,'#4d5962');
 }
-/* storm swell drawn over the kit water: crests above sea level with foam */
-function stormSwell17(A){
-  const xe=Math.min(VX1,COAST-40);if(xe<=VX0)return;
-  const y=x=>SEA+2-A*clamp((COAST-40-x)/260)*(.5+.5*Math.sin(x*.012-TT*2.1))*(.65+.35*Math.sin(x*.031+TT*1.3));
-  ctx.beginPath();ctx.moveTo(VX0,SEA+3);for(let x=VX0;x<=xe;x+=6)ctx.lineTo(x,y(x));ctx.lineTo(xe,SEA+3);ctx.closePath();
-  const g=ctx.createLinearGradient(0,SEA-A,0,SEA+3);g.addColorStop(0,'#2c6c8c');g.addColorStop(1,'#3b93bb');ctx.fillStyle=g;ctx.fill();
-  ctx.beginPath();for(let x=VX0;x<=xe;x+=6){const v=y(x);x===VX0?ctx.moveTo(x,v):ctx.lineTo(x,v);}
-  ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;ctx.stroke();
-  for(let x=VX0-(VX0%60);x<=xe;x+=60){const v=y(x);if(v<SEA-A*.55)circ(x+Math.sin(TT*3+x)*4,v+2,3+A*.08,'rgba(255,255,255,.75)');}
+/* rust spots on the submerged pile (fixed layout) */
+const RUST24=(()=>{const r=rng(241),a=[];for(let i=0;i<70;i++)a.push({x:TX+(r()*2-1)*(HW24-3),y:500+r()*(PB24-510),r:1.5+r()*3.5,k:r()});return a;})();
+function rust24(f){if(f<=0)return;for(const s of RUST24){const g=clamp(f*1.4-s.k*.4);if(g<=0)continue;circ(s.x,s.y,s.r*g,`rgba(176,92,44,${.85*g})`);}}
+/* ionic current dots: from anode (ax,ay) through water to the pile face */
+function flow24(ax,ay,d,k0,a){
+  alphaDo(a,()=>{for(let k=0;k<6;k++){const off=(k-2.5)*22,q=(TT*.5+k/6+k0)%1;
+   const P0={x:ax+d*12,y:ay},P1={x:ax+d*70,y:ay+off*.8},P2={x:TX+d*HW24,y:ay+off};
+   const x=(1-q)*(1-q)*P0.x+2*(1-q)*q*P1.x+q*q*P2.x,y=(1-q)*(1-q)*P0.y+2*(1-q)*q*P1.y+q*q*P2.y;
+   circ(x,y,1.8,'#7dffc4');}});
 }
-function rain17(k){
-  ctx.strokeStyle=`rgba(210,225,235,${.45*k})`;ctx.lineWidth=1.3;ctx.beginPath();
-  for(const d of RAIN17){if(d.x>2000*k&&k<1)continue;const y=((d.y+TT*900*d.sp)%1000+1000)%1000-60,x=((d.x+TT*420*d.sp+(y*.45))%2000+2000)%2000-200;
-    if(y>SEA+10)continue;ctx.moveTo(x,y);ctx.lineTo(x+14*d.l,y+32*d.l);}
-  ctx.stroke();
-}
+/* corrosion profile (typical unprotected steel, mm/yr) vs zone index */
+const PROF24=[[0,.06],[.55,.09],[.7,.33],[.78,.36],[.86,.16],[.9,.1],[.95,.17],[1.05,.1],[1.5,.1],[1.6,.03],[2,.02]];
+const profAt=v=>{for(let i=0;i<PROF24.length-1;i++){const a=PROF24[i],b=PROF24[i+1];if(v<=b[0])return lerp(a[1],b[1],(v-a[0])/(b[0]-a[0]));}return .02;};
+/* current demand (A) of the example pile: area 754 m², DNV-RP-B401 tropical 0–30 m */
+const AREA24=754;
+const jb24=t=>.100+.050*Math.exp(-t/2);
+const fc24=t=>.02+.012*t;
 
-/* ---------- shot 3: typhoon wind record ---------- */
-const VM17=t=>(12+42*Math.exp(-Math.pow((t-12)/4,2)))*(1-.72*Math.exp(-Math.pow((t-12)/.7,2)));
-const VG17=t=>VM17(t)*(1.32+.1*Math.sin(t*7.3)+.07*Math.sin(t*17.1+1)+.05*Math.sin(t*31.7));
-const TH17=t=>150*(1/(1+Math.exp(-(t-12)/2.2)));     // wind direction change (deg)
-function yaw17(u){                                    // nacelle yaw (deg): tracks, then stuck on grid loss, then catches up
-  const t=24*u,th=TH17(t),tS=24*.46,tB=24*.76;
-  if(t<tS)return th;if(t<tB)return TH17(tS);
-  return lerp(TH17(tS),th,ease(seg(u,.76,.86)));
-}
-
-/* ---------- shot 4: earthquake ---------- */
-const EQ17=u=>seg(u,.14,.2)*(1-seg(u,.62,.76));
-const om4_17=x=>x<.3?1.1:lerp(1.1,0,ease(seg(x,.3,.46)));
-
-/* ---------- shot 5: liquefaction ---------- */
-const GR17=(()=>{const r=rng(55),a=[];for(let j=0;j<6;j++)for(let i=0;i<9;i++)a.push({i,j,ox:(r()-.5)*2,oy:(r()-.5)*2,ph:r()*6,r:21+r()*4});return a;})();
-const FL17=d=>{const v=1.55-.95*Math.exp(-Math.pow((d-7)/3.2,2))+.012*d;return v;};   // example FL profile
-
-const EP={no:17,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'颱風與地震的設計挑戰',en:'Designing for typhoons and earthquakes',
-lede:'台灣位在颱風路徑上，也處在環太平洋地震帶，離岸風機除了要能發電，更要在極端風浪與強震中站得住。這一集看颱風來襲時風機如何自保，認識 IEC 的 T 級風機等級，再看地震、土壤液化與二十多年的疲勞載重如何左右設計。',
-facts:[['57','m/s','T 級基準風速 Vref,T：輪轂高度 10 分鐘平均、50 年回歸期'],['79.8','m/s','T 級對應的 50 年回歸期 3 秒極端陣風（1.4 × Vref,T）'],['475','年','極限狀態檢核的設計地震回歸期；使用狀態另以 95 年地震檢核'],['< 1','FL','抗液化安全係數 FL = CRR / CSR 小於 1，即判定該土層會液化'],['20','年以上','技術指引規定的離岸風機最短設計年限'],['346','座','2024 年凱米颱風過後，台灣海峽仍安然佇立的離岸風機（能源署）']],
-note:'說明：本集為教育用途示意動畫。風機等級、T 級基準風速、極端風速公式、地震回歸期、液化評估方法與設計年限取自經濟部標準檢驗局《離岸風力發電場址調查及設計技術指引》（2023）與 IEC 61400-1 第 4 版；凱米颱風後的風機數量取自能源署風力發電單一服務窗口；蒲福風級取自中央氣象署。颱風風速與風向歷程、切出風速 25 m/s、海床加速度、FL 分布、S-N 曲線與疲勞損傷值均為典型範例，實際依各風場的場址調查與設計而定。',
+const EP={no:24,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'腐蝕防護與陰極保護',en:'Corrosion protection and cathodic protection',
+lede:'鋼鐵泡在溫暖、含鹽、充滿氧氣的海裡，是腐蝕最嚴重的環境之一。這一集從設計的角度，看離岸風機基礎怎麼依高度分成不同的腐蝕區，各用什麼塗層與腐蝕裕度，再說明犧牲陽極與外加電流兩種陰極保護的原理、保護電流怎麼估算，以及完工後如何監測電位，與第 30、31 集的檢查與維修接在一起。',
+facts:[['0.3','mm/年','飛濺區未保護鋼材的典型腐蝕速率（典型範例）'],['≥ 1,000','μm','飛濺區塗層的典型總膜厚（NORSOK M-501 系統 7A，塗料廠資料）'],['0.150','A/m²','熱帶海水（> 20 °C）0–30 m 裸鋼的初期設計電流密度（DNV-RP-B401）'],['2,000','Ah/kg','鋁合金陽極在海水中的設計電化學容量（DNV-RP-B401）'],['−0.80 ～ −1.10','V','鋼材的保護電位範圍（相對 Ag/AgCl）：太正會腐蝕，太負有氫脆風險'],['約 1.1','t','直徑 8 m 單樁浸水外表面 25 年所需的鋁陽極重量（示例）']],
+note:'說明：本集為教育用途示意動畫，尺寸、高度與各腐蝕區的範圍經過誇大。腐蝕區的劃分與各區防護方式參考 DNV-RP-0416、ISO 12944-9；塗層膜厚依 NORSOK M-501 系統（大氣區約 280 μm 以上、全浸區約 350 μm 以上、飛濺區約 1,000 μm 以上，依塗料廠技術文件）。設計電流密度、塗層破損係數（第 III 類 a=0.02、b=0.012）、陽極容量與利用率依 DNV-RP-B401。飛濺區腐蝕速率 0.3 mm/年為文獻常用的典型值；各區腐蝕速率曲線、塗層壽命、腐蝕裕度、單樁直徑與水深、整流器輸出與電位讀數皆為典型範例，實際依風場設計與驗證機構審查而定，不代表特定風場。',
 shots:[
-/* 1 */{t:'颱風來襲：風機怎麼自保',en:'When a typhoon hits',dur:14,side:true,
- d:'颱風接近時，風速一路升高。風速超過切出風速（典型約 25 m/s），控制系統讓風機停止發電，把三支葉片轉到約 90 度的順槳位置，像刀鋒一樣切風，大幅減少受力；機艙則持續偏航，讓轉子正面迎風，避免側向受風。若電網中斷，備用電源仍要維持偏航與控制。2024 年凱米颱風過後，台灣海峽的 346 座離岸風機都安然佇立。',
- s:[[0,'颱風接近，風速與浪高一路升高'],[.3,'超過切出風速，風機停止發電'],[.48,'葉片轉到順槳位置，像刀鋒一樣切風'],[.66,'機艙持續偏航，讓轉子正面迎風'],[.82,'電網中斷時，備用電源仍維持控制']],
- cam:u=>({x:640,y:430,s:1}),
- base:u=>{const k=sk17(u);stormSky17(k);drawWaterBack();drawSoil();},
- end:u=>{sideEnd();stormSwell17(6+20*sk17(u));},
+/* 1 */{t:'一座基礎，五個腐蝕區',en:'One foundation, five corrosion zones',dur:13,side:true,
+ d:'同一根鋼管從海面上一路插進海床，各段遇到的環境完全不同，設計時依高度分成幾個腐蝕區。大氣區受鹽霧與日照；飛濺區被浪花反覆打濕又曬乾；潮差區隨潮汐一下泡水一下露出；全浸區一直泡在海水裡；埋入區則插在海床泥砂中。台灣海峽中部的潮差可達約 4 公尺，飛濺區的範圍也跟著變寬。每一區的主要防護方式都不一樣。',
+ s:[[0,'同一根鋼管，從空氣、浪花一路插進海床'],[.24,'飛濺區被浪花反覆打濕又曬乾'],[.46,'潮差區與全浸區泡在海水裡，可以用陰極保護'],[.7,'每一區依環境選擇不同的防護方式']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:TX-40,y:500,s:1.4},ease(seg(u,.02,.16))),
  draw(u){
-  turb17(TX,rotAng17(u,14,om1_17));
+  for(const [x,s,p] of [[180,.55,.4],[1100,.45,1.7],[1300,.4,2.6]])far24(x,s,TT*.9+p);
+  turb24(TX,TT*.6);
+  school(TX-260,620,8,6,TT,30,1);
  },
  fx(u){
-  rain17(sk17(u));
-  lab(HUB.x,HUB.y,'超過切出風速：停機',{dx:-110,dy:70,a:band(u,UC17,UC17+.18),st:'w'});
-  lab(HUB.x+BR*.7,HUB.y+BR*.2,'葉片順槳（約 90°）',{dx:90,dy:40,a:band(u,.46,.68),st:'s'});
-  lab(TX+30,TW_TOP-30,'機艙偏航，正面迎風',{dx:120,dy:-40,a:band(u,.64,.84)});
-  lab(TX+30,TP_TOP-40,'備用電源維持控制',{dx:130,dy:10,a:band(u,.8,1),st:'g'});
-  lab(260,SEA-14,'颱風巨浪',{dx:-60,dy:-60,a:band(u,.66,1),st:'w',minor:true});
+  const x0=TX+HW24+6,x1=TX+260;
+  ZN24.forEach((z,i)=>{const a=seg(u,z.t,z.t+.05);if(a<=0)return;const on=u>=z.t&&(i===4||u<ZN24[i+1].t);
+   alphaDo(a,()=>{box(x0,z.a,x1-x0,z.b-z.a,`rgba(${z.c},${on?.32:.16})`);ln([x0,z.a,x1,z.a],`rgba(${z.c},.8)`,1);
+    tag(x0+12,(z.a+z.b)/2,z.n,{size:13,bg:on?'#f2c230':'rgba(7,27,39,.85)',fg:on?'#13232e':'#fff'});});});
+  alphaDo(seg(u,.36,.42),()=>{ctx.setLineDash([5,4]);
+   ln([TX-140,458,TX-HW24-4,458],'rgba(255,255,255,.8)',1.2);ln([TX-140,488,TX-HW24-4,488],'rgba(255,255,255,.8)',1.2);ctx.setLineDash([]);
+   tag(TX-142,458,'最高潮位',{size:12,align:'right',bg:'rgba(7,27,39,.8)',fg:'#fff'});tag(TX-142,488,'最低潮位',{size:12,align:'right',bg:'rgba(7,27,39,.8)',fg:'#fff'});});
  },
- hud(u){hudPanel(240,150,'颱風監測（示例）',seg(u,.02,.08),w=>{const V=V1_17(u),G=V*(1.3+.06*Math.sin(TT*5.3));
-  hrow(52,'平均風速',V.toFixed(0)+' m/s',w,'#f2c230');hbar(14,60,w-28,V/60,V>25?'#e8572a':'#f2c230');
-  hrow(92,'陣風',G.toFixed(0)+' m/s',w);
-  const st=u<UC17?'發電中':u<UC17+.12?'切出停機':'順槳待機';
-  hrow(116,'狀態',st,w,u<UC17?'#7dffc4':'#ff9d7a');
-  hrow(140,'偏航',u>.8?'備用電源':'對風中',w,'#7dffc4');});}},
-/* 2 */{t:'風機等級：為颱風多加一級',en:'Turbine classes and Class T',dur:14,
- d:'國際標準 IEC 61400-1 依「基準風速」把風機分成 I、II、III 級，基準風速是輪轂高度 50 年回歸期的 10 分鐘平均風速，I 級為 50 m/s。第 4 版為颱風地區新增 T 級，基準風速提高到 57 m/s；對應的 50 年回歸期 3 秒陣風是基準風速的 1.4 倍，約 79.8 m/s。57 m/s 大約相當於蒲福風級 17 級。台灣的離岸風機須符合 T 級規範。',
- s:[[0,'IEC 61400-1 依基準風速把風機分成 I、II、III 級'],[.3,'第 4 版新增颱風等級：T 級'],[.55,'T 級基準風速 57 m/s，極端陣風約 79.8 m/s'],[.78,'台灣的離岸風機須符合 T 級規範']],
+ hud(u){hudPanel(250,130,'各區主要防護',seg(u,.08,.14),w=>{
+  let z=ZN24[0];for(const q of ZN24)if(u>=q.t)z=q;
+  hrow(52,'目前區域',z.n,w,'#f2c230');
+  htext(14,84,'主要防護',12,'rgba(227,236,238,.78)');
+  htext(w-14,112,z.p,15,'#7dffc4',700,undefined,'right');});}},
+/* 2 */{t:'飛濺區為什麼最嚴重',en:'Why the splash zone is the worst',dur:13,
+ d:'把未保護鋼材在不同高度的腐蝕速率畫出來，最高的峰值落在飛濺區。這裡乾濕交替、氧氣充足，浪花帶來的鹽分不斷累積，波浪與漂流物還會撞傷塗層；它又不是一直泡在水裡，陰極保護的電流到不了。所以飛濺區除了最厚的塗層，還要把鋼板加厚當作腐蝕裕度：例如塗層 10 年後失效，剩下 15 年以每年 0.3 毫米計，就要多留約 4.5 毫米（示例）。',
+ s:[[0,'未保護鋼材的腐蝕速率，峰值落在飛濺區'],[.3,'乾濕交替、氧氣充足，塗層又容易被撞傷'],[.55,'不常泡在水中，陰極保護的電流到不了'],[.76,'所以鋼板要加厚，預留腐蝕裕度']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,650,{title:'IEC 61400-1 風機等級',x0:0,x1:4,y0:0,y1:90,yt:[0,20,40,60,80],yl:'m/s',pt:96,pl:70,pb:70,gx:4,gy:4});
-  const CL=[['III 級',37.5,.04],['II 級',42.5,.1],['I 級',50,.16],['T 級',57,.34]];
-  CL.forEach((k,i)=>{const a=seg(u,k[2],k[2]+.08);if(a<=0)return;const xm=c.X(i+.5),bw=62,T=i===3;
-   alphaDo(Math.max(a,.001),()=>{
-    const h1=k[1]*ease(a),h2=k[1]*1.4*ease(seg(u,k[2]+.14,k[2]+.22));
-    box(xm-bw-4,c.Y(h1),bw,c.Y(0)-c.Y(h1),T?'#f2c230':'#58b8d0');
-    if(h2>0)box(xm+4,c.Y(h2),bw,c.Y(0)-c.Y(h2),T?'rgba(232,87,42,.85)':'rgba(125,200,220,.45)');
-    wt(xm-bw/2-4,c.Y(h1)-10,String(k[1]),19,T?'#f2c230':'#fff',700,'center',COND);
-    if(h2>0)alphaDo(seg(u,k[2]+.18,k[2]+.22),()=>wt(xm+bw/2+4,c.Y(h2)-10,String(Math.round(k[1]*14)/10),19,T?'#ff9d7a':'rgba(227,236,238,.85)',700,'center',COND));
-    wt(xm,c.Y(0)+30,k[0],19,T?'#f2c230':'#fff',700,'center');});});
-  // legend
-  alphaDo(seg(u,.06,.12),()=>{box(420,190,16,16,'#58b8d0');wt(444,204,'基準風速 Vref（10 分鐘平均）',16,'#fff',600);
-   box(420,218,16,16,'rgba(125,200,220,.45)');wt(444,232,'50 年 3 秒陣風 Ve50',16,'#fff',600);});
-  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([7,5]);ln([c.X(0),c.Y(57),c.X(4),c.Y(57)],'#f2c230',1.6);ctx.setLineDash([]);});
-  // right cards
-  alphaDo(seg(u,.3,.36),()=>{card(960,150,580,330,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.45)'});
-   wt(984,192,'T 級（颱風等級）',21,'#f2c230',700);
-   ['IEC 61400-1 第 4 版為颱風地區新增','基準風速 Vref,T = 57 m/s，高於 I 級的 50 m/s','台灣離岸風機須符合 T 級規範（能源署）'].forEach((t,i)=>{const a=seg(u,.34+i*.06,.4+i*.06);alphaDo(a,()=>{circ(992,242+i*74,5,'#f2c230');wrap17(1008,248+i*74,t,500,18,'#fff',600,25);});});});
-  alphaDo(seg(u,.56,.62),()=>{card(960,500,580,300,{bg:'rgba(7,27,39,.8)'});
-   wt(984,542,'極端風速模型',20,'#fff',700);
-   wt(984,604,'Ve50 = 1.4 × Vref',32,'#f2c230',700,'left',COND);
-   wt(984,634,'50 年回歸期 3 秒陣風',16,'rgba(227,236,238,.8)',500);
-   wt(984,684,'Ve1 = 0.8 × Ve50',26,'#7dc8dc',700,'left',COND);
-   wt(984,712,'1 年回歸期 3 秒陣風',16,'rgba(227,236,238,.8)',500);
-   alphaDo(seg(u,.74,.8),()=>wrap17(984,764,'57 m/s 約相當於蒲福風級 17 級（56.1–61.2 m/s）',530,17,'#7dffc4',600,23));});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'未保護鋼材的腐蝕速率（典型範例）',20,'#fff',700);
+  const PX=330,PW=400,TOP=240,BOT=740,X=v=>PX+PW*v/.4,Y=v=>lerp(TOP,BOT,v/2);
+  const Z=[[0,.62,'大氣區','125,200,220'],[.62,.9,'飛濺區','232,87,42'],[.9,1.05,'潮差區','242,194,48'],[1.05,1.58,'全浸區','88,184,208'],[1.58,2,'埋入區','179,124,255']];
+  Z.forEach((z,i)=>alphaDo(seg(u,.02+i*.02,.06+i*.02),()=>{box(96,Y(z[0]),210,Y(z[1])-Y(z[0]),`rgba(${z[3]},.22)`);ln([96,Y(z[0]),PX+PW,Y(z[0])],'rgba(255,255,255,.1)',1);
+   wt(118,(Y(z[0])+Y(z[1]))/2+6,z[2],17,'#fff',700);}));
+  alphaDo(seg(u,.04,.1),()=>{ln([PX,TOP,PX,BOT,PX+PW,BOT],'rgba(255,255,255,.5)',1.4);
+   [0,.1,.2,.3,.4].forEach(v=>{wt(X(v),BOT+22,v.toFixed(1),15,'rgba(227,236,238,.75)',600,'center',COND);if(v)ln([X(v),TOP,X(v),BOT],'rgba(255,255,255,.08)',1);});
+   wt(PX+PW,BOT+46,'mm/年',15,'rgba(227,236,238,.7)',500,'right',COND);});
+  const g=ease(seg(u,.08,.34)),P=[];for(let v=0;v<=2*g;v+=.01)P.push({x:X(profAt(v)),y:Y(v)});
+  pathLine(P,'#ff9d7a',3.4);
+  if(g>.42)alphaDo(seg(u,.3,.36),()=>{circ(X(.36),Y(.78),6,'#e8572a');tag(X(.36)-12,Y(.78)-24,'峰值約 0.3 mm/年以上',{bg:'#e8572a',fg:'#fff',size:13,align:'right'});});
+  // right: reasons
+  card(820,150,720,650,{bg:'rgba(7,27,39,.8)'});wt(844,190,'飛濺區的三個不利條件',20,'#fff',700);
+  const R=[['乾濕交替、氧氣充足，鹽分不斷累積',.3],['波浪與漂流物撞擊，塗層容易受損',.42],['不常泡在水中，陰極保護電流到不了',.55]];
+  R.forEach((r,i)=>{const a=seg(u,r[1],r[1]+.05);if(a<=0)return;alphaDo(a,()=>{const y=218+i*86;
+   card(844,y,672,70,{bg:'rgba(232,87,42,.08)',st:'rgba(232,87,42,.5)',r:6});
+   wt(878,y+44,String(i+1),24,'#e8572a',700,'center',COND);wrap24(906,y+43,r[0],590,18,'#fff',500,24);});});
+  const c=seg(u,.74,.8);if(c>0)alphaDo(c,()=>{box(844,488,672,1,'rgba(255,255,255,.14)');
+   wt(844,530,'腐蝕裕度（示例）',19,'#f2c230',700);
+   wt(1180,600,'0.3 mm/年 × 15 年',30,'#fff',700,'center',COND);
+   wrap24(1180,636,'設計壽命 25 年，塗層 10 年後失效',600,15,'rgba(227,236,238,.75)',500,22,'center');
+   wt(1180,722,'+ '+(4.5*ease(seg(u,.78,.9))).toFixed(1)+' mm',44,'#7dffc4',700,'center',COND);
+   wt(1180,764,'鋼板加厚',16,'rgba(227,236,238,.8)',600,'center');});
  }},
-/* 3 */{t:'颱風的風，為什麼特別難',en:'What makes typhoon winds hard',dur:14,
- d:'颱風的風不只是大。陣風比平均風速高出三到四成，紊流也強；颱風眼通過時風速驟降又驟升，風向在數小時內大幅轉變。若此時電網中斷、偏航系統停擺，機艙卡在原來的方向，強風就從側面打在轉子與塔架上，這是設計中必須檢核的情境，所以要有備用電源讓機艙繼續對風。台灣颱風路徑多變，年最大風速的變異大，技術指引要求適度提高設計風速。',
- s:[[0,'颱風的陣風比平均風速高出三到四成'],[.3,'颱風眼通過，風速驟降又驟升'],[.46,'風向在數小時內大幅轉變'],[.6,'電網中斷時，機艙卡住，強風從側面打來'],[.78,'備用電源啟動，機艙重新對風']],
+/* 3 */{t:'分區塗層系統',en:'Coating systems by zone',dur:13,
+ d:'塗層是第一道防線，把鋼材和海水、氧氣隔開。各區使用不同的塗層系統，離岸常依 NORSOK M-501 與 ISO 12944-9 選用。大氣區常用富鋅底漆、環氧中塗與耐候的聚氨酯面漆，總膜厚約 280 微米以上；飛濺區用玻璃鱗片環氧等厚膜塗層，常達 1,000 微米以上；全浸區用環氧系統，約 350 微米以上，並和陰極保護一起作用，所以塗層還要能抵抗陰極剝離。',
+ s:[[0,'塗層把鋼材和海水、氧氣隔開，是第一道防線'],[.3,'大氣區：富鋅底漆、環氧中塗、聚氨酯面漆'],[.55,'飛濺區：玻璃鱗片環氧厚膜，約 1,000 μm 以上'],[.78,'全浸區：環氧塗層，搭配陰極保護']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,400,{title:'颱風通過時的輪轂風速（示例）',x0:0,x1:24,y0:0,y1:90,xt:[0,6,12,18,24],yt:[0,30,60,90],xl:'時間（小時）',yl:'m/s',pt:70,pl:60,gx:4,gy:3});
-  const tc=24*u,P=[],Q=[];for(let t=0;t<=tc;t+=.08){P.push(c.X(t),c.Y(VM17(t)));Q.push(c.X(t),c.Y(Math.min(88,VG17(t))));}
-  ctx.setLineDash([6,5]);ln([c.X(0),c.Y(57),c.X(24),c.Y(57)],'rgba(242,194,48,.7)',1.4);ln([c.X(0),c.Y(79.8),c.X(24),c.Y(79.8)],'rgba(232,87,42,.7)',1.4);ctx.setLineDash([]);
-  wt(c.X(24)-6,c.Y(57)-8,'Vref,T 57',15,'#f2c230',700,'right',COND);wt(c.X(24)-6,c.Y(79.8)-8,'Ve50 79.8',15,'#ff9d7a',700,'right',COND);
-  if(Q.length>3)ln(Q,'rgba(255,157,122,.85)',1.4);if(P.length>3)ln(P,'#7dffc4',3);
-  ln([c.X(tc),c.py,c.X(tc),c.py+c.ph],'rgba(255,255,255,.35)',1);
-  wt(250,196,'10 分鐘平均',15,'#7dffc4',700);wt(370,196,'3 秒陣風',15,'#ff9d7a',700);
-  alphaDo(band(u,.44,.62),()=>wt(c.X(12),c.Y(VM17(12))+34,'颱風眼',16,'#fff',700,'center'));
-  // top view: wind direction and nacelle yaw
-  card(960,150,580,400,{bg:'rgba(7,27,39,.8)'});wt(984,190,'俯視：風向與機艙方向',20,'#f2c230',700);
-  const cx=1250,cy=372,R=140;ring(cx,cy,R,'rgba(255,255,255,.18)',1.4);
-  for(let a=0;a<360;a+=30){const r=a*Math.PI/180;ln([cx+Math.cos(r)*(R-8),cy+Math.sin(r)*(R-8),cx+Math.cos(r)*R,cy+Math.sin(r)*R],'rgba(255,255,255,.3)',1.4);}
-  const th=TH17(tc)*Math.PI/180,yw=yaw17(u)*Math.PI/180,mis=Math.abs(TH17(tc)-yaw17(u));
-  // wind arrow comes from direction th toward the centre
-  const wx=cx-Math.cos(th)*(R+10),wy=cy-Math.sin(th)*(R+10);
-  const k=(TT*.9)%1;for(let i=0;i<3;i++){const o=(i-1)*22,px=-Math.sin(th)*o,py=Math.cos(th)*o,f=(k+i*.33)%1;
-   arrow(wx+px+Math.cos(th)*f*60,wy+py+Math.sin(th)*f*60,wx+px+Math.cos(th)*(f*60+50),wy+py+Math.sin(th)*(f*60+50),'#7dc8dc',3);}
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(yw);
-  rrp(-8,-18,64,36,6);ctx.fillStyle='#e8edf0';ctx.fill();box(-16,-6,10,12,'#c9d1d5');
-  ln([-16,-96,-16,96],mis>30?'#ff9d7a':'#f5f7f8',6);circ(-16,0,7,'#f2f5f6');ctx.restore();
-  const bad=mis>30;wt(cx,cy+R+34,trf('偏航誤差 {n}°',{n:Math.round(mis)}),20,bad?'#ff9d7a':'#7dffc4',700,'center',COND);
-  alphaDo(band(u,.5,.78),()=>tag(984,236,'電網中斷，偏航停擺',{bg:'#e8572a',fg:'#fff',size:16}));
-  alphaDo(band(u,.78,1),()=>tag(984,236,'備用電源啟動',{bg:'#7dffc4',fg:'#0e2a3b',size:16}));
-  // bottom cards
-  const B=[['陣風大、紊流強','陣風比平均風速高出三到四成',.08],['風向急轉','颱風眼前後，風向可轉一百多度',.42],['路徑多變','年最大風速變異大，設計風速要適度提高',.86]];
-  B.forEach((b,i)=>{const a=seg(u,b[2],b[2]+.06);if(a<=0)return;const x=60+i*500;alphaDo(a,()=>{card(x,580,480,220,{bg:'rgba(7,27,39,.8)'});
-   wt(x+24,624,b[0],20,i===2?'#f2c230':'#fff',700);wrap17(x+24,664,b[1],430,17,'rgba(227,236,238,.88)',500,24);});});
+  const C=[
+   {x:60,n:'大氣區',col:'#7dc8dc',std:'NORSOK 系統 1',t:.06,tot:280,foot:'面漆耐紫外線',
+    L:[['富鋅環氧底漆',60,'#8f9aa2'],['環氧中塗',160,'#c9b98f'],['聚氨酯面漆',60,'#e3ecee']]},
+   {x:570,n:'飛濺區',col:'#e8572a',std:'NORSOK 系統 7A',t:.36,tot:1000,foot:'再加腐蝕裕度',
+    L:[['玻璃鱗片環氧（第 1 道）',500,'#6f8f8a'],['玻璃鱗片環氧（第 2 道）',500,'#8fb0a8']]},
+   {x:1080,n:'全浸區',col:'#58b8d0',std:'NORSOK 系統 7B',t:.62,tot:350,foot:'搭配陰極保護',
+    L:[['環氧塗層（第 1 道）',175,'#6b8796'],['環氧塗層（第 2 道）',175,'#8aa6b4']]}];
+  const BASE=730,K=.4;
+  C.forEach((c,ci)=>{const a=seg(u,c.t,c.t+.05);if(a<=0)return;const on=u>=c.t&&(ci===2||u<C[ci+1].t);
+   alphaDo(a,()=>{
+    card(c.x,150,460,650,{bg:on?'rgba(242,194,48,.07)':'rgba(7,27,39,.8)',st:on?'#f2c230':'rgba(255,255,255,.16)'});
+    box(c.x+24,170,6,40,c.col);wt(c.x+42,198,c.n,24,c.col,800);
+    wt(c.x+42,226,c.std,15,'rgba(227,236,238,.7)',600);
+    // steel substrate
+    box(c.x+30,BASE,170,40,'#5b666e');ln([c.x+30,BASE,c.x+200,BASE],'#8a99a3',1.4);wt(c.x+115,BASE+27,'鋼材',14,'#fff',700,'center');
+    // layers grow
+    let y=BASE,acc=0;const g=seg(u,c.t+.02,c.t+.2);
+    c.L.forEach((l,i)=>{const f=clamp(g*c.L.length-i);if(f<=0)return;const h=l[1]*K*ease(f);y-=h;acc+=l[1]*ease(f);box(c.x+30,y,170,h,l[2]);ln([c.x+30,y,c.x+200,y],'rgba(0,0,0,.25)',1);
+     alphaDo(f,()=>{const ly=300+i*76;box(c.x+222,ly-14,14,14,l[2]);const n=wrap24(c.x+244,ly,l[0],196,15,'#fff',600,20);
+      wt(c.x+244,ly+n*20+4,l[1]+' μm',15,'rgba(227,236,238,.75)',600,'left',COND);});});
+    wt(c.x+330,640,Math.round(acc)+' μm',40,'#f2c230',700,'center',COND);
+    wt(c.x+330,672,'總膜厚（約）',14,'rgba(227,236,238,.75)',600,'center');
+    alphaDo(seg(u,c.t+.18,c.t+.22),()=>tag(c.x+330,712,c.foot,{bg:ci===1?'#e8572a':ci===2?'#7dffc4':'#f2c230',fg:ci===1?'#fff':undefined,size:14,align:'center'}));});});
  }},
-/* 4 */{t:'地震：海床跟著搖',en:'When the seabed shakes',dur:13,side:true,
- d:'台灣位在環太平洋地震帶，地震波從震源傳到海床，基樁與整座風機跟著左右搖晃，塔頂的晃動又比底部更大。技術指引把地震分成兩個層級檢核：475 年回歸期的地震屬極限狀態，支撐結構要保持彈性、不能破壞；95 年回歸期的地震屬使用狀態，基礎的永久位移與傾角要小到風機仍能運轉。機艙裡的振動感測器偵測到強震會觸發停機。',
- s:[[0,'風機正常運轉，海床下方是鬆軟的砂泥層'],[.16,'地震波從震源傳上來，海床開始搖晃'],[.3,'振動感測器偵測到強震，觸發停機'],[.5,'475 年地震：支撐結構要保持彈性'],[.76,'95 年地震：基礎傾角要小到仍能運轉']],
- cam:u=>({x:640,y:440,s:1}),
- base:u=>{const e=EQ17(u),gx=4*e*Math.sin(TT*38);drawSky();drawWaterBack();ctx.save();ctx.translate(gx,0);drawSoil();ctx.restore();},
+/* 4 */{t:'犧牲陽極如何保護鋼材',en:'How sacrificial anodes protect steel',dur:14,side:true,
+ d:'鋼材在海水中腐蝕，是因為鐵失去電子變成離子。如果把一塊比鋼更「活潑」的鋁合金接在鋼材上，鋁會搶先失去電子，電流經由海水流回鋼材表面，讓鋼材變成陰極而不再腐蝕，這就是犧牲陽極的陰極保護。鋁合金陽極在海水中的電位約 −1.05 V，能把鋼材拉到 −0.80 V 以下。陽極在工廠就焊在樁上或轉接段的支架上，隨年份慢慢消耗，設計時要讓它撐滿整個壽命。',
+ s:[[0,'沒有保護時，鋼材失去電子而生鏽'],[.26,'接上比鋼更活潑的鋁合金陽極'],[.48,'保護電流經海水流回鋼材，鋼材變成陰極'],[.72,'陽極逐年消耗，設計時要撐滿整個壽命']],
+ cam:u=>({x:TX-50,y:612,s:2.4}),
  draw(u){
-  const e=EQ17(u),gx=4*e*Math.sin(TT*38),sw=e*.02*Math.sin(TT*6.5),yb=bedY(TX)+130;
-  // seismic wave fronts in the soil
-  if(e>0){ctx.save();soilRegion();ctx.clip();for(let i=0;i<4;i++){const r=((TT*260+i*150)%600);alphaDo(e*(1-r/600),()=>ring(260,1060,r+200,'rgba(232,87,42,.7)',3));}ctx.restore();}
-  ctx.save();ctx.translate(gx,yb);ctx.transform(1,0,-sw,1,0,0);ctx.translate(0,-yb);
-  turb17(TX,rotAng17(u,13,om4_17));ctx.restore();
-  // top sway trace
-  alphaDo(band(u,.18,.72),()=>{ctx.setLineDash([4,4]);ln([TX,TW_TOP-60,TX,yb],'rgba(255,255,255,.35)',1.2);ctx.setLineDash([]);});
+  turb24(TX,TT*.6);
+  rust24(seg(u,.02,.24)*(1-seg(u,.5,.62)));
+  const on=seg(u,.26,.34),rem=1-.82*ease(seg(u,.66,.96));
+  if(on>0)alphaDo(on,()=>{for(const y of [560,650]){anode24(TX+HW24,y,rem,1);anode24(TX-HW24,y,rem,-1);}});
+  const cur=seg(u,.44,.52);
+  if(cur>0)for(const y of [560,650]){flow24(TX+HW24+10,y,1,0,cur);flow24(TX-HW24-10,y,-1,.5,cur);}
+  // electrons through the metal: small dots along the stand-off
+  if(cur>0)alphaDo(cur*.9,()=>{for(const y of [560,650])for(let k=0;k<3;k++){const q=(TT*.9+k/3)%1;circ(TX+HW24+10-q*10,y,1.4,'#f2c230');circ(TX-HW24-10+q*10,y,1.4,'#f2c230');}});
+  school(TX+230,560,6,4,TT,24,-1);
+  lab(TX,600,'鋼材生鏽（失去電子）',{dx:-120,dy:-40,a:band(u,.04,.26),st:'w'});
+  lab(TX+HW24+12,560,'鋁合金陽極',{dx:90,dy:-40,a:band(u,.28,.5),st:'s'});
+  lab(TX+70,610,'保護電流（經海水）',{dx:100,dy:30,a:band(u,.48,.72),st:'g'});
+  lab(TX-HW24,640,'鋼材成為陰極',{dx:-110,dy:30,a:band(u,.52,.74),st:'g'});
+  lab(TX+HW24+12,650,'陽極逐年消耗',{dx:90,dy:40,a:band(u,.74,1),st:'s'});
  },
- fx(u){
-  const e=EQ17(u);
-  lab(250,bedY(250)+180,'地震波',{dx:-40,dy:-80,a:band(u,.14,.4)*e,st:'w'});
-  lab(TX+10,TW_TOP-24,'振動感測器觸發停機',{dx:130,dy:-30,a:band(u,.3,.52),st:'w'});
-  lab(TX,420,'支撐結構保持彈性',{dx:150,dy:0,a:band(u,.5,.76),st:'s'});
-  lab(TX,bedY(TX),'基礎傾角檢核',{dx:150,dy:30,a:band(u,.76,1),st:'g'});
-  lab(TX,TW_TOP-60,'塔頂晃動最大',{dx:-130,dy:30,a:band(u,.2,.46)*e,minor:true});
- },
- hud(u){hudPanel(240,150,'地震監測（示例）',seg(u,.02,.08),w=>{const e=EQ17(u),g=.28*e*(.7+.3*Math.abs(Math.sin(TT*9)));
-  hrow(52,'海床加速度',g.toFixed(2)+' g',w,'#f2c230');hbar(14,60,w-28,g/.35,'#e8572a');
-  hrow(92,'塔頂位移',Math.round(e*38*Math.abs(Math.sin(TT*6.5)))+' cm',w);
-  hrow(116,'狀態',u<.3?'運轉中':u<.62?'觸發停機':'停機檢查',w,u<.3?'#7dffc4':'#ff9d7a');
-  hrow(140,'檢核',u<.76?'475 年 ULS':'95 年 SLS',w,'#fff');});}},
-/* 5 */{t:'土壤液化：地層失去支撐',en:'Soil liquefaction',dur:15,
- d:'海床表層常是飽和、鬆散的砂層。平時砂粒彼此接觸、互相支撐；地震反覆搖晃時，砂粒想擠密，孔隙裡的水卻來不及排出，超額孔隙水壓上升。當孔隙水壓升到等於土壤原本的有效應力，砂粒不再互相壓緊，土層就像液體一樣失去強度，這就是液化。設計時先計算各深度的抗液化安全係數 FL，小於 1 的土層視為會液化，並分別分析液化與不液化兩種情境，取較保守的結果。',
- s:[[0,'平時砂粒互相接觸，承載力來自顆粒間的摩擦'],[.24,'地震搖晃，孔隙水來不及排出，水壓上升'],[.44,'水壓等於有效應力，砂粒浮起，土層液化'],[.64,'計算各深度的安全係數 FL，小於 1 視為液化'],[.82,'液化與不液化兩種情境都要分析，取保守者']],
+ hud(u){hudPanel(240,150,'陰極保護（示例）',seg(u,.04,.1),w=>{
+  const v=u<.3?-0.62:lerp(-0.62,-0.98,ease(seg(u,.44,.62))),ok=v<-0.8;
+  hrow(52,'鋼材電位',v.toFixed(2)+' V',w,ok?'#7dffc4':'#e8572a');
+  hbar(14,60,w-28,clamp((-v-0.55)/0.5),ok?'#7dffc4':'#e8572a');
+  const yr=Math.round(25*seg(u,.66,.96));
+  hrow(92,'運轉年數',trf('{n} 年',{n:yr}),w);
+  hrow(118,'陽極剩餘',u<.26?'—':Math.round(100-82*ease(seg(u,.66,.96)))+'%',w,'#f2c230');
+  hrow(142,'門檻','−0.80 V',w);});}},
+/* 5 */{t:'保護電流要多少',en:'How much current is needed',dur:13,
+ d:'陽極要放多少，先要算出整個壽命需要多少保護電流。裸鋼需要的電流等於面積乘以設計電流密度，台灣海域水溫高，依 DNV-RP-B401 熱帶海水 0–30 m 的初期值為每平方公尺 0.150 安培。有塗層時只有破損的部分需要電流，用塗層破損係數表示，會隨年份增加。以直徑 8 公尺、水深 30 公尺的單樁浸水外表面約 754 平方公尺為例，平均只需約 9 安培，25 年約 1.1 公噸鋁陽極（示例）。',
+ s:[[0,'保護電流等於面積乘以設計電流密度'],[.3,'裸鋼需要上百安培，有塗層時少很多'],[.55,'塗層逐年破損，需要的電流慢慢增加'],[.78,'平均約 9 A，25 年約需 1.1 t 鋁陽極（示例）']],
  draw(u){
   diagBG();
-  card(60,150,700,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'飽和砂層的放大圖（示意）',20,'#f2c230',700);
-  const q=ease(seg(u,.22,.5)),shake=seg(u,.22,.26)*(1-seg(u,.56,.62)),bx=100,by=220,bw=620,bh=380;
-  ctx.save();rrp(bx,by,bw,bh,8);ctx.clip();box(bx,by,bw,bh,'rgba(59,147,187,.45)');
-  const pos=[];GR17.forEach(g=>{const x0=bx+40+g.i*68+(g.j%2)*34,y0=by+bh-40-g.j*56;
-   const fx=Math.sin(TT*1.2+g.ph)*14*q+g.ox*16*q+shake*Math.sin(TT*30+g.ph)*3,fy=-q*(26+g.oy*12)+Math.cos(TT*1.1+g.ph)*8*q;pos.push([x0+fx,y0+fy,g.r*(1-.12*q)]);});
-  // contact force chains
-  alphaDo(1-q,()=>{ctx.strokeStyle='rgba(242,194,48,.9)';ctx.lineWidth=3;ctx.beginPath();pos.forEach((p,i)=>pos.forEach((o,j)=>{if(j>i&&Math.hypot(p[0]-o[0],p[1]-o[1])<72){ctx.moveTo(p[0],p[1]);ctx.lineTo(o[0],o[1]);}}));ctx.stroke();});
-  pos.forEach(p=>circ(p[0],p[1],p[2],'#d9c393','rgba(120,95,50,.6)',1.4));
-  ctx.restore();
-  wt(bx+bw/2,by+bh+34,q<.5?'砂粒互相接觸（黃線為傳力路徑）':'砂粒浮在水中，失去接觸',17,q<.5?'#f2c230':'#ff9d7a',700,'center');
-  // pore pressure ratio bar
-  const ru=clamp(q*1.02);wt(84,668,'超額孔隙水壓 ／ 有效應力',17,'#fff',600);
-  box(84,684,560,24,'rgba(255,255,255,.12)');box(84,684,560*ru,24,ru>=.99?'#e8572a':'#58b8d0');
-  wt(664,704,ru.toFixed(2),24,ru>=.99?'#ff9d7a':'#fff',700,'left',COND);
-  alphaDo(seg(u,.46,.5),()=>wt(84,746,'比值達到 1：土壤液化',19,'#ff9d7a',700));
-  // FL profile chart
-  const c=chartBox(800,150,740,420,{title:'抗液化安全係數 FL（示例）',x0:0,x1:2,y0:20,y1:0,xt:[0,.5,1,1.5,2],yt:[0,5,10,15,20],xl:'FL',yl:'海床下深度（m）',pt:78,pl:64,pb:56,gx:4,gy:4});
-  const fp=seg(u,.6,.72);
-  if(fp>0){const P=[];for(let d=0;d<=20*fp;d+=.25)P.push(c.X(FL17(d)),c.Y(d));
-   alphaDo(1,()=>{ctx.save();ctx.beginPath();ctx.rect(c.px,c.py,c.X(1)-c.px,c.ph);ctx.clip();
-    const Z=[];for(let d=0;d<=20*fp;d+=.25)Z.push([c.X(FL17(d)),c.Y(d)]);ctx.beginPath();ctx.moveTo(c.X(1),c.Y(0));Z.forEach(p=>ctx.lineTo(Math.min(p[0],c.X(1)),p[1]));ctx.lineTo(c.X(1),Z[Z.length-1][1]);ctx.closePath();ctx.fillStyle='rgba(232,87,42,.35)';ctx.fill();ctx.restore();});
-   ln(P,'#7dffc4',3);}
-  ctx.setLineDash([7,5]);ln([c.X(1),c.py,c.X(1),c.py+c.ph],'#e8572a',1.8);ctx.setLineDash([]);
-  wt(c.X(1)+8,c.py+22,'FL = 1',16,'#ff9d7a',700,'left',COND);
-  alphaDo(seg(u,.7,.76),()=>wt(c.X(.62),c.Y(7)+6,'液化層',17,'#ff9d7a',700,'center'));
-  // formula + design card
-  alphaDo(seg(u,.62,.68),()=>{card(800,590,740,210,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.4)'});
-   wt(824,640,'FL = CRR / CSR',30,'#f2c230',700,'left',COND);
-   wrap17(1110,622,'土壤抗液化強度 ÷ 地震引起的剪應力（475 年地震）',400,16,'rgba(227,236,238,.88)',500,22);
-   alphaDo(seg(u,.82,.88),()=>{wrap17(824,700,'液化層不計側向支撐，基樁要穿過並深入下方緊密地層；液化與不液化兩種情境都分析，取較保守的結果。',690,17,'#7dffc4',600,25);});});
+  const c=chartBox(60,150,900,650,{x0:0,x1:25,y0:0,y1:120,xt:[0,5,10,15,20,25],yt:[0,30,60,90,120],yl:'保護電流（A）',pt:96,pb:70,pl:80,pr:30,gx:5,gy:4});
+  wt(84,190,'單樁浸水外表面所需電流（示例）',20,'#fff',700);
+  wt(c.px+c.pw,c.py+c.ph+52,'運轉年數',15,'rgba(227,236,238,.7)',500,'right');
+  const gb=ease(seg(u,.06,.3)),gc=ease(seg(u,.32,.62));
+  const Pb=[],Pc=[];for(let t=0;t<=25*gb;t+=.25)Pb.push({x:c.X(t),y:c.Y(AREA24*jb24(t))});
+  for(let t=0;t<=25*gc;t+=.25)Pc.push({x:c.X(t),y:c.Y(AREA24*jb24(t)*fc24(t))});
+  pathLine(Pb,'#ff9d7a',3);pathLine(Pc,'#7dffc4',3.4);
+  if(gb>.1)alphaDo(seg(u,.1,.16),()=>tag(c.X(14),c.Y(92),'裸鋼（無塗層）',{bg:'#ff9d7a',size:14,align:'center'}));
+  if(gc>.5)alphaDo(seg(u,.5,.56),()=>tag(c.X(17),c.Y(40),'有塗層：只有破損處需要電流',{bg:'#7dffc4',size:14,align:'center'}));
+  alphaDo(seg(u,.04,.1),()=>{const L=[['裸鋼','#ff9d7a'],['有塗層','#7dffc4']];L.forEach((l,i)=>{const x=c.px+c.pw-260+i*130;ln([x,c.py-28,x+22,c.py-28],l[1],3);wt(x+28,c.py-23,l[0],14,'rgba(227,236,238,.9)',600);});});
+  // right: numbers
+  card(1000,150,540,650,{bg:'rgba(7,27,39,.8)'});wt(1024,190,'估算條件（示例）',20,'#fff',700);
+  const V=[['浸水面積','754 m²',.14],['初期電流密度','0.150 A/m²',.2],['平均電流密度','0.070 A/m²',.26],['塗層破損係數','0.02 + 0.012 × 年',.36]];
+  V.forEach((v,i)=>{const a=seg(u,v[2],v[2]+.05);if(a<=0)return;alphaDo(a,()=>{const y=214+i*64;
+   card(1024,y,492,52,{bg:'rgba(255,255,255,.04)',r:6});wt(1044,y+33,v[0],16,'#fff',500);wt(1496,y+34,v[1],20,'#f2c230',700,'right',COND);});});
+  const r=seg(u,.66,.76);if(r>0)alphaDo(seg(u,.66,.7),()=>{box(1024,490,492,1,'rgba(255,255,255,.14)');
+   wt(1044,532,'平均保護電流',17,'rgba(227,236,238,.85)',600);wt(1496,536,(9*ease(r)).toFixed(1)+' A',32,'#7dffc4',700,'right',COND);
+   wt(1044,592,'25 年鋁陽極重量',17,'rgba(227,236,238,.85)',600);wt(1496,600,(1.1*ease(seg(u,.72,.84))).toFixed(1)+' t',40,'#7dffc4',700,'right',COND);
+   alphaDo(seg(u,.84,.9),()=>wrap24(1044,660,'若完全沒有塗層，平均約 53 A，需要約 6.4 t 陽極',472,16,'#ff9d7a',600,24));
+   alphaDo(seg(u,.88,.94),()=>wrap24(1044,730,'塗層與陰極保護互相搭配，才能兼顧可靠與重量',472,15,'rgba(227,236,238,.75)',500,22));});
  }},
-/* 6 */{t:'疲勞：上億次的小載重',en:'Fatigue: millions of small loads',dur:14,
- d:'颱風與地震是少見的極端事件，但風機在二十多年裡每天都承受波浪、紊流與轉子旋轉帶來的反覆載重。每一次應力都不大，累積上億次後，焊道與節點仍可能出現裂紋，這就是疲勞。設計時用 S-N 曲線換算每一種應力幅度可承受的次數，再依邁納法則把各種載重造成的損傷相加，整個設計年限內的累積損傷必須小於 1，並保留安全係數。',
- s:[[0,'波浪、紊流與轉子旋轉，每天帶來反覆載重'],[.26,'應力越小，可承受的次數越多：S-N 曲線'],[.52,'二十五年間，每八秒一道浪，約一億次'],[.74,'把各種載重的損傷相加，累積損傷要小於 1']],
+/* 6 */{t:'外加電流陰極保護',en:'Impressed current cathodic protection',dur:13,side:true,
+ d:'另一種做法是外加電流陰極保護（ICCP）：在轉接段內裝一台整流器，把電流送到不太消耗的鈦基混合金屬氧化物陽極，再經海水流到鋼材。樁身上的固定參考電極持續量測電位，整流器依讀數自動調整輸出，把鋼材維持在保護範圍內。它的陽極輕、可以調整，國外已有不少風場採用；但必須有電才能保護，風機併網前要有臨時措施，電位也不能拉得太負，以免高強度鋼產生氫脆。',
+ s:[[0,'轉接段內的整流器提供保護電流'],[.26,'電流經混合金屬氧化物陽極流進海水，再回到鋼材'],[.5,'參考電極量測電位，整流器自動調整輸出'],[.74,'電位不能太負，以免高強度鋼產生氫脆']],
+ cam:u=>camMix({x:TX-60,y:520,s:1.7},{x:TX-30,y:600,s:2.1},ease(seg(u,.2,.4))),
+ draw(u){
+  turb24(TX,TT*.6);
+  const RX=TX+HW24+2,RY=402;
+  box(RX,RY,30,20,'#394650','#8a99a3',1);box(RX+4,RY+4,8,5,u>.12?'#7dffc4':'#555');box(RX+16,RY+4,10,2,'#f2c230');
+  // supply cable down the pile to the anode
+  const AX=TX+80,AY=640;
+  ln([RX+22,RY+20,TX+HW24+3,RY+40,TX+HW24+3,AY-30,AX-8,AY],'#e8572a',1.8);
+  box(AX-8,AY-2,8,4,'#6b7780');box(AX,AY-6,36,12,'#9aa3a8','#5b666e',.8);for(let i=0;i<5;i++)ln([AX+4+i*7,AY-6,AX+4+i*7,AY+6],'#5b666e',.6);
+  // reference electrode on the other side, feedback cable
+  const EX=TX-HW24-6,EY=600;
+  ln([EX+2,EY,TX-HW24-3,EY-10,TX-HW24-3,RY+30,RX+4,RY+20],'rgba(125,255,196,.7)',1.2);
+  box(EX-8,EY-5,10,10,'#f2c230');
+  const cur=seg(u,.22,.32);
+  if(cur>0)alphaDo(cur,()=>{for(let k=0;k<8;k++){const off=(k-3.5)*16,q=(TT*.55+k/8)%1;
+   const P0={x:AX+36,y:AY},P1={x:AX+70,y:AY+off},P2={x:TX+HW24,y:AY-40+off*1.4};
+   const x=(1-q)*(1-q)*P0.x+2*(1-q)*q*P1.x+q*q*P2.x,y=(1-q)*(1-q)*P0.y+2*(1-q)*q*P1.y+q*q*P2.y;circ(x,y,1.7,'#7dffc4');}});
+  // feedback pulse
+  if(u>.5&&u<.74)alphaDo(band(u,.5,.72),()=>{const q=(TT*.8)%1,y=lerp(EY,RY+30,q);circ(TX-HW24-3,y,2.6,'#7dffc4');});
+  school(TX+240,700,6,4,TT,24,-1);
+  lab(RX+15,RY,'整流器（轉接段內）',{dx:80,dy:-50,a:band(u,.04,.3),st:'s'});
+  lab(AX+18,AY,'混合金屬氧化物陽極',{dx:70,dy:50,a:band(u,.26,.5),st:'s'});
+  lab(EX-3,EY,'參考電極',{dx:-90,dy:-30,a:band(u,.48,.74),st:'g'});
+  lab(TX+HW24,560,'保護電流',{dx:90,dy:-30,a:band(u,.3,.5),st:'g',minor:true});
+  lab(TX,690,'太負：氫脆風險',{dx:-110,dy:20,a:band(u,.76,1),st:'w'});
+ },
+ hud(u){hudPanel(250,150,'外加電流（示例）',seg(u,.04,.1),w=>{
+  const I=u<.22?0:lerp(6,14,ease(seg(u,.22,.4)))-lerp(0,4,ease(seg(u,.52,.7)));
+  const v=u<.22?-0.62:lerp(-0.62,-1.04,ease(seg(u,.22,.44)))+lerp(0,.1,ease(seg(u,.52,.7)));
+  const ok=v<-0.8&&v>-1.1;
+  hrow(52,'輸出電流',I.toFixed(1)+' A',w,'#f2c230');
+  hrow(80,'鋼材電位',v.toFixed(2)+' V',w,ok?'#7dffc4':'#e8572a');
+  hbar(14,88,w-28,clamp((-v-0.55)/0.6),ok?'#7dffc4':'#e8572a');
+  hrow(118,'控制範圍','−0.80 ～ −1.10 V',w);
+  hrow(142,'模式',u<.5?'啟動':'自動調整',w,u<.5?'rgba(227,236,238,.8)':'#7dffc4');});}},
+/* 7 */{t:'兩種方法與電位監測',en:'Comparing methods and monitoring',dur:13,
+ d:'犧牲陽極不需要電源，安裝當天就開始保護，維護少，但陽極很重、無法調整；外加電流陽極輕、輸出可以調整，但要有電源、需要持續監看，並注意過度保護。不論哪一種，完工後都要監測。樁上的固定參考電極把電位傳回監控系統，再配合每年 ROV 或潛水員的現場量測（第 30 集）；若電位接近 −0.80 V 門檻，就加裝陽極或調整系統（第 31 集），讓保護撐過整個設計壽命。',
+ s:[[0,'犧牲陽極：免電源、維護少，但重且無法調整'],[.3,'外加電流：輕、可調整，但要電源與持續監看'],[.55,'固定參考電極把電位傳回監控系統'],[.76,'每年現場量測，不足時加裝陽極或調整']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,860,650,{title:'S-N 曲線（示意）',x0:4,x1:9,y0:-1.6,y1:0,pt:80,pl:74,pb:74,gx:5,gy:4,yl:'應力幅度'});
-  wt(c.px+c.pw,c.py+c.ph+56,'循環次數 N',16,'rgba(227,236,238,.7)',500,'right');
-  for(let n=4;n<=9;n++){wt(c.X(n)-4,c.py+c.ph+26,'10',16,'rgba(227,236,238,.75)',600,'center',COND);wt(c.X(n)+10,c.py+c.ph+16,String(n),12,'rgba(227,236,238,.75)',600,'left',COND);}
-  wt(c.px-12,c.Y(0)+5,'高',16,'rgba(227,236,238,.75)',600,'right');wt(c.px-12,c.Y(-1.6)+5,'低',16,'rgba(227,236,238,.75)',600,'right');
-  const sn=x=>x<7?-(x-4)/3:-1-(x-7)/5,cf=seg(u,.22,.44),P=[];
-  for(let x=4;x<=4+5*cf;x+=.05)P.push(c.X(x),c.Y(sn(x)));if(P.length>3)ln(P,'#f2c230',3.4);
-  alphaDo(seg(u,.4,.46),()=>{wt(c.X(5.6),c.Y(sn(5.6))-24,'應力大：可承受次數少',16,'#ff9d7a',700,'left');
-   wt(c.X(7.4),c.Y(sn(7.4))-24,'應力小：次數多',16,'#7dffc4',700,'left');});
-  // markers: typhoon load vs daily waves
-  alphaDo(seg(u,.46,.52),()=>{circ(c.X(4.6),c.Y(sn(4.6)),9,'#e8572a');wt(c.X(4.6),c.Y(sn(4.6))+38,'颱風',16,'#ff9d7a',700,'center');
-   circ(c.X(8.4),c.Y(sn(8.4)),9,'#58b8d0');wt(c.X(8.4),c.Y(sn(8.4))+36,'日常波浪',16,'#7dc8dc',700,'center');});
-  // load source strip
-  const L=[['波浪','每 5–10 秒一次'],['風紊流','隨時變化'],['轉子旋轉','每轉三次葉片通過']];
-  alphaDo(seg(u,.02,.08),()=>{card(960,150,580,200,{bg:'rgba(7,27,39,.8)'});wt(984,190,'反覆載重的來源',20,'#fff',700);
-   L.forEach((l,i)=>{const x=984+i*186,a=seg(u,.04+i*.05,.1+i*.05);alphaDo(a,()=>{
-    const ph=TT*(i===0?1.2:i===1?2.6:3.4);ln(Array.from({length:30},(_,k)=>[x+k*5.5,262+Math.sin(ph+k*.5)*(i===1?6+4*Math.sin(k*1.7):10)]).flat(),i===0?'#58b8d0':i===1?'#7dc8dc':'#f2c230',2.4);
-    wt(x,310,l[0],18,'#fff',700);wt(x,334,l[1],14,'rgba(227,236,238,.78)',500);});});});
-  // cycle counter
-  alphaDo(seg(u,.5,.56),()=>{const k=ease(seg(u,.52,.72)),yr=25*k,n=yr*365*24*3600/8;
-   card(960,370,580,200,{bg:'rgba(7,27,39,.8)'});wt(984,410,'波浪載重累計（示例）',20,'#fff',700);
-   wt(984,480,trf('第 {n} 年',{n:yr.toFixed(0)}),30,'#7dc8dc',700,'left',COND);
-   wt(1516,480,trf('{n} 萬次',{n:Math.round(n/1e4).toLocaleString('en-US'),m:(n/1e6).toFixed(1)}),34,'#f2c230',700,'right',COND);
-   hbar(984,508,532,k,'#f2c230');wt(984,550,'每 8 秒一道浪 × 25 年 ≈ 1 億次',16,'rgba(227,236,238,.85)',500);});
-  // Miner damage
-  alphaDo(seg(u,.72,.78),()=>{const D=.62*ease(seg(u,.74,.92));
-   card(960,590,580,210,{bg:'rgba(242,194,48,.07)',st:'rgba(242,194,48,.4)'});
-   wt(984,632,'累積損傷 D = Σ n / N',24,'#f2c230',700,'left',COND);
-   box(984,656,532,26,'rgba(255,255,255,.12)');box(984,656,532*D,26,'#7dffc4');
-   ln([984+532,648,984+532,690],'#e8572a',2.4);wt(1516,712,'D = 1 破壞',15,'#ff9d7a',700,'right');
-   wt(984,712,'D = '+D.toFixed(2),18,'#7dffc4',700,'left',COND);
-   wrap17(984,752,'設計年限內 D 必須小於 1，並保留安全係數',540,16,'#fff',600,22);});
+  card(60,150,900,650,{bg:'rgba(7,27,39,.8)'});
+  const CX=[300,630];
+  alphaDo(seg(u,.02,.08),()=>{wt(84,198,'比較項目',17,'rgba(227,236,238,.7)',700);
+   wt(CX[0]+150,198,'犧牲陽極',20,'#f2c230',800,'center');wt(CX[1]+150,198,'外加電流',20,'#7dc8dc',800,'center');
+   box(84,216,852,1,'rgba(255,255,255,.18)');});
+  const T=[['電源','不需要','需要整流器與供電'],['開始保護','安裝後立即','送電後才開始'],['重量','較重','較輕'],['調整','無法調整','可自動調整'],['維護','少，定期量測','需持續監看'],['過度保護','風險低','需設定上限']];
+  T.forEach((r,i)=>{const a0=i<3?.06+i*.04:.3+(i-3)*.04,a=seg(u,a0,a0+.05);if(a<=0)return;alphaDo(a,()=>{const y=268+i*84;
+   wt(84,y,r[0],17,'#fff',700);wrap24(CX[0]+150,y,r[1],300,17,'rgba(227,236,238,.9)',500,22,'center');wrap24(CX[1]+150,y,r[2],300,17,'rgba(227,236,238,.9)',500,22,'center');
+   box(84,y+34,852,1,'rgba(255,255,255,.08)');});});
+  // right: monitoring loop
+  card(1000,150,540,650,{bg:'rgba(7,27,39,.8)'});wt(1024,190,'完工後的電位監測',20,'#fff',700);
+  const M=[['固定參考電極','電位傳回監控系統',.55,'#7dffc4'],['每年現場量測','ROV 或潛水員（第 30 集）',.64,'#7dffc4'],['接近 −0.80 V 門檻','加裝陽極或調整（第 31 集）',.76,'#f2c230']];
+  M.forEach((m,i)=>{const a=seg(u,m[2],m[2]+.05);if(a<=0)return;alphaDo(a,()=>{const y=222+i*150;
+   card(1024,y,492,110,{bg:'rgba(255,255,255,.04)',st:m[3],r:6});circ(1060,y+55,14,m[3]);wt(1060,y+61,String(i+1),18,'#0e2a3b',700,'center',COND);
+   wrap24(1092,y+46,m[0],400,19,'#fff',700,24);wrap24(1092,y+80,m[1],400,15,'rgba(227,236,238,.8)',500,22);
+   if(i<2)arrow(1270,y+114,1270,y+146,'rgba(227,236,238,.6)',2);});});
+  alphaDo(seg(u,.88,.94),()=>tag(1270,724,'保護撐過整個設計壽命',{bg:'#7dffc4',size:17,align:'center'}));
  }}
 ]};
 
-/* EP17 translations: Traditional Chinese → [English, Japanese] */
+/* EP24 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
 "離岸風場開發系列":["Offshore Wind Development Series","洋上風力開発シリーズ"],
-"颱風與地震的設計挑戰":["Designing for typhoons and earthquakes","台風と地震への設計"],
-"台灣位在颱風路徑上，也處在環太平洋地震帶，離岸風機除了要能發電，更要在極端風浪與強震中站得住。這一集看颱風來襲時風機如何自保，認識 IEC 的 T 級風機等級，再看地震、土壤液化與二十多年的疲勞載重如何左右設計。":["Taiwan lies on typhoon tracks and on the Pacific Ring of Fire, so an offshore turbine must not only generate power but also stay standing through extreme wind, waves and strong earthquakes. This episode follows how a turbine protects itself when a typhoon arrives, introduces the IEC Class T for typhoon regions, and then looks at how earthquakes, soil liquefaction and more than twenty years of fatigue loading shape the design.","台湾は台風の進路上にあり、環太平洋地震帯にも位置するため、洋上風車は発電できるだけでなく、極端な風浪と強い地震に耐えなければなりません。本編では台風が来たとき風車がどのように身を守るかを見て、IEC の T クラスを紹介し、さらに地震、土壌の液状化、20年を超える疲労荷重が設計をどう左右するかを見ていきます。"],
-/* facts */
-"T 級基準風速 Vref,T：輪轂高度 10 分鐘平均、50 年回歸期":["Class T reference wind speed Vref,T: 10-minute mean at hub height, 50-year return period","T クラスの基準風速 Vref,T：ハブ高さの10分間平均、再現期間50年"],
-"T 級對應的 50 年回歸期 3 秒極端陣風（1.4 × Vref,T）":["Matching 50-year extreme 3-second gust for Class T (1.4 × Vref,T)","T クラスに対応する再現期間50年の3秒極値ガスト（1.4 × Vref,T）"],
-"年":["years","年"],
-"極限狀態檢核的設計地震回歸期；使用狀態另以 95 年地震檢核":["Return period of the design earthquake for the ultimate limit state; the serviceability check uses a 95-year earthquake","終局限界状態で照査する設計地震の再現期間。使用限界状態は95年地震で照査"],
-"抗液化安全係數 FL = CRR / CSR 小於 1，即判定該土層會液化":["When the liquefaction safety factor FL = CRR / CSR is below 1, the soil layer is judged to liquefy","液状化に対する安全率 FL = CRR / CSR が1未満なら、その土層は液状化すると判定"],
-"年以上":["years min.","年以上"],
-"技術指引規定的離岸風機最短設計年限":["Minimum design life for offshore turbines set by the technical guideline","技術指針が定める洋上風車の最短設計寿命"],
-"座":["turbines","基"],
-"2024 年凱米颱風過後，台灣海峽仍安然佇立的離岸風機（能源署）":["Offshore turbines in the Taiwan Strait still standing safely after Typhoon Gaemi in 2024 (Energy Administration)","2024年の台風ケーミー通過後も台湾海峡で無事に立っていた洋上風車（能源署）"],
-"說明：本集為教育用途示意動畫。風機等級、T 級基準風速、極端風速公式、地震回歸期、液化評估方法與設計年限取自經濟部標準檢驗局《離岸風力發電場址調查及設計技術指引》（2023）與 IEC 61400-1 第 4 版；凱米颱風後的風機數量取自能源署風力發電單一服務窗口；蒲福風級取自中央氣象署。颱風風速與風向歷程、切出風速 25 m/s、海床加速度、FL 分布、S-N 曲線與疲勞損傷值均為典型範例，實際依各風場的場址調查與設計而定。":["Note: This is a schematic animation for education. Turbine classes, the Class T reference wind speed, the extreme wind formulas, earthquake return periods, the liquefaction assessment method and the design life are from the Bureau of Standards, Metrology and Inspection's Technical Guideline for Site Investigation and Design of Offshore Wind Farms (2023) and IEC 61400-1 Edition 4; the turbine count after Typhoon Gaemi is from the Energy Administration's wind power one-stop service window; the Beaufort scale is from the Central Weather Administration. The typhoon wind speed and direction history, the 25 m/s cut-out speed, seabed acceleration, the FL profile, the S-N curve and fatigue damage values are typical examples; actual values depend on each wind farm's site investigation and design.","説明：本編は教育用の模式アニメーションです。風車クラス、T クラスの基準風速、極値風速の式、地震の再現期間、液状化の評価方法、設計寿命は経済部標準検験局「洋上風力発電サイト調査及び設計技術指針」（2023）と IEC 61400-1 第4版、台風ケーミー後の風車の基数は能源署の風力発電ワンストップ窓口、ビューフォート風力階級は中央気象署によります。台風の風速・風向の推移、カットアウト風速 25 m/s、海底の加速度、FL の分布、S-N 曲線と疲労損傷の値は典型的な例であり、実際は各発電所のサイト調査と設計によって異なります。"],
+"腐蝕防護與陰極保護":["Corrosion protection and cathodic protection","防食と電気防食"],
+"鋼鐵泡在溫暖、含鹽、充滿氧氣的海裡，是腐蝕最嚴重的環境之一。這一集從設計的角度，看離岸風機基礎怎麼依高度分成不同的腐蝕區，各用什麼塗層與腐蝕裕度，再說明犧牲陽極與外加電流兩種陰極保護的原理、保護電流怎麼估算，以及完工後如何監測電位，與第 30、31 集的檢查與維修接在一起。":["Steel sitting in warm, salty, oxygen-rich seawater faces one of the harshest corrosion environments there is. From a design perspective, this episode shows how an offshore wind foundation is divided by height into corrosion zones, which coatings and corrosion allowances each zone gets, how sacrificial-anode and impressed-current cathodic protection work, how the protective current is estimated, and how potentials are monitored after completion, linking up with the inspection and repair work in Episodes 30 and 31.","温かく塩分と酸素を多く含む海水に浸かる鋼材は、最も腐食が厳しい環境の一つにあります。本編では設計の視点から、洋上風車の基礎を高さごとに腐食区分に分け、それぞれにどの塗装と腐食代を与えるかを見たうえで、流電陽極方式と外部電源方式という二つの電気防食の原理、防食電流の見積もり方、完成後の電位モニタリングを説明し、第30・31話の点検・補修につなげます。"],
+"0.3":["0.3","0.3"],
+"mm/年":["mm/yr","mm/年"],
+"飛濺區未保護鋼材的典型腐蝕速率（典型範例）":["Typical corrosion rate of unprotected steel in the splash zone (typical example)","飛沫帯における無防食鋼材の典型的な腐食速度（典型例）"],
+"≥ 1,000":["≥ 1,000","≥ 1,000"],
+"飛濺區塗層的典型總膜厚（NORSOK M-501 系統 7A，塗料廠資料）":["Typical total coating thickness in the splash zone (NORSOK M-501 System 7A, coating supplier data)","飛沫帯塗装の典型的な総膜厚（NORSOK M-501 システム7A、塗料メーカー資料）"],
+"熱帶海水（> 20 °C）0–30 m 裸鋼的初期設計電流密度（DNV-RP-B401）":["Initial design current density for bare steel at 0–30 m in tropical water (> 20 °C) (DNV-RP-B401)","熱帯海水（> 20 °C）水深0–30 mの裸鋼の初期設計電流密度（DNV-RP-B401）"],
+"鋁合金陽極在海水中的設計電化學容量（DNV-RP-B401）":["Design electrochemical capacity of aluminium anodes in seawater (DNV-RP-B401)","海水中のアルミニウム合金陽極の設計電気化学容量（DNV-RP-B401）"],
+"−0.80 ～ −1.10":["−0.80 to −1.10","−0.80 ～ −1.10"],
+"鋼材的保護電位範圍（相對 Ag/AgCl）：太正會腐蝕，太負有氫脆風險":["Protection potential range for steel (vs Ag/AgCl): too positive corrodes, too negative risks hydrogen embrittlement","鋼材の防食電位範囲（Ag/AgCl基準）：貴すぎると腐食、卑すぎると水素脆化のおそれ"],
+"約 1.1":["~1.1","約1.1"],
+"直徑 8 m 單樁浸水外表面 25 年所需的鋁陽極重量（示例）":["Aluminium anode mass for 25 years on the submerged outer surface of an 8 m monopile (example)","直径8 mのモノパイル没水外面に25年間必要なアルミ陽極重量（例）"],
+"說明：本集為教育用途示意動畫，尺寸、高度與各腐蝕區的範圍經過誇大。腐蝕區的劃分與各區防護方式參考 DNV-RP-0416、ISO 12944-9；塗層膜厚依 NORSOK M-501 系統（大氣區約 280 μm 以上、全浸區約 350 μm 以上、飛濺區約 1,000 μm 以上，依塗料廠技術文件）。設計電流密度、塗層破損係數（第 III 類 a=0.02、b=0.012）、陽極容量與利用率依 DNV-RP-B401。飛濺區腐蝕速率 0.3 mm/年為文獻常用的典型值；各區腐蝕速率曲線、塗層壽命、腐蝕裕度、單樁直徑與水深、整流器輸出與電位讀數皆為典型範例，實際依風場設計與驗證機構審查而定，不代表特定風場。":["Note: this is a schematic animation for education; sizes, heights and the extent of each corrosion zone are exaggerated. Zone definitions and protection methods follow DNV-RP-0416 and ISO 12944-9; coating thicknesses follow NORSOK M-501 systems (about 280 μm or more in the atmospheric zone, 350 μm or more submerged, 1,000 μm or more in the splash zone, per coating supplier technical documents). Design current densities, coating breakdown factors (Category III, a = 0.02, b = 0.012), anode capacity and utilisation follow DNV-RP-B401. The splash-zone corrosion rate of 0.3 mm/yr is a typical value used in the literature; the corrosion-rate profile, coating life, corrosion allowance, monopile diameter and water depth, rectifier output and potential readings are typical examples. Actual values depend on each wind farm's design and certification review and do not represent any specific project.","説明：本編は教育用の模式アニメーションで、寸法・高さ・各腐食区分の範囲は誇張しています。腐食区分と各区分の防食方法は DNV-RP-0416、ISO 12944-9 を参考にし、塗装膜厚は NORSOK M-501 のシステム（大気部約280 μm以上、没水部約350 μm以上、飛沫帯約1,000 μm以上、塗料メーカー技術資料による）に基づきます。設計電流密度、塗膜劣化係数（カテゴリーIII、a=0.02、b=0.012）、陽極容量と利用率は DNV-RP-B401 によります。飛沫帯の腐食速度0.3 mm/年は文献でよく用いられる典型値です。各区分の腐食速度曲線、塗装寿命、腐食代、モノパイルの直径と水深、整流器出力、電位の読みはいずれも典型例で、実際は各風力発電所の設計と認証機関の審査によって決まり、特定の発電所を表すものではありません。"],
 /* shot 1 */
-"颱風來襲：風機怎麼自保":["When a typhoon hits","台風襲来：風車はどう身を守るか"],
-"颱風接近時，風速一路升高。風速超過切出風速（典型約 25 m/s），控制系統讓風機停止發電，把三支葉片轉到約 90 度的順槳位置，像刀鋒一樣切風，大幅減少受力；機艙則持續偏航，讓轉子正面迎風，避免側向受風。若電網中斷，備用電源仍要維持偏航與控制。2024 年凱米颱風過後，台灣海峽的 346 座離岸風機都安然佇立。":["As a typhoon approaches, the wind keeps rising. Once it passes the cut-out speed (typically about 25 m/s), the control system stops generation and pitches all three blades to about 90 degrees, the feathered position, so they slice the wind like knife edges and loads drop sharply. The nacelle keeps yawing so the rotor faces straight into the wind and avoids side-on loading. If the grid fails, backup power must still keep yaw and control running. After Typhoon Gaemi in 2024, all 346 offshore turbines in the Taiwan Strait were still standing safely.","台風が近づくと風速はどんどん上がります。カットアウト風速（典型的には約 25 m/s）を超えると、制御システムは発電を止め、3枚のブレードを約90度のフェザリング位置まで回して刃のように風を切らせ、受ける力を大きく減らします。ナセルはヨー制御を続けてロータを風に正対させ、横風を避けます。系統が停電しても、非常用電源でヨーと制御を維持しなければなりません。2024年の台風ケーミー通過後も、台湾海峡の洋上風車346基はすべて無事に立っていました。"],
-"颱風接近，風速與浪高一路升高":["The typhoon nears; wind and waves keep rising","台風が接近し、風速と波高が上昇"],
-"超過切出風速，風機停止發電":["Above cut-out speed, the turbine stops generating","カットアウト風速を超え、発電を停止"],
-"葉片轉到順槳位置，像刀鋒一樣切風":["Blades pitch to feather and slice the wind like knife edges","ブレードをフェザリングし、刃のように風を切る"],
-"機艙持續偏航，讓轉子正面迎風":["The nacelle keeps yawing so the rotor faces the wind","ナセルはヨー制御を続け、ロータを風に正対"],
-"電網中斷時，備用電源仍維持控制":["If the grid fails, backup power keeps control running","系統停電時も、非常用電源で制御を維持"],
-"超過切出風速：停機":["Cut-out: stop","カットアウト：停止"],
-"葉片順槳（約 90°）":["Blades feathered (~90°)","フェザリング（約 90°）"],
-"機艙偏航，正面迎風":["Yaw into the wind","ヨーで風に正対"],
-"備用電源維持控制":["Backup power","非常用電源で制御"],
-"颱風巨浪":["Typhoon waves","台風の高波"],
-"颱風監測（示例）":["Typhoon watch (example)","台風監視（例）"],
-"平均風速":["Mean wind","平均風速"],
-"陣風":["Gust","ガスト"],
-"狀態":["Status","状態"],
-"發電中":["Generating","発電中"],
-"切出停機":["Cut-out","カットアウト"],
-"順槳待機":["Feathered idle","待機（フェザー）"],
-"偏航":["Yaw","ヨー"],
-"備用電源":["Backup power","非常用電源"],
-"對風中":["Tracking","追従中"],
+"一座基礎，五個腐蝕區":["One foundation, five corrosion zones","一つの基礎、五つの腐食区分"],
+"同一根鋼管從海面上一路插進海床，各段遇到的環境完全不同，設計時依高度分成幾個腐蝕區。大氣區受鹽霧與日照；飛濺區被浪花反覆打濕又曬乾；潮差區隨潮汐一下泡水一下露出；全浸區一直泡在海水裡；埋入區則插在海床泥砂中。台灣海峽中部的潮差可達約 4 公尺，飛濺區的範圍也跟著變寬。每一區的主要防護方式都不一樣。":["A single steel tube runs from above the sea surface down into the seabed, and each section faces a completely different environment, so designers divide it by height into corrosion zones. The atmospheric zone sees salt spray and sunlight; the splash zone is repeatedly wetted by waves and dried again; the tidal zone is alternately submerged and exposed; the submerged zone stays in seawater; and the buried zone sits in the seabed sediment. In the central Taiwan Strait the tidal range can reach about 4 m, which widens the splash zone too. Each zone needs a different main form of protection.","一本の鋼管が海面上から海底まで貫いており、区間ごとに環境がまったく異なるため、設計では高さごとに腐食区分に分けます。大気部は塩分を含む飛沫と日射を受け、飛沫帯は波しぶきで濡れては乾くことを繰り返し、干満帯は潮の満ち引きで水没と露出を繰り返します。没水部は常に海水に浸かり、埋設部は海底の土砂に埋まっています。台湾海峡中部では潮差が約4 mに達し、飛沫帯の範囲も広がります。区分ごとに主な防食方法が異なります。"],
+"同一根鋼管，從空氣、浪花一路插進海床":["One steel tube runs from air and spray down into the seabed","一本の鋼管が大気としぶきから海底まで続く"],
+"飛濺區被浪花反覆打濕又曬乾":["The splash zone is wetted by waves and dried again and again","飛沫帯は波しぶきで濡れては乾くを繰り返す"],
+"潮差區與全浸區泡在海水裡，可以用陰極保護":["The tidal and submerged zones sit in seawater, so cathodic protection works","干満帯と没水部は海水に浸かり、電気防食が効く"],
+"每一區依環境選擇不同的防護方式":["Each zone gets protection suited to its environment","区分ごとに環境に合った防食方法を選ぶ"],
+"大氣區":["Atmospheric","大気部"],
+"飛濺區":["Splash zone","飛沫帯"],
+"潮差區":["Tidal zone","干満帯"],
+"全浸區":["Submerged","没水部"],
+"埋入區":["Buried","埋設部"],
+"塗層":["Coating","塗装"],
+"厚塗層＋腐蝕裕度":["Thick coating + allowance","厚膜塗装＋腐食代"],
+"塗層＋部分陰極保護":["Coating + partial CP","塗装＋一部電気防食"],
+"塗層＋陰極保護":["Coating + CP","塗装＋電気防食"],
+"陰極保護":["Cathodic protection","電気防食"],
+"最高潮位":["High tide","最高潮位"],
+"最低潮位":["Low tide","最低潮位"],
+"各區主要防護":["Zone protection","区分ごとの防食"],
+"目前區域":["Zone","区分"],
+"主要防護":["Main protection","主な防食"],
 /* shot 2 */
-"風機等級：為颱風多加一級":["Turbine classes and Class T","風車クラス：台風用にもう1クラス"],
-"國際標準 IEC 61400-1 依「基準風速」把風機分成 I、II、III 級，基準風速是輪轂高度 50 年回歸期的 10 分鐘平均風速，I 級為 50 m/s。第 4 版為颱風地區新增 T 級，基準風速提高到 57 m/s；對應的 50 年回歸期 3 秒陣風是基準風速的 1.4 倍，約 79.8 m/s。57 m/s 大約相當於蒲福風級 17 級。台灣的離岸風機須符合 T 級規範。":["The international standard IEC 61400-1 sorts turbines into Classes I, II and III by reference wind speed: the 10-minute mean wind speed at hub height with a 50-year return period, which is 50 m/s for Class I. Edition 4 adds Class T for typhoon regions and raises the reference wind speed to 57 m/s; the matching 50-year 3-second gust is 1.4 times the reference speed, about 79.8 m/s. 57 m/s is roughly Beaufort force 17 on Taiwan's extended scale. Offshore turbines in Taiwan must meet the Class T requirements.","国際規格 IEC 61400-1 は「基準風速」によって風車を I、II、III クラスに分けます。基準風速はハブ高さにおける再現期間50年の10分間平均風速で、I クラスは 50 m/s です。第4版では台風地域向けに T クラスが追加され、基準風速は 57 m/s に引き上げられました。対応する再現期間50年の3秒ガストは基準風速の1.4倍、約 79.8 m/s です。57 m/s はビューフォート風力階級のおよそ17に相当します。台湾の洋上風車は T クラスの基準を満たす必要があります。"],
-"IEC 61400-1 依基準風速把風機分成 I、II、III 級":["IEC 61400-1 sorts turbines into Classes I, II and III by reference wind speed","IEC 61400-1 は基準風速で I・II・III クラスに分類"],
-"第 4 版新增颱風等級：T 級":["Edition 4 adds a typhoon class: Class T","第4版で台風クラス「T クラス」を追加"],
-"T 級基準風速 57 m/s，極端陣風約 79.8 m/s":["Class T: 57 m/s reference speed, about 79.8 m/s extreme gust","T クラスは基準風速 57 m/s、極値ガスト約 79.8 m/s"],
-"台灣的離岸風機須符合 T 級規範":["Offshore turbines in Taiwan must meet Class T","台湾の洋上風車は T クラスへの適合が必要"],
-"IEC 61400-1 風機等級":["IEC 61400-1 turbine classes","IEC 61400-1 の風車クラス"],
-"III 級":["Class III","クラス III"],
-"II 級":["Class II","クラス II"],
-"I 級":["Class I","クラス I"],
-"T 級":["Class T","クラス T"],
-"基準風速 Vref（10 分鐘平均）":["Reference speed Vref (10-min mean)","基準風速 Vref（10分間平均）"],
-"50 年 3 秒陣風 Ve50":["50-year 3-s gust Ve50","50年3秒ガスト Ve50"],
-"T 級（颱風等級）":["Class T (typhoon class)","T クラス（台風クラス）"],
-"IEC 61400-1 第 4 版為颱風地區新增":["Added in IEC 61400-1 Edition 4 for typhoon regions","IEC 61400-1 第4版で台風地域向けに追加"],
-"基準風速 Vref,T = 57 m/s，高於 I 級的 50 m/s":["Reference speed Vref,T = 57 m/s, above Class I's 50 m/s","基準風速 Vref,T = 57 m/s、I クラスの 50 m/s より高い"],
-"台灣離岸風機須符合 T 級規範（能源署）":["Required for Taiwan's offshore turbines (Energy Administration)","台湾の洋上風車に適合を要求（能源署）"],
-"極端風速模型":["Extreme wind model","極値風速モデル"],
-"50 年回歸期 3 秒陣風":["50-year 3-second gust","再現期間50年の3秒ガスト"],
-"1 年回歸期 3 秒陣風":["1-year 3-second gust","再現期間1年の3秒ガスト"],
-"57 m/s 約相當於蒲福風級 17 級（56.1–61.2 m/s）":["57 m/s is about Beaufort force 17 (56.1–61.2 m/s)","57 m/s はビューフォート風力階級 17（56.1–61.2 m/s）に相当"],
+"飛濺區為什麼最嚴重":["Why the splash zone is the worst","飛沫帯が最も厳しい理由"],
+"把未保護鋼材在不同高度的腐蝕速率畫出來，最高的峰值落在飛濺區。這裡乾濕交替、氧氣充足，浪花帶來的鹽分不斷累積，波浪與漂流物還會撞傷塗層；它又不是一直泡在水裡，陰極保護的電流到不了。所以飛濺區除了最厚的塗層，還要把鋼板加厚當作腐蝕裕度：例如塗層 10 年後失效，剩下 15 年以每年 0.3 毫米計，就要多留約 4.5 毫米（示例）。":["Plot the corrosion rate of unprotected steel against height and the highest peak falls in the splash zone. Here wetting and drying alternate, oxygen is plentiful, salt from the spray keeps building up, and waves and floating debris can damage the coating; and because the zone is not permanently submerged, cathodic protection current cannot reach it. So besides the thickest coating, the splash zone gets thicker steel plate as a corrosion allowance: if the coating fails after 10 years, the remaining 15 years at 0.3 mm per year call for about 4.5 mm of extra steel (example).","無防食の鋼材の腐食速度を高さごとに描くと、最も高いピークは飛沫帯に現れます。ここでは乾湿が繰り返され、酸素が豊富で、しぶきが運ぶ塩分が蓄積し続け、波や漂流物が塗膜を傷つけます。さらに常に水中にあるわけではないため、電気防食の電流が届きません。そのため飛沫帯には最も厚い塗装に加え、鋼板を厚くして腐食代とします。例えば塗装が10年で劣化すると、残り15年を年0.3 mmとして約4.5 mm余分に確保します（例）。"],
+"未保護鋼材的腐蝕速率，峰值落在飛濺區":["Unprotected steel corrodes fastest in the splash zone","無防食鋼材の腐食速度は飛沫帯でピーク"],
+"乾濕交替、氧氣充足，塗層又容易被撞傷":["Wet-dry cycles, plenty of oxygen, and coatings easily damaged","乾湿の繰り返しと豊富な酸素、塗膜も傷つきやすい"],
+"不常泡在水中，陰極保護的電流到不了":["Rarely submerged, so CP current cannot reach it","常に水中ではないため電気防食の電流が届かない"],
+"所以鋼板要加厚，預留腐蝕裕度":["So the steel is thickened as a corrosion allowance","そのため鋼板を厚くして腐食代を確保"],
+"未保護鋼材的腐蝕速率（典型範例）":["Corrosion rate of unprotected steel (typical)","無防食鋼材の腐食速度（典型例）"],
+"峰值約 0.3 mm/年以上":["Peak about 0.3 mm/yr or more","ピーク約0.3 mm/年以上"],
+"飛濺區的三個不利條件":["Three problems in the splash zone","飛沫帯の三つの不利な条件"],
+"乾濕交替、氧氣充足，鹽分不斷累積":["Wet-dry cycles, ample oxygen, salt builds up","乾湿の繰り返し、豊富な酸素、塩分の蓄積"],
+"波浪與漂流物撞擊，塗層容易受損":["Waves and debris damage the coating","波や漂流物の衝撃で塗膜が傷つきやすい"],
+"不常泡在水中，陰極保護電流到不了":["Rarely submerged, CP current cannot reach","常に水中でなく電気防食の電流が届かない"],
+"腐蝕裕度（示例）":["Corrosion allowance (example)","腐食代（例）"],
+"0.3 mm/年 × 15 年":["0.3 mm/yr × 15 yr","0.3 mm/年 × 15 年"],
+"設計壽命 25 年，塗層 10 年後失效":["25-year design life, coating fails after 10 years","設計寿命25年、塗装は10年で劣化"],
+"鋼板加厚":["Extra plate thickness","鋼板の増厚"],
 /* shot 3 */
-"颱風的風，為什麼特別難":["What makes typhoon winds hard","台風の風はなぜ難しいか"],
-"颱風的風不只是大。陣風比平均風速高出三到四成，紊流也強；颱風眼通過時風速驟降又驟升，風向在數小時內大幅轉變。若此時電網中斷、偏航系統停擺，機艙卡在原來的方向，強風就從側面打在轉子與塔架上，這是設計中必須檢核的情境，所以要有備用電源讓機艙繼續對風。台灣颱風路徑多變，年最大風速的變異大，技術指引要求適度提高設計風速。":["Typhoon winds are not just strong. Gusts run 30 to 40 percent above the mean wind and turbulence is intense; as the eye passes, the wind drops and then surges again, and its direction swings widely within a few hours. If the grid fails at that moment and the yaw system stops, the nacelle is stuck in its old heading and the storm hits the rotor and tower from the side. This is a load case the design must check, which is why backup power keeps the nacelle facing the wind. Typhoon tracks near Taiwan vary widely, so the annual maximum wind speed is highly variable, and the technical guideline calls for a suitably higher design wind speed.","台風の風はただ強いだけではありません。ガストは平均風速より3〜4割高く、乱流も強く、台風の目が通過すると風速が急に落ちてまた急に上がり、風向は数時間で大きく変わります。このとき系統が停電してヨー装置が止まると、ナセルは元の向きのまま固定され、強風が横からロータとタワーに当たります。これは設計で照査が必要なケースであり、そのため非常用電源でナセルを風に向け続けます。台湾の台風は進路が変わりやすく、年最大風速のばらつきが大きいため、技術指針は設計風速を適度に引き上げることを求めています。"],
-"颱風的陣風比平均風速高出三到四成":["Typhoon gusts run 30–40% above the mean wind","台風のガストは平均風速より3〜4割高い"],
-"颱風眼通過，風速驟降又驟升":["As the eye passes, the wind drops, then surges again","台風の目が通過し、風速が急降下して急上昇"],
-"風向在數小時內大幅轉變":["The wind direction swings widely within hours","風向が数時間で大きく変わる"],
-"電網中斷時，機艙卡住，強風從側面打來":["With the grid down, the nacelle is stuck and wind hits side-on","系統停電でナセルが固定され、強風が横から当たる"],
-"備用電源啟動，機艙重新對風":["Backup power starts and the nacelle turns back into the wind","非常用電源が起動し、ナセルが再び風に正対"],
-"颱風通過時的輪轂風速（示例）":["Hub-height wind during a typhoon (example)","台風通過時のハブ高さ風速（例）"],
-"時間（小時）":["Time (hours)","時間（h）"],
-"10 分鐘平均":["10-min mean","10分間平均"],
-"3 秒陣風":["3-s gust","3秒ガスト"],
-"颱風眼":["Eye","台風の目"],
-"俯視：風向與機艙方向":["Top view: wind and nacelle heading","上から見た風向とナセルの向き"],
-"偏航誤差 {n}°":["Yaw error {n}°","ヨー誤差 {n}°"],
-"電網中斷，偏航停擺":["Grid lost, yaw stopped","系統停電、ヨー停止"],
-"備用電源啟動":["Backup power on","非常用電源が起動"],
-"陣風大、紊流強":["Strong gusts and turbulence","強いガストと乱流"],
-"陣風比平均風速高出三到四成":["Gusts run 30–40% above the mean wind","ガストは平均風速より3〜4割高い"],
-"風向急轉":["Rapid direction shifts","風向の急変"],
-"颱風眼前後，風向可轉一百多度":["Around the eye, the wind can swing more than 100 degrees","台風の目の前後で風向が100度以上変わることも"],
-"路徑多變":["Unpredictable tracks","変わりやすい進路"],
-"年最大風速變異大，設計風速要適度提高":["Annual maximum winds vary widely, so design speeds are raised","年最大風速のばらつきが大きく、設計風速を適度に引き上げる"],
+"分區塗層系統":["Coating systems by zone","区分ごとの塗装系"],
+"塗層是第一道防線，把鋼材和海水、氧氣隔開。各區使用不同的塗層系統，離岸常依 NORSOK M-501 與 ISO 12944-9 選用。大氣區常用富鋅底漆、環氧中塗與耐候的聚氨酯面漆，總膜厚約 280 微米以上；飛濺區用玻璃鱗片環氧等厚膜塗層，常達 1,000 微米以上；全浸區用環氧系統，約 350 微米以上，並和陰極保護一起作用，所以塗層還要能抵抗陰極剝離。":["Coating is the first line of defence, separating steel from seawater and oxygen. Each zone uses a different coating system, typically chosen offshore according to NORSOK M-501 and ISO 12944-9. The atmospheric zone commonly uses a zinc-rich primer, an epoxy intermediate coat and a weather-resistant polyurethane topcoat, about 280 microns or more in total; the splash zone uses thick-film coatings such as glass-flake epoxy, often 1,000 microns or more; the submerged zone uses an epoxy system of about 350 microns or more that works together with cathodic protection, so the coating must also resist cathodic disbondment.","塗装は鋼材を海水や酸素から隔てる第一の防御線です。区分ごとに異なる塗装系を用い、洋上では NORSOK M-501 と ISO 12944-9 に基づいて選ぶのが一般的です。大気部ではジンクリッチプライマー、エポキシ中塗り、耐候性のポリウレタン上塗りを用い、総膜厚は約280 μm以上です。飛沫帯ではガラスフレークエポキシなどの厚膜塗装を用い、1,000 μm以上になることもあります。没水部はエポキシ系で約350 μm以上とし、電気防食と併用するため、塗膜には陰極剥離への耐性も求められます。"],
+"塗層把鋼材和海水、氧氣隔開，是第一道防線":["Coating keeps seawater and oxygen off the steel: the first line of defence","塗装が鋼材を海水と酸素から隔てる第一の防御線"],
+"大氣區：富鋅底漆、環氧中塗、聚氨酯面漆":["Atmospheric: zinc-rich primer, epoxy, polyurethane topcoat","大気部：ジンクリッチ下塗り、エポキシ中塗り、ポリウレタン上塗り"],
+"飛濺區：玻璃鱗片環氧厚膜，約 1,000 μm 以上":["Splash zone: thick glass-flake epoxy, about 1,000 μm or more","飛沫帯：ガラスフレークエポキシ厚膜、約1,000 μm以上"],
+"全浸區：環氧塗層，搭配陰極保護":["Submerged: epoxy coating combined with cathodic protection","没水部：エポキシ塗装と電気防食を併用"],
+"NORSOK 系統 1":["NORSOK System 1","NORSOK システム1"],
+"NORSOK 系統 7A":["NORSOK System 7A","NORSOK システム7A"],
+"NORSOK 系統 7B":["NORSOK System 7B","NORSOK システム7B"],
+"面漆耐紫外線":["UV-resistant topcoat","上塗りは耐紫外線"],
+"再加腐蝕裕度":["Plus corrosion allowance","さらに腐食代"],
+"搭配陰極保護":["With cathodic protection","電気防食と併用"],
+"富鋅環氧底漆":["Zinc-rich epoxy primer","ジンクリッチエポキシ下塗り"],
+"環氧中塗":["Epoxy intermediate","エポキシ中塗り"],
+"聚氨酯面漆":["Polyurethane topcoat","ポリウレタン上塗り"],
+"玻璃鱗片環氧（第 1 道）":["Glass-flake epoxy (1)","ガラスフレークエポキシ（1層目）"],
+"玻璃鱗片環氧（第 2 道）":["Glass-flake epoxy (2)","ガラスフレークエポキシ（2層目）"],
+"環氧塗層（第 1 道）":["Epoxy, coat 1","エポキシ塗装（1層目）"],
+"環氧塗層（第 2 道）":["Epoxy, coat 2","エポキシ塗装（2層目）"],
+"鋼材":["Steel","鋼材"],
+"總膜厚（約）":["Total DFT (approx.)","総膜厚（約）"],
 /* shot 4 */
-"地震：海床跟著搖":["When the seabed shakes","地震：海底が揺れる"],
-"台灣位在環太平洋地震帶，地震波從震源傳到海床，基樁與整座風機跟著左右搖晃，塔頂的晃動又比底部更大。技術指引把地震分成兩個層級檢核：475 年回歸期的地震屬極限狀態，支撐結構要保持彈性、不能破壞；95 年回歸期的地震屬使用狀態，基礎的永久位移與傾角要小到風機仍能運轉。機艙裡的振動感測器偵測到強震會觸發停機。":["Taiwan sits on the Pacific Ring of Fire. Seismic waves travel from the source to the seabed, and the pile and the whole turbine sway from side to side, with the tower top moving more than the base. The technical guideline checks earthquakes at two levels: a 475-year earthquake is an ultimate limit state, in which the support structure must stay elastic and must not fail; a 95-year earthquake is a serviceability limit state, in which permanent displacement and tilt of the foundation must stay small enough for the turbine to keep operating. Vibration sensors in the nacelle trigger a shutdown when they detect strong shaking.","台湾は環太平洋地震帯に位置します。地震波は震源から海底に伝わり、杭と風車全体が左右に揺れ、タワー頂部は基部よりも大きく揺れます。技術指針は地震を2つのレベルで照査します。再現期間475年の地震は終局限界状態で、支持構造物は弾性を保ち破壊してはなりません。再現期間95年の地震は使用限界状態で、基礎の残留変位と傾斜を風車が運転を続けられる程度に小さく抑えます。ナセル内の振動センサーは強い揺れを検知すると停止を作動させます。"],
-"風機正常運轉，海床下方是鬆軟的砂泥層":["The turbine runs normally above soft sand and mud","風車は通常運転、海底下は軟らかい砂泥層"],
-"地震波從震源傳上來，海床開始搖晃":["Seismic waves rise from the source and the seabed shakes","地震波が震源から伝わり、海底が揺れ始める"],
-"振動感測器偵測到強震，觸發停機":["Vibration sensors detect strong shaking and trigger a stop","振動センサーが強い揺れを検知し、停止を作動"],
-"475 年地震：支撐結構要保持彈性":["475-year quake: the support structure must stay elastic","475年地震：支持構造物は弾性を保つ"],
-"95 年地震：基礎傾角要小到仍能運轉":["95-year quake: foundation tilt must allow continued operation","95年地震：基礎の傾斜は運転可能な範囲に"],
-"地震波":["Seismic waves","地震波"],
-"振動感測器觸發停機":["Vibration trip","振動センサーで停止"],
-"支撐結構保持彈性":["Structure stays elastic","支持構造は弾性範囲"],
-"基礎傾角檢核":["Tilt check","基礎の傾斜照査"],
-"塔頂晃動最大":["Top sways most","頂部が最も揺れる"],
-"地震監測（示例）":["Earthquake watch (example)","地震監視（例）"],
-"海床加速度":["Seabed accel.","海底加速度"],
-"塔頂位移":["Top displ.","頂部変位"],
-"運轉中":["Running","運転中"],
-"觸發停機":["Tripped","停止作動"],
-"停機檢查":["Inspection","停止・点検"],
-"檢核":["Check","照査"],
-"475 年 ULS":["475-yr ULS","475年 ULS"],
-"95 年 SLS":["95-yr SLS","95年 SLS"],
+"犧牲陽極如何保護鋼材":["How sacrificial anodes protect steel","流電陽極が鋼材を守るしくみ"],
+"鋼材在海水中腐蝕，是因為鐵失去電子變成離子。如果把一塊比鋼更「活潑」的鋁合金接在鋼材上，鋁會搶先失去電子，電流經由海水流回鋼材表面，讓鋼材變成陰極而不再腐蝕，這就是犧牲陽極的陰極保護。鋁合金陽極在海水中的電位約 −1.05 V，能把鋼材拉到 −0.80 V 以下。陽極在工廠就焊在樁上或轉接段的支架上，隨年份慢慢消耗，設計時要讓它撐滿整個壽命。":["Steel corrodes in seawater because iron loses electrons and turns into ions. If a piece of aluminium alloy, more 'active' than steel, is connected to the steel, the aluminium gives up its electrons first and current flows through the seawater back to the steel surface. The steel becomes the cathode and stops corroding: this is sacrificial-anode cathodic protection. An aluminium anode sits at about −1.05 V in seawater and can pull the steel below −0.80 V. The anodes are welded onto the pile or onto brackets on the transition piece in the factory and are slowly consumed over the years, so they are sized to last the whole design life.","海水中の鋼材が腐食するのは、鉄が電子を失ってイオンになるためです。鋼より「活性」なアルミニウム合金を鋼材につなぐと、アルミが先に電子を放出し、電流が海水を通って鋼材表面に戻ります。鋼材はカソードとなって腐食が止まります。これが流電陽極方式の電気防食です。アルミニウム合金陽極の海水中の電位は約−1.05 Vで、鋼材を−0.80 V以下に引き下げます。陽極は工場で杭やトランジションピースの支持金具に溶接され、年月とともに少しずつ消耗するため、設計寿命いっぱいもつように設計します。"],
+"沒有保護時，鋼材失去電子而生鏽":["Without protection, steel loses electrons and rusts","防食がないと鋼材は電子を失い錆びる"],
+"接上比鋼更活潑的鋁合金陽極":["Connect an aluminium anode more active than steel","鋼より活性なアルミ合金陽極を接続"],
+"保護電流經海水流回鋼材，鋼材變成陰極":["Current flows through seawater to the steel, making it the cathode","防食電流が海水を通って鋼材へ、鋼材はカソードに"],
+"陽極逐年消耗，設計時要撐滿整個壽命":["Anodes wear away each year and must last the design life","陽極は年々消耗し、設計寿命をもたせる"],
+"鋼材生鏽（失去電子）":["Steel rusts (loses electrons)","鋼材が錆びる（電子を失う）"],
+"鋁合金陽極":["Aluminium anode","アルミ合金陽極"],
+"保護電流（經海水）":["Protective current (via sea)","防食電流（海水経由）"],
+"鋼材成為陰極":["Steel becomes cathode","鋼材がカソードに"],
+"陽極逐年消耗":["Anode wears away","陽極が年々消耗"],
+"陰極保護（示例）":["Cathodic protection (example)","電気防食（例）"],
+"鋼材電位":["Steel potential","鋼材電位"],
+"運轉年數":["Years in service","運転年数"],
+"{n} 年":["{n} yr","{n} 年"],
+"陽極剩餘":["Anode left","陽極残量"],
+"門檻":["Threshold","基準"],
 /* shot 5 */
-"土壤液化：地層失去支撐":["Soil liquefaction","土壌の液状化：地盤が支えを失う"],
-"海床表層常是飽和、鬆散的砂層。平時砂粒彼此接觸、互相支撐；地震反覆搖晃時，砂粒想擠密，孔隙裡的水卻來不及排出，超額孔隙水壓上升。當孔隙水壓升到等於土壤原本的有效應力，砂粒不再互相壓緊，土層就像液體一樣失去強度，這就是液化。設計時先計算各深度的抗液化安全係數 FL，小於 1 的土層視為會液化，並分別分析液化與不液化兩種情境，取較保守的結果。":["The upper seabed is often saturated, loose sand. Normally the grains touch and support one another; under repeated shaking they try to pack tighter, but the water in the pores cannot drain away fast enough, so excess pore water pressure builds up. When it rises to equal the soil's original effective stress, the grains no longer press against each other and the layer loses its strength like a liquid: this is liquefaction. Designers first calculate the liquefaction safety factor FL at each depth; layers with FL below 1 are treated as liquefiable, and both liquefied and non-liquefied cases are analysed, with the more conservative result used.","海底の表層は飽和したゆるい砂層であることが多いです。普段は砂粒どうしが接触して支え合っていますが、地震で繰り返し揺すられると砂粒は密になろうとし、間隙の水は排出が間に合わず、過剰間隙水圧が上昇します。間隙水圧が土のもともとの有効応力に等しくなると、砂粒は互いに押し合わなくなり、土層は液体のように強度を失います。これが液状化です。設計では各深さの液状化に対する安全率 FL を計算し、1未満の土層は液状化するものとみなし、液状化する場合としない場合の両方を解析して、より安全側の結果を採用します。"],
-"平時砂粒互相接觸，承載力來自顆粒間的摩擦":["Normally grains touch, and strength comes from friction between them","普段は砂粒が接触し、粒子間の摩擦で支える"],
-"地震搖晃，孔隙水來不及排出，水壓上升":["Shaking traps pore water, and its pressure rises","揺れで間隙水が排出できず、水圧が上昇"],
-"水壓等於有效應力，砂粒浮起，土層液化":["Pore pressure equals effective stress: the sand liquefies","水圧が有効応力に達し、砂粒が浮いて液状化"],
-"計算各深度的安全係數 FL，小於 1 視為液化":["FL is calculated at each depth; below 1 means liquefaction","各深さの安全率 FL を計算し、1未満は液状化"],
-"液化與不液化兩種情境都要分析，取保守者":["Both liquefied and non-liquefied cases are analysed; the safer result governs","液状化あり・なしの両方を解析し、安全側を採用"],
-"飽和砂層的放大圖（示意）":["Close-up of saturated sand (schematic)","飽和砂層の拡大図（模式）"],
-"砂粒互相接觸（黃線為傳力路徑）":["Grains in contact (yellow: load paths)","砂粒が接触（黄線は力の伝達経路）"],
-"砂粒浮在水中，失去接觸":["Grains float in water, contact lost","砂粒が水中に浮き、接触を失う"],
-"超額孔隙水壓 ／ 有效應力":["Excess pore pressure / effective stress","過剰間隙水圧 ／ 有効応力"],
-"比值達到 1：土壤液化":["Ratio reaches 1: the soil liquefies","比が1に達する：液状化"],
-"抗液化安全係數 FL（示例）":["Liquefaction safety factor FL (example)","液状化に対する安全率 FL（例）"],
-"海床下深度（m）":["Depth below seabed (m)","海底面からの深さ（m）"],
-"液化層":["Liquefiable","液状化層"],
-"土壤抗液化強度 ÷ 地震引起的剪應力（475 年地震）":["Soil resistance to liquefaction ÷ shear stress from the 475-year earthquake","土の液状化抵抗 ÷ 地震による せん断応力（475年地震）"],
-"液化層不計側向支撐，基樁要穿過並深入下方緊密地層；液化與不液化兩種情境都分析，取較保守的結果。":["Liquefiable layers give no lateral support, so piles pass through them into the dense ground below; both liquefied and non-liquefied cases are analysed and the more conservative result is used.","液状化層は水平支持を見込まず、杭はこれを貫いて下の締まった地層まで入れる。液状化あり・なしの両方を解析し、安全側の結果を採用する。"],
+"保護電流要多少":["How much current is needed","防食電流はどれだけ必要か"],
+"陽極要放多少，先要算出整個壽命需要多少保護電流。裸鋼需要的電流等於面積乘以設計電流密度，台灣海域水溫高，依 DNV-RP-B401 熱帶海水 0–30 m 的初期值為每平方公尺 0.150 安培。有塗層時只有破損的部分需要電流，用塗層破損係數表示，會隨年份增加。以直徑 8 公尺、水深 30 公尺的單樁浸水外表面約 754 平方公尺為例，平均只需約 9 安培，25 年約 1.1 公噸鋁陽極（示例）。":["To decide how many anodes to fit, first work out how much protective current is needed over the whole life. For bare steel the current equals area times design current density; Taiwan's waters are warm, and DNV-RP-B401 gives an initial value of 0.150 A per square metre for tropical water at 0–30 m. With a coating, only the damaged parts need current, expressed as a coating breakdown factor that grows over the years. For the submerged outer surface of an 8 m diameter monopile in 30 m of water, about 754 square metres, the average current is only about 9 A, requiring about 1.1 tonnes of aluminium anodes for 25 years (example).","陽極の量を決めるには、まず寿命全体で必要な防食電流を求めます。裸鋼の必要電流は面積×設計電流密度で、台湾周辺は水温が高く、DNV-RP-B401 では熱帯海水・水深0–30 mの初期値が1平方メートルあたり0.150 Aです。塗装がある場合は損傷部分だけに電流が必要で、年とともに増える塗膜劣化係数で表します。直径8 m、水深30 mのモノパイルの没水外面約754平方メートルを例にすると、平均電流は約9 Aで、25年間に約1.1トンのアルミ陽極が必要です（例）。"],
+"保護電流等於面積乘以設計電流密度":["Protective current = area × design current density","防食電流＝面積×設計電流密度"],
+"裸鋼需要上百安培，有塗層時少很多":["Bare steel needs over 100 A; coated steel far less","裸鋼は100 A以上、塗装があればずっと少ない"],
+"塗層逐年破損，需要的電流慢慢增加":["As the coating degrades, the current demand slowly rises","塗膜が年々劣化し、必要電流は徐々に増える"],
+"平均約 9 A，25 年約需 1.1 t 鋁陽極（示例）":["About 9 A on average: about 1.1 t of aluminium anodes for 25 years (example)","平均約9 A、25年で約1.1 tのアルミ陽極（例）"],
+"保護電流（A）":["Current (A)","防食電流（A）"],
+"單樁浸水外表面所需電流（示例）":["Current demand, monopile outer surface (example)","モノパイル没水外面の必要電流（例）"],
+"裸鋼（無塗層）":["Bare steel (no coating)","裸鋼（塗装なし）"],
+"有塗層：只有破損處需要電流":["Coated: only damaged areas need current","塗装あり：損傷部だけに電流が必要"],
+"裸鋼":["Bare","裸鋼"],
+"有塗層":["Coated","塗装あり"],
+"估算條件（示例）":["Assumptions (example)","試算条件（例）"],
+"浸水面積":["Submerged area","没水面積"],
+"初期電流密度":["Initial density","初期電流密度"],
+"平均電流密度":["Mean density","平均電流密度"],
+"塗層破損係數":["Coating breakdown","塗膜劣化係数"],
+"0.02 + 0.012 × 年":["0.02 + 0.012 × yr","0.02 + 0.012 × 年"],
+"平均保護電流":["Mean current","平均防食電流"],
+"25 年鋁陽極重量":["Al anodes, 25 yr","25年分のアルミ陽極"],
+"若完全沒有塗層，平均約 53 A，需要約 6.4 t 陽極":["Without any coating: about 53 A on average and about 6.4 t of anodes","塗装がまったくなければ平均約53 A、陽極は約6.4 t"],
+"塗層與陰極保護互相搭配，才能兼顧可靠與重量":["Coating and CP together balance reliability and weight","塗装と電気防食の併用で信頼性と重量を両立"],
 /* shot 6 */
-"疲勞：上億次的小載重":["Fatigue: millions of small loads","疲労：億回を超える小さな荷重"],
-"颱風與地震是少見的極端事件，但風機在二十多年裡每天都承受波浪、紊流與轉子旋轉帶來的反覆載重。每一次應力都不大，累積上億次後，焊道與節點仍可能出現裂紋，這就是疲勞。設計時用 S-N 曲線換算每一種應力幅度可承受的次數，再依邁納法則把各種載重造成的損傷相加，整個設計年限內的累積損傷必須小於 1，並保留安全係數。":["Typhoons and earthquakes are rare extremes, but every day for more than twenty years a turbine carries repeated loads from waves, turbulence and the spinning rotor. Each stress cycle is small, yet after a hundred million of them welds and joints can still crack: this is fatigue. Designers use S-N curves to find how many cycles each stress range can withstand, then add up the damage from every load type with Miner's rule. The cumulative damage over the whole design life must stay below 1, with a safety factor kept in reserve.","台風と地震はまれな極端事象ですが、風車は20年以上にわたり毎日、波、乱流、ロータの回転による繰返し荷重を受けます。1回ごとの応力は小さくても、1億回を超えて積み重なると溶接部や節点に亀裂が生じることがあります。これが疲労です。設計では S-N 曲線で各応力範囲に耐えられる回数を求め、マイナー則で各荷重による損傷を足し合わせます。設計寿命全体での累積損傷は1未満でなければならず、安全率も確保します。"],
-"波浪、紊流與轉子旋轉，每天帶來反覆載重":["Waves, turbulence and the rotor bring repeated loads every day","波・乱流・ロータ回転が毎日繰返し荷重をもたらす"],
-"應力越小，可承受的次數越多：S-N 曲線":["Smaller stress, more cycles to failure: the S-N curve","応力が小さいほど耐えられる回数が多い：S-N 曲線"],
-"二十五年間，每八秒一道浪，約一億次":["One wave every eight seconds for 25 years: about 100 million","25年間、8秒ごとに1波で約1億回"],
-"把各種載重的損傷相加，累積損傷要小於 1":["Damage from all loads is summed; the total must stay below 1","各荷重の損傷を合計し、累積損傷は1未満に"],
-"S-N 曲線（示意）":["S-N curve (schematic)","S-N 曲線（模式）"],
-"循環次數 N":["Cycles N","繰返し回数 N"],
-"應力幅度":["Stress range","応力範囲"],
-"高":["High","高"],
-"低":["Low","低"],
-"應力大：可承受次數少":["High stress: few cycles","応力大：耐用回数が少ない"],
-"應力小：次數多":["Low stress: many cycles","応力小：回数が多い"],
-"颱風":["Typhoon","台風"],
-"日常波浪":["Daily waves","日常の波"],
-"反覆載重的來源":["Sources of cyclic load","繰返し荷重の発生源"],
-"波浪":["Waves","波"],
-"每 5–10 秒一次":["Every 5–10 s","5〜10秒ごと"],
-"風紊流":["Turbulence","風の乱流"],
-"隨時變化":["Always changing","常に変動"],
-"轉子旋轉":["Rotor","ロータ回転"],
-"每轉三次葉片通過":["3 blade passes per turn","1回転に3回ブレード通過"],
-"波浪載重累計（示例）":["Wave load cycles (example)","波浪荷重の累計（例）"],
-"第 {n} 年":["Year {n}","{n} 年目"],
-"{n} 萬次":["{m} million","{n} 万回"],
-"每 8 秒一道浪 × 25 年 ≈ 1 億次":["One wave every 8 s × 25 years ≈ 100 million","8秒ごとに1波 × 25年 ≈ 1億回"],
-"累積損傷 D = Σ n / N":["Cumulative damage D = Σ n / N","累積損傷 D = Σ n / N"],
-"D = 1 破壞":["D = 1 failure","D = 1 で破壊"],
-"設計年限內 D 必須小於 1，並保留安全係數":["D must stay below 1 over the design life, with a safety margin","設計寿命内で D は1未満、かつ安全率を確保"]
+"外加電流陰極保護":["Impressed current cathodic protection","外部電源方式の電気防食"],
+"另一種做法是外加電流陰極保護（ICCP）：在轉接段內裝一台整流器，把電流送到不太消耗的鈦基混合金屬氧化物陽極，再經海水流到鋼材。樁身上的固定參考電極持續量測電位，整流器依讀數自動調整輸出，把鋼材維持在保護範圍內。它的陽極輕、可以調整，國外已有不少風場採用；但必須有電才能保護，風機併網前要有臨時措施，電位也不能拉得太負，以免高強度鋼產生氫脆。":["The other approach is impressed current cathodic protection (ICCP): a rectifier inside the transition piece drives current to long-lasting titanium-based mixed metal oxide anodes, and from there through the seawater to the steel. Permanent reference electrodes on the pile keep measuring the potential, and the rectifier adjusts its output automatically to keep the steel within the protection range. The anodes are light and the output adjustable, and a number of wind farms abroad already use it; but it only protects while powered, so temporary measures are needed before the turbine is connected to the grid, and the potential must not be driven too negative, or high-strength steel may suffer hydrogen embrittlement.","もう一つの方法が外部電源方式の電気防食（ICCP）です。トランジションピース内の整流器から、消耗の少ないチタン基の混合金属酸化物陽極に電流を送り、海水を通して鋼材に流します。杭に固定した照合電極が電位を常時測定し、整流器が読みに応じて出力を自動調整して、鋼材を防食範囲内に保ちます。陽極が軽く出力を調整できるため、海外ではすでに多くの風力発電所が採用していますが、電源がなければ防食できないため系統連系前は仮の対策が必要で、電位を卑にしすぎると高張力鋼に水素脆化が起こるおそれもあります。"],
+"轉接段內的整流器提供保護電流":["A rectifier in the transition piece supplies the current","トランジションピース内の整流器が防食電流を供給"],
+"電流經混合金屬氧化物陽極流進海水，再回到鋼材":["Current flows from the MMO anode through the sea back to the steel","電流は混合金属酸化物陽極から海水を通って鋼材へ"],
+"參考電極量測電位，整流器自動調整輸出":["Reference electrodes measure potential; the rectifier adjusts output","照合電極が電位を測り、整流器が出力を自動調整"],
+"電位不能太負，以免高強度鋼產生氫脆":["The potential must not go too negative, or high-strength steel may embrittle","卑にしすぎると高張力鋼に水素脆化のおそれ"],
+"整流器（轉接段內）":["Rectifier (in TP)","整流器（TP内）"],
+"混合金屬氧化物陽極":["MMO anode","混合金属酸化物陽極"],
+"參考電極":["Reference electrode","照合電極"],
+"保護電流":["Protective current","防食電流"],
+"太負：氫脆風險":["Too negative: embrittlement","卑すぎ：水素脆化"],
+"外加電流（示例）":["Impressed current (example)","外部電源（例）"],
+"輸出電流":["Output","出力電流"],
+"控制範圍":["Range","制御範囲"],
+"−0.80 ～ −1.10 V":["−0.80 to −1.10 V","−0.80 ～ −1.10 V"],
+"模式":["Mode","モード"],
+"啟動":["Start-up","起動"],
+"自動調整":["Auto","自動調整"],
+/* shot 7 */
+"兩種方法與電位監測":["Comparing methods and monitoring","二つの方式と電位モニタリング"],
+"犧牲陽極不需要電源，安裝當天就開始保護，維護少，但陽極很重、無法調整；外加電流陽極輕、輸出可以調整，但要有電源、需要持續監看，並注意過度保護。不論哪一種，完工後都要監測。樁上的固定參考電極把電位傳回監控系統，再配合每年 ROV 或潛水員的現場量測（第 30 集）；若電位接近 −0.80 V 門檻，就加裝陽極或調整系統（第 31 集），讓保護撐過整個設計壽命。":["Sacrificial anodes need no power, protect from the day they are installed and need little maintenance, but they are heavy and cannot be adjusted; impressed current anodes are light and their output adjustable, but they need power, constant monitoring and care to avoid overprotection. Either way, the system is monitored after completion. Permanent reference electrodes on the pile send potentials back to the monitoring system, backed up by annual on-site measurements by ROV or divers (Episode 30); if the potential approaches the −0.80 V threshold, anodes are added or the system adjusted (Episode 31) so that protection lasts the whole design life.","流電陽極は電源が不要で、設置したその日から防食が始まり保守も少なくて済みますが、陽極が重く調整できません。外部電源方式は陽極が軽く出力を調整できますが、電源と常時の監視が必要で、過防食にも注意が要ります。どちらの方式でも完成後のモニタリングが欠かせません。杭に固定した照合電極が電位を監視システムに送り、毎年の ROV や潜水士による現地測定（第30話）と組み合わせます。電位が−0.80 Vの基準に近づけば、陽極を追加するか系統を調整し（第31話）、設計寿命全体にわたって防食を保ちます。"],
+"犧牲陽極：免電源、維護少，但重且無法調整":["Sacrificial anodes: no power, little upkeep, but heavy and fixed","流電陽極：電源不要で保守も少ないが、重く調整不可"],
+"外加電流：輕、可調整，但要電源與持續監看":["Impressed current: light and adjustable, but needs power and monitoring","外部電源：軽く調整可能だが、電源と常時監視が必要"],
+"固定參考電極把電位傳回監控系統":["Permanent reference electrodes report potentials to the control system","固定照合電極が電位を監視システムへ送信"],
+"每年現場量測，不足時加裝陽極或調整":["Annual surveys; add anodes or adjust when protection runs low","毎年現地測定し、不足なら陽極追加や調整"],
+"比較項目":["Item","比較項目"],
+"犧牲陽極":["Sacrificial anode","流電陽極"],
+"外加電流":["Impressed current","外部電源"],
+"電源":["Power","電源"],
+"不需要":["Not needed","不要"],
+"需要整流器與供電":["Rectifier and supply","整流器と給電が必要"],
+"開始保護":["Starts","防食開始"],
+"安裝後立即":["On installation","設置直後から"],
+"送電後才開始":["Once powered","通電後から"],
+"重量":["Weight","重量"],
+"較重":["Heavier","重い"],
+"較輕":["Lighter","軽い"],
+"調整":["Adjustment","調整"],
+"無法調整":["Fixed","調整不可"],
+"可自動調整":["Automatic","自動調整可能"],
+"維護":["Upkeep","保守"],
+"少，定期量測":["Low, periodic checks","少ない、定期測定"],
+"需持續監看":["Constant monitoring","常時監視が必要"],
+"過度保護":["Overprotection","過防食"],
+"風險低":["Low risk","リスク小"],
+"需設定上限":["Needs a limit","上限設定が必要"],
+"完工後的電位監測":["Monitoring after completion","完成後の電位モニタリング"],
+"固定參考電極":["Fixed reference electrodes","固定照合電極"],
+"電位傳回監控系統":["Potentials sent to control system","電位を監視システムへ送信"],
+"每年現場量測":["Annual on-site survey","毎年の現地測定"],
+"ROV 或潛水員（第 30 集）":["ROV or divers (Episode 30)","ROV または潜水士（第30話）"],
+"接近 −0.80 V 門檻":["Nearing −0.80 V","−0.80 V の基準に接近"],
+"加裝陽極或調整（第 31 集）":["Add anodes or adjust (Episode 31)","陽極追加または調整（第31話）"],
+"保護撐過整個設計壽命":["Protection lasts the design life","設計寿命全体を防食"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
