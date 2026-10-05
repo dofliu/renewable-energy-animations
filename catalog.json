@@ -375,6 +375,20 @@
               }
             },
             {
+              "no": 26,
+              "file": "ep26.html",
+              "title": {
+                "zh": "人員登塔與海上安全",
+                "en": "Turbine access and offshore safety",
+                "ja": "作業員のアクセスと洋上安全"
+              },
+              "sub": {
+                "zh": "GWO 訓練、船首頂靠、防墜、動態補償步橋與直升機吊掛",
+                "en": "GWO training, bow push-on, fall arrest, motion-compensated gangways and helicopter hoisting",
+                "ja": "GWO 訓練、船首押し付け、墜落防止、動揺補償ギャングウェイ、ヘリによる吊り降ろし"
+              }
+            },
+            {
               "no": 29,
               "file": "ep29.html",
               "title": {

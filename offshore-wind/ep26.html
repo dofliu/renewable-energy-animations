@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep29.js｜離岸風場開發系列</title>
+<title>ep26.js｜離岸風場開發系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep26.html"><span data-zh="← 26 人員登塔與海上安全" data-en="← 26 Turbine access and offshore safety" data-ja="← 26 作業員のアクセスと洋上安全">← 26 人員登塔與海上安全</span></a><a href="ep30.html"><span data-zh="30 水下結構檢查 →" data-en="30 Subsea structure inspection →" data-ja="30 水中構造物の点検 →">30 水下結構檢查 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep22.html"><span data-zh="← 22 離岸風電如何併網" data-en="← 22 Connecting offshore wind to the grid" data-ja="← 22 洋上風力はどう系統連系するか">← 22 離岸風電如何併網</span></a><a href="ep29.html"><span data-zh="29 葉片巡檢與缺陷分級 →" data-en="29 Blade inspection and damage grading →" data-ja="29 ブレード点検と損傷の等級分け →">29 葉片巡檢與缺陷分級 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep29.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep26.js｜離岸風場開發系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -928,482 +928,479 @@ function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
 Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
 
 // KITS: marine
-/* ================= EP29 葉片巡檢與缺陷分級 ================= */
-const A29=Math.PI/2; // rotor locked in Y position: one blade pointing straight down
+/* ================= EP26 人員登塔與海上安全 ================= */
 /* complete fixed-bottom turbine at cx (monopile + TP + tower + nacelle + rotor) */
-function turb29(cx,ang){
+function turb26(cx,ang){
   const yb=bedY(cx)+130;drawPile(cx,yb,Math.PI/2,yb-PILE_TOP,PILE_W);drawTP(cx,TP_BOT);
   for(let k=0;k<3;k++)drawTowerSec(cx,TP_TOP-k*HS,k);
   drawNacelle(cx,TW_TOP,0,true);drawRotor(cx-44,TW_TOP-20,ang,3);
 }
-function far29(x,s,ang){const h=150*s,hx=x,hy=SEA-h;ln([x,SEA,x,hy],'rgba(235,240,243,.85)',3*s);
+function far26(x,s,ang){const h=150*s,hx=x,hy=SEA-h;ln([x,SEA,x,hy],'rgba(235,240,243,.85)',3*s);
   for(let i=0;i<3;i++){const a=ang-i*TAU/3;ln([hx,hy,hx+Math.cos(a)*70*s,hy+Math.sin(a)*70*s],'rgba(245,247,248,.9)',2.2*s);}circ(hx,hy,3*s,'#eef2f4');}
 /* text wrapped to a width (after translation) */
-function wrap29(x,y,t,maxW,size,col,weight,lh,align){
+function wrap26(x,y,t,maxW,size,col,weight,lh,align){
   t=tr(t);const cjk=LANG!=='en'&&CJK_RE.test(t),parts=cjk?[...t]:t.split(' ');let line='',n=0;
   const out=s=>{wt(x,y+n*lh,s,size,col,weight,align);n++;};
   for(const w of parts){const test=line?(cjk?line+w:line+' '+w):w;if(line&&wtw(test,size,weight)>maxW){if(cjk&&/^[，。、）」：；,.]$/.test(w)){out(test);line='';continue;}out(line);line=w;}else line=test;}
   if(line)out(line);return n;
 }
-function drone29(x,y,s){
-  s=s||1;const spin=TT*40;ctx.save();ctx.translate(x,y);ctx.scale(s,s);
-  box(-9,-3,18,6,'#2b3137');ln([-16,-6,16,-6],'#2b3137',1.6);
-  for(const k of [-1,1]){ctx.beginPath();ctx.ellipse(k*16,-8,10*Math.abs(Math.cos(spin+k)),1.6,0,0,TAU);ctx.fillStyle='rgba(40,50,60,.55)';ctx.fill();}
-  circ(0,5,3,'#394650');circ(6,-3,1.4,Math.sin(TT*8)>0?'#7dffc4':'#2a6d56');ctx.restore();
-}
-/* rotor angle in shot 1: decelerates to the locked Y position */
-const ang29=u=>A29-6*Math.pow(1-seg(u,0,.4),2);
-/* airfoil (leading edge at x, chord c) */
-function thk29(s,t){return 5*t*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);}
-function foil29(x,y,c,t){const P=[];for(let i=0;i<=40;i++){const s=Math.pow(i/40,2);P.push([x+s*c,y-thk29(s,t)*c]);}
-  for(let i=40;i>=0;i--){const s=Math.pow(i/40,2);P.push([x+s*c,y+thk29(s,t)*c*.55]);}return P;}
-/* blade planform half-height at fraction s from root (0) to tip (1) */
-const plan29=s=>s<.22?lerp(.55,1,Math.sin(s/.22*Math.PI/2)):lerp(1,.08,Math.pow((s-.22)/.78,.85));
-function bladePlan(x0,x1,yc,H,col,st){
-  const P=[];for(let i=0;i<=40;i++){const s=i/40;P.push(x0+s*(x1-x0),yc-plan29(s)*H*.42);}
-  for(let i=40;i>=0;i--){const s=i/40;P.push(x0+s*(x1-x0),yc+plan29(s)*H*.58);}
-  poly(P,col,st,1.4);
-}
-/* severity colours (grade 1–5) */
-const SEV=['#7dffc4','#7dc8dc','#f2c230','#ff9d7a','#e8572a'];
-/* tiles in shot 3: [defect type, grade, label] */
-const TILE29=[['le',3,'前緣侵蝕'],['dirt',0,'污漬（排除）'],['burn',4,'雷擊燒痕'],['crack',4,'後緣裂紋'],['ok',0,'無異常'],['peel',2,'塗層剝落']];
-function tile29(x,y,w,h,k,i){
-  card(x,y,w,h,{bg:'#4f7d98',r:4,st:'rgba(255,255,255,.3)'});
-  ctx.save();rrp(x,y,w,h,4);ctx.clip();
-  const g=ctx.createLinearGradient(0,y,0,y+h);g.addColorStop(0,'#7fb0cc');g.addColorStop(1,'#a9cbdc');box(x,y,w,h,g);
-  const r=rng(30+i);const yt=y+h*.28+r()*20,yb=y+h*.78;
-  poly([x,yt,x+w,yt+14,x+w,yb+8,x,yb],'#eef2f4');ln([x,yt,x+w,yt+14],'rgba(60,80,95,.5)',1.2);
-  const cx=x+w*.5;
-  if(k==='le')for(let j=0;j<18;j++)circ(x+20+r()*(w-40),yt+3+r()*10,1.5+r()*3,'#8a99a3');
-  if(k==='dirt')for(let j=0;j<5;j++)circ(cx-30+r()*60,yt+40+r()*30,6+r()*8,'rgba(120,110,90,.35)');
-  if(k==='burn'){circ(cx,yt+38,13,'#2b2622');circ(cx,yt+38,20,'rgba(60,50,45,.35)');circ(cx+4,yt+36,4,'#7a6a5c');}
-  if(k==='crack'){ln([x+30,yb-4,x+70,yb-14,x+110,yb-10,x+150,yb-22,x+190,yb-18],'#394650',2);}
-  if(k==='peel'){poly([cx-34,yt+30,cx+10,yt+24,cx+30,yt+44,cx-6,yt+62,cx-40,yt+52],'#b8c3c9');ln([cx-34,yt+30,cx+10,yt+24,cx+30,yt+44],'#8a99a3',1);}
+const LAD26=TX-33.5;          // boat landing ladder (drawTP) x
+const PLAT26=TP_TOP-3;        // work platform deck y
+const CTVX26=TX-114;          // CTV stern x when its bow fender touches the landing
+/* technician with a small fall-arrest slider when on the ladder */
+function tech26(x,y,col,s,slider){person(x,y,col||'#e8572a',s||1.1);if(slider)box(x-1.6,y-9,3.2,3,'#f2c230');}
+/* helicopter, nose to the left; (x,y) is the cabin centre */
+function heli26(x,y,s){
+  s=s||1;ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  ln([14,-2,58,-8],'#c43d22',4);poly([54,-8,62,-20,64,-8],'#c43d22');
+  ctx.beginPath();ctx.ellipse(66,-10,7,7*Math.abs(Math.sin(TT*30)),0,0,TAU);ctx.strokeStyle='rgba(40,50,60,.5)';ctx.lineWidth=1.2;ctx.stroke();
+  ctx.beginPath();ctx.ellipse(0,0,24,11,0,0,TAU);ctx.fillStyle='#e8572a';ctx.fill();
+  ctx.beginPath();ctx.ellipse(-12,-2,10,7,0,Math.PI,Math.PI*1.9);ctx.lineTo(-12,-2);ctx.closePath();ctx.fillStyle='#8fd0ff';ctx.fill();
+  box(-4,-6,10,9,'#2b3137');                                     // open side door
+  box(4,-15,10,4,'#394650');ln([12,-13,18,-9],'#394650',2);       // hoist arm
+  ln([-14,10,-14,16],'#394650',1.2);ln([12,10,12,16],'#394650',1.2);ln([-22,16,20,16],'#394650',1.6);
+  box(-3,-15,6,4,'#394650');
+  const w=56*Math.abs(Math.cos(TT*24));ctx.beginPath();ctx.ellipse(0,-16,56,2.2,0,0,TAU);ctx.fillStyle='rgba(40,50,60,.22)';ctx.fill();
+  ln([-w,-16,w,-16],'rgba(40,50,60,.75)',1.6);
   ctx.restore();
 }
-/* crawler robot inside the blade (shot 4) */
-function crawler29(x,y,lit){
-  if(lit>0)alphaDo(lit,()=>{const g=ctx.createLinearGradient(x,0,x+200,0);g.addColorStop(0,'rgba(255,240,180,.45)');g.addColorStop(1,'rgba(255,240,180,0)');poly([x+18,y-18,x+200,y-60,x+200,y+30,x+18,y-4],g);});
-  box(x-24,y-6,48,10,'#222');for(let i=0;i<5;i++)circ(x-19+i*9.5,y-1,3.4,'#555');
-  box(x-20,y-20,40,15,'#f2c230');box(x-4,y-36,4,16,'#394650');circ(x-2,y-40,6,'#2b3137');circ(x+1,y-40,2.2,'#7dffc4');
-  box(x+14,y-17,8,8,'#fff');
-  const a=TT*4;ln([x-2,y-40,x-2+Math.cos(a)*30,y-40+Math.sin(a)*30],'rgba(125,255,196,.6)',1.4);
-}
-/* lightning bolt from p to q */
-function bolt29(x0,y0,x1,y1,a){if(a<=0)return;const r=rng(Math.floor(TT*8)),P=[x0,y0];
-  for(let i=1;i<8;i++){const t=i/8;P.push(lerp(x0,x1,t)+(r()-.5)*40,lerp(y0,y1,t));}P.push(x1,y1);
-  alphaDo(a,()=>{ln(P,'rgba(255,240,170,.35)',9);ln(P,'#fff6c8',3);});}
+/* required thrust (% of max) vs Hs – typical example */
+const TRQ26=h=>100*Math.pow(h/1.62,1.8);
 
-const EP={no:29,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'葉片巡檢與缺陷分級',en:'Blade inspection and damage grading',
-lede:'離岸風機的葉片長達百公尺，每年都要仔細檢查一次。這一集看無人機如何沿著自動航線拍下每支葉片、軟體怎麼從上千張照片中找出缺陷，再跟著爬行機器人進到葉片內部，認識雷擊與裂紋的樣子，最後把缺陷分成 5 級，決定繼續運轉、排程修補還是立即停機。',
-facts:[['5','級','葉片缺陷常用的嚴重度分級，從外觀瑕疵到危急'],['4','趟','每支葉片的典型拍攝航線：前緣、後緣與兩側葉面'],['30','分鐘內','自動航線無人機巡檢一部風機的典型時間'],['約 1','mm/像素','近拍影像的典型解析度，可看出細小裂紋'],['約 90','%','內部爬行機器人可檢視的葉片內部範圍（設備商資料）'],['1–12','個月','第 4–5 級缺陷應完成修補或停機的期限（典型）']],
-note:'說明：本集為教育用途示意動畫，尺寸與距離經過壓縮。航線趟數、拍攝距離、巡檢時間與影像解析度取自無人機服務商公開資料的典型值；爬行機器人的檢視範圍取自設備商說明；防雷系統檢查依 IEC 61400-24 的原則示意，電阻讀數為示例；缺陷 5 級分類參考 EPRI 與 IEA Wind Task 46 的架構，各級處理期限為典型範例，實際依風機製造商與業主的規範而定。照片張數與缺陷數量為示例，不代表特定風場。',
+const EP={no:26,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'人員登塔與海上安全',en:'Turbine access and offshore safety',
+lede:'離岸風機的維修，第一步是把人安全地送上去。這一集從出海前的訓練與裝備開始，看人員運輸船怎麼用船首頂住風機、技術人員如何看準時機跨上爬梯，為什麼浪高 1.5 公尺左右就是分界；再看防墜系統、運維母船的動態補償步橋與直升機吊掛三種登塔方式，以及萬一落水或受傷時的應變。',
+facts:[['5','個模組','GWO 基本安全訓練（離岸）：急救、人工搬運、消防、高處作業、海上求生'],['24','個月','GWO 訓練證書的效期，到期前須完成複訓'],['約 1.5','m','人員運輸船船首頂靠、跨步登塔的典型示性波高上限'],['約 3','m','動態補償步橋可作業的示性波高（設備商資料）'],['100','%','爬梯與轉換點全程連續掛鉤，任何時刻至少一個掛點'],['12–24','名','一艘人員運輸船典型載運的技術人員數']],
+note:'說明：本集為教育用途示意動畫，船舶、風機與人員的比例經過壓縮。GWO 基本安全訓練的模組與 24 個月效期依 Global Wind Organisation 公開標準；台灣已有多處經 GWO 認證的訓練中心。人員運輸船跨步登塔約 1.5 m 示性波高、動態補償步橋約 3 m 示性波高為業界常用的典型值與設備商資料，實際上限依船型、波浪週期與方向、風場業主規定而定。推力與浪高的關係曲線、HUD 中的浪高、風速、推力與人數皆為典型範例；直升機吊掛在部分歐洲風場使用，台灣目前以船舶登塔為主。緊急應變流程為原則示意，實際依各風場的緊急應變計畫與職業安全衛生法規執行，不代表特定風場。',
 shots:[
-/* 1 */{t:'巡檢日：停機、鎖定、起飛',en:'Inspection day',dur:13,side:true,
- d:'葉片巡檢通常每年至少一次，也會在雷擊或異常振動後加做。人員運輸船（CTV）載著無人機小組抵達風機，風機先停機、轉子轉到「Y 字」位置並鎖定，讓一支葉片垂直朝下，另外兩支對稱朝上，無人機才能沿著固定航線逐支拍攝。現今台灣離岸風機的葉片長約 80 到 110 公尺，以往需要繩索技術人員垂降檢查一整天，改用無人機後，大幅縮短停機時間。',
- s:[[0,'巡檢日，人員運輸船載著無人機小組抵達風機'],[.28,'風機停機，轉子轉到 Y 字位置並鎖定'],[.52,'無人機從船上起飛，飛向輪轂'],[.76,'一支葉片朝下，另外兩支對稱朝上，方便沿線拍攝']],
- base:()=>{drawSky();drawWaterBack();drawSoil();},
- cam:u=>camMix({x:800,y:420,s:1},{x:660,y:330,s:1.5},ease(seg(u,.3,.62))),
+/* 1 */{t:'出海前：訓練與裝備',en:'Before going offshore',dur:13,
+ d:'要登上離岸風機，技術人員必須先完成全球風能組織（GWO）的基本安全訓練。離岸版共有五個模組：急救、人工搬運、消防意識、高處作業與海上求生，證書效期 24 個月，到期前要複訓。台灣已有多處經 GWO 認證的訓練中心。出海時的個人防護裝備包括安全帽、附個人定位信標（PLB）的自動充氣救生衣、全身式安全吊帶與雙鉤緩衝繩，冬季還要穿浸水保溫衣。',
+ s:[[0,'登上風機前，要先完成 GWO 基本安全訓練'],[.3,'離岸版五個模組，包括海上求生與高處作業'],[.55,'證書效期 24 個月，到期前必須複訓'],[.74,'出海時穿戴救生衣、安全吊帶與定位信標']],
  draw(u){
-  for(const [x,s,p] of [[180,.55,.4],[960,.45,1.7],[1150,.4,2.6]])far29(x,s,TT*.9+p);
-  turb29(TX,ang29(u));
-  const cx=lerp(1080,TX+100,ease(seg(u,0,.3)));
-  const wl=vsl(cx,77,true,{tilt:.8},vCTV);
-  if(u<.3)alphaDo(.7,()=>{for(let i=0;i<5;i++){const k=(TT*2+i/5)%1;ln([cx+4+k*80,wl+2+i*.6,cx+24+k*80,wl+2+i*.6],`rgba(255,255,255,${.8*(1-k)})`,1.4);}});
-  const D=kf(u,[[0,cx+40,wl-16],[.5,cx+40,wl-16],[.66,cx+20,HUB.y+150],[.82,HUB.x+60,HUB.y+40],[1,HUB.x+40,HUB.y+90]]);
-  if(u>.35)drone29(D.x,D.y);
-  if(u>.42)alphaDo(seg(u,.42,.48),()=>{ring(HUB.x,HUB.y,15,'#f2c230',2.4);});
-  lab(cx+30,wl-20,'人員運輸船（CTV）',{dx:60,dy:-50,a:band(u,.06,.36)});
-  lab(HUB.x,HUB.y,'轉子減速停機',{dx:-90,dy:-40,a:band(u,.12,.4)});
-  lab(HUB.x,HUB.y,'轉子鎖定（Y 字位置）',{dx:-100,dy:-40,a:band(u,.44,.74),st:'s'});
-  lab(D.x,D.y,'巡檢無人機',{dx:70,dy:-30,a:band(u,.52,1),st:'s'});
-  lab(HUB.x-3,HUB.y+BR*.6,'葉片長約 80–110 m',{dx:-110,dy:0,a:band(u,.76,1)});
+  diagBG();
+  card(60,150,700,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'GWO 基本安全訓練（離岸）',21,'#fff',700);
+  const M=[['海上求生','落水、救生筏、從船登上風機'],['高處作業','安全吊帶、防墜、高處救援'],['急救','傷患處置、心肺復甦'],['消防意識','初期滅火、緊急撤離'],['人工搬運','正確搬抬，避免受傷']];
+  M.forEach((m,i)=>{const a=seg(u,.06+i*.05,.1+i*.05);if(a<=0)return;const y=214+i*88,hi=u>.3&&u<.55&&i<2;alphaDo(a,()=>{
+   card(84,y,652,74,{bg:hi?'rgba(242,194,48,.1)':'rgba(255,255,255,.04)',st:hi?'#f2c230':'rgba(255,255,255,.12)',r:6});
+   circ(122,y+37,18,hi?'#f2c230':'#58b8d0');wt(122,y+44,String(i+1),20,'#0e2a3b',700,'center',COND);
+   wt(156,y+33,m[0],20,'#fff',700);wrap26(156,y+60,m[1],560,15,'rgba(227,236,238,.8)',500,20);});});
+  const v=seg(u,.55,.6);if(v>0)alphaDo(v,()=>{box(84,664,652,1,'rgba(255,255,255,.14)');
+   wt(84,712,'證書效期',18,'rgba(227,236,238,.85)',600);wt(736,722,trf('{n} 個月',{n:Math.round(24*ease(seg(u,.55,.66)))}),44,'#f2c230',700,'right',COND);
+   wt(84,760,'到期前完成複訓，才能繼續出海',16,'rgba(227,236,238,.75)',500);});
+  // right: PPE figure
+  card(800,150,740,650,{bg:'rgba(7,27,39,.8)'});wt(824,190,'個人防護裝備',21,'#fff',700);
+  const P=seg(u,.06,.14);if(P>0)alphaDo(P,()=>{
+   const X=1000,Y=470;
+   // legs, body
+   box(X-26,Y+90,22,170,'#2a3a46');box(X+4,Y+90,22,170,'#2a3a46');box(X-30,Y+250,30,18,'#1c1c1c');box(X+2,Y+250,30,18,'#1c1c1c');
+   rrp(X-40,Y-40,80,140,10);ctx.fillStyle='#1f4f6e';ctx.fill();
+   box(X-62,Y-30,22,110,'#1f4f6e');box(X+40,Y-30,22,110,'#1f4f6e');circ(X-51,Y+86,10,'#f0c9a0');circ(X+51,Y+86,10,'#f0c9a0');
+   circ(X,Y-72,30,'#f0c9a0');
+   // helmet
+   ctx.beginPath();ctx.arc(X,Y-80,33,Math.PI,0);ctx.closePath();ctx.fillStyle='#fff';ctx.fill();box(X-38,Y-82,76,6,'#e3ecee');
+   // life jacket
+   const lj=seg(u,.74,.8);
+   rrp(X-44,Y-44,30,92,8);ctx.fillStyle='#e8572a';ctx.fill();rrp(X+14,Y-44,30,92,8);ctx.fillStyle='#e8572a';ctx.fill();
+   box(X+18,Y-10,12,16,'#f2c230');
+   // harness
+   ln([X-30,Y-40,X-20,Y+60,X+20,Y+60,X+30,Y-40],'#f2c230',5);ln([X-36,Y+100,X,Y+82,X+36,Y+100],'#f2c230',5);ln([X-28,Y+20,X+28,Y+20],'#f2c230',4);
+   circ(X,Y+20,7,'#c9d1d5','#394650',2);
+   // twin lanyard
+   ln([X,Y+20,X-70,Y-90],'#58b8d0',3);ln([X,Y+20,X+80,Y-80],'#58b8d0',3);box(X-78,Y-104,14,16,'#c9d1d5');box(X+74,Y-94,14,16,'#c9d1d5');
+   const L=[['安全帽',Y-90],['救生衣（自動充氣）',Y-30],['個人定位信標（PLB）',Y-2],['全身式安全吊帶',Y+60],['雙鉤緩衝繩',Y+130],['浸水保溫衣（冬季）',Y+200]];
+   const PT=[[X+30,Y-92],[X+44,Y-30],[X+30,Y-2],[X+20,Y+60],[X+80,Y-80],[X+26,Y+170]];
+   L.forEach((l,i)=>{const b=seg(u,.16+i*.03,.2+i*.03)*(i===1||i===2?1:1);if(b<=0)return;const hi=lj>0&&(i===1||i===2||i===3);alphaDo(b,()=>{
+    ln([PT[i][0],PT[i][1],1150,l[1]],'rgba(255,255,255,.55)',1.2);circ(PT[i][0],PT[i][1],3.5,'#fff');
+    wrap26(1160,l[1]+6,l[0],360,18,hi?'#f2c230':'#fff',700,22);});});
+   alphaDo(seg(u,.8,.86),()=>tag(1170,762,'冬季海水仍會讓人失溫',{bg:'rgba(232,87,42,.9)',fg:'#fff',size:15}));
+  });
+ }},
+/* 2 */{t:'船首頂靠，看準時機跨步',en:'Bow push-on and step-over',dur:14,side:true,
+ d:'人員運輸船（CTV）是雙體高速船，船首裝有厚實的橡膠護舷。抵達風機後，船長把船首頂在轉接段的靠船設施上，引擎持續向前推，讓護舷與鋼管之間的摩擦力撐住船首，不隨浪上下滑動。技術人員先在船上把防墜滑塊扣上爬梯的防墜軌道，等船首穩定、甲板與第一階對齊時跨過去，一路往上爬到工作平台。整個過程由船長與登塔人員以無線電確認。',
+ s:[[0,'人員運輸船抵達風機，靠向轉接段的靠船設施'],[.26,'船首護舷頂住鋼管，引擎持續向前推'],[.46,'先把防墜滑塊扣上軌道，看準時機跨步'],[.7,'沿爬梯爬上工作平台，再進入塔內']],
+ cam:u=>camMix({x:TX-170,y:410,s:1.25},{x:TX-70,y:452,s:2.4},ease(seg(u,.12,.4))),
+ draw(u){
+  for(const [x,s,p] of [[180,.55,.4],[1000,.45,1.7],[1200,.4,2.6]])far26(x,s,TT*.9+p);
+  turb26(TX,TT*.5);
+  // fall-arrest rail on the ladder
+  ln([LAD26,PLAT26,LAD26,TP_BOT+22],'rgba(242,194,48,.85)',1);
+  const cx=lerp(TX-560,CTVX26,easeOut(seg(u,0,.26)));
+  const wl=vsl(cx,77,false,{tilt:.4},vCTV);
+  if(u<.28)alphaDo(.7,()=>{for(let i=0;i<5;i++){const k=(TT*2+i/5)%1;ln([cx-4-k*70,wl+2+i*.6,cx-20-k*70,wl+2+i*.6],`rgba(255,255,255,${.8*(1-k)})`,1.4);}});
+  const push=seg(u,.26,.32);
+  if(push>0){alphaDo(push*.8,()=>{for(let i=0;i<6;i++){const k=(TT*1.6+i/6)%1;circ(cx-3-k*26,wl+4+k*3,2+k*4,`rgba(235,248,255,${.6*(1-k)})`);}});
+   alphaDo(band(u,.28,.46)*.9,()=>{ctx.strokeStyle='#7dffc4';ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(TX-40,wl-8,10+3*Math.sin(TT*5),-.9,.9);ctx.stroke();});}
+  // technicians: first one steps over and climbs, second follows
+  const dk=wl-12;
+  for(let j=0;j<2;j++){const s=u-j*.14;
+   const p=s<.36?{x:cx+20+j*10,y:dk}:
+    kf(s,[[.36,CTVX26+20+j*10,dk],[.46,TX-48,dk],[.5,LAD26,dk-4],[.78,LAD26,PLAT26],[.86,TX-8+j*10,PLAT26]]);
+   const onL=s>.48&&s<.79;tech26(p.x,p.y,j?'#f2c230':'#e8572a',1.1,onL);}
+  lab(cx+40,wl-26,'人員運輸船（CTV）',{dx:-40,dy:-50,a:band(u,.04,.3)});
+  lab(TX-38,wl-8,'船首護舷頂住鋼管',{dx:-110,dy:40,a:band(u,.3,.5),st:'s'});
+  lab(LAD26,TP_BOT+4,'靠船設施與爬梯',{dx:-120,dy:0,a:band(u,.12,.32)});
+  lab(LAD26,dk-20,'扣上防墜軌道',{dx:-110,dy:-30,a:band(u,.48,.68),st:'g'});
+  lab(TX+10,PLAT26,'工作平台',{dx:90,dy:-30,a:band(u,.74,1)});
  },
- hud(u){hudPanel(230,150,'巡檢準備（示例）',seg(u,.04,.1),w=>{const k=1-seg(u,0,.4);
-  hrow(52,'風速','7 m/s',w);
-  hrow(78,'轉子轉速',(10*k).toFixed(1)+' rpm',w,'#f2c230');hbar(14,86,w-28,k,'#f2c230');
-  hrow(118,'轉子',u<.4?'減速中':'已鎖定',w,u<.4?'#ff9d7a':'#7dffc4');
-  hrow(142,'無人機',u<.5?'待命':'飛行中',w,u<.5?'rgba(227,236,238,.8)':'#7dffc4');});}},
-/* 2 */{t:'自動航線：每支葉片拍四趟',en:'Automated flight paths',dur:14,
- d:'無人機依葉片的位置與長度自動規劃航線，以衛星定位與雷射測距和葉片保持約 3 到 4 公尺的固定距離。每支葉片通常拍四趟：前緣、後緣、迎風的壓力面與背風的吸力面，相鄰照片互相重疊，才能拼出完整的葉片表面。近拍解析度約每像素 1 毫米，看得出細小裂紋。每支葉片約需 5 到 10 分鐘，整部風機可在 30 分鐘內完成（典型）。',
- s:[[0,'航線依葉片位置自動規劃，與葉片保持固定距離'],[.28,'每支葉片拍四趟：前緣、後緣與兩側葉面'],[.56,'近拍解析度約每像素 1 毫米，看得出細小裂紋'],[.78,'每支葉片約 5–10 分鐘，整部風機 30 分鐘內完成']],
+ hud(u){hudPanel(240,150,'登塔條件（示例）',seg(u,.04,.1),w=>{
+  hrow(52,'示性波高','1.2 m',w,'#7dffc4');
+  hrow(78,'跨步上限','約 1.5 m',w);
+  const t=u<.26?lerp(30,10,seg(u,.1,.26)):lerp(10,60,ease(seg(u,.26,.34)));
+  hrow(104,'向前推力',Math.round(t)+'%',w,'#f2c230');hbar(14,112,w-28,t/100,'#f2c230');
+  const st=u<.26?'進場':u<.46?'頂靠穩定':u<.8?'登塔中':'完成';
+  hrow(142,'狀態',st,w,u<.26?'rgba(227,236,238,.8)':'#7dffc4');});}},
+/* 3 */{t:'為什麼是 1.5 公尺',en:'Why 1.5 metres',dur:13,
+ d:'船首能不能穩住，是推力和波浪在拔河。引擎的推力把護舷壓在鋼管上，產生的摩擦力最大約等於摩擦係數乘以壓力；波浪把船首往上抬、往下拉的力，只要比這個摩擦力小，船首就不會滑動。浪越大，需要的推力越大，到了示性波高約 1.5 公尺附近，所需推力就接近引擎的上限，船首開始上下滑動，技術人員就不能跨步。實際上限還要看船型、波浪週期與方向。',
+ s:[[0,'推力把護舷壓在鋼管上，產生摩擦力'],[.28,'波浪的上下力小於摩擦力，船首就不會滑動'],[.52,'浪越大，需要的推力越大'],[.74,'約 1.5 m 時接近引擎上限，船首開始滑動']],
  draw(u){
   diagBG();
-  card(60,150,760,650,{bg:'rgba(7,27,39,.78)'});wt(84,190,'自動航線（示意）',21,'#fff',700);
-  const RC={x:440,y:400},R=205;
-  ln([RC.x,RC.y,RC.x,790],'rgba(200,210,215,.55)',16);
-  for(let i=0;i<3;i++)drawBlade(RC.x,RC.y,A29-i*TAU/3,R,'#eef2f4');circ(RC.x,RC.y,11,'#f2f5f6');
-  // flight path: 4 passes per blade (two offsets each side)
-  const P=[];
-  for(let i=0;i<3;i++){const a=A29-i*TAU/3,d={x:Math.cos(a),y:Math.sin(a)},n={x:-d.y,y:d.x};
-   const pt=(s,o)=>({x:RC.x+d.x*s+n.x*o,y:RC.y+d.y*s+n.y*o});
-   P.push(pt(40,30),pt(R+14,30),pt(R+14,-30),pt(40,-30),pt(40,-52),pt(R+28,-52),pt(R+28,52),pt(40,52));}
-  const f=ease(seg(u,.06,.92)),Q=partial(P,f);
-  ctx.setLineDash([6,5]);pathLine(Q,'rgba(125,255,196,.85)',2);ctx.setLineDash([]);
-  const e=Q[Q.length-1];drone29(e.x,e.y,.9);
-  alphaDo(seg(u,.1,.16),()=>{wt(84,770,'與葉片保持約 3–4 m 的固定距離',16,'rgba(227,236,238,.85)',500);});
-  // right: four views around the section
-  card(860,150,680,650,{bg:'rgba(7,27,39,.78)'});wt(884,190,'每支葉片拍四趟',21,'#fff',700);
-  const LX=1060,LY=380,CH=300,FP=foil29(LX,LY,CH,.2);poly(FP.flat(),'#eef2f4','rgba(60,80,95,.6)',1);
-  const V=[['前緣',LX-80,LY-2,LX+2,LY,'right'],['後緣',LX+CH+80,LY+2,LX+CH-2,LY+1,'left'],['吸力面',LX+CH*.35,LY-110,LX+CH*.35,LY-thk29(.35,.2)*CH,'center'],['壓力面',LX+CH*.35,LY+100,LX+CH*.35,LY+thk29(.35,.2)*CH*.55,'center']];
-  V.forEach((v,i)=>{const a=seg(u,.28+i*.06,.32+i*.06);if(a<=0)return;alphaDo(a,()=>{
-   const on=u<.28+(i+1)*.06+.04;
-   const dx=v[3]-v[1],dy=v[4]-v[2],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
-   poly([v[1],v[2],v[3]+nx*28,v[4]+ny*28,v[3]-nx*28,v[4]-ny*28],on?'rgba(125,255,196,.32)':'rgba(125,255,196,.12)');
-   drone29(v[1],v[2],.9);
-   const ty=i===2?v[2]-24:i===3?v[2]+40:v[2]+46;
-   wt(i<2?v[1]:v[1],ty,v[0],18,on?'#f2c230':'#fff',700,'center');});});
-  alphaDo(seg(u,.18,.24),()=>wt(LX+CH/2,LY+thk29(.5,.2)*CH*.55+16,'葉片剖面',14,'rgba(227,236,238,.7)',500,'center'));
-  const ST=[['影像解析度','約 1 mm/像素',.56],['每支葉片','約 5–10 分鐘',.78],['整部風機','30 分鐘內',.82]];
-  ST.forEach((s,i)=>{const a=seg(u,s[2],s[2]+.05);alphaDo(a,()=>{const y=596+i*64;
-   box(884,y,632,1,'rgba(255,255,255,.14)');wt(884,y+42,s[0],18,'rgba(227,236,238,.85)',600);wt(1516,y+44,s[1],30,i?'#7dffc4':'#f2c230',700,'right',COND);});});
+  card(60,150,720,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'船首頂靠的受力（示意）',21,'#fff',700);
+  const big=seg(u,.74,.8),dy=big*18*Math.sin(TT*3.2)+1.5*Math.sin(TT*1.7),WY=600;
+  ctx.save();rrp(60,150,720,650,14);ctx.clip();
+  // landing tubes and TP
+  box(640,250,140,560,'#c9971a');box(604,300,10,500,'#e8a33a');box(622,300,10,500,'#e8a33a');for(let y=320;y<800;y+=28)ln([604,y,632,y],'#c08a1c',2);
+  // sea
+  const P=[60,WY];for(let x=60;x<=780;x+=10)P.push(x,WY+(4+big*10)*Math.sin(x*.03-TT*2));P.push(780,800,60,800);poly(P,'rgba(88,184,208,.35)');
+  // CTV bow
+  const by=WY-40+dy;
+  poly([80,by,560,by,598,by-14,590,by+40,540,by+80,80,by+80],'#4d5962','rgba(255,255,255,.3)',1);box(80,by+66,470,14,'#2a3a46');
+  box(560,by-24,40,52,'#1c1c1c');
+  superBlock(200,by-60,160,60,2);
+  ctx.restore();
+  // forces
+  const f1=seg(u,.04,.12);if(f1>0)alphaDo(f1,()=>{arrow(150,by+24,470,by+24,'#f2c230',6);wt(300,by+54,'推力 T',20,'#f2c230',700,'center');
+   arrow(604,by+2,520,by+2,'rgba(255,255,255,.9)',4);wt(540,by-34,'壓力 N',17,'#fff',700,'right');});
+  const fr=seg(u,.12,.2);if(fr>0)alphaDo(fr,()=>{const L=big>0?50:58;arrow(612,by-20,612,by-20-L,'#7dffc4',5);wt(626,by-50,'摩擦力',17,'#7dffc4',700);});
+  const wv=seg(u,.28,.34);if(wv>0)alphaDo(wv,()=>{const L=34+big*60+6*Math.sin(TT*2);arrow(420,WY+150,420,WY+150-L-30,'#58b8d0',5);wt(436,WY+140,'波浪上下力',17,'#7dc8dc',700);});
+  alphaDo(seg(u,.16,.22),()=>{card(84,214,440,92,{bg:'rgba(255,255,255,.05)',r:6});
+   wt(104,252,'摩擦力上限 ＝ μ × N',22,'#7dffc4',700);wrap26(104,286,'μ：橡膠護舷與鋼管的摩擦係數',400,15,'rgba(227,236,238,.8)',500,20);});
+  if(u>.34){const ok=big<.5;alphaDo(seg(u,.34,.4),()=>tag(84,336,ok?'波浪力 ＜ 摩擦力：船首穩定':'波浪力 ＞ 摩擦力：船首滑動',{bg:ok?'#7dffc4':'#e8572a',fg:ok?'#13232e':'#fff',size:16}));}
+  // right: required thrust vs Hs
+  const c=chartBox(820,150,720,650,{x0:0,x1:2.5,y0:0,y1:140,xt:[0,.5,1,1.5,2,2.5],yt:[0,50,100],xl:'示性波高 Hs（m）',yl:'所需推力（%）',pt:110,pb:70,pl:70,pr:30,gx:5,gy:7});
+  wt(844,190,'所需推力與浪高（典型範例）',20,'#fff',700);
+  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([8,6]);ln([c.px,c.Y(100),c.px+c.pw,c.Y(100)],'#e8572a',2.2);ctx.setLineDash([]);wt(c.px+12,c.Y(100)-10,'引擎推力上限',16,'#ff9d7a',700);});
+  const g=ease(seg(u,.52,.78)),Q=[];for(let h=0;h<=2.5*g;h+=.02){const v=TRQ26(h);if(v>140)break;Q.push({x:c.X(h),y:c.Y(v)});}
+  pathLine(Q,'#f2c230',3.4);
+  if(g>.2){const h=Math.min(2.5*g,1.5);circ(c.X(h),c.Y(TRQ26(h)),8,'#f2c230','#0e2a3b',2);}
+  alphaDo(seg(u,.74,.8),()=>{box(c.X(1.5),c.py,c.X(2.5)-c.X(1.5),c.ph,'rgba(232,87,42,.14)');
+   ctx.setLineDash([5,5]);ln([c.X(1.5),c.py,c.X(1.5),c.py+c.ph],'#e8572a',2);ctx.setLineDash([]);
+   tag(c.X(1.5)-8,c.Y(30),'約 1.5 m',{bg:'#e8572a',fg:'#fff',size:16,align:'right'});
+   wt((c.X(1.5)+c.X(2.5))/2,c.Y(125),'不能跨步',18,'#ff9d7a',700,'center');});
  }},
-/* 3 */{t:'從上千張照片找出缺陷',en:'Finding defects in the images',dur:13,
- d:'一部風機的巡檢會留下數百到上千張照片。影像先依葉片編號與位置自動排序、拼接，再由軟體逐張比對，框出可能的缺陷：前緣侵蝕、塗層剝落、雷擊燒痕、裂紋等。軟體也會誤把污漬、鳥糞當成缺陷，所以最後由葉片工程師逐一確認，記下每處缺陷的葉片編號、距葉根距離、所在面別與尺寸，並和歷年的照片比對，看它是否正在擴大。',
- s:[[0,'照片依葉片編號與位置排序，拼成完整的葉片表面'],[.25,'軟體逐張比對，框出可能的缺陷'],[.5,'污漬與鳥糞會被誤判，由工程師逐一確認'],[.74,'每處缺陷記下位置與尺寸，和歷年照片比對']],
+/* 4 */{t:'爬梯與防墜',en:'Ladder climbing and fall arrest',dur:13,
+ d:'從船跨上爬梯的那一刻起，技術人員就一直掛在防墜系統上。爬梯中央有一條剛性軌道，吊帶胸前的防墜滑塊沿著軌道上下滑動，一旦失足下墜，滑塊會在很短的距離內鎖住。到了平台轉換處，使用雙鉤緩衝繩：先把一個鉤子掛上新的掛點，再解開另一個，任何時刻都至少有一個掛點，稱為百分之百連續掛鉤。進入塔內後，大型風機多有升降機可以搭到機艙。',
+ s:[[0,'吊帶上的防墜滑塊扣在爬梯中央的軌道上'],[.3,'一旦失足，滑塊在很短的距離內鎖住'],[.55,'平台轉換處使用雙鉤：先掛新點，再解舊點'],[.78,'任何時刻至少一個掛點：百分之百連續掛鉤']],
  draw(u){
   diagBG();
-  const TW=232,TH=196,G=17;
-  TILE29.forEach((t,i)=>{const x=60+i*(TW+G),y=160,a=seg(u,.02+i*.03,.06+i*.03);if(a<=0)return;alphaDo(a,()=>{
-   tile29(x,y,TW,TH,t[0],i);wt(x+10,y+22,trf('葉片 {b}－{n} m',{b:'B',n:12+i*14}),14,'#13232e',700);
-   const sc=60+ease(seg(u,.24,.5))*1480,hit=sc>x+TW*.5;
-   if(hit&&t[0]!=='ok'){const real=t[1]>0&&!(t[0]==='dirt');const col=t[0]==='dirt'?(u>.52?'rgba(227,236,238,.6)':'#f2c230'):SEV[t[1]-1];
-    ctx.setLineDash(t[0]==='dirt'&&u>.52?[5,4]:[]);ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.strokeRect(x+40,y+60,TW-80,TH-90);ctx.setLineDash([]);
-    if(t[0]!=='dirt'||u>.52)wt(x+TW/2,y+TH+30,t[2],17,t[0]==='dirt'?'rgba(227,236,238,.75)':col,700,'center');}
-   if(hit&&t[0]==='ok')wt(x+TW/2,y+TH+30,t[2],17,'rgba(227,236,238,.6)',600,'center');});});
-  const sc=60+ease(seg(u,.24,.5))*1480;
-  if(u>.24&&u<.52)alphaDo(.8,()=>{ln([sc,152,sc,364],'#7dffc4',2.4);});
-  // blade map
-  const a2=seg(u,.6,.66);if(a2>0)alphaDo(a2,()=>{
-   card(60,430,1060,370,{bg:'rgba(7,27,39,.8)'});wt(84,470,'缺陷位置圖（葉片 B，示例）',19,'#f2c230',700);
-   const X0=150,X1=1060,YC=600;bladePlan(X0,X1,YC,150,'#eef2f4','rgba(60,80,95,.6)');
-   wt(X0-8,YC+6,'葉根',15,'rgba(227,236,238,.8)',600,'right');wt(X1+8,YC+6,'葉尖',15,'rgba(227,236,238,.8)',600,'left');
-   for(let m=0;m<=100;m+=20){const x=lerp(X0,X1,m/100);ln([x,700,x,708],'rgba(255,255,255,.5)',1.2);wt(x,730,String(m),15,'rgba(227,236,238,.75)',600,'center',COND);}
-   wt(X1,762,'距葉根距離（m）',15,'rgba(227,236,238,.75)',500,'right');
-   const MK=[[.88,-1,3],[.7,0,4],[.46,1,4],[.32,-.3,2],[.95,-1,2]];
-   MK.forEach((m,i)=>{const b=seg(u,.66+i*.03,.7+i*.03);if(b<=0)return;const x=lerp(X0,X1,m[0]),hh=plan29(m[0])*150,y=YC+m[1]*(m[1]<0?hh*.42:hh*.58)*.8;
-    alphaDo(b,()=>{circ(x,y,9,SEV[m[2]-1],'#0e2a3b',2);wt(x,y-16,String(m[2]),15,SEV[m[2]-1],700,'center',COND);});});});
-  // funnel counts
-  const a3=seg(u,.3,.36);if(a3>0)alphaDo(a3,()=>{card(1160,430,380,370,{bg:'rgba(7,27,39,.8)'});wt(1184,470,'一部風機的巡檢（示例）',18,'#fff',700);
-   const F=[['照片',Math.round(1200*ease(seg(u,.3,.42))),'#58b8d0',.3],['疑似缺陷',Math.round(46*ease(seg(u,.42,.5))),'#f2c230',.42],['確認缺陷',Math.round(12*ease(seg(u,.54,.62))),'#ff9d7a',.54]];
-   F.forEach((f,i)=>{const b=seg(u,f[3],f[3]+.04);if(b<=0)return;const y=510+i*96;alphaDo(b,()=>{
-    box(1184,y,230*(1-i*.25),56,f[2]);wt(1198,y+36,f[0],17,'#0e2a3b',700);wt(1516,y+42,String(f[1]),34,f[2],700,'right',COND);});});});
+  card(60,150,700,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'防墜系統（示意）',21,'#fff',700);
+  const LX=330,RX=420,MX=375,PY=300;
+  // platform and rail
+  box(250,PY,420,14,'#6f7a80');ln([250,PY,250,PY-70,670,PY-70],'#c9d1d5',3);ln([250,PY-36,670,PY-36],'#c9d1d5',2);
+  circ(560,PY-70,8,'#f2c230');wt(560,PY-84,'掛點',15,'#f2c230',700,'center');
+  // ladder
+  ln([LX,PY,LX,790],'#e8a33a',5);ln([RX,PY,RX,790],'#e8a33a',5);for(let y=PY+30;y<790;y+=32)ln([LX,y,RX,y],'#c08a1c',4);
+  ln([MX,PY-20,MX,790],'#394650',7);ln([MX,PY-20,MX,790],'rgba(242,194,48,.7)',2);
+  // climber position: climb, slip, arrest, climb, transfer
+  const slip=seg(u,.32,.36),c1=ease(seg(u,.04,.3)),c2=ease(seg(u,.46,.62));
+  let fy=lerp(760,560,c1)+slip*24;fy-=(584-PY)*c2;
+  const tr2=seg(u,.64,.76),fx=lerp(MX+6,470,ease(tr2));
+  const S=7;person(fx,fy,'#e8572a',S);
+  // harness chest point and slider
+  const chx=fx,chy=fy-S*5.6;
+  if(u<.64){box(MX-9,chy-10,18,20,'#f2c230');ln([MX+9,chy,chx,chy],'#58b8d0',2.4);}
+  // arrest flash
+  if(u>.34&&u<.46)alphaDo(band(u,.34,.46),()=>{ring(MX,chy,22,'#7dffc4',3);tag(MX+70,chy-16,'滑塊鎖止',{bg:'#7dffc4',size:16});
+   arrow(MX+80,chy+8,MX+80,chy+40,'#e8572a',3);wt(MX+94,chy+30,'短距離停住',15,'#ff9d7a',700);});
+  // twin lanyard: new anchor first, then release the rail
+  if(u>.58)alphaDo(seg(u,.58,.62),()=>ln([chx,chy,560,PY-70],'#7dc8dc',2.6));
+  alphaDo(band(u,.58,.9),()=>tag(570,PY+44,'雙鉤：先掛新點',{bg:'#58b8d0',size:15,align:'center'}));
+  // right: rules
+  card(800,150,740,650,{bg:'rgba(7,27,39,.8)'});wt(824,190,'爬梯的安全規則',21,'#fff',700);
+  const R=[['離船前先扣上','防墜滑塊扣上軌道後，才跨上爬梯',.04],['防墜滑塊','失足時在短距離內鎖住，吊帶分散衝擊',.3],['雙鉤緩衝繩','轉換處先掛新點，再解開舊點',.55],['塔內升降機','大型風機多有升降機，減少體力消耗',.82]];
+  R.forEach((r,i)=>{const a=seg(u,r[2],r[2]+.05);if(a<=0)return;const y=218+i*104;alphaDo(a,()=>{
+   card(824,y,692,90,{bg:'rgba(255,255,255,.04)',st:'rgba(255,255,255,.12)',r:6});
+   circ(862,y+45,18,i===3?'#58b8d0':'#7dffc4');wt(862,y+52,String(i+1),20,'#0e2a3b',700,'center',COND);
+   wt(896,y+38,r[0],20,'#fff',700);wrap26(896,y+68,r[1],600,15,'rgba(227,236,238,.8)',500,20);});});
+  alphaDo(seg(u,.78,.84),()=>{box(824,640,692,1,'rgba(255,255,255,.14)');
+   wt(824,730,'100%',64,'#7dffc4',700,'left',COND);wrap26(1000,706,'連續掛鉤：任何時刻至少一個掛點',500,19,'#fff',700,26);});
  }},
-/* 4 */{t:'進到葉片裡面：爬行機器人',en:'Inside the blade: crawler robots',dur:13,
- d:'無人機只看得到外表，葉片內部的黏著線與腹板則要從葉根人孔進去檢查。葉片由上下兩片殼體黏合而成，中間以腹板支撐，主樑帽承受主要的彎曲力。人員能進入的空間有限，越往葉尖越窄，因此改由爬行機器人代勞：它拖著纜線前進，用 LED 補光、360 度攝影機與 3D 光達掃描，可檢視約九成的內部空間，找出黏著線脫膠、腹板裂紋與積水。',
- s:[[0,'葉片內部的黏著線與腹板，從外面看不到'],[.24,'爬行機器人從葉根人孔進入，拖著纜線前進'],[.5,'補光、攝影與 3D 光達掃描，找出黏著線脫膠'],[.76,'越往葉尖越窄，機器人可檢視約九成的內部空間']],
+/* 5 */{t:'動態補償步橋',en:'Motion-compensated gangway',dur:14,
+ d:'浪高超過人員運輸船的上限時，可以改由運維母船（SOV）上的動態補償步橋登塔。母船以動態定位停在風機旁，步橋底座下的感測器每秒量測多次船身的起伏、縱搖與橫搖，液壓或電動機構即時調整步橋的伸縮、俯仰與旋轉，讓步橋端點貼在風機平台上幾乎不動。人員像走在平地上一樣走過去，可作業的示性波高約 3 公尺，大約是跨步登塔的兩倍。',
+ s:[[0,'沒有補償時，步橋端點跟著船身上下晃動'],[.3,'補償開啟：感測器量測船身的起伏與搖擺'],[.52,'步橋即時伸縮、俯仰與旋轉，端點幾乎不動'],[.76,'可作業的示性波高約 3 m，約是跨步登塔的兩倍']],
  draw(u){
   diagBG();
-  const X0=110,X1=1520,YC=380,H=380,hU=s=>plan29(s)*H*.42,hL=s=>plan29(s)*H*.58,sx=x=>(x-X0)/(X1-X0);
-  wt(X1,190,'葉片剖開示意（由葉根往葉尖）',18,'rgba(227,236,238,.8)',600,'right');
-  // outer shell (cut-away)
-  bladePlan(X0,X1,YC,H,'rgba(238,242,244,.16)','rgba(238,242,244,.85)');
-  const P=[];for(let i=0;i<=40;i++){const s=i/40;P.push(X0+s*(X1-X0),YC-hU(s)*.86);}for(let i=40;i>=0;i--){const s=i/40;P.push(X0+s*(X1-X0),YC+hL(s)*.86);}poly(P,'rgba(14,32,45,.92)');
-  // shear webs and spar cap band
-  const web=k=>{const Q=[];for(let i=2;i<=38;i++){const s=i/40;Q.push(X0+s*(X1-X0),YC+k*plan29(s)*H*.12);}ln(Q,'rgba(242,194,48,.7)',3);};
-  web(-1);web(1);
-  // bondlines
-  const bl=(k,f)=>{const Q=[];for(let i=1;i<=39;i++){const s=i/40;Q.push(X0+s*(X1-X0),YC+(k<0?-hU(s):hL(s))*f);}ctx.setLineDash([4,5]);ln(Q,'rgba(125,200,220,.7)',1.6);ctx.setLineDash([]);};
-  bl(-1,.86);bl(1,.86);
-  circ(X0+18,YC,26,'#0e2a3b','rgba(238,242,244,.85)',2);
-  // crawler
-  const cx=lerp(X0+30,X0+.62*(X1-X0),ease(seg(u,.22,.86))),cy=YC+plan29(sx(cx))*H*.08+4;
-  ctx.setLineDash([3,4]);ln([X0+18,YC,cx-24,cy-2],'rgba(242,194,48,.8)',1.4);ctx.setLineDash([]);
-  if(u>.2)crawler29(cx,cy,seg(u,.4,.48));
-  // findings appear once the crawler passes
-  const FD=[[.28,1,'後緣黏著線脫膠','w'],[.44,0,'腹板黏著裂紋','w'],[.16,1,'積水與碎屑','n']];
-  FD.forEach(f=>{const x=X0+f[0]*(X1-X0);if(cx<x-60)return;const y=f[1]?YC+hL(f[0])*.86-4:YC-plan29(f[0])*H*.12;
-   alphaDo(seg(u,.5,.56),()=>{ring(x,y,14,f[3]==='w'?'#e8572a':'#f2c230',2.4);wt(x,f[1]?y-24:y-28,f[2],16,f[3]==='w'?'#ff9d7a':'#f2c230',700,'center');});});
-  alphaDo(band(u,.04,.36),()=>{wt(X0+.3*(X1-X0),YC-plan29(.3)*H*.12-16,'腹板',16,'#f2c230',700,'center');
-   wt(X0+.72*(X1-X0),YC-hU(.72)*.86-14,'黏著線',16,'#7dc8dc',700,'center');wt(X0+18,YC+60,'葉根人孔',16,'#fff',700,'center');});
-  // inset: cross-section
-  alphaDo(seg(u,.06,.12),()=>{card(60,600,620,200,{bg:'rgba(7,27,39,.85)'});wt(84,636,'葉片剖面構造',18,'#fff',700);
-   const LX=200,LY=720,CH=360,FP=foil29(LX,LY,CH,.22);poly(FP.flat(),'#eef2f4','rgba(60,80,95,.6)',1);
-   const FI=foil29(LX+8,LY,CH-18,.18);poly(FI.flat(),'#163246');
-   const w1=LX+CH*.24,w2=LX+CH*.46;
-   box(w1-6,LY-thk29(.24,.22)*CH,w2-w1+12,8,'#2b3137');box(w1-6,LY+thk29(.24,.22)*CH*.55-8,w2-w1+12,8,'#2b3137');
-   ln([w1,LY-thk29(.24,.22)*CH+6,w1,LY+thk29(.24,.22)*CH*.55-6],'#f2c230',3);ln([w2,LY-thk29(.46,.22)*CH+6,w2,LY+thk29(.46,.22)*CH*.55-6],'#f2c230',3);
-   circ(LX+2,LY,4,'#7dc8dc');circ(LX+CH-2,LY,4,'#7dc8dc');
-   wt(LX-14,LY+5,'前緣',14,'#7dc8dc',600,'right');wt(LX+CH+12,LY+5,'後緣',14,'#7dc8dc',600,'left');
-   wt((w1+w2)/2,LY-thk29(.3,.22)*CH-10,'主樑帽',14,'rgba(227,236,238,.9)',600,'center');
-   wt((w1+w2)/2+6,LY+thk29(.3,.22)*CH*.55+22,'腹板',14,'#f2c230',600,'center');});
-  alphaDo(seg(u,.62,.68),()=>{card(720,600,820,200,{bg:'rgba(7,27,39,.85)'});wt(744,636,'爬行機器人',18,'#fff',700);
-   const T=['LED 補光','360° 攝影機','3D 光達','拖纜供電與傳輸'];
-   T.forEach((t,i)=>{const x=744+(i%2)*260,y=676+Math.floor(i/2)*36;circ(x+4,y-6,4,'#7dffc4');wt(x+18,y,t,16,'rgba(227,236,238,.9)',500);});
-   wt(1516,700,'約 90%',40,'#7dffc4',700,'right',COND);wt(1516,736,'可檢視的內部範圍',15,'rgba(227,236,238,.8)',500,'right');});
+  card(60,150,700,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'步橋補償（示意）',21,'#fff',700);
+  const comp=seg(u,.3,.36),hv=26*Math.sin(TT*1.4),pr=.035*Math.sin(TT*1.4+1.1),WY=560;
+  ctx.save();rrp(60,150,700,650,14);ctx.clip();
+  // turbine TP on the right
+  box(620,250,120,560,'#c9971a');box(580,380,180,12,'#6f7a80');ln([580,380,580,350,740,350],'#c9d1d5',2.4);
+  const TIP={x:590,y:378};
+  // sea
+  const P=[60,WY];for(let x=60;x<=760;x+=10)P.push(x,WY+8*Math.sin(x*.025-TT*1.4));P.push(760,800,60,800);poly(P,'rgba(88,184,208,.32)');
+  // ship (rotated about its centre)
+  const SX=250,SY=WY+hv;
+  ctx.save();ctx.translate(SX,SY);ctx.rotate(pr);
+  poly([-180,-40,170,-40,200,-56,190,10,160,40,-180,40],'#1f5f9e','rgba(0,0,0,.25)',1);box(-180,20,350,20,'#6a2622');
+  superBlock(-170,-130,110,90,4);box(70,-70,30,30,'#e9b21f');
+  ctx.restore();
+  const bx=SX+Math.cos(pr)*85-Math.sin(pr)*(-70),by=SY+Math.sin(pr)*85+Math.cos(pr)*(-70);
+  // uncompensated tip: rigidly attached to ship
+  const free={x:bx+(TIP.x-SX-85),y:by+(TIP.y-(WY-70))};
+  const tip={x:lerp(free.x,TIP.x,comp),y:lerp(free.y,TIP.y,comp)};
+  ln([bx,by,tip.x,tip.y],'#8f9aa1',9);ln([bx,by-12,tip.x,tip.y-12],'#e9b21f',2.4);
+  for(let i=1;i<8;i++){const p=lerpPt({x:bx,y:by},tip,i/8);ln([p.x,p.y-1,p.x,p.y-12],'#e9b21f',1.6);}
+  circ(bx,by,9,'#394650');
+  ctx.restore();
+  // tip highlight
+  ring(tip.x,tip.y,14,comp>.5?'#7dffc4':'#e8572a',3);
+  if(u<.32)alphaDo(band(u,.06,.3),()=>tag(tip.x-20,tip.y-56,'端點跟著晃動',{bg:'#e8572a',fg:'#fff',size:16,align:'right'}));
+  alphaDo(band(u,.38,1),()=>tag(tip.x-20,tip.y-56,'端點固定在平台',{bg:'#7dffc4',size:16,align:'right'}));
+  // walking technicians
+  const wk=seg(u,.6,.92);if(wk>0)for(let j=0;j<2;j++){const f=clamp(wk*1.4-j*.35);if(f<=0||f>=1)continue;const p=lerpPt({x:bx,y:by},tip,f);person(p.x,p.y-1,j?'#f2c230':'#e8572a',3);}
+  alphaDo(seg(u,.3,.36),()=>{wt(84,770,'感測器量測船身起伏與搖擺',16,'rgba(227,236,238,.85)',500);});
+  // right: time chart
+  const c=chartBox(800,150,740,430,{x0:0,x1:20,y0:-2,y1:2,xt:[0,5,10,15,20],yt:[-2,-1,0,1,2],xl:'時間（秒）',yl:'垂直位移（m）',pt:96,pb:66,pl:70,pr:30,gx:4,gy:4});
+  wt(824,190,'船身與步橋端點的起伏（示例）',20,'#fff',700);
+  alphaDo(seg(u,.04,.1),()=>{const L=[['船身','#ff9d7a'],['步橋端點','#7dffc4']];L.forEach((l,i)=>{const x=c.px+c.pw-300+i*140;ln([x,c.py-30,x+22,c.py-30],l[1],3);wt(x+28,c.py-25,l[0],15,'rgba(227,236,238,.9)',600);});});
+  const g=seg(u,.04,.96),A=[],B=[];
+  for(let t=0;t<=20*g;t+=.1){const h=1.5*Math.sin(t*.9)+.3*Math.sin(t*2.1);A.push({x:c.X(t),y:c.Y(h)});
+   const k=seg(t/20,.3,.36);B.push({x:c.X(t),y:c.Y(lerp(h,.05*Math.sin(t*3),k))});}
+  pathLine(A,'#ff9d7a',3);pathLine(B,'#7dffc4',3.4);
+  // bottom: compensation axes + limit
+  card(800,610,740,190,{bg:'rgba(7,27,39,.8)'});
+  const T=['伸縮','俯仰','旋轉'];T.forEach((t,i)=>{const a=seg(u,.52+i*.04,.56+i*.04);alphaDo(a,()=>tag(830+i*150,656,t,{bg:'#58b8d0',size:17}));});
+  alphaDo(seg(u,.52,.56),()=>wt(1290,662,'即時調整',17,'rgba(227,236,238,.8)',600));
+  alphaDo(seg(u,.76,.82),()=>{wt(830,742,'可作業示性波高',18,'rgba(227,236,238,.85)',600);wt(1516,756,'約 3 m',48,'#7dffc4',700,'right',COND);
+   wt(830,776,'跨步登塔約 1.5 m',15,'rgba(227,236,238,.65)',500);});
  }},
-/* 5 */{t:'雷擊點與裂紋辨識',en:'Lightning strikes and cracks',dur:14,
- d:'台灣海峽冬季也有雷擊，葉片是風機最高的部分，最容易被打中。葉尖附近裝有金屬接收器，雷電流經葉片內的引下線，再經機艙、塔架導入大地。巡檢時要找接收器周圍的燒痕，並以四線式低電阻量測確認接收器到葉根的導通，讀數超過製造商限值就代表引下線可能斷裂。裂紋則要分辨型態：後緣開裂、橫向裂紋與雷擊脫層，位置越靠近葉根與主樑越危險。',
- s:[[0,'葉片是風機最高的部分，雷擊多落在葉尖'],[.22,'雷電流經接收器與引下線，導入大地'],[.42,'以四線式低電阻量測，確認接收器到葉根的導通'],[.66,'裂紋要分辨型態，越靠近葉根與主樑越危險']],
+/* 6 */{t:'直升機吊掛到機艙',en:'Helicopter hoisting to the nacelle',dur:13,side:true,
+ d:'當浪太大、船舶無法靠近時，部分歐洲風場會用直升機把技術人員直接吊掛到機艙頂部的吊掛平台。風機先停機，轉子鎖定在一支葉片朝下的位置，讓出上方空間；直升機在機艙上方懸停，由吊掛手操作絞車，把技術人員一個個垂降到平台上。它不受浪高限制，但受風速、能見度與夜間飛行的條件限制，載人少、成本高，多用於緊急搶修。台灣目前以船舶登塔為主。',
+ s:[[0,'風浪太大時，部分風場改用直升機登塔'],[.24,'風機停機，轉子鎖定讓出機艙上方空間'],[.44,'直升機懸停，吊掛手以絞車垂降技術人員'],[.76,'不受浪高限制，但受風速與能見度限制']],
+ cam:u=>camMix({x:TX+40,y:300,s:1.3},{x:TX+20,y:170,s:2.1},ease(seg(u,.08,.36))),
  draw(u){
-  diagBG();
-  card(60,150,900,650,{bg:'rgba(7,27,39,.78)'});wt(84,190,'防雷系統（示意）',21,'#fff',700);
-  const X0=150,X1=900,YC=330;bladePlan(X0,X1,YC,110,'#eef2f4','rgba(60,80,95,.6)');
-  const RC=[[X1-8,YC],[X0+.72*(X1-X0),YC-plan29(.72)*110*.42],[X0+.5*(X1-X0),YC+plan29(.5)*110*.58]];
-  // down conductor
-  const cur=seg(u,.14,.4);
-  ln([X1-8,YC,X0+20,YC],cur>0&&cur<1?'#f2c230':'#58b8d0',3);ln([RC[1][0],RC[1][1],RC[1][0],YC],'#58b8d0',2);ln([RC[2][0],RC[2][1],RC[2][0],YC],'#58b8d0',2);
-  RC.forEach(p=>circ(p[0],p[1],5.5,'#c9d1d5','#394650',1.4));
-  ln([X0+20,YC,X0-40,YC,X0-40,560],cur>0?'#f2c230':'#58b8d0',3);
-  for(let i=0;i<3;i++)ln([X0-40-18+i*6,560+i*8,X0-40+18-i*6,560+i*8],'#58b8d0',2.4);
-  if(cur>0&&cur<1)for(let i=0;i<6;i++){const k=(cur*3+i/6)%1,x=lerp(X1-8,X0-40,k);circ(x,YC,4,'#fff6c8');}
-  bolt29(X1+30,160,X1-8,YC-4,band(u,.06,.16,.01));
-  alphaDo(seg(u,.16,.2),()=>{circ(X1-14,YC-6,9,'rgba(43,38,34,.85)');});
-  wt(X0-14,580,'經機艙、塔架入地',15,'rgba(227,236,238,.8)',600,'left');
-  alphaDo(band(u,.08,.4),()=>{wt(X1-8,YC+52,'接收器',16,'#f2c230',700,'center');wt(X0+.32*(X1-X0),YC-10,'引下線',16,'#7dc8dc',700,'center');});
-  alphaDo(seg(u,.16,.22),()=>wt(X1-20,YC-40,'燒痕',16,'#ff9d7a',700,'right'));
-  // 4-wire measurement
-  const m=seg(u,.42,.48);if(m>0)alphaDo(m,()=>{
-   const MX=400,MY=480;card(MX,MY,340,150,{bg:'#13232e',st:'#7dffc4'});
-   ln([MX+340,MY+40,X1-8,MY+40,X1-8,YC+8],'#e8572a',1.6);ln([MX+340,MY+56,X1-20,MY+56,X1-20,YC+8],'#58b8d0',1.6);
-   ln([MX,MY+40,X0+30,MY+40,X0+30,YC+8],'#e8572a',1.6);ln([MX,MY+56,X0+44,MY+56,X0+44,YC+8],'#58b8d0',1.6);
-   const r=Math.round(24*ease(seg(u,.48,.58)));
-   wt(MX+170,MY+44,'低電阻計（四線式）',15,'rgba(227,236,238,.8)',600,'center');
-   wt(MX+170,MY+112,trf('{n} mΩ',{n:r}),44,'#7dffc4',700,'center',COND);
-   alphaDo(seg(u,.58,.62),()=>wt(MX+170,MY+140,'低於限值：導通正常（示例）',14,'#7dffc4',600,'center'));});
-  alphaDo(seg(u,.5,.56),()=>wrap29(84,700,'讀數超過製造商限值，代表引下線可能斷裂或接頭鬆脫，下一次雷擊可能燒穿葉片。',850,16,'rgba(227,236,238,.85)',500,24));
-  // right: crack types
-  wt(1000,190,'常見裂紋與損傷',21,'#fff',700);
-  const K=[['後緣開裂','後緣黏著線受反覆彎曲而裂開，可能沿長度方向延伸',.66,'te'],['橫向裂紋','靠近葉根或最大弦長處，與葉片長度方向垂直',.72,'tr'],['雷擊脫層','強大電流使積層燒穿、分層，常見於接收器附近',.78,'lt']];
-  K.forEach((k,i)=>{const a=seg(u,k[2],k[2]+.06);if(a<=0)return;const y=226+i*192;alphaDo(a,()=>{
-   card(1000,y,540,176,{bg:'rgba(232,87,42,.07)',st:'rgba(232,87,42,.4)'});
-   box(1022,y+30,120,120,'#a9cbdc');poly([1022,y+62,1142,y+56,1142,y+150,1022,y+150],'#eef2f4');
-   if(k[3]==='te')ln([1030,y+136,1060,y+128,1090,y+132,1132,y+120],'#394650',2.2);
-   if(k[3]==='tr')ln([1084,y+60,1080,y+90,1086,y+118,1082,y+148],'#394650',2.2);
-   if(k[3]==='lt'){circ(1100,y+90,14,'#2b2622');poly([1060,y+80,1088,y+74,1092,y+106,1064,y+112],'rgba(184,195,201,.9)');}
-   wt(1164,y+46,k[0],20,'#ff9d7a',700);wrap29(1164,y+82,k[1],350,16,'rgba(227,236,238,.88)',500,23);});});
- }},
-/* 6 */{t:'缺陷分成 5 級',en:'Five damage categories',dur:15,
- d:'確認後的每一處缺陷都要評定嚴重度。業界常用 1 到 5 級的分類：第 1、2 級是外觀瑕疵與輕微損傷，記錄後在下次巡檢追蹤；第 3 級已傷到積層，要排入維修計畫；第 4 級傷及結構，須在數週到數月內修補並密集追蹤；第 5 級有斷裂風險，必須立即停機。分級不只看大小，也看位置與深度：同樣長度的裂紋，出現在葉根或主樑上，比在葉尖嚴重得多。',
- s:[[0,'每處確認的缺陷都要評定 1 到 5 級的嚴重度'],[.25,'第 1、2 級記錄追蹤，第 3 級排入維修計畫'],[.5,'第 4 級須在數週到數月內修補，第 5 級立即停機'],[.74,'同樣大小的裂紋，在葉根比在葉尖嚴重得多']],
- draw(u){
-  diagBG();
-  const R=[['外觀瑕疵','污漬、細微刮痕','記錄，下次巡檢再看'],['輕微','塗層初期侵蝕、表面細紋','6–12 個月內複查'],['中度','侵蝕傷到積層、小面積燒痕','排入維修計畫，約 6–12 個月內修補'],['嚴重','結構層損傷、後緣開裂','1–6 個月內修補，每月追蹤'],['危急','大面積裂紋、穿孔，有斷裂風險','立即停機']];
-  const Y0=168,RH=104;
-  alphaDo(seg(u,.02,.06),()=>{wt(1080,Y0+8,'處理期限（典型）',16,'rgba(227,236,238,.75)',600);wt(460,Y0+8,'典型例子',16,'rgba(227,236,238,.75)',600);});
-  R.forEach((r,i)=>{const a=seg(u,.04+i*.07,.1+i*.07);if(a<=0)return;const y=Y0+24+i*RH,col=SEV[i],hi=(i<2&&u>.25&&u<.38)||(i===2&&u>.38&&u<.5)||(i>2&&u>.5&&u<.74);
-   alphaDo(a,()=>{card(60,y,1480,RH-12,{bg:hi?'rgba(255,255,255,.1)':'rgba(7,27,39,.8)',st:hi?col:'rgba(255,255,255,.16)'});
-    box(60,y,12,RH-12,col);
-    wt(150,y+60,String(i+1),46,col,700,'center',COND);
-    wt(220,y+44,trf('第 {n} 級',{n:i+1}),16,'rgba(227,236,238,.7)',600);wt(220,y+72,r[0],22,col,700);
-    wrap29(460,y+56,r[1],570,18,'#fff',500,24);
-    wrap29(1080,y+46,r[2],440,18,i>2?col:'rgba(227,236,238,.92)',700,24);});});
-  alphaDo(seg(u,.74,.8),()=>{const y=Y0+24+5*RH+6;card(60,y,1480,800-y,{bg:'rgba(242,194,48,.08)',st:'rgba(242,194,48,.45)'});
-   wt(84,y+38,'分級看三件事：',18,'#f2c230',700);
-   const T=['位置（葉根、主樑、葉尖）','大小','深度（塗層、積層、結構）'];let x=84+wtw('分級看三件事：',18,700)+20;
-   T.forEach((t,i)=>{const b=seg(u,.76+i*.04,.8+i*.04);alphaDo(b,()=>{const w=tag(x,y+32,t,{bg:'rgba(255,255,255,.12)',fg:'#fff',size:17});x+=w+(i<2?44:0);if(i<2)wt(x-22,y+38,'×',20,'#f2c230',700,'center');});});});
- }},
-/* 7 */{t:'依分級行動',en:'From grading to action',dur:12,side:true,
- d:'分級結果直接決定下一步。第 5 級缺陷要立即停機，避免葉片在運轉中斷裂；第 4 級把握最近的天候窗口，派繩索技術人員或吊籃平台到位修補；第 1 到 3 級記錄位置與尺寸，排入夏季的維修季或下次巡檢。修補完成後再以無人機拍攝同一位置，影像存入資料庫，和歷年紀錄比對擴大速度，讓下一次的分級更準確。',
- s:[[0,'第 5 級缺陷立即停機，避免葉片在運轉中斷裂'],[.25,'第 4 級把握天候窗口，派繩索技術人員修補'],[.55,'第 1–3 級記錄位置，排入維修季或下次巡檢'],[.78,'修補後再次拍攝，和歷年影像比對']],
- cam:u=>camMix({x:700,y:360,s:1.2},{x:610,y:300,s:1.7},ease(seg(u,.12,.32))),
- draw(u){
-  for(const [x,s,p] of [[180,.55,.4],[1000,.45,1.7],[1200,.4,2.6]])far29(x,s,TT*.9+p);
-  turb29(TX,A29);
-  vsl(TX+100,77,true,{tilt:.8},vCTV);
-  const bx=HUB.x-3,dy=HUB.y+BR*.74;
-  // repaired / defect spot
-  const rep=seg(u,.5,.7);
-  alphaDo(1,()=>{ring(bx,dy,9,rep<1?'#ff9d7a':'#7dffc4',2.2);});
-  // rope access technicians
-  const ty=lerp(HUB.y+14,dy-6,ease(seg(u,.26,.48)));
-  if(u>.24){for(const ox of [10,18])ln([HUB.x+ox,HUB.y+6,HUB.x+ox,ty+2],'#e3d9b8',1);person(HUB.x+12,ty+10,'#e8572a',1.4);
-   if(u>.3)person(HUB.x+20,Math.max(HUB.y+24,ty-14)+10,'#f2c230',1.4);}
-  if(rep>0&&rep<1)for(let i=0;i<5;i++){const k=(TT*1.5+i/5)%1;circ(bx+6+k*14,dy+6+k*10,1.4,'rgba(220,220,220,.7)');}
-  const D=kf(u,[[0,TX+120,SEA-30],[.74,TX+120,SEA-30],[.86,bx+40,dy+6],[1,bx+40,dy-6]]);
-  if(u>.72)drone29(D.x,D.y,.9);
-  lab(HUB.x,HUB.y,'第 5 級：立即停機',{dx:-110,dy:-40,a:band(u,.02,.24),st:'w'});
-  lab(bx,dy,'第 4 級：後緣開裂',{dx:-100,dy:20,a:band(u,.1,.5),st:'w'});
-  lab(HUB.x+14,ty+4,'繩索技術人員',{dx:80,dy:-20,a:band(u,.3,.62),st:'s'});
-  lab(bx,dy,'修補完成',{dx:-100,dy:20,a:band(u,.7,1),st:'g'});
-  lab(D.x,D.y,'再次拍攝比對',{dx:70,dy:30,a:band(u,.8,1),st:'g'});
+  for(const [x,s,p] of [[180,.55,.4],[1000,.45,1.7],[1200,.4,2.6]])far26(x,s,TT*.9+p);
+  // rotor slows to a locked Y position
+  const ang=Math.PI/2-5*Math.pow(1-seg(u,0,.3),2);
+  turb26(TX,ang);
+  // hoist platform marking on the nacelle roof
+  const RY=TW_TOP-38;
+  alphaDo(seg(u,.24,.3),()=>{ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.strokeRect(TX+1,RY-8,28,8);});
+  const hx=lerp(TX+420,TX+15,easeOut(seg(u,.06,.4)))+2*Math.sin(TT*1.3),hy=lerp(40,RY-70,easeOut(seg(u,.06,.4)))+1.5*Math.sin(TT*1.9);
+  const out=seg(u,.9,1);
+  const HX=hx+out*200,HY=hy-out*80;
+  // hoist cable and technicians
+  const hk={x:HX+18,y:HY-9};
+  const d1=ease(seg(u,.44,.62)),d2=ease(seg(u,.66,.84));
+  const p1y=lerp(hk.y+16,RY,d1),p2y=lerp(hk.y+16,RY,d2);
+  if(u>.42&&u<.9){const cy=u<.64?p1y-12:u<.86?p2y-12:hk.y+6;ln([hk.x,hk.y,hk.x,cy],'#394650',1);}
+  if(u>.42){const x1=u<.64?hk.x:TX+8;person(x1,u<.64?p1y:RY,'#e8572a',1.1);}
+  if(u>.64){const x2=u<.86?hk.x:TX+18;person(x2,u<.86?p2y:RY,'#f2c230',1.1);}
+  heli26(HX,HY,1);
+  // downwash
+  if(u>.3&&u<.92)alphaDo(.5,()=>{for(let i=0;i<6;i++){const k=(TT*1.8+i/6)%1;ln([HX-40+i*16,HY+20+k*50,HX-44+i*16,HY+28+k*50],`rgba(255,255,255,${.6*(1-k)})`,1);}});
+  lab(HX,HY,'直升機',{dx:70,dy:-30,a:band(u,.08,.4)});
+  lab(TX-44,TW_TOP-20,'轉子鎖定',{dx:-90,dy:-40,a:band(u,.22,.46),st:'s'});
+  lab(TX+15,RY-4,'吊掛平台',{dx:-100,dy:30,a:band(u,.28,.56),st:'s'});
+  lab(hk.x,(hk.y+p1y)/2,'絞車垂降',{dx:80,dy:20,a:band(u,.46,.7),st:'g'});
  },
- hud(u){hudPanel(240,176,'本機巡檢結果（示例）',seg(u,.04,.1),w=>{
-  hrow(52,'第 1–2 級',trf('{n} 處',{n:7}),w);
-  hrow(76,'第 3 級',trf('{n} 處',{n:3}),w,'#f2c230');
-  hrow(100,'第 4 級',trf('{n} 處',{n:u<.7?1:0}),w,'#ff9d7a');
-  hrow(124,'第 5 級',trf('{n} 處',{n:0}),w,'#e8572a');
-  const p=seg(u,.5,.7);hrow(152,'修補進度',Math.round(p*100)+'%',w,'#7dffc4');hbar(14,160,w-28,p,'#7dffc4');});}}
+ hud(u){hudPanel(240,150,'吊掛條件（示例）',seg(u,.04,.1),w=>{
+  hrow(52,'示性波高','3.2 m',w,'#ff9d7a');
+  hrow(78,'船舶登塔','不可',w,'#ff9d7a');
+  hrow(104,'風速','11 m/s',w,'#7dffc4');
+  const n=(u>.62?1:0)+(u>.84?1:0);
+  hrow(130,'已吊降',trf('{n} 人',{n}),w,'#f2c230');});}},
+/* 7 */{t:'萬一出事：緊急應變',en:'When something goes wrong',dur:13,
+ d:'安全不只靠登塔的那一刻。每次作業前要取得工作許可、確認天候預報並測試無線電；作業中任何人發現危險都可以喊停，這叫停工權。如果有人落水，救生衣會自動充氣，個人定位信標發出警報與位置，由船上的救援艇或吊網把人撈起。如果有人在機艙受傷或發生火災，同伴使用救援下降器從機艙垂降，或由塔內撤離，再以船舶或直升機後送就醫。這些情境都要定期演練。',
+ s:[[0,'作業前：工作許可、天候確認、通訊測試'],[.26,'有人落水：救生衣充氣，定位信標發出警報'],[.5,'機艙受傷或火災：以救援下降器撤離'],[.74,'任何人都可以喊停，所有情境定期演練']],
+ draw(u){
+  diagBG();
+  // top: pre-work checks
+  card(60,150,1480,130,{bg:'rgba(7,27,39,.8)'});wt(84,190,'每次登塔前',19,'#f2c230',700);
+  const C=['工作許可','天候預報','無線電測試','人員點名'];
+  C.forEach((c,i)=>{const a=seg(u,.03+i*.04,.07+i*.04);if(a<=0)return;alphaDo(a,()=>{const x=84+i*360;
+   circ(x+16,240,14,'#7dffc4');ln([x+9,240,x+14,246,x+24,234],'#0e2a3b',3);wt(x+42,247,c,19,'#fff',700);});});
+  const S=[
+   {t:'人員落水',col:'#58b8d0',a:.26,steps:['救生衣自動充氣','定位信標發出警報與位置','救援艇或吊網撈起']},
+   {t:'機艙受傷或火災',col:'#ff9d7a',a:.5,steps:['同伴急救與通報','救援下降器垂降或塔內撤離','船舶或直升機後送']},
+   {t:'天候轉壞',col:'#f2c230',a:.7,steps:['持續監看浪高與風速','超過上限前提早撤離','任何人都可以喊停']}];
+  S.forEach((s,i)=>{const a=seg(u,s.a,s.a+.05);if(a<=0)return;const x=60+i*500;alphaDo(a,()=>{
+   card(x,310,480,400,{bg:'rgba(7,27,39,.8)',st:s.col});box(x+24,330,6,36,s.col);wt(x+42,358,s.t,22,s.col,800);
+   s.steps.forEach((st,j)=>{const b=seg(u,s.a+.03+j*.04,s.a+.07+j*.04);if(b<=0)return;alphaDo(b,()=>{const y=400+j*100;
+    card(x+24,y,432,78,{bg:'rgba(255,255,255,.05)',r:6});wt(x+56,y+48,String(j+1),26,s.col,700,'center',COND);
+    wrap26(x+84,y+46,st,350,18,'#fff',600,24);
+    if(j<2)arrow(x+240,y+80,x+240,y+98,'rgba(227,236,238,.6)',2);});});});});
+  alphaDo(seg(u,.82,.88),()=>{card(60,730,1480,70,{bg:'rgba(125,255,196,.08)',st:'rgba(125,255,196,.5)'});
+   wt(800,774,'停工權：任何人發現危險都可以喊停　所有情境定期演練',20,'#7dffc4',700,'center');});
+ }}
 ]};
 
-/* EP29 translations: Traditional Chinese → [English, Japanese] */
+/* EP26 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"離岸風場開發系列":["Offshore Wind Development Series","洋上風力開発シリーズ"],
-"葉片巡檢與缺陷分級":["Blade inspection and damage grading","ブレード点検と損傷の等級分け"],
-"離岸風機的葉片長達百公尺，每年都要仔細檢查一次。這一集看無人機如何沿著自動航線拍下每支葉片、軟體怎麼從上千張照片中找出缺陷，再跟著爬行機器人進到葉片內部，認識雷擊與裂紋的樣子，最後把缺陷分成 5 級，決定繼續運轉、排程修補還是立即停機。":["Offshore turbine blades are around a hundred metres long, and each one needs a careful inspection every year. This episode follows a drone along its automated flight path, shows how software picks defects out of over a thousand photos, then joins a crawler robot inside the blade, looks at what lightning damage and cracks look like, and finally sorts defects into five categories that decide whether a turbine keeps running, gets a scheduled repair or stops at once.","洋上風車のブレードは長さ約100 mに達し、毎年入念な点検が必要です。本編では、ドローンが自動航路で各ブレードを撮影する様子、ソフトウェアが千枚を超える写真から損傷を見つける方法、クローラーロボットによるブレード内部の点検、落雷とき裂の見分け方を紹介し、最後に損傷を5段階に分類して、運転継続・計画補修・即時停止を判断します。"],
-"葉片缺陷常用的嚴重度分級，從外觀瑕疵到危急":["Common severity scale for blade damage, from cosmetic to critical","ブレード損傷で一般的な重大度の分類（外観上の欠陥から危険まで）"],
-"級":["categories","段階"],
-"趟":["passes","回"],
-"每支葉片的典型拍攝航線：前緣、後緣與兩側葉面":["Typical camera passes per blade: leading edge, trailing edge and both faces","ブレード1枚あたりの典型的な撮影航路：前縁、後縁、両側の翼面"],
-"分鐘內":["min or less","分以内"],
-"自動航線無人機巡檢一部風機的典型時間":["Typical time for an automated drone to inspect one turbine","自動航路のドローンで風車1基を点検する典型的な時間"],
-"mm/像素":["mm/pixel","mm/ピクセル"],
-"近拍影像的典型解析度，可看出細小裂紋":["Typical close-up image resolution, fine enough to show small cracks","近接撮影の典型的な解像度。微細なき裂も確認できる"],
-"內部爬行機器人可檢視的葉片內部範圍（設備商資料）":["Share of the blade interior a crawler robot can inspect (manufacturer data)","クローラーロボットが点検できるブレード内部の範囲（メーカー資料）"],
-"個月":["months","か月"],
-"第 4–5 級缺陷應完成修補或停機的期限（典型）":["Deadline to repair or shut down for category 4–5 damage (typical)","カテゴリー4–5の損傷を補修または停止するまでの期限（典型値）"],
-"說明：本集為教育用途示意動畫，尺寸與距離經過壓縮。航線趟數、拍攝距離、巡檢時間與影像解析度取自無人機服務商公開資料的典型值；爬行機器人的檢視範圍取自設備商說明；防雷系統檢查依 IEC 61400-24 的原則示意，電阻讀數為示例；缺陷 5 級分類參考 EPRI 與 IEA Wind Task 46 的架構，各級處理期限為典型範例，實際依風機製造商與業主的規範而定。照片張數與缺陷數量為示例，不代表特定風場。":["Note: this is an illustrative educational animation; sizes and distances are compressed. Pass counts, stand-off distance, inspection times and image resolution are typical values from drone service providers' public material; the crawler's coverage comes from the manufacturer's description; the lightning protection check follows the principles of IEC 61400-24 and the resistance reading is an example; the five-category scale follows the EPRI and IEA Wind Task 46 framework, and the deadlines for each category are typical examples—actual practice depends on the turbine manufacturer's and owner's rules. Photo and defect counts are examples and do not describe any particular wind farm.","説明：本編は教育用の模式アニメーションで、寸法と距離は圧縮しています。航路の回数、撮影距離、点検時間、画像解像度はドローン点検会社の公開資料による典型値、クローラーの点検範囲はメーカーの説明によります。雷保護システムの点検はIEC 61400-24の考え方に基づく模式で、抵抗値は例示です。損傷の5段階分類はEPRIとIEA Wind Task 46の枠組みを参考にしており、各段階の対応期限は典型例です。実際は風車メーカーと事業者の基準によります。写真枚数と損傷数は例示であり、特定の発電所を示すものではありません。"],
-/* shot 1 */
-"巡檢日：停機、鎖定、起飛":["Inspection day","点検日：停止・ロック・離陸"],
-"葉片巡檢通常每年至少一次，也會在雷擊或異常振動後加做。人員運輸船（CTV）載著無人機小組抵達風機，風機先停機、轉子轉到「Y 字」位置並鎖定，讓一支葉片垂直朝下，另外兩支對稱朝上，無人機才能沿著固定航線逐支拍攝。現今台灣離岸風機的葉片長約 80 到 110 公尺，以往需要繩索技術人員垂降檢查一整天，改用無人機後，大幅縮短停機時間。":["Blades are usually inspected at least once a year, with extra checks after a lightning strike or unusual vibration. A crew transfer vessel (CTV) brings the drone team to the turbine. The turbine is stopped and the rotor is turned to the 'Y' position and locked, with one blade pointing straight down and the other two symmetrically upward, so the drone can photograph each blade along a fixed path. Blades on Taiwan's offshore turbines today are about 80 to 110 metres long. Rope-access technicians used to need a whole day to abseil down them; drones cut the downtime sharply.","ブレード点検は通常年1回以上行われ、落雷や異常振動の後にも追加で実施します。CTV（作業員輸送船）がドローン班を風車まで運び、風車を停止してロータを「Y字」位置に回してロックします。1枚を真下に、残り2枚を左右対称に上へ向けることで、ドローンが決まった航路で1枚ずつ撮影できます。現在の台湾の洋上風車のブレードは長さ約80〜110 mです。以前はロープアクセス技術者が丸1日かけて降下点検していましたが、ドローンにより停止時間が大きく短縮されました。"],
-"巡檢日，人員運輸船載著無人機小組抵達風機":["On inspection day, a CTV brings the drone team to the turbine","点検日、CTVがドローン班を風車まで運ぶ"],
-"風機停機，轉子轉到 Y 字位置並鎖定":["The turbine stops and the rotor is locked in the Y position","風車を停止し、ロータをY字位置でロック"],
-"無人機從船上起飛，飛向輪轂":["The drone takes off from the boat and flies to the hub","ドローンが船から離陸し、ハブへ向かう"],
-"一支葉片朝下，另外兩支對稱朝上，方便沿線拍攝":["One blade points down and two point up, ready to be photographed","1枚を下、2枚を対称に上へ向け、沿って撮影しやすくする"],
-"人員運輸船（CTV）":["Crew transfer vessel (CTV)","作業員輸送船（CTV）"],
-"轉子減速停機":["Rotor slowing to a stop","ロータ減速・停止"],
-"轉子鎖定（Y 字位置）":["Rotor locked (Y position)","ロータロック（Y字位置）"],
-"巡檢無人機":["Inspection drone","点検ドローン"],
-"葉片長約 80–110 m":["Blade 80–110 m long","ブレード長 約80–110 m"],
-"巡檢準備（示例）":["Pre-inspection (example)","点検準備（例）"],
-"風速":["Wind speed","風速"],
-"轉子轉速":["Rotor speed","ロータ回転数"],
-"轉子":["Rotor","ロータ"],
-"減速中":["Slowing","減速中"],
-"已鎖定":["Locked","ロック済"],
-"無人機":["Drone","ドローン"],
-"待命":["Standby","待機"],
-"飛行中":["Flying","飛行中"],
-/* shot 2 */
-"自動航線：每支葉片拍四趟":["Automated flight paths","自動航路：各ブレードを4回撮影"],
-"無人機依葉片的位置與長度自動規劃航線，以衛星定位與雷射測距和葉片保持約 3 到 4 公尺的固定距離。每支葉片通常拍四趟：前緣、後緣、迎風的壓力面與背風的吸力面，相鄰照片互相重疊，才能拼出完整的葉片表面。近拍解析度約每像素 1 毫米，看得出細小裂紋。每支葉片約需 5 到 10 分鐘，整部風機可在 30 分鐘內完成（典型）。":["The drone plans its route automatically from the blade positions and length, using satellite positioning and laser ranging to stay a fixed 3 to 4 metres from the blade. Each blade is usually covered in four passes—leading edge, trailing edge, the windward pressure side and the leeward suction side—with overlapping photos so the whole surface can be stitched together. Close-ups resolve about 1 millimetre per pixel, enough to show fine cracks. Each blade takes about 5 to 10 minutes, and a whole turbine can be done in under 30 minutes (typical).","ドローンはブレードの位置と長さから航路を自動で計画し、衛星測位とレーザー測距でブレードから約3〜4 mの一定距離を保ちます。各ブレードは通常4回撮影します。前縁、後縁、風上側の正圧面、風下側の負圧面で、隣り合う写真を重ねることでブレード表面全体をつなぎ合わせます。近接撮影の解像度は1ピクセルあたり約1 mmで、微細なき裂も見えます。ブレード1枚に約5〜10分、風車1基は30分以内で完了します（典型値）。"],
-"航線依葉片位置自動規劃，與葉片保持固定距離":["The route is planned automatically at a fixed distance from the blade","航路はブレード位置から自動計画、一定の距離を保つ"],
-"每支葉片拍四趟：前緣、後緣與兩側葉面":["Four passes per blade: both edges and both faces","各ブレード4回：前縁、後縁、両側の翼面"],
-"近拍解析度約每像素 1 毫米，看得出細小裂紋":["Close-ups resolve about 1 mm per pixel, showing fine cracks","近接撮影は約1 mm/ピクセル、微細なき裂も見える"],
-"每支葉片約 5–10 分鐘，整部風機 30 分鐘內完成":["About 5–10 minutes per blade, under 30 minutes per turbine","1枚約5–10分、風車1基は30分以内"],
-"自動航線（示意）":["Automated flight path (schematic)","自動航路（模式図）"],
-"與葉片保持約 3–4 m 的固定距離":["Stays a fixed 3–4 m from the blade","ブレードから約3–4 mの一定距離を保つ"],
-"每支葉片拍四趟":["Four passes per blade","各ブレードを4回撮影"],
-"前緣":["Leading edge","前縁"],
-"後緣":["Trailing edge","後縁"],
-"吸力面":["Suction side","負圧面"],
-"壓力面":["Pressure side","正圧面"],
-"葉片剖面":["Blade section","ブレード断面"],
-"影像解析度":["Resolution","画像解像度"],
-"約 1 mm/像素":["~1 mm/pixel","約1 mm/ピクセル"],
-"每支葉片":["Per blade","ブレード1枚"],
-"約 5–10 分鐘":["5–10 min","約5–10分"],
-"整部風機":["Whole turbine","風車1基"],
-"30 分鐘內":["Under 30 min","30分以内"],
-/* shot 3 */
-"從上千張照片找出缺陷":["Finding defects in the images","千枚の写真から損傷を探す"],
-"一部風機的巡檢會留下數百到上千張照片。影像先依葉片編號與位置自動排序、拼接，再由軟體逐張比對，框出可能的缺陷：前緣侵蝕、塗層剝落、雷擊燒痕、裂紋等。軟體也會誤把污漬、鳥糞當成缺陷，所以最後由葉片工程師逐一確認，記下每處缺陷的葉片編號、距葉根距離、所在面別與尺寸，並和歷年的照片比對，看它是否正在擴大。":["Inspecting one turbine produces hundreds to over a thousand photos. They are sorted and stitched by blade and position, then software checks each one and boxes possible defects: leading-edge erosion, peeling coating, lightning burns, cracks and so on. Software also mistakes dirt and bird droppings for damage, so a blade engineer confirms every finding and records the blade, the distance from the root, the surface and the size, then compares it with earlier years' photos to see whether it is growing.","風車1基の点検で数百〜千枚以上の写真が得られます。写真はブレード番号と位置ごとに自動で並べてつなぎ合わせ、ソフトウェアが1枚ずつ比較して、前縁エロージョン、塗装剥離、落雷による焼損、き裂などの疑いがある箇所を枠で囲みます。汚れや鳥の糞を損傷と誤判定することもあるため、最後はブレード技術者が1件ずつ確認し、ブレード番号、翼根からの距離、面、寸法を記録して、過去の写真と比較して進展していないかを確かめます。"],
-"照片依葉片編號與位置排序，拼成完整的葉片表面":["Photos are sorted by blade and position into a full surface","写真をブレード番号と位置で並べ、表面全体をつなぐ"],
-"軟體逐張比對，框出可能的缺陷":["Software checks each image and boxes possible defects","ソフトウェアが1枚ずつ比較し、損傷の疑いを枠で囲む"],
-"污漬與鳥糞會被誤判，由工程師逐一確認":["Dirt can be flagged by mistake, so engineers confirm each one","汚れや鳥の糞の誤判定を技術者が1件ずつ確認"],
-"每處缺陷記下位置與尺寸，和歷年照片比對":["Each defect's position and size are compared with past years","各損傷の位置と寸法を記録し、過去の写真と比較"],
-"葉片 {b}－{n} m":["Blade {b} – {n} m","ブレード{b}－{n} m"],
-"前緣侵蝕":["LE erosion","前縁エロージョン"],
-"污漬（排除）":["Dirt (rejected)","汚れ（除外）"],
-"雷擊燒痕":["Lightning burn","落雷焼損"],
-"後緣裂紋":["TE crack","後縁き裂"],
-"無異常":["No defect","異常なし"],
-"塗層剝落":["Peeling coating","塗装剥離"],
-"缺陷位置圖（葉片 B，示例）":["Defect map (blade B, example)","損傷位置図（ブレードB、例）"],
-"葉根":["Root","翼根"],
-"葉尖":["Tip","翼端"],
-"距葉根距離（m）":["Distance from root (m)","翼根からの距離（m）"],
-"一部風機的巡檢（示例）":["One turbine inspection (example)","風車1基の点検（例）"],
-"照片":["Photos","写真"],
-"疑似缺陷":["Flagged","損傷の疑い"],
-"確認缺陷":["Confirmed","確認済み損傷"],
-/* shot 4 */
-"進到葉片裡面：爬行機器人":["Inside the blade: crawler robots","ブレード内部へ：クローラーロボット"],
-"無人機只看得到外表，葉片內部的黏著線與腹板則要從葉根人孔進去檢查。葉片由上下兩片殼體黏合而成，中間以腹板支撐，主樑帽承受主要的彎曲力。人員能進入的空間有限，越往葉尖越窄，因此改由爬行機器人代勞：它拖著纜線前進，用 LED 補光、360 度攝影機與 3D 光達掃描，可檢視約九成的內部空間，找出黏著線脫膠、腹板裂紋與積水。":["Drones only see the outside; the bond lines and shear webs inside have to be checked through the hatch at the blade root. A blade is two shells bonded together, braced by shear webs, with spar caps carrying most of the bending load. There is little room for people, and the space narrows towards the tip, so a crawler robot does the job. Trailing a tether, it lights the way with LEDs and scans with a 360-degree camera and 3D lidar, covering about 90 percent of the interior to find debonded bond lines, web cracks and standing water.","ドローンが見られるのは外面だけで、ブレード内部の接着ラインとシアウェブは翼根のハッチから入って点検します。ブレードは上下2枚のシェルを接着したもので、間をシアウェブが支え、スパーキャップが主な曲げ荷重を受けます。人が入れる空間は限られ、翼端に向かうほど狭くなるため、クローラーロボットが代わりに点検します。ケーブルを引きながら進み、LED照明、360度カメラ、3Dライダーで走査して内部の約9割を確認し、接着ラインのはく離、ウェブのき裂、水たまりを見つけます。"],
-"葉片內部的黏著線與腹板，從外面看不到":["The bond lines and webs inside cannot be seen from outside","内部の接着ラインとウェブは外から見えない"],
-"爬行機器人從葉根人孔進入，拖著纜線前進":["A crawler enters through the root hatch, trailing a tether","クローラーが翼根ハッチから入り、ケーブルを引いて進む"],
-"補光、攝影與 3D 光達掃描，找出黏著線脫膠":["Lights, cameras and 3D lidar find debonded bond lines","照明・カメラ・3Dライダーで接着はく離を探す"],
-"越往葉尖越窄，機器人可檢視約九成的內部空間":["The space narrows towards the tip; the robot covers about 90%","翼端ほど狭いが、ロボットは内部の約9割を点検"],
-"葉片剖開示意（由葉根往葉尖）":["Cut-away blade (root to tip)","ブレード切断図（翼根から翼端）"],
-"後緣黏著線脫膠":["TE bond debond","後縁接着はく離"],
-"腹板黏著裂紋":["Web bond crack","ウェブ接着き裂"],
-"積水與碎屑":["Water and debris","水たまり・破片"],
-"腹板":["Shear web","シアウェブ"],
-"黏著線":["Bond line","接着ライン"],
-"葉根人孔":["Root hatch","翼根ハッチ"],
-"葉片剖面構造":["Blade cross-section","ブレード断面構造"],
-"主樑帽":["Spar cap","スパーキャップ"],
-"爬行機器人":["Crawler robot","クローラーロボット"],
-"LED 補光":["LED lighting","LED照明"],
-"360° 攝影機":["360° camera","360°カメラ"],
-"3D 光達":["3D lidar","3Dライダー"],
-"拖纜供電與傳輸":["Tether for power and data","ケーブルで給電・通信"],
-"約 90%":["~90%","約90%"],
-"可檢視的內部範圍":["of interior covered","点検できる内部範囲"],
-/* shot 5 */
-"雷擊點與裂紋辨識":["Lightning strikes and cracks","落雷箇所とき裂の識別"],
-"台灣海峽冬季也有雷擊，葉片是風機最高的部分，最容易被打中。葉尖附近裝有金屬接收器，雷電流經葉片內的引下線，再經機艙、塔架導入大地。巡檢時要找接收器周圍的燒痕，並以四線式低電阻量測確認接收器到葉根的導通，讀數超過製造商限值就代表引下線可能斷裂。裂紋則要分辨型態：後緣開裂、橫向裂紋與雷擊脫層，位置越靠近葉根與主樑越危險。":["Lightning strikes the Taiwan Strait even in winter, and the blades, as the highest part of the turbine, take most of the hits. Metal receptors near the tip catch the strike, and the current runs down a conductor inside the blade, through the nacelle and tower to earth. Inspectors look for burn marks around the receptors and use a four-wire low-resistance test to confirm continuity from receptor to root; a reading above the manufacturer's limit suggests a broken down conductor. Cracks must be told apart—trailing-edge splits, transverse cracks and lightning delamination—and the closer they are to the root and spar cap, the more dangerous they are.","台湾海峡では冬にも落雷があり、風車で最も高いブレードが最も打たれやすい部分です。翼端付近の金属製レセプターで雷を受け、雷電流はブレード内のダウンコンダクターからナセル、タワーを経て大地へ流れます。点検ではレセプター周辺の焼損を探し、4端子法の低抵抗測定でレセプターから翼根までの導通を確認します。メーカーの限度値を超えればダウンコンダクターの断線が疑われます。き裂は種類を見分けます。後縁割れ、横方向き裂、落雷による層間はく離で、翼根やスパーキャップに近いほど危険です。"],
-"葉片是風機最高的部分，雷擊多落在葉尖":["Blades are the highest part, and lightning usually hits the tip","ブレードは最も高い部分で、雷は主に翼端に落ちる"],
-"雷電流經接收器與引下線，導入大地":["Current flows through the receptor and down conductor to earth","雷電流はレセプターとダウンコンダクターから大地へ"],
-"以四線式低電阻量測，確認接收器到葉根的導通":["A four-wire resistance test checks receptor-to-root continuity","4端子法の低抵抗測定でレセプターから翼根の導通を確認"],
-"裂紋要分辨型態，越靠近葉根與主樑越危險":["Crack types differ; nearer the root and spar cap is more dangerous","き裂の種類を見分ける。翼根やスパーに近いほど危険"],
-"防雷系統（示意）":["Lightning protection (schematic)","雷保護システム（模式図）"],
-"經機艙、塔架入地":["To earth via nacelle and tower","ナセル・タワー経由で接地"],
-"接收器":["Receptor","レセプター"],
-"引下線":["Down conductor","ダウンコンダクター"],
-"燒痕":["Burn mark","焼損"],
-"低電阻計（四線式）":["Low-resistance ohmmeter (4-wire)","低抵抗計（4端子法）"],
-"{n} mΩ":["{n} mΩ","{n} mΩ"],
-"低於限值：導通正常（示例）":["Below limit: continuity OK (example)","限度値以下：導通正常（例）"],
-"讀數超過製造商限值，代表引下線可能斷裂或接頭鬆脫，下一次雷擊可能燒穿葉片。":["A reading above the manufacturer's limit points to a broken conductor or loose joint, and the next strike could burn through the blade.","読み値がメーカーの限度値を超えると、ダウンコンダクターの断線や接続部の緩みが疑われ、次の落雷でブレードが焼損するおそれがあります。"],
-"常見裂紋與損傷":["Common cracks and damage","よくあるき裂と損傷"],
-"後緣開裂":["Trailing-edge split","後縁割れ"],
-"後緣黏著線受反覆彎曲而裂開，可能沿長度方向延伸":["Repeated bending opens the trailing-edge bond, which can run along the blade","繰り返し曲げで後縁の接着が割れ、長さ方向に進展することがある"],
-"橫向裂紋":["Transverse crack","横方向き裂"],
-"靠近葉根或最大弦長處，與葉片長度方向垂直":["Near the root or max chord, at right angles to the blade length","翼根や最大翼弦付近で、ブレード長さ方向と直交する"],
-"雷擊脫層":["Lightning delamination","落雷による層間はく離"],
-"強大電流使積層燒穿、分層，常見於接收器附近":["Huge currents burn through and split the laminate, often near receptors","大電流で積層が焼け抜け、はく離する。レセプター付近に多い"],
-/* shot 6 */
-"缺陷分成 5 級":["Five damage categories","損傷を5段階に分類"],
-"確認後的每一處缺陷都要評定嚴重度。業界常用 1 到 5 級的分類：第 1、2 級是外觀瑕疵與輕微損傷，記錄後在下次巡檢追蹤；第 3 級已傷到積層，要排入維修計畫；第 4 級傷及結構，須在數週到數月內修補並密集追蹤；第 5 級有斷裂風險，必須立即停機。分級不只看大小，也看位置與深度：同樣長度的裂紋，出現在葉根或主樑上，比在葉尖嚴重得多。":["Every confirmed defect is given a severity rating. The industry commonly uses five categories: categories 1 and 2 are cosmetic or minor damage, recorded and followed up at the next inspection; category 3 has reached the laminate and goes into the maintenance plan; category 4 affects the structure and must be repaired within weeks to months, with close monitoring; category 5 risks blade failure and means an immediate shutdown. Grading looks not only at size but at location and depth: a crack of the same length is far more serious at the root or on the spar cap than near the tip.","確認された損傷には、それぞれ重大度を評価します。業界では1〜5の段階分類が一般的です。カテゴリー1・2は外観上の欠陥や軽微な損傷で、記録して次回の点検で追跡します。カテゴリー3は積層まで達しており、保守計画に組み込みます。カテゴリー4は構造に及び、数週間〜数か月以内に補修して頻繁に監視します。カテゴリー5は破断のおそれがあり、直ちに停止します。等級は大きさだけでなく位置と深さでも決まり、同じ長さのき裂でも翼根やスパーキャップ上にあれば翼端よりはるかに深刻です。"],
-"每處確認的缺陷都要評定 1 到 5 級的嚴重度":["Each confirmed defect is rated from category 1 to 5","確認した損傷ごとに1〜5の重大度を評価"],
-"第 1、2 級記錄追蹤，第 3 級排入維修計畫":["Categories 1–2 are tracked; category 3 joins the repair plan","カテゴリー1・2は記録・追跡、3は保守計画へ"],
-"第 4 級須在數週到數月內修補，第 5 級立即停機":["Category 4 is repaired within weeks to months; 5 means stop now","4は数週間〜数か月以内に補修、5は即時停止"],
-"同樣大小的裂紋，在葉根比在葉尖嚴重得多":["The same crack is far worse at the root than at the tip","同じ大きさのき裂でも翼根では翼端よりずっと深刻"],
-"處理期限（典型）":["Action deadline (typical)","対応期限（典型値）"],
-"典型例子":["Typical examples","典型例"],
-"第 {n} 級":["Category {n}","カテゴリー{n}"],
-"外觀瑕疵":["Cosmetic","外観上の欠陥"],
-"污漬、細微刮痕":["Dirt, fine scratches","汚れ、細かな擦り傷"],
-"記錄，下次巡檢再看":["Record; check at next inspection","記録し、次回点検で確認"],
-"輕微":["Minor","軽微"],
-"塗層初期侵蝕、表面細紋":["Early coating erosion, surface hairlines","塗装の初期エロージョン、表面の細かなひび"],
-"6–12 個月內複查":["Re-inspect within 6–12 months","6–12か月以内に再点検"],
-"中度":["Moderate","中程度"],
-"侵蝕傷到積層、小面積燒痕":["Erosion into laminate, small burns","積層に達したエロージョン、小さな焼損"],
-"排入維修計畫，約 6–12 個月內修補":["Plan repair within about 6–12 months","保守計画に組み込み、約6–12か月以内に補修"],
-"嚴重":["Serious","重大"],
-"結構層損傷、後緣開裂":["Structural damage, trailing-edge split","構造層の損傷、後縁割れ"],
-"1–6 個月內修補，每月追蹤":["Repair in 1–6 months; check monthly","1–6か月以内に補修、毎月監視"],
-"危急":["Critical","危険"],
-"大面積裂紋、穿孔，有斷裂風險":["Large cracks or holes; risk of failure","広範囲のき裂・貫通、破断のおそれ"],
-"立即停機":["Stop immediately","直ちに停止"],
-"分級看三件事：":["Grading weighs:","等級を決める3要素："],
-"位置（葉根、主樑、葉尖）":["Location (root, spar, tip)","位置（翼根・スパー・翼端）"],
-"大小":["Size","大きさ"],
-"深度（塗層、積層、結構）":["Depth (coating, laminate, structure)","深さ（塗装・積層・構造）"],
-/* shot 7 */
-"依分級行動":["From grading to action","等級に応じた対応"],
-"分級結果直接決定下一步。第 5 級缺陷要立即停機，避免葉片在運轉中斷裂；第 4 級把握最近的天候窗口，派繩索技術人員或吊籃平台到位修補；第 1 到 3 級記錄位置與尺寸，排入夏季的維修季或下次巡檢。修補完成後再以無人機拍攝同一位置，影像存入資料庫，和歷年紀錄比對擴大速度，讓下一次的分級更準確。":["The grade decides what happens next. Category 5 damage means an immediate shutdown so the blade cannot fail in operation. Category 4 is repaired in the next weather window by rope-access technicians or from a suspended platform. Categories 1 to 3 are logged by position and size and scheduled for the summer repair season or the next inspection. After a repair, a drone photographs the same spot again, and the images go into a database where growth rates are compared with earlier years, making the next grading more accurate.","等級が次の対応を直接決めます。カテゴリー5は運転中のブレード破断を防ぐため直ちに停止します。カテゴリー4は直近の気象ウィンドウに、ロープアクセス技術者や吊り下げ式プラットフォームで補修します。カテゴリー1〜3は位置と寸法を記録し、夏の補修シーズンや次回点検に組み込みます。補修後はドローンで同じ箇所を再撮影し、画像をデータベースに保存して過去の記録と進展速度を比較し、次回の等級判定をより正確にします。"],
-"第 5 級缺陷立即停機，避免葉片在運轉中斷裂":["Category 5 means an immediate stop before the blade can fail","カテゴリー5は直ちに停止し、運転中の破断を防ぐ"],
-"第 4 級把握天候窗口，派繩索技術人員修補":["Category 4 is repaired by rope-access crews in a weather window","カテゴリー4は気象ウィンドウにロープアクセスで補修"],
-"第 1–3 級記錄位置，排入維修季或下次巡檢":["Categories 1–3 are logged for the repair season or next inspection","カテゴリー1–3は記録し、補修シーズンや次回点検へ"],
-"修補後再次拍攝，和歷年影像比對":["After repair, the spot is photographed again and compared","補修後に再撮影し、過去の画像と比較"],
-"第 5 級：立即停機":["Cat. 5: stop now","カテゴリー5：即時停止"],
-"第 4 級：後緣開裂":["Cat. 4: TE split","カテゴリー4：後縁割れ"],
-"繩索技術人員":["Rope-access technicians","ロープアクセス技術者"],
-"修補完成":["Repaired","補修完了"],
-"再次拍攝比對":["Re-photographed","再撮影して比較"],
-"本機巡檢結果（示例）":["This turbine (example)","本機の点検結果（例）"],
-"第 1–2 級":["Cat. 1–2","カテゴリー1–2"],
-"第 3 級":["Cat. 3","カテゴリー3"],
-"第 4 級":["Cat. 4","カテゴリー4"],
-"第 5 級":["Cat. 5","カテゴリー5"],
-"{n} 處":["{n}","{n} 箇所"],
-"約 1":["~1","約1"],
-"約 90":["~90","約90"],
-"修補進度":["Repair","補修進捗"]
+"離岸風場開發系列":["Offshore Wind Development Series", "洋上風力開発シリーズ"],
+"人員登塔與海上安全":["Turbine access and offshore safety", "作業員のアクセスと洋上安全"],
+"離岸風機的維修，第一步是把人安全地送上去。這一集從出海前的訓練與裝備開始，看人員運輸船怎麼用船首頂住風機、技術人員如何看準時機跨上爬梯，為什麼浪高 1.5 公尺左右就是分界；再看防墜系統、運維母船的動態補償步橋與直升機吊掛三種登塔方式，以及萬一落水或受傷時的應變。":["Maintaining an offshore wind turbine starts with getting people onto it safely. This episode begins with the training and equipment needed before going to sea, then shows how a crew transfer vessel pushes its bow against the turbine, how technicians time their step onto the ladder, and why a wave height of about 1.5 metres is the dividing line. It goes on to fall-arrest systems, the service operation vessel's motion-compensated gangway and helicopter hoisting as three ways of access, and how to respond if someone falls into the sea or is injured.", "洋上風車の保守は、まず人を安全に風車へ送り届けることから始まります。本編では出航前の訓練と装備から始め、作業員輸送船が船首を風車に押し当てる方法、技術者がタイミングを見てはしごへ乗り移る様子、そして有義波高約 1.5 メートルが境目になる理由を見ていきます。さらに墜落防止システム、保守支援母船の動揺補償ギャングウェイ、ヘリコプターによる吊り降ろしという三つのアクセス方法と、落水やけがが起きたときの対応を紹介します。"],
+"個模組":["modules", "モジュール"],
+"GWO 基本安全訓練（離岸）：急救、人工搬運、消防、高處作業、海上求生":["GWO Basic Safety Training (offshore): first aid, manual handling, fire awareness, working at heights, sea survival", "GWO 基本安全訓練（洋上）：応急手当、手作業での運搬、消火、高所作業、海上サバイバル"],
+"個月":["months", "か月"],
+"GWO 訓練證書的效期，到期前須完成複訓":["Validity of a GWO training certificate; a refresher is required before expiry", "GWO 訓練証明の有効期間。期限前に再訓練が必要"],
+"約 1.5":["~1.5", "約 1.5"],
+"人員運輸船船首頂靠、跨步登塔的典型示性波高上限":["Typical significant wave height limit for a CTV bow push-on and step-over transfer", "作業員輸送船の船首押し付け・乗り移りの典型的な有義波高上限"],
+"約 3":["~3", "約 3"],
+"動態補償步橋可作業的示性波高（設備商資料）":["Significant wave height at which a motion-compensated gangway can operate (supplier data)", "動揺補償ギャングウェイが使用できる有義波高（メーカー資料）"],
+"爬梯與轉換點全程連續掛鉤，任何時刻至少一個掛點":["Continuous attachment on ladders and at transfer points: always at least one anchor point", "はしごと乗り換え箇所で常時接続。どの瞬間も最低一つの固定点"],
+"名":["people", "名"],
+"一艘人員運輸船典型載運的技術人員數":["Typical number of technicians carried by one CTV", "作業員輸送船 1 隻が運ぶ技術者の典型的な人数"],
+"說明：本集為教育用途示意動畫，船舶、風機與人員的比例經過壓縮。GWO 基本安全訓練的模組與 24 個月效期依 Global Wind Organisation 公開標準；台灣已有多處經 GWO 認證的訓練中心。人員運輸船跨步登塔約 1.5 m 示性波高、動態補償步橋約 3 m 示性波高為業界常用的典型值與設備商資料，實際上限依船型、波浪週期與方向、風場業主規定而定。推力與浪高的關係曲線、HUD 中的浪高、風速、推力與人數皆為典型範例；直升機吊掛在部分歐洲風場使用，台灣目前以船舶登塔為主。緊急應變流程為原則示意，實際依各風場的緊急應變計畫與職業安全衛生法規執行，不代表特定風場。":["Note: This is an educational, schematic animation; the proportions of vessels, turbines and people are compressed. The GWO Basic Safety Training modules and 24-month validity follow the Global Wind Organisation's published standards; Taiwan has several GWO-certified training centres. The ~1.5 m significant wave height for CTV step-over and ~3 m for motion-compensated gangways are typical industry values and supplier data; actual limits depend on the vessel type, wave period and direction, and the wind farm owner's rules. The thrust-versus-wave-height curve and the wave height, wind speed, thrust and head counts in the HUD are typical examples. Helicopter hoisting is used at some European wind farms; in Taiwan access is currently mainly by vessel. The emergency response steps are shown in principle only; in practice they follow each wind farm's emergency response plan and occupational safety and health regulations. Not representative of any specific wind farm.", "説明：本編は教育用の模式アニメーションで、船舶・風車・人物の比率は圧縮しています。GWO 基本安全訓練のモジュールと 24 か月の有効期間は Global Wind Organisation の公開基準によります。台湾には GWO 認証の訓練センターが複数あります。作業員輸送船の乗り移り約 1.5 m、動揺補償ギャングウェイ約 3 m の有義波高は業界の典型値とメーカー資料で、実際の上限は船型、波の周期と方向、ウィンドファーム事業者の規定によります。推力と波高の関係曲線、HUD の波高・風速・推力・人数は典型的な例です。ヘリコプターによる吊り降ろしは一部の欧州ウィンドファームで使われており、台湾では現在船舶によるアクセスが主流です。緊急対応の流れは原則を示したもので、実際は各ウィンドファームの緊急対応計画と労働安全衛生法規に従います。特定のウィンドファームを示すものではありません。"],
+"出海前：訓練與裝備":["Before going offshore", "出航前：訓練と装備"],
+"要登上離岸風機，技術人員必須先完成全球風能組織（GWO）的基本安全訓練。離岸版共有五個模組：急救、人工搬運、消防意識、高處作業與海上求生，證書效期 24 個月，到期前要複訓。台灣已有多處經 GWO 認證的訓練中心。出海時的個人防護裝備包括安全帽、附個人定位信標（PLB）的自動充氣救生衣、全身式安全吊帶與雙鉤緩衝繩，冬季還要穿浸水保溫衣。":["Before boarding an offshore wind turbine, technicians must complete the Global Wind Organisation (GWO) Basic Safety Training. The offshore version has five modules: first aid, manual handling, fire awareness, working at heights and sea survival. Certificates are valid for 24 months and must be refreshed before they expire, and Taiwan now has several GWO-certified training centres. Personal protective equipment at sea includes a helmet, an auto-inflating life jacket with a personal locator beacon (PLB), a full-body harness and a twin lanyard, plus an immersion suit in winter.", "洋上風車に上る前に、技術者は世界風力機構（GWO）の基本安全訓練を修了しなければなりません。洋上版は応急手当、手作業での運搬、消火、高所作業、海上サバイバルの 5 モジュールで構成され、証明の有効期間は 24 か月、期限前に再訓練が必要です。台湾にも GWO 認証の訓練センターが複数あります。海上での個人保護具は、ヘルメット、個人用位置指示無線標識（PLB）付きの自動膨張式救命胴衣、フルハーネスとツインランヤードで、冬季にはイマージョンスーツも着用します。"],
+"登上風機前，要先完成 GWO 基本安全訓練":["Before boarding a turbine, technicians complete GWO Basic Safety Training", "風車に上る前に GWO 基本安全訓練を修了"],
+"離岸版五個模組，包括海上求生與高處作業":["The offshore version has five modules, including sea survival and working at heights", "洋上版は海上サバイバルと高所作業を含む 5 モジュール"],
+"證書效期 24 個月，到期前必須複訓":["Certificates last 24 months and must be refreshed", "証明の有効期間は 24 か月、期限前に再訓練"],
+"出海時穿戴救生衣、安全吊帶與定位信標":["At sea they wear a life jacket, harness and locator beacon", "海上では救命胴衣、ハーネス、位置標識を着用"],
+"GWO 基本安全訓練（離岸）":["GWO Basic Safety Training (offshore)", "GWO 基本安全訓練（洋上）"],
+"海上求生":["Sea survival", "海上サバイバル"],
+"落水、救生筏、從船登上風機":["Man overboard, life rafts, vessel-to-turbine transfer", "落水、救命いかだ、船から風車への乗り移り"],
+"高處作業":["Working at heights", "高所作業"],
+"安全吊帶、防墜、高處救援":["Harness, fall arrest, rescue at height", "ハーネス、墜落防止、高所救助"],
+"急救":["First aid", "応急手当"],
+"傷患處置、心肺復甦":["Casualty care, CPR", "負傷者対応、心肺蘇生"],
+"消防意識":["Fire awareness", "消火"],
+"初期滅火、緊急撤離":["Initial firefighting, evacuation", "初期消火、緊急避難"],
+"人工搬運":["Manual handling", "手作業での運搬"],
+"正確搬抬，避免受傷":["Safe lifting to avoid injury", "正しい持ち上げ方でけがを防止"],
+"證書效期":["Certificate validity", "証明の有効期間"],
+"{n} 個月":["{n} months", "{n} か月"],
+"到期前完成複訓，才能繼續出海":["Refresh before expiry to keep working offshore", "期限前に再訓練すれば引き続き洋上で作業可能"],
+"個人防護裝備":["Personal protective equipment", "個人保護具"],
+"安全帽":["Helmet", "ヘルメット"],
+"救生衣（自動充氣）":["Life jacket (auto-inflating)", "救命胴衣（自動膨張式）"],
+"個人定位信標（PLB）":["Personal locator beacon (PLB)", "個人用位置標識（PLB）"],
+"全身式安全吊帶":["Full-body harness", "フルハーネス"],
+"雙鉤緩衝繩":["Twin lanyard", "ツインランヤード"],
+"浸水保溫衣（冬季）":["Immersion suit (winter)", "イマージョンスーツ（冬季）"],
+"冬季海水仍會讓人失溫":["Winter seas can still cause hypothermia", "冬の海水は低体温症を招く"],
+"船首頂靠，看準時機跨步":["Bow push-on and step-over", "船首押し付けと乗り移り"],
+"人員運輸船（CTV）是雙體高速船，船首裝有厚實的橡膠護舷。抵達風機後，船長把船首頂在轉接段的靠船設施上，引擎持續向前推，讓護舷與鋼管之間的摩擦力撐住船首，不隨浪上下滑動。技術人員先在船上把防墜滑塊扣上爬梯的防墜軌道，等船首穩定、甲板與第一階對齊時跨過去，一路往上爬到工作平台。整個過程由船長與登塔人員以無線電確認。":["A crew transfer vessel (CTV) is a fast catamaran with a thick rubber fender on its bow. At the turbine, the skipper pushes the bow against the boat landing on the transition piece and keeps the engines driving forward, so friction between the fender and the steel tubes holds the bow in place instead of letting it slide up and down with the waves. While still on board, the technician clips a fall-arrest slider onto the ladder's rail, waits until the bow is steady and the deck is level with the first rung, then steps across and climbs to the work platform. The skipper and the transferring crew confirm every step by radio.", "作業員輸送船（CTV）は高速の双胴船で、船首に厚いゴム製フェンダーを備えています。風車に着くと船長は船首をトランジションピースのボートランディングに押し当て、エンジンで前進し続けます。フェンダーと鋼管の間の摩擦力が船首を支え、波に合わせて上下に滑らないようにします。技術者は船上で墜落防止スライダーをはしごのレールに取り付け、船首が安定して甲板が最初の段とそろった瞬間に乗り移り、作業デッキまで登ります。一連の動作は船長と乗り移る作業員が無線で確認しながら行います。"],
+"人員運輸船抵達風機，靠向轉接段的靠船設施":["The CTV arrives and approaches the boat landing on the transition piece", "作業員輸送船が風車に到着し、ボートランディングへ接近"],
+"船首護舷頂住鋼管，引擎持續向前推":["The bow fender presses on the tubes as the engines keep pushing", "船首フェンダーを鋼管に押し当て、エンジンで前進を維持"],
+"先把防墜滑塊扣上軌道，看準時機跨步":["Clip the slider onto the rail first, then time the step across", "まずスライダーをレールに掛け、タイミングを見て乗り移り"],
+"沿爬梯爬上工作平台，再進入塔內":["Climb the ladder to the work platform, then enter the tower", "はしごで作業デッキへ上り、タワー内へ"],
+"人員運輸船（CTV）":["Crew transfer vessel (CTV)", "作業員輸送船（CTV）"],
+"船首護舷頂住鋼管":["Bow fender on tubes", "船首フェンダーを押し当て"],
+"靠船設施與爬梯":["Boat landing & ladder", "ボートランディングと梯子"],
+"扣上防墜軌道":["Clipped to rail", "墜落防止レールに接続"],
+"工作平台":["Work platform", "作業デッキ"],
+"登塔條件（示例）":["Access conditions (example)", "乗り移り条件（例）"],
+"示性波高":["Sig. wave height", "有義波高"],
+"跨步上限":["Step-over limit", "乗り移り上限"],
+"約 1.5 m":["~1.5 m", "約 1.5 m"],
+"向前推力":["Forward thrust", "前進推力"],
+"進場":["Approach", "接近中"],
+"頂靠穩定":["Pushed on", "押し付け安定"],
+"登塔中":["Transferring", "乗り移り中"],
+"完成":["Done", "完了"],
+"狀態":["Status", "状態"],
+"為什麼是 1.5 公尺":["Why 1.5 metres", "なぜ 1.5 メートルか"],
+"船首能不能穩住，是推力和波浪在拔河。引擎的推力把護舷壓在鋼管上，產生的摩擦力最大約等於摩擦係數乘以壓力；波浪把船首往上抬、往下拉的力，只要比這個摩擦力小，船首就不會滑動。浪越大，需要的推力越大，到了示性波高約 1.5 公尺附近，所需推力就接近引擎的上限，船首開始上下滑動，技術人員就不能跨步。實際上限還要看船型、波浪週期與方向。":["Whether the bow stays put is a tug of war between thrust and waves. Engine thrust presses the fender against the steel, and the maximum friction this creates is roughly the friction coefficient times that pressing force. As long as the waves push the bow up and pull it down with less force than that, the bow does not slide. Bigger waves demand more thrust, and at a significant wave height of around 1.5 metres the required thrust nears the engines' limit; the bow starts to slip, and technicians can no longer step across. The actual limit also depends on the vessel type and on the wave period and direction.", "船首が安定するかどうかは、推力と波の綱引きです。エンジンの推力がフェンダーを鋼管に押し付け、生じる摩擦力の上限はおよそ摩擦係数に押し付け力を掛けた値です。波が船首を持ち上げたり引き下げたりする力がこれより小さければ、船首は滑りません。波が大きくなるほど必要な推力は大きくなり、有義波高約 1.5 メートル付近で必要推力がエンジンの上限に近づくと、船首が上下に滑り始め、技術者は乗り移れなくなります。実際の上限は船型や波の周期・方向にも左右されます。"],
+"推力把護舷壓在鋼管上，產生摩擦力":["Thrust presses the fender onto the steel, creating friction", "推力でフェンダーを鋼管に押し付け、摩擦力が生じる"],
+"波浪的上下力小於摩擦力，船首就不會滑動":["If the wave force is smaller than friction, the bow holds", "波の上下の力が摩擦力より小さければ船首は滑らない"],
+"浪越大，需要的推力越大":["Bigger waves need more thrust", "波が大きいほど必要な推力も大きい"],
+"約 1.5 m 時接近引擎上限，船首開始滑動":["Near 1.5 m the engines reach their limit and the bow slips", "約 1.5 m でエンジンの上限に近づき、船首が滑り始める"],
+"船首頂靠的受力（示意）":["Forces at the bow (schematic)", "船首押し付け時の力（模式図）"],
+"推力 T":["Thrust T", "推力 T"],
+"壓力 N":["Contact force N", "押し付け力 N"],
+"摩擦力":["Friction", "摩擦力"],
+"波浪上下力":["Wave force", "波の上下の力"],
+"摩擦力上限 ＝ μ × N":["Max friction = μ × N", "摩擦力の上限 ＝ μ × N"],
+"μ：橡膠護舷與鋼管的摩擦係數":["μ: friction coefficient, rubber fender on steel", "μ：ゴムフェンダーと鋼管の摩擦係数"],
+"波浪力 ＜ 摩擦力：船首穩定":["Wave force < friction: bow holds", "波の力 ＜ 摩擦力：船首は安定"],
+"波浪力 ＞ 摩擦力：船首滑動":["Wave force > friction: bow slips", "波の力 ＞ 摩擦力：船首が滑る"],
+"示性波高 Hs（m）":["Significant wave height Hs (m)", "有義波高 Hs（m）"],
+"所需推力（%）":["Required thrust (%)", "必要推力（%）"],
+"所需推力與浪高（典型範例）":["Required thrust vs wave height (typical)", "必要推力と波高（典型例）"],
+"引擎推力上限":["Max engine thrust", "エンジン推力の上限"],
+"不能跨步":["No step-over", "乗り移り不可"],
+"爬梯與防墜":["Ladder climbing and fall arrest", "はしご昇降と墜落防止"],
+"從船跨上爬梯的那一刻起，技術人員就一直掛在防墜系統上。爬梯中央有一條剛性軌道，吊帶胸前的防墜滑塊沿著軌道上下滑動，一旦失足下墜，滑塊會在很短的距離內鎖住。到了平台轉換處，使用雙鉤緩衝繩：先把一個鉤子掛上新的掛點，再解開另一個，任何時刻都至少有一個掛點，稱為百分之百連續掛鉤。進入塔內後，大型風機多有升降機可以搭到機艙。":["From the moment they step from the vessel onto the ladder, technicians stay attached to a fall-arrest system. A rigid rail runs up the middle of the ladder, and a fall-arrest slider on the chest of the harness glides along it; if a climber slips, the slider locks within a very short distance. At the transfer onto the platform they use a twin lanyard: first clip one hook to the new anchor point, then release the other, so there is always at least one connection. This is called 100% tie-off. Inside the tower, large turbines usually have a service lift up to the nacelle.", "船からはしごに乗り移った瞬間から、技術者は常に墜落防止システムにつながっています。はしごの中央には剛性レールがあり、ハーネス胸部の墜落防止スライダーがその上を滑ります。足を踏み外すと、スライダーはごく短い距離でロックします。作業デッキへの乗り換え箇所ではツインランヤードを使い、まず一方のフックを新しい固定点に掛けてから、もう一方を外します。どの瞬間も最低一つの接続を保つことを 100% タイオフと呼びます。タワー内では、大型風車の多くにナセルまで上がる昇降機があります。"],
+"吊帶上的防墜滑塊扣在爬梯中央的軌道上":["The harness slider is clipped to the rail in the middle of the ladder", "ハーネスのスライダーをはしご中央のレールに接続"],
+"一旦失足，滑塊在很短的距離內鎖住":["If the climber slips, the slider locks within a short distance", "足を踏み外すと、スライダーが短い距離でロック"],
+"平台轉換處使用雙鉤：先掛新點，再解舊點":["At the platform, twin lanyard: clip the new point, then release the old", "乗り換え箇所はツインランヤード：新しい点に掛けてから古い点を外す"],
+"任何時刻至少一個掛點：百分之百連續掛鉤":["Always at least one anchor: 100% tie-off", "常に最低一つの固定点：100% タイオフ"],
+"防墜系統（示意）":["Fall-arrest system (schematic)", "墜落防止システム（模式図）"],
+"掛點":["Anchor", "固定点"],
+"滑塊鎖止":["Slider locks", "スライダーがロック"],
+"短距離停住":["Short stop", "短距離で停止"],
+"雙鉤：先掛新點":["Twin hooks: new point first", "ツインフック：新しい点が先"],
+"爬梯的安全規則":["Ladder safety rules", "はしごの安全ルール"],
+"離船前先扣上":["Clip on before leaving the boat", "船を離れる前に接続"],
+"防墜滑塊扣上軌道後，才跨上爬梯":["Step onto the ladder only after the slider is on the rail", "スライダーをレールに掛けてからはしごへ乗り移る"],
+"防墜滑塊":["Fall-arrest slider", "墜落防止スライダー"],
+"失足時在短距離內鎖住，吊帶分散衝擊":["Locks quickly in a slip; the harness spreads the load", "踏み外すと短距離でロックし、ハーネスが衝撃を分散"],
+"轉換處先掛新點，再解開舊點":["At transfers, clip the new point before releasing the old", "乗り換え箇所は新しい点に掛けてから古い点を外す"],
+"塔內升降機":["Service lift in the tower", "タワー内の昇降機"],
+"大型風機多有升降機，減少體力消耗":["Most large turbines have a lift, saving the climbers' strength", "大型風車の多くは昇降機付きで体力の消耗を抑える"],
+"連續掛鉤：任何時刻至少一個掛點":["Tie-off: always at least one anchor point", "常時接続：どの瞬間も最低一つの固定点"],
+"動態補償步橋":["Motion-compensated gangway", "動揺補償ギャングウェイ"],
+"浪高超過人員運輸船的上限時，可以改由運維母船（SOV）上的動態補償步橋登塔。母船以動態定位停在風機旁，步橋底座下的感測器每秒量測多次船身的起伏、縱搖與橫搖，液壓或電動機構即時調整步橋的伸縮、俯仰與旋轉，讓步橋端點貼在風機平台上幾乎不動。人員像走在平地上一樣走過去，可作業的示性波高約 3 公尺，大約是跨步登塔的兩倍。":["When the waves exceed the CTV limit, technicians can instead use the motion-compensated gangway on a service operation vessel (SOV). The SOV holds position beside the turbine with dynamic positioning, while sensors under the gangway base measure the ship's heave, pitch and roll many times a second. Hydraulic or electric drives continuously adjust the gangway's telescoping, luffing and slewing so that its tip stays almost still against the turbine platform. People walk across as if on level ground, at significant wave heights of about 3 metres, roughly twice the step-over limit.", "波高が作業員輸送船の上限を超えるときは、保守支援母船（SOV）の動揺補償ギャングウェイで風車に渡ることができます。母船は自動船位保持で風車の横にとどまり、ギャングウェイ基部のセンサーが船体の上下揺れ、縦揺れ、横揺れを毎秒何度も計測します。油圧または電動の機構が伸縮・俯仰・旋回をリアルタイムで調整し、先端を風車のデッキにほぼ静止させます。人は平地を歩くように渡ることができ、使用可能な有義波高は約 3 メートルと、乗り移り方式のおよそ 2 倍です。"],
+"沒有補償時，步橋端點跟著船身上下晃動":["Without compensation, the gangway tip moves with the ship", "補償なしでは、ギャングウェイ先端が船と一緒に揺れる"],
+"補償開啟：感測器量測船身的起伏與搖擺":["Compensation on: sensors measure the ship's heave and roll", "補償オン：センサーが船体の上下揺れと横揺れを計測"],
+"步橋即時伸縮、俯仰與旋轉，端點幾乎不動":["The gangway telescopes, luffs and slews; the tip barely moves", "ギャングウェイが伸縮・俯仰・旋回し、先端はほぼ静止"],
+"可作業的示性波高約 3 m，約是跨步登塔的兩倍":["Workable up to about 3 m Hs, roughly twice the step-over limit", "使用可能な有義波高は約 3 m、乗り移り方式の約 2 倍"],
+"步橋補償（示意）":["Gangway compensation (schematic)", "ギャングウェイの補償（模式図）"],
+"端點跟著晃動":["Tip moves with ship", "先端が一緒に揺れる"],
+"端點固定在平台":["Tip held at platform", "先端はデッキに固定"],
+"感測器量測船身起伏與搖擺":["Sensors measure heave and roll", "センサーが上下揺れと横揺れを計測"],
+"時間（秒）":["Time (s)", "時間（秒）"],
+"垂直位移（m）":["Vertical motion (m)", "鉛直変位（m）"],
+"船身與步橋端點的起伏（示例）":["Ship vs gangway tip motion (example)", "船体とギャングウェイ先端の上下動（例）"],
+"船身":["Ship", "船体"],
+"步橋端點":["Gangway tip", "ギャングウェイ先端"],
+"伸縮":["Telescope", "伸縮"],
+"俯仰":["Luff", "俯仰"],
+"旋轉":["Slew", "旋回"],
+"即時調整":["in real time", "リアルタイム調整"],
+"可作業示性波高":["Workable sig. wave height", "使用可能な有義波高"],
+"約 3 m":["~3 m", "約 3 m"],
+"跨步登塔約 1.5 m":["Step-over: ~1.5 m", "乗り移り方式：約 1.5 m"],
+"直升機吊掛到機艙":["Helicopter hoisting to the nacelle", "ヘリコプターでナセルへ吊り降ろし"],
+"當浪太大、船舶無法靠近時，部分歐洲風場會用直升機把技術人員直接吊掛到機艙頂部的吊掛平台。風機先停機，轉子鎖定在一支葉片朝下的位置，讓出上方空間；直升機在機艙上方懸停，由吊掛手操作絞車，把技術人員一個個垂降到平台上。它不受浪高限制，但受風速、能見度與夜間飛行的條件限制，載人少、成本高，多用於緊急搶修。台灣目前以船舶登塔為主。":["When waves are too high for vessels to come alongside, some European wind farms use helicopters to winch technicians straight onto a hoisting platform on the nacelle roof. The turbine is stopped first and the rotor locked with one blade pointing down to clear the space above. The helicopter hovers over the nacelle while the hoist operator winches the technicians down to the platform one at a time. This method is not limited by wave height but is limited by wind speed, visibility and night flying conditions; it carries few people at high cost and is mostly used for urgent repairs. In Taiwan, access is currently mainly by vessel.", "波が高く船が近づけないとき、一部の欧州ウィンドファームではヘリコプターで技術者をナセル上部のホイスト用プラットフォームへ直接吊り降ろします。まず風車を停止し、ブレード 1 枚が真下を向く位置でロータをロックして上方の空間を空けます。ヘリコプターがナセル上空でホバリングし、ホイストオペレーターがウインチで技術者を一人ずつデッキに降ろします。波高の制約は受けませんが、風速、視程、夜間飛行の条件に制約され、運べる人数が少なく費用も高いため、主に緊急修理に使われます。台湾では現在、船舶によるアクセスが主流です。"],
+"風浪太大時，部分風場改用直升機登塔":["In rough seas, some wind farms switch to helicopter access", "波が高いとき、一部のウィンドファームはヘリコプターで上る"],
+"風機停機，轉子鎖定讓出機艙上方空間":["The turbine stops and the rotor is locked to clear the airspace", "風車を停止し、ロータをロックしてナセル上方を空ける"],
+"直升機懸停，吊掛手以絞車垂降技術人員":["The helicopter hovers and winches technicians down", "ヘリがホバリングし、ウインチで技術者を降ろす"],
+"不受浪高限制，但受風速與能見度限制":["Not limited by waves, but by wind and visibility", "波高の制約はないが、風速と視程の制約を受ける"],
+"直升機":["Helicopter", "ヘリコプター"],
+"轉子鎖定":["Rotor locked", "ロータをロック"],
+"吊掛平台":["Hoist platform", "ホイスト用デッキ"],
+"絞車垂降":["Winched down", "ウインチで降下"],
+"吊掛條件（示例）":["Hoist conditions (example)", "吊り降ろし条件（例）"],
+"船舶登塔":["Vessel access", "船舶アクセス"],
+"不可":["No", "不可"],
+"風速":["Wind speed", "風速"],
+"已吊降":["Lowered", "降下済み"],
+"{n} 人":["{n} people", "{n} 人"],
+"萬一出事：緊急應變":["When something goes wrong", "万一のとき：緊急対応"],
+"安全不只靠登塔的那一刻。每次作業前要取得工作許可、確認天候預報並測試無線電；作業中任何人發現危險都可以喊停，這叫停工權。如果有人落水，救生衣會自動充氣，個人定位信標發出警報與位置，由船上的救援艇或吊網把人撈起。如果有人在機艙受傷或發生火災，同伴使用救援下降器從機艙垂降，或由塔內撤離，再以船舶或直升機後送就醫。這些情境都要定期演練。":["Safety does not end at the moment of access. Before each job, technicians obtain a work permit, check the weather forecast and test their radios; during work, anyone who sees a hazard can stop the job, known as stop-work authority. If someone falls into the sea, the life jacket inflates automatically and the personal locator beacon sends an alarm and position, and the person is recovered by the vessel's rescue boat or a recovery net. If someone is injured in the nacelle or a fire breaks out, colleagues use a rescue descent device to lower them from the nacelle or evacuate through the tower, followed by evacuation to hospital by vessel or helicopter. All of these scenarios are drilled regularly.", "安全は乗り移りの瞬間だけで終わりません。作業の前には作業許可を取り、天気予報を確認し、無線をテストします。作業中に危険に気づいた人は誰でも作業を止めることができ、これを作業中止権と呼びます。落水した場合は救命胴衣が自動で膨らみ、個人用位置標識が警報と位置を発信し、船の救助艇やネットで救助します。ナセルでけが人や火災が発生した場合は、仲間が救助用降下器でナセルから降ろすかタワー内を通って避難し、船やヘリコプターで病院へ搬送します。これらの状況は定期的に訓練されています。"],
+"作業前：工作許可、天候確認、通訊測試":["Before work: permit, weather check, radio test", "作業前：作業許可、天候確認、通信テスト"],
+"有人落水：救生衣充氣，定位信標發出警報":["Man overboard: the life jacket inflates and the beacon raises the alarm", "落水：救命胴衣が膨らみ、位置標識が警報を発信"],
+"機艙受傷或火災：以救援下降器撤離":["Injury or fire in the nacelle: evacuate with a rescue descent device", "ナセルでのけがや火災：救助用降下器で避難"],
+"任何人都可以喊停，所有情境定期演練":["Anyone can stop the work, and every scenario is drilled", "誰でも作業を止められ、全ての状況を定期訓練"],
+"每次登塔前":["Before every access", "毎回の乗り移り前"],
+"工作許可":["Work permit", "作業許可"],
+"天候預報":["Weather forecast", "天気予報"],
+"無線電測試":["Radio check", "無線テスト"],
+"人員點名":["Headcount", "人員点呼"],
+"人員落水":["Man overboard", "落水"],
+"救生衣自動充氣":["Life jacket inflates", "救命胴衣が自動膨張"],
+"定位信標發出警報與位置":["Beacon sends alarm and position", "位置標識が警報と位置を発信"],
+"救援艇或吊網撈起":["Rescue boat or net recovery", "救助艇やネットで救助"],
+"機艙受傷或火災":["Injury or fire in nacelle", "ナセルでのけがや火災"],
+"同伴急救與通報":["First aid and alert", "仲間が応急手当と通報"],
+"救援下降器垂降或塔內撤離":["Rescue descent or tower evacuation", "救助用降下器かタワー内で避難"],
+"船舶或直升機後送":["Vessel or helicopter evacuation", "船舶かヘリで搬送"],
+"天候轉壞":["Weather turns bad", "天候悪化"],
+"持續監看浪高與風速":["Keep watching waves and wind", "波高と風速を監視"],
+"超過上限前提早撤離":["Leave before limits are exceeded", "上限を超える前に撤収"],
+"任何人都可以喊停":["Anyone can stop the job", "誰でも作業を止められる"],
+"停工權：任何人發現危險都可以喊停　所有情境定期演練":["Stop-work authority: anyone who sees a hazard can stop the job   All scenarios are drilled regularly", "作業中止権：危険に気づいた人は誰でも中止できる　全ての状況を定期訓練"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
