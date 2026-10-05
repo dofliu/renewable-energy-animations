@@ -206,6 +206,20 @@
                 "en": "Plate rolling, SAW long and circ seams, ultrasonic testing, jacket assembly and coating",
                 "ja": "厚板の曲げ加工、縦・周継手の SAW、超音波探傷、ジャケット組立と塗装・出荷"
               }
+            },
+            {
+              "no": 25,
+              "file": "ep25.html",
+              "title": {
+                "zh": "吸力式與重力式基礎",
+                "en": "Suction bucket and gravity-based foundations",
+                "ja": "サクションバケット式と重力式基礎"
+              },
+              "sub": {
+                "zh": "吸力桶負壓貫入原理、調平、適用地層與風險、重力式沉箱壓艙、四種基礎比較",
+                "en": "Suction penetration, levelling, suitable soils and risks, gravity caisson ballasting, four foundations compared",
+                "ja": "負圧貫入の原理、水平調整、適した地盤とリスク、重力式ケーソンのバラスト、4種類の基礎比較"
+              }
             }
           ]
         },
