@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep07.js｜陸域風電系列</title>
+<title>ep11.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep05.html"><span data-zh="← 05 齒輪箱與發電機" data-en="← 05 Gearboxes and generators" data-ja="← 05 増速機と発電機">← 05 齒輪箱與發電機</span></a><a href="ep11.html"><span data-zh="11 塔架結構與共振 →" data-en="11 Tower structure and resonance →" data-ja="11 タワー構造と共振 →">11 塔架結構與共振 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep07.html"><span data-zh="← 07 雷擊與葉片防護" data-en="← 07 Lightning and blade protection" data-ja="← 07 落雷とブレードの保護">← 07 雷擊與葉片防護</span></a><a href="ep08.html"><span data-zh="08 小型風機與分散式應用 →" data-en="08 Small wind turbines and distributed use →" data-ja="08 小形風車と分散型利用 →">08 小型風機與分散式應用 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep07.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep11.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,413 +543,431 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 7 集：雷擊與葉片防護 */
+/* 陸域風電系列 第 11 集：塔架結構與共振 */
 const gyy=x=>groundY(x);
-const TX=640,HY=240,BL=200;                                  // 風機塔架位置、輪轂高度、側視葉片長度（世界座標）
-const RAD=60,RMAX=15;                                        // 轉子半徑 60 m、額定轉速 15 rpm（典型範例）
-/* 側視葉片 */
-function bladeS(hx,hy,a,L){const c=Math.cos(a),s=Math.sin(a),dx=s*6,w=3;
-  poly([hx-w,hy,hx+w,hy,hx+dx+w*.5,hy-c*L,hx+dx-w*.5,hy-c*L],'#f4f6f7','rgba(0,0,0,.35)',1);
-  if(Math.abs(c)>.3)circ(hx+dx,hy-c*(L-3),2.6,'#8d989f');}
-function tipOf(rot){return [TX-100+Math.sin(rot)*6,HY-Math.cos(rot)*BL];}
-/* 側視風機（外殼關閉） */
-function turbineSide(rot){const g=gyy(TX),hx=TX-100;
-  poly([TX-18,g,TX-11,HY+36,TX+11,HY+36,TX+18,g],'#eef2f4','rgba(0,0,0,.3)',1);
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)<0)bladeS(hx,HY,a,BL);}
-  box(TX-8,HY+36,16,8,'#394650');
-  rrp(TX-80,HY-32,260,68,8);ctx.fillStyle='#e3e8ec';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();
-  poly([TX-80,HY-26,TX-112,HY-12,TX-118,HY,TX-112,HY+12,TX-80,HY+26],'#dfe5e8','rgba(0,0,0,.35)',1);
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3;if(Math.cos(a)>=0)bladeS(hx,HY,a,BL);}
-  ln([TX+150,HY-32,TX+150,HY-58],'#6f7a80',2);circ(TX+150,HY-60,3,'#e8572a');}
-/* 正視小風機（圖解用）；回傳頂端葉尖 */
-function miniT(x,g,H,R,rot){const hy=g-H;
-  poly([x-7,g,x-4,hy,x+4,hy,x+7,g],'#eef2f4','rgba(0,0,0,.35)',1);box(x-12,hy-8,24,14,'#dfe5e8','rgba(0,0,0,.35)',1);
-  let top=[x,hy-R],best=-9;
-  for(let i=0;i<3;i++){const a=rot+i*TAU/3,c=Math.cos(a),s=Math.sin(a),tx=x+s*R,ty=hy-c*R,nx=c*4,ny=s*4;
-   poly([x-nx,hy-ny,x+nx,hy+ny,tx+nx*.3,ty+ny*.3,tx-nx*.3,ty-ny*.3],'#f4f6f7','rgba(0,0,0,.35)',1);if(-ty>best){best=-ty;top=[tx,ty];}}
-  circ(x,hy,5,'#dfe5e8','#394650',1);return top;}
-/* 雷雲、雨、閃電 */
-function stormClouds(){const r=rng(21);for(let i=0;i<16;i++){const x=VX0-100+r()*(VX1-VX0+200)+nz(TT*.05+i)*20,y=-40+r()*70,s=50+r()*60;
-  circ(x,y,s,i%2?'#26303a':'#2e3944');}}
-function rain(a){if(a<=0)return;const r=rng(11);alphaDo(a,()=>{for(let i=0;i<140;i++){const x0=VX0-300+r()*(VX1-VX0+600),y=((r()*1000+TT*800)%1000)-100,x=x0+(y*.25);ln([x,y,x+6,y+24],'rgba(205,222,235,.45)',1.5);}});}
-function boltPts(x0,y0,x1,y1,seed,n,amp){const r=rng(seed),P=[x0,y0];for(let i=1;i<n;i++){const k=i/n;P.push(lerp(x0,x1,k)+(r()-.5)*amp,lerp(y0,y1,k)+(r()-.5)*amp*.3);}P.push(x1,y1);return P;}
-function bolt(P,a,w){if(a<=0)return;alphaDo(a*.35,()=>ln(P,'#b9c8ff',(w||3)*4));alphaDo(a,()=>ln(P,'#ffffff',w||3));}
-function flick(u,a,b){return u>=a&&u<=b?(.55+.45*Math.abs(Math.sin(TT*47))):0;}
-/* 沿折線的流動點 */
-function along(P,f){let L=0;const S=[];for(let i=2;i<P.length;i+=2){const d=Math.hypot(P[i]-P[i-2],P[i+1]-P[i-1]);S.push(d);L+=d;}
-  let t=((f%1)+1)%1*L;for(let i=0;i<S.length;i++){if(t<=S[i]){const k=t/S[i];return [lerp(P[i*2],P[i*2+2],k),lerp(P[i*2+1],P[i*2+3],k)];}t-=S[i];}return [P[P.length-2],P[P.length-1]];}
-function flow(P,n,sp,col,r){for(let i=0;i<n;i++){const [x,y]=along(P,TT*sp+i/n);circ(x,y,r||4,col);}}
-function tree(x,b){const g=gyy(x);ln([x,g,x+b*.3,g-40,x+b,g-72],'#5b4632',5);circ(x+b*1.1,g-84,24,'#3f6b45');circ(x+b*1.2-16,g-72,17,'#4a7a50');}
-/* 葉片剖面（翼型），LE 朝 ang 方向 */
-function airfoil(x,y,L,ang,col,st){ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.beginPath();
-  const T=s=>L*.15*5*(.2969*Math.sqrt(s)-.126*s-.3516*s*s+.2843*s*s*s-.1015*s*s*s*s);
-  for(let i=0;i<=24;i++){const s=i/24;ctx.lineTo(L/2-s*L,-T(s)-L*.03*Math.sin(Math.PI*s));}
-  for(let i=24;i>=0;i--){const s=i/24;ctx.lineTo(L/2-s*L,T(s)*.7-L*.03*Math.sin(Math.PI*s));}
-  ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=st||'#13232e';ctx.lineWidth=2;ctx.stroke();ctx.restore();}
-/* 雷擊電流波形 10/350 μs（示意） */
-const iw=t=>t<10?200*(1-Math.cos(Math.PI*t/10))/2:200*Math.exp(-(t-10)*Math.LN2/340);
-/* 基礎、環形接地極、接地棒（剖面） */
-function earthing(a){const g=gyy(TX),cy=g+64,rx=230,ry=18;
-  ctx.save();ctx.setLineDash([7,5]);ctx.beginPath();ctx.ellipse(TX,cy,rx,ry,0,Math.PI,TAU);ctx.strokeStyle=`rgba(208,138,74,${(.8*a).toFixed(3)})`;ctx.lineWidth=3;ctx.stroke();ctx.restore();
-  box(TX-30,g,60,44,'#9aa3a8','rgba(0,0,0,.4)',1);
-  poly([TX-40,g+44,TX+40,g+44,TX+170,g+104,TX-170,g+104],'#9aa3a8','rgba(0,0,0,.4)',1);box(TX-170,g+104,340,30,'#8d989f','rgba(0,0,0,.4)',1);
-  ctx.setLineDash([5,5]);ln([TX-160,g+122,TX+160,g+122],'rgba(40,50,60,.55)',1.5);ln([TX-20,g+6,TX-20,g+116],'rgba(40,50,60,.55)',1.5);ln([TX+20,g+6,TX+20,g+116],'rgba(40,50,60,.55)',1.5);ctx.setLineDash([]);
-  alphaDo(a,()=>{ctx.beginPath();ctx.ellipse(TX,cy,rx,ry,0,0,Math.PI);ctx.strokeStyle='#d08a4a';ctx.lineWidth=3.5;ctx.stroke();
-   [-rx,rx].forEach(d=>{ln([TX+d,cy,TX+d,cy+150],'#d08a4a',4);circ(TX+d,cy,4,'#d08a4a');});
-   ln([TX+150,cy+13,TX+150,g+118],'#d08a4a',2.5);});}
-function baseCab(){const g=gyy(TX),bx=TX+40;box(bx,g-46,70,46,'#dfe5e8','rgba(0,0,0,.3)',1);for(let i=0;i<3;i++)ln([bx+10,g-36+i*10,bx+60,g-36+i*10],'rgba(0,0,0,.2)',2);circ(bx+62,g-40,3,'#7dffc4');}
+/* 正視的葉片與風機（沿用第 3、10、16 集） */
+function bladeF(cx,cy,a,L,w){w=w===undefined?1:w;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+  const k=Math.max(.18,w);poly([8,-5*k,8+L*.2,-10*k,8+L,-1.5*k,8+L,1.5*k,8+L*.2,8*k,8,5*k],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
+function turbine(x,gy,H,R,rot){const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
+  poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],'#eef2f4','rgba(0,0,0,.3)',1);nacRotor(x,hy,R,rot);return {x,y:hy};}
+function nacRotor(x,hy,R,rot){box(x-R*.11,hy-R*.08,R*.24,R*.14,'#e3e8ec','rgba(0,0,0,.3)',1);
+  for(let i=0;i<3;i++)bladeF(x,hy,rot+i*TAU/3-Math.PI/2,R);circ(x,hy,Math.max(3,R*.07),'#dfe5e8','rgba(0,0,0,.4)',1);}
+function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
+  for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
+   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
+/* 鋼管塔：F 為各段頂端的高度比例；回傳法蘭高度 */
+function sTower(x,gy,H,wb,wtp,F,col){const top=gy-H,hw=y=>lerp(wb,wtp,(gy-y)/H)/2;
+  poly([x-hw(gy),gy,x-hw(top),top,x+hw(top),top,x+hw(gy),gy],col||'#eef2f4','rgba(0,0,0,.3)',1);
+  poly([x+hw(gy)*.35,gy,x+hw(top)*.35,top,x+hw(top),top,x+hw(gy),gy],'rgba(0,0,0,.07)');
+  const fy=F.slice(0,-1).map(f=>gy-H*f);fy.forEach(y=>ln([x-hw(y)-1,y,x+hw(y)+1,y],'#8a99a3',2.5));
+  return {top,hw,fy};}
+/* 卡片內的一列 */
+function rowK(x,y,label,val,col,w){wt(x,y,label,18,'rgba(227,236,238,.85)',600);wt(x+w,y,val,22,col,700,'right',COND);}
+function bullets(x,y,L,u,k0,dk,gap){L.forEach(([t,col],i)=>alphaDo(seg(u,k0+i*dk,k0+i*dk+.05),()=>{circ(x,y+i*gap-6,5,col==='#fff'?'#f2c230':col);wt(x+18,y+i*gap,t,18,col,600);}));}
+const fmtK=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const STC=['#ff9d7a','#f2c230','#7dffc4','#7dc8dc'];
+/* 示例：107 m 鋼管塔分 4 段（長 m、下端直徑、上端直徑 m、壁厚 mm、重量 t） */
+const SECS=[[20,4.3,4.3,45,95],[26,4.3,4.0,30,80],[29,4.0,3.5,22,59],[32,3.5,3.0,16,41]];
+const SECF=[20/107,46/107,75/107,1];
+/* 示例：轉速 7–13 rpm 的 1P、3P 頻帶與 10% 餘裕 */
+const P1=[7/60,13/60],P3=[21/60,39/60],WIN=[P1[1]*1.1,P3[0]*.9];
+/* 法蘭螺栓：預力 1,030 kN、外力分擔比 0.1（示例） */
+const FP=1030,PHI=.1;
+const boltF=(F,p)=>F<p/(1-PHI)?p+PHI*F:F;
 
-const EP={no:7,slug:'onshore-wind',seriesName:'陸域風電系列',t:'雷擊與葉片防護',en:'Lightning and blade protection',
-lede:'風機是開闊地上最高的物體，雷雨時常被擊中；葉片前緣則每天承受雨滴與沙塵以高速撞擊。這一集看雷電流如何從葉尖的接閃器一路導入大地、接地與突波保護怎麼設計，以及前緣侵蝕、冬季雷與沿海鹽害的防護方法。',
-facts:[['200','kA','IEC 61400-24 雷擊防護等級 LPL I 的設計峰值電流'],
-['300','C','LPL I 的雷擊電荷量；電荷越大，接閃器燒蝕越嚴重'],
-['4','%','日本 NEDO 在 27 部風機的觀測中，電荷量超過 300 C 的雷擊比例'],
-['≤ 10','Ω','常見的接地電阻設計目標（實際依土壤電阻率設計）'],
-['≈ 94','m/s','轉子半徑 60 m、每分鐘 15 轉時的葉尖速度（示例）'],
-['數','%','前緣嚴重侵蝕造成的年發電量損失，研究多在幾個百分點']],
-note:'說明：本集為教育用途示意動畫，風機、葉片與接地系統比例經過簡化，雷擊與侵蝕過程的時間已壓縮。LPL I 峰值電流 200 kA、電荷量 300 C、比能量 10 MJ/Ω 與 10/350 μs 波形依 IEC 61400-24 與 IEC 62305 的雷擊參數；日本海沿岸冬季上行雷電荷量大、NEDO 2008–2013 年觀測 27 部風機中約 4% 雷擊超過 300 C，引自公開研究文獻；前緣侵蝕可造成數個百分點的年發電量損失，引自 Wind Energy Science 等期刊研究。接地電阻 10 Ω 為常見設計目標而非固定規定；雷擊峰值 34 kA、電荷 12 C、量測接地電阻 4.6 Ω、轉子半徑 60 m、轉速 15 rpm、侵蝕年數與各階段皆為典型範例，並非特定機型或案場資料。',
-base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:false});drawGround();},
+const EP={no:11,slug:'onshore-wind',seriesName:'陸域風電系列',t:'塔架結構與共振',en:'Tower structure and resonance',
+lede:'一座百米高的塔架，要撐起數百噸的機艙與轉子，承受風、颱風與地震。這一集看鋼管塔為什麼要分段、法蘭螺栓如何靠預力把各段鎖成一體、混凝土混合塔如何蓋得更高，以及塔架的自然頻率為什麼必須避開轉子的 1P 與 3P 頻率。',
+facts:[['110','m','陸域風機輪轂高度示例，以 4 段鋼管塔組成'],
+['4.3','m','鋼管塔底部直徑常受道路運輸限高限制在約 4.3–4.5 m（示例）'],
+['M48','10.9 級','塔架法蘭常用的高強度螺栓規格（示例）'],
+['1,030','kN','一支 M48 10.9 級螺栓的設計預力：0.7 × 抗拉強度 × 應力面積'],
+['10','%','塔架自然頻率與 1P、3P 頻帶之間常保留的最小距離'],
+['500','小時','運轉初期全數複查螺栓預力的時間點，之後每年抽檢約 10%（示例）']],
+note:'說明：本集為教育用途示意動畫，風機、塔架、法蘭與螺栓的比例經過調整，塔架寬度與擺動幅度放大顯示。塔架分段長度、直徑、壁厚與重量為 110 m 輪轂高度鋼管塔的典型範例，並非特定機型資料；運輸限制依道路、橋梁與彎道條件而定。螺栓設計預力依 Eurocode 3（EN 1993-1-8）Fp,C = 0.7 fub As 計算（M48 應力面積 1,473 mm²、10.9 級抗拉強度 1,000 MPa），伸長量以夾緊長度約 340 mm 估算；螺栓受力圖採簡化的接合圖，外力分擔比 0.1 與外力範圍為示例。1P／3P 頻帶以轉速 7–13 rpm 計算，10% 頻率餘裕為業界文獻常見做法；混合塔輪轂高度約 160 m 引自國際已完成案例，混凝土段與鋼管段高度為示例。運轉初期約 500 小時全數複查、之後每年抽檢約 10% 為業界文獻常見說法，實際依各製造商手冊與 IEC 61400 系列標準、主管機關規定而定。',
+base:()=>{landSky(GY,{sun:{x:1260,y:140},clouds:false});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 最高的那一點 */
-{t:'開闊地上最高的一點',en:'The highest point around',dur:13,side:true,
- d:'陸域風機常立在海岸或丘陵的開闊處，葉尖最高點往往超過 100 公尺，是周圍數公里內最突出的物體，雷雨時很容易成為落雷點。結構越高，越容易從葉尖向上長出迎向雲層的放電通道，也就是上行先導。雷擊多半落在葉尖，因此葉片裝有金屬接閃器，把雷電流引進葉片內部的引下線，再經機艙與塔架導入地下的接地系統，而不是讓電流在葉片與設備中亂竄。',
- s:[[0,'雷雨雲接近開闊地上的風機'],[.18,'葉尖向上長出放電通道：上行先導'],[.3,'雷擊落在葉尖的接閃器'],[.55,'電流經葉片、機艙、塔架導入大地']],
- cam:u=>({x:760,y:400,s:1}),
+/* 1 ─────────────────────────────── 風機的骨幹 */
+{t:'風機的骨幹',en:'The backbone of a turbine',dur:13,side:true,
+ d:'塔架是風機最高、也最重的單一構件。以輪轂高度 110 公尺的陸域風機為例，塔架由 4 段鋼管組成，總重約 300 公噸，頂端要撐住機艙與轉子的重量，還要承受風推在轉子上的推力。推力乘上百米的力臂，在塔底形成最大的彎矩，所以塔架下粗上細、下厚上薄。在台灣，塔架設計還必須檢核颱風的極端風速與地震載重，再透過底法蘭與錨栓，把所有力量傳進基礎。',
+ s:[[0,'百米高的塔架，撐起機艙與整組轉子'],[.26,'4 段鋼管以法蘭接合，下粗上細'],[.5,'風的推力乘上百米力臂，塔底彎矩最大'],[.74,'底法蘭與錨栓把所有力量傳進基礎']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:720,y:520,s:2.6},ease(seg(u,.66,.86))),
  draw(u){
-  box(VX0-20,-600,VX1-VX0+40,2000,'rgba(22,32,42,.45)');
-  stormClouds();rain(.55);
-  const fl=flick(u,.3,.36);if(fl>0)alphaDo(fl*.3,()=>box(VX0-20,-600,VX1-VX0+40,2000,'#dfe8ff'));
-  [[230,0],[320,1],[1040,2],[1130,3],[1450,4]].forEach(([x,i])=>tree(x,10+4*Math.sin(TT*2.4+i)));
-  const rot=(u-.3)*.9,[tx,ty]=tipOf(rot),g=gyy(TX);
-  earthing(.9);
-  turbineSide(rot);baseCab();
-  /* 上行先導 */
-  const lk=seg(u,.16,.3);if(lk>0&&u<.36){const P=boltPts(tx,ty,tx+20,ty-110*lk,5,6,26);alphaDo(.8,()=>ln(P,'#dfe8ff',2));}
-  bolt(boltPts(tx+60,-60,tx,ty,9,12,70),fl,3.5);
-  /* 電流路徑 */
-  const pa=band(u,.34,.84),P=[tx,ty,TX-100,HY,TX-40,HY,TX,HY+40,TX,g,TX,g+60];
-  if(pa>0){alphaDo(pa*.5,()=>ln(P,'#f2c230',6));alphaDo(pa,()=>flow(P,14,.9,'#f2c230',4.5));
-   for(let i=0;i<3;i++){const k=((TT*.9+i/3)%1);alphaDo(pa*(1-k),()=>{ctx.beginPath();ctx.ellipse(TX,g+64,60+k*280,(60+k*280)*.35,0,0,Math.PI);ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.stroke();});}}
-  lab(tx,ty-60,'上行先導',{dx:140,dy:-10,st:'l',a:band(u,.16,.3)});
-  lab(tx,ty,'葉尖接閃器',{dx:150,dy:30,st:'s',a:band(u,.3,.56)});
-  lab(TX-100,HY+30,'葉片內引下線',{dx:-150,dy:60,st:'s',a:band(u,.4,.66)});
-  lab(TX+6,420,'經塔架向下',{dx:120,dy:0,st:'g',a:band(u,.5,.8)});
-  lab(TX+230,g+64,'接地系統',{dx:120,dy:50,st:'g',a:band(u,.6,1)});
+  turbine(150,gyy(150),190,90,TT*1.1+.4);turbine(1380,gyy(1380),170,80,TT*1.2+1.9);
+  const X=700,G=gyy(X),PX=3.4,H=107*PX,rot=TT*1.0+.3;
+  windLines(120,560,10,150,.5,5,50);
+  box(X-30,G-6,60,12,'#b9c0c4','rgba(0,0,0,.3)',1);
+  const T=sTower(X,G,H,30,17,SECF);
+  /* 塔門與人 */
+  box(X-5,G-22,10,16,'#5b6a73');person(X+30,G-1,'#e8572a',1.2);
+  nacRotor(X,T.top-6,197,rot);
+  /* 輪轂高度標示 */
+  alphaDo(band(u,.04,.3),()=>{const x=X-250;ln([x,G,x,T.top-6],'rgba(242,194,48,.85)',1.5);ln([x-10,G,x+10,G],'#f2c230',2);ln([x-10,T.top-6,x+10,T.top-6],'#f2c230',2);
+   wt(x-14,(G+T.top)/2,'輪轂高度 110 m',18,'#f2c230',700,'right');});
+  /* 法蘭 */
+  T.fy.forEach((y,i)=>alphaDo(band(u,.26+i*.03,.52),()=>{ring(X,y,16,STC[i],3);}));
+  lab(X+T.hw(T.fy[1]),T.fy[1],'法蘭接合處',{dx:130,dy:-30,st:'s',a:band(u,.3,.52)});
+  lab(X+T.hw(G-H*.1),G-H*.1,'第 1 段：最粗最厚',{dx:150,dy:30,a:band(u,.32,.52)});
+  /* 載重 */
+  alphaDo(band(u,.5,.7),()=>{arrow(X-120,T.top-6,X-30,T.top-6,'#7dc8dc',4);tag(X-130,T.top-6,'風推力',{size:15,bg:'#7dc8dc',align:'right'});
+   arrow(X+60,T.top-30,X+60,T.top+40,'#ff9d7a',4);tag(X+70,T.top+60,'機艙與轉子重量',{size:15,bg:'#ff9d7a'});
+   ctx.beginPath();ctx.arc(X,G-20,60,Math.PI*1.1,Math.PI*1.9);ctx.strokeStyle='#e8572a';ctx.lineWidth=4;ctx.stroke();
+   const e=Math.PI*1.9;arrow(X+60*Math.cos(e-.2),G-20+60*Math.sin(e-.2),X+60*Math.cos(e),G-20+60*Math.sin(e),'#e8572a',4);});
+  lab(X,G-60,'底部彎矩最大',{dx:-150,dy:-50,st:'w',a:band(u,.52,.7)});
+  /* 塔底特寫 */
+  lab(X,G-14,'塔門',{dx:-90,dy:-40,st:'l',a:band(u,.78,1)});
+  lab(X+20,G-2,'底法蘭與基礎錨栓',{dx:110,dy:-60,st:'s',a:band(u,.8,1)});
  },
- hud(u){hudPanel(250,182,'雷擊監測（示例）',seg(u,.04,.09),w=>{const hit=u>=.3;
-  hrow(56,'峰值電流',hit?trf('{n} kA',{n:(34*ease(seg(u,.3,.33))).toFixed(0)}):'—',w,'#f2c230');
-  hrow(88,'電荷量',hit?trf('{n} C',{n:(12*ease(seg(u,.3,.36))).toFixed(1)}):'—',w,'#f2c230');
-  hrow(120,'本年雷擊次數',hit?'4':'3',w,'#fff');
-  hrow(152,'狀態',u<.3?'運轉中':u<.7?'偵測到雷擊':'自動檢查',w,u<.3?'#7dffc4':'#ff9d7a');});}},
+ hud(u){hudPanel(250,182,'塔架概要（示例）',seg(u,.06,.12),w=>{
+  hrow(56,'輪轂高度','110 m',w,'#f2c230');hrow(88,'塔架分段','4 段',w,'#fff');
+  hrow(120,'底部直徑','4.3 m',w,'#7dffc4');hrow(152,'塔架重量','≈ 300 t',w,'#fff');});}},
 
-/* 2 ─────────────────────────────── 雷電流的路徑 */
-{t:'雷電流的旅程',en:'The path of a lightning current',dur:14,
- d:'風機的雷擊防護系統要讓雷電流走一條事先安排好的低阻抗路徑。葉尖與葉身的金屬接閃器接住雷擊，電流沿著葉片內部的銅質引下線流向葉根。葉片會變槳、機艙會偏航，轉動的軸承不能讓大電流直接通過，否則滾珠與滾道會被電弧燒出凹痕，因此在變槳與偏航處用碳刷、滑動接點或火花間隙跨接。電流進入鋼製塔架後向下傳到基礎，最後由接地系統散入大地。',
- s:[[0,'接閃器在葉尖接住雷擊'],[.2,'引下線把電流帶到葉根'],[.4,'軸承處用碳刷與火花間隙跨接'],[.7,'經塔架與接地網散入大地']],
+/* 2 ─────────────────────────────── 鋼管塔分段 */
+{t:'鋼管塔為什麼要分段',en:'Why steel towers come in sections',dur:14,
+ d:'鋼管塔是用厚鋼板捲成圓筒、一節節焊接起來，再在兩端焊上法蘭。整座塔不可能一次運到山邊或海岸的風場，要拆成幾段，每段的長度、重量和直徑都受道路條件限制：底部直徑常在 4.3–4.5 公尺左右，再大就過不了陸橋與隧道的限高。彎矩越往下越大，所以底段壁厚最厚、重量最重，往上逐段變細變薄。以 110 公尺輪轂高度為例，4 段合計約 300 公噸。',
+ s:[[0,'鋼板捲成筒節，焊成一段段塔筒'],[.28,'越往下彎矩越大，壁厚越厚、重量越重'],[.52,'每段都要裝上拖車，通過陸橋與彎道'],[.76,'底部直徑受限高約束，常在 4.3–4.5 m']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'雷電流的路徑（示意）',20,'#f2c230',700);
-  const g=740,hx=300,hy=400;
-  /* 地面與接地 */
-  box(62,g,696,58,'rgba(164,135,106,.35)');ln([62,g,758,g],'rgba(227,236,238,.5)',1.5);
-  ctx.beginPath();ctx.ellipse(420,g+26,160,12,0,0,TAU);ctx.strokeStyle='#d08a4a';ctx.lineWidth=3;ctx.stroke();
-  /* 塔架、機艙、輪轂、葉片 */
-  poly([405,g,410,hy+30,430,hy+30,435,g],'#dfe5e8','#394650',1.2);
-  rrp(330,hy-24,190,54,6);ctx.fillStyle='#c9d1d6';ctx.fill();ctx.strokeStyle='#394650';ctx.lineWidth=1.2;ctx.stroke();
-  poly([330,hy-18,hx+4,hy-6,hx,hy+4,hx+4,hy+14,330,hy+22],'#dfe5e8','#394650',1.2);
-  poly([hx-14,hy-8,hx+14,hy-8,hx+5,236,hx-5,236],'#f4f6f7','#394650',1.4);
-  poly([hx-12,hy+16,hx+12,hy+16,hx+4,g-40,hx-4,g-40],'rgba(244,246,247,.35)','rgba(57,70,80,.5)',1);
-  ctx.setLineDash([6,5]);ln([hx,244,hx,hy-10],'#d08a4a',2.5);ctx.setLineDash([]);
-  [[hx,240],[hx+9,300],[hx-9,350]].forEach(([x,y])=>circ(x,y,5,'#9aa3a8','#13232e',1.2));
-  /* 流動 */
-  const P=[hx,240,hx,hy-10,hx+10,hy+4,380,hy+4,420,hy+32,420,g,420,g+14];
-  const segs=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]],T0=[.03,.18,.38,.5,.62,.74];
-  let cur=-1;T0.forEach((t,i)=>{if(u>=t)cur=i;});
-  const L=[0,1,2,3,4,5,6].map(i=>[P[i*2],P[i*2+1]]);
-  const reach=[1,1,3,4,5,6];      // 每一步點亮到路徑的第幾點
-  if(cur>=0){const k=reach[cur];const Q=[];for(let i=0;i<=k;i++)Q.push(L[i][0],L[i][1]);alphaDo(.55,()=>ln(Q,'#f2c230',6));flow(Q,10,.8,'#f2c230',4);}
-  if(u>=.74){for(let i=0;i<3;i++){const k=((TT*.8+i/3)%1);alphaDo(1-k,()=>{ctx.beginPath();ctx.ellipse(420,g+26,160+k*120,12+k*20,0,0,Math.PI);ctx.strokeStyle='#f2c230';ctx.lineWidth=2;ctx.stroke();});}}
-  const BG=[[hx+26,238],[hx+26,320],[hx-26,hy+10],[452,hy+40],[452,590],[600,g+26]];
-  BG.forEach(([x,y],i)=>alphaDo(u>=T0[i]?1:.3,()=>{circ(x,y,15,i===cur?'#f2c230':i<cur?'#7dffc4':'#16384c','#13232e',1.5);wt(x,y+6,String(i+1),16,'#13232e',800,'center',COND);}));
-  /* 右：步驟 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'每一段怎麼過電',20,'#f2c230',700);
-  const ST=['接閃器：葉尖與葉身的金屬接收點','引下線：葉片內部的銅纜','變槳軸承：碳刷或火花間隙跨接','偏航軸承：滑動接點導到塔架','塔架：鋼管本身就是導體','接地網：把電流散入大地'];
-  ST.forEach((s,i)=>{const y=226+i*92,on=u>=T0[i];alphaDo(on?1:.35,()=>{
-   const c=i<cur?'#7dffc4':i===cur?'#f2c230':'rgba(227,236,238,.6)';
-   box(824,y,692,72,i===cur?'rgba(242,194,48,.12)':'rgba(255,255,255,.04)',c,i===cur?2.5:1);
-   circ(862,y+36,20,i<cur?'#7dffc4':'#16384c',c,2);wt(862,y+43,String(i+1),20,i<cur?'#13232e':c,800,'center',COND);
-   wt(900,y+43,s,19,'#fff',i===cur?700:600);});});
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'4 段鋼管塔（示例，輪轂 110 m）',20,'#f2c230',700);
+  const cx=210,K=4.4,DW=20;let y=764;
+  SECS.forEach(([L,d0,d1,t,m],i)=>{const a=seg(u,.04+i*.07,.1+i*.07);const h=L*K,yt=y-h,lift=(1-ease(a))*30;
+   if(a>0)alphaDo(a,()=>{const y0=y-lift,y1=yt-lift;
+    poly([cx-d0*DW/2,y0,cx-d1*DW/2,y1,cx+d1*DW/2,y1,cx+d0*DW/2,y0],'#e3e8ec','rgba(0,0,0,.4)',1);
+    poly([cx+d0*DW/2*.3,y0,cx+d1*DW/2*.3,y1,cx+d1*DW/2,y1,cx+d0*DW/2,y0],'rgba(0,0,0,.1)');
+    box(cx-d0*DW/2-5,y0-5,d0*DW+10,5,'#8a99a3');box(cx-d1*DW/2-5,y1,d1*DW+10,5,'#8a99a3');
+    const thk=t/45;box(cx+d0*DW/2+14,y0-h*.5-2,8+10*thk,4,STC[i]);
+    const ty=(y0+y1)/2;wt(330,ty-14,trf('第 {n} 段',{n:i+1}),19,STC[i],700);
+    wt(330,ty+12,trf('長 {l} m，直徑 {a}–{b} m',{l:L,a:d0.toFixed(1),b:d1.toFixed(1)}),16,'#fff',600);
+    alphaDo(seg(u,.28,.34),()=>wt(330,ty+36,trf('壁厚 {t} mm，約 {m} t',{t,m}),16,'rgba(227,236,238,.85)',600));});
+   y=yt-14;});
+  /* 右上：運輸 */
+  card(800,160,740,330,{bg:'rgba(7,27,39,.75)'});wt(824,200,'道路運輸的限制（示意）',20,'#f2c230',700);
+  ctx.save();rrp(802,214,736,274,12);ctx.clip();
+  const RY=440;box(802,RY,736,48,'#3a444b');ctx.setLineDash([24,18]);ln([802,RY+24,1538,RY+24],'rgba(255,255,255,.5)',2);ctx.setLineDash([]);
+  const BX=1180;box(BX-20,280,240,26,'#9aa3a8','rgba(0,0,0,.4)',1);box(BX,306,26,RY-306,'#7f888d');box(BX+180,306,26,RY-306,'#7f888d');
+  const tx=lerp(700,1640,seg(u,.5,.98)),D=110;
+  box(tx-260,RY-34,300,14,'#394650');for(const wx of [-240,-200,-60,-20,10])circ(tx+wx,RY-12,10,'#222');
+  box(tx+40,RY-70,70,50,'#e8572a','rgba(0,0,0,.4)',1);box(tx+90,RY-62,16,20,'#a8d8e8');circ(tx+60,RY-12,10,'#222');circ(tx+95,RY-12,10,'#222');
+  box(tx-270,RY-34-D,290,D,'#e3e8ec','rgba(0,0,0,.4)',1);box(tx-270,RY-34-D,290,D*.25,'rgba(0,0,0,.08)');
+  ctx.restore();
+  alphaDo(seg(u,.54,.6),()=>{ln([BX+232,306,BX+232,RY],'#f2c230',2);wt(BX+242,RY-60,'限高',17,'#f2c230',700);
+   tag(830,248,'塔筒直徑 ≈ 4.3 m',{size:16,bg:'#f2c230'});});
+  /* 右下：重點 */
+  card(800,510,740,290,{bg:'rgba(7,27,39,.75)'});wt(824,550,'分段的取捨',20,'#f2c230',700);
+  bullets(836,600,[['每段長約 20–35 m，單段重量約 100 t 以內','#fff'],['底部直徑受限高約束，約 4.3–4.5 m','#7dffc4'],['下段承受彎矩最大，壁厚最厚','#ff9d7a'],['4 段合計約 300 t（含法蘭）','#fff']],u,.3,.12,50);
  }},
 
-/* 3 ─────────────────────────────── 雷擊有多猛 */
-{t:'雷擊有多猛',en:'How violent is a strike',dur:14,
- d:'國際標準 IEC 61400-24 以雷擊防護等級描述設計要承受的雷電，風機一般採用最高的 LPL I：峰值電流 200 kA、單次雷擊電荷量 300 C、比能量 10 MJ/Ω。電流在約 10 微秒內衝到峰值，數百微秒後才衰減到一半。如果葉片沒有可靠的導電路徑，雷擊可能穿透外殼，在中空葉片內部的空氣中起弧，瞬間加熱的空氣形成壓力波，把葉殼從接縫撐裂，甚至讓葉尖爆開。接閃器與引下線的任務，就是讓電流在外部金屬中通過。',
- s:[[0,'防護等級 LPL I：峰值 200 kA'],[.3,'約 10 微秒衝到峰值，再慢慢衰減'],[.5,'沒有導電路徑：葉片內部起弧'],[.72,'有接閃器與引下線：電流走金屬']],
+/* 3 ─────────────────────────────── 法蘭與預力 */
+{t:'法蘭螺栓與預力',en:'Flange bolts and preload',dur:15,
+ d:'塔架各段之間靠法蘭接合：兩圈厚鋼環面對面，用一整圈高強度螺栓鎖緊，例如 M48、10.9 級的螺栓一圈上百支。關鍵不是「鎖住」，而是預力：每支螺栓被拉長約 1 公釐，產生約 1,030 kN 的夾緊力，把兩片法蘭壓成一體。風造成的拉力大多先由法蘭面的壓力抵消，螺栓本身的受力只小幅變化。一旦預力流失，法蘭面會在拉力下張開，外力直接落到螺栓上，應力變化放大好幾倍，螺栓就可能疲勞斷裂。',
+ s:[[0,'兩片法蘭面對面，用整圈高強度螺栓鎖緊'],[.24,'螺栓被拉長約 1 mm，產生約 1,030 kN 預力'],[.48,'風的拉力來回變化，螺栓受力幾乎不變'],[.72,'預力流失，法蘭張開，螺栓應力變化放大']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,700,420,{title:'雷擊電流波形 10/350 μs（示意）',x0:0,x1:800,y0:0,y1:220,xt:[0,200,400,600,800],yt:[0,100,200],xl:'時間 μs',yl:'電流 kA',pl:80,pt:80,pb:64,gx:4,gy:2});
-  const tc=800*seg(u,.04,.44);
-  if(tc>0){ctx.beginPath();for(let k=0;k<=200;k++){const t=tc*k/200;k?ctx.lineTo(C.X(t),C.Y(iw(t))):ctx.moveTo(C.X(t),C.Y(iw(t)));}ctx.strokeStyle='#f2c230';ctx.lineWidth=3.5;ctx.stroke();circ(C.X(tc),C.Y(iw(tc)),6,'#f2c230','#13232e',1.5);}
-  alphaDo(seg(u,.1,.14),()=>{tag(C.X(10)+16,C.Y(200)+4,'峰值 200 kA',{size:16,bg:'#f2c230'});});
-  alphaDo(seg(u,.3,.34),()=>{ctx.setLineDash([6,6]);ln([C.X(350),C.Y(100),C.X(350),C.py+C.ph],'#fff',1.5);ln([C.px,C.Y(100),C.X(350),C.Y(100)],'#fff',1.5);ctx.setLineDash([]);tag(C.X(350)+10,C.Y(100)-22,'350 μs 降到一半',{size:16,bg:'#7dffc4'});});
-  const PR=[['200 kA','峰值電流'],['300 C','電荷量'],['10 MJ/Ω','比能量']];
-  PR.forEach(([v,n],i)=>alphaDo(seg(u,.06+i*.06,.12+i*.06),()=>{const x=60+i*240;card(x,610,220,190,{bg:'rgba(7,27,39,.75)'});
-   wt(x+110,690,v,36,'#f2c230',700,'center',COND);wt(x+110,740,n,18,'rgba(227,236,238,.85)',600,'center');}));
-  wt(410,786,'IEC 61400-24　LPL I',15,'rgba(227,236,238,.55)',600,'center');
-  /* 右：葉片剖面比較 */
-  card(800,160,740,300,{bg:'rgba(7,27,39,.75)'});wt(824,200,'沒有導電路徑',20,'#ff9d7a',700);
-  const k=ease(seg(u,.55,.64)),cx=1170,cy=330,d=12*k;
-  ctx.save();ctx.beginPath();ctx.rect(800,160,740,cy-160);ctx.clip();ctx.translate(0,-d);airfoil(cx,cy,440,Math.PI,'#dfe5e8');ctx.restore();
-  ctx.save();ctx.beginPath();ctx.rect(800,cy,740,130);ctx.clip();ctx.translate(0,d);airfoil(cx,cy,440,Math.PI,'#dfe5e8');ctx.restore();
-  const af=flick(u,.48,.58)+(u>.58&&u<.66?.4:0);
-  if(u>=.46){bolt(boltPts(cx-40,210,cx-40,cy-22,3,5,30),flick(u,.46,.5),3);bolt(boltPts(cx-60,cy+2,cx+140,cy+2,7,9,26),af,2.5);}
-  if(k>0){alphaDo(k,()=>{[[-120,-1],[20,1],[160,-1]].forEach(([dx,s],i)=>{const r=rng(40+i);const x=cx+dx;ln([x,cy,x+10*s,cy-14*s,x+4*s,cy-26*s],'#e8572a',2.5);});});
-   alphaDo(k,()=>tag(cx,432,'葉殼沿接縫撐裂',{size:16,bg:'#e8572a',align:'center'}));}
-  card(800,490,740,310,{bg:'rgba(7,27,39,.75)'});wt(824,530,'有接閃器與引下線',20,'#7dffc4',700);
-  const cy2=660;airfoil(cx,cy2,440,Math.PI,'#dfe5e8');
-  circ(cx-30,cy2-10,9,'#d08a4a','#13232e',1.5);box(cx-36,cy2-50,12,34,'#9aa3a8','#13232e',1.2);
-  if(u>=.7){bolt(boltPts(cx-30,540,cx-30,cy2-50,13,5,30),flick(u,.7,.76),3);
-   const pa=band(u,.72,1);alphaDo(pa*(.5+.4*Math.sin(TT*10)),()=>circ(cx-30,cy2-10,16,'rgba(242,194,48,.5)'));
-   alphaDo(seg(u,.78,.84),()=>tag(cx,768,'電流沿引下線流走，葉片完好',{size:16,bg:'#7dffc4',align:'center'}));}
-  alphaDo(band(u,.7,1),()=>{wt(cx+90,cy2-58,'接閃器',16,'#fff',700);wt(cx+90,cy2+2,'引下線（剖面）',16,'#fff',700);
-   ln([cx+84,cy2-64,cx-22,cy2-40],'rgba(255,255,255,.6)',1);ln([cx+84,cy2-4,cx-20,cy2-10],'rgba(255,255,255,.6)',1);});
+  const pre=ease(seg(u,.18,.4)),loose=ease(seg(u,.72,.8)),P=FP*pre*(1-.5*loose);
+  const ext=u>.46?seg(u,.46,.52)*(450+250*Math.sin(TT*3)):0,Fb=boltF(ext,P),gap=pre>0?Math.max(0,ext-P/(1-PHI))*.035:0;
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'L 型法蘭接合（剖面示意）',20,'#f2c230',700);
+  const WX=520,FY=480,BX=400,st=pre*7;
+  /* 下法蘭與塔壁 */
+  box(290,FY,252,40,'#b9c0c4','rgba(0,0,0,.5)',1.5);box(WX,FY+40,22,120,'#b9c0c4','rgba(0,0,0,.5)',1.5);
+  /* 上法蘭與塔壁（張開時抬起） */
+  ctx.save();ctx.translate(WX+22,FY);ctx.rotate(-gap*.004);ctx.translate(-(WX+22),-FY-gap*.3);
+  box(290,FY-40,252,40,'#cfd6db','rgba(0,0,0,.5)',1.5);box(WX,FY-210,22,170,'#cfd6db','rgba(0,0,0,.5)',1.5);ctx.restore();
+  wt(WX-10,330,'塔壁',16,'rgba(227,236,238,.8)',600,'right');wt(300,FY-52,'法蘭',16,'rgba(227,236,238,.8)',600);
+  /* 螺栓 */
+  const bc=loose>.5&&u>.74?'#ff9d7a':(pre>.98?'#7dffc4':'#e9eef1');
+  box(BX-12,FY-62,24,164+st,bc,'rgba(0,0,0,.5)',1);
+  box(BX-30,FY-70,60,26,'#8a99a3','rgba(0,0,0,.5)',1.5);box(BX-34,FY-44,68,4,'#5b6a73');
+  box(BX-30,FY+44+st,60,28,'#8a99a3','rgba(0,0,0,.5)',1.5);box(BX-34,FY+40+st,68,4,'#5b6a73');
+  /* 夾緊力 */
+  alphaDo(pre*(1-loose*.6),()=>{const L=20+40*pre;arrow(BX-80,FY-40-L,BX-80,FY-44,'#7dffc4',3);arrow(BX-80,FY+40+L,BX-80,FY+44,'#7dffc4',3);
+   arrow(BX+80,FY-40-L,BX+80,FY-44,'#7dffc4',3);arrow(BX+80,FY+40+L,BX+80,FY+44,'#7dffc4',3);
+   wt(BX-96,FY-60-L,'夾緊力',16,'#7dffc4',700,'right');});
+  /* 外力 */
+  if(ext>0){const L=ext/14;arrow(WX+11,FY-210,WX+11,FY-210-L,'#ff9d7a',4);arrow(WX+11,FY+160,WX+11,FY+160+L*.6,'#ff9d7a',4);wt(WX+36,FY-200-L,'風造成的拉力',16,'#ff9d7a',700);}
+  alphaDo(loose*seg(u,.76,.8),()=>tag(300,FY+80,'法蘭張開',{size:15,bg:'#e8572a',fg:'#fff'}));
+  rowK(90,700,'螺栓預力',trf('{v} kN',{v:fmtK(P)}),'#7dffc4',640);rowK(90,746,'螺栓受力',trf('{v} kN',{v:fmtK(u>.46?Fb:P)}),bc==='#ff9d7a'?'#ff9d7a':'#f2c230',640);
+  /* 右上：受力圖 */
+  const C=chartBox(800,160,740,370,{title:'螺栓受力與外力（示例）',x0:0,x1:1200,y0:0,y1:1400,xt:[0,400,800,1200],yt:[0,500,1000],xl:'每支螺栓分擔的外力（kN）',yl:'kN',pl:76,pt:64,pb:58,gx:3,gy:4});
+  const curve=(p,col,g)=>{ctx.beginPath();for(let F=0;F<=1200*g;F+=10){const y=C.Y(boltF(F,p));F?ctx.lineTo(C.X(F),y):ctx.moveTo(C.X(F),y);}ctx.strokeStyle=col;ctx.lineWidth=3.5;ctx.stroke();};
+  alphaDo(seg(u,.46,.52),()=>{box(C.X(200),C.py,C.X(700)-C.X(200),C.ph,'rgba(255,157,122,.12)');wt((C.X(200)+C.X(700))/2,C.py+24,'運轉時的外力範圍',15,'#ff9d7a',700,'center');});
+  curve(FP,'#7dffc4',ease(seg(u,.06,.24)));alphaDo(seg(u,.2,.26),()=>wt(C.X(60),C.Y(FP)-14,'預力完整',16,'#7dffc4',700));
+  curve(FP*.5,'#ff9d7a',ease(seg(u,.72,.84)));alphaDo(seg(u,.8,.86),()=>wt(C.X(60),C.Y(FP*.5)-14,'預力剩一半',16,'#ff9d7a',700));
+  if(u>.5){circ(C.X(ext),C.Y(boltF(ext,FP)),7,'#7dffc4','#13232e',2);}
+  if(loose>0)alphaDo(loose,()=>circ(C.X(ext),C.Y(boltF(ext,FP*.5)),7,'#ff9d7a','#13232e',2));
+  /* 右下：重點 */
+  card(800,550,740,250,{bg:'rgba(7,27,39,.75)'});wt(824,590,'預力的原理',20,'#f2c230',700);
+  bullets(836,636,[['常用 M48、10.9 級高強度螺栓（示例）','#fff'],['預力 = 0.7 × 抗拉強度 × 應力面積 ≈ 1,030 kN','#7dffc4'],['預力完整：外力多由法蘭面承擔','#fff'],['預力流失：應力變化放大，螺栓疲勞','#ff9d7a']],u,.3,.14,44);
  }},
 
-/* 4 ─────────────────────────────── 接地與突波保護 */
-{t:'接地與突波保護',en:'Earthing and surge protection',dur:14,side:true,
- d:'雷電流最後要散入大地。風機基礎的鋼筋與埋在基礎外圍的環形接地極連成一體，土壤電阻率高的地方再打入接地棒，設計上常以接地電阻 10 Ω 以下為目標，完工後實際量測確認。電流進入土壤時會形成電位梯度，人站在附近，兩腳之間可能出現跨步電壓，環形接地極能讓地表電位較平均。雷擊也會在電纜上感應出突波，所以塔底控制櫃的電源與通訊線路都裝有突波保護器（SPD），並把所有金屬做等電位連接。',
- s:[[0,'基礎鋼筋、環形接地極與接地棒連成一體'],[.3,'雷電流進入土壤，向四周擴散'],[.48,'地表電位梯度可能形成跨步電壓'],[.66,'控制櫃線路裝突波保護器（SPD）'],[.84,'完工量測接地電阻，確認達到設計值']],
- cam:u=>({x:TX+110,y:560,s:1.6}),
+/* 4 ─────────────────────────────── 混凝土混合塔 */
+{t:'更高的塔：混凝土混合塔',en:'Taller towers: concrete–steel hybrids',dur:14,side:true,
+ d:'風速隨高度增加，輪轂越高，發電量通常越多。但鋼管塔受限於運輸直徑，要再加高就得把壁厚加到不合理。混凝土混合塔的做法是：下段用預鑄混凝土環片一圈圈疊起，直徑可以放大，再以貫穿塔身的後拉預力鋼腱，把環片緊緊壓在基礎上；上段再接回一般的鋼管塔。國際上已有輪轂高度約 160 公尺的混合塔運轉中，混凝土也讓塔架更重、更剛，自然頻率的調整空間更大。',
+ s:[[0,'下段用預鑄混凝土環片，一圈圈疊上去'],[.36,'預力鋼腱貫穿塔身，把環片壓在基礎上'],[.56,'轉接段之上，再接回鋼管塔'],[.8,'同一台風機，輪轂從 110 m 拉高到約 160 m']],
  draw(u){
-  const g=gyy(TX);
-  turbineSide(TT*.4);baseCab();
-  earthing(1);
-  /* 雷電流 */
-  const pa=band(u,.28,.6);
-  if(pa>0){const P=[TX,280,TX,g,TX,g+64];alphaDo(pa*.5,()=>ln(P,'#f2c230',6));alphaDo(pa,()=>flow(P,8,.9,'#f2c230',4));
-   ctx.save();ctx.beginPath();ctx.rect(VX0,g+2,VX1-VX0,600);ctx.clip();
-   for(let i=0;i<4;i++){const k=((TT*.6+i/4)%1),rx=240+k*420;alphaDo(pa*(1-k)*.9,()=>{ctx.beginPath();ctx.ellipse(TX,g+64,rx,rx*.42,0,0,TAU);ctx.strokeStyle='#f2c230';ctx.lineWidth=2.5;ctx.stroke();});}
-   ctx.restore();}
-  /* 跨步電壓 */
-  const px=1010,ps=band(u,.44,.66);person(px,gyy(px),'#e8572a',2.4);
-  if(ps>0)alphaDo(ps,()=>{circ(px-3,gyy(px)+2,4,'#ff9d7a');circ(px+3,gyy(px)+2,4,'#f2c230');});
-  /* SPD 指示燈 */
-  const sp=band(u,.64,.84);if(sp>0)alphaDo(sp*(.6+.4*Math.sin(TT*9)),()=>circ(TX+75,g-24,10,'rgba(125,255,196,.55)'));
-  lab(TX-230,g+64,'環形接地極',{dx:-40,dy:-80,st:'s',a:band(u,.02,.3)});
-  lab(TX+230,g+170,'接地棒',{dx:90,dy:30,st:'s',a:band(u,.06,.3)});
-  lab(TX-100,g+118,'基礎鋼筋',{dx:-60,dy:60,st:'l',a:band(u,.1,.3)});
-  lab(TX+420,g+120,'電流向四周擴散',{dx:60,dy:40,st:'s',a:band(u,.3,.5)});
-  lab(px,gyy(px)-10,'跨步電壓',{dx:40,dy:-90,st:'w',a:band(u,.46,.66)});
-  lab(TX+75,g-24,'突波保護器（SPD）',{dx:110,dy:-90,st:'g',a:band(u,.66,.9)});
-  lab(TX+40,g-6,'等電位連接',{dx:-40,dy:-150,st:'g',a:band(u,.7,.9)});
+  const PX=2.6,XS=430,XH=1000,G1=gyy(XS),G2=gyy(XH),rot=TT*1.0+.3;
+  windLines(120,560,8,150,.45,7,50);
+  /* 鋼管塔 110 m */
+  const T1=sTower(XS,G1,107*PX,24,14,SECF);nacRotor(XS,T1.top-4,156,rot+.6);
+  /* 混合塔 */
+  const NR=10,RH=10*PX,hwC=k=>lerp(30,17,k/NR),kr=seg(u,.04,.48)*NR,nd=Math.floor(kr),fr=kr-nd;
+  for(let i=0;i<Math.min(NR,nd+1);i++){let y0=G2-i*RH;if(i===nd){if(nd>=NR)break;y0-=(1-ease(fr))*120;}
+   const a=hwC(i),b=hwC(i+1);poly([XH-a,y0,XH-b,y0-RH,XH+b,y0-RH,XH+a,y0],'#b9bfc2','rgba(0,0,0,.35)',1);
+   poly([XH+a*.35,y0,XH+b*.35,y0-RH,XH+b,y0-RH,XH+a,y0],'rgba(0,0,0,.08)');}
+  const CT=G2-NR*RH;
+  /* 預力鋼腱 */
+  const tg=ease(seg(u,.5,.58));if(tg>0){[-.55,.55].forEach(s=>{ctx.setLineDash([8,6]);ln([XH+s*30,G2,lerp(XH+s*30,XH+s*17,tg),lerp(G2,CT,tg)],'#f2c230',2.5);ctx.setLineDash([]);});}
+  /* 轉接段與上段鋼管 */
+  const ad=seg(u,.56,.6);if(ad>0)alphaDo(ad,()=>box(XH-19,CT-8,38,8,'#8a99a3','rgba(0,0,0,.4)',1));
+  const SH=[29*PX,29*PX];let sy=CT-8,hook=null;
+  SH.forEach((h,i)=>{const g=seg(u,.6+i*.07,.66+i*.07);if(g<=0)return;const dy=(1-ease(g))*90,w0=lerp(13,10,i/2),w1=lerp(10,7,(i+1)/2);
+   poly([XH-w0,sy-dy,XH-w1,sy-h-dy,XH+w1,sy-h-dy,XH+w0,sy-dy],'#eef2f4','rgba(0,0,0,.3)',1);ln([XH-w0,sy-dy,XH+w0,sy-dy],'#8a99a3',2.5);
+   if(g<1)hook={x:XH,y:sy-h-dy};sy-=h;});
+  const HY=sy-4,na=seg(u,.74,.8);if(na>0)alphaDo(na,()=>nacRotor(XH,HY,156,u>.8?rot:-.1));
+  /* 吊機 */
+  if(!hook&&u<.5&&nd<NR)hook={x:XH,y:G2-nd*RH-(1-ease(fr))*120-RH};
+  const ca=1-seg(u,.74,.8);if(ca>0)alphaDo(ca,()=>{box(XH+150,G2-26,90,20,'#e9b21f','rgba(0,0,0,.4)',1);box(XH+130,G2-10,130,10,'#394650');
+   const h=hook||{x:XH,y:HY-30};crane(XH+180,G2-28,560,h.x,h.y,{col:'#e9b21f'});});
+  /* 標註 */
+  lab(XH+hwC(4),G2-4*RH,'預鑄混凝土環片',{dx:150,dy:20,st:'l',a:band(u,.1,.48)});
+  lab(XH+10,G2-6*RH,'後拉預力鋼腱',{dx:160,dy:10,st:'s',a:band(u,.52,.74)});
+  lab(XH+19,CT-4,'轉接段',{dx:150,dy:-10,a:band(u,.58,.78)});
+  lab(XH-10,CT-60,'上段鋼管塔',{dx:-150,dy:-20,a:band(u,.66,.82)});
+  /* 高度比較 */
+  alphaDo(seg(u,.82,.88),()=>{ctx.setLineDash([6,6]);ln([XS-200,T1.top-4,XH+60,T1.top-4],'rgba(255,255,255,.6)',1.5);ln([XS-200,HY,XH+60,HY],'rgba(242,194,48,.8)',1.5);ctx.setLineDash([]);
+   wt(XS-210,T1.top+2,'110 m',20,'#fff',700,'right',COND);wt(XS-210,HY+6,'約 160 m',20,'#f2c230',700,'right',COND);});
+  alphaDo(seg(u,.8,.86),()=>{tag(XS,G1+46,'鋼管塔',{size:16,bg:'rgba(7,27,39,.85)',fg:'#fff',align:'center'});tag(XH,G2+46,'混凝土混合塔',{size:16,bg:'rgba(7,27,39,.85)',fg:'#f2c230',align:'center'});});
  },
- hud(u){hudPanel(250,182,'接地與保護（示例）',seg(u,.03,.08),w=>{
-  hrow(56,'設計目標','≤ 10 Ω',w,'#fff');
-  hrow(88,'量測接地電阻',u<.84?'—':trf('{n} Ω',{n:(lerp(9,4.6,ease(seg(u,.84,.94)))).toFixed(1)}),w,'#7dffc4');
-  hrow(120,'雷電流',u<.28||u>.62?'—':trf('{n} kA',{n:(34*Math.exp(-seg(u,.3,.62)*3)).toFixed(0)}),w,'#f2c230');
-  hrow(152,'SPD 狀態',u<.64?'待命':u<.8?'動作，洩放突波':'正常',w,u<.64?'#fff':u<.8?'#ff9d7a':'#7dffc4');});}},
+ hud(u){hudPanel(250,150,'混合塔（示例）',seg(u,.06,.12),w=>{
+  hrow(56,'混凝土段','0–100 m',w,'#fff');hrow(88,'鋼管段','100–158 m',w,'#7dffc4');hrow(120,'輪轂高度','≈ 160 m',w,'#f2c230');});}},
 
-/* 5 ─────────────────────────────── 前緣侵蝕 */
-{t:'葉片前緣侵蝕',en:'Leading-edge erosion',dur:14,
- d:'葉片的前緣是轉動時最先切開空氣的部位。以轉子半徑 60 m、每分鐘 15 轉為例，葉尖速度約 94 m/s，雨滴、冰雹與沙塵以這樣的速度反覆撞擊，數年後塗層出現麻點、剝落，嚴重時露出底下的玻璃纖維層板。前緣變粗糙後，氣流提早轉為紊流，升力下降、阻力上升，研究顯示年發電量可能因此減少數個百分點。常見的前緣保護（LEP）有彈性塗層、保護膠帶與預製護殼，巡檢時一併檢查修補。',
- s:[[0,'葉尖速度可達每秒 90 多公尺'],[.25,'雨滴與沙塵反覆撞擊葉片前緣'],[.45,'塗層麻點、剝落，最後露出層板'],[.72,'前緣保護：塗層、膠帶或護殼']],
+/* 5 ─────────────────────────────── 1P 與 3P */
+{t:'避開 1P 與 3P：塔架的共振',en:'Avoiding 1P and 3P: tower resonance',dur:15,
+ d:'塔架像一根插在地上的長竿，有自己的自然頻率。轉子每轉一圈，質量或氣動的些微不平衡就推塔架一次，稱為 1P；三支葉片每掠過塔前一次，塔架就受到一次擾動，頻率是 3P。以轉速每分鐘 7–13 轉為例，1P 約 0.12–0.22 Hz，3P 約 0.35–0.65 Hz。若塔架的自然頻率落在這兩個頻帶裡，就會共振，擺幅放大、疲勞加速。大多數風機採「軟－剛」設計，讓頻率夾在兩者之間，並各留約 10% 的餘裕。',
+ s:[[0,'轉一圈推塔一次是 1P，葉片掠過塔前三次是 3P'],[.26,'轉速 7–13 rpm，1P 與 3P 各成一個頻帶'],[.5,'自然頻率落進頻帶，擺幅放大，形成共振'],[.76,'軟－剛設計：夾在兩個頻帶之間，各留 10% 餘裕']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'前緣的特寫（示意）',20,'#f2c230',700);
-  const yr=10*seg(u,.26,.66),cx=520,cy=400;
-  ctx.save();ctx.beginPath();ctx.rect(62,220,696,380);ctx.clip();
-  airfoil(cx,cy,760,Math.PI,'#dfe5e8');
-  /* 塗層 */
-  const r=rng(8),LEx=cx-380;
-  ctx.beginPath();ctx.ellipse(LEx+56,cy-8,62,58,0,Math.PI*.5,Math.PI*1.5);ctx.strokeStyle='#7dc8dc';ctx.lineWidth=7;ctx.stroke();
-  const np=Math.round(yr*9);for(let i=0;i<np;i++){const a=Math.PI*.62+r()*Math.PI*.76,rr=58+r()*4,x=LEx+56+Math.cos(a)*rr,y=cy-8+Math.sin(a)*rr*.95;circ(x,y,2+r()*2.5+(yr>5?1.5:0),yr>8&&i%3===0?'#b89a6a':'#5b6b74');}
-  if(yr>8)alphaDo(seg(yr,8,10),()=>{ctx.beginPath();ctx.ellipse(LEx+56,cy-8,62,58,0,Math.PI*.85,Math.PI*1.15);ctx.strokeStyle='#c9b088';ctx.lineWidth=9;ctx.stroke();});
-  /* 雨滴 */
-  for(let i=0;i<22;i++){const y=250+((i*37)%320),x=62+((TT*900+i*97)%(LEx-62+30));if(Math.abs(y-cy)<150||x<LEx-20)ln([x-22,y,x,y],'rgba(125,200,220,.85)',2);}
-  ctx.restore();
-  wt(96,580,trf('運轉第 {n} 年',{n:yr.toFixed(0)}),22,'#fff',700,'left',COND);
-  alphaDo(band(u,.05,.3),()=>tag(150,262,'雨滴高速撞擊',{size:16,bg:'#7dc8dc'}));
-  const SG=[['塗層麻點',2],['塗層剝落',5],['層板外露',8]];
-  SG.forEach(([n,t],i)=>{const on=yr>=t,x=84+i*222;alphaDo(on?1:.35,()=>{box(x,630,206,120,on?'rgba(232,87,42,.12)':'rgba(255,255,255,.04)',on?'#ff9d7a':'rgba(227,236,238,.4)',on?2:1);
-   wt(x+103,676,String(i+1),24,on?'#ff9d7a':'rgba(227,236,238,.6)',800,'center',COND);wt(x+103,720,n,18,'#fff',700,'center');});});
-  /* 右：沿葉展的速度 */
-  const C=chartBox(800,160,740,360,{title:'沿葉片的相對速度（示例）',x0:0,x1:60,y0:0,y1:100,xt:[0,20,40,60],yt:[0,50,100],xl:'離輪轂距離 m',yl:'速度 m/s',pl:80,pt:80,pb:64,gx:3,gy:2});
-  const rr=60*seg(u,.02,.22),vf=r=>r*TAU*RMAX/60;
-  if(rr>0){ln([C.X(0),C.Y(0),C.X(rr),C.Y(vf(rr))],'#f2c230',3.5);circ(C.X(rr),C.Y(vf(rr)),7,'#f2c230','#13232e',1.5);
-   wt(C.X(rr)-12,C.Y(vf(rr))-16,trf('{n} m/s',{n:vf(rr).toFixed(0)}),20,'#fff',700,'right',COND);}
-  alphaDo(seg(u,.22,.26),()=>tag(C.X(60)-10,C.Y(30),'葉尖最容易侵蝕',{size:16,bg:'#e8572a',align:'right'}));
-  card(800,550,740,250,{bg:'rgba(7,27,39,.75)'});wt(824,590,'前緣保護（LEP）',20,'#7dffc4',700);
-  const LP=[['保護塗層','彈性塗料，可現場修補'],['保護膠帶','貼覆彈性膜，施工快'],['前緣護殼','預製硬殼，耐久性高']];
-  LP.forEach(([n,s],i)=>alphaDo(seg(u,.72+i*.07,.77+i*.07),()=>{const x=824+i*236;box(x,612,220,110,'rgba(125,255,196,.08)','#7dffc4',1.5);
-   wt(x+110,654,n,19,'#7dffc4',700,'center');wt(x+110,694,s,15,'#fff',600,'center');}));
-  alphaDo(seg(u,.5,.55),()=>wt(1170,770,'前緣變粗糙：年發電量可能少數個百分點',17,'#ff9d7a',700,'center'));
+  const fm=kf(u,[[0,.28],[.5,.28],[.54,.17],[.6,.17],[.66,.47],[.72,.47],[.8,.28],[1,.28]]).x;
+  const show=seg(u,.5,.54),inB=(fm>=P1[0]&&fm<=P1[1])||(fm>=P3[0]&&fm<=P3[1]),res=show*(inB?1:0);
+  /* 左：塔架擺動 */
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'塔架的擺動（示意）',20,'#f2c230',700);
+  const BX=410,BY=640,H=300,rot=TT*1.4,A=lerp(4,30,res),sw=Math.sin(TT*TAU*.7)*A;
+  box(BX-60,BY,120,14,'#9aa3a8');
+  const P=[];for(let k=0;k<=12;k++){const z=k/12;P.push([BX+sw*z*z,BY-H*z,lerp(16,9,z)]);}
+  ctx.beginPath();P.forEach(([x,y,w],i)=>i?ctx.lineTo(x-w,y):ctx.moveTo(x-w,y));for(let i=P.length-1;i>=0;i--)ctx.lineTo(P[i][0]+P[i][2],P[i][1]);
+  ctx.closePath();ctx.fillStyle=res>.5?'#ffd2c2':'#eef2f4';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1;ctx.stroke();
+  const hx=BX+sw,hy=BY-H-10;
+  /* 葉片掠過塔前：3P 閃光 */
+  const bp=((rot%(TAU/3))+TAU/3)%(TAU/3),fl=Math.max(0,1-Math.min(bp,TAU/3-bp)/.35);
+  alphaDo(fl*seg(u,.04,.1),()=>{ring(hx,hy+70,22,'#f2c230',4);});
+  nacRotor(hx,hy,130,rot);
+  alphaDo(seg(u,.04,.1),()=>{const a=rot-Math.PI/2;circ(hx+Math.cos(a)*100,hy+Math.sin(a)*100,8,'#ff9d7a','#13232e',2);});
+  rowK(90,706,'1P：轉一圈一次','0.12–0.22 Hz',STC[0],640);rowK(90,750,'3P：葉片掠過塔前','0.35–0.65 Hz',STC[1],640);
+  alphaDo(res,()=>tag(BX+60,BY-H+40,'共振',{size:18,bg:'#e8572a',fg:'#fff'}));
+  /* 右上：頻率圖 */
+  const C=chartBox(800,160,740,350,{title:'激振頻帶與塔架自然頻率（示例）',x0:0,x1:.8,y0:0,y1:1,xt:[0,.2,.4,.6,.8],yt:[],xl:'頻率（Hz）',pl:40,pt:64,pb:58,gx:4,gy:0});
+  const bandB=(a,b,col,g)=>{if(g>0)alphaDo(g,()=>box(C.X(a),C.py,C.X(b)-C.X(a),C.ph,col));};
+  const g1=seg(u,.26,.34),g2=seg(u,.32,.4);
+  bandB(P1[0],P1[1],'rgba(232,87,42,.35)',g1);bandB(P3[0],P3[1],'rgba(242,194,48,.3)',g2);
+  alphaDo(g1,()=>wt(C.X((P1[0]+P1[1])/2),C.py+30,'1P',22,'#ff9d7a',700,'center',COND));
+  alphaDo(g2,()=>wt(C.X((P3[0]+P3[1])/2),C.py+30,'3P',22,'#f2c230',700,'center',COND));
+  const gw=seg(u,.76,.82);bandB(P1[1],WIN[0],'rgba(255,255,255,.1)',gw);bandB(WIN[1],P3[0],'rgba(255,255,255,.1)',gw);
+  bandB(WIN[0],WIN[1],'rgba(125,255,196,.3)',gw);
+  alphaDo(gw,()=>{wt(C.X((WIN[0]+WIN[1])/2),C.py+C.ph-46,'軟－剛',18,'#7dffc4',700,'center');wt(C.X((WIN[0]+WIN[1])/2),C.py+C.ph-22,'10% 餘裕',14,'rgba(227,236,238,.85)',600,'center');});
+  if(show>0)alphaDo(show,()=>{const x=C.X(fm);ln([x,C.py+50,x,C.py+C.ph-62],inB?'#e8572a':'#7dffc4',3);
+   tag(x+8,C.py+C.ph*.48,trf('塔架 f₁ = {f} Hz',{f:fm.toFixed(2)}),{size:15,bg:inB?'#e8572a':'#7dffc4',fg:inB?'#fff':'#13232e'});});
+  /* 右下：設計區間 */
+  card(800,530,740,270,{bg:'rgba(7,27,39,.75)'});wt(824,570,'三種設計區間',20,'#f2c230',700);
+  bullets(836,616,[['軟－軟：低於 1P，塔輕但易受擾動','#ff9d7a'],['軟－剛：介於 1P 與 3P 之間，最常見','#7dffc4'],['剛－剛：高於 3P，塔又粗又重','#ff9d7a'],['塔越高頻率越低，可設定跳過特定轉速','#fff']],u,.3,.12,46);
  }},
 
-/* 6 ─────────────────────────────── 冬季雷與鹽害 */
-{t:'冬季雷與沿海鹽害',en:'Winter lightning and salt',dur:13,
- d:'環境不同，防護重點也不同。日本海沿岸冬季的雷雲低，風機葉尖常自己向上引發上行雷，電荷量特別大；日本 NEDO 在 27 部風機的觀測中，約 4% 的雷擊超過 300 C，接閃器因此要更耐燒蝕。台灣的雷擊則多集中在夏季午後雷陣雨與梅雨季。台灣西部沿海的風機另有鹽害問題：東北季風把海上的鹽霧吹上岸，塔架與機艙需要高防蝕等級的塗裝、機艙密封與除濕，並定期以無人機或繩索作業檢查接閃器與前緣。',
- s:[[0,'日本海沿岸冬季雷雲低，常見上行雷'],[.3,'上行雷電荷量大，接閃器容易燒蝕'],[.52,'台灣沿海：東北季風帶來鹽霧'],[.76,'防蝕塗裝、機艙除濕與定期巡檢']],
+/* 6 ─────────────────────────────── 預力施作與檢查 */
+{t:'預力怎麼上、怎麼查',en:'Applying and checking preload',dur:14,side:true,
+ d:'大直徑的塔架螺栓多用液壓拉伸器施作：拉伸器套在螺栓末端，以油壓把螺栓直接拉長，再把螺帽轉緊、洩壓，預力就留在螺栓裡，比單純施加扭力更準確。驗收或檢查時，可用超音波量測螺栓長度：音波在螺栓兩端來回的時間，會隨伸長而變長，換算出約 1.1 公釐的伸長即對應設計預力。風機運轉初期約 500 小時要全數複查，之後每年抽檢約 10%，也就是第 16 集年度定檢裡的螺栓工作。',
+ s:[[0,'液壓拉伸器套上螺栓，以油壓直接拉長'],[.28,'拉到設計值後轉緊螺帽、洩壓，預力留在螺栓裡'],[.52,'超音波量測回波時間，換算螺栓伸長量'],[.76,'運轉初期全數複查，之後每年抽檢約一成']],
  draw(u){
-  diagBG();
-  /* 左：冬季雷 */
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'冬季雷（日本海沿岸）',20,'#f2c230',700);
-  ctx.save();ctx.beginPath();ctx.rect(62,220,696,380);ctx.clip();
-  box(62,220,696,380,'#1d2b36');
-  const r=rng(6);for(let i=0;i<10;i++)circ(80+r()*660,250+r()*40,40+r()*40,'#34424e');
-  const g1=560;box(62,g1,696,40,'#dfe5e8');
-  for(let i=0;i<50;i++){const x=62+((r()*700+TT*14)%700),y=240+((r()*360+TT*40)%360);circ(x,y,1.8,'rgba(255,255,255,.7)');}
-  const top=miniT(410,g1,190,110,TT*.8);
-  const lk=seg(u,.06,.28),sb=[];
-  if(lk>0){const P=boltPts(top[0],top[1],top[0]+30,lerp(top[1],290,lk),15,8,40);bolt(P,u<.3?.8:flick(u,.3,.5),2.5);
-   [[-60,.4],[70,.6]].forEach(([dx,f],i)=>{if(lk>f){const q=along(P,f*.9);bolt(boltPts(q[0],q[1],q[0]+dx,q[1]-80*(lk-f),20+i,5,20),u<.3?.6:flick(u,.3,.5),1.6);}});}
-  ctx.restore();
-  lab(top[0],top[1],'葉尖引發上行雷',{dx:120,dy:30,st:'s',a:band(u,.1,.5)});
-  const LR=[['上行雷多、電荷量大','#f2c230',.28],['NEDO 觀測：約 4% 超過 300 C','#f2c230',.36],['台灣雷擊多在夏季午後雷陣雨','#7dc8dc',.44]];
-  LR.forEach(([s,c,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=624+i*56;box(84,y,652,46,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);box(84,y,6,46,c);wt(104,y+30,s,17,'#fff',600);}));
-  /* 右：鹽害 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'沿海鹽害（台灣西部海岸）',20,'#f2c230',700);
-  ctx.save();ctx.beginPath();ctx.rect(802,220,736,380);ctx.clip();
-  box(802,220,736,380,'#6f9fbf');
-  const g2=560;
-  ctx.beginPath();ctx.moveTo(802,g2);for(let x=802;x<=1100;x+=6)ctx.lineTo(x,g2+4*Math.sin(x*.05+TT*2));ctx.lineTo(1100,600);ctx.lineTo(802,600);ctx.closePath();ctx.fillStyle='#1f7f99';ctx.fill();
-  poly([1100,g2,1180,g2-6,1538,g2-6,1538,600,1100,600],'#d8c79c');
-  const sa=seg(u,.46,.54);
-  for(let i=0;i<60;i++){const ph=(r()+TT*.18)%1,x=820+ph*680,y=g2-20-r()*260+Math.sin(TT+i)*8;alphaDo(sa*(1-ph*.5)*.9,()=>circ(x,y,2.2,'#ffffff'));}
-  miniT(1360,g2-6,190,110,TT*1.4);
-  if(sa>0)alphaDo(sa,()=>{for(let i=0;i<3;i++){const y=300+i*60,x=860+((TT*80+i*60)%120);arrow(x,y,x+90,y,'rgba(255,255,255,.85)',2.5);}});
-  ctx.restore();
-  alphaDo(band(u,.5,.8),()=>tag(900,260,'東北季風挾帶鹽霧',{size:16,bg:'#fff'}));
-  const MR=[['高防蝕等級塗裝（如 ISO 12944 C5）',.62],['機艙密封、正壓與除濕',.7],['無人機巡檢接閃器與前緣',.78]];
-  MR.forEach(([s,t],i)=>alphaDo(seg(u,t,t+.05),()=>{const y=624+i*56;box(824,y,692,46,'rgba(125,255,196,.06)','rgba(125,255,196,.4)',1);box(824,y,6,46,'#7dffc4');wt(844,y+30,s,17,'#fff',600);}));
- }}
+  const G=gyy(750),L0=560,R0=950,W=26;
+  /* 基礎 */
+  box(460,G,600,320,'#a9b0b4','rgba(0,0,0,.35)',1.5);box(460,G,600,6,'#8a9196');
+  /* 塔壁剖面與內部 */
+  const TY=170;box(L0+W,TY,R0-L0-2*W,G-TY,'#26343d');
+  box(L0,TY,W,G-24-TY,'#cfd6db','rgba(0,0,0,.4)',1);box(R0-W,TY,W,G-24-TY,'#cfd6db','rgba(0,0,0,.4)',1);
+  {const zz=[];for(let x=L0;x<=R0;x+=26)zz.push(x,TY-((x-L0)/26%2?8:0));ln(zz,'rgba(227,236,238,.7)',2);}
+  for(let y=G-60;y>TY;y-=46)ln([R0-W-46,y,R0-W-14,y],'#8a99a3',3);ln([R0-W-46,G,R0-W-46,TY],'#8a99a3',3);ln([R0-W-14,G,R0-W-14,TY],'#8a99a3',3);
+  /* T 型底法蘭與錨栓 */
+  const bolts=[];[[L0,1],[R0-W,-1]].forEach(([x])=>{box(x-70,G-24,W+140,24,'#b9c0c4','rgba(0,0,0,.5)',1.5);
+   [x-40,x+W+40].forEach(bx=>{bolts.push(bx);ctx.setLineDash([10,6]);ln([bx,G,bx,G+250],'rgba(60,70,75,.7)',10);ctx.setLineDash([]);
+    box(bx-5,G-58,10,36,'#e9eef1','rgba(0,0,0,.5)',1);box(bx-16,G-40,32,16,'#8a99a3','rgba(0,0,0,.5)',1);});});
+  ln([430,G+250,1080,G+250],'rgba(60,70,75,.5)',6);
+  const B=bolts[1];
+  /* 拉伸器與油壓泵 */
+  const ta=1-seg(u,.46,.52),pre=ease(seg(u,.08,.3)),st=pre*4;
+  if(ta>0)alphaDo(ta,()=>{box(B-24,G-110-st,48,70,'#e9b21f','rgba(0,0,0,.5)',1.5);box(B-28,G-118-st,56,10,'#c99a1a');
+   ctx.beginPath();ctx.moveTo(B+24,G-90-st);ctx.bezierCurveTo(B+120,G-90,B+60,G-30,720,G-30);ctx.strokeStyle='#222';ctx.lineWidth=4;ctx.stroke();
+   box(700,G-50,70,44,'#e8572a','rgba(0,0,0,.4)',1);box(712,G-42,30,14,'#a8d8e8');});
+  /* 超音波探頭與量測儀 */
+  const ua=seg(u,.5,.56);if(ua>0)alphaDo(ua,()=>{box(B-8,G-72,16,14,'#7dffc4','rgba(0,0,0,.5)',1);
+   ctx.beginPath();ctx.moveTo(B,G-72);ctx.bezierCurveTo(B,G-160,760,G-200,800,G-150);ctx.strokeStyle='#222';ctx.lineWidth=3;ctx.stroke();
+   box(788,G-150,40,30,'#394650','rgba(0,0,0,.5)',1);box(792,G-146,32,18,'#7dffc4');});
+  person(820,G,'#e8572a',9);
+  if(pre>0&&ta>0)alphaDo(seg(u,.08,.12)*ta,()=>{const p=bolts[1];ln([p,G-56,p,G+100],'#7dffc4',3);});
+  lab(B,G-110,'液壓拉伸器',{dx:-60,dy:-80,st:'s',a:band(u,.04,.46)});
+  lab(735,G-40,'油壓泵',{dx:-20,dy:-150,a:band(u,.1,.46)});
+  lab(L0-40,G+120,'基礎錨栓',{dx:-120,dy:20,st:'l',a:band(u,.04,.4)});
+  lab(B,G-66,'超音波探頭',{dx:-40,dy:-90,st:'g',a:band(u,.54,.8)});
+  /* 右：超音波與檢查時程 */
+  const cA=seg(u,.52,.58);if(cA>0)alphaDo(cA,()=>{card(990,330,550,260,{bg:'rgba(7,27,39,.88)'});wt(1010,368,'超音波量測螺栓伸長（示意）',19,'#f2c230',700);
+   const x0=1010,x1=1520,y0=490;ln([x0,y0,x1,y0],'rgba(255,255,255,.3)',1);
+   const pulse=(x,col,a)=>{ctx.beginPath();for(let k=-30;k<=30;k++){const y=y0-a*Math.exp(-k*k/90)*Math.cos(k*.9);k>-30?ctx.lineTo(x+k,y):ctx.moveTo(x+k,y);}ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.stroke();};
+   pulse(x0+40,'#7dc8dc',50);const e0=1360,e1=e0+36*ease(seg(u,.6,.7));
+   alphaDo(.6,()=>pulse(e0,'rgba(227,236,238,.6)',34));pulse(e1,'#7dffc4',34);
+   wt(x0+40,y0+40,'發射',15,'#7dc8dc',700,'center');wt(e0-6,y0-52,'鎖緊前',14,'rgba(227,236,238,.85)',600,'right');wt(e1+34,y0-52,'鎖緊後',14,'#7dffc4',700);
+   wt(1010,566,trf('伸長 {d} mm → 預力 {p} kN',{d:(1.1*ease(seg(u,.6,.7))).toFixed(2),p:fmtK(FP*ease(seg(u,.6,.7)))}),18,'#fff',700);});
+  const cB=seg(u,.74,.8);if(cB>0)alphaDo(cB,()=>{card(990,610,550,190,{bg:'rgba(7,27,39,.88)'});wt(1010,648,'檢查時程（示例）',19,'#f2c230',700);
+   [['安裝時','全數拉伸至設計預力','#fff'],['約 500 小時','全數複查','#7dffc4'],['之後每年','抽檢約 10%（第 16 集）','#f2c230']].forEach(([a,b,col],i)=>alphaDo(seg(u,.78+i*.05,.82+i*.05),()=>{
+    wt(1010,690+i*36,a,17,'rgba(227,236,238,.85)',600);wt(1516,690+i*36,b,17,col,700,'right');}));});
+ },
+ hud(u){hudPanel(250,150,'螺栓預力（示例）',seg(u,.04,.1),w=>{const pre=ease(seg(u,.08,.3));
+  hrow(56,'目標預力','1,030 kN',w,'#f2c230');hrow(88,'目前預力',trf('{v} kN',{v:fmtK(FP*pre)}),w,pre>.99?'#7dffc4':'#fff');
+  hrow(120,'伸長量',trf('{v} mm',{v:(1.1*pre).toFixed(2)}),w,'#fff');});}}
 ]};
 
-/* 陸域風電系列 第 7 集：雷擊與葉片防護 — 英日翻譯 */
+/* 陸域風電系列 第 11 集：塔架結構與共振 — 英日翻譯 */
 Object.assign(DICT,{
-"陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
-"雷擊與葉片防護":["Lightning and blade protection","落雷とブレードの保護"],
-"風機是開闊地上最高的物體，雷雨時常被擊中；葉片前緣則每天承受雨滴與沙塵以高速撞擊。這一集看雷電流如何從葉尖的接閃器一路導入大地、接地與突波保護怎麼設計，以及前緣侵蝕、冬季雷與沿海鹽害的防護方法。":["A wind turbine is the tallest object on open ground and is often struck during thunderstorms, while its leading edges are hit by rain and sand at high speed every day. This episode follows the lightning current from the tip receptor down to earth, looks at how earthing and surge protection are designed, and covers protection against leading-edge erosion, winter lightning and coastal salt.","風車は開けた土地で最も高い構造物で、雷雨のたびに落雷を受けやすく、ブレード前縁は毎日雨滴や砂塵の高速衝突にさらされています。本編では、雷電流が翼端のレセプタから大地へ流れる経路、接地とサージ保護の設計、そして前縁エロージョン、冬季雷、沿岸の塩害への対策を見ていきます。"],
-"IEC 61400-24 雷擊防護等級 LPL I 的設計峰值電流":["Design peak current for IEC 61400-24 lightning protection level LPL I","IEC 61400-24 の雷保護レベル LPL I における設計波高値"],
-"LPL I 的雷擊電荷量；電荷越大，接閃器燒蝕越嚴重":["LPL I charge per flash; the larger the charge, the more the receptor melts away","LPL I の電荷量。電荷が大きいほどレセプタの溶損が進む"],
-"日本 NEDO 在 27 部風機的觀測中，電荷量超過 300 C 的雷擊比例":["Share of strikes above 300 C in Japan's NEDO measurements at 27 turbines","日本の NEDO による風車 27 基の観測で、電荷量 300 C を超えた落雷の割合"],
-"常見的接地電阻設計目標（實際依土壤電阻率設計）":["Common earthing-resistance design target (actual design depends on soil resistivity)","一般的な接地抵抗の設計目標（実際は土壌抵抗率に応じて設計）"],
-"轉子半徑 60 m、每分鐘 15 轉時的葉尖速度（示例）":["Tip speed for a 60 m rotor radius at 15 rpm (example)","ロータ半径 60 m、毎分 15 回転時の翼端速度（例）"],
-"數":["A few","数"],
-"前緣嚴重侵蝕造成的年發電量損失，研究多在幾個百分點":["Annual energy loss from severe leading-edge erosion; studies mostly report a few percent","前縁の激しいエロージョンによる年間発電量の損失。研究では数パーセント程度"],
-"說明：本集為教育用途示意動畫，風機、葉片與接地系統比例經過簡化，雷擊與侵蝕過程的時間已壓縮。LPL I 峰值電流 200 kA、電荷量 300 C、比能量 10 MJ/Ω 與 10/350 μs 波形依 IEC 61400-24 與 IEC 62305 的雷擊參數；日本海沿岸冬季上行雷電荷量大、NEDO 2008–2013 年觀測 27 部風機中約 4% 雷擊超過 300 C，引自公開研究文獻；前緣侵蝕可造成數個百分點的年發電量損失，引自 Wind Energy Science 等期刊研究。接地電阻 10 Ω 為常見設計目標而非固定規定；雷擊峰值 34 kA、電荷 12 C、量測接地電阻 4.6 Ω、轉子半徑 60 m、轉速 15 rpm、侵蝕年數與各階段皆為典型範例，並非特定機型或案場資料。":["Note: this is an educational illustration. The proportions of the turbine, blades and earthing system are simplified, and the timing of the strike and of erosion is compressed. The LPL I values of 200 kA peak current, 300 C charge, 10 MJ/Ω specific energy and the 10/350 μs waveform follow the lightning parameters of IEC 61400-24 and IEC 62305. The large charge of winter upward lightning on Japan's Sea of Japan coast, and NEDO's 2008–2013 finding that about 4% of strikes at 27 turbines exceeded 300 C, come from published research. The energy loss of a few percent from leading-edge erosion is taken from journal studies such as Wind Energy Science. An earthing resistance of 10 Ω is a common design target, not a fixed rule. The 34 kA peak, 12 C charge, measured 4.6 Ω, 60 m rotor radius, 15 rpm, erosion years and stages are all typical examples, not data from a specific turbine model or site.","説明：本編は教育用の模式アニメーションで、風車、ブレード、接地系統の比率は簡略化し、落雷とエロージョンの時間は圧縮しています。LPL I の波高値 200 kA、電荷量 300 C、比エネルギー 10 MJ/Ω、10/350 μs 波形は IEC 61400-24 と IEC 62305 の雷パラメータによります。日本海沿岸の冬季上向き雷の電荷量が大きいこと、NEDO の 2008〜2013 年の観測で風車 27 基への落雷の約 4% が 300 C を超えたことは公開された研究文献によります。前縁エロージョンによる数パーセントの年間発電量損失は Wind Energy Science などの学術研究によります。接地抵抗 10 Ω は一般的な設計目標で、固定の規定ではありません。雷の波高値 34 kA、電荷 12 C、測定接地抵抗 4.6 Ω、ロータ半径 60 m、回転数 15 rpm、エロージョンの年数と各段階はすべて代表例で、特定の機種やサイトのデータではありません。"],
-"開闊地上最高的一點":["The highest point around","開けた土地で一番高い場所"],
-"陸域風機常立在海岸或丘陵的開闊處，葉尖最高點往往超過 100 公尺，是周圍數公里內最突出的物體，雷雨時很容易成為落雷點。結構越高，越容易從葉尖向上長出迎向雲層的放電通道，也就是上行先導。雷擊多半落在葉尖，因此葉片裝有金屬接閃器，把雷電流引進葉片內部的引下線，再經機艙與塔架導入地下的接地系統，而不是讓電流在葉片與設備中亂竄。":["Onshore turbines often stand on open coasts or hills, with blade tips reaching more than 100 m. They are the most prominent objects for kilometres around and readily attract lightning. The taller a structure is, the more easily a discharge channel grows upward from the tip toward the cloud; this is called an upward leader. Most strikes land on a blade tip, so the blades carry metal receptors that lead the current into a down conductor inside the blade, then through the nacelle and tower into the earthing system below ground, instead of letting it wander through the blade and equipment.","陸上風車は海岸や丘陵の開けた場所に立つことが多く、翼端の最高点は 100 m を超えることもあり、周囲数キロで最も目立つ構造物として雷を受けやすくなります。構造物が高いほど、翼端から雲に向かって放電路が伸びやすくなります。これが上向きリーダです。落雷の多くは翼端に当たるため、ブレードには金属製のレセプタが付けられ、雷電流をブレード内部の引下げ導線に導き、ナセルとタワーを経て地中の接地系統へ流します。電流がブレードや機器の中を勝手に流れないようにするためです。"],
-"雷雨雲接近開闊地上的風機":["A thundercloud nears a turbine on open ground","雷雲が開けた土地の風車に近づく"],
-"葉尖向上長出放電通道：上行先導":["A discharge grows up from the tip: the upward leader","翼端から放電路が伸びる：上向きリーダ"],
-"雷擊落在葉尖的接閃器":["Lightning strikes the tip receptor","雷が翼端のレセプタに落ちる"],
-"電流經葉片、機艙、塔架導入大地":["Current flows through blade, nacelle and tower to earth","電流はブレード、ナセル、タワーを通って大地へ"],
-"上行先導":["Upward leader","上向きリーダ"],
-"葉尖接閃器":["Tip receptor","翼端レセプタ"],
-"葉片內引下線":["Down conductor","引下げ導線"],
-"經塔架向下":["Down the tower","タワーを下る"],
-"接地系統":["Earthing system","接地系統"],
-"雷擊監測（示例）":["Lightning monitor (example)","落雷監視（例）"],
-"峰值電流":["Peak current","波高値"],
-"電荷量":["Charge","電荷量"],
-"本年雷擊次數":["Strikes this year","今年の落雷回数"],
-"狀態":["Status","状態"],
-"運轉中":["Running","運転中"],
-"偵測到雷擊":["Strike detected","落雷を検知"],
-"自動檢查":["Self-check","自動点検"],
-"雷電流的旅程":["The path of a lightning current","雷電流の道のり"],
-"風機的雷擊防護系統要讓雷電流走一條事先安排好的低阻抗路徑。葉尖與葉身的金屬接閃器接住雷擊，電流沿著葉片內部的銅質引下線流向葉根。葉片會變槳、機艙會偏航，轉動的軸承不能讓大電流直接通過，否則滾珠與滾道會被電弧燒出凹痕，因此在變槳與偏航處用碳刷、滑動接點或火花間隙跨接。電流進入鋼製塔架後向下傳到基礎，最後由接地系統散入大地。":["A turbine's lightning protection system gives the current a planned, low-impedance path. Metal receptors on the tip and along the blade catch the strike, and the current runs down a copper conductor inside the blade to the root. Because the blades pitch and the nacelle yaws, the rotating bearings must not carry the full current, or arcing would pit the balls and raceways. Carbon brushes, sliding contacts or spark gaps bridge the pitch and yaw bearings instead. The current then runs down the steel tower to the foundation and is dissipated into the ground by the earthing system.","風車の雷保護システムは、雷電流にあらかじめ用意した低インピーダンスの経路を通らせます。翼端とブレード表面の金属レセプタが雷を受け、電流はブレード内部の銅製引下げ導線を通って翼根へ流れます。ブレードはピッチ動作し、ナセルはヨー旋回するため、回転する軸受に大電流を直接流すと、アークで転動体と軌道面に傷が付きます。そこでピッチ部とヨー部はカーボンブラシ、摺動接点、放電ギャップでバイパスします。電流は鋼製タワーを下って基礎に達し、最後に接地系統から大地へ放散されます。"],
-"接閃器在葉尖接住雷擊":["The receptor catches the strike at the tip","翼端のレセプタが雷を受ける"],
-"引下線把電流帶到葉根":["The down conductor carries it to the root","引下げ導線が電流を翼根へ運ぶ"],
-"軸承處用碳刷與火花間隙跨接":["Brushes and spark gaps bridge the bearings","軸受部はブラシと放電ギャップでバイパス"],
-"經塔架與接地網散入大地":["Through the tower and earth grid into the soil","タワーと接地網を通って大地へ"],
-"雷電流的路徑（示意）":["Current path (schematic)","雷電流の経路（模式図）"],
-"每一段怎麼過電":["How each section conducts","各部の電流の流し方"],
-"接閃器：葉尖與葉身的金屬接收點":["Receptors: metal strike points on tip and blade","レセプタ：翼端と翼面の金属受雷部"],
-"引下線：葉片內部的銅纜":["Down conductor: copper cable inside the blade","引下げ導線：ブレード内部の銅ケーブル"],
-"變槳軸承：碳刷或火花間隙跨接":["Pitch bearing: bridged by brushes or spark gaps","ピッチ軸受：ブラシか放電ギャップでバイパス"],
-"偏航軸承：滑動接點導到塔架":["Yaw bearing: sliding contacts to the tower","ヨー軸受：摺動接点でタワーへ"],
-"塔架：鋼管本身就是導體":["Tower: the steel tube itself conducts","タワー：鋼管そのものが導体"],
-"接地網：把電流散入大地":["Earth grid: spreads the current into the soil","接地網：電流を大地へ放散"],
-"雷擊有多猛":["How violent is a strike","落雷はどれほど激しいか"],
-"國際標準 IEC 61400-24 以雷擊防護等級描述設計要承受的雷電，風機一般採用最高的 LPL I：峰值電流 200 kA、單次雷擊電荷量 300 C、比能量 10 MJ/Ω。電流在約 10 微秒內衝到峰值，數百微秒後才衰減到一半。如果葉片沒有可靠的導電路徑，雷擊可能穿透外殼，在中空葉片內部的空氣中起弧，瞬間加熱的空氣形成壓力波，把葉殼從接縫撐裂，甚至讓葉尖爆開。接閃器與引下線的任務，就是讓電流在外部金屬中通過。":["The international standard IEC 61400-24 defines lightning protection levels for the strikes a design must withstand. Wind turbines usually adopt the highest, LPL I: 200 kA peak current, 300 C charge per flash and 10 MJ/Ω specific energy. The current rises to its peak in about 10 microseconds and takes hundreds of microseconds to fall to half. If a blade has no reliable conductive path, the strike can puncture the shell and arc through the air inside the hollow blade. The suddenly heated air creates a pressure wave that splits the shell along its bond lines or even blows off the tip. Receptors and down conductors keep the current in metal instead.","国際規格 IEC 61400-24 は、設計で耐えるべき雷を雷保護レベルで定めており、風車には通常最も厳しい LPL I が適用されます。波高値 200 kA、1 回の雷の電荷量 300 C、比エネルギー 10 MJ/Ω です。電流は約 10 マイクロ秒で波高値に達し、数百マイクロ秒かけて半分まで減衰します。ブレードに確実な導電経路がないと、雷が外殻を貫通し、中空のブレード内部の空気中でアークが発生します。瞬間的に加熱された空気が圧力波となり、外殻を接着部から押し割り、翼端が破裂することもあります。レセプタと引下げ導線は、電流を金属の中に通すためのものです。"],
-"防護等級 LPL I：峰值 200 kA":["Protection level LPL I: 200 kA peak","保護レベル LPL I：波高値 200 kA"],
-"約 10 微秒衝到峰值，再慢慢衰減":["Peaks in about 10 μs, then slowly decays","約 10 μs で波高値に達し、ゆっくり減衰"],
-"沒有導電路徑：葉片內部起弧":["No conductive path: an arc forms inside","導電経路なし：ブレード内部でアーク"],
-"有接閃器與引下線：電流走金屬":["With receptor and conductor: current stays in metal","レセプタと導線あり：電流は金属を流れる"],
-"雷擊電流波形 10/350 μs（示意）":["Lightning current 10/350 μs (schematic)","雷電流波形 10/350 μs（模式図）"],
-"時間 μs":["Time μs","時間 μs"],
-"電流 kA":["Current kA","電流 kA"],
-"峰值 200 kA":["Peak 200 kA","波高値 200 kA"],
-"350 μs 降到一半":["Half value at 350 μs","350 μs で半減"],
-"比能量":["Specific energy","比エネルギー"],
-"沒有導電路徑":["No conductive path","導電経路なし"],
-"葉殼沿接縫撐裂":["Shell splits at bond lines","外殻が接着部で割れる"],
-"有接閃器與引下線":["With receptor and down conductor","レセプタと引下げ導線あり"],
-"電流沿引下線流走，葉片完好":["Current follows the conductor; blade intact","電流は導線を流れ、ブレードは無傷"],
-"接閃器":["Receptor","レセプタ"],
-"引下線（剖面）":["Down conductor (section)","引下げ導線（断面）"],
-"接地與突波保護":["Earthing and surge protection","接地とサージ保護"],
-"雷電流最後要散入大地。風機基礎的鋼筋與埋在基礎外圍的環形接地極連成一體，土壤電阻率高的地方再打入接地棒，設計上常以接地電阻 10 Ω 以下為目標，完工後實際量測確認。電流進入土壤時會形成電位梯度，人站在附近，兩腳之間可能出現跨步電壓，環形接地極能讓地表電位較平均。雷擊也會在電纜上感應出突波，所以塔底控制櫃的電源與通訊線路都裝有突波保護器（SPD），並把所有金屬做等電位連接。":["In the end the current has to be dissipated into the ground. The foundation rebar is bonded to a ring earth electrode buried around the foundation, and earth rods are added where soil resistivity is high. Designs commonly target an earthing resistance of 10 Ω or less, confirmed by measurement after construction. As current enters the soil it creates a potential gradient, so a person standing nearby may see a step voltage between their feet; the ring electrode helps even out the surface potential. Strikes also induce surges in cables, so the power and communication lines in the tower-base cabinet are fitted with surge protective devices (SPDs), and all metal parts are equipotentially bonded.","雷電流は最終的に大地へ放散させます。風車基礎の鉄筋は基礎の周囲に埋設した環状接地極と一体に接続し、土壌抵抗率が高い場所では接地棒を追加します。設計では接地抵抗 10 Ω 以下を目標とすることが多く、完成後に実測して確認します。電流が土中に入ると電位勾配が生じ、近くに立つ人の両足の間に歩幅電圧がかかるおそれがあります。環状接地極は地表の電位を均一にする働きがあります。雷はケーブルにサージも誘導するため、タワー基部の制御盤の電源線と通信線にはサージ防護デバイス（SPD）を設け、すべての金属を等電位ボンディングします。"],
-"基礎鋼筋、環形接地極與接地棒連成一體":["Rebar, ring electrode and earth rods are bonded","鉄筋、環状接地極、接地棒を一体に接続"],
-"雷電流進入土壤，向四周擴散":["The current enters the soil and spreads out","雷電流が土中に入り、周囲へ広がる"],
-"地表電位梯度可能形成跨步電壓":["The surface gradient can create a step voltage","地表の電位勾配が歩幅電圧を生むことがある"],
-"控制櫃線路裝突波保護器（SPD）":["Cabinet lines are fitted with SPDs","制御盤の配線にサージ防護デバイス（SPD）"],
-"完工量測接地電阻，確認達到設計值":["Earthing resistance is measured against the target","完成後に接地抵抗を測定し、設計値を確認"],
-"環形接地極":["Ring electrode","環状接地極"],
-"接地棒":["Earth rod","接地棒"],
-"基礎鋼筋":["Foundation rebar","基礎鉄筋"],
-"電流向四周擴散":["Current spreads out","電流が周囲へ広がる"],
-"跨步電壓":["Step voltage","歩幅電圧"],
-"突波保護器（SPD）":["Surge protector (SPD)","サージ防護デバイス（SPD）"],
-"等電位連接":["Equipotential bonding","等電位ボンディング"],
-"接地與保護（示例）":["Earthing (example)","接地と保護（例）"],
-"設計目標":["Target","設計目標"],
-"量測接地電阻":["Measured","接地抵抗測定値"],
-"雷電流":["Lightning current","雷電流"],
-"SPD 狀態":["SPD status","SPD の状態"],
-"待命":["Standby","待機"],
-"動作，洩放突波":["Diverting surge","作動・サージ放流"],
-"正常":["Normal","正常"],
-"葉片前緣侵蝕":["Leading-edge erosion","ブレード前縁のエロージョン"],
-"葉片的前緣是轉動時最先切開空氣的部位。以轉子半徑 60 m、每分鐘 15 轉為例，葉尖速度約 94 m/s，雨滴、冰雹與沙塵以這樣的速度反覆撞擊，數年後塗層出現麻點、剝落，嚴重時露出底下的玻璃纖維層板。前緣變粗糙後，氣流提早轉為紊流，升力下降、阻力上升，研究顯示年發電量可能因此減少數個百分點。常見的前緣保護（LEP）有彈性塗層、保護膠帶與預製護殼，巡檢時一併檢查修補。":["The leading edge is the part of the blade that cuts the air first. With a 60 m rotor radius at 15 rpm, the tip moves at about 94 m/s, and raindrops, hail and sand strike it again and again at that speed. After a few years the coating pits and peels, and in severe cases the glass-fibre laminate underneath is exposed. A rougher leading edge makes the airflow turn turbulent earlier, lowering lift and raising drag; studies show annual energy production can drop by a few percent. Common leading-edge protection (LEP) includes elastic coatings, protective tapes and pre-formed shells, checked and repaired during inspections.","ブレードの前縁は、回転時に最初に空気を切り裂く部分です。ロータ半径 60 m、毎分 15 回転の場合、翼端速度は約 94 m/s で、雨滴、ひょう、砂塵がこの速度で繰り返し衝突します。数年たつと塗膜に点食や剥離が生じ、ひどい場合は下地のガラス繊維積層板が露出します。前縁が粗くなると気流が早く乱流に遷移し、揚力が下がって抗力が増え、研究では年間発電量が数パーセント減ることがあるとされています。一般的な前縁保護（LEP）には弾性塗料、保護テープ、成形シェルがあり、点検時にあわせて確認・補修します。"],
-"葉尖速度可達每秒 90 多公尺":["Tip speed can exceed 90 m/s","翼端速度は毎秒 90 m を超える"],
-"雨滴與沙塵反覆撞擊葉片前緣":["Rain and sand hit the leading edge again and again","雨滴と砂塵が前縁に繰り返し衝突"],
-"塗層麻點、剝落，最後露出層板":["The coating pits, peels, then exposes the laminate","塗膜が点食・剥離し、積層板が露出"],
-"前緣保護：塗層、膠帶或護殼":["Protection: coatings, tapes or shells","前縁保護：塗料、テープ、シェル"],
-"前緣的特寫（示意）":["Leading edge close-up (schematic)","前縁のクローズアップ（模式図）"],
-"運轉第 {n} 年":["Year {n} of operation","運転 {n} 年目"],
-"雨滴高速撞擊":["High-speed rain impact","雨滴の高速衝突"],
-"塗層麻點":["Coating pitting","塗膜の点食"],
-"塗層剝落":["Coating peeling","塗膜の剥離"],
-"層板外露":["Laminate exposed","積層板の露出"],
-"沿葉片的相對速度（示例）":["Relative speed along the blade (example)","ブレードに沿った相対速度（例）"],
-"離輪轂距離 m":["Distance from hub m","ハブからの距離 m"],
-"速度 m/s":["Speed m/s","速度 m/s"],
-"葉尖最容易侵蝕":["Tip erodes most","翼端が最も侵食されやすい"],
-"前緣保護（LEP）":["Leading-edge protection (LEP)","前縁保護（LEP）"],
-"保護塗層":["Coating","保護塗料"],
-"彈性塗料，可現場修補":["Elastic, repairable on site","弾性塗料、現地補修可"],
-"保護膠帶":["Tape","保護テープ"],
-"貼覆彈性膜，施工快":["Elastic film, quick to apply","弾性フィルム、施工が速い"],
-"前緣護殼":["Shell","前縁シェル"],
-"預製硬殼，耐久性高":["Pre-formed, durable","成形品、耐久性が高い"],
-"前緣變粗糙：年發電量可能少數個百分點":["Rough edge: a few percent less energy per year","前縁が粗くなると年間発電量が数 % 減ることも"],
-"冬季雷與沿海鹽害":["Winter lightning and salt","冬季雷と沿岸の塩害"],
-"環境不同，防護重點也不同。日本海沿岸冬季的雷雲低，風機葉尖常自己向上引發上行雷，電荷量特別大；日本 NEDO 在 27 部風機的觀測中，約 4% 的雷擊超過 300 C，接閃器因此要更耐燒蝕。台灣的雷擊則多集中在夏季午後雷陣雨與梅雨季。台灣西部沿海的風機另有鹽害問題：東北季風把海上的鹽霧吹上岸，塔架與機艙需要高防蝕等級的塗裝、機艙密封與除濕，並定期以無人機或繩索作業檢查接閃器與前緣。":["Different environments call for different protection. On Japan's Sea of Japan coast, winter thunderclouds hang low and turbine tips often trigger upward lightning themselves, carrying especially large charge; in NEDO's measurements at 27 turbines, about 4% of strikes exceeded 300 C, so receptors must resist melting better. In Taiwan, lightning is concentrated in summer afternoon thunderstorms and the plum-rain season. Turbines on Taiwan's west coast also face salt damage: the northeast monsoon blows salt spray ashore, so towers and nacelles need high-grade anti-corrosion coatings, sealed and dehumidified nacelles, and regular drone or rope-access inspections of receptors and leading edges.","環境が違えば、保護の重点も変わります。日本海沿岸では冬の雷雲が低く、風車の翼端から上向き雷が発生しやすく、電荷量が特に大きくなります。NEDO による風車 27 基の観測では落雷の約 4% が 300 C を超えており、レセプタには高い耐溶損性が求められます。台湾の落雷は夏の午後の雷雨と梅雨期に集中しています。台湾西部沿岸の風車には塩害の問題もあります。北東季節風が海の塩霧を陸へ運ぶため、タワーとナセルには高い防食等級の塗装、ナセルの密閉と除湿が必要で、ドローンやロープアクセスでレセプタと前縁を定期点検します。"],
-"日本海沿岸冬季雷雲低，常見上行雷":["Low winter clouds on Japan's west coast bring upward lightning","日本海沿岸の冬は雷雲が低く、上向き雷が多い"],
-"上行雷電荷量大，接閃器容易燒蝕":["Upward flashes carry large charge and melt receptors","上向き雷は電荷量が大きく、レセプタが溶損しやすい"],
-"台灣沿海：東北季風帶來鹽霧":["Taiwan's coast: the northeast monsoon brings salt spray","台湾沿岸：北東季節風が塩霧を運ぶ"],
-"防蝕塗裝、機艙除濕與定期巡檢":["Anti-corrosion coating, dehumidifying, regular inspection","防食塗装、ナセル除湿、定期点検"],
-"冬季雷（日本海沿岸）":["Winter lightning (Sea of Japan coast)","冬季雷（日本海沿岸）"],
-"葉尖引發上行雷":["Tip triggers upward flash","翼端から上向き雷"],
-"上行雷多、電荷量大":["Frequent upward flashes, large charge","上向き雷が多く、電荷量が大きい"],
-"NEDO 觀測：約 4% 超過 300 C":["NEDO data: about 4% exceed 300 C","NEDO 観測：約 4% が 300 C 超"],
-"台灣雷擊多在夏季午後雷陣雨":["Taiwan: mostly summer afternoon storms","台湾の落雷は夏の午後の雷雨が中心"],
-"沿海鹽害（台灣西部海岸）":["Coastal salt (Taiwan's west coast)","沿岸の塩害（台湾西部海岸）"],
-"東北季風挾帶鹽霧":["Monsoon carries salt spray","北東季節風が塩霧を運ぶ"],
-"高防蝕等級塗裝（如 ISO 12944 C5）":["High-grade coating (e.g. ISO 12944 C5)","高防食等級の塗装（ISO 12944 C5 など）"],
-"機艙密封、正壓與除濕":["Sealed, pressurised, dehumidified nacelle","ナセルの密閉・正圧・除湿"],
-"無人機巡檢接閃器與前緣":["Drone checks of receptors and edges","ドローンでレセプタと前縁を点検"]
+"陸域風電系列":["Onshore Wind Series", "陸上風力発電シリーズ"],
+"塔架結構與共振":["Tower structure and resonance", "タワー構造と共振"],
+"一座百米高的塔架，要撐起數百噸的機艙與轉子，承受風、颱風與地震。這一集看鋼管塔為什麼要分段、法蘭螺栓如何靠預力把各段鎖成一體、混凝土混合塔如何蓋得更高，以及塔架的自然頻率為什麼必須避開轉子的 1P 與 3P 頻率。":["A tower about a hundred metres tall must carry a nacelle and rotor weighing hundreds of tonnes and withstand wind, typhoons and earthquakes. This episode looks at why steel towers are built in sections, how preloaded flange bolts lock the sections into one piece, how concrete–steel hybrid towers reach higher, and why the tower's natural frequency must stay clear of the rotor's 1P and 3P frequencies.", "高さ約 100 m のタワーは、数百トンのナセルとロータを支え、風、台風、地震に耐えなければなりません。本編では、鋼管タワーがなぜ分割されるのか、フランジボルトが予張力で各セクションを一体化する仕組み、コンクリート・鋼のハイブリッドタワーでさらに高くする方法、そしてタワーの固有振動数がロータの 1P と 3P を避けなければならない理由を見ます。"],
+"陸域風機輪轂高度示例，以 4 段鋼管塔組成":["Example onshore hub height, using a 4-section steel tower", "陸上風車のハブ高さの例。4 セクションの鋼管タワーで構成"],
+"鋼管塔底部直徑常受道路運輸限高限制在約 4.3–4.5 m（示例）":["Steel tower base diameter is often limited to about 4.3–4.5 m by road clearance (example)", "鋼管タワーの底部直径は道路輸送の高さ制限により約 4.3–4.5 m に抑えられることが多い（例）"],
+"10.9 級":["grade 10.9", "10.9 級"],
+"塔架法蘭常用的高強度螺栓規格（示例）":["High-strength bolt size commonly used in tower flanges (example)", "タワーフランジで一般的な高力ボルトの規格（例）"],
+"一支 M48 10.9 級螺栓的設計預力：0.7 × 抗拉強度 × 應力面積":["Design preload of one M48 grade 10.9 bolt: 0.7 × tensile strength × stress area", "M48・10.9 級ボルト 1 本の設計予張力：0.7 × 引張強さ × 有効断面積"],
+"塔架自然頻率與 1P、3P 頻帶之間常保留的最小距離":["Typical minimum margin between the tower natural frequency and the 1P and 3P bands", "タワー固有振動数と 1P・3P 帯の間に通常確保する最小の余裕"],
+"小時":["hours", "時間"],
+"運轉初期全數複查螺栓預力的時間點，之後每年抽檢約 10%（示例）":["Early-operation point for a full bolt preload re-check; about 10% are sampled each year after that (example)", "運転初期にボルト予張力を全数再確認する時点。その後は毎年約 10% を抜き取り点検（例）"],
+"說明：本集為教育用途示意動畫，風機、塔架、法蘭與螺栓的比例經過調整，塔架寬度與擺動幅度放大顯示。塔架分段長度、直徑、壁厚與重量為 110 m 輪轂高度鋼管塔的典型範例，並非特定機型資料；運輸限制依道路、橋梁與彎道條件而定。螺栓設計預力依 Eurocode 3（EN 1993-1-8）Fp,C = 0.7 fub As 計算（M48 應力面積 1,473 mm²、10.9 級抗拉強度 1,000 MPa），伸長量以夾緊長度約 340 mm 估算；螺栓受力圖採簡化的接合圖，外力分擔比 0.1 與外力範圍為示例。1P／3P 頻帶以轉速 7–13 rpm 計算，10% 頻率餘裕為業界文獻常見做法；混合塔輪轂高度約 160 m 引自國際已完成案例，混凝土段與鋼管段高度為示例。運轉初期約 500 小時全數複查、之後每年抽檢約 10% 為業界文獻常見說法，實際依各製造商手冊與 IEC 61400 系列標準、主管機關規定而定。":["Note: This is an illustrative educational animation; the proportions of turbines, towers, flanges and bolts are adjusted, and tower width and sway are exaggerated. Section lengths, diameters, wall thicknesses and masses are typical examples for a steel tower with a 110 m hub height, not data for a specific turbine model; transport limits depend on roads, bridges and bends. Bolt design preload follows Eurocode 3 (EN 1993-1-8), Fp,C = 0.7 fub As (M48 stress area 1,473 mm², grade 10.9 tensile strength 1,000 MPa); elongation is estimated for a clamp length of about 340 mm. The bolt force chart is a simplified joint diagram; the load factor of 0.1 and the load range are examples. The 1P/3P bands are calculated for 7–13 rpm, and the 10% frequency margin is common practice in the literature. The hybrid tower hub height of about 160 m is based on completed projects abroad; the heights of the concrete and steel sections are examples. A full re-check at about 500 hours and about 10% sampling each year afterwards are common statements in industry literature; actual practice follows each manufacturer's manual, the IEC 61400 series and regulatory requirements.", "説明：本編は教育用の模式アニメーションで、風車、タワー、フランジ、ボルトの縮尺は調整しており、タワーの幅と揺れの幅は誇張して表示しています。セクションの長さ、直径、板厚、重量はハブ高さ 110 m の鋼管タワーの代表例で、特定機種のデータではありません。輸送制限は道路、橋梁、カーブの条件によります。ボルトの設計予張力は Eurocode 3（EN 1993-1-8）の Fp,C = 0.7 fub As により計算し（M48 の有効断面積 1,473 mm²、10.9 級の引張強さ 1,000 MPa）、伸び量は締付け長さ約 340 mm として推定しました。ボルト力の図は簡略化した締結線図で、外力分担比 0.1 と外力範囲は例です。1P／3P 帯は回転数 7–13 rpm で計算し、10% の振動数余裕は文献で一般的な考え方です。ハイブリッドタワーのハブ高さ約 160 m は海外の完成事例に基づき、コンクリート部と鋼管部の高さは例です。運転初期約 500 時間での全数再確認と、その後毎年約 10% の抜き取り点検は業界文献で一般的な記述であり、実際は各メーカーのマニュアル、IEC 61400 シリーズ、規制当局の規定に従います。"],
+"風機的骨幹":["The backbone of a turbine", "風車の背骨"],
+"塔架是風機最高、也最重的單一構件。以輪轂高度 110 公尺的陸域風機為例，塔架由 4 段鋼管組成，總重約 300 公噸，頂端要撐住機艙與轉子的重量，還要承受風推在轉子上的推力。推力乘上百米的力臂，在塔底形成最大的彎矩，所以塔架下粗上細、下厚上薄。在台灣，塔架設計還必須檢核颱風的極端風速與地震載重，再透過底法蘭與錨栓，把所有力量傳進基礎。":["The tower is the tallest and heaviest single component of a turbine. For an onshore turbine with a 110 m hub height, the tower is made of 4 steel sections weighing about 300 tonnes in total. Its top carries the nacelle and rotor, and it also resists the thrust of the wind on the rotor. That thrust, acting over a lever arm of about a hundred metres, creates the largest bending moment at the base, so the tower is wider and thicker at the bottom. In Taiwan, the design must also be checked against extreme typhoon winds and earthquake loads, and every force is passed into the foundation through the base flange and anchor bolts.", "タワーは風車で最も高く、最も重い単一部材です。ハブ高さ 110 m の陸上風車の例では、タワーは 4 本の鋼管セクションからなり、総重量は約 300 トンです。頂部でナセルとロータの重量を支え、ロータが受ける風のスラストにも耐えます。このスラストに約 100 m のレバーアームが掛かり、基部で最大の曲げモーメントが生じるため、タワーは下ほど太く厚くなっています。台湾では台風の極値風速と地震荷重の照査も必要で、すべての力はベースフランジとアンカーボルトを通じて基礎へ伝わります。"],
+"百米高的塔架，撐起機艙與整組轉子":["A 100 m tower carries the nacelle and the whole rotor", "高さ約 100 m のタワーがナセルとロータ全体を支える"],
+"4 段鋼管以法蘭接合，下粗上細":["4 steel sections joined by flanges, wide at the bottom", "4 本の鋼管をフランジで接合、下ほど太い"],
+"風的推力乘上百米力臂，塔底彎矩最大":["Thrust on a 100 m lever arm peaks at the base", "風のスラストと 100 m のレバーアームで基部のモーメントが最大"],
+"底法蘭與錨栓把所有力量傳進基礎":["Base flange and anchors carry all loads into the foundation", "ベースフランジとアンカーボルトが全荷重を基礎へ伝える"],
+"輪轂高度 110 m":["Hub height 110 m", "ハブ高さ 110 m"],
+"法蘭接合處":["Flange joint", "フランジ接合部"],
+"第 1 段：最粗最厚":["Section 1: widest, thickest", "第 1 セクション：最も太く厚い"],
+"風推力":["Wind thrust", "風のスラスト"],
+"機艙與轉子重量":["Nacelle and rotor weight", "ナセルとロータの重量"],
+"底部彎矩最大":["Max base moment", "基部モーメント最大"],
+"塔門":["Tower door", "タワー扉"],
+"底法蘭與基礎錨栓":["Base flange and anchors", "ベースフランジとアンカー"],
+"塔架概要（示例）":["Tower overview (example)", "タワー概要（例）"],
+"輪轂高度":["Hub height", "ハブ高さ"],
+"塔架分段":["Sections", "セクション数"],
+"4 段":["4", "4 本"],
+"底部直徑":["Base diameter", "底部直径"],
+"塔架重量":["Tower mass", "タワー重量"],
+"鋼管塔為什麼要分段":["Why steel towers come in sections", "鋼管タワーはなぜ分割するのか"],
+"鋼管塔是用厚鋼板捲成圓筒、一節節焊接起來，再在兩端焊上法蘭。整座塔不可能一次運到山邊或海岸的風場，要拆成幾段，每段的長度、重量和直徑都受道路條件限制：底部直徑常在 4.3–4.5 公尺左右，再大就過不了陸橋與隧道的限高。彎矩越往下越大，所以底段壁厚最厚、重量最重，往上逐段變細變薄。以 110 公尺輪轂高度為例，4 段合計約 300 公噸。":["A steel tower is made by rolling thick plates into cans, welding them together and welding a flange to each end. A whole tower cannot be shipped to a hillside or coastal site in one piece, so it is split into sections whose length, weight and diameter are set by road conditions: the base diameter is usually around 4.3–4.5 m, since anything larger will not pass under overpasses or through tunnels. Bending moment grows towards the base, so the bottom section has the thickest wall and is the heaviest, and each section above is narrower and thinner. For a 110 m hub height, the 4 sections total about 300 tonnes.", "鋼管タワーは厚い鋼板を円筒に曲げ、一つずつ溶接してつなぎ、両端にフランジを溶接して作ります。タワー全体を一度に山沿いや海岸の風力発電所へ運ぶことはできないため、いくつかのセクションに分け、それぞれの長さ、重量、直径は道路条件で制限されます。底部直径は通常 4.3–4.5 m 前後で、それ以上では陸橋やトンネルの高さ制限を通れません。曲げモーメントは下ほど大きいため、最下段の板厚が最も厚く最も重く、上へ行くほど細く薄くなります。ハブ高さ 110 m の例では、4 セクションで合計約 300 トンです。"],
+"鋼板捲成筒節，焊成一段段塔筒":["Plates are rolled into cans and welded into sections", "鋼板を円筒に曲げ、溶接してセクションにする"],
+"越往下彎矩越大，壁厚越厚、重量越重":["Lower down: more moment, thicker, heavier", "下ほどモーメントが大きく、板厚も重量も増す"],
+"每段都要裝上拖車，通過陸橋與彎道":["Each section travels by trailer under bridges", "各セクションはトレーラーで陸橋やカーブを通過"],
+"底部直徑受限高約束，常在 4.3–4.5 m":["Clearance limits base diameter to 4.3–4.5 m", "高さ制限で底部直径は 4.3–4.5 m 程度に"],
+"4 段鋼管塔（示例，輪轂 110 m）":["4-section steel tower (example, 110 m hub)", "4 セクション鋼管タワー（例、ハブ 110 m）"],
+"第 {n} 段":["Section {n}", "第 {n} セクション"],
+"長 {l} m，直徑 {a}–{b} m":["Length {l} m, dia. {a}–{b} m", "長さ {l} m、直径 {a}–{b} m"],
+"壁厚 {t} mm，約 {m} t":["Wall {t} mm, about {m} t", "板厚 {t} mm、約 {m} t"],
+"道路運輸的限制（示意）":["Road transport limits (schematic)", "道路輸送の制限（模式図）"],
+"限高":["Clearance", "高さ制限"],
+"塔筒直徑 ≈ 4.3 m":["Can diameter ≈ 4.3 m", "胴径 ≈ 4.3 m"],
+"分段的取捨":["Sectioning trade-offs", "分割のトレードオフ"],
+"每段長約 20–35 m，單段重量約 100 t 以內":["Sections 20–35 m long, each within about 100 t", "各セクション長さ 20–35 m、重量は約 100 t 以内"],
+"底部直徑受限高約束，約 4.3–4.5 m":["Clearance limits base diameter to about 4.3–4.5 m", "高さ制限で底部直径は約 4.3–4.5 m"],
+"下段承受彎矩最大，壁厚最厚":["Bottom section takes the most moment: thickest wall", "最下段は曲げモーメント最大で板厚が最も厚い"],
+"4 段合計約 300 t（含法蘭）":["4 sections total about 300 t (with flanges)", "4 セクション合計約 300 t（フランジ含む）"],
+"法蘭螺栓與預力":["Flange bolts and preload", "フランジボルトと予張力"],
+"塔架各段之間靠法蘭接合：兩圈厚鋼環面對面，用一整圈高強度螺栓鎖緊，例如 M48、10.9 級的螺栓一圈上百支。關鍵不是「鎖住」，而是預力：每支螺栓被拉長約 1 公釐，產生約 1,030 kN 的夾緊力，把兩片法蘭壓成一體。風造成的拉力大多先由法蘭面的壓力抵消，螺栓本身的受力只小幅變化。一旦預力流失，法蘭面會在拉力下張開，外力直接落到螺栓上，應力變化放大好幾倍，螺栓就可能疲勞斷裂。":["Tower sections are joined by flanges: two thick steel rings face each other and are clamped by a full ring of high-strength bolts, for example more than a hundred M48 grade 10.9 bolts. What matters is not just being tight but the preload: each bolt is stretched by about 1 mm, creating about 1,030 kN of clamping force that presses the two flanges into one. Most of the tension caused by wind is first offset by the contact pressure between the flanges, so the bolt force changes only slightly. If preload is lost, the flanges open under tension, the load goes straight into the bolts, the stress range grows several times and the bolts may fail by fatigue.", "タワーの各セクションはフランジで接合します。2 枚の厚い鋼製リングを向かい合わせ、一周の高力ボルトで締め付けます。例えば M48・10.9 級のボルトが一周に 100 本以上並びます。重要なのは単に締まっていることではなく予張力です。各ボルトは約 1 mm 伸ばされ、約 1,030 kN の締付け力で 2 枚のフランジを一体に押さえます。風による引張力の大部分はまずフランジ面の接触圧で相殺されるため、ボルト自体の力はわずかしか変化しません。予張力が失われると、フランジは引張でわずかに開き、外力がそのままボルトに掛かり、応力変動が数倍に拡大して疲労破断するおそれがあります。"],
+"兩片法蘭面對面，用整圈高強度螺栓鎖緊":["Two flanges face each other, clamped by a ring of bolts", "2 枚のフランジを向かい合わせ、一周のボルトで締結"],
+"螺栓被拉長約 1 mm，產生約 1,030 kN 預力":["Each bolt stretches about 1 mm for about 1,030 kN preload", "ボルトを約 1 mm 伸ばし、約 1,030 kN の予張力"],
+"風的拉力來回變化，螺栓受力幾乎不變":["Wind tension cycles; bolt force barely changes", "風の引張力が変動してもボルト力はほぼ一定"],
+"預力流失，法蘭張開，螺栓應力變化放大":["Preload lost: the flange opens, stress swings grow", "予張力が抜けるとフランジが開き、応力変動が拡大"],
+"L 型法蘭接合（剖面示意）":["L-flange joint (section view)", "L 型フランジ接合（断面図）"],
+"塔壁":["Tower wall", "タワー壁"],
+"法蘭":["Flange", "フランジ"],
+"夾緊力":["Clamping force", "締付け力"],
+"風造成的拉力":["Wind-induced tension", "風による引張力"],
+"法蘭張開":["Flange opens", "フランジ開口"],
+"螺栓預力":["Bolt preload", "ボルト予張力"],
+"螺栓受力":["Bolt force", "ボルト力"],
+"螺栓受力與外力（示例）":["Bolt force vs external load (example)", "ボルト力と外力（例）"],
+"每支螺栓分擔的外力（kN）":["External load per bolt (kN)", "ボルト 1 本あたりの外力（kN）"],
+"運轉時的外力範圍":["Operating load range", "運転時の外力範囲"],
+"預力完整":["Full preload", "予張力 100%"],
+"預力剩一半":["Half preload", "予張力 50%"],
+"預力的原理":["How preload works", "予張力の原理"],
+"常用 M48、10.9 級高強度螺栓（示例）":["Typically M48 grade 10.9 high-strength bolts (example)", "一般に M48・10.9 級の高力ボルト（例）"],
+"預力 = 0.7 × 抗拉強度 × 應力面積 ≈ 1,030 kN":["Preload = 0.7 × tensile strength × stress area ≈ 1,030 kN", "予張力 = 0.7 × 引張強さ × 有効断面積 ≈ 1,030 kN"],
+"預力完整：外力多由法蘭面承擔":["Full preload: flange faces carry most of the load", "予張力十分：外力の大半をフランジ面が負担"],
+"預力流失：應力變化放大，螺栓疲勞":["Lost preload: larger stress swings, bolt fatigue", "予張力喪失：応力変動が拡大し、ボルトが疲労"],
+"更高的塔：混凝土混合塔":["Taller towers: concrete–steel hybrids", "より高いタワー：コンクリート・ハイブリッドタワー"],
+"風速隨高度增加，輪轂越高，發電量通常越多。但鋼管塔受限於運輸直徑，要再加高就得把壁厚加到不合理。混凝土混合塔的做法是：下段用預鑄混凝土環片一圈圈疊起，直徑可以放大，再以貫穿塔身的後拉預力鋼腱，把環片緊緊壓在基礎上；上段再接回一般的鋼管塔。國際上已有輪轂高度約 160 公尺的混合塔運轉中，混凝土也讓塔架更重、更剛，自然頻率的調整空間更大。":["Wind speed increases with height, so a higher hub usually produces more energy. But a steel tower is limited by the transport diameter, and going higher would need unreasonably thick walls. A concrete hybrid tower solves this: the lower part is built from precast concrete rings stacked one on another, which can be much wider, and post-tensioned tendons running through the tower press the rings firmly onto the foundation; the upper part is a normal steel tower. Hybrid towers with hub heights of about 160 m are already operating abroad, and the concrete also makes the tower heavier and stiffer, giving more room to tune its natural frequency.", "風速は高さとともに増すため、ハブが高いほど一般に発電量は増えます。しかし鋼管タワーは輸送直径の制約があり、さらに高くするには板厚を不合理なほど厚くする必要があります。コンクリート・ハイブリッドタワーでは、下部をプレキャストコンクリートのリングを積み重ねて造り、直径を大きくできます。タワー内を貫くポストテンションの PC 鋼材でリングを基礎にしっかり押さえつけ、上部は通常の鋼管タワーとします。海外ではハブ高さ約 160 m のハイブリッドタワーがすでに運転しており、コンクリートによりタワーは重く剛になるため、固有振動数の調整の幅も広がります。"],
+"下段用預鑄混凝土環片，一圈圈疊上去":["Precast concrete rings are stacked to form the lower tower", "下部はプレキャストコンクリートのリングを積み重ねる"],
+"預力鋼腱貫穿塔身，把環片壓在基礎上":["Tendons press the rings onto the foundation", "PC 鋼材がリングを基礎に押さえつける"],
+"轉接段之上，再接回鋼管塔":["Above the adapter, the tower continues in steel", "アダプタの上は鋼管タワーに戻る"],
+"同一台風機，輪轂從 110 m 拉高到約 160 m":["Same turbine, hub raised from 110 m to about 160 m", "同じ風車でハブを 110 m から約 160 m へ"],
+"預鑄混凝土環片":["Precast concrete rings", "プレキャストリング"],
+"後拉預力鋼腱":["Post-tensioned tendons", "ポストテンション PC 鋼材"],
+"轉接段":["Adapter", "アダプタ"],
+"上段鋼管塔":["Upper steel tower", "上部鋼管タワー"],
+"約 160 m":["about 160 m", "約 160 m"],
+"鋼管塔":["Steel tower", "鋼管タワー"],
+"混凝土混合塔":["Hybrid tower", "ハイブリッドタワー"],
+"混合塔（示例）":["Hybrid tower (example)", "ハイブリッドタワー（例）"],
+"混凝土段":["Concrete", "コンクリート部"],
+"鋼管段":["Steel", "鋼管部"],
+"避開 1P 與 3P：塔架的共振":["Avoiding 1P and 3P: tower resonance", "1P と 3P を避ける：タワーの共振"],
+"塔架像一根插在地上的長竿，有自己的自然頻率。轉子每轉一圈，質量或氣動的些微不平衡就推塔架一次，稱為 1P；三支葉片每掠過塔前一次，塔架就受到一次擾動，頻率是 3P。以轉速每分鐘 7–13 轉為例，1P 約 0.12–0.22 Hz，3P 約 0.35–0.65 Hz。若塔架的自然頻率落在這兩個頻帶裡，就會共振，擺幅放大、疲勞加速。大多數風機採「軟－剛」設計，讓頻率夾在兩者之間，並各留約 10% 的餘裕。":["A tower is like a long pole stuck in the ground and has its own natural frequency. Every rotor revolution, a slight mass or aerodynamic imbalance pushes the tower once; this is 1P. Each time one of the three blades passes in front of the tower, the tower is disturbed again, at 3P. For a rotor speed of 7–13 rpm, 1P is about 0.12–0.22 Hz and 3P about 0.35–0.65 Hz. If the tower's natural frequency falls inside either band it resonates, the sway grows and fatigue speeds up. Most turbines use a soft–stiff design that places the frequency between the two bands with a margin of about 10% on each side.", "タワーは地面に立てた長い竿のようなもので、固有の振動数を持っています。ロータが 1 回転するごとに、質量や空力のわずかな不釣り合いがタワーを 1 回押し、これを 1P と呼びます。3 枚のブレードがタワーの前を通過するたびにタワーは乱され、その振動数が 3P です。回転数 7–13 rpm の例では、1P は約 0.12–0.22 Hz、3P は約 0.35–0.65 Hz です。タワーの固有振動数がこれらの帯域に入ると共振し、揺れが拡大して疲労が進みます。多くの風車はソフト・スティフ設計を採用し、固有振動数を 2 つの帯域の間に置き、それぞれ約 10% の余裕を確保します。"],
+"轉一圈推塔一次是 1P，葉片掠過塔前三次是 3P":["One push per turn is 1P; three blade passes is 3P", "1 回転に 1 回の加振が 1P、3 回のブレード通過が 3P"],
+"轉速 7–13 rpm，1P 與 3P 各成一個頻帶":["At 7–13 rpm, 1P and 3P each form a frequency band", "7–13 rpm で 1P と 3P がそれぞれ帯域になる"],
+"自然頻率落進頻帶，擺幅放大，形成共振":["Inside a band, the tower resonates and sways", "固有振動数が帯域に入ると共振し揺れが拡大"],
+"軟－剛設計：夾在兩個頻帶之間，各留 10% 餘裕":["Soft–stiff: between the bands, 10% margin each side", "ソフト・スティフ設計：帯域の間に置き、各 10% の余裕"],
+"塔架的擺動（示意）":["Tower sway (schematic)", "タワーの揺れ（模式図）"],
+"1P：轉一圈一次":["1P: once per turn", "1P：1 回転に 1 回"],
+"3P：葉片掠過塔前":["3P: blade passes tower", "3P：ブレードがタワー前を通過"],
+"共振":["Resonance", "共振"],
+"激振頻帶與塔架自然頻率（示例）":["Excitation bands and tower frequency (example)", "加振帯域とタワー固有振動数（例）"],
+"頻率（Hz）":["Frequency (Hz)", "振動数（Hz）"],
+"軟－剛":["Soft–stiff", "ソフト・スティフ"],
+"10% 餘裕":["10% margin", "10% 余裕"],
+"塔架 f₁ = {f} Hz":["Tower f₁ = {f} Hz", "タワー f₁ = {f} Hz"],
+"三種設計區間":["Three design ranges", "3 つの設計領域"],
+"軟－軟：低於 1P，塔輕但易受擾動":["Soft–soft: below 1P, light but easily excited", "ソフト・ソフト：1P 未満、軽いが加振されやすい"],
+"軟－剛：介於 1P 與 3P 之間，最常見":["Soft–stiff: between 1P and 3P, most common", "ソフト・スティフ：1P と 3P の間、最も一般的"],
+"剛－剛：高於 3P，塔又粗又重":["Stiff–stiff: above 3P, thick and heavy", "スティフ・スティフ：3P 超、太く重い"],
+"塔越高頻率越低，可設定跳過特定轉速":["Taller means lower frequency; skip some speeds", "高いほど振動数が下がり、特定回転数を回避"],
+"預力怎麼上、怎麼查":["Applying and checking preload", "予張力の導入と点検"],
+"大直徑的塔架螺栓多用液壓拉伸器施作：拉伸器套在螺栓末端，以油壓把螺栓直接拉長，再把螺帽轉緊、洩壓，預力就留在螺栓裡，比單純施加扭力更準確。驗收或檢查時，可用超音波量測螺栓長度：音波在螺栓兩端來回的時間，會隨伸長而變長，換算出約 1.1 公釐的伸長即對應設計預力。風機運轉初期約 500 小時要全數複查，之後每年抽檢約 10%，也就是第 16 集年度定檢裡的螺栓工作。":["Large tower bolts are usually tightened with hydraulic tensioners. The tensioner fits over the end of the bolt and stretches it directly with oil pressure; the nut is then turned down and the pressure released, leaving the preload locked in the bolt. This is more accurate than applying torque alone. For acceptance or inspection, bolt length can be measured ultrasonically: the time for a sound pulse to travel to the far end of the bolt and back grows as the bolt stretches, and an elongation of about 1.1 mm corresponds to the design preload. A full re-check is made after about 500 hours of operation, and about 10% of the bolts are sampled each year after that, the bolt work seen in the annual inspection of episode 16.", "大径のタワーボルトは主に油圧テンショナで締め付けます。テンショナをボルト端部にかぶせ、油圧でボルトを直接引き伸ばしてからナットを締め込み、圧力を抜くと予張力がボルトに残ります。トルクだけで締めるより正確です。受入れや点検では、超音波でボルトの長さを測定できます。音波がボルトの端まで往復する時間はボルトの伸びとともに長くなり、約 1.1 mm の伸びが設計予張力に相当します。運転初期約 500 時間で全数を再確認し、その後は毎年約 10% を抜き取り点検します。第 16 話の年次点検で見たボルト作業がこれです。"],
+"液壓拉伸器套上螺栓，以油壓直接拉長":["A hydraulic tensioner stretches the bolt", "油圧テンショナをボルトにかぶせ、油圧で引き伸ばす"],
+"拉到設計值後轉緊螺帽、洩壓，預力留在螺栓裡":["Run down the nut and release: the preload stays", "設計値でナットを締め込み除圧、予張力が残る"],
+"超音波量測回波時間，換算螺栓伸長量":["Ultrasonic echo time gives the bolt elongation", "超音波の反射時間からボルトの伸びを算出"],
+"運轉初期全數複查，之後每年抽檢約一成":["Full re-check early on, then about 10% each year", "運転初期に全数再確認、その後は毎年約 1 割"],
+"液壓拉伸器":["Hydraulic tensioner", "油圧テンショナ"],
+"油壓泵":["Hydraulic pump", "油圧ポンプ"],
+"基礎錨栓":["Anchor bolts", "アンカーボルト"],
+"超音波探頭":["Ultrasonic probe", "超音波プローブ"],
+"超音波量測螺栓伸長（示意）":["Ultrasonic bolt elongation (schematic)", "超音波によるボルト伸び測定（模式図）"],
+"發射":["Pulse", "送信"],
+"鎖緊前":["Before", "締付け前"],
+"鎖緊後":["After", "締付け後"],
+"伸長 {d} mm → 預力 {p} kN":["Stretch {d} mm → preload {p} kN", "伸び {d} mm → 予張力 {p} kN"],
+"檢查時程（示例）":["Inspection schedule (example)", "点検スケジュール（例）"],
+"安裝時":["At installation", "設置時"],
+"全數拉伸至設計預力":["All tensioned to design preload", "全数を設計予張力まで締付け"],
+"約 500 小時":["About 500 hours", "約 500 時間"],
+"全數複查":["Full re-check", "全数再確認"],
+"之後每年":["Every year after", "以降毎年"],
+"抽檢約 10%（第 16 集）":["Sample about 10% (ep. 16)", "約 10% 抜き取り（第 16 話）"],
+"螺栓預力（示例）":["Bolt preload (example)", "ボルト予張力（例）"],
+"目標預力":["Target preload", "目標予張力"],
+"目前預力":["Current preload", "現在の予張力"],
+"伸長量":["Elongation", "伸び量"],
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

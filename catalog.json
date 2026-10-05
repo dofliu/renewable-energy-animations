@@ -866,6 +866,20 @@
                 "en": "Receptors and down conductors, the lightning current path, LPL I parameters, earthing and surge protection, leading-edge erosion, winter lightning and coastal salt",
                 "ja": "レセプタと引下げ導線、雷電流の経路、LPL I の雷パラメータ、接地とサージ保護、前縁エロージョン、冬季雷と沿岸の塩害"
               }
+            },
+            {
+              "no": 11,
+              "file": "ep11.html",
+              "title": {
+                "zh": "塔架結構與共振",
+                "en": "Tower structure and resonance",
+                "ja": "タワー構造と共振"
+              },
+              "sub": {
+                "zh": "鋼管塔分段與運輸限制、L 型法蘭與螺栓預力、混凝土混合塔、1P／3P 頻率避開、液壓拉伸與超音波預力檢查",
+                "en": "Steel tower sections and transport limits, L-flanges and bolt preload, concrete hybrid towers, avoiding 1P/3P frequencies, hydraulic tensioning and ultrasonic preload checks",
+                "ja": "鋼管タワーの分割と輸送制限、L 型フランジとボルト予張力、コンクリート・ハイブリッドタワー、1P／3P 回避、油圧テンショナと超音波による予張力点検"
+              }
             }
           ]
         },
