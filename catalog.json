@@ -718,6 +718,20 @@
                 "en": "Night-time blade transport, spread foundations, main and tailing cranes, erecting tower, nacelle and blades",
                 "ja": "ブレードの夜間輸送、拡底式基礎、メインと補助クレーン、タワー・ナセル・ブレードの据付"
               }
+            },
+            {
+              "no": 12,
+              "file": "ep12.html",
+              "title": {
+                "zh": "擴展式基礎施工",
+                "en": "Building a spread foundation",
+                "ja": "拡底式基礎の施工"
+              },
+              "sub": {
+                "zh": "開挖與墊層、錨栓籠定位調平、放射與環向鋼筋、連續澆置、大體積混凝土溫控、回填與灌漿",
+                "en": "Excavation and blinding, levelling the anchor cage, radial and ring rebar, continuous pour, mass concrete thermal control, backfill and grout",
+                "ja": "掘削と均しコンクリート、アンカーケージの水平調整、放射筋とリング筋、連続打設、マスコンクリートの温度管理、埋め戻しとグラウト"
+              }
             }
           ]
         },
