@@ -822,6 +822,20 @@
               }
             },
             {
+              "no": 13,
+              "file": "ep13.html",
+              "title": {
+                "zh": "狀態監測與預測性維護",
+                "en": "Condition monitoring and predictive maintenance",
+                "ja": "状態監視と予知保全"
+              },
+              "sub": {
+                "zh": "傳動系加速度計、FFT 振動頻譜、軸承故障特徵頻率、油液顆粒與 ISO 4406、SCADA 正常行為模型、P–F 曲線與計畫維修",
+                "en": "Drivetrain accelerometers, FFT vibration spectra, bearing defect frequencies, oil particles and ISO 4406, SCADA normal-behaviour models, the P–F curve and planned repair",
+                "ja": "ドライブトレインの加速度計、FFT 振動スペクトル、軸受の欠陥周波数、油中粒子と ISO 4406、SCADA 正常挙動モデル、P–F 曲線と計画保守"
+              }
+            },
+            {
               "no": 16,
               "file": "ep16.html",
               "title": {
