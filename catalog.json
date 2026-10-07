@@ -480,6 +480,20 @@
                 "en": "Corrosion zones, coating systems, sacrificial anodes and impressed current, potential monitoring",
                 "ja": "腐食区分、塗装系、流電陽極と外部電源方式、電位モニタリング"
               }
+            },
+            {
+              "no": 27,
+              "file": "ep27.html",
+              "title": {
+                "zh": "結構健康監測與疲勞",
+                "en": "Structural health monitoring and fatigue",
+                "ja": "構造ヘルスモニタリングと疲労"
+              },
+              "sub": {
+                "zh": "應變計與加速度計、自然頻率追蹤與淘刷、雨流計數、S-N 曲線與 Miner 損傷累積、數位分身與剩餘壽命",
+                "en": "Strain gauges and accelerometers, natural-frequency tracking and scour, rainflow counting, S-N curve and Miner damage, digital twin and remaining life",
+                "ja": "ひずみゲージと加速度計、固有振動数の追跡と洗掘、レインフロー法、S-N 曲線とマイナー損傷、デジタルツインと残存寿命"
+              }
             }
           ]
         },
