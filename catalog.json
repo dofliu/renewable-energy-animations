@@ -113,6 +113,20 @@
                 "en": "Cetacean, bird and benthic surveys and noise limits",
                 "ja": "鯨類・鳥類・底生生物の調査と騒音規制"
               }
+            },
+            {
+              "no": 28,
+              "file": "ep28.html",
+              "title": {
+                "zh": "漁業共存與海域共享",
+                "en": "Fisheries coexistence and sharing the sea",
+                "ja": "漁業との共存と海域の共有"
+              },
+              "sub": {
+                "zh": "基礎的人工魚礁效應與有限範圍、施工與營運安全區和航道、不同漁法的可作業性、漁業補償與共存共榮經費、與在地漁會協商",
+                "en": "Artificial reef effect and its limited reach, construction and operational safety zones and lanes, which fishing methods can operate, compensation and shared-benefit funds, working with local fishing associations",
+                "ja": "基礎の人工魚礁効果とその限られた範囲、施工中・運転中の安全区域と航路、漁法ごとの操業可否、漁業補償と共存共栄資金、地元漁協との協議"
+              }
             }
           ]
         },

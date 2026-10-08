@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep04.js｜離岸風場開發系列</title>
+<title>ep28.js｜離岸風場開發系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep03.html"><span data-zh="← 03 地質鑽探" data-en="← 03 Geotechnical investigation" data-ja="← 03 地盤調査">← 03 地質鑽探</span></a><a href="ep28.html"><span data-zh="28 漁業共存與海域共享 →" data-en="28 Fisheries coexistence and sharing the sea →" data-ja="28 漁業との共存と海域の共有 →">28 漁業共存與海域共享 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="離岸風電系列" data-en="Offshore Wind series" data-ja="洋上風力シリーズ">離岸風電系列</span></a><span class="sp"></span><a href="ep04.html"><span data-zh="← 04 環境影響評估" data-en="← 04 Environmental impact assessment" data-ja="← 04 環境影響評価">← 04 環境影響評估</span></a><a href="ep05.html"><span data-zh="05 基礎打樁 →" data-en="05 Monopile installation →" data-ja="05 モノパイル基礎の打設 →">05 基礎打樁 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep04.js｜離岸風場開發系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep28.js｜離岸風場開發系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -928,569 +928,351 @@ function sideEnd(){soilVeil(VX0,VX1,.24);drawWaterOver();}
 Object.assign(DICT,{"工作船": ["Workboat", "作業船"], "浮動式光達 FLS": ["Floating LiDAR (FLS)", "浮体式ライダー FLS"], "錨鍊與沉錘": ["Mooring chain & clump weight", "係留チェーンとシンカー"], "雷射光束：都卜勒效應測風": ["Laser beams: Doppler wind measurement", "レーザー光：ドップラー効果で風を計測"], "衛星即時回傳": ["Real-time satellite uplink", "衛星でリアルタイム送信"], "浮動式光達即時資料": ["LiDAR live data", "ライダー観測データ"], "風向 NNE 23°　紊流強度 7%": ["Dir. NNE 23°   Turbulence 7%", "風向 NNE 23°　乱流強度 7%"], "每 10 分鐘統計、經衛星回傳": ["10-min averages sent via satellite", "10分間統計を衛星で送信"], "調查船": ["Survey vessel", "調査船"], "多音束測深儀 MBES": ["Multibeam echosounder (MBES)", "マルチビーム測深機 MBES"], "側掃聲納（拖曳式）": ["Side-scan sonar (towed)", "サイドスキャンソナー（曳航式）"], "發現沉船殘骸：路由避開": ["Wreck found: route avoids it", "沈船を発見：ルートを回避"], "磁力儀": ["Magnetometer", "磁力計"], "磁力異常：疑似未爆彈": ["Magnetic anomaly: possible UXO", "磁気異常：不発弾の疑い"], "底層剖面儀 SBP：地層反射面": ["Sub-bottom profiler (SBP): strata reflectors", "地層探査機 SBP：地層の反射面"], "測線規劃（示意）": ["Survey line plan (schematic)", "測線計画（イメージ）"], "藍線：已完成測線　✕：障礙物／異常點": ["Blue: lines done   ✕: obstacle / anomaly", "青線：完了した測線　✕：障害物／異常点"], "鑽探船（動態定位 DP）": ["Drilling vessel (DP)", "掘削船（自動船位保持 DP）"], "海床框架": ["Seabed frame", "海底フレーム"], "CPT 圓錐貫入": ["CPT cone penetration", "CPT コーン貫入"], "細砂層": ["Fine sand", "細砂層"], "粉土質黏土": ["Silty clay", "シルト質粘土"], "緊密砂層": ["Dense sand", "締まった砂層"], "岩盤／極緊密層": ["Bedrock / very dense", "岩盤／非常に硬い層"], "岩心取樣": ["Core sampling", "コアサンプリング"], "CPT 錐尖阻力 qc": ["CPT cone resistance qc", "CPT 先端抵抗 qc"], "qc（MPa）": ["qc (MPa)", "qc（MPa）"], "拒入（岩盤）": ["Refusal (bedrock)", "貫入不能（岩盤）"], "岩心箱": ["Core box", "コア箱"], "研究船": ["Research vessel", "調査研究船"], "鯨豚觀察員": ["Marine mammal observer", "鯨類観察員"], "鯨豚": ["Dolphins", "イルカ"], "水下聽音器 PAM": ["Hydrophone (PAM)", "水中聴音器 PAM"], "遷徙鳥群：雷達追蹤高度約 130 m": ["Migrating birds: radar-tracked at ~130 m", "渡り鳥：レーダーで高度約 130 m を追跡"], "底質採樣器": ["Grab sampler", "採泥器"], "魚類與漁業資源調查": ["Fish & fisheries survey", "魚類・漁業資源調査"], "水下聲學監測 PAM": ["Passive acoustic monitoring", "水中音響モニタリング PAM"], "偵測到鯨豚聲音": ["Cetacean calls detected", "鯨類の音を検知"], "全天候監聽中": ["Listening 24/7", "24時間監視中"], "背景噪音": ["Background noise", "背景雑音"], "約 110 dB": ["~110 dB", "約 110 dB"], "環評審查通過": ["EIA approved", "環境アセス承認"], "取得開發許可": ["Development permit granted", "開発許可を取得"], "重件吊裝船 HLV": ["Heavy-lift vessel (HLV)", "重量物据付船 HLV"], "鯨豚觀察船": ["MMO vessel", "鯨類監視船"], "氣泡幕施工船": ["Bubble-curtain vessel", "バブルカーテン作業船"], "氣泡幕": ["Bubble curtain", "バブルカーテン"], "單樁 Monopile": ["Monopile", "モノパイル"], "翻轉豎起": ["Upending", "建て起こし"], "抱樁器": ["Pile gripper", "パイルグリッパー"], "自重貫入海床": ["Self-weight penetration", "自重で海底に貫入"], "液壓打樁錘": ["Hydraulic hammer", "油圧ハンマー"], "軟啟動：能量逐步加大": ["Soft start: energy ramps up", "ソフトスタート：打撃力を段階的に増加"], "噪音經氣泡幕衰減": ["Noise damped by bubble curtain", "騒音をバブルカーテンで低減"], "設計入土深度": ["Design penetration depth", "設計根入れ深さ"], "打樁監測": ["Piling monitor", "打設モニタリング"], "布設中": ["Deploying", "敷設中"], "運轉中": ["Active", "稼働中"], "鯨豚警戒區": ["Exclusion zone", "鯨類警戒区域"], "確認中": ["Checking", "確認中"], "淨空": ["Clear", "異常なし"], "打擊次數": ["Blow count", "打撃回数"], "錘擊能量": ["Hammer energy", "打撃エネルギー"], "入土深度": ["Penetration", "根入れ深さ"], "水下噪音 SEL（750 m）": ["Underwater SEL (750 m)", "水中騒音 SEL（750 m）"], "管制 160": ["Limit 160", "規制値 160"], "無減噪約 173": ["Unmitigated ~173", "対策なし 約173"], "轉接段 TP": ["Transition piece (TP)", "トランジションピース TP"], "對準樁頂套接": ["Aligned and slid onto the pile", "杭頭に合わせて差し込み"], "螺栓法蘭鎖固": ["Bolted flange", "ボルトでフランジ締結"], "工作平台": ["Work platform", "作業デッキ"], "靠船設施與爬梯": ["Boat landing & ladder", "ボートランディングと梯子"], "平台吊車": ["Davit crane", "デッキクレーン"], "吊裝船撤離": ["Vessel departs", "据付船が撤収"], "大型起重船": ["Heavy-lift crane vessel", "大型起重機船"], "套管式基礎 Jacket": ["Jacket foundation", "ジャケット基礎"], "打入針樁": ["Pin piles driven", "ピンパイル打設"], "上部模組": ["Topside module", "トップサイド"], "主變壓器": ["Main transformer", "主変圧器"], "直升機平台": ["Helideck", "ヘリデッキ"], "J 形管": ["J-tubes", "J チューブ"], "升壓送電": ["Step-up and export", "昇圧・送電"], "陣列海纜": ["Array cable", "アレイケーブル"], "主變": ["Main", "主変"], "壓器": ["XFMR", "圧器"], "輸出海纜": ["Export cable", "送電ケーブル"], "電壓升高、電流變小，": ["Higher voltage, lower current,", "電圧を上げて電流を下げ、"], "長距離輸電損耗更低": ["so less is lost over distance", "長距離送電の損失を低減"], "海纜鋪設船 CLV": ["Cable-lay vessel (CLV)", "ケーブル敷設船 CLV"], "海纜轉盤": ["Cable carousel", "ケーブルターンテーブル"], "拉入風機基礎": ["Pull-in to turbine", "風車基礎へ引き込み"], "陣列海纜 66 kV": ["Array cable 66 kV", "アレイケーブル 66 kV"], "埋設機：高壓水刀開溝": ["Trencher: water-jet trenching", "埋設機：高圧ジェットで溝掘り"], "拉入 J 形管": ["Pull-in via J-tube", "J チューブへ引き込み"], "HDD 登陸導管": ["HDD landfall duct", "HDD 陸揚げ管路"], "陸上絞機": ["Onshore winch", "陸上ウインチ"], "輸出海纜 161 kV": ["Export cable 161 kV", "送電ケーブル 161 kV"], "陸上變電站": ["Onshore substation", "陸上変電所"], "埋設機": ["Trencher", "埋設機"], "海纜剖面（3 芯 XLPE）": ["Cable section (3-core XLPE)", "ケーブル断面（3心 XLPE）"], "銅導體": ["Copper core", "銅導体"], "XLPE 絕緣": ["XLPE insulation", "XLPE 絶縁"], "光纖單元": ["Optical fibre", "光ファイバー"], "鋼線鎧裝": ["Steel armour", "鋼線外装"], "陣列 66 kV　輸出 161–220 kV": ["Array 66 kV   Export 161–220 kV", "アレイ 66 kV　送電 161–220 kV"], "埋深約 1–3 m": ["Burial depth ~1–3 m", "埋設深度 約 1–3 m"], "自升式風機安裝船 WTIV": ["Jack-up installation vessel (WTIV)", "SEP型風車据付船 WTIV"], "機艙": ["Nacelles", "ナセル"], "葉片": ["Blades", "ブレード"], "塔架段": ["Tower sections", "タワー"], "樁腿插入海床並預壓": ["Legs pinned and preloaded", "脚を海底に貫入・プレロード"], "船身頂升離開水面": ["Hull jacked out of the water", "船体をジャッキアップ"], "法蘭螺栓鎖固": ["Flange bolting", "フランジをボルト締結"], "機艙（含輪轂）": ["Nacelle (with hub)", "ナセル（ハブ付き）"], "導引繩": ["Taglines", "タグライン"], "對準偏航軸承，螺栓鎖固": ["Aligned to yaw bearing and bolted", "ヨー軸受に合わせボルト締結"], "輪轂": ["Hub", "ハブ"], "主軸承": ["Main bearing", "主軸受"], "發電機": ["Generator", "発電機"], "變流器": ["Converter", "コンバーター"], "變壓器": ["Transformer", "変圧器"], "冷卻系統": ["Cooling", "冷却システム"], "偏航驅動": ["Yaw drive", "ヨー駆動"], "葉片夾具 Blade yoke": ["Blade yoke", "ブレードヨーク"], "盤車裝置：輪轂轉 120°": ["Turning gear: hub turns 120°", "ターニング装置：ハブを 120° 回転"], "導引繩控制姿態": ["Taglines steady the blade", "タグラインで姿勢を制御"], "降下船身、收起樁腿": ["Jack down and retract legs", "ジャッキダウン・脚を引き上げ"], "自升式安裝船": ["Jack-up vessel", "SEP 船"], "狀態": ["Status", "状態"], "航行進場": ["In transit", "航行中"], "樁腿插入海床": ["Legs down", "脚を着底"], "頂升中": ["Jacking up", "ジャッキアップ中"], "吊裝作業": ["Lifting", "吊り上げ作業"], "氣隙（船底至海面）": ["Air gap (hull to sea)", "エアギャップ（船底〜海面）"], "樁腿長度": ["Leg length", "脚の長さ"], "約 110 m": ["~110 m", "約 110 m"], "（示意數值）": ["(illustrative values)", "（参考値）"], "機艙（15 MW 級示例）": ["Nacelle (15 MW class)", "ナセル（15 MW 級の例）"], "額定功率": ["Rated power", "定格出力"], "輪轂高度": ["Hub height", "ハブ高さ"], "約 150 m": ["~150 m", "約 150 m"], "機艙＋輪轂": ["Nacelle + hub", "ナセル＋ハブ"], "數百公噸": ["Hundreds of t", "数百トン"], "葉片吊裝": ["Blade lift", "ブレード吊り上げ"], "葉片長度": ["Blade length", "ブレード長"], "作業風速上限": ["Wind limit", "作業限界風速"], "約 10–12 m/s": ["~10–12 m/s", "約 10–12 m/s"], "目前風速": ["Wind now", "現在の風速"], "已安裝": ["Installed", "取付済み"], "人員運輸船 CTV": ["Crew transfer vessel (CTV)", "作業員輸送船 CTV"], "技術人員登塔": ["Technicians step across", "技術者が乗り移り"], "偏航對風、葉片變槳": ["Yaw into wind, pitch blades", "ヨーで風に正対・ピッチ制御"], "海上變電站升壓": ["Offshore substation steps up", "洋上変電所で昇圧"], "陸上變電站 → 電網": ["Onshore substation → grid", "陸上変電所 → 電力網"], "運維母船 SOV": ["Service operation vessel (SOV)", "保守支援母船 SOV"], "動態補償舷梯": ["Motion-compensated gangway", "動揺補償タラップ"], "基礎成為人工魚礁": ["Foundations become artificial reefs", "基礎が人工魚礁に"], "風機運轉狀態": ["Turbine status", "風車の運転状態"], "風速": ["Wind speed", "風速"], "轉速": ["Rotor speed", "回転数"], "輸出功率": ["Power output", "出力"], "每轉一圈約發": ["Energy per rotation", "1回転あたり発電量"], "34 度電": ["~34 kWh", "約 34 kWh"], "併網發電中": ["Generating", "発電中"], "啟動中": ["Starting up", "起動中"], "海上變電站": ["Offshore substation", "洋上変電所"], "輸出海纜登陸": ["Export cable landfall", "送電ケーブル陸揚げ"]});
 
 // KITS: marine
-/* ================= EP04 環境影響評估 ================= */
-const RVX=260,PAMX=820,hY4=h=>SEA-h*1.35;
-function podX(u,i){return lerp(-120,1500,u)+[0,-46,-90,-30][i];}
-function drawPod(u,base,amp,n){for(let i=0;i<n;i++){const x=podX(u,i),p=x/150+[0,.35,.7,.2][i],y=base+amp*Math.cos(p*TAU),ang=Math.atan(-amp*TAU/150*Math.sin(p*TAU));dolphin(x,y,ang,i===3?.7:1);}}
-function hydrophone(x){const b=bedY(x);box(x-10,b-8,20,8,'#4d5760');ln([x,b-8,x,b-60],'#2b3035',1.4);circ(x,b-66,7,'#f2c230','#9c7a12',1);box(x-3,b-54,6,14,'#394650');}
-function grab(x,y,open){ctx.save();ctx.translate(x,y);box(-3,-18,6,10,'#394650');const o=open*.6;ctx.save();ctx.rotate(-o);poly([0,-8,-16,-6,-14,8,0,8],'#8a99a3','#394650',1);ctx.restore();ctx.save();ctx.rotate(o);poly([0,-8,16,-6,14,8,0,8],'#8a99a3','#394650',1);ctx.restore();ctx.restore();}
-const SPL=(r,m)=>215.1-(m?13:0)-15*Math.log10(Math.max(r,1))-r*.0004;
+/* ================= EP28 漁業共存與海域共享 ================= */
+function wrap28(x,y,t,maxW,size,col,weight,lh,align){
+  t=tr(t);const cjk=LANG!=='en'&&CJK_RE.test(t),parts=cjk?[...t]:t.split(' ');let line='',n=0;
+  const out=s=>{wt(x,y+n*lh,s,size,col,weight,align);n++;};
+  for(const w of parts){const test=line?(cjk?line+w:line+' '+w):w;if(line&&wtw(test,size,weight)>maxW){if(cjk&&/^[，。、）」：；,.]$/.test(w)){out(test);line='';continue;}out(line);line=w;}else line=test;}
+  if(line)out(line);return n;
+}
+/* complete monopile turbine at TX */
+function turb28(rot){
+  const yb=bedY(TX)+130;
+  drawPile(TX,yb,Math.PI/2,yb-PILE_TOP,PILE_W);
+  drawTP(TX,TP_BOT);for(let k=0;k<3;k++)drawTowerSec(TX,TP_TOP-k*HS,k);
+  drawNacelle(TX,TW_TOP,0,true);drawRotor(TX-44,TW_TOP-20,rot,3);
+}
+/* rock scour protection mound around the pile foot */
+function rocks28(a){
+  const bed=bedY(TX),r=rng(28);
+  alphaDo(a,()=>{poly([TX-92,bed+2,TX-50,bed-18,TX+50,bed-18,TX+92,bed+2],'#6b7479');
+   for(let i=0;i<34;i++){const x=TX-88+r()*176,k=1-Math.abs(x-TX)/92,y=bed+1-k*16*r()-2;circ(x,y,3+r()*4,r()<.5?'#8a949a':'#59636a');}});
+}
+/* plan-view turbine icon */
+function tplan28(x,y,rot,col){
+  circ(x,y,4,col||'#f2f5f6');for(let k=0;k<3;k++){const a=rot+k*TAU/3;ln([x,y,x+Math.cos(a)*13,y+Math.sin(a)*13],col||'#f2f5f6',2);}
+}
+/* fish abundance index vs distance from the foundation (typical example) */
+const FI28=d=>3+97*Math.exp(-d/55);
+const GRID28=[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2]];
 
-const EP={no:4,slug:'offshore-wind',seriesName:'離岸風場開發系列',total:13,t:'環境影響評估',en:'Environmental impact assessment',
-lede:'風場蓋在海裡，海裡原本就住著鯨豚、魚群與底棲生物，天上還有候鳥飛過。這一集看環評調查怎麼「聽」海豚、「追」候鳥、「挖」海床，以及打樁噪音如何被量化與管制。',
-facts:[['160','dB','常見的打樁噪音管制值：距樁 750 公尺處的單次聲曝值（SEL）上限'],['750','m','打樁前觀察員與聲學監測必須確認沒有鯨豚的警戒範圍'],['30–60','分鐘','打樁前的鯨豚觀察與監聽時間，確認淨空才能開始'],['10–15','dB','氣泡幕等減噪措施可降低的水下噪音量級'],['四季','全年','鯨豚、鳥類與漁業調查需涵蓋季節變化，含春秋候鳥過境期'],['數年','持續','施工前、施工中與營運期間都要監測並提報結果']],
-note:'說明：本集為教育用途示意動畫。噪音管制值、警戒距離與調查頻率為台灣常見的環評承諾範例，實際內容依各開發案的環評審查結論與主管機關規定而定。聲學傳播曲線為簡化模型。',
+const EP={no:28,slug:'offshore-wind',seriesName:'離岸風場開發系列',t:'漁業共存與海域共享',en:'Fisheries coexistence and sharing the sea',
+lede:'風場蓋在海上，也蓋在漁民長期作業的漁場裡。這一集看風機基礎如何成為人工魚礁、聚魚的範圍有多大，施工與營運期間的安全區與航道怎麼劃，不同漁法還能不能作業，漁業補償與共存共榮經費如何運用，以及開發商與在地漁會怎樣一步步協商。',
+facts:[['50','公尺','營運期風機周邊常見的安全區範圍（歐洲部分國家，示例）'],['500','公尺','施工期間環繞施工船的移動式安全區常見範圍'],['86','種','台灣風場調查在基礎 50 公尺內記錄到的礁岩性魚類'],['3','項','補償基準常見的計算項目：漁業權損失、繞道成本、漁獲淨收益損失'],['4','類','共存共榮經費常見用途：棲地營造、放流、漁法轉型輔導、休閒漁業']],
+note:'說明：本集為教育用途示意動畫，風機、魚群、安全區與航道的比例經過壓縮，聚魚指數、風機間距與船隊配置皆為「典型範例」，並非特定案場資料。基礎周邊聚魚範圍小、岩石護腳的聚魚效果通常高於砂袋與導管架，依德國與台灣風場的公開研究；施工期 500 公尺移動式安全區與營運期 50 公尺安全區為英國等地的常見做法，台灣各案場的實際範圍、可作業漁法與補償金額，以主管機關公告與環評承諾為準。補償計算項目與共存共榮經費用途參考地方政府公開之離岸式風力發電廠漁業補償基準。',
 shots:[
-/* 1 */{t:'鯨豚目視調查',en:'Marine mammal visual survey',dur:12,side:true,
- d:'研究船沿固定穿越線航行，受過訓練的觀察員在甲板高處以雙筒望遠鏡掃視海面，記錄看到的鯨豚種類、數量、行為（覓食、移動、休息）與位置。台灣西部沿海是瀕危的台灣白海豚棲息地，牠們多出沒在近岸淺水區，因此風場選址與海纜登陸路線都必須特別評估。',
- s:[[0,'研究船沿穿越線航行，觀察員輪班掃視海面'],[.28,'發現鯨豚群：記錄種類、數量與行為'],[.55,'同步記錄位置、時間、海況與能見度'],[.8,'多年、多季的目擊資料，描繪出鯨豚的分布熱點']],
- cam:()=>({x:560,y:430,s:1.35}),
+/* 1 */{t:'基礎變成人工魚礁',en:'Foundations become artificial reefs',dur:13,side:true,
+ d:'單樁基礎與周圍的護腳岩塊，在平坦的沙質海床上突然多了一片硬底質。藤壺、貽貝與海藻先附著在樁身上，吸引小型甲殼類與小魚來覓食，再引來較大的肉食性魚類，形成一個小型的生態系。台灣離岸風場的調查也在基礎周邊記錄到沙地上原本沒有的礁岩性魚類。這個人工魚礁效應對部分底棲與礁岩魚種有利，但並不等於整體漁獲量必然增加，仍需長期監測。',
+ s:[[0,'平坦的沙質海床上，單樁與護腳岩塊成了新的硬底質'],[.28,'藤壺與貽貝附著樁身，吸引小魚與甲殼類'],[.55,'更大的肉食性魚類跟著聚集到基礎周邊'],[.78,'聚魚效果只出現在基礎附近，仍需長期監測']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:TX+40,y:SEA+130,s:1.7},ease(seg(u,.05,.3))),
  draw(u){
-  const x=lerp(-200,RVX,easeOut(seg(u,0,.2))),wl=vsl(x,150,false,{damp:.7},vResearch);
-  for(let i=0;i<3;i++){const px=x+84+i*12;person(px,wl-50,['#e8572a','#f2c230','#1f7f99'][i],1.1);ln([px+2,wl-60,px+8,wl-61],'#222',2);}
-  if(u>.25)drawPod(seg(u,.25,1),SEA+14,26,4);
-  lab(x+96,wl-62,'鯨豚觀察員',{dx:-40,dy:-50,a:band(u,.08,.5)});
-  if(u>.3){const d=podX(seg(u,.25,1),0);lab(d,SEA-6,'鯨豚群出現',{dx:40,dy:-60,st:'s',a:band(u,.3,.6)});}
+  const bed=bedY(TX);
+  rocks28(seg(u,.06,.18));
+  turb28(TT*.9);
+  // fouling on the pile
+  const f=seg(u,.26,.5),r=rng(7);
+  alphaDo(f,()=>{for(let i=0;i<46;i++){const y=SEA+14+r()*(bed-SEA-24),s=r()<.5?-1:1;circ(TX+s*(PILE_W/2-1),y,2+r()*2.4,r()<.6?'#c9b48a':'#4fa66a');}});
+  // fish gather around the foundation
+  const g=ease(seg(u,.3,.85));
+  school(TX-70,bed-70,Math.round(2+g*9),11,TT,26,1,'rgba(200,225,235,.85)');
+  school(TX+75,bed-45,Math.round(1+g*8),12,TT,24,-1,'rgba(242,194,48,.8)');
+  if(g>.5)school(TX+10,bed-120,Math.round(g*6),13,TT,30,1,'rgba(125,255,196,.7)');
+  // sandy seabed far away: only a few fish
+  school(1060,bed-60,2,14,TT,30,-1,'rgba(200,225,235,.6)');
  },
- hud(u){hudPanel(250,200,'目擊紀錄表',seg(u,.3,.36),w=>{
-  const t=Math.floor(9*60+22+u*30);hrow(52,'時間',`${Math.floor(t/60)}:${P2(t%60)}`,w);hrow(78,'物種','瓶鼻海豚',w);hrow(104,'數量','4 隻（含幼豚）',w);hrow(130,'行為',u>.6?'覓食':'移動',w);hrow(156,'海況',"蒲福 2 級",w);hrow(182,'能見度','> 5 km',w,'#7dffc4');});}},
-/* 2 */{t:'水下聲學監測 PAM',en:'Passive acoustic monitoring',dur:12,side:true,
- d:'鯨豚大部分時間在水面下，而且在夜晚與惡劣天候時根本看不到。被動式聲學監測（PAM）把水下聽音器固定在海床上，全天候錄下海裡的聲音。海豚用高頻「滴答聲」回聲定位、用哨音彼此溝通，分析軟體能從頻譜中自動辨識這些聲音，統計鯨豚在不同季節、晝夜出現的頻率。',
- s:[[0,'水下聽音器錨定在海床，全天候錄音數個月'],[.25,'海豚發出回聲定位的高頻滴答聲'],[.5,'哨音在頻譜上呈現彎曲的線條'],[.75,'統計每天偵測到的時數，比對季節與晝夜變化']],
- cam:()=>({x:760,y:600,s:1.5}),
- draw(u){hydrophone(PAMX);drawPod(seg(u,.1,.95),600,40,3);
-  const d=podX(seg(u,.1,.95),0),near=clamp(1-Math.abs(d-PAMX)/360);
-  if(near>0)for(let i=0;i<4;i++){const k=(TT*1.8+i/4)%1;ring(d+22,600,8+k*110,`rgba(183,255,226,${near*(1-k)*.7})`,1.6);}
-  lab(PAMX,bedY(PAMX)-66,'水下聽音器',{dx:80,dy:-40,a:1});
- },
- hud(u){hudPanel(280,230,'頻譜圖（0–150 kHz）',seg(u,.2,.26),(w)=>{
-  const x0=14,y0=40,cw=w-28,ch=150;ctx.fillStyle='#0a1a24';ctx.fillRect(x0,y0,cw,ch);
-  const tNow=TT,span=8;const d=u;
-  for(let i=0;i<cw;i+=3){const tt=tNow-span+span*i/cw,near=clamp(1-Math.abs(podX(seg((tt-SS[1])/12,.1,.95),0)-PAMX)/360);
-   for(let j=0;j<ch;j+=4){const v=hn(Math.round(tt*20),j)*.25*(1-j/ch);ctx.fillStyle=`rgba(80,160,200,${v})`;ctx.fillRect(x0+i,y0+ch-j,3,4);}
-   if(near>.2&&hn(Math.round(tt*12),1)>.72){ctx.fillStyle=`rgba(242,194,48,${near})`;ctx.fillRect(x0+i,y0+10,2,ch-30);}
-   if(near>.3){const f=.55+.25*Math.sin(tt*3.1)+.1*Math.sin(tt*7);ctx.fillStyle=`rgba(125,255,196,${near})`;ctx.fillRect(x0+i,y0+ch-f*ch*.5,3,3);}}
-  htext(x0,y0+ch+20,'黃：回聲定位滴答聲　綠：哨音',12,'rgba(227,236,238,.8)');
-  htext(x0,y0+ch+40,trf('今日偵測時數 {h} 小時',{h:(2+u*3.4).toFixed(1)}),13,'#fff',700);
- });}},
-/* 3 */{t:'鳥類雷達與遷徙',en:'Bird radar survey',dur:12,side:true,
- d:'台灣位於東亞－澳洲候鳥遷徙路線上，每年春秋兩季有大量候鳥飛越海峽。調查團隊以垂直掃描的鳥類雷達，全天記錄飛越海面的鳥群高度、數量與方向，並搭配船上目視辨識物種。關鍵問題是：有多少比例的鳥飛在風機葉片的掃掠高度內？這決定碰撞風險評估與可能的減輕措施。',
- s:[[0,'鳥類雷達在海上平台持續垂直掃描'],[.25,'記錄每一群鳥的飛行高度、數量與方向'],[.5,'標出風機葉片掃掠範圍（約 30–270 公尺）'],[.75,'統計飛在掃掠範圍內的比例，評估碰撞風險']],
- cam:()=>({x:760,y:300,s:1.05}),
- draw(u){const wl=vsl(RVX,150,false,{damp:.7},vResearch);box(RVX+100,wl-74,6,24,'#8a99a3');ctx.save();ctx.translate(RVX+103,wl-78);ctx.rotate(Math.sin(TT*1.5)*.8);box(-14,-3,28,6,'#e3e9ec');ctx.restore();},
  fx(u){
-  const ox=RVX+103,oy=wlAt(RVX+75,.7)-78,sw=Math.sin(TT*1.5)*.8;
-  alphaDo(seg(u,.05,.12),()=>{const a=-Math.PI/2+sw*.9+.55;poly([ox,oy,ox+Math.cos(a-.08)*1300,oy+Math.sin(a-.08)*1300,ox+Math.cos(a+.08)*1300,oy+Math.sin(a+.08)*1300],'rgba(125,255,196,.12)');});
-  alphaDo(seg(u,.5,.56),()=>{box(VX0,hY4(270),VX1-VX0,hY4(30)-hY4(270),'rgba(242,194,48,.10)');ln([VX0,hY4(270),VX1,hY4(270)],'rgba(242,194,48,.6)',1.2);ln([VX0,hY4(30),VX1,hY4(30)],'rgba(242,194,48,.6)',1.2);lab(1180,hY4(150),'風機葉片掃掠範圍',{dx:0,dy:0,st:'s'});});
-  const r=rng(12);for(let g=0;g<9;g++){const h=r()*340+10,sp=40+r()*40,x0=r()*1800;const x=((x0+TT*sp)%1900)-150,y=hY4(h);const n=3+Math.floor(r()*5);
-   for(let i=0;i<n;i++)bird(x-i*12-Math.abs(i-n/2)*6,y+Math.abs(i-n/2)*5,.9,TT+i+g);
-   if(u>.25){ctx.strokeStyle='rgba(125,255,196,.5)';ctx.setLineDash([2,4]);ln([x-160,y,x-12*n,y],'rgba(125,255,196,.45)',1.2);ctx.setLineDash([]);}}
-  lab(ox,oy,'垂直掃描鳥類雷達',{dx:60,dy:-40,a:band(u,.03,.4)});
+  const bed=bedY(TX);
+  lab(TX-60,bed-6,'護腳岩塊',{dx:-150,dy:40,a:band(u,.08,.32)});
+  lab(TX+16,SEA+60,'附著生物（藤壺、貽貝）',{dx:190,dy:-10,a:band(u,.3,.58),st:'g'});
+  lab(TX+75,bed-45,'礁岩性魚類聚集',{dx:190,dy:-30,a:band(u,.5,.9),st:'s'});
+  lab(1060,bed-60,'沙質海床：魚少',{dx:0,dy:-70,a:band(u,.5,.9),minor:true});
  },
- hud(u){hudPanel(250,220,'飛行高度分布',seg(u,.3,.36),(w)=>{
-  const B=[[0,50,22],[50,100,19],[100,150,14],[150,200,11],[200,250,9],[250,300,7],[300,400,10],[400,600,8]];let y=46;
-  B.forEach(b=>{const inR=b[0]>=30&&b[1]<=280||b[0]==0&&false;const rz=(b[0]>=50&&b[1]<=250);htext(14,y+10,`${b[0]}–${b[1]} m`,12,'rgba(227,236,238,.8)',600,COND);hbar(84,y+3,110,b[2]/24*seg(u,.32,.5),rz&&u>.55?'#f2c230':'#7dc8dc');htext(w-14,y+11,b[2]+'%',13,'#fff',700,COND,'right');y+=19;});
-  if(u>.72)htext(14,y+18,'約 45% 飛在掃掠範圍內',13,'#f2c230',700);
- });}},
-/* 4 */{t:'底棲生物與漁業資源',en:'Benthic and fisheries survey',dur:12,side:true,
- d:'海床上下住著貝類、多毛類、甲殼類等底棲生物，是整個食物網的基礎。研究船以抓泥器採集固定面積的海床底質，送回實驗室篩選、鑑定、計算生物量與多樣性；另以試驗網具調查魚類與漁業資源，並訪談在地漁民了解傳統漁場。這些資料是日後比較「蓋之前、蓋之後」生態變化的基準線。',
- s:[[0,'抓泥器張開下放到海床'],[.3,'觸底後夾口閉合，採集固定面積的底質'],[.55,'收回甲板，篩洗出底棲生物並分類鑑定'],[.76,'以試驗網具與漁民訪談調查漁業資源']],
- cam:u=>({x:560,y:560,s:1.45}),
- draw(u){
-  const wl=vsl(RVX+120,150,false,{damp:.7},vResearch),gx=RVX+134;
-  const gy=u<.3?lerp(wl-20,bedY(gx)-8,ease(seg(u,.02,.3))):u<.55?lerp(bedY(gx)-8,wl-24,ease(seg(u,.36,.55))):wl-24;
-  ln([gx,wl-30,gx,gy-18],'#2b3035',1.2);grab(gx,gy,u<.32?1:0);
-  if(u>.3&&u<.34){for(let i=0;i<8;i++){const k=seg(u,.3,.34);circ(gx+(i-4)*5,bedY(gx)-4-k*20*(i%3),3*(1-k),'rgba(150,125,90,.6)');}}
-  const r=rng(3);for(let i=0;i<14;i++){const x=380+r()*600,y=bedY(x);if(i%3===0){ctx.beginPath();ctx.ellipse(x,y-2,5,3,0,Math.PI,0);ctx.fillStyle='#d9b38c';ctx.fill();}else{ln([x,y,x+Math.sin(TT+i)*3,y-8-r()*6],'#c96b5a',1.6);}}
-  school(760,590,14,7,TT,40,1);school(560,640,9,9,TT,30,-1,'rgba(242,214,120,.8)');
-  if(u>.74){const nx=lerp(1200,860,seg(u,.74,1));ln([nx+100,SEA,nx,630],'#2b3035',1);poly([nx,610,nx-80,600,nx-110,640,nx-80,680,nx,660],'rgba(230,230,230,.25)','rgba(255,255,255,.6)',1);}
-  lab(gx,gy,'抓泥器',{dx:60,dy:-30,a:band(u,.05,.6)});
-  lab(420,bedY(420),'底棲生物',{dx:-40,dy:-70,a:band(u,.2,.7)});
-  lab(760,590,'魚群',{dx:60,dy:-50,a:band(u,.6,1)});
- },
- hud(u){hudPanel(240,170,'樣站 B-07 分析結果',seg(u,.56,.62),w=>{hrow(52,'物種數','38 種',w);hrow(78,'密度','1,240 個體／m²',w);hrow(104,'優勢類群','多毛類',w);hrow(130,'底質','細砂 82%',w);hrow(156,'季別','春季（第 3 次）',w,'#7dffc4');});}},
-/* 5 */{t:'水下噪音評估',en:'Underwater noise modelling',dur:13,
- d:'打樁是離岸風場施工中最吵的作業，巨大的衝擊聲在水中能傳到數十公里外，可能影響鯨豚的聽覺與行為。環評階段就要以聲學模型預測噪音隨距離的衰減，並承諾管制標準：例如距樁 750 公尺處的單次聲曝值不得超過 160 dB。為了達標，施工時必須搭配氣泡幕等減噪措施，並持續實測。',
- s:[[0,'以聲學模型預測打樁噪音隨距離衰減的情形'],[.28,'未減噪時，750 公尺處可能高於管制值'],[.52,'加上氣泡幕等減噪措施，噪音降低約 10–15 dB'],[.76,'以警戒區與即時量測確保施工時符合承諾']],
+ hud(u){hudPanel(250,150,'基礎周邊觀察（示例）',seg(u,.05,.12),w=>{
+  hrow(52,'硬底質','樁身＋護腳',w,'#f2c230');
+  hrow(78,'聚魚範圍','約 50 m 內',w,'#7dffc4');
+  hrow(104,'沙地對照','幾乎沒有',w);
+  hrow(130,'結論','需長期監測',w,'#ff9d7a');})}},
+/* 2 */{t:'聚魚範圍有多大',en:'How far does the reef effect reach?',dur:13,
+ d:'人工魚礁效應是真的，但範圍很小。魚群的密度在基礎旁最高，往外幾十公尺就快速下降，到了一兩百公尺外和周圍的沙地幾乎沒有差別。基礎周邊的保護材料也有影響：德國北海的研究發現，用岩石保護海床的單樁，比砂袋保護的單樁與導管架更能吸引魚類。因此風場帶來的聚魚好處集中在基礎附近，也就是安全區管制最嚴格的位置，漁民未必能直接受惠。',
+ s:[[0,'魚群密度在基礎旁最高，向外迅速下降'],[.3,'一兩百公尺外，幾乎與周圍沙地沒有差別'],[.55,'岩石護腳的聚魚效果通常高於砂袋與導管架'],[.8,'好處集中在基礎附近，也是管制最嚴的位置']],
  draw(u){
   diagBG();
-  const c=chartBox(60,150,900,650,{title:'單次聲曝值 SEL 隨距離衰減',x0:0,x1:3000,y0:140,y1:200,xt:[0,500,1000,1500,2000,2500,3000],yt:[140,150,160,170,180,190,200],xl:'距離打樁點（m）',yl:'dB re 1 μPa²s',pt:86,pl:70,gx:6,gy:6});
-  const lim=c.Y(160);ctx.setLineDash([10,6]);ln([c.px,lim,c.px+c.pw,lim],'#e8572a',2.4);ctx.setLineDash([]);wt(c.px+c.pw-8,lim-10,'管制值 160 dB',19,'#e8572a',700,'right');
-  ln([c.X(750),c.py,c.X(750),c.py+c.ph],'rgba(255,255,255,.5)',1.6);wt(c.X(750)+8,c.py+24,'750 m',19,'#fff',700,'left',COND);
-  const curve=(m,k,col)=>{ctx.beginPath();for(let r=20;r<=3000*k;r+=20){const y=c.Y(clamp(SPL(r,m),140,200));r===20?ctx.moveTo(c.X(r),y):ctx.lineTo(c.X(r),y);}ctx.strokeStyle=col;ctx.lineWidth=3.4;ctx.stroke();};
-  curve(false,seg(u,.05,.3),'#ff8a60');
-  if(u>.28){const v=SPL(750,false);circ(c.X(750),c.Y(v),8,'#ff8a60','#fff',2);lab(c.X(750),c.Y(v),trf('未減噪 {v} dB',{v:v.toFixed(0)}),{dx:80,dy:-40,st:'w',a:seg(u,.28,.32)});}
-  if(u>.5){curve(true,seg(u,.5,.7),'#7dffc4');if(u>.68){const v=SPL(750,true);circ(c.X(750),c.Y(v),8,'#7dffc4','#fff',2);lab(c.X(750),c.Y(v),trf('減噪後 {v} dB',{v:v.toFixed(0)}),{dx:80,dy:40,st:'g'});}}
-  // top view
-  card(1000,150,540,650,{bg:'rgba(7,27,39,.75)'});wt(1024,190,'施工警戒區（上視）',20,'#f2c230',700);
-  const cx=1270,cy=480;ring(cx,cy,230,'rgba(255,255,255,.12)',1);
-  alphaDo(seg(u,.74,.8),()=>{ctx.beginPath();ctx.arc(cx,cy,190,0,TAU);ctx.fillStyle='rgba(232,87,42,.10)';ctx.fill();ctx.setLineDash([8,6]);ring(cx,cy,190,'#e8572a',2.4);ctx.setLineDash([]);wt(cx,cy+225,'750 m 警戒區',19,'#e8572a',700,'center');
-   for(let i=0;i<4;i++){const a=i*TAU/4+.4;circ(cx+Math.cos(a)*190,cy+Math.sin(a)*190,7,'#f2c230');}wt(cx+140,cy-160,'監測點',16,'#f2c230',700);});
-  alphaDo(seg(u,.5,.56),()=>{ctx.setLineDash([3,4]);ring(cx,cy,34,'#8fd0ff',3);ctx.setLineDash([]);});
-  const ph=(TT*.8)%1;ring(cx,cy,10+ph*220,`rgba(255,138,96,${.6*(1-ph)})`,2);circ(cx,cy,8,'#fff');
-  if(u<.74){const dx=lerp(1500,1400,u),dy=300;dolphin(dx,dy,Math.PI,1.3);}
+  card(60,150,860,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'離基礎距離與魚群密度（典型示例）',21,'#fff',700);
+  const c=chartBox(110,230,780,500,{x0:0,x1:400,y0:0,y1:100,xt:[0,100,200,300,400],yt:[0,25,50,75,100],xl:'離基礎距離 (m)',yl:'相對魚群密度',pl:64,pr:20,pt:20,pb:56});
+  const f=seg(u,.05,.4),P=[];for(let i=0;i<=80;i++){const d=i*5;if(d/400>f)break;P.push(c.X(d),c.Y(FI28(d)));}
+  if(P.length>3)ln(P,'#7dffc4',3.2);
+  alphaDo(seg(u,.3,.4),()=>{box(c.X(0),c.Y(100),c.X(50)-c.X(0),c.Y(0)-c.Y(100),'rgba(242,194,48,.14)');
+   wt(c.X(25),c.Y(100)-8,'50 m',17,'#f2c230',700,'center',COND);
+   ln([c.X(0),c.Y(3),c.X(400),c.Y(3)],'rgba(255,255,255,.35)',1.2);wt(c.X(395),c.Y(3)-10,'周圍沙地',16,'rgba(227,236,238,.85)',600,'right');});
+  card(940,150,600,650,{bg:'rgba(7,27,39,.8)'});wt(964,190,'基礎形式與護腳材料（示意）',21,'#fff',700);
+  const B=[['單樁＋岩石護腳',100,'#7dffc4'],['單樁＋砂袋護腳',58,'#f2c230'],['導管架',52,'#58b8d0']];
+  B.forEach((b,i)=>{const a=seg(u,.5+i*.08,.6+i*.08),y=250+i*92;alphaDo(a,()=>{wt(964,y,b[0],19,'#fff',600);
+   box(964,y+14,500,26,'rgba(255,255,255,.1)');box(964,y+14,500*b[1]/100*a/Math.max(a,.001),26,b[2]);});});
+  alphaDo(seg(u,.8,.88),()=>{wt(964,560,'相對聚魚程度（示意，非實測值）',16,'rgba(227,236,238,.75)',500);
+   wrap28(964,610,'台灣風場調查：基礎 50 m 內記錄到 86 種礁岩性魚類，周圍沙地沒有',552,18,'#fff',600,26);
+   wrap28(964,700,'好處集中在基礎附近，也是管制最嚴的位置',552,18,'#f2c230',600,26);});
  }},
-/* 6 */{t:'審查與環評承諾',en:'Review and commitments',dur:12,
- d:'調查與評估的成果寫成環境影響說明書，送交主管機關審查。專案小組與委員會會邀請專家、學者、漁會與民間團體參與討論，要求開發商補充資料或修改方案。通過後，開發商對減輕措施所做的承諾具有法律拘束力，施工與營運期間都要依承諾執行監測、定期提報，並接受查核。',
- s:[[0,'撰寫環境影響說明書，公開說明並蒐集意見'],[.2,'專案小組審查：專家、漁會與民間團體參與討論'],[.45,'環評大會作成審查結論'],[.65,'減輕措施成為具拘束力的環評承諾'],[.84,'施工與營運期間持續監測、定期提報']],
+/* 3 */{t:'安全區與航道',en:'Safety zones and shipping lanes',dur:14,
+ d:'從上方看風場，是一格一格的風機與海纜。施工期間，施工船周圍會劃出移動式的安全區，英國等地常見的範圍約 500 公尺，其他船舶不得進入；風機完工後，營運期的安全區通常縮到風機周圍約 50 公尺，主要用於大型維修作業。風場外另有航道，供商船通行，漁船則依主管機關公告，決定能否穿越風場或進入作業。出海前務必查詢最新的航行警告。',
+ s:[[0,'從上方看，風場是一格一格的風機與海纜'],[.28,'施工期間，施工船周圍劃出約 500 公尺的移動式安全區'],[.55,'營運期安全區縮小到風機周圍約 50 公尺'],[.78,'商船走航道，漁船依公告決定能否進入風場']],
  draw(u){
   diagBG();
-  const N=[['環境影響說明書','調查成果與影響預測'],['專案小組審查','補件、修正方案'],['環評大會','作成審查結論'],['環評承諾','減輕措施具拘束力'],['監測與提報','施工與營運期間']];
-  const y=300,w=250,gap=40,x0=(1600-(w*5+gap*4))/2;
-  N.forEach((n,i)=>{const t0=[0,.2,.45,.65,.84][i],a=seg(u,t0,t0+.06),x=x0+i*(w+gap);
-   alphaDo(a,()=>{card(x,y-70,w,140,{bg:i===Math.max(0,[0,.2,.45,.65,.84].filter(t=>u>=t).length-1)?'rgba(242,194,48,.22)':'rgba(255,255,255,.06)',st:'rgba(242,194,48,.6)'});
-    wt(x+w/2,y-28,String(i+1),26,'#f2c230',700,'center',COND);wt(x+w/2,y+10,n[0],21,'#fff',700,'center');wt(x+w/2,y+44,n[1],16,'rgba(227,236,238,.75)',500,'center');
-    if(i<4)arrow(x+w+4,y,x+w+gap-4,y,'#f2c230',2.4);});});
-  alphaDo(seg(u,.65,.72),()=>{card(160,470,1280,330,{bg:'rgba(7,27,39,.8)'});wt(190,512,'常見承諾事項（示例）',20,'#f2c230',700);
-   const L=['打樁噪音：距樁 750 m 處單次聲曝值 ≤ 160 dB','打樁前 30 分鐘：鯨豚觀察員與 PAM 確認警戒區淨空','採用軟啟動與氣泡幕等減噪措施','避開特定生物敏感季節施工','施工船舶減速、避開白海豚重要棲地','營運期持續監測鯨豚、鳥類、底棲與漁業資源'];
-   L.forEach((t,i)=>{const a=seg(u,.68+i*.03,.71+i*.03);alphaDo(a,()=>{const cx=190+(i%2)*630,cy=560+Math.floor(i/2)*70;circ(cx+8,cy-7,8,'#7dffc4');wt(cx+26,cy,t,19,'#fff',500);});});});
+  card(60,150,960,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'風場平面圖（示意，風機間距約 1 公里）',21,'#fff',700);
+  const OXp=290,OYp=270,SP=150;
+  // shipping lane
+  const ln1=seg(u,.6,.74);
+  alphaDo(.25+ln1*.75,()=>{box(100,640,880,70,'rgba(88,184,208,.14)');ctx.setLineDash([12,10]);ln([100,675,980,675],'rgba(125,200,220,.6)',1.4);ctx.setLineDash([]);
+   wt(112,630,'航道（商船）',17,'#7dc8dc',700);});
+  // cables
+  GRID28.forEach(([i,j])=>{if(i<3)ln([OXp+i*SP,OYp+j*SP,OXp+(i+1)*SP,OYp+j*SP],'rgba(255,157,122,.4)',1.2);});
+  // zones
+  const z5=band(u,.26,.55),z50=seg(u,.5,.62);
+  const cur=GRID28[5];const bx=OXp+cur[0]*SP,by=OYp+cur[1]*SP;
+  alphaDo(z5,()=>{circ(bx,by,75,'rgba(232,87,42,.14)','#e8572a',2);ctx.setLineDash([8,6]);ring(bx,by,75,'#e8572a',2);ctx.setLineDash([]);
+   // crane vessel
+   box(bx+34,by+26,34,12,'#e8572a');box(bx+54,by+16,10,10,'#f4f6f7');ln([bx+38,by+26,bx+30,by+2],'#f2c230',2.4);
+   wt(bx,by-86,'約 500 m',20,'#ff9d7a',700,'center',COND);});
+  GRID28.forEach(([i,j],k)=>{const x=OXp+i*SP,y=OYp+j*SP;
+   if(z50>0&&k!==5)alphaDo(z50*.9,()=>{circ(x,y,9,'rgba(242,194,48,.18)','#f2c230',1.4);});
+   tplan28(x,y,TT*.8+k,k===5&&u<.55?'#9aa7ad':'#f2f5f6');});
+  alphaDo(z50,()=>{wt(OXp+3*SP+60,OYp-8,'約 50 m',20,'#f2c230',700,'left',COND);ln([OXp+3*SP+54,OYp-14,OXp+3*SP+12,OYp-6],'#f2c230',1.4);});
+  // moving vessels: merchant ship on the lane, fishing boats waiting outside
+  const m=((TT*.05)%1);const mx=lerp(120,960,m);
+  alphaDo(.3+ln1*.7,()=>{poly([mx-22,668,mx+18,668,mx+26,675,mx+18,682,mx-22,682],'#d5dde0');});
+  const fb=seg(u,.72,.9);
+  [[130,520],[130,590]].forEach(([x,y],i)=>alphaDo(fb,()=>{poly([x,y-6,x+16,y,x,y+6],'#f2c230');wt(x+24,y+5,i?'漁船':'漁船',14,'rgba(227,236,238,.85)',600);}));
+  // right: legend
+  card(1040,150,500,650,{bg:'rgba(7,27,39,.8)'});wt(1064,190,'管制範圍（英國等地的常見做法）',20,'#fff',700);
+  const L=[['施工期','移動式安全區約 500 m','#ff9d7a'],['營運期','風機周圍約 50 m','#f2c230'],['航道','商船通行，漁船依公告','#7dc8dc']];
+  L.forEach((o,i)=>alphaDo(seg(u,.26+i*.2,.34+i*.2),()=>{const y=224+i*116;card(1064,y,452,100,{bg:'rgba(255,255,255,.04)',st:o[2],r:8});wt(1086,y+38,o[0],22,o[2],700);wrap28(1086,y+72,o[1],410,17,'#fff',600,24);}));
+  alphaDo(seg(u,.84,.92),()=>{wrap28(1064,620,'台灣各案場的實際範圍與可進入的作業，以主管機關公告為準，出海前查詢航行警告',452,17,'#fff',600,25);});
+ }},
+/* 4 */{t:'哪些漁法還能作業',en:'Which fishing methods can still operate',dur:14,side:true,
+ d:'風場內不是一律禁漁，但不同漁法受到的影響差別很大。釣具與延繩釣的鉤線小、可以避開結構，籠具與定置網只要放在公告允許的位置，也比較有機會共存。底拖網與流刺網的網具範圍大，容易勾到基礎護腳、海纜與其他設施，在風場內作業困難。各國做法不同，台灣仍以主管機關公告與協商結果為準，漁民也需要時間調整漁具與作業方式。',
+ s:[[0,'風機之間水面上，一艘小型漁船正在放釣線與籠具'],[.3,'釣具與籠具避得開結構，較有機會與風場共存'],[.55,'另一艘拖網船的網具範圍大，朝基礎與海纜前進'],[.78,'底拖網與流刺網在風場內很難作業']],
+ cam:u=>camMix({x:800,y:450,s:1},{x:470,y:SEA+80,s:1.25},ease(seg(u,.05,.3))),
+ draw(u){
+  const bed=bedY(TX);rocks28(1);
+  turb28(TT*.9);
+  // export cable on the seabed
+  const cp=[];for(let x=TX+95;x<=1240;x+=40)cp.push(x,bedY(x)+7);
+  ln(cp,'#ff9d7a',2.4);
+  // small boat A with hook line + pots (left)
+  const ax=lerp(330,400,seg(u,0,.25));
+  const wA=vsl(ax,110,false,{tilt:.3},vSmallWork);
+  const px=ax+120,py=bedY(px);
+  alphaDo(seg(u,.1,.3),()=>{ln([ax+60,wA-8,px,py-10],'rgba(255,255,255,.6)',1.2);box(px-12,py-16,24,16,'#c9b48a','#7a6a45',1.5);
+   for(let k=0;k<3;k++){const q=(TT*.6+k/3)%1;circ(px+Math.sin(k*2)*6,py-18-q*60,2+q,`rgba(235,248,255,${.5*(1-q)})`);}});
+  alphaDo(seg(u,.2,.4),()=>{school(px+30,py-60,5,21,TT,22,1,'rgba(200,225,235,.85)');});
+  // trawler B (right) heading toward the foundation with net behind
+  const bx=lerp(1400,960,easeOut(seg(u,.4,.75)));
+  const wB=vsl(bx,150,true,{tilt:.3},vWorkboat);
+  const nx=bx+60,ny=bedY(nx+170);
+  alphaDo(seg(u,.4,.55),()=>{ln([bx+20,wB+6,nx+190,ny-6],'rgba(255,255,255,.55)',1.2);
+   poly([nx+190,ny-6,nx+300,ny-34,nx+300,ny+2,nx+190,ny+2],'rgba(232,87,42,.35)','#e8572a',1.4);});
+ },
+ fx(u){
+  const bed=bedY(TX),ax=lerp(330,400,seg(u,0,.25));
+  lab(ax+55,SEA-4,'小型漁船',{dx:-30,dy:-60,a:band(u,.02,.3)});
+  lab(ax+120,bedY(ax+120)-8,'籠具',{dx:0,dy:60,a:band(u,.12,.48),st:'g'});
+  lab(TX-10,SEA+120,'基礎與護腳',{dx:-150,dy:20,a:band(u,.4,.8)});
+  lab(900,bedY(900)+8,'海纜',{dx:0,dy:70,a:band(u,.4,.8),st:'w',minor:true});
+  lab(870,SEA-6,'拖網船',{dx:0,dy:-80,a:band(u,.5,.9),st:'w'});
+  if(u>.6){const k=band(u,.6,.95);alphaDo(k,()=>{wt(TX+170,SEA+150,'✕',64,'#e8572a',700,'center');});}
+ },
+ hud(u){hudPanel(250,172,'風場內作業難易（示例）',seg(u,.05,.12),w=>{
+  hrow(52,'釣具、延繩釣','較容易',w,'#7dffc4');
+  hrow(78,'籠具、定置網','視位置',w,'#f2c230');
+  hrow(104,'底拖網','困難',w,'#e8572a');
+  hrow(130,'流刺網','困難',w,'#e8572a');
+  htext(14,160,'依公告與協商而定',14,'rgba(227,236,238,.75)',500);})}},
+/* 5 */{t:'漁業補償與共存共榮',en:'Compensation and shared-benefit funds',dur:14,
+ d:'開發商要面對的第一個問題，是風場讓漁民損失了什麼。補償基準通常把損失拆成幾個項目：漁業權人在風場範圍內經營的損失、漁船為了避開風場而增加的繞道成本，以及漁獲淨收益的減少，再依施工與營運的年數、影響面積比例估算。除了補償，還有共存共榮經費，用來營造棲地與放流魚苗、輔導漁船轉換漁法，以及發展休閒漁業，讓漁業與風場長期共存。',
+ s:[[0,'先算清楚：風場讓漁民損失了什麼'],[.28,'補償依漁業權損失、繞道成本與漁獲淨收益損失估算'],[.55,'另有共存共榮經費，用於棲地營造、放流與轉型輔導'],[.8,'目標是讓漁業與風場長期共存，而不只是一次性補償']],
+ draw(u){
+  diagBG();
+  card(60,150,720,650,{bg:'rgba(7,27,39,.8)'});wt(84,190,'損失補償：算什麼',22,'#f2c230',700);
+  const A=[['漁業權損失','風場範圍內漁業權人的經營損失','#f2c230'],['繞道成本','漁船避開風場而增加的油料與時間','#58b8d0'],['漁獲淨收益損失','作業受限造成的漁獲收益減少','#ff9d7a']];
+  A.forEach((o,i)=>alphaDo(seg(u,.1+i*.1,.18+i*.1),()=>{const y=222+i*136;card(84,y,672,118,{bg:'rgba(255,255,255,.04)',st:o[2],r:8});
+   wt(106,y+46,o[0],24,o[2],700);wrap28(106,y+84,o[1],620,18,'#fff',600,26);}));
+  alphaDo(seg(u,.4,.48),()=>{ln([84,650,756,650],'rgba(255,255,255,.2)',1);wt(106,700,'依施工與營運年數、影響面積比例估算',18,'rgba(227,236,238,.9)',600);
+   wt(106,740,'金額與認定以主管機關基準與協商為準',16,'rgba(227,236,238,.7)',500);});
+  card(820,150,720,650,{bg:'rgba(7,27,39,.8)'});wt(844,190,'共存共榮經費：用來做什麼',22,'#7dffc4',700);
+  const Bn=[['棲地營造與放流','人工魚礁、魚苗放流，維持資源','#7dffc4'],['漁法轉型輔導','協助改用適合風場作業的漁法','#f2c230'],['休閒漁業','賞鯨、海釣與體驗，增加新收入','#58b8d0'],['漁會管理小組','由在地漁會共同決定如何運用','#ff9d7a']];
+  Bn.forEach((o,i)=>alphaDo(seg(u,.5+i*.08,.58+i*.08),()=>{const y=222+i*136;card(844,y,672,118,{bg:'rgba(255,255,255,.04)',st:o[2],r:8});
+   wt(866,y+46,o[0],24,o[2],700);wrap28(866,y+84,o[1],620,18,'#fff',600,26);}));
+ }},
+/* 6 */{t:'與在地漁會協商',en:'Working with local fishing associations',dur:14,
+ d:'補償與共存要談得成，關鍵在於及早、公開、持續。開發商在規劃階段就要向漁會說明計畫，並請漁民提供實際使用的漁場與漁期；接著進入補償與共存方案的協商，同時協調施工船的作業時間，盡量避開重要魚汛，並事先公告航行警告；營運後再用魚類調查與座談持續檢討。協商的難處在於漁會的代表性與分配是否公平，因此資訊透明、保留彈性，是長期維持信任的基礎。',
+ s:[[0,'規劃階段就向漁會說明，請漁民提供實際漁場與漁期'],[.28,'依調查結果，協商補償與共存方案'],[.55,'施工避開重要魚汛，並事先公告航行警告'],[.8,'營運後持續做魚類調查與座談，保持資訊透明']],
+ draw(u){
+  diagBG();
+  const S=[['早期說明','規劃階段向漁會說明','#58b8d0'],['漁場調查','漁場、漁期與漁具','#7dc8dc'],['補償與共存方案','協商、簽署與分配','#f2c230'],['施工協調','避開魚汛、航行警告','#ff9d7a'],['營運與檢討','魚類調查與定期座談','#7dffc4']];
+  S.forEach((s,i)=>{const a=seg(u,.04+i*.09,.12+i*.09),x=60+i*300;if(a<=0)return;alphaDo(a,()=>{
+   card(x,150,270,170,{bg:'rgba(7,27,39,.85)',st:s[2]});wt(x+135,206,String(i+1),38,s[2],700,'center',COND);
+   wt(x+135,252,s[0],20,s[2],700,'center');wrap28(x+135,288,s[1],240,16,'#fff',600,22,'center');
+   if(i<4)arrow(x+274,235,x+296,235,'rgba(255,255,255,.7)',3);});});
+  // fishing season calendar with construction window
+  card(60,350,960,450,{bg:'rgba(7,27,39,.8)'});wt(84,390,'施工排程與魚汛（典型示例）',21,'#fff',700);
+  const MX=140,MW=70;
+  for(let m=0;m<12;m++){const x=MX+m*MW;box(x,640,MW-4,30,'rgba(255,255,255,.08)');wt(x+MW/2-2,662,String(m+1),16,'rgba(227,236,238,.85)',600,'center',COND);}
+  wt(84,440,'重要魚汛',17,'#ff9d7a',700);wt(84,520,'施工窗口',17,'#7dffc4',700);
+  const run=seg(u,.3,.55);
+  alphaDo(run,()=>{box(MX+1*MW,452,3*MW-4,34,'rgba(232,87,42,.45)','#e8572a',1.4);wt(MX+2.5*MW-2,476,'魚汛（示例）',16,'#fff',700,'center');});
+  alphaDo(seg(u,.5,.7),()=>{box(MX+5*MW,532,6*MW-4,34,'rgba(125,255,196,.35)','#7dffc4',1.4);wt(MX+8*MW-2,556,'集中施工（示例）',16,'#fff',700,'center');
+   ln([MX+1*MW,500,MX+4*MW-4,500],'rgba(232,87,42,.6)',1.2);});
+  alphaDo(seg(u,.55,.65),()=>{wt(84,730,'重點：魚汛期減少施工、其餘時間集中作業，縮短總影響時間',17,'#f2c230',700);});
+  // right: principles
+  card(1040,350,500,450,{bg:'rgba(7,27,39,.8)'});wt(1064,390,'維持信任的做法',21,'#fff',700);
+  const P=[['及早公開','計畫與調查結果都讓漁民看得到','#7dffc4'],['代表性與公平','分配方式讓各漁法的漁民都能參與','#f2c230'],['持續檢討','營運後仍定期調查與座談','#58b8d0']];
+  P.forEach((o,i)=>alphaDo(seg(u,.68+i*.08,.76+i*.08),()=>{const y=416+i*124;card(1064,y,452,108,{bg:'rgba(255,255,255,.04)',st:o[2],r:8});
+   wt(1086,y+40,o[0],21,o[2],700);wrap28(1086,y+72,o[1],410,17,'#fff',600,24);}));
  }}
 ]};
 
-/* EP04 translations: Traditional Chinese → [English, Japanese] */
+/* EP28 translations: Traditional Chinese → [English, Japanese] */
 Object.assign(DICT,{
-"離岸風場開發系列": [
-"Offshore Wind Development Series",
-"洋上風力開発シリーズ"
-],
-"環境影響評估": [
-"Environmental impact assessment",
-"環境影響評価"
-],
-"風場蓋在海裡，海裡原本就住著鯨豚、魚群與底棲生物，天上還有候鳥飛過。這一集看環評調查怎麼「聽」海豚、「追」候鳥、「挖」海床，以及打樁噪音如何被量化與管制。": [
-"A wind farm is built in a sea that is already home to dolphins, fish and seabed life, with migrating birds passing overhead. This episode shows how environmental surveys listen for dolphins, track birds and dig into the seabed, and how piling noise is quantified and regulated.",
-"風力発電所が建つ海には、もともとイルカ、魚の群れ、底生生物が暮らし、空には渡り鳥が飛んでいます。このエピソードでは、環境調査がイルカの声を「聴き」、渡り鳥を「追い」、海底を「掘る」方法、そして杭打ち騒音がどのように数値化され規制されるのかを見ていきます。"
-],
-"常見的打樁噪音管制值：距樁 750 公尺處的單次聲曝值（SEL）上限": [
-"A common piling-noise limit: single-strike sound exposure level (SEL) at 750 m from the pile",
-"一般的な杭打ち騒音の規制値：杭から 750 m 地点の単発暴露レベル（SEL）の上限"
-],
-"打樁前觀察員與聲學監測必須確認沒有鯨豚的警戒範圍": [
-"Zone that observers and acoustic monitoring must confirm is clear of cetaceans before piling",
-"杭打ち前に観察員と音響モニタリングが鯨類の不在を確認する警戒範囲"
-],
-"分鐘": [
-"minutes",
-"分"
-],
-"打樁前的鯨豚觀察與監聽時間，確認淨空才能開始": [
-"Watch-and-listen period before piling; work starts only once the zone is clear",
-"杭打ち前の鯨類の目視・聴音時間。不在を確認してから開始"
-],
-"氣泡幕等減噪措施可降低的水下噪音量級": [
-"Underwater noise reduction achievable with bubble curtains and similar measures",
-"バブルカーテンなどの低減策で下げられる水中騒音の大きさ"
-],
-"四季": [
-"All seasons",
-"四季"
-],
-"全年": [
-"year-round",
-"通年"
-],
-"鯨豚、鳥類與漁業調查需涵蓋季節變化，含春秋候鳥過境期": [
-"Cetacean, bird and fisheries surveys must cover the seasons, including spring and autumn bird migration",
-"鯨類・鳥類・漁業調査は季節変化を含め、春秋の渡り期もカバーする"
-],
-"數年": [
-"Several years",
-"数年"
-],
-"持續": [
-"ongoing",
-"継続"
-],
-"施工前、施工中與營運期間都要監測並提報結果": [
-"Monitoring and reporting before, during and after construction",
-"施工前・施工中・運転期間を通じてモニタリングし結果を報告"
-],
-"說明：本集為教育用途示意動畫。噪音管制值、警戒距離與調查頻率為台灣常見的環評承諾範例，實際內容依各開發案的環評審查結論與主管機關規定而定。聲學傳播曲線為簡化模型。": [
-"Note: this episode is an educational schematic. Noise limits, warning distances and survey frequencies are examples of common environmental commitments in Taiwan; actual requirements depend on each project's EIA conclusions and the authorities' rules. The sound propagation curve is a simplified model.",
-"注：本エピソードは教育用の模式アニメーションです。騒音規制値、警戒距離、調査頻度は台湾でよく見られる環境アセスメントの約束事項の例であり、実際の内容は各開発案件の審査結論と主管機関の規定によります。音の伝搬曲線は簡略化したモデルです。"
-],
-"鯨豚目視調查": [
-"Marine mammal visual survey",
-"鯨類の目視調査"
-],
-"研究船沿固定穿越線航行，受過訓練的觀察員在甲板高處以雙筒望遠鏡掃視海面，記錄看到的鯨豚種類、數量、行為（覓食、移動、休息）與位置。台灣西部沿海是瀕危的台灣白海豚棲息地，牠們多出沒在近岸淺水區，因此風場選址與海纜登陸路線都必須特別評估。": [
-"A research vessel sails fixed transects while trained observers high on deck scan the sea with binoculars, logging the species, number, behaviour (feeding, travelling, resting) and position of every cetacean seen. Taiwan's west coast is home to the endangered Taiwanese humpback dolphin, which lives in shallow inshore waters, so site selection and cable landfall routes need special assessment.",
-"調査船は決められた調査線に沿って航行し、訓練を受けた観察員が甲板の高い位置から双眼鏡で海面を見渡し、確認した鯨類の種類、頭数、行動（採餌、移動、休息）、位置を記録します。台湾西部沿岸は絶滅危惧種のタイワンシロイルカの生息地で、沿岸の浅い海域に多く現れるため、発電所の立地とケーブルの陸揚げルートは特に慎重な評価が必要です。"
-],
-"研究船沿穿越線航行，觀察員輪班掃視海面": [
-"The vessel runs transects while observers take turns scanning the sea",
-"調査船が調査線を航行し、観察員が交代で海面を見渡す"
-],
-"發現鯨豚群：記錄種類、數量與行為": [
-"A pod is sighted: record species, number and behaviour",
-"イルカの群れを発見：種類、頭数、行動を記録"
-],
-"同步記錄位置、時間、海況與能見度": [
-"Position, time, sea state and visibility are logged at the same time",
-"位置、時刻、海況、視程も同時に記録"
-],
-"多年、多季的目擊資料，描繪出鯨豚的分布熱點": [
-"Years of sightings across seasons map the cetacean hotspots",
-"数年・複数季節の目撃データから鯨類の分布ホットスポットを描く"
-],
-"鯨豚群出現": [
-"Dolphins sighted",
-"イルカの群れが出現"
-],
-"目擊紀錄表": [
-"Sighting log",
-"目撃記録表"
-],
-"時間": [
-"Time",
-"時刻"
-],
-"物種": [
-"Species",
-"種"
-],
-"瓶鼻海豚": [
-"Bottlenose dolphin",
-"バンドウイルカ"
-],
-"數量": [
-"Count",
-"頭数"
-],
-"4 隻（含幼豚）": [
-"4 (incl. a calf)",
-"4 頭（子イルカを含む）"
-],
-"行為": [
-"Behaviour",
-"行動"
-],
-"覓食": [
-"Feeding",
-"採餌"
-],
-"移動": [
-"Travelling",
-"移動"
-],
-"海況": [
-"Sea state",
-"海況"
-],
-"能見度": [
-"Visibility",
-"視程"
-],
-"鯨豚大部分時間在水面下，而且在夜晚與惡劣天候時根本看不到。被動式聲學監測（PAM）把水下聽音器固定在海床上，全天候錄下海裡的聲音。海豚用高頻「滴答聲」回聲定位、用哨音彼此溝通，分析軟體能從頻譜中自動辨識這些聲音，統計鯨豚在不同季節、晝夜出現的頻率。": [
-"Cetaceans spend most of their time underwater and cannot be seen at night or in bad weather. Passive acoustic monitoring (PAM) fixes underwater microphones to the seabed to record the sea's sounds around the clock. Dolphins echolocate with high-frequency clicks and communicate with whistles; analysis software recognises these sounds in the spectrogram and counts how often cetaceans are present by season and time of day.",
-"鯨類はほとんどの時間を水面下で過ごし、夜間や荒天時にはまったく見えません。受動的音響モニタリング（PAM）は水中マイクを海底に固定し、昼夜を問わず海中の音を録音します。イルカは高周波の「クリック音」でエコーロケーションを行い、ホイッスルで互いに交信します。解析ソフトはスペクトログラムからこれらの音を自動識別し、季節や昼夜ごとの出現頻度を集計します。"
-],
-"水下聽音器錨定在海床，全天候錄音數個月": [
-"Hydrophones are moored on the seabed, recording around the clock for months",
-"ハイドロフォンを海底に係留し、数か月間24時間録音"
-],
-"海豚發出回聲定位的高頻滴答聲": [
-"Dolphins make high-frequency echolocation clicks",
-"イルカがエコーロケーションの高周波クリック音を出す"
-],
-"哨音在頻譜上呈現彎曲的線條": [
-"Whistles appear as curved lines on the spectrogram",
-"ホイッスルはスペクトログラム上で曲線として現れる"
-],
-"統計每天偵測到的時數，比對季節與晝夜變化": [
-"Detection hours per day are counted and compared by season and time of day",
-"1日の検出時間を集計し、季節や昼夜で比較"
-],
-"水下聽音器": [
-"Hydrophone",
-"ハイドロフォン"
-],
-"頻譜圖（0–150 kHz）": [
-"Spectrogram (0–150 kHz)",
-"スペクトログラム（0–150 kHz）"
-],
-"黃：回聲定位滴答聲　綠：哨音": [
-"Yellow: echolocation clicks   Green: whistles",
-"黄：エコーロケーションのクリック音　緑：ホイッスル"
-],
-"今日偵測時數 {h} 小時": [
-"Detected today {h} h",
-"本日の検出時間 {h} 時間"
-],
-"鳥類雷達與遷徙": [
-"Bird radar survey",
-"鳥類レーダーと渡り"
-],
-"台灣位於東亞－澳洲候鳥遷徙路線上，每年春秋兩季有大量候鳥飛越海峽。調查團隊以垂直掃描的鳥類雷達，全天記錄飛越海面的鳥群高度、數量與方向，並搭配船上目視辨識物種。關鍵問題是：有多少比例的鳥飛在風機葉片的掃掠高度內？這決定碰撞風險評估與可能的減輕措施。": [
-"Taiwan lies on the East Asian–Australasian Flyway, and every spring and autumn large numbers of migrating birds cross the strait. Survey teams use vertically scanning bird radar to record the height, number and direction of flocks over the sea around the clock, while observers on board identify the species. The key question is what share of birds fly within the rotor's swept height, which drives the collision risk assessment and any mitigation.",
-"台湾は東アジア・オーストラリア地域フライウェイ上にあり、毎年春と秋に多くの渡り鳥が海峡を越えます。調査チームは鉛直スキャン型の鳥類レーダーで、海上を飛ぶ群れの高さ、数、方向を昼夜記録し、船上の目視で種を識別します。重要な問いは、どれだけの割合の鳥がブレードの回転範囲の高さを飛ぶかで、これが衝突リスク評価と保全措置を左右します。"
-],
-"鳥類雷達在海上平台持續垂直掃描": [
-"Bird radar scans vertically from an offshore platform, non-stop",
-"洋上プラットフォームの鳥類レーダーが鉛直方向に連続スキャン"
-],
-"記錄每一群鳥的飛行高度、數量與方向": [
-"Height, number and direction of every flock are recorded",
-"群れごとの飛行高度、数、方向を記録"
-],
-"標出風機葉片掃掠範圍（約 30–270 公尺）": [
-"Mark the rotor's swept zone (about 30–270 m)",
-"ブレード回転範囲（約 30〜270 m）を表示"
-],
-"統計飛在掃掠範圍內的比例，評估碰撞風險": [
-"The share flying within the swept zone gives the collision risk",
-"回転範囲内を飛ぶ割合を集計し、衝突リスクを評価"
-],
-"風機葉片掃掠範圍": [
-"Rotor swept zone",
-"ブレード回転範囲"
-],
-"垂直掃描鳥類雷達": [
-"Vertical-scanning bird radar",
-"鉛直スキャン鳥類レーダー"
-],
-"飛行高度分布": [
-"Flight height distribution",
-"飛行高度の分布"
-],
-"約 45% 飛在掃掠範圍內": [
-"About 45% fly within the swept zone",
-"約 45% が回転範囲内を飛行"
-],
-"底棲生物與漁業資源": [
-"Benthic and fisheries survey",
-"底生生物と漁業資源"
-],
-"海床上下住著貝類、多毛類、甲殼類等底棲生物，是整個食物網的基礎。研究船以抓泥器採集固定面積的海床底質，送回實驗室篩選、鑑定、計算生物量與多樣性；另以試驗網具調查魚類與漁業資源，並訪談在地漁民了解傳統漁場。這些資料是日後比較「蓋之前、蓋之後」生態變化的基準線。": [
-"Shellfish, polychaete worms, crustaceans and other benthic animals live in and on the seabed and form the base of the food web. The research vessel uses a grab to sample a fixed area of seabed, and the lab sieves, identifies and counts the animals to work out biomass and diversity. Trial nets survey fish and fishery resources, and local fishers are interviewed about traditional fishing grounds. These data are the baseline for comparing ecology before and after construction.",
-"海底の中や表面には貝類、多毛類、甲殻類などの底生生物が暮らし、食物網全体の基盤となっています。調査船はグラブ採泥器で一定面積の海底堆積物を採取し、試験室でふるい分け、同定し、生物量と多様性を算出します。試験網で魚類と漁業資源を調べ、地元漁業者への聞き取りで伝統的な漁場も把握します。これらのデータは「建設前と建設後」の生態変化を比べる基準になります。"
-],
-"抓泥器張開下放到海床": [
-"The grab opens and is lowered to the seabed",
-"グラブ採泥器を開いた状態で海底へ降ろす"
-],
-"觸底後夾口閉合，採集固定面積的底質": [
-"On contact the jaws close, taking a fixed area of sediment",
-"着底すると爪が閉じ、一定面積の堆積物を採取"
-],
-"收回甲板，篩洗出底棲生物並分類鑑定": [
-"Back on deck, the sample is sieved and the animals identified",
-"甲板に回収し、ふるい分けて底生生物を分類・同定"
-],
-"以試驗網具與漁民訪談調查漁業資源": [
-"Trial nets and interviews with fishers survey the fisheries",
-"試験網と漁業者への聞き取りで漁業資源を調査"
-],
-"抓泥器": [
-"Grab sampler",
-"グラブ採泥器"
-],
-"底棲生物": [
-"Benthic life",
-"底生生物"
-],
-"魚群": [
-"Fish school",
-"魚群"
-],
-"樣站 B-07 分析結果": [
-"Station B-07 results",
-"測点 B-07 の分析結果"
-],
-"物種數": [
-"Species",
-"種数"
-],
-"38 種": [
-"38 species",
-"38 種"
-],
-"密度": [
-"Density",
-"密度"
-],
-"1,240 個體／m²": [
-"1,240 individuals/m²",
-"1,240 個体／m²"
-],
-"優勢類群": [
-"Dominant group",
-"優占分類群"
-],
-"多毛類": [
-"Polychaetes",
-"多毛類"
-],
-"底質": [
-"Sediment",
-"底質"
-],
-"細砂 82%": [
-"Fine sand 82%",
-"細砂 82%"
-],
-"季別": [
-"Season",
-"季節"
-],
-"春季（第 3 次）": [
-"Spring (3rd survey)",
-"春季（第 3 回）"
-],
-"水下噪音評估": [
-"Underwater noise modelling",
-"水中騒音の評価"
-],
-"打樁是離岸風場施工中最吵的作業，巨大的衝擊聲在水中能傳到數十公里外，可能影響鯨豚的聽覺與行為。環評階段就要以聲學模型預測噪音隨距離的衰減，並承諾管制標準：例如距樁 750 公尺處的單次聲曝值不得超過 160 dB。為了達標，施工時必須搭配氣泡幕等減噪措施，並持續實測。": [
-"Piling is the loudest job in building an offshore wind farm; the impact noise can travel tens of kilometres underwater and may affect cetaceans' hearing and behaviour. At the EIA stage, acoustic models predict how the noise fades with distance and a limit is committed to, for example a single-strike SEL of no more than 160 dB at 750 m from the pile. Meeting it takes mitigation such as bubble curtains and continuous measurement during construction.",
-"杭打ちは洋上風力発電所の施工で最も大きな音を出す作業で、衝撃音は水中で数十キロメートル先まで届き、鯨類の聴覚や行動に影響するおそれがあります。環境アセスメントの段階で、音響モデルにより距離に応じた騒音の減衰を予測し、規制基準を約束します。たとえば杭から 750 m 地点の単発暴露レベルを 160 dB 以下とします。これを守るため、施工時にはバブルカーテンなどの低減策と継続的な実測が必要です。"
-],
-"以聲學模型預測打樁噪音隨距離衰減的情形": [
-"Acoustic models predict how piling noise fades with distance",
-"音響モデルで杭打ち騒音の距離減衰を予測"
-],
-"未減噪時，750 公尺處可能高於管制值": [
-"Without mitigation, the level at 750 m may exceed the limit",
-"低減策なしでは、750 m 地点で規制値を超える可能性がある"
-],
-"加上氣泡幕等減噪措施，噪音降低約 10–15 dB": [
-"With bubble curtains and other measures, noise drops by about 10–15 dB",
-"バブルカーテンなどの低減策で騒音は約 10〜15 dB 低下"
-],
-"以警戒區與即時量測確保施工時符合承諾": [
-"A warning zone and live measurements keep construction within the commitment",
-"警戒区域とリアルタイム計測で施工中も約束を守る"
-],
-"單次聲曝值 SEL 隨距離衰減": [
-"Single-strike SEL vs. distance",
-"単発暴露レベル SEL の距離減衰"
-],
-"距離打樁點（m）": [
-"Distance from pile (m)",
-"杭打ち地点からの距離（m）"
-],
-"管制值 160 dB": [
-"Limit 160 dB",
-"規制値 160 dB"
-],
-"未減噪 {v} dB": [
-"Unmitigated {v} dB",
-"低減策なし {v} dB"
-],
-"減噪後 {v} dB": [
-"Mitigated {v} dB",
-"低減後 {v} dB"
-],
-"施工警戒區（上視）": [
-"Construction warning zone (plan view)",
-"施工警戒区域（平面図）"
-],
-"750 m 警戒區": [
-"750 m warning zone",
-"750 m 警戒区域"
-],
-"監測點": [
-"Monitoring points",
-"観測点"
-],
-"審查與環評承諾": [
-"Review and commitments",
-"審査と環境アセスメントの約束"
-],
-"調查與評估的成果寫成環境影響說明書，送交主管機關審查。專案小組與委員會會邀請專家、學者、漁會與民間團體參與討論，要求開發商補充資料或修改方案。通過後，開發商對減輕措施所做的承諾具有法律拘束力，施工與營運期間都要依承諾執行監測、定期提報，並接受查核。": [
-"The survey and assessment results are written up as an environmental impact statement and submitted to the authorities. A project panel and the review committee invite experts, academics, fishers' associations and civil groups to discuss it, and may ask the developer for more data or a revised plan. Once approved, the developer's mitigation commitments are legally binding: monitoring must be carried out as promised through construction and operation, reported regularly and audited.",
-"調査と評価の結果は環境影響説明書にまとめられ、主管機関に提出されます。専門小委員会と審査委員会は専門家、学識者、漁業協同組合、市民団体を招いて議論し、開発事業者に追加資料や計画の修正を求めます。承認後、開発事業者が約束した保全措置は法的拘束力を持ち、施工中と運転中は約束に従ってモニタリングを行い、定期的に報告し、監査を受けます。"
-],
-"撰寫環境影響說明書，公開說明並蒐集意見": [
-"Write the environmental impact statement, present it publicly and collect views",
-"環境影響説明書を作成し、公開説明と意見聴取を行う"
-],
-"專案小組審查：專家、漁會與民間團體參與討論": [
-"Project panel review: experts, fishers' associations and civil groups take part",
-"専門小委員会による審査：専門家、漁協、市民団体が議論に参加"
-],
-"環評大會作成審查結論": [
-"The full EIA committee reaches its conclusion",
-"環境アセスメント審査委員会が結論を出す"
-],
-"減輕措施成為具拘束力的環評承諾": [
-"Mitigation measures become binding EIA commitments",
-"保全措置が拘束力のある約束事項になる"
-],
-"施工與營運期間持續監測、定期提報": [
-"Ongoing monitoring and regular reports through construction and operation",
-"施工中と運転中の継続モニタリングと定期報告"
-],
-"環境影響說明書": [
-"Environmental impact statement",
-"環境影響説明書"
-],
-"調查成果與影響預測": [
-"Survey results and impact predictions",
-"調査結果と影響予測"
-],
-"專案小組審查": [
-"Project panel review",
-"専門小委員会の審査"
-],
-"補件、修正方案": [
-"Supplements, revised plans",
-"補足資料・計画修正"
-],
-"環評大會": [
-"EIA committee",
-"審査委員会"
-],
-"作成審查結論": [
-"Reaches a conclusion",
-"審査結論を出す"
-],
-"環評承諾": [
-"EIA commitments",
-"環境アセスメントの約束"
-],
-"減輕措施具拘束力": [
-"Mitigation becomes binding",
-"保全措置に拘束力"
-],
-"監測與提報": [
-"Monitoring and reporting",
-"モニタリングと報告"
-],
-"施工與營運期間": [
-"During construction and operation",
-"施工中と運転中"
-],
-"常見承諾事項（示例）": [
-"Typical commitments (examples)",
-"主な約束事項（例）"
-],
-"打樁噪音：距樁 750 m 處單次聲曝值 ≤ 160 dB": [
-"Piling noise: single-strike SEL ≤ 160 dB at 750 m",
-"杭打ち騒音：杭から 750 m で単発暴露レベル ≤ 160 dB"
-],
-"打樁前 30 分鐘：鯨豚觀察員與 PAM 確認警戒區淨空": [
-"30 minutes before piling: observers and PAM confirm the zone is clear",
-"杭打ち前30分：鯨類観察員と PAM が警戒区域の不在を確認"
-],
-"採用軟啟動與氣泡幕等減噪措施": [
-"Soft start and noise mitigation such as bubble curtains",
-"ソフトスタートとバブルカーテンなどの騒音低減策"
-],
-"避開特定生物敏感季節施工": [
-"No construction in specific ecologically sensitive seasons",
-"特定の生物に敏感な季節の施工を避ける"
-],
-"施工船舶減速、避開白海豚重要棲地": [
-"Vessels slow down and avoid key humpback dolphin habitat",
-"施工船舶は減速し、シロイルカの重要生息地を避ける"
-],
-"營運期持續監測鯨豚、鳥類、底棲與漁業資源": [
-"Ongoing monitoring of cetaceans, birds, benthos and fisheries in operation",
-"運転期間も鯨類、鳥類、底生生物、漁業資源を継続モニタリング"
-]
+"離岸風場開發系列":["Offshore Wind Development Series", "洋上風力開発シリーズ"],
+"漁業共存與海域共享":["Fisheries coexistence and sharing the sea", "漁業との共存と海域の共有"],
+"風場蓋在海上，也蓋在漁民長期作業的漁場裡。這一集看風機基礎如何成為人工魚礁、聚魚的範圍有多大，施工與營運期間的安全區與航道怎麼劃，不同漁法還能不能作業，漁業補償與共存共榮經費如何運用，以及開發商與在地漁會怎樣一步步協商。":["Wind farms are built at sea, and also on fishing grounds where fishers have worked for generations. This episode looks at how turbine foundations become artificial reefs and how far the fish-aggregating effect reaches, how safety zones and shipping lanes are drawn during construction and operation, which fishing methods can still work, how compensation and shared-benefit funds are used, and how developers negotiate step by step with local fishing associations.", "風力発電所は海の上に、そして漁業者が長年操業してきた漁場の中に建てられます。今回は、風車の基礎が人工魚礁になる仕組みと魚が集まる範囲、施工中と運転中の安全区域や航路の決め方、どの漁法が操業できるか、補償金と共存共栄の資金の使い方、そして事業者が地元の漁協と段階的に協議を進める流れを見ていきます。"],
+"公尺":["m", "メートル"],
+"營運期風機周邊常見的安全區範圍（歐洲部分國家，示例）":["Common operational safety zone around a turbine (some European countries, example)", "運転中に風車の周囲に設ける一般的な安全区域（欧州の一部の国、例）"],
+"施工期間環繞施工船的移動式安全區常見範圍":["Common rolling safety zone around construction vessels during construction", "施工中に作業船の周囲に設ける移動式安全区域の一般的な範囲"],
+"種":["species", "種"],
+"台灣風場調查在基礎 50 公尺內記錄到的礁岩性魚類":["Reef-associated fish species recorded within 50 m of foundations in a Taiwan wind farm survey", "台湾の洋上風力発電所の調査で基礎から 50 m 以内に記録された岩礁性魚類"],
+"項":["items", "項目"],
+"補償基準常見的計算項目：漁業權損失、繞道成本、漁獲淨收益損失":["Common items in compensation standards: fishing-right loss, detour cost, net catch income loss", "補償基準でよく使われる算定項目：漁業権の損失、迂回コスト、漁獲の純収益損失"],
+"類":["types", "種類"],
+"共存共榮經費常見用途：棲地營造、放流、漁法轉型輔導、休閒漁業":["Common uses of shared-benefit funds: habitat creation, stocking, gear-transition support, recreational fishing", "共存共栄資金のおもな用途：生息地づくり、放流、漁法転換の支援、遊漁"],
+"說明：本集為教育用途示意動畫，風機、魚群、安全區與航道的比例經過壓縮，聚魚指數、風機間距與船隊配置皆為「典型範例」，並非特定案場資料。基礎周邊聚魚範圍小、岩石護腳的聚魚效果通常高於砂袋與導管架，依德國與台灣風場的公開研究；施工期 500 公尺移動式安全區與營運期 50 公尺安全區為英國等地的常見做法，台灣各案場的實際範圍、可作業漁法與補償金額，以主管機關公告與環評承諾為準。補償計算項目與共存共榮經費用途參考地方政府公開之離岸式風力發電廠漁業補償基準。":["Note: this is a schematic animation for education. Turbines, fish, safety zones and lanes are scaled for clarity, and the fish index, turbine spacing and vessel layout are typical examples, not data from a specific site. The small reach of the reef effect and the stronger attraction of rock-protected monopiles over sandbag-protected monopiles and jackets follow public studies of German and Taiwanese wind farms. The 500 m rolling zone during construction and the 50 m zone during operation are common practice in the UK and elsewhere; actual ranges, permitted fishing methods and compensation amounts at Taiwanese sites follow competent-authority notices and EIA commitments. Compensation items and shared-benefit fund uses refer to the publicly available offshore wind fishery compensation standard of a local government.", "注：本編は教育用の模式アニメーションです。風車・魚群・安全区域・航路の縮尺は圧縮しており、魚の集まり指数、風車の間隔、船の配置は「典型例」で、特定の案件のデータではありません。魚礁効果の範囲が小さいこと、岩石による洗掘防止のモノパイルが砂袋やジャケットより魚を集めやすいことは、ドイツと台湾の風力発電所に関する公開研究に基づきます。施工中の 500 m 移動式安全区域と運転中の 50 m 安全区域は英国などで一般的な運用で、台湾の各案件の実際の範囲・操業可能な漁法・補償額は主管機関の告示と環境影響評価の約束に従います。補償の算定項目と共存共栄資金の用途は、地方政府が公開している洋上風力発電の漁業補償基準を参考にしています。"],
+"基礎變成人工魚礁":["Foundations become artificial reefs", "基礎が人工魚礁になる"],
+"單樁基礎與周圍的護腳岩塊，在平坦的沙質海床上突然多了一片硬底質。藤壺、貽貝與海藻先附著在樁身上，吸引小型甲殼類與小魚來覓食，再引來較大的肉食性魚類，形成一個小型的生態系。台灣離岸風場的調查也在基礎周邊記錄到沙地上原本沒有的礁岩性魚類。這個人工魚礁效應對部分底棲與礁岩魚種有利，但並不等於整體漁獲量必然增加，仍需長期監測。":["A monopile and its surrounding scour-protection rock suddenly add a patch of hard substrate to a flat, sandy seabed. Barnacles, mussels and algae settle on the pile first, drawing small crustaceans and small fish to feed, which in turn attract larger predatory fish and form a small ecosystem. Surveys at Taiwanese offshore wind farms have also recorded reef-associated fish around foundations that were not found on the surrounding sand. This artificial reef effect benefits some demersal and reef species, but it does not mean total catches will necessarily rise, so long-term monitoring is needed.", "平らな砂質の海底に、モノパイル基礎とその周囲の洗掘防止の捨石が硬い底質をもたらします。フジツボ、ムラサキイガイ、藻類がまず杭に付着し、小型の甲殻類や小魚が餌を求めて集まり、さらに大型の肉食魚が寄ってきて小さな生態系ができます。台湾の洋上風力発電所の調査でも、周囲の砂地にはいなかった岩礁性の魚が基礎の周辺で記録されています。この人工魚礁効果は一部の底生魚や岩礁魚に有利ですが、全体の漁獲量が必ず増えるとは限らず、長期的なモニタリングが必要です。"],
+"平坦的沙質海床上，單樁與護腳岩塊成了新的硬底質":["On the flat sandy seabed, the monopile and rock protection become new hard substrate", "平らな砂の海底に、モノパイルと捨石が新たな硬い底質になる"],
+"藤壺與貽貝附著樁身，吸引小魚與甲殼類":["Barnacles and mussels settle on the pile, attracting small fish and crustaceans", "フジツボやムラサキイガイが杭に付き、小魚や甲殻類を引き寄せる"],
+"更大的肉食性魚類跟著聚集到基礎周邊":["Larger predatory fish gather around the foundation", "大型の肉食魚も基礎の周辺に集まる"],
+"聚魚效果只出現在基礎附近，仍需長期監測":["The effect appears only near the foundation and needs long-term monitoring", "効果は基礎の近くだけに現れ、長期モニタリングが必要"],
+"護腳岩塊":["Scour-protection rock", "洗掘防止の捨石"],
+"附著生物（藤壺、貽貝）":["Fouling (barnacles, mussels)", "付着生物（フジツボ等）"],
+"礁岩性魚類聚集":["Reef fish gather", "岩礁魚が集まる"],
+"沙質海床：魚少":["Sandy seabed: few fish", "砂の海底：魚は少ない"],
+"基礎周邊觀察（示例）":["Around the foundation (example)", "基礎周辺の観察（例）"],
+"硬底質":["Hard substrate", "硬い底質"],
+"樁身＋護腳":["Pile + rock", "杭＋捨石"],
+"聚魚範圍":["Reach", "集魚範囲"],
+"約 50 m 內":["Within ~50 m", "約 50 m 以内"],
+"沙地對照":["Sand control", "砂地の対照"],
+"幾乎沒有":["Almost none", "ほぼなし"],
+"結論":["Takeaway", "結論"],
+"需長期監測":["Monitor long term", "長期監視が必要"],
+"聚魚範圍有多大":["How far does the reef effect reach?", "魚が集まる範囲はどこまでか"],
+"人工魚礁效應是真的，但範圍很小。魚群的密度在基礎旁最高，往外幾十公尺就快速下降，到了一兩百公尺外和周圍的沙地幾乎沒有差別。基礎周邊的保護材料也有影響：德國北海的研究發現，用岩石保護海床的單樁，比砂袋保護的單樁與導管架更能吸引魚類。因此風場帶來的聚魚好處集中在基礎附近，也就是安全區管制最嚴格的位置，漁民未必能直接受惠。":["The artificial reef effect is real, but its reach is small. Fish density is highest right next to the foundation, drops quickly within a few tens of metres, and is almost the same as the surrounding sand one or two hundred metres out. The protection material matters too: a study in the German North Sea found that monopiles protected by rock attracted more fish than monopiles protected by sandbags or jackets. So the aggregation benefit is concentrated near the foundation, exactly where safety-zone restrictions are strictest, and fishers may not benefit directly.", "人工魚礁効果は確かにありますが、範囲は小さいです。魚の密度は基礎のすぐそばが最も高く、数十 m 離れると急に下がり、100〜200 m 離れると周囲の砂地とほとんど変わりません。洗掘防止の材料も影響します。ドイツ北海の研究では、岩石で保護したモノパイルは、砂袋で保護したモノパイルやジャケットよりも魚を多く集めました。そのため集魚の利点は基礎の近くに集中し、安全区域の規制が最も厳しい場所と重なるため、漁業者が直接恩恵を受けられるとは限りません。"],
+"魚群密度在基礎旁最高，向外迅速下降":["Fish density is highest next to the foundation and falls quickly outward", "魚の密度は基礎のそばが最も高く、外へ向かって急に下がる"],
+"一兩百公尺外，幾乎與周圍沙地沒有差別":["One or two hundred metres out, it is almost the same as the surrounding sand", "100〜200 m 離れると周囲の砂地とほぼ変わらない"],
+"岩石護腳的聚魚效果通常高於砂袋與導管架":["Rock protection usually attracts more fish than sandbags or jackets", "岩石の洗掘防止は砂袋やジャケットより魚を集めやすい"],
+"好處集中在基礎附近，也是管制最嚴的位置":["The benefit is concentrated near the foundation, where restrictions are strictest", "利点は基礎の近く、つまり規制が最も厳しい場所に集中する"],
+"離基礎距離與魚群密度（典型示例）":["Distance from foundation vs fish density (typical example)", "基礎からの距離と魚の密度（典型例）"],
+"離基礎距離 (m)":["Distance from foundation (m)", "基礎からの距離 (m)"],
+"相對魚群密度":["Relative fish density", "相対的な魚の密度"],
+"周圍沙地":["Surrounding sand", "周囲の砂地"],
+"基礎形式與護腳材料（示意）":["Foundation type and protection (schematic)", "基礎形式と洗掘防止材（模式）"],
+"單樁＋岩石護腳":["Monopile + rock", "モノパイル＋捨石"],
+"單樁＋砂袋護腳":["Monopile + sandbags", "モノパイル＋砂袋"],
+"導管架":["Jacket", "ジャケット"],
+"相對聚魚程度（示意，非實測值）":["Relative attraction (schematic, not measured)", "集魚の相対的な程度（模式・実測値ではない）"],
+"台灣風場調查：基礎 50 m 內記錄到 86 種礁岩性魚類，周圍沙地沒有":["Taiwan wind farm survey: 86 reef fish species recorded within 50 m of foundations, none on the surrounding sand", "台湾の風力発電所の調査：基礎から 50 m 以内で岩礁魚 86 種、周囲の砂地では記録なし"],
+"安全區與航道":["Safety zones and shipping lanes", "安全区域と航路"],
+"從上方看風場，是一格一格的風機與海纜。施工期間，施工船周圍會劃出移動式的安全區，英國等地常見的範圍約 500 公尺，其他船舶不得進入；風機完工後，營運期的安全區通常縮到風機周圍約 50 公尺，主要用於大型維修作業。風場外另有航道，供商船通行，漁船則依主管機關公告，決定能否穿越風場或進入作業。出海前務必查詢最新的航行警告。":["Seen from above, a wind farm is a grid of turbines linked by cables. During construction a rolling safety zone is set around the construction vessel, commonly about 500 m in the UK and elsewhere, and other vessels may not enter. Once turbines are complete, the operational zone usually shrinks to about 50 m around each turbine, mainly for major maintenance work. Separate shipping lanes serve merchant vessels, while fishing boats follow notices from the competent authority on whether they may cross or work inside the farm. Always check the latest navigational warnings before going to sea.", "上から見ると、風力発電所は風車とケーブルが格子状に並んでいます。施工中は作業船の周囲に移動式の安全区域が設けられ、英国などでは約 500 m が一般的で、他の船は立ち入れません。風車が完成した後の運転中は、安全区域は風車の周囲約 50 m まで縮小するのが通例で、おもに大規模な保守作業のためです。風力発電所の外には商船用の航路があり、漁船が通過や操業をできるかは主管機関の告示によります。出航前には必ず最新の航行警報を確認します。"],
+"從上方看，風場是一格一格的風機與海纜":["From above, the farm is a grid of turbines and cables", "上から見ると、風車とケーブルが格子状に並ぶ"],
+"施工期間，施工船周圍劃出約 500 公尺的移動式安全區":["During construction, a rolling safety zone of about 500 m surrounds the vessel", "施工中は作業船の周囲に約 500 m の移動式安全区域を設ける"],
+"營運期安全區縮小到風機周圍約 50 公尺":["In operation, the zone shrinks to about 50 m around each turbine", "運転中の安全区域は風車の周囲約 50 m に縮小する"],
+"商船走航道，漁船依公告決定能否進入風場":["Merchant ships use the lane; fishing boats follow notices on entry", "商船は航路を通り、漁船は告示に従って立ち入りを判断する"],
+"風場平面圖（示意，風機間距約 1 公里）":["Wind farm plan view (schematic, ~1 km turbine spacing)", "風力発電所の平面図（模式・風車間隔は約 1 km）"],
+"航道（商船）":["Shipping lane (merchant ships)", "航路（商船）"],
+"約 500 m":["~500 m", "約 500 m"],
+"約 50 m":["~50 m", "約 50 m"],
+"漁船":["Fishing boat", "漁船"],
+"管制範圍（英國等地的常見做法）":["Restricted areas (common UK practice)", "規制範囲（英国などの一般的な運用）"],
+"施工期":["Construction", "施工期"],
+"移動式安全區約 500 m":["Rolling safety zone ~500 m", "移動式安全区域 約 500 m"],
+"營運期":["Operation", "運転期"],
+"風機周圍約 50 m":["~50 m around each turbine", "風車の周囲 約 50 m"],
+"航道":["Shipping lane", "航路"],
+"商船通行，漁船依公告":["Merchant traffic; fishing per notice", "商船が通行、漁船は告示に従う"],
+"台灣各案場的實際範圍與可進入的作業，以主管機關公告為準，出海前查詢航行警告":["Actual ranges and permitted activities at Taiwanese sites follow competent-authority notices; check navigational warnings before sailing", "台湾の各案件の実際の範囲と操業の可否は主管機関の告示に従い、出航前に航行警報を確認する"],
+"哪些漁法還能作業":["Which fishing methods can still operate", "操業できる漁法は何か"],
+"風場內不是一律禁漁，但不同漁法受到的影響差別很大。釣具與延繩釣的鉤線小、可以避開結構，籠具與定置網只要放在公告允許的位置，也比較有機會共存。底拖網與流刺網的網具範圍大，容易勾到基礎護腳、海纜與其他設施，在風場內作業困難。各國做法不同，台灣仍以主管機關公告與協商結果為準，漁民也需要時間調整漁具與作業方式。":["Fishing is not banned everywhere inside a wind farm, but different methods are affected very differently. Hook-and-line and longline gear is small and can avoid structures, and pots or fixed nets have a better chance of coexisting if placed where notices allow. Bottom trawls and drift gillnets cover a wide area and can snag scour protection, cables and other equipment, so working inside the farm is difficult. Rules differ between countries; in Taiwan they follow competent-authority notices and negotiated agreements, and fishers also need time to adapt their gear and practices.", "風力発電所の中でも一律に漁が禁止されるわけではありませんが、漁法によって影響は大きく異なります。釣りや延縄は針と糸が小さく構造物を避けられ、かごや定置網も告示で認められた位置なら共存しやすくなります。底引き網や流し刺し網は網の範囲が広く、洗掘防止の捨石やケーブルなどに引っかかりやすいため、風力発電所内での操業は困難です。国によって運用は異なり、台湾では主管機関の告示と協議の結果に従い、漁業者も漁具や操業方法を調整する時間が必要です。"],
+"風機之間水面上，一艘小型漁船正在放釣線與籠具":["Between the turbines, a small fishing boat sets hook lines and pots", "風車の間で、小型漁船が釣り糸とかごを入れている"],
+"釣具與籠具避得開結構，較有機會與風場共存":["Hook lines and pots avoid the structures and can coexist more easily", "釣りやかごは構造物を避けられ、共存しやすい"],
+"另一艘拖網船的網具範圍大，朝基礎與海纜前進":["Another trawler's gear covers a wide area as it heads toward the foundation and cable", "別の底引き船は網の範囲が広く、基礎とケーブルへ向かって進む"],
+"底拖網與流刺網在風場內很難作業":["Bottom trawls and drift gillnets are hard to work inside the farm", "底引き網や流し刺し網は風力発電所内では操業が難しい"],
+"小型漁船":["Small fishing boat", "小型漁船"],
+"籠具":["Pots", "かご"],
+"基礎與護腳":["Foundation + rock", "基礎と捨石"],
+"海纜":["Cable", "海底ケーブル"],
+"拖網船":["Trawler", "底引き船"],
+"風場內作業難易（示例）":["Ease of working in farm (example)", "風力発電所内での操業のしやすさ（例）"],
+"釣具、延繩釣":["Hook-and-line", "釣り・延縄"],
+"較容易":["Easier", "比較的しやすい"],
+"籠具、定置網":["Pots, fixed nets", "かご・定置網"],
+"視位置":["By location", "位置による"],
+"底拖網":["Bottom trawl", "底引き網"],
+"困難":["Hard", "困難"],
+"流刺網":["Drift gillnet", "流し刺し網"],
+"依公告與協商而定":["Depends on notices and talks", "告示と協議による"],
+"漁業補償與共存共榮":["Compensation and shared-benefit funds", "漁業補償と共存共栄"],
+"開發商要面對的第一個問題，是風場讓漁民損失了什麼。補償基準通常把損失拆成幾個項目：漁業權人在風場範圍內經營的損失、漁船為了避開風場而增加的繞道成本，以及漁獲淨收益的減少，再依施工與營運的年數、影響面積比例估算。除了補償，還有共存共榮經費，用來營造棲地與放流魚苗、輔導漁船轉換漁法，以及發展休閒漁業，讓漁業與風場長期共存。":["The first question a developer must face is what the wind farm costs fishers. Compensation standards usually split the loss into items: the loss to rights holders operating inside the farm area, the extra detour cost for boats avoiding the farm, and the reduction in net catch income, estimated from the years of construction and operation and the share of affected area. Beyond compensation, a shared-benefit fund pays for habitat creation and fry stocking, help for boats to switch fishing methods, and recreational fishing, so that fisheries and the wind farm can coexist over the long term.", "事業者がまず向き合うのは、風力発電所によって漁業者が何を失うかという問題です。補償基準では通常、損失をいくつかの項目に分けます。風力発電所の範囲内で操業する漁業権者の損失、風力発電所を避ける漁船の迂回コスト、漁獲の純収益の減少で、施工と運転の年数や影響面積の割合から算定します。補償に加えて共存共栄の資金があり、生息地づくりや稚魚の放流、漁法の転換支援、遊漁の振興に使われ、漁業と風力発電所が長期的に共存できるようにします。"],
+"先算清楚：風場讓漁民損失了什麼":["First work out what the wind farm costs fishers", "まず、風力発電所で漁業者が何を失うかを整理する"],
+"補償依漁業權損失、繞道成本與漁獲淨收益損失估算":["Compensation is estimated from fishing-right loss, detour cost and net catch income loss", "補償は漁業権の損失・迂回コスト・漁獲の純収益損失から算定する"],
+"另有共存共榮經費，用於棲地營造、放流與轉型輔導":["A shared-benefit fund covers habitat creation, stocking and transition support", "共存共栄資金は生息地づくり・放流・転換支援に使われる"],
+"目標是讓漁業與風場長期共存，而不只是一次性補償":["The aim is long-term coexistence, not just one-off compensation", "目標は一時的な補償ではなく、漁業と風力発電所の長期的な共存"],
+"損失補償：算什麼":["Loss compensation: what is counted", "損失補償：何を算定するか"],
+"漁業權損失":["Fishing-right loss", "漁業権の損失"],
+"風場範圍內漁業權人的經營損失":["Operating loss of rights holders inside the farm area", "風力発電所の範囲内の漁業権者の経営上の損失"],
+"繞道成本":["Detour cost", "迂回コスト"],
+"漁船避開風場而增加的油料與時間":["Extra fuel and time for boats avoiding the farm", "風力発電所を避けるために増える燃料と時間"],
+"漁獲淨收益損失":["Net catch income loss", "漁獲の純収益損失"],
+"作業受限造成的漁獲收益減少":["Lower catch income caused by restricted fishing", "操業制限による漁獲収益の減少"],
+"依施工與營運年數、影響面積比例估算":["Estimated from construction and operation years and affected-area share", "施工・運転の年数と影響面積の割合から算定"],
+"金額與認定以主管機關基準與協商為準":["Amounts and eligibility follow authority standards and negotiation", "金額と認定は主管機関の基準と協議による"],
+"共存共榮經費：用來做什麼":["Shared-benefit fund: what it pays for", "共存共栄資金：何に使うか"],
+"棲地營造與放流":["Habitat and stocking", "生息地づくりと放流"],
+"人工魚礁、魚苗放流，維持資源":["Artificial reefs and fry release to sustain stocks", "人工魚礁や稚魚放流で資源を維持"],
+"漁法轉型輔導":["Gear transition support", "漁法転換の支援"],
+"協助改用適合風場作業的漁法":["Help switching to methods suited to the farm", "風力発電所に適した漁法への転換を支援"],
+"休閒漁業":["Recreational fishing", "遊漁"],
+"賞鯨、海釣與體驗，增加新收入":["Whale watching, sea angling and tours add new income", "ホエールウォッチング・釣り・体験で新たな収入を作る"],
+"漁會管理小組":["Association management team", "漁協の管理チーム"],
+"由在地漁會共同決定如何運用":["The local association helps decide how it is used", "地元の漁協が使い道を共同で決める"],
+"與在地漁會協商":["Working with local fishing associations", "地元漁協との協議"],
+"補償與共存要談得成，關鍵在於及早、公開、持續。開發商在規劃階段就要向漁會說明計畫，並請漁民提供實際使用的漁場與漁期；接著進入補償與共存方案的協商，同時協調施工船的作業時間，盡量避開重要魚汛，並事先公告航行警告；營運後再用魚類調查與座談持續檢討。協商的難處在於漁會的代表性與分配是否公平，因此資訊透明、保留彈性，是長期維持信任的基礎。":["For compensation and coexistence talks to succeed, the key is to be early, open and continuous. During planning the developer explains the project to the association and asks fishers for the grounds and seasons they actually use. Negotiations on compensation and coexistence follow, along with scheduling construction vessels to avoid major fishing seasons and issuing navigational warnings in advance. After operation starts, fish surveys and meetings keep the arrangement under review. The hard part is whether the association is representative and distribution is fair, so transparency and flexibility are the basis of lasting trust.", "補償と共存の協議を成功させる鍵は、早く、オープンに、継続して行うことです。事業者は計画段階から漁協に事業を説明し、漁業者に実際に使っている漁場と漁期を教えてもらいます。続いて補償と共存策を協議し、同時に作業船の稼働時間を調整して主要な漁期を避け、事前に航行警報を出します。運転開始後は魚類調査や意見交換会で継続的に見直します。難しいのは漁協の代表性と分配の公平さであり、情報の透明性と柔軟さが長期的な信頼の基礎になります。"],
+"規劃階段就向漁會說明，請漁民提供實際漁場與漁期":["Explain the project to the association at the planning stage and ask fishers for actual grounds and seasons", "計画段階から漁協に説明し、実際の漁場と漁期を教えてもらう"],
+"依調查結果，協商補償與共存方案":["Negotiate compensation and coexistence based on the survey", "調査結果に基づき、補償と共存策を協議する"],
+"施工避開重要魚汛，並事先公告航行警告":["Construction avoids major fishing seasons, with advance navigational warnings", "施工は主要な漁期を避け、事前に航行警報を出す"],
+"營運後持續做魚類調查與座談，保持資訊透明":["After operation starts, keep running fish surveys and meetings with open information", "運転開始後も魚類調査と意見交換を続け、情報を透明に保つ"],
+"早期說明":["Early briefing", "早期説明"],
+"規劃階段向漁會說明":["Explain at planning stage", "計画段階で漁協に説明"],
+"漁場調查":["Ground survey", "漁場調査"],
+"漁場、漁期與漁具":["Grounds, seasons, gear", "漁場・漁期・漁具"],
+"補償與共存方案":["Compensation deal", "補償と共存策"],
+"協商、簽署與分配":["Negotiate, sign, distribute", "協議・締結・分配"],
+"施工協調":["Work scheduling", "施工の調整"],
+"避開魚汛、航行警告":["Avoid seasons, issue warnings", "漁期を避け、航行警報を出す"],
+"營運與檢討":["Operation and review", "運転と見直し"],
+"魚類調查與定期座談":["Fish surveys and regular meetings", "魚類調査と定期的な意見交換"],
+"施工排程與魚汛（典型示例）":["Construction schedule vs fishing season (typical example)", "施工工程と漁期（典型例）"],
+"重要魚汛":["Key fishing season", "主要な漁期"],
+"施工窗口":["Work window", "施工期間"],
+"魚汛（示例）":["Season (example)", "漁期（例）"],
+"集中施工（示例）":["Focused work (example)", "集中施工（例）"],
+"重點：魚汛期減少施工、其餘時間集中作業，縮短總影響時間":["Key idea: less work in the fishing season, focused work otherwise, shortening total impact time", "要点：漁期は施工を減らし、それ以外の期間に集中して作業し、影響期間を短くする"],
+"維持信任的做法":["Keeping trust", "信頼を保つ方法"],
+"及早公開":["Early and open", "早く、オープンに"],
+"計畫與調查結果都讓漁民看得到":["Plans and survey results are visible to fishers", "計画と調査結果を漁業者が見られる"],
+"代表性與公平":["Representation and fairness", "代表性と公平さ"],
+"分配方式讓各漁法的漁民都能參與":["Distribution lets fishers of every method take part", "分配方法は漁法を問わずすべての漁業者が参加できる"],
+"持續檢討":["Ongoing review", "継続的な見直し"],
+"營運後仍定期調查與座談":["Surveys and meetings continue after operation starts", "運転開始後も定期的に調査と意見交換を行う"]
 });
-Object.assign(DICT,{"蒲福 2 級": ["Beaufort 2", "ビューフォート 2"]});
 
 /* ================= theme: journal（DOF LAB 品牌層） =================
    依劉老師簡報設計系統的 Journal 主題延伸：畫布維持深色，強調色改為鏽紅、資料色改為青綠，
