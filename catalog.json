@@ -850,6 +850,20 @@
               }
             },
             {
+              "no": 14,
+              "file": "ep14.html",
+              "title": {
+                "zh": "大部件更換",
+                "en": "Major component replacement",
+                "ja": "大型部品の交換"
+              },
+              "sub": {
+                "zh": "齒輪箱失效判定、三種更換方案與等待時間、履帶吊進場組裝、機艙頂吊出吊入、吊裝窗口與損失發電量",
+                "en": "Gearbox failure diagnosis, three replacement options and waiting time, crawler-crane assembly, lifting out and in through the nacelle roof, lifting window and lost generation",
+                "ja": "ギアボックス故障の判定、3 つの交換方法と待ち時間、クローラークレーンの組立て、ナセル上部からの吊り出しと吊り込み、吊り作業の適期と発電損失"
+              }
+            },
+            {
               "no": 16,
               "file": "ep16.html",
               "title": {
