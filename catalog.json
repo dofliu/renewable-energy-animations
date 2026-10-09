@@ -1284,6 +1284,20 @@
                 "en": "Weir and headrace, head and flow, impulse and reaction turbines, turbine selection and canal small hydro",
                 "ja": "取水堰と導水路、落差と流量、衝動水車と反動水車、機種選定と用水路の小水力"
               }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "水庫式水力發電",
+                "en": "Reservoir hydropower",
+                "ja": "貯水池式水力発電"
+              },
+              "sub": {
+                "zh": "壩體型式、進水口與壓力鋼管、法蘭西斯機組、水位與出力、大甲溪階梯式開發",
+                "en": "Dam types, intake and penstock, Francis unit, level and output, the Dajia River cascade",
+                "ja": "ダムの型式、取水口と水圧鉄管、フランシス水車、水位と出力、大甲渓の階段式開発"
+              }
             }
           ]
         }
