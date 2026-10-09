@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ep04.js｜陸域風電系列</title>
+<title>ep15.js｜陸域風電系列</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -218,7 +218,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22%3E%3Crect width=%22128%22 height=%22128%22 rx=%2214%22 fill=%22%23202124%22/%3E%3Cpath d=%22M34 26h27c25 0 42 14 42 38S86 102 61 102H34V26zm25 56c13 0 21-6 21-18s-8-18-21-18h-3v36h3z%22 fill=%22%23F47A20%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E"><style id="topnav-css">.topnav [hidden]{display:none}.topnav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;margin:0 0 10px}.topnav a{color:var(--sea);text-decoration:none;font-weight:700}.topnav a:hover{text-decoration:underline}.topnav a:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}.topnav .sp{flex:1}.site-credit{max-width:1320px;margin:-28px auto 0;padding:0 clamp(12px,3vw,32px) 32px;font-size:13px;color:var(--muted)}</style></head>
 <body>
 <div class="wrap">
-<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep17.html"><span data-zh="← 17 葉片修補" data-en="← 17 Repairing a turbine blade" data-ja="← 17 ブレードの補修">← 17 葉片修補</span></a><a href="ep15.html"><span data-zh="15 噪音與光影閃爍 →" data-en="15 Noise and shadow flicker →" data-ja="15 騒音とシャドーフリッカー →">15 噪音與光影閃爍 →</span></a></nav>
+<nav class="topnav" aria-label="Series"><a href="../index.html"><span data-zh="再生能源動畫館" data-en="Renewable Energy Animations" data-ja="再生可能エネルギー・アニメーション館">再生能源動畫館</span></a><a href="index.html"><span data-zh="陸域風電系列" data-en="Onshore Wind series" data-ja="陸上風力シリーズ">陸域風電系列</span></a><span class="sp"></span><a href="ep04.html"><span data-zh="← 04 風場選址與風資源評估" data-en="← 04 Choosing a site and assessing the wind" data-ja="← 04 風力発電所の立地選定と風況評価">← 04 風場選址與風資源評估</span></a><a href="ep05.html"><span data-zh="05 齒輪箱與發電機 →" data-en="05 Gearboxes and generators →" data-ja="05 増速機と発電機 →">05 齒輪箱與發電機 →</span></a></nav>
   <header class="masthead">
     <div class="mark" aria-hidden="true">
       <svg viewBox="0 0 40 40"><path d="M20 17 L21.4 37 H18.6 Z" fill="#e3ecee"/><rect x="17.2" y="33" width="5.6" height="4" fill="#f2c230"/><g fill="#e3ecee"><path d="M20 15.5 L20.9 2 L19.4 2.2 Z"/><path d="M20 15.5 L31.8 22.3 L32.3 20.9 Z" /><path d="M20 15.5 L8.2 22.3 L8.9 23.6 Z"/></g><circle cx="20" cy="15.8" r="2.2" fill="#f2c230"/></svg>
@@ -230,7 +230,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   </header>
   <section aria-label="動畫" data-i18n-aria="secAnim">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="ep04.js｜陸域風電系列"></canvas>
+      <canvas id="cv" role="img" aria-label="ep15.js｜陸域風電系列"></canvas>
       <div class="chapcard" id="chapcard"><span class="no" id="ccNo">01</span><div class="tt"><b id="ccT"></b><i id="ccE"></i></div></div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="scale-note"><span data-i18n="credit">勤益科大 劉瑞弘老師研究室</span> · <span data-i18n="scaleNote">示意圖：比例經過調整</span></div>
@@ -543,458 +543,343 @@ function cabinet(x,y,w,h,col,name){box(x,y-h,w,h,col||'#dfe5e8');ctx.strokeStyle
 function pileRig(x,y,hammerY){box(x-40,y-18,80,18,'#e9b21f');for(const wx of [-26,0,26])circ(x+wx,y-2,7,'#222');ln([x+20,y-18,x+20,y-170],'#394650',4);box(x+10,hammerY-26,20,26,'#e07b27');}
 
 // KITS: land
-/* 陸域風電系列 第 4 集：風場選址與風資源評估 */
+/* 陸域風電系列 第 15 集：噪音與光影閃爍 */
 const gyy=x=>groundY(x);
-/* 正視的葉片與風機（取自第 2、3 集） */
+/* 正視的葉片與風機（沿用第 14 集） */
 function bladeF(cx,cy,a,L,w){w=w===undefined?1:w;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
   const k=Math.max(.18,w);poly([8,-5*k,8+L*.2,-10*k,8+L,-1.5*k,8+L,1.5*k,8+L*.2,8*k,8,5*k],'#f4f6f7','rgba(0,0,0,.35)',1);ctx.restore();}
-function turbine(x,gy,H,R,rot,o){o=o||{};const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
-  poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],o.tc||'#eef2f4','rgba(0,0,0,.3)',1);
-  box(x-R*.1,hy-R*.08,R*.2,R*.13,'#e3e8ec','rgba(0,0,0,.3)',1);
-  for(let i=0;i<3;i++)bladeF(x,hy,rot+i*TAU/3-Math.PI/2,R,o.w);
-  circ(x,hy,Math.max(3,R*.07),'#dfe5e8','rgba(0,0,0,.4)',1);return {x,y:hy};}
-/* 風線：y 範圍內，速度 sp 可為函式 sp(y) */
-function windLines(y0,y1,n,sp,a,seed,len,col){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
-  for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=(typeof sp==='function'?sp(y):sp)*(.8+.4*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
-   alphaDo(a*(.3+.35*r()),()=>ln([x,y,x+L*s/200,y],col||'#ffffff',2));}ctx.lineCap='butt';}
-/* 杯式風速計（頂視旋轉的三杯） */
-function cupAnemo(x,y,sp){ln([x,y,x,y+8],'#394650',2);const a=TT*sp;for(let i=0;i<3;i++){const q=a+i*TAU/3;ln([x,y,x+Math.cos(q)*9,y+Math.sin(q)*3],'#394650',1.5);circ(x+Math.cos(q)*9,y+Math.sin(q)*3,2.6,'#e8572a');}}
-/* 簡易房屋（頂視） */
-function roofs(cx,cy,n,seed){const r=rng(seed);for(let i=0;i<n;i++){const x=cx+(r()-.5)*90,y=cy+(r()-.5)*70;box(x-7,y-6,14,12,'#e9dcc7','rgba(0,0,0,.4)',1);ln([x-7,y,x+7,y],'rgba(168,88,62,.9)',2);}}
-/* 樹（側視） */
-function tree(x,y,s){box(x-2*s,y-14*s,4*s,14*s,'#6f5a44');circ(x,y-22*s,11*s,'#4f7a3a');circ(x-6*s,y-16*s,8*s,'#5c8a3f');circ(x+6*s,y-17*s,8*s,'#5c8a3f');}
+function turbine(x,gy,H,R,rot){const hy=gy-H,w0=Math.max(4,R*.09),w1=Math.max(2.5,R*.05);
+  poly([x-w0,gy,x-w1,hy+R*.06,x+w1,hy+R*.06,x+w0,gy],'#eef2f4','rgba(0,0,0,.3)',1);
+  box(x-R*.11,hy-R*.08,R*.24,R*.14,'#e3e8ec','rgba(0,0,0,.3)',1);
+  for(let i=0;i<3;i++)bladeF(x,hy,rot+i*TAU/3-Math.PI/2,R);circ(x,hy,Math.max(3,R*.07),'#dfe5e8','rgba(0,0,0,.4)',1);return {x,y:hy};}
+function windLines(y0,y1,n,sp,a,seed,len){if(a<=0)return;const r=rng(seed||3);ctx.lineCap='round';
+  for(let i=0;i<n;i++){const y=y0+r()*(y1-y0),ph=r(),s=sp*(.7+.6*r()),L=(len||60)*(.6+.8*r());const x=VX0-200+((ph*2400+TT*s)%(VX1-VX0+400));
+   alphaDo(a*(.25+.35*r()),()=>ln([x,y,x+L,y],'#ffffff',2));}ctx.lineCap='butt';}
+function bullets(x,y,L,u,k0,dk,gap){L.forEach(([t,col],i)=>alphaDo(seg(u,k0+i*dk,k0+i*dk+.05),()=>{circ(x,y+i*gap-6,5,col==='#fff'?'#f2c230':col);wt(x+18,y+i*gap,t,18,col,600);}));}
+/* 住宅：lit 0–1 為窗戶亮度 */
+function house(x,g,s,lit){box(x-30*s,g-36*s,60*s,36*s,'#d8d2c4','rgba(0,0,0,.4)',1);poly([x-36*s,g-36*s,x,g-62*s,x+36*s,g-36*s],'#b4553f','rgba(0,0,0,.4)',1);
+  box(x-21*s,g-28*s,17*s,15*s,`rgba(255,214,110,${(.2+.8*lit).toFixed(2)})`,'rgba(0,0,0,.45)',1);box(x+6*s,g-26*s,13*s,26*s,'#7b5a45','rgba(0,0,0,.4)',1);}
+/* 聲壓級（僅幾何擴散）：Lw = 105 dB(A) */
+const LW=105,Lp=r=>LW-20*Math.log10(r)-11;
+/* A 加權（標準值，x = log10 f） */
+const AWT=[[1,-70.4],[1.301,-50.5],[1.5,-39.4],[1.699,-30.2],[2,-19.1],[2.301,-10.9],[2.699,-3.2],[3,0],[3.301,1.2],[3.602,1],[4,-2.5]];
+function aw(x){for(let i=1;i<AWT.length;i++)if(x<=AWT[i][0]){const k=(x-AWT[i-1][0])/(AWT[i][0]-AWT[i-1][0]);return lerp(AWT[i-1][1],AWT[i][1],k);}return AWT[AWT.length-1][1];}
+const rawSpec=x=>58-9*(x-1.3)+10*Math.exp(-((x-2.9)*(x-2.9))/.2);
+function curve(C,x0,x1,fn,col,lw){ctx.beginPath();for(let x=x0;x<=x1+1e-6;x+=.01){const y=C.Y(Math.max(1,fn(x)));x>x0?ctx.lineTo(C.X(x),y):ctx.moveTo(C.X(x),y);}ctx.strokeStyle=col;ctx.lineWidth=lw||3;ctx.stroke();}
+const RPM_W=1.5708;   /* 15 rpm = 1.571 rad/s */
 
-/* 分鏡 1 尺度：每公尺 2.6 px */
-const PXM=2.6,HUB=110,ROT=68,MAST=80;
-const vz=(z,a,vr)=>vr*Math.pow(Math.max(z,1)/HUB,a);          // 冪次律風切
-/* 分鏡 2：韋伯分布（k=2，平均約 7 m/s，示意） */
-const WBk=2,WBc=7.9;const wb=v=>(WBk/WBc)*Math.pow(v/WBc,WBk-1)*Math.exp(-Math.pow(v/WBc,WBk));
-/* 分鏡 4：山丘地形 */
-const HX=560,hillY=x=>GY-150*Math.exp(-Math.pow((x-HX)/230,2))+4*Math.sin(x*.013);
-/* 分鏡 6：地圖上的限制圖層（頂視，0.25 px/m） */
-const VIL=[[600,330,9,5],[960,640,11,8],[1330,470,8,12]];
-const CAND=[[430,250],[430,370],[430,470],[760,470],[760,610],[1090,280],[1090,380],[760,720],[1060,420],[1500,590]];
-const inBuf=(x,y)=>VIL.some(([vx,vy])=>Math.hypot(x-vx,y-vy)<125);
-
-const EP={no:4,slug:'onshore-wind',seriesName:'陸域風電系列',t:'風場選址與風資源評估',en:'Choosing a site and assessing the wind',
-lede:'風機的發電量與風速的三次方成正比，選址時差一點風速，二十年下來就差很多電。這一集從測風塔與光達開始，看地表粗糙度、地形與尾流如何改變風，以及住宅距離、生態與雷達等限制如何決定風機能放在哪裡。',
-facts:[['7–8','m/s','台灣風力資源最豐富地區的年平均風速（能源署）'],
-['2/3','輪轂高度','測風塔高度建議至少達風機輪轂高度的三分之二（MEASNET 指引）'],
-['≥ 1','年','現地測風的典型期間，再與長期氣象資料比對修正'],
-['+33','%','風速增加 10%，風能約增加 33%：功率與風速的三次方成正比'],
-['5–9','D','主風向上前後風機的典型間距，D 為轉子直徑（示例）'],
-['500','m','風機基座距最近建築物 500 公尺以下須實施環評（環評認定標準第 29 條）']],
-note:'說明：本集為教育用途示意動畫，風機、測風塔、地形與地圖比例經過調整。台灣風力資源最豐富地區年平均風速可達 7–8 m/s 引自經濟部能源署；測風塔高度至少達輪轂高度三分之二為 MEASNET 風資源評估指引的建議；風機基座中心與最近建築物邊界直線距離 500 公尺以下須實施環評，引自「開發行為應實施環境影響評估細目及範圍認定標準」第 29 條。風切指數、地表粗糙度長度、韋伯分布、尾流風速、風機間距、限制圖層與可開發面積、發電量損失與 P50／P90 分布皆為典型範例，並非特定案場資料；實際評估依 IEC 61400 系列標準、各機型與主管機關規定進行。',
-base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:true});drawGround();},
+const EP={no:15,slug:'onshore-wind',seriesName:'陸域風電系列',t:'噪音與光影閃爍',en:'Noise and shadow flicker',
+lede:'風機離住家近，居民最先感受到的是聲音與影子。這一集看噪音從哪裡來、隨距離怎麼衰減、為什麼低頻特別受關注，再看太陽低斜時葉片影子如何在住宅窗上閃爍、怎麼估算時數，最後是減噪與停機排程這些常見的對策。',
+facts:[['105','dB(A)','2 MW 級機組常見的聲功率級，依機型與風速而定（示例）'],
+['−6','dB','距離每加倍，球面擴散使聲壓級下降的量（僅幾何擴散）'],
+['20–200','Hz','台灣另列管制的低頻噪音頻帶，以 1/3 八音度頻帶量測'],
+['500','m','陸域風機與建築物相距 500 m 內須辦理環評（依經濟部公開說明）'],
+['30','h／年','德國指引的光影閃爍最嚴情境年上限，另限單日 30 分鐘'],
+['0.75','Hz','15 rpm、三葉片機組的光影閃爍頻率，遠低於常被引用的 3 Hz']],
+note:'說明：本集為教育用途示意動畫，風機、住宅、頻譜與影子經過簡化，並非特定機型或案場。聲功率級 105 dB(A)、示例管制線（日間 50、夜間 40 dB(A)）、隔音量、減噪量、每月閃爍時數與發電損失皆為典型範例；距離衰減僅計幾何擴散，實際還需計入空氣吸收、地面與地形、風向。台灣各管制區類別的低頻與環境音量標準請以環境部現行公告為準；國內未見專門的光影閃爍法定時數，評估時常參考德國指引（最嚴情境 30 小時／年、30 分鐘／日，實際情境 8 小時／年）。',
+base:()=>{landSky(GY,{sun:{x:1260,y:140},clouds:false});drawGround();},
 shots:[
-/* 1 ─────────────────────────────── 測風塔與光達 */
-{t:'先量一年的風',en:'Measuring the wind for a year',dur:13,side:true,
- d:'決定蓋風場之前，要先知道這裡的風有多強、多穩定。開發商會在候選場址豎起測風塔，在不同高度裝上杯式風速計與風向計，量出風速怎麼隨高度增加。測風塔最好至少達到預定輪轂高度的三分之二；現代風機輪轂常在 100 公尺以上，因此也常搭配地面光達（LiDAR），以雷射量測輪轂與葉尖高度的風。現地量測通常至少一年，涵蓋完整的季風循環，再和附近氣象站的長期資料比對修正。',
- s:[[0,'候選場址上，先豎起一座測風塔'],[.25,'不同高度的風速計，量出風怎麼隨高度變強'],[.48,'地面光達以雷射，量到輪轂與葉尖的高度'],[.74,'至少量測一年，涵蓋完整的季風循環']],
- cam:u=>camMix({x:800,y:450,s:1},{x:780,y:430,s:1.05},ease(seg(u,.1,.8))),
+/* 1 ─────────────────────────────── 噪音從哪裡來 */
+{t:'風機的噪音從哪裡來',en:'Where turbine noise comes from',dur:13,side:true,
+ d:'風機的聲音有兩類來源。最主要的是氣動噪音：氣流流過葉片，在尾緣與葉尖產生湍流，聽起來像規律的「咻、咻」聲，轉速越高、葉尖速度越大就越明顯。其次是機械噪音，來自齒輪箱、發電機與冷卻風扇，現代機組多半已用隔音罩與減振座壓低。製造商會依 IEC 61400-11 量測聲功率級，2 MW 級機組常見約 105 dB(A)，並隨風速改變；這個數字描述的是音源本身，不是住家聽到的音量。',
+ s:[[0,'風吹過葉片，尾緣與葉尖產生氣動噪音'],[.3,'齒輪箱、發電機與風扇另有機械噪音'],[.55,'聲音向四面八方擴散，距離越遠越小'],[.8,'聲功率級描述音源本身，不是住家聽到的音量']],
  draw(u){
-  /* 遠方防風林 */
-  for(let i=0;i<9;i++)tree(1330+i*34,gyy(1330+i*34)+2,1.1+.2*Math.sin(i*2.1));
-  /* 風線：越高越快 */
-  windLines(90,560,26,y=>120+320*Math.pow(Math.max(5,(GY-y)/PXM)/HUB,.16),.9,4,70);
-  /* 預定風機（虛線輪廓） */
-  const TXg=1060,hy=GY-HUB*PXM,R=ROT*PXM;
-  alphaDo(.55+.45*band(u,.05,.3),()=>{ctx.setLineDash([9,7]);ln([TXg,gyy(TXg),TXg,hy],'rgba(255,255,255,.85)',2.5);
-   ctx.beginPath();ctx.arc(TXg,hy,R,0,TAU);ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);circ(TXg,hy,6,'rgba(255,255,255,.85)');});
-  tick(TXg+10,hy,trf('輪轂 {h} m',{h:HUB}),'right');
-  /* 測風塔：從地面逐段升起 */
-  const MX=420,g0=gyy(MX),mh=MAST*PXM*ease(seg(u,0,.22)),top=g0-mh;
-  if(mh>2){ln([MX-6,g0,MX-4,top],'#c9d1d6',2.5);ln([MX+6,g0,MX+4,top],'#c9d1d6',2.5);
-   ctx.beginPath();for(let y=g0,k=0;y>top;y-=14,k++){ctx.moveTo(MX-5,y);ctx.lineTo(MX+5,y-14<top?top:y-14);}ctx.strokeStyle='rgba(201,209,214,.8)';ctx.lineWidth=1.2;ctx.stroke();
-   [[-150,1],[150,1],[-95,.6],[95,.6]].forEach(([dx,f])=>ln([MX,g0-mh*f,MX+dx,gyy(MX+dx)],'rgba(60,70,80,.45)',1));
-   [40,60,80].forEach((z,i)=>{const y=g0-z*PXM;if(y<top-1)return;ln([MX,y,MX+34,y],'#9aa3a8',2);cupAnemo(MX+34,y-8,4+i*1.5);});
-   if(mh>=MAST*PXM-1){ln([MX,top,MX-26,top],'#9aa3a8',2);poly([MX-26,top-8,MX-40,top-2,MX-26,top+2],'#e8572a');}
-   box(MX-12,g0-30,24,26,'#dfe5e8','rgba(0,0,0,.4)',1);box(MX-8,g0-26,16,6,'#7dffc4');}
-  [40,60,80].forEach(z=>{if(mh>=z*PXM-1)tick(MX-10,g0-z*PXM,z+' m','left');});
-  /* 光達 */
-  const LX=760,lg=gyy(LX),kl=seg(u,.44,.5);
-  box(LX-22,lg-26,44,26,'#dfe5e8','rgba(0,0,0,.4)',1);box(LX-14,lg-32,28,6,'#394650');
-  if(kl>0)alphaDo(kl,()=>{for(const s of [-1,1]){ctx.setLineDash([5,7]);ln([LX,lg-32,LX+s*72,hy-R*.9],'rgba(125,255,196,.7)',1.8);ctx.setLineDash([]);}
-   const H=[40,70,100,130,160];H.forEach((z,i)=>{const y=lg-32-z*PXM*.98,w=72*(z*PXM)/(lg-32-(hy-R*.9));const p=(TT*.8+i*.2)%1;
-    ln([LX-w,y,LX+w,y],'rgba(125,255,196,.35)',1.5);circ(LX-w,y,3.5,'#7dffc4');circ(LX+w,y,3.5,'#7dffc4');alphaDo(1-p,()=>circ(LX,y,2+3*p,'#7dffc4'));});});
-  /* 量測天數 */
-  const kd=seg(u,.74,.78);if(kd>0)alphaDo(kd,()=>{const d=Math.round(365*ease(seg(u,.76,.98)));card(480,650,380,90,{bg:'rgba(7,27,39,.85)'});
-   wt(500,684,'現地量測',17,'#f2c230',700);wt(840,690,trf('{d} 天',{d}),30,'#fff',700,'right',COND);
-   box(500,712,340,10,'rgba(255,255,255,.12)');box(500,712,340*d/365,10,'#7dffc4');});
-  lab(MX,top,'測風塔',{dx:-60,dy:-60,st:'l',a:band(u,.12,.4)});
-  lab(MX+34,g0-60*PXM-8,'杯式風速計',{dx:90,dy:-40,a:band(u,.24,.48)});
-  lab(LX,lg-20,'地面光達（LiDAR）',{dx:80,dy:40,st:'g',a:band(u,.48,.74)});
-  lab(TXg,hy-R,'葉尖最高處',{dx:-90,dy:-30,a:band(u,.52,.74),minor:true});
+  const X=560,G=gyy(X),rot=TT*RPM_W+.4,hx=1330,GH=gyy(hx);
+  windLines(120,560,9,150,.45,5,50);
+  const T=turbine(X,G,320,150,rot);
+  const ag=seg(u,.06,.16);
+  for(let k=0;k<4;k++){const ph=(TT*.5+k/4)%1,re=rot-RPM_W*ph/.5,a=re-Math.PI/2,tx=X+Math.cos(a)*158,ty=T.y+Math.sin(a)*158;
+   alphaDo(ag*(1-ph)*.6,()=>ring(tx,ty,10+ph*560,'#f2c230',3));}
+  const mg=seg(u,.28,.4);
+  for(let k=0;k<3;k++){const ph=(TT*.5+k/3)%1;alphaDo(mg*(1-ph)*.65,()=>ring(X+10,T.y,10+ph*260,'#ff8a60',3));}
+  house(hx,GH,2.2,1);
+  const ba=seg(u,.52,.62);
+  alphaDo(ba,()=>{const y=G+40;ln([X,y,hx,y],'rgba(255,255,255,.7)',2);arrow(X+14,y,X,y,'rgba(255,255,255,.7)',2);arrow(hx-14,y,hx,y,'rgba(255,255,255,.7)',2);tag((X+hx)/2,y-10,'住宅距離約 500 m（示例）',{size:16,bg:'#f2c230',align:'center'});});
+  lab(X,T.y,'葉片氣動噪音：主要來源',{dx:220,dy:-130,st:'s',a:band(u,.04,.34)});
+  lab(X,T.y,'機械噪音：齒輪箱、發電機',{dx:-210,dy:-70,st:'w',a:band(u,.28,.54),minor:true});
+  lab(hx,GH-60,'住宅',{dx:-30,dy:-90,st:'l',a:band(u,.5,1)});
  },
- hud(u){hudPanel(250,150,'各高度風速（示例）',seg(u,.05,.1),w=>{const n=k=>nz(TT*.4+k)*.25;
-  hrow(56,'130 m',trf('{v} m/s',{v:(vz(130,.16,7.6)+n(1)).toFixed(1)}),w,u>.48?'#7dffc4':'rgba(227,236,238,.4)');
-  hrow(88,'80 m',trf('{v} m/s',{v:(vz(80,.16,7.6)+n(2)).toFixed(1)}),w,'#f2c230');
-  hrow(120,'40 m',trf('{v} m/s',{v:(vz(40,.16,7.6)+n(3)).toFixed(1)}),w,'#fff');});}},
+ hud(u){hudPanel(250,150,'風機噪音（示例）',seg(u,.04,.12),w=>{
+  hrow(56,'聲功率級','約 105 dB(A)',w,'#f2c230');hrow(88,'主要來源','氣動噪音',w,'#7dc8dc');hrow(120,'量測方法','IEC 61400-11',w,'#7dffc4');});}},
 
-/* 2 ─────────────────────────────── 三次方 */
-{t:'風速差一點，發電差很多',en:'A little more wind, a lot more power',dur:13,
- d:'風帶來的功率等於二分之一乘上空氣密度、掃掠面積與風速的三次方。風速是三次方，所以風速增加 10%，風能就增加約 33%；年平均 6 m/s 與 7 m/s 的場址，風能相差近六成。但只看平均風速並不夠，風速一年到頭都在變化，常用韋伯分布描述各風速出現的時間比例。把時間比例乘上風速的三次方就會發現，大部分的能量其實來自比平均值更強、但出現時間較少的風。',
- s:[[0,'風的功率，與風速的三次方成正比'],[.28,'平均風速 7 m/s 比 6 m/s，風能多了近六成'],[.52,'一年之中，每種風速出現的時間不同'],[.76,'大部分的能量，來自比平均更強的風']],
+/* 2 ─────────────────────────────── 距離衰減 */
+{t:'噪音如何隨距離衰減',en:'How noise fades with distance',dur:14,
+ d:'聲音從風機向四周擴散，等於攤在越來越大的球面上，所以距離每加倍，聲壓級約少 6 dB。以 105 dB(A) 的聲功率級、只計幾何擴散來估算：100 公尺約 54 dB(A)，200 公尺約 48，400 公尺約 42，800 公尺約 36。若拿示例管制線日間 50、夜間 40 dB(A) 來看，約在 160 公尺與 500 公尺處降到限值以下。實際還要計入空氣吸收、地面、地形與風向，順風時會比計算值更大聲，所以要靠量測與模擬驗證。',
+ s:[[0,'聲音攤在越來越大的球面上，距離加倍少 6 dB'],[.3,'以 105 dB(A) 估算：100 公尺約 54，400 公尺約 42'],[.58,'對照示例管制線：日間約 160 公尺、夜間約 500 公尺達標'],[.82,'實際還受空氣吸收、地面、地形與風向影響']],
  draw(u){
   diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'風的功率',20,'#f2c230',700);
-  alphaDo(seg(u,0,.06),()=>{wt(410,275,'P = ½ ρ A v³',44,'#fff',700,'center',COND);
-   wt(410,318,'ρ 空氣密度，A 掃掠面積，v 風速',17,'rgba(227,236,238,.85)',600,'center');});
-  const VS=[5,6,7,8],base=Math.pow(6,3);
-  VS.forEach((v,i)=>{const g=ease(seg(u,.1+i*.05,.2+i*.05)),r=Math.pow(v,3)/base,x=130+i*150,h=r*170*g,by=700;
-   box(x,by-h,90,h,v===7?'#f2c230':v===6?'#7dc8dc':'rgba(125,200,220,.45)');
-   wt(x+45,by+28,v+' m/s',20,'rgba(227,236,238,.9)',700,'center',COND);
-   if(g>.9)wt(x+45,by-h-12,Math.round(r*100)+'%',20,v===7?'#f2c230':'#fff',700,'center',COND);});
-  ln([110,700,720,700],'rgba(255,255,255,.4)',1.5);
-  alphaDo(seg(u,.1,.16),()=>wt(84,380,'相對風能（以 6 m/s 為 100%）',16,'rgba(227,236,238,.85)',600));
-  alphaDo(seg(u,.3,.36),()=>tag(410,760,'風速 +10% → 風能約 +33%',{size:18,bg:'#f2c230',align:'center'}));
-  /* 右：韋伯分布與能量 */
-  const C=chartBox(800,160,740,640,{title:'一年的風速分布（示例）',x0:0,x1:25,y0:0,y1:1,xt:[0,5,10,15,20,25],yt:[],xl:'風速 m/s',yl:'比例',pl:70,pt:70,pb:70,gx:5,gy:4});
-  const kb=seg(u,.5,.66),mx=.2;
-  for(let v=0;v<24;v++){const f=wb(v+.5)/0.095;if(v/24>kb)break;box(C.X(v)+3,C.Y(f*.62),C.X(1)-C.X(0)-6,C.Y(0)-C.Y(f*.62),'rgba(125,200,220,.55)');}
-  alphaDo(seg(u,.5,.56),()=>{box(C.px+24,C.py+22,16,16,'rgba(125,200,220,.75)');wt(C.px+48,C.py+36,'出現時間',16,'#7dc8dc',700);});
-  const ke=seg(u,.72,.86);if(ke>0){const E=v=>wb(v)*v*v*v/115;ctx.beginPath();for(let v=0;v<=25*ke;v+=.1){const x=C.X(v),y=C.Y(E(v)*.9);v?ctx.lineTo(x,y):ctx.moveTo(x,y);}
-   ctx.strokeStyle='#f2c230';ctx.lineWidth=3.5;ctx.stroke();}
-  alphaDo(seg(u,.72,.78),()=>{ln([C.px+24,C.py+62,C.px+40,C.py+62],'#f2c230',3.5);wt(C.px+48,C.py+68,'帶來的能量',16,'#f2c230',700);});
-  alphaDo(seg(u,.56,.62),()=>{ctx.setLineDash([6,6]);ln([C.X(7),C.Y(0),C.X(7),C.Y(.95)],'#fff',2);ctx.setLineDash([]);wt(C.X(7)+10,C.Y(.8),'平均 7 m/s',16,'#fff',700,'left');});
-  alphaDo(seg(u,.86,.92),()=>tag(C.X(16.5),C.Y(.5),'能量集中在較強的風',{size:17,bg:'#f2c230',align:'center'}));
+  const C=chartBox(60,160,860,640,{title:'噪音隨距離衰減（示例）',x0:0,x1:1000,y0:30,y1:70,xt:[0,200,400,600,800,1000],yt:[30,40,50,60,70],xl:'距離 (m)',yl:'dB(A)',pl:60,pt:64,pb:58,gx:5,gy:4});
+  const g=ease(seg(u,.06,.5)),rmax=40+960*g;
+  ctx.beginPath();for(let r=40;r<=rmax;r+=4){const y=C.Y(Lp(r));r>40?ctx.lineTo(C.X(r),y):ctx.moveTo(C.X(r),y);}ctx.strokeStyle='#f2c230';ctx.lineWidth=4;ctx.stroke();
+  ctx.setLineDash([8,6]);[[50,'示例管制線：日間 50 dB(A)',-10],[40,'示例管制線：夜間 40 dB(A)',26]].forEach(([v,n,dy],i)=>alphaDo(seg(u,.46+i*.04,.54+i*.04),()=>{ln([C.px,C.Y(v),C.px+C.pw,C.Y(v)],'#e8572a',2);}));
+  ctx.setLineDash([]);
+  alphaDo(seg(u,.46,.54),()=>wt(C.px+C.pw-10,C.Y(50)-10,'示例管制線：日間 50 dB(A)',16,'#ff9d7a',700,'right'));
+  alphaDo(seg(u,.5,.58),()=>wt(C.px+C.pw-10,C.Y(40)+26,'示例管制線：夜間 40 dB(A)',16,'#ff9d7a',700,'right'));
+  [[158,50,'約 160 m',.54],[501,40,'約 500 m',.6]].forEach(([r,v,n,k])=>alphaDo(seg(u,k,k+.06),()=>{circ(C.X(r),C.Y(v),9,'#7dffc4','#13232e',2);ring(C.X(r),C.Y(v),16+3*Math.sin(TT*6),'#7dffc4',2);
+   ln([C.X(r),C.Y(v)+12,C.X(r),C.py+C.ph],'rgba(125,255,196,.6)',1.5);tag(C.X(r),C.Y(v)-34,n,{size:16,bg:'#7dffc4',align:'center'});}));
+  alphaDo(seg(u,.8,.88),()=>wt(C.px+12,C.py+C.ph+40,'僅計幾何擴散，未計空氣吸收與地面',15,'rgba(227,236,238,.8)',600));
+  /* 球面擴散 */
+  card(960,160,580,300,{bg:'rgba(7,27,39,.75)'});wt(984,198,'球面擴散：距離加倍，聲壓級少 6 dB',20,'#f2c230',700);
+  const cx=1060,cy=340;
+  [30,60,120].forEach((R,i)=>alphaDo(seg(u,.04+i*.06,.1+i*.06),()=>{ring(cx,cy,R,'rgba(125,200,220,.85)',3);wt(cx+R*.72+6,cy-R*.72+4,['r','2r','4r'][i],17,'#7dc8dc',700,'left',COND);}));
+  circ(cx,cy,7,'#f2c230');
+  alphaDo(seg(u,.2,.3),()=>{wt(1250,300,'距離每加倍',20,'rgba(227,236,238,.92)',600);wt(1250,334,'面積 ×4',22,'#fff',700);wt(1250,384,'−6 dB',44,'#f2c230',800,'left',COND);});
+  /* 距離與聲壓級 */
+  card(960,480,580,320,{bg:'rgba(7,27,39,.75)'});wt(984,518,'105 dB(A) 音源的估算值',20,'#f2c230',700);
+  [[100,'#7dffc4'],[200,'#7dffc4'],[400,'#f2c230'],[800,'#f2c230']].forEach(([r,col],i)=>alphaDo(seg(u,.3+i*.07,.38+i*.07),()=>{
+   const y=566+i*40;wt(990,y,trf('{r} m',{r:r}),20,'rgba(227,236,238,.92)',600,'left',COND);
+   rrp(1090,y-18,Math.max(10,(Lp(r)-30)*8),22,5);ctx.fillStyle=col;ctx.fill();wt(1540-24,y,trf('{v} dB(A)',{v:Math.round(Lp(r))}),22,'#fff',700,'right',COND);}));
+  bullets(996,740,[['順風、逆溫的夜間，實際聲音會比計算更大','#fff'],['要靠現場量測與模擬驗證','#f2c230']],u,.78,.08,32);
  }},
 
-/* 3 ─────────────────────────────── 粗糙度與風切 */
-{t:'地表粗糙度與風切',en:'Surface roughness and wind shear',dur:13,
- d:'風吹過地表會被摩擦減速，越接近地面越慢，這種風速隨高度改變的現象稱為風切。地表越粗糙，減速越明顯：海面與開闊的沙灘最平滑，農田與零星房屋次之，防風林、村落與城鎮最粗糙。工程上以粗糙度長度或風切指數描述，平坦開闊的陸地常用約 1/7（0.14）的風切指數。同樣的高空風，在粗糙地表上方輪轂高度的風速明顯較低，葉片上下緣的風速差也更大，增加葉片的疲勞載重。',
- s:[[0,'風貼近地面時被摩擦減速'],[.3,'地表越粗糙，輪轂高度的風越弱'],[.56,'海面、農田、防風林與村落，粗糙度各不相同'],[.8,'風切大，葉片上下的受力差也大']],
+/* 3 ─────────────────────────────── 低頻與調幅 */
+{t:'低頻噪音與規律的「咻咻」聲',en:'Low-frequency noise and the rhythmic swish',dur:14,
+ d:'A 加權是依人耳靈敏度修正的量法，會把低頻壓低很多：50 Hz 約減 30 dB，所以只看 dB(A) 容易低估低頻。低頻在空氣中衰減得慢，穿過牆與窗時也損失較少，因此居民在室內夜裡仍可能感到悶響或壓迫感。台灣另外針對 20 至 200 Hz 的低頻噪音訂有管制，以 1/3 八音度頻帶量測。另一個特徵是調幅：葉片每經過塔架前一次，音量就起伏一次，規律的起伏比穩定的噪音更容易被注意到。',
+ s:[[0,'風機噪音在低頻能量最高，高頻較少'],[.26,'A 加權把低頻壓低很多：50 Hz 約減 30 dB'],[.5,'低頻穿牆能力強，室內仍可能感到悶響'],[.76,'葉片通過的規律起伏（調幅）更容易被注意']],
  draw(u){
   diagBG();
-  const C=chartBox(60,160,700,640,{title:'風速隨高度變化（示例）',x0:0,x1:10,y0:0,y1:200,xt:[0,2,4,6,8,10],yt:[0,50,100,150,200],xl:'風速 m/s',yl:'高度 m',pl:80,pt:70,pb:70,gx:5,gy:4});
-  alphaDo(seg(u,.1,.14),()=>wt(C.X(.3),C.Y(62)-30,'輪轂高度的風速',16,'rgba(227,236,238,.85)',600));
-  alphaDo(seg(u,.02,.08),()=>{box(C.px,C.Y(HUB+ROT),C.pw,C.Y(HUB-ROT)-C.Y(HUB+ROT),'rgba(242,194,48,.08)');ctx.setLineDash([6,6]);ln([C.px,C.Y(HUB),C.px+C.pw,C.Y(HUB)],'rgba(242,194,48,.7)',1.5);ctx.setLineDash([]);
-   wt(C.px+10,C.Y(HUB+ROT)+22,'葉片掃掠範圍',15,'#f2c230',700);wt(C.px+10,C.Y(HUB)-8,trf('輪轂 {h} m',{h:HUB}),15,'#f2c230',700);});
-  const PR=[[.11,'海面','#7dc8dc'],[.16,'農田','#7dffc4'],[.3,'村落與防風林','#ff9d7a']];
-  PR.forEach(([a,t,c],i)=>{const k=seg(u,.1+i*.14,.24+i*.14);if(k<=0)return;const vr=8.8*Math.pow(HUB/200,a);
-   ctx.beginPath();for(let z=2;z<=2+198*k;z+=2){const x=C.X(vz(z,a,vr)),y=C.Y(z);z===2?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.strokeStyle=c;ctx.lineWidth=3;ctx.stroke();
-   for(let z=20;z<=2+198*k;z+=30){const x=C.X(vz(z,a,vr));alphaDo(.35,()=>arrow(C.X(0)+4,C.Y(z),x,C.Y(z),c,1));}
-   if(k>.98){const v=vz(HUB,a,vr);circ(C.X(v),C.Y(HUB),6,c,'#13232e',1.5);wt(C.X(.3),C.Y(62)+i*30,tr(t)+(LANG==='en'?': ':'：')+v.toFixed(1)+' m/s',17,c,700,'left');}});
-  /* 右：粗糙度長度 */
-  card(800,160,740,640,{bg:'rgba(7,27,39,.75)'});wt(824,200,'常見地表的粗糙度長度 z₀（示例）',20,'#f2c230',700);
-  const RG=[['海面、開闊水域','0.0002 m','#7dc8dc'],['沙灘與開闊草地','0.03 m','#7dc8dc'],['農田與零星房屋','0.1 m','#7dffc4'],['防風林與村落','0.5 m','#ff9d7a'],['城鎮','1 m 以上','#ff9d7a']];
-  RG.forEach(([t,v,c],i)=>alphaDo(seg(u,.5+i*.05,.55+i*.05),()=>{const y=240+i*96,ix=880,iy=y+58;
-   box(830,y,680,82,'rgba(255,255,255,.04)','rgba(255,255,255,.14)',1);box(830,y,6,82,c);
-   if(i===0){ctx.beginPath();for(let x=-34;x<=34;x+=2)ctx.lineTo(ix+x,iy-10+3*Math.sin(x*.3+TT*2));ctx.strokeStyle=c;ctx.lineWidth=2.5;ctx.stroke();}
-   else if(i===1){for(let k=-4;k<=4;k++)ln([ix+k*8,iy-8,ix+k*8+2,iy-18],c,2);ln([ix-36,iy-8,ix+36,iy-8],c,2);}
-   else if(i===2){ln([ix-36,iy-8,ix+36,iy-8],c,2);for(let k=-3;k<=1;k++)ln([ix+k*8,iy-8,ix+k*8,iy-14],c,2);box(ix+16,iy-26,16,18,c);}
-   else if(i===3){for(let k=-2;k<=2;k++)circ(ix+k*14,iy-22,8,c);ln([ix-36,iy-8,ix+36,iy-8],c,2);}
-   else{[[-30,26],[-12,40],[6,30],[22,46]].forEach(([dx,h])=>box(ix+dx,iy-8-h,14,h,c));}
-   wt(950,y+50,t,20,'#fff',700);wt(1480,y+52,v,26,c,700,'right',COND);}));
-  alphaDo(seg(u,.8,.86),()=>tag(1170,745,'平坦開闊陸地：風切指數約 1/7',{size:17,bg:'#f2c230',align:'center'}));
+  const C=chartBox(60,160,860,420,{title:'風機噪音頻譜與 A 加權（示意）',x0:1,x1:4,y0:0,y1:70,yt:[0,20,40,60],yl:'dB',pl:60,pt:64,pb:58,gx:3,gy:7});
+  [[1,'10'],[2,'100'],[3,'1 k'],[4,'10 k Hz']].forEach(([x,n])=>wt(C.X(x),C.py+C.ph+22,n,16,'rgba(227,236,238,.75)',600,'center',COND));
+  const bx0=C.X(Math.log10(20)),bx1=C.X(Math.log10(200)),ba=seg(u,.04,.12);
+  alphaDo(ba*.9,()=>{box(bx0,C.py,bx1-bx0,C.ph,'rgba(232,87,42,.22)');wt((bx0+bx1)/2,C.py+26,'20–200 Hz',17,'#ff9d7a',700,'center',COND);});
+  curve(C,1,1+3*ease(seg(u,.06,.36)),rawSpec,'#7dc8dc',3.5);
+  const g2=ease(seg(u,.3,.56));if(g2>0)curve(C,1,1+3*g2,x=>rawSpec(x)+aw(x),'#f2c230',3.5);
+  alphaDo(seg(u,.06,.14),()=>{box(C.px+C.pw-290,C.py+8,12,12,'#7dc8dc');wt(C.px+C.pw-270,C.py+20,'原始聲壓級',15,'#7dc8dc',700);});
+  alphaDo(seg(u,.34,.42),()=>{box(C.px+C.pw-290,C.py+30,12,12,'#f2c230');wt(C.px+C.pw-270,C.py+42,'A 加權後',15,'#f2c230',700);});
+  alphaDo(seg(u,.5,.58),()=>{const x=Math.log10(50),y1=C.Y(rawSpec(x)),y2=C.Y(rawSpec(x)+aw(x));arrow(C.X(x),y1,C.X(x),y2-6,'#fff',2.5);tag(C.X(x)+34,(y1+y2)/2,'50 Hz 約 −30 dB',{size:15,bg:'#ff9d7a',align:'left'});});
+  /* 調幅 */
+  card(60,600,860,200,{bg:'rgba(7,27,39,.75)'});wt(84,638,'調幅：每片葉片經過，音量起伏一次',20,'#f2c230',700);
+  const ag=seg(u,.6,.7),cy=730;alphaDo(ag,()=>{ctx.beginPath();for(let x=90;x<=890;x+=2){const t=(x-90)/200+TT*.6,env=1+.55*Math.sin(TAU*.75*t),v=env*(.62*Math.sin(TAU*9*t)+.38*Math.sin(TAU*14.3*t+1));x>90?ctx.lineTo(x,cy-v*30):ctx.moveTo(x,cy-v*30);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=2;ctx.stroke();
+   ctx.beginPath();for(let x=90;x<=890;x+=4){const t=(x-90)/200+TT*.6,env=1+.55*Math.sin(TAU*.75*t);x>90?ctx.lineTo(x,cy-env*42):ctx.moveTo(x,cy-env*42);}ctx.strokeStyle='rgba(242,194,48,.8)';ctx.lineWidth=2;ctx.setLineDash([6,5]);ctx.stroke();ctx.setLineDash([]);});
+  alphaDo(seg(u,.72,.8),()=>wt(896,638,'通過頻率 = 3 × 15 rpm ÷ 60 = 0.75 Hz',17,'#fff',700,'right',COND));
+  /* 室內隔音 */
+  card(960,160,580,640,{bg:'rgba(7,27,39,.75)'});wt(984,198,'為什麼低頻特別受關注',20,'#f2c230',700);
+  bullets(996,248,[['低頻在空氣中衰減慢','#fff'],['穿牆穿窗的損失也較少','#fff'],['夜裡室內仍可能感到悶響','#ff9d7a']],u,.34,.08,38);
+  alphaDo(seg(u,.5,.58),()=>{wt(984,396,'住宅外牆與窗的隔音量（示例）',19,'rgba(227,236,238,.92)',600);});
+  [['20–200 Hz 低頻',10,'#ff9d7a'],['1 kHz 以上高頻',30,'#7dffc4']].forEach(([n,v,col],i)=>alphaDo(seg(u,.52+i*.07,.6+i*.07),()=>{const y=450+i*76;wt(996,y,n,18,col,700);
+   rrp(996,y+14,Math.max(10,v*12*ease(seg(u,.54+i*.07,.66+i*.07))),24,5);ctx.fillStyle=col;ctx.fill();wt(1380+60,y+34,trf('約 {v} dB',{v:v}),20,'#fff',700,'right',COND);}));
+  bullets(996,640,[['台灣另列 20–200 Hz 低頻管制','#f2c230'],['以 1/3 八音度頻帶量測','#fff'],['調幅聲比穩定噪音更容易被注意','#fff']],u,.76,.07,40);
  }},
 
-/* 4 ─────────────────────────────── 地形與障礙物 */
-{t:'地形與障礙物',en:'Terrain and obstacles',dur:13,side:true,
- base:()=>{landSky(GY,{sun:{x:1320,y:120},clouds:true});
-  ctx.beginPath();ctx.moveTo(VX0,hillY(VX0));for(let x=VX0;x<=VX1;x+=6)ctx.lineTo(x,hillY(x));ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle='#7a9a55';ctx.fill();
-  ctx.beginPath();ctx.moveTo(VX0,hillY(VX0)+18);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,hillY(x)+18+nz(x*.01)*4);ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle='#a4876a';ctx.fill();
-  ctx.beginPath();ctx.moveTo(VX0,hillY(VX0)+120);for(let x=VX0;x<=VX1;x+=8)ctx.lineTo(x,hillY(x)+120+nz(x*.01+2)*4);ctx.lineTo(VX1,VY1+20);ctx.lineTo(VX0,VY1+20);ctx.closePath();ctx.fillStyle='#c4a678';ctx.fill();},
- d:'風場的地形會重新塑造風。平緩的山丘或台地讓氣流在頂端被壓縮加速，山脊上的風速可比平地高出一成以上，但坡度太陡時，背風面會出現分離與亂流。建築物與防風林則像一道牆，下風處數倍於其高度的範圍內都是低速而紊亂的氣流，會降低發電量並加重疲勞載重。台灣西部沿海地勢平坦，常見的障礙物是木麻黃防風林、魚塭堤岸與聚落，評估時要以數值模型模擬這些地形與障礙物的影響。',
- s:[[0,'風從海面吹來，越過平緩的山丘'],[.28,'氣流在丘頂被壓縮，風速變快'],[.52,'防風林與房屋後方，是一片低速亂流'],[.76,'風機放在丘頂受益，放在障礙物後方吃虧']],
+/* 4 ─────────────────────────────── 光影閃爍成因 */
+{t:'光影閃爍：低斜陽光下的影子',en:'Shadow flicker: shadows in low sunlight',dur:14,side:true,
+ d:'光影閃爍發生在太陽低斜、風機位於太陽與住宅之間的時候。旋轉的葉片會遮住一部分陽光，影子掃過住宅窗戶，室內光線就隨葉片通過而忽明忽暗。太陽越低，影子越長：以輪轂高度約 80 公尺估算，太陽高度角 10 度時，輪轂的影子可延伸約 450 公尺。影子掃過的範圍是一整條帶狀區域，只有住宅剛好位在帶內、又是晴天且風機運轉時，才會看到閃爍。',
+ s:[[0,'太陽高，影子短，落在風機附近'],[.3,'太陽漸漸降低，影子被拉長'],[.56,'住宅進入影子帶，窗戶光線隨葉片忽明忽暗'],[.82,'太陽越低，影子帶越長，影響的距離越遠']],
  draw(u){
-  /* 流線：丘頂收斂 */
-  const kf0=seg(u,.02,.1);
-  for(let j=0;j<6;j++){const h0=40+j*55;alphaDo(kf0*(.9-j*.1),()=>{ctx.beginPath();
-    for(let x=VX0;x<=1000;x+=8){const bump=(GY-hillY(x))*(1-j*.14);const y=GY-h0-Math.max(0,bump)*.95+(j*.14)*0;x===VX0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
-    ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.6;ctx.stroke();});
-   /* 移動粒子，速度與流線間距成反比 */
-   for(let k=0;k<3;k++){const r=rng(j*7+k);let p=(r()+TT*.12)%1;const x=lerp(VX0,1000,p);const bump=(GY-hillY(x))*(1-j*.14);const y=GY-h0-Math.max(0,bump)*.95;
-    alphaDo(kf0,()=>circ(x,y,3.2,j<3?'#f2c230':'#fff'));}}
-  /* 丘頂加速示意 */
-  const ka=band(u,.28,.56);if(ka>0)alphaDo(ka,()=>{arrow(HX-80,hillY(HX)-36,HX+90,hillY(HX)-36,'#f2c230',5);arrow(160,GY-40,260,GY-40,'rgba(255,255,255,.9)',3);});
-  /* 障礙物：防風林與房屋 */
-  for(let i=0;i<8;i++)tree(1000+i*20,hillY(1000+i*20)+2,1.8);
-  const HXx=1180;box(HXx,hillY(HXx+30)-46,60,46,'#e9dcc7','rgba(0,0,0,.3)',1);poly([HXx-5,hillY(HXx+30)-46,HXx+30,hillY(HXx+30)-70,HXx+65,hillY(HXx+30)-46],'#a8583e');
-  /* 亂流區 */
-  const kt=seg(u,.5,.58);if(kt>0)alphaDo(kt,()=>{ctx.beginPath();ctx.moveTo(1150,GY-58);ctx.bezierCurveTo(1300,GY-110,1500,GY-90,1640,GY-30);ctx.lineTo(1640,GY);ctx.lineTo(1150,GY);ctx.closePath();ctx.fillStyle='rgba(232,87,42,.16)';ctx.fill();
-   for(let i=0;i<9;i++){const cx=1200+i*48+10*Math.sin(TT+i),cy=GY-26-18*Math.sin(i*1.7),r=10+6*Math.sin(i*2.3);ctx.beginPath();ctx.arc(cx,cy,r,TT*3+i,TT*3+i+4.2);ctx.strokeStyle='rgba(232,87,42,.8)';ctx.lineWidth=2;ctx.stroke();}});
-  /* 風機比較 */
-  const kw=ease(seg(u,.74,.84));
-  if(kw>0)alphaDo(kw,()=>{const T1=turbine(HX,hillY(HX),150,80,TT*1.8);const T2=turbine(1420,gyy(1420),150,80,TT*.7);
-   circ(T1.x,T1.y-110,16,'#7dffc4');ln([T1.x-7,T1.y-110,T1.x-2,T1.y-104,T1.x+8,T1.y-116],'#13232e',3);
-   circ(T2.x,T2.y-110,16,'#e8572a');ln([T2.x-6,T2.y-116,T2.x+6,T2.y-104],'#fff',3);ln([T2.x+6,T2.y-116,T2.x-6,T2.y-104],'#fff',3);});
-  lab(HX,hillY(HX),'丘頂加速',{dx:-120,dy:-120,st:'s',a:band(u,.3,.56)});
-  lab(1070,hillY(1070)-40,'防風林',{dx:-40,dy:-80,st:'l',a:band(u,.48,.72)});
-  lab(1380,GY-50,'下風處亂流',{dx:40,dy:-120,st:'w',a:band(u,.54,.76)});
-  lab(HX+40,hillY(HX)-150,'風速較高',{dx:120,dy:-30,st:'g',a:band(u,.8,1)});
-  lab(1420,gyy(1420)-150,'風弱且紊亂',{dx:-60,dy:-70,st:'w',a:band(u,.8,1)});
- }},
-
-/* 5 ─────────────────────────────── 尾流與排列 */
-{t:'尾流與風機排列',en:'Wakes and turbine layout',dur:14,
- d:'風機從風中取走能量，身後會留下一道風速較低、亂流較強的尾流，要往下游數倍轉子直徑的距離才慢慢恢復。因此風機不能排得太密：與主風向垂直的方向常相隔 3–5 倍轉子直徑，主風向上的前後間距常拉開到 5–9 倍。台灣西部沿海秋冬以東北季風為主，排列時會讓風機列與主風向垂直。即使如此，整個風場因尾流而損失的發電量，常見仍在 5–15% 之間。',
- s:[[0,'風機取走能量，身後留下一道尾流'],[.3,'尾流中的風較慢，也較紊亂'],[.52,'前後拉開 5–9 倍直徑，左右 3–5 倍'],[.78,'風場的尾流損失，常見在 5–15%']],
- draw(u){
-  diagBG();
-  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,200,'風場排列（頂視示意）',20,'#f2c230',700);
-  const D=24,dx=7*D,dy=4*D,x0=200,y0=380,COLS=3,ROWS=4;
-  /* 風向箭頭 */
-  for(let i=0;i<4;i++){const y=320+i*96,p=(TT*.6+i*.25)%1;alphaDo(.4+.6*(1-p),()=>arrow(84+p*30,y,124+p*30,y,'#fff',2.5));}
-  wt(100,290,'主風向',16,'#fff',700,'center');
-  /* 尾流 */
-  const kw=seg(u,.06,.3);
-  for(let c=0;c<COLS;c++)for(let r=0;r<3;r++){const x=x0+c*dx,y=y0+r*dy-50;
-   if(kw>0){const L=(c<COLS-1?dx*1.9:dx*1.3)*kw;ctx.beginPath();ctx.moveTo(x+4,y-D/2);ctx.lineTo(x+L,y-D/2-L*.08);ctx.lineTo(x+L,y+D/2+L*.08);ctx.lineTo(x+4,y+D/2);ctx.closePath();
-    const g=ctx.createLinearGradient(x,0,x+L,0);g.addColorStop(0,'rgba(232,87,42,.45)');g.addColorStop(1,'rgba(232,87,42,0)');ctx.fillStyle=g;ctx.fill();
-    for(let k=0;k<3;k++){const p=(TT*.5+k/3+c*.2+r*.1)%1;alphaDo(kw*(1-p),()=>{ctx.beginPath();ctx.arc(x+10+p*L*.9,y+Math.sin(TT*3+k+r)*4,4+4*p,0,TAU);ctx.strokeStyle='rgba(255,157,122,.7)';ctx.lineWidth=1.5;ctx.stroke();});}}}
-  for(let c=0;c<COLS;c++)for(let r=0;r<3;r++){const x=x0+c*dx,y=y0+r*dy-50;box(x-4,y-5,10,10,'#dfe5e8');
-   ln([x,y-D/2,x,y+D/2],'#fff',4);circ(x,y,3,'#394650');}
-  /* 尺寸標註 */
-  alphaDo(seg(u,.5,.56),()=>{const yy=y0+2*dy-50+62;ln([x0,yy,x0+dx,yy],'#f2c230',2);ln([x0,yy-8,x0,yy+8],'#f2c230',2);ln([x0+dx,yy-8,x0+dx,yy+8],'#f2c230',2);
-   wt(x0+dx/2,yy+30,'前後 5–9 D',18,'#f2c230',700,'center');
-   const xx=x0+2*dx+44;ln([xx,y0-50,xx,y0-50+dy],'#7dffc4',2);ln([xx-8,y0-50,xx+8,y0-50],'#7dffc4',2);ln([xx-8,y0-50+dy,xx+8,y0-50+dy],'#7dffc4',2);
-   wt(xx+14,y0-50+dy/2+6,'左右 3–5 D',18,'#7dffc4',700,'left');});
-  alphaDo(seg(u,.56,.62),()=>{wt(410,720,'D：轉子直徑，例如 136 m',17,'rgba(227,236,238,.85)',600,'center');
-   tag(410,760,'風機列與東北季風垂直',{size:17,bg:'#dfe5e8',align:'center'});});
-  /* 右：尾流中的風速 */
-  const C=chartBox(800,160,740,640,{title:'下游風機感受到的風速（示例）',x0:2,x1:11,y0:60,y1:100,xt:[3,5,7,9,11],yt:[60,70,80,90,100],xl:'下游距離（倍轉子直徑）',yl:'%',pl:70,pt:70,pb:70,gx:4,gy:4});
-  const wk=x=>100*(1-.553/Math.pow(1+.15*x,2));
-  const kc=seg(u,.28,.5);if(kc>0){ctx.beginPath();for(let x=2;x<=2+9*kc;x+=.05){const X=C.X(x),Y=C.Y(wk(x));x===2?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}ctx.strokeStyle='#7dffc4';ctx.lineWidth=3;ctx.stroke();}
-  alphaDo(seg(u,.28,.34),()=>{ctx.setLineDash([6,6]);ln([C.px,C.Y(100),C.px+C.pw,C.Y(100)],'rgba(255,255,255,.6)',1.5);ctx.setLineDash([]);wt(C.px+C.pw-10,C.Y(100)+22,'未受擾動的風',15,'rgba(227,236,238,.85)',600,'right');});
-  alphaDo(seg(u,.6,.66),()=>{const v=wk(7);circ(C.X(7),C.Y(v),7,'#f2c230','#13232e',1.5);ln([C.X(7),C.Y(v),C.X(7),C.Y(74.5)],'rgba(242,194,48,.5)',1.5);
-   tag(C.X(7),C.Y(72),trf('7 D：風速 {v}%',{v:Math.round(v)}),{size:17,bg:'#f2c230',align:'center'});
-   wt(C.X(7),C.Y(72)+44,trf('三次方：發電約少 {p}%',{p:Math.round(100-Math.pow(v/100,3)*100)}),17,'#ff9d7a',700,'center');});
-  alphaDo(seg(u,.8,.86),()=>tag(C.X(6.5),C.Y(94)+34,'整個風場尾流損失常見 5–15%',{size:17,bg:'#ff9d7a',align:'center'}));
- }},
-
-/* 6 ─────────────────────────────── 限制圖層 */
-{t:'哪裡能蓋：層層篩選',en:'Where turbines can go',dur:14,
- d:'風好的地方不一定能蓋。選址時會把各種限制畫成圖層逐一疊上：聚落與住家要保持距離，風機基座距最近建築物 500 公尺以下就必須實施環境影響評估，還要符合低頻噪音管制；濕地與保護區、候鳥遷徙路線要避開；機場、氣象與軍事雷達附近有高度與干擾限制。再考慮超長葉片的運輸道路與併網變電所的距離，最後剩下的區域才依尾流間距排出風機位置。',
- s:[[0,'風場範圍內，先標出聚落與住家'],[.22,'以 500 公尺畫出與住家的距離'],[.44,'避開濕地保護區與候鳥路線'],[.62,'雷達與航空限高也要排除'],[.8,'剩下的空間，才排得出風機位置']],
- draw(u){
-  diagBG();
-  const MX0=60,MY0=160,MW=1480,MH=640;
-  ctx.save();rrp(MX0,MY0,MW,MH,4);ctx.clip();
-  box(MX0,MY0,MW,MH,'#b8c79a');
-  /* 海與海岸 */
-  const cst=y=>250+26*Math.sin(y*.012)+14*Math.sin(y*.031);
-  ctx.beginPath();ctx.moveTo(MX0,MY0);for(let y=MY0;y<=MY0+MH;y+=8)ctx.lineTo(cst(y),y);ctx.lineTo(MX0,MY0+MH);ctx.closePath();ctx.fillStyle='#4f8fb4';ctx.fill();
-  ctx.beginPath();for(let y=MY0;y<=MY0+MH;y+=8)ctx.lineTo(cst(y)+14,y);ctx.strokeStyle='#e6dcb4';ctx.lineWidth=16;ctx.stroke();
-  for(let i=0;i<6;i++){const y=MY0+60+i*100,p=(TT*.3+i*.2)%1;alphaDo(.5,()=>ln([100+p*60,y,130+p*60,y],'rgba(255,255,255,.7)',2));}
-  /* 田埂格線 */
-  ctx.strokeStyle='rgba(90,120,60,.25)';ctx.lineWidth=1;ctx.beginPath();for(let x=320;x<MX0+MW;x+=70){ctx.moveTo(x,MY0);ctx.lineTo(x+20,MY0+MH);}for(let y=MY0+50;y<MY0+MH;y+=60){ctx.moveTo(300,y);ctx.lineTo(MX0+MW,y+10);}ctx.stroke();
-  /* 道路與變電所 */
-  ln([300,560,700,540,1000,520,1540,560],'#e9e2d0',8);ln([300,560,700,540,1000,520,1540,560],'rgba(120,110,90,.6)',1);
-  box(1470,690,46,40,'#dfe5e8','#394650',2);ln([1474,694,1512,726],'#394650',1.5);ln([1512,694,1474,726],'#394650',1.5);
-  /* 聚落 */
-  VIL.forEach(([x,y,n,s])=>roofs(x,y,n,s));
-  /* 圖層 1：住家距離 */
-  const k1=seg(u,.22,.3);if(k1>0)alphaDo(k1,()=>VIL.forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,125,0,TAU);ctx.fillStyle='rgba(232,87,42,.28)';ctx.fill();ctx.setLineDash([8,6]);ctx.strokeStyle='#e8572a';ctx.lineWidth=2.5;ctx.stroke();ctx.setLineDash([]);}));
-  /* 圖層 2：濕地與候鳥路線 */
-  const k2=seg(u,.44,.52);if(k2>0)alphaDo(k2,()=>{poly([280,600,420,590,500,680,470,800,280,800],'rgba(88,184,208,.55)','#58b8d0',2.5);
-   ctx.beginPath();for(let y=MY0;y<=MY0+MH;y+=8)ctx.lineTo(cst(y)+60,y);ctx.strokeStyle='rgba(179,124,255,.35)';ctx.lineWidth=70;ctx.stroke();
-   for(let i=0;i<4;i++){const p=(TT*.08+i*.25)%1,y=MY0+MH-p*MH;const x=cst(y)+60;ln([x-8,y+6,x,y,x+8,y+6],'#fff',2);}});
-  /* 圖層 3：雷達 */
-  const k3=seg(u,.62,.7);if(k3>0)alphaDo(k3,()=>{const rx=1230,ry=760;ctx.beginPath();ctx.arc(rx,ry,165,0,TAU);ctx.fillStyle='rgba(179,124,255,.25)';ctx.fill();ctx.strokeStyle='#b37cff';ctx.lineWidth=2.5;ctx.stroke();
-   const a=TT*1.5;ln([rx,ry,rx+Math.cos(a)*160,ry+Math.sin(a)*160],'rgba(255,255,255,.7)',2);circ(rx,ry,8,'#fff','#394650',2);});
-  /* 候選風機 */
-  const k4=seg(u,.78,.9);
-  CAND.forEach(([x,y],i)=>{const a=seg(k4,i/CAND.length*.8,i/CAND.length*.8+.2);if(a<=0)return;alphaDo(a,()=>{circ(x,y,13,'#13232e','#f2c230',3);ln([x,y-9,x,y+9],'#f2c230',3);});});
-  ctx.restore();
-  ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;rrp(MX0,MY0,MW,MH,4);ctx.stroke();
-  /* 比例尺與圖名 */
-  box(1080,210,125,6,'#13232e');wt(1142,238,'500 m',16,'#13232e',700,'center',COND);
-  wt(MX0+20,MY0+200,'台灣海峽',18,'rgba(255,255,255,.85)',700);
-  tag(360,202,'沿海風場規劃範圍（示意）',{size:16,bg:'#dfe5e8'});
-  alphaDo(band(u,.02,.3),()=>{tag(600,420,'聚落',{size:16,bg:'#dfe5e8',align:'center'});tag(960,730,'聚落',{size:16,bg:'#dfe5e8',align:'center'});});
-  alphaDo(band(u,.26,.5),()=>tag(600,470,'距住家 500 m',{size:16,bg:'#e8572a',align:'center'}));
-  alphaDo(band(u,.48,.72),()=>{tag(560,760,'濕地保護區',{size:16,bg:'#58b8d0',align:'center'});tag(420,300,'候鳥路線',{size:16,bg:'#b37cff',align:'center'});});
-  alphaDo(band(u,.64,.84),()=>tag(1230,630,'雷達干擾與限高',{size:16,bg:'#b37cff',align:'center'}));
-  alphaDo(band(u,.7,1),()=>{tag(1100,500,'葉片運輸道路',{size:16,bg:'#dfe5e8',align:'center'});tag(1470,670,'變電所',{size:16,bg:'#dfe5e8',align:'center'});});
-  alphaDo(seg(u,.86,.92),()=>tag(800,640,'候選風機位置',{size:17,bg:'#f2c230',align:'center'}));
+  const X=300,G=gyy(X),S=2.2,Hh=176,R=110,rot=TT*RPM_W+.4,hx=1180,GH=gyy(hx);
+  const adeg=lerp(30,9,ease(seg(u,.1,.9))),al=adeg*Math.PI/180,ca=Math.cos(al),sa=Math.sin(al),ta=Math.tan(al);
+  const T=turbine(X,G,Hh,R,rot);
+  /* 太陽與光線 */
+  const sx=X-ca*240,sy=T.y-sa*240;
+  const sg=ctx.createRadialGradient(sx,sy,4,sx,sy,60);sg.addColorStop(0,'rgba(255,240,160,.95)');sg.addColorStop(1,'rgba(255,240,160,0)');ctx.fillStyle=sg;ctx.fillRect(sx-60,sy-60,120,120);circ(sx,sy,15,'#ffe9a0');
+  const xa=X+(G-(T.y+R))/ta,xb=X+(G-(T.y-R))/ta;
+  [[T.y-R,xb],[T.y+R,xa]].forEach(([py,xe])=>{ln([X-ca*240,py-sa*240,X,py],'rgba(255,255,255,.4)',1.5);ctx.setLineDash([5,5]);ln([X,py,xe,G],'rgba(20,30,40,.55)',1.5);ctx.setLineDash([]);});
+  const zx1=Math.min(xa,VX1+10),zx0=Math.min(xb,VX1+10);
+  alphaDo(.5+.2*Math.sin(TT*3),()=>box(Math.min(zx1,zx0),G-4,Math.abs(zx0-zx1),12,'#e8572a'));
+  /* 住宅與閃爍 */
+  const inZ=clamp((hx-xa)/40,0,1)*clamp((xb-hx)/40,0,1),fl=.5+.5*Math.cos(3*rot);
+  house(hx,GH,2.2,1-inZ*(1-fl));
+  if(inZ>0)alphaDo(inZ*.5,()=>{for(let k=1;k<=2;k++)ring(hx-30,GH-48,16+k*10+6*fl,'#ffd66e',2);});
+  lab(X,T.y,'輪轂高度約 80 m',{dx:120,dy:-120,st:'l',a:band(u,.02,.3)});
+  lab(Math.min(zx0,zx1)+20,G+2,'影子帶（葉片掃過的範圍）',{dx:-40,dy:80,st:'w',a:band(u,.24,.7),minor:true});
+  lab(hx,GH-60,'住宅',{dx:40,dy:-110,st:'l',a:band(u,.2,.52)});
+  lab(hx-30,GH-48,'窗戶忽明忽暗',{dx:-60,dy:-150,st:'s',a:inZ*band(u,.5,1)});
  },
- hud(u){const A=u<.26?100:u<.48?lerp(100,74,ease(seg(u,.26,.34))):u<.66?lerp(74,58,ease(seg(u,.48,.56))):lerp(58,49,ease(seg(u,.66,.74)));
-  hudPanel(250,120,'篩選結果（示例）',seg(u,.05,.1),w=>{hrow(56,'可開發面積',Math.round(A)+'%',w,'#7dffc4');
-   hrow(88,'候選風機',trf('{n} 部',{n:Math.round(CAND.length*seg(u,.78,.9))}),w,'#f2c230');});}},
+ hud(u){const adeg=lerp(30,9,ease(seg(u,.1,.9))),dd=80/Math.tan(adeg*Math.PI/180);
+  hudPanel(250,150,'太陽與影子（計算）',seg(u,.02,.1),w=>{
+  hrow(56,'太陽高度角',trf('{a}°',{a:Math.round(adeg)}),w,'#f2c230');hrow(88,'輪轂影子距離',trf('{d} m',{d:Math.round(dd)}),w,'#7dc8dc');hrow(120,'閃爍頻率','0.75 Hz',w,'#7dffc4');});}},
 
-/* 7 ─────────────────────────────── 發電量評估 */
-{t:'從測風到年發電量',en:'From wind data to annual energy',dur:13,
- d:'最後把所有資料串起來：一年的現地量測先與附近氣象站十年以上的長期資料比對，修正成長期平均（MCP 方法）；再用風場流場模型把測風點的風推算到每一個機位，套上機型的功率曲線，扣掉尾流、可用率、電氣與其他損失，得到淨年發電量。因為風每年都不同，評估結果以機率表示：P50 是一半的年份會超過的發電量，P90 則有九成機率會超過，銀行融資通常以 P90 為依據。',
- s:[[0,'現地一年的資料，與長期氣象資料比對修正'],[.28,'以模型推算每個機位的風，套上功率曲線'],[.52,'扣掉尾流、可用率與電氣損失，得到淨發電量'],[.76,'以 P50 與 P90 表示發電量的不確定性']],
+/* 5 ─────────────────────────────── 閃爍時數 */
+{t:'閃爍時數怎麼算',en:'How shadow-flicker hours are calculated',dur:15,
+ d:'評估光影閃爍，是把全年每分鐘的太陽位置、風機與住宅座標算一遍，找出葉片影子落在窗上的時段。條件包括太陽高度角高於約 3 度、葉片遮住至少兩成陽光。德國指引在最嚴情境（全年無雲、風機一直運轉）限制每年 30 小時、每天 30 分鐘，實際情境則是每年 8 小時。示例中某住宅的理論值為 34 小時，扣掉雲量與風況後約 12 小時，仍高於 8 小時，因此需要加裝停機控制，才能降到限值以下。',
+ s:[[0,'影子越長，影響的距離越遠；太陽高度角低於約 3 度就看不見'],[.28,'逐月計算葉片影子落在窗上的時數'],[.5,'德國指引：最嚴情境每年 30 小時，實際情境 8 小時'],[.74,'超標時，用停機控制把實際閃爍壓到限值內']],
  draw(u){
   diagBG();
-  const ST=['現地測風','長期修正','流場模型','功率曲線','扣除損失','年發電量'];
-  ST.forEach((t,i)=>{const x=80+i*245,on=u>=.02+i*.06,cur=on&&(i===ST.length-1||u<.08+i*.06);
-   box(x,170,210,70,on?'#16384c':'rgba(255,255,255,.04)',on?'#f2c230':'rgba(255,255,255,.25)',2);
-   wt(x+105,213,t,20,on?'#f2c230':'rgba(227,236,238,.6)',800,'center');
-   if(i<ST.length-1)arrow(x+212,205,x+242,205,on?'#f2c230':'rgba(255,255,255,.3)',2.5);});
-  /* 左：損失瀑布 */
-  const C=chartBox(60,280,700,520,{title:'年發電量的損失（示例）',x0:0,x1:6,y0:0,y1:110,xt:[],yt:[0,25,50,75,100],yl:'%',pl:70,pt:64,pb:70,gx:1,gy:4});
-  const WF=[['總發電量',100,0,'#7dc8dc'],['尾流',-8,100,'#ff9d7a'],['可用率',-3,92,'#ff9d7a'],['電氣損失',-2,89,'#ff9d7a'],['其他',-2,87,'#ff9d7a'],['淨發電量',85,0,'#7dffc4']];
-  WF.forEach(([t,v,b,c],i)=>{const k=ease(seg(u,.3+i*.04,.36+i*.04));if(k<=0)return;const x=C.X(i+.18),w=C.X(.64)-C.X(0);
-   const y0=v>0?0:b+v,y1=v>0?v:b;const top=C.Y(lerp(v>0?0:b,y1,1)),hh=(C.Y(y0)-C.Y(y1))*k;
-   box(x,v>0?C.Y(0)-hh:C.Y(b),w,hh,c);
-   wt(x+w/2,(v>0?C.Y(v):C.Y(b))-10,(v>0?'':'−')+Math.abs(v)+'%',17,c,700,'center',COND);
-   wt(x+w/2,C.Y(0)+26,t,15,'rgba(227,236,238,.9)',700,'center');});
-  /* 右：P50 / P90 */
-  const D=chartBox(800,280,740,520,{title:'淨年發電量的機率分布（示例）',x0:60,x1:110,y0:0,y1:1.1,xt:[60,70,80,90,100,110],yt:[],xl:'淨年發電量（相對值）',pl:50,pt:64,pb:70,gx:5,gy:2});
-  const mu=85,sg=7.5,pdf=x=>Math.exp(-.5*Math.pow((x-mu)/sg,2));
-  const kd=seg(u,.58,.7);if(kd>0){ctx.beginPath();ctx.moveTo(D.X(60),D.Y(0));for(let x=60;x<=60+50*kd;x+=.25)ctx.lineTo(D.X(x),D.Y(pdf(x)));ctx.lineTo(D.X(60+50*kd),D.Y(0));ctx.closePath();ctx.fillStyle='rgba(125,200,220,.3)';ctx.fill();
-   ctx.beginPath();for(let x=60;x<=60+50*kd;x+=.25){const X=D.X(x),Y=D.Y(pdf(x));x===60?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}ctx.strokeStyle='#7dc8dc';ctx.lineWidth=3;ctx.stroke();}
-  const p90=mu-1.2816*sg;
-  alphaDo(seg(u,.7,.74),()=>{ln([D.X(mu),D.Y(0),D.X(mu),D.Y(1.02)],'#7dffc4',2.5);tag(D.X(mu),D.Y(1.02)-2,'P50',{size:17,bg:'#7dffc4',align:'center'});});
-  alphaDo(seg(u,.74,.78),()=>{ln([D.X(p90),D.Y(0),D.X(p90),D.Y(.72)],'#f2c230',2.5);tag(D.X(p90),D.Y(.72)-2,'P90',{size:17,bg:'#f2c230',align:'center'});
-   wt(D.X(103),D.Y(.72),'P50：一半年份會超過',16,'#7dffc4',700,'center');wt(D.X(103),D.Y(.72)+28,'P90：九成機率會超過',16,'#f2c230',700,'center');});
-  alphaDo(seg(u,.84,.9),()=>tag(D.X(94),D.Y(.3),'融資常以 P90 為依據',{size:16,bg:'#dfe5e8',align:'center'}));
+  const C=chartBox(60,160,700,400,{title:'輪轂影子距離與太陽高度角',x0:0,x1:30,y0:0,y1:1000,xt:[0,5,10,15,20,25,30],yt:[0,250,500,750,1000],xl:'太陽高度角 (°)',yl:'m',pl:70,pt:64,pb:58,gx:6,gy:4});
+  const g=ease(seg(u,.04,.3)),amax=30-(30-4.6)*(1-g)*0;
+  ctx.beginPath();let first=true;for(let a=Math.max(4.6,30-25.4*g);a<=30;a+=.2){const y=C.Y(Math.min(1000,80/Math.tan(a*Math.PI/180)));first?(ctx.moveTo(C.X(a),y),first=false):ctx.lineTo(C.X(a),y);}ctx.strokeStyle='#f2c230';ctx.lineWidth=4;ctx.stroke();
+  [[5,'914 m'],[10,'454 m'],[20,'220 m'],[30,'139 m']].forEach(([a,n],i)=>alphaDo(seg(u,.14+i*.05,.2+i*.05),()=>{const y=C.Y(80/Math.tan(a*Math.PI/180));circ(C.X(a),y,7,'#7dffc4','#13232e',2);wt(C.X(a)+(a>25?-14:14),y-12,n,18,'#7dffc4',700,a>25?'right':'left',COND);}));
+  card(60,580,700,220,{bg:'rgba(7,27,39,.75)'});wt(84,618,'閃爍出現的條件',20,'#f2c230',700);
+  bullets(96,658,[['太陽高度角高於約 3°，葉片遮住 ≥ 20% 陽光','#fff'],['晴天、風機運轉、窗戶朝向風機','#fff'],['閃爍頻率 = 3 片 × 15 rpm ÷ 60 = 0.75 Hz','#7dc8dc'],['低於常被引用的 3 Hz 門檻','#7dffc4']],u,.18,.07,34);
+  /* 每月 */
+  const MV=[4,3,2,1,2,3,2,2,3,5,4,3];
+  const D=chartBox(800,160,740,330,{title:'示例：某住宅每月的理論閃爍時數',x0:0,x1:12,y0:0,y1:6,yt:[0,2,4,6],yl:'h',pl:60,pt:64,pb:50,gx:12,gy:3});
+  let tot=0;MV.forEach((v,i)=>{const k=ease(seg(u,.28+i*.012,.4+i*.012));tot+=v*k;const bw=D.pw/12*.64,x=D.X(i)+D.pw/12*.18,h=D.ph*v/6*k;box(x,D.py+D.ph-h,bw,h,'#ff9d7a');wt(D.X(i)+D.pw/24,D.py+D.ph+22,String(i+1),15,'rgba(227,236,238,.75)',600,'center',COND);});
+  wt(D.px+D.pw-6,D.py+30,trf('累計 {n} h',{n:Math.round(tot)}),26,'#fff',700,'right',COND);
+  /* 與指引比較 */
+  card(800,510,740,290,{bg:'rgba(7,27,39,.75)'});wt(824,544,'與德國指引比較（示例）',20,'#f2c230',700);
+  wt(824,568,'最嚴情境 ≤ 30 h／年、≤ 30 分／日；實際情境 ≤ 8 h／年',15,'rgba(227,236,238,.85)',600);
+  const bx=840,BW=560,sc=v=>bx+BW*v/40;
+  alphaDo(seg(u,.46,.54),()=>{ctx.setLineDash([6,5]);ln([sc(8),590,sc(8),772],'#e8572a',2);ln([sc(30),590,sc(30),772],'#e8572a',2);ctx.setLineDash([]);wt(sc(8),586,'8 h',15,'#ff9d7a',700,'center',COND);wt(sc(30),586,'30 h',15,'#ff9d7a',700,'center',COND);});
+  [['理論最嚴情境（無雲、全年運轉）',34,'#ff9d7a'],['實際情境（計入雲量與風況）',12,'#f2c230'],['加裝停機控制後',7,'#7dffc4']].forEach(([n,v,col],i)=>{const k=ease(seg(u,.5+i*.1,.64+i*.1)),y=622+i*62;if(k<=0)return;
+   wt(bx,y,n,16,'rgba(227,236,238,.92)',600);rrp(bx,y+8,Math.max(6,(sc(v)-bx)*k),20,4);ctx.fillStyle=col;ctx.fill();alphaDo(seg(k,.8,1),()=>wt(sc(v)+10,y+25,trf('{v} h',{v:v}),20,'#fff',700,'left',COND));});
+ }},
+
+/* 6 ─────────────────────────────── 對策 */
+{t:'減噪對策與停機排程',en:'Noise measures and shutdown scheduling',dur:15,
+ d:'噪音可以從葉片、運轉與選址三方面處理：鋸齒尾緣讓尾緣氣流更平順，約可降低 2 至 3 dB(A)；降噪運轉模式降低轉速並調整槳角，約降 2 至 4 dB(A)，發電量略減；夜間或特定風向限轉，則按住宅位置與時段排程守住管制值；選址時多留一倍距離，約少 6 dB。光影閃爍則先算出會閃爍的時段，再由光感測器確認有日照，才讓該部機組短暫停機，一年的發電損失通常很小。各項成效要靠量測驗證，並與社區持續溝通。',
+ s:[[0,'鋸齒尾緣、降噪模式與限轉，各降幾個 dB'],[.28,'選址多留一倍距離，約少 6 dB'],[.52,'先預算會閃爍的時段，找出住宅受影響的日期與時刻'],[.78,'光感測器確認有日照才短暫停機，年損失很小']],
+ draw(u){
+  diagBG();
+  card(60,160,700,640,{bg:'rgba(7,27,39,.75)'});wt(84,198,'噪音對策（示例）',20,'#f2c230',700);
+  const M=[['鋸齒尾緣葉片','讓尾緣氣流更平順，需改裝或原廠設計','約 −2～3 dB(A)','#7dffc4'],
+   ['降噪運轉模式','降低轉速、調整槳角，發電量略減','約 −2～4 dB(A)','#7dffc4'],
+   ['夜間或特定風向限轉','依住宅位置與時段排程，守住管制值','以排程控管','#f2c230'],
+   ['退縮距離與配置','選址時拉開與住宅的距離','距離加倍 −6 dB','#7dc8dc']];
+  M.forEach(([a,b,c,col],i)=>{const y=222+i*140,g=seg(u,.02+i*.07,.1+i*.07);alphaDo(g,()=>{rrp(80,y,660,124,10);ctx.fillStyle='rgba(255,255,255,.06)';ctx.fill();rrp(80,y,8,124,4);ctx.fillStyle=col;ctx.fill();
+   wt(108,y+44,a,24,col,700);wt(108,y+84,b,17,'rgba(227,236,238,.92)',600);tag(720,y+30,c,{size:16,bg:col,align:'right'});});});
+  /* 閃爍時段 */
+  const H=chartBox(800,160,740,420,{title:'示例：預測會閃爍的時段（住宅在風機西側）',x0:0,x1:12,y0:0,y1:5,pl:80,pt:64,pb:70,gx:12,gy:5});
+  const sunset=m=>18+.65*Math.sin(TAU*(m-3)/12);
+  const cw=H.pw/12,chh=H.ph/5,g=seg(u,.44,.7);
+  for(let m=1;m<=12;m++){wt(H.X(m-1)+cw/2,H.py+H.ph+22,String(m),15,'rgba(227,236,238,.75)',600,'center',COND);
+   for(let r=0;r<5;r++){const h=15+r,lo=sunset(m)-1.5,hi=sunset(m)-.15,on=(h+1>lo&&h<hi),k=ease(clamp(g*14-(m-1)*1.1,0,1));if(!on||k<=0)continue;
+    alphaDo(k,()=>box(H.X(m-1)+3,H.py+(4-r)*chh+3,cw-6,chh-6,'#e8572a'));}}
+  for(let r=0;r<5;r++)wt(H.px-10,H.py+(4-r)*chh+chh/2+5,trf('{h} 時',{h:15+r}),15,'rgba(227,236,238,.75)',600,'right',COND);
+  wt(H.px+H.pw,H.py+H.ph+52,'月',15,'rgba(227,236,238,.7)',500,'right');
+  alphaDo(seg(u,.7,.78),()=>{box(H.px,H.py+H.ph+44,16,12,'#e8572a');wt(H.px+24,H.py+H.ph+56,'預測閃爍：該時段停機',15,'#ff9d7a',700);});
+  card(800,600,740,200,{bg:'rgba(7,27,39,.75)'});wt(824,638,'停機排程怎麼運作',20,'#f2c230',700);
+  bullets(836,684,[['預先計算：太陽位置、風機與住宅座標','#fff'],['現場光感測器確認有日照，才下停機指令','#fff'],['只在必要時段停機：年損失通常 < 0.5%（示例）','#7dffc4']],u,.6,.07,38);
  }}
 ]};
 
-/* 陸域風電系列 第 4 集：風場選址與風資源評估 — 英日翻譯 */
+/* 陸域風電系列 第 15 集：噪音與光影閃爍 — 英日翻譯 */
 Object.assign(DICT,{
 "陸域風電系列":["Onshore Wind Series","陸上風力発電シリーズ"],
-"風場選址與風資源評估":["Choosing a site and assessing the wind","風力発電所の立地選定と風況評価"],
-"風機的發電量與風速的三次方成正比，選址時差一點風速，二十年下來就差很多電。這一集從測風塔與光達開始，看地表粗糙度、地形與尾流如何改變風，以及住宅距離、生態與雷達等限制如何決定風機能放在哪裡。":["A turbine's output rises with the cube of wind speed, so a slightly windier site produces far more electricity over twenty years. This episode starts with met masts and lidar, then shows how surface roughness, terrain and wakes change the wind, and how distance to homes, ecology and radar decide where turbines can go.","風車の発電量は風速の 3 乗に比例するため、立地の風速がわずかに違うだけで 20 年間の発電量は大きく変わります。本編では風況観測塔とライダーから始め、地表の粗度、地形、後流が風をどう変えるか、そして住宅からの距離、生態系、レーダーなどの制約が風車の配置をどう決めるかを見ていきます。"],
-/* 重點數字 */
-"輪轂高度":["hub height","ハブ高さ"],
-"年":["year","年"],
-"台灣風力資源最豐富地區的年平均風速（能源署）":["Annual mean wind speed in Taiwan's windiest areas (Energy Administration)","台湾で最も風況の良い地域の年平均風速（エネルギー署）"],
-"測風塔高度建議至少達風機輪轂高度的三分之二（MEASNET 指引）":["Recommended minimum met mast height: two thirds of turbine hub height (MEASNET guideline)","風況観測塔は風車のハブ高さの 3 分の 2 以上が推奨（MEASNET ガイドライン）"],
-"現地測風的典型期間，再與長期氣象資料比對修正":["Typical on-site measurement campaign, then corrected against long-term weather data","現地風況観測の一般的な期間。その後、長期の気象データと照合して補正"],
-"風速增加 10%，風能約增加 33%：功率與風速的三次方成正比":["10% more wind speed gives about 33% more wind power, because power scales with the cube of speed","風速が 10% 増えると風のエネルギーは約 33% 増加：出力は風速の 3 乗に比例"],
-"主風向上前後風機的典型間距，D 為轉子直徑（示例）":["Typical spacing between turbines along the prevailing wind; D is the rotor diameter (example)","卓越風向に沿った前後の風車間隔の目安。D はロータ直径（例）"],
-"風機基座距最近建築物 500 公尺以下須實施環評（環評認定標準第 29 條）":["An EIA is required if any turbine base is within 500 m of the nearest building (Article 29 of Taiwan's EIA criteria)","風車基礎から最寄りの建物まで 500 m 以下なら環境影響評価が必要（台湾の環境影響評価基準第 29 条）"],
-"說明：本集為教育用途示意動畫，風機、測風塔、地形與地圖比例經過調整。台灣風力資源最豐富地區年平均風速可達 7–8 m/s 引自經濟部能源署；測風塔高度至少達輪轂高度三分之二為 MEASNET 風資源評估指引的建議；風機基座中心與最近建築物邊界直線距離 500 公尺以下須實施環評，引自「開發行為應實施環境影響評估細目及範圍認定標準」第 29 條。風切指數、地表粗糙度長度、韋伯分布、尾流風速、風機間距、限制圖層與可開發面積、發電量損失與 P50／P90 分布皆為典型範例，並非特定案場資料；實際評估依 IEC 61400 系列標準、各機型與主管機關規定進行。":["Note: this is an illustrative educational animation; the scale of turbines, met mast, terrain and map has been adjusted. The 7–8 m/s annual mean wind speed for Taiwan's windiest areas is from the Energy Administration, Ministry of Economic Affairs. The recommendation that a met mast reach at least two thirds of hub height comes from the MEASNET wind resource assessment guideline. The requirement for an environmental impact assessment when a turbine base centre is within 500 m of the nearest building boundary is from Article 29 of Taiwan's Criteria for Determining Development Activities Requiring an EIA. Shear exponents, roughness lengths, the Weibull distribution, wake wind speeds, turbine spacing, constraint layers and buildable area, energy losses and the P50/P90 distribution are typical examples, not data from any specific project; real assessments follow the IEC 61400 series, the turbine model and the rules of the competent authorities.","説明：本編は教育用の模式アニメーションで、風車、風況観測塔、地形、地図の縮尺は調整しています。台湾で最も風況の良い地域の年平均風速 7〜8 m/s は経済部エネルギー署によります。観測塔の高さをハブ高さの 3 分の 2 以上とする推奨は MEASNET の風況評価ガイドラインによります。風車基礎の中心から最寄り建物の境界まで直線距離 500 m 以下の場合に環境影響評価が必要となる規定は、台湾「開発行為の環境影響評価実施細目及び範囲認定基準」第 29 条によります。シア指数、粗度長、ワイブル分布、後流の風速、風車間隔、制約レイヤーと開発可能面積、発電量の損失、P50／P90 の分布はいずれも典型的な例であり、特定の案件のデータではありません。実際の評価は IEC 61400 シリーズ、機種、所管機関の規定に従って行われます。"],
+"噪音與光影閃爍":["Noise and shadow flicker","騒音とシャドーフリッカー"],
+"風機離住家近，居民最先感受到的是聲音與影子。這一集看噪音從哪裡來、隨距離怎麼衰減、為什麼低頻特別受關注，再看太陽低斜時葉片影子如何在住宅窗上閃爍、怎麼估算時數，最後是減噪與停機排程這些常見的對策。":["When a turbine stands near homes, the first things residents notice are sound and shadow. This episode looks at where the noise comes from, how it fades with distance and why low frequencies draw special attention, then at how blade shadows flicker across a window when the sun is low and how the hours are estimated, and finally at common countermeasures: noise reduction and shutdown scheduling.","風車が住宅に近いと、住民がまず気づくのは音と影です。今回は、騒音の発生源、距離による減衰、低周波が特に注目される理由、そして太陽が低いときに羽根の影が住宅の窓でちらつく仕組みとその時間数の見積もり、最後に低騒音化や停止スケジュールといった対策を見ていきます。"],
+"h／年":["h/yr","h／年"],
+"2 MW 級機組常見的聲功率級，依機型與風速而定（示例）":["Typical sound power level of a 2 MW-class turbine; depends on model and wind speed (example)","2 MW 級風車の一般的な音響パワーレベル。機種と風速による（例）"],
+"距離每加倍，球面擴散使聲壓級下降的量（僅幾何擴散）":["Drop in sound pressure level for each doubling of distance from spherical spreading (geometric spreading only)","距離が 2 倍になるごとに、球面拡散で音圧レベルが下がる量（幾何拡散のみ）"],
+"台灣另列管制的低頻噪音頻帶，以 1/3 八音度頻帶量測":["Low-frequency band regulated separately in Taiwan, measured in 1/3-octave bands","台湾で別枠で規制される低周波の帯域。1/3 オクターブバンドで測定"],
+"陸域風機與建築物相距 500 m 內須辦理環評（依經濟部公開說明）":["Onshore turbines within 500 m of buildings must go through environmental impact assessment (per MOEA public statements)","陸上風車は建物から 500 m 以内なら環境影響評価が必要（経済部の公開説明による）"],
+"德國指引的光影閃爍最嚴情境年上限，另限單日 30 分鐘":["Annual cap on worst-case shadow flicker in the German guideline, plus a 30-minute daily limit","ドイツ指針のシャドーフリッカー最悪ケースの年間上限。1 日 30 分の制限も別にある"],
+"15 rpm、三葉片機組的光影閃爍頻率，遠低於常被引用的 3 Hz":["Shadow-flicker frequency of a three-blade turbine at 15 rpm, far below the often-cited 3 Hz","15 rpm・3 枚羽根の風車のシャドーフリッカー周波数。よく引用される 3 Hz をはるかに下回る"],
+"說明：本集為教育用途示意動畫，風機、住宅、頻譜與影子經過簡化，並非特定機型或案場。聲功率級 105 dB(A)、示例管制線（日間 50、夜間 40 dB(A)）、隔音量、減噪量、每月閃爍時數與發電損失皆為典型範例；距離衰減僅計幾何擴散，實際還需計入空氣吸收、地面與地形、風向。台灣各管制區類別的低頻與環境音量標準請以環境部現行公告為準；國內未見專門的光影閃爍法定時數，評估時常參考德國指引（最嚴情境 30 小時／年、30 分鐘／日，實際情境 8 小時／年）。":["Note: This is a simplified educational animation; turbine, house, spectrum and shadow are schematic and do not represent a specific model or site. The 105 dB(A) sound power level, the example limit lines (50 dB(A) day, 40 dB(A) night), insulation values, noise reductions, monthly flicker hours and generation losses are typical examples. Distance decay counts geometric spreading only; real cases must also include air absorption, ground and terrain effects and wind direction. For the low-frequency and ambient-noise standards of each noise-control zone class in Taiwan, refer to the current notices of the Ministry of Environment. No dedicated statutory shadow-flicker hours were found for Taiwan; assessments often refer to the German guideline (worst case 30 h/yr and 30 min/day, real case 8 h/yr).","注：本編は教育用の模式アニメーションで、風車、住宅、周波数スペクトル、影は簡略化しており、特定の機種や地点ではありません。音響パワーレベル 105 dB(A)、例示の規制ライン（昼間 50、夜間 40 dB(A)）、遮音量、低減量、月ごとのちらつき時間、発電損失はいずれも典型例です。距離減衰は幾何拡散のみで、実際には空気吸収、地面・地形、風向も考慮が必要です。台湾の各騒音規制区分の低周波・環境音量基準は、環境部の最新の告示に従ってください。台湾には専用のシャドーフリッカー法定時間は見当たらず、評価ではドイツ指針（最悪ケース年 30 時間・日 30 分、実際のケース年 8 時間）がよく参照されます。"],
 /* 分鏡 1 */
-"先量一年的風":["Measuring the wind for a year","まず 1 年、風を測る"],
-"決定蓋風場之前，要先知道這裡的風有多強、多穩定。開發商會在候選場址豎起測風塔，在不同高度裝上杯式風速計與風向計，量出風速怎麼隨高度增加。測風塔最好至少達到預定輪轂高度的三分之二；現代風機輪轂常在 100 公尺以上，因此也常搭配地面光達（LiDAR），以雷射量測輪轂與葉尖高度的風。現地量測通常至少一年，涵蓋完整的季風循環，再和附近氣象站的長期資料比對修正。":["Before deciding to build a wind farm, developers need to know how strong and steady the wind is. They erect a met mast at the candidate site and mount cup anemometers and wind vanes at several heights to measure how wind speed increases with height. The mast should ideally reach at least two thirds of the planned hub height. Modern hubs are often above 100 m, so ground-based lidar is frequently added to measure the wind at hub and blade-tip heights with lasers. On-site measurement usually lasts at least a year to cover a full monsoon cycle, and is then corrected against long-term records from nearby weather stations.","風力発電所の建設を決める前に、その場所の風がどれほど強く安定しているかを知る必要があります。事業者は候補地に風況観測塔を建て、複数の高さに風杯型風速計と風向計を取り付け、高さとともに風速がどう増すかを測ります。観測塔は計画するハブ高さの 3 分の 2 以上あることが望ましく、現代の風車はハブが 100 m を超えることも多いため、レーザーでハブや翼端の高さの風を測る地上設置型ライダー（LiDAR）を併用することもよくあります。現地観測は季節風の 1 サイクルを含むよう通常 1 年以上行い、近くの気象観測所の長期データと照合して補正します。"],
-"候選場址上，先豎起一座測風塔":["A met mast goes up at the candidate site","候補地にまず風況観測塔を建てる"],
-"不同高度的風速計，量出風怎麼隨高度變強":["Anemometers at several heights show wind rising with height","各高さの風速計で、高さによる風の強まりを測る"],
-"地面光達以雷射，量到輪轂與葉尖的高度":["Ground lidar uses lasers to reach hub and tip height","地上ライダーがレーザーでハブと翼端の高さまで測る"],
-"至少量測一年，涵蓋完整的季風循環":["At least a year of data covers a full monsoon cycle","季節風の 1 サイクルを含む 1 年以上を観測"],
-"輪轂 {h} m":["Hub {h} m","ハブ {h} m"],
-"現地量測":["On-site data","現地観測"],
-"{d} 天":["{d} days","{d} 日"],
-"測風塔":["Met mast","風況観測塔"],
-"杯式風速計":["Cup anemometer","風杯型風速計"],
-"地面光達（LiDAR）":["Ground lidar","地上ライダー"],
-"葉尖最高處":["Top blade tip","翼端の最高点"],
-"各高度風速（示例）":["Wind by height (example)","高さ別風速（例）"],
+"風機的噪音從哪裡來":["Where turbine noise comes from","風車の騒音はどこから来るのか"],
+"風機的聲音有兩類來源。最主要的是氣動噪音：氣流流過葉片，在尾緣與葉尖產生湍流，聽起來像規律的「咻、咻」聲，轉速越高、葉尖速度越大就越明顯。其次是機械噪音，來自齒輪箱、發電機與冷卻風扇，現代機組多半已用隔音罩與減振座壓低。製造商會依 IEC 61400-11 量測聲功率級，2 MW 級機組常見約 105 dB(A)，並隨風速改變；這個數字描述的是音源本身，不是住家聽到的音量。":["Turbine sound has two kinds of sources. The main one is aerodynamic noise: air flowing over the blades creates turbulence at the trailing edge and tip, heard as a regular swish that grows with rotor speed and tip speed. The second is mechanical noise from the gearbox, generator and cooling fans, which modern machines usually damp with enclosures and vibration mounts. Manufacturers measure the sound power level to IEC 61400-11; a 2 MW-class turbine is often around 105 dB(A), varying with wind speed. That figure describes the source itself, not the level heard at a home.","風車の音には 2 種類の発生源があります。主なものは空力騒音で、羽根を流れる空気が後縁と翼端で乱れを作り、規則的な「ヒュッ、ヒュッ」という音になります。回転が速く翼端速度が大きいほど目立ちます。次に機械騒音で、ギアボックス、発電機、冷却ファンから出ますが、現代の機種は防音カバーや防振架台で抑えているのが一般的です。メーカーは IEC 61400-11 に基づいて音響パワーレベルを測定し、2 MW 級では約 105 dB(A) が一般的で、風速によって変わります。この数値は音源そのものを表し、住宅で聞こえる音量ではありません。"],
+"風吹過葉片，尾緣與葉尖產生氣動噪音":["Wind over the blades makes aerodynamic noise at the trailing edge and tip","風が羽根を通過し、後縁と翼端で空力騒音が生じる"],
+"齒輪箱、發電機與風扇另有機械噪音":["The gearbox, generator and fans add mechanical noise","ギアボックス、発電機、ファンからは機械騒音も出る"],
+"聲音向四面八方擴散，距離越遠越小":["Sound spreads in all directions and weakens with distance","音は四方に広がり、遠いほど小さくなる"],
+"聲功率級描述音源本身，不是住家聽到的音量":["The sound power level describes the source, not the level heard at a home","音響パワーレベルは音源そのものを表し、住宅で聞こえる音量ではない"],
+"住宅距離約 500 m（示例）":["Home about 500 m away (example)","住宅まで約 500 m（例）"],
+"葉片氣動噪音：主要來源":["Blade aerodynamic noise: main source","羽根の空力騒音：主な発生源"],
+"機械噪音：齒輪箱、發電機":["Mechanical noise: gearbox, generator","機械騒音：ギアボックス、発電機"],
+"住宅":["Home","住宅"],
+"風機噪音（示例）":["Turbine noise (example)","風車の騒音（例）"],
+"聲功率級":["Sound power","音響パワー"],
+"約 105 dB(A)":["≈ 105 dB(A)","約 105 dB(A)"],
+"主要來源":["Main source","主な発生源"],
+"氣動噪音":["Aerodynamic","空力騒音"],
+"量測方法":["Method","測定法"],
 /* 分鏡 2 */
-"風速差一點，發電差很多":["A little more wind, a lot more power","風速の少しの差が大きな発電量の差に"],
-"風帶來的功率等於二分之一乘上空氣密度、掃掠面積與風速的三次方。風速是三次方，所以風速增加 10%，風能就增加約 33%；年平均 6 m/s 與 7 m/s 的場址，風能相差近六成。但只看平均風速並不夠，風速一年到頭都在變化，常用韋伯分布描述各風速出現的時間比例。把時間比例乘上風速的三次方就會發現，大部分的能量其實來自比平均值更強、但出現時間較少的風。":["The power carried by the wind equals one half times air density times swept area times the cube of wind speed. Because speed is cubed, a 10% increase in wind speed brings about 33% more wind power, and a site averaging 7 m/s has nearly 60% more wind energy than one averaging 6 m/s. The average alone is not enough, though: wind speed changes all year, and the share of time at each speed is usually described with a Weibull distribution. Multiplying that share by the cube of speed shows that most of the energy actually comes from winds stronger than average that blow less often.","風の持つ出力は、2 分の 1 × 空気密度 × 受風面積 × 風速の 3 乗で表されます。風速は 3 乗で効くため、風速が 10% 増えれば風のエネルギーは約 33% 増え、年平均 7 m/s の地点は 6 m/s の地点より 6 割近く多くのエネルギーを持ちます。ただし平均風速だけでは不十分です。風速は一年中変化しており、各風速の出現時間の割合はワイブル分布で表すのが一般的です。この割合に風速の 3 乗を掛けると、エネルギーの大部分は平均より強く、出現時間の短い風から得られていることがわかります。"],
-"風的功率，與風速的三次方成正比":["Wind power scales with the cube of wind speed","風の出力は風速の 3 乗に比例する"],
-"平均風速 7 m/s 比 6 m/s，風能多了近六成":["7 m/s on average carries nearly 60% more energy than 6 m/s","平均 7 m/s は 6 m/s よりエネルギーが 6 割近く多い"],
-"一年之中，每種風速出現的時間不同":["Each wind speed occurs for a different share of the year","一年のうち、風速ごとに出現時間が異なる"],
-"大部分的能量，來自比平均更強的風":["Most of the energy comes from above-average winds","エネルギーの大部分は平均より強い風から"],
-"風的功率":["Power in the wind","風の出力"],
-"ρ 空氣密度，A 掃掠面積，v 風速":["ρ air density, A swept area, v wind speed","ρ 空気密度、A 受風面積、v 風速"],
-"空氣密度":["air density","空気密度"],
-"掃掠面積":["swept area","受風面積"],
-"相對風能（以 6 m/s 為 100%）":["Relative wind power (6 m/s = 100%)","相対的な風のエネルギー（6 m/s = 100%）"],
-"風速 +10% → 風能約 +33%":["Wind +10% → power about +33%","風速 +10% → エネルギー約 +33%"],
-"一年的風速分布（示例）":["Wind speed distribution over a year (example)","1 年間の風速分布（例）"],
-"風速 m/s":["Wind speed m/s","風速 m/s"],
-"比例":["Share","割合"],
-"出現時間":["Time at speed","出現時間"],
-"帶來的能量":["Energy delivered","もたらすエネルギー"],
-"平均 7 m/s":["Mean 7 m/s","平均 7 m/s"],
-"能量集中在較強的風":["Energy comes from stronger winds","エネルギーは強い風に集中"],
+"噪音如何隨距離衰減":["How noise fades with distance","騒音は距離でどう減衰するか"],
+"聲音從風機向四周擴散，等於攤在越來越大的球面上，所以距離每加倍，聲壓級約少 6 dB。以 105 dB(A) 的聲功率級、只計幾何擴散來估算：100 公尺約 54 dB(A)，200 公尺約 48，400 公尺約 42，800 公尺約 36。若拿示例管制線日間 50、夜間 40 dB(A) 來看，約在 160 公尺與 500 公尺處降到限值以下。實際還要計入空氣吸收、地面、地形與風向，順風時會比計算值更大聲，所以要靠量測與模擬驗證。":["Sound spreads from the turbine in all directions, like being spread over an ever larger sphere, so each doubling of distance lowers the sound pressure level by about 6 dB. Taking a 105 dB(A) sound power level and counting only geometric spreading: about 54 dB(A) at 100 m, 48 at 200 m, 42 at 400 m and 36 at 800 m. Against example limit lines of 50 dB(A) by day and 40 dB(A) by night, the level drops below the limit at roughly 160 m and 500 m. Real cases must also include air absorption, ground, terrain and wind direction; downwind it can be louder than calculated, so measurement and modelling are needed to verify.","音は風車から四方に広がります。これは、どんどん大きくなる球面に広がるのと同じで、距離が 2 倍になるごとに音圧レベルは約 6 dB 下がります。音響パワーレベル 105 dB(A) で幾何拡散だけを考えると、100 m で約 54 dB(A)、200 m で約 48、400 m で約 42、800 m で約 36 になります。例示の規制ライン（昼間 50、夜間 40 dB(A)）と比べると、約 160 m と約 500 m で基準値を下回ります。実際には空気吸収、地面、地形、風向も加わり、風下では計算より大きく聞こえることもあるため、測定とシミュレーションでの検証が必要です。"],
+"聲音攤在越來越大的球面上，距離加倍少 6 dB":["Sound spreads over a growing sphere: each doubling of distance cuts 6 dB","音は広がる球面に分散し、距離が 2 倍になると 6 dB 下がる"],
+"以 105 dB(A) 估算：100 公尺約 54，400 公尺約 42":["For 105 dB(A): about 54 at 100 m and 42 at 400 m","105 dB(A) で試算：100 m で約 54、400 m で約 42"],
+"對照示例管制線：日間約 160 公尺、夜間約 500 公尺達標":["Against the example limit lines: met at about 160 m by day, 500 m by night","例示の規制ラインと比べると、昼間は約 160 m、夜間は約 500 m で基準を満たす"],
+"實際還受空氣吸收、地面、地形與風向影響":["Real levels also depend on air absorption, ground, terrain and wind direction","実際には空気吸収、地面、地形、風向にも左右される"],
+"噪音隨距離衰減（示例）":["Noise versus distance (example)","距離による騒音の減衰（例）"],
+"距離 (m)":["Distance (m)","距離 (m)"],
+"示例管制線：日間 50 dB(A)":["Example limit: day 50 dB(A)","例示の規制ライン：昼間 50 dB(A)"],
+"示例管制線：夜間 40 dB(A)":["Example limit: night 40 dB(A)","例示の規制ライン：夜間 40 dB(A)"],
+"約 160 m":["≈ 160 m","約 160 m"],
+"約 500 m":["≈ 500 m","約 500 m"],
+"僅計幾何擴散，未計空氣吸收與地面":["Geometric spreading only; no air or ground absorption","幾何拡散のみ。空気吸収と地面は未考慮"],
+"球面擴散：距離加倍，聲壓級少 6 dB":["Spherical spreading: double the distance, 6 dB less","球面拡散：距離 2 倍で音圧レベル 6 dB 減"],
+"距離每加倍":["Each doubling of distance","距離が 2 倍になるごとに"],
+"面積 ×4":["Area ×4","面積 ×4"],
+"105 dB(A) 音源的估算值":["Estimates for a 105 dB(A) source","105 dB(A) の音源での試算値"],
+"順風、逆溫的夜間，實際聲音會比計算更大":["Downwind or on a temperature-inversion night, real sound exceeds the calculation","風下や気温逆転の夜は、実際の音は計算より大きくなる"],
+"要靠現場量測與模擬驗證":["Verify with field measurement and modelling","現地測定とシミュレーションで検証する"],
 /* 分鏡 3 */
-"地表粗糙度與風切":["Surface roughness and wind shear","地表の粗度とウィンドシア"],
-"風吹過地表會被摩擦減速，越接近地面越慢，這種風速隨高度改變的現象稱為風切。地表越粗糙，減速越明顯：海面與開闊的沙灘最平滑，農田與零星房屋次之，防風林、村落與城鎮最粗糙。工程上以粗糙度長度或風切指數描述，平坦開闊的陸地常用約 1/7（0.14）的風切指數。同樣的高空風，在粗糙地表上方輪轂高度的風速明顯較低，葉片上下緣的風速差也更大，增加葉片的疲勞載重。":["Wind blowing over the ground is slowed by friction, more so the closer it is to the surface. This change of wind speed with height is called wind shear. The rougher the surface, the stronger the slowing: the sea and open beaches are smoothest, farmland with scattered houses comes next, and windbreak forests, villages and towns are roughest. Engineers describe this with a roughness length or a shear exponent; about 1/7 (0.14) is commonly used for flat, open land. With the same wind aloft, the hub-height wind over rough ground is clearly weaker, and the speed difference between the top and bottom of the rotor is larger, adding to blade fatigue loads.","地表を吹く風は摩擦で減速し、地面に近いほど遅くなります。このように高さによって風速が変わる現象をウィンドシアと呼びます。地表が粗いほど減速は大きく、海面や開けた砂浜が最もなめらかで、農地やまばらな家屋がそれに続き、防風林、集落、市街地が最も粗くなります。工学的には粗度長やシア指数で表し、平坦で開けた陸地ではシア指数約 1/7（0.14）がよく使われます。上空の風が同じでも、粗い地表の上ではハブ高さの風速がはっきり低く、ロータの上端と下端の風速差も大きくなり、ブレードの疲労荷重が増えます。"],
-"風貼近地面時被摩擦減速":["Near the ground, friction slows the wind","地面近くでは摩擦で風が減速する"],
-"地表越粗糙，輪轂高度的風越弱":["Rougher ground means weaker wind at hub height","地表が粗いほどハブ高さの風は弱い"],
-"海面、農田、防風林與村落，粗糙度各不相同":["Sea, farmland, windbreaks and villages differ in roughness","海面、農地、防風林、集落で粗度はそれぞれ異なる"],
-"風切大，葉片上下的受力差也大":["Strong shear loads the blades unevenly","シアが大きいとブレード上下の荷重差も大きい"],
-"風速隨高度變化（示例）":["Wind speed with height (example)","高さによる風速の変化（例）"],
-"高度 m":["Height m","高さ m"],
-"葉片掃掠範圍":["Rotor span","ロータ回転範囲"],
-"海面":["Sea","海面"],
-"輪轂高度的風速":["Wind at hub height","ハブ高さの風速"],
-"農田":["Farmland","農地"],
-"村落與防風林":["Village, trees","集落と防風林"],
-"常見地表的粗糙度長度 z₀（示例）":["Roughness length z₀ of common surfaces (example)","代表的な地表の粗度長 z₀（例）"],
-"海面、開闊水域":["Sea, open water","海面、開けた水面"],
-"沙灘與開闊草地":["Beach, open grassland","砂浜、開けた草地"],
-"農田與零星房屋":["Farmland, scattered houses","農地、まばらな家屋"],
-"防風林與村落":["Windbreaks, villages","防風林、集落"],
-"城鎮":["Towns","市街地"],
-"1 m 以上":["1 m or more","1 m 以上"],
-"平坦開闊陸地：風切指數約 1/7":["Flat open land: shear exponent about 1/7","平坦で開けた陸地：シア指数 約 1/7"],
+"低頻噪音與規律的「咻咻」聲":["Low-frequency noise and the rhythmic swish","低周波騒音と規則的な「ヒュッヒュッ」音"],
+"A 加權是依人耳靈敏度修正的量法，會把低頻壓低很多：50 Hz 約減 30 dB，所以只看 dB(A) 容易低估低頻。低頻在空氣中衰減得慢，穿過牆與窗時也損失較少，因此居民在室內夜裡仍可能感到悶響或壓迫感。台灣另外針對 20 至 200 Hz 的低頻噪音訂有管制，以 1/3 八音度頻帶量測。另一個特徵是調幅：葉片每經過塔架前一次，音量就起伏一次，規律的起伏比穩定的噪音更容易被注意到。":["A-weighting corrects levels to the sensitivity of the human ear and pushes low frequencies down a lot: about 30 dB at 50 Hz, so dB(A) alone tends to understate low-frequency sound. Low frequencies fade slowly in air and lose less passing through walls and windows, so residents may still feel a dull rumble or pressure indoors at night. Taiwan also regulates low-frequency noise from 20 to 200 Hz, measured in 1/3-octave bands. Another feature is amplitude modulation: each time a blade passes the tower the level rises and falls once, and a regular pulsing is noticed more easily than steady noise.","A 特性は人間の耳の感度に合わせて補正する測り方で、低周波を大きく下げます。50 Hz では約 30 dB も減るため、dB(A) だけを見ると低周波を過小評価しがちです。低周波は空気中で減衰しにくく、壁や窓を通るときの損失も小さいので、夜に室内でこもった音や圧迫感を覚えることがあります。台湾では 20～200 Hz の低周波騒音も別に規制しており、1/3 オクターブバンドで測定します。もう一つの特徴は振幅変調で、羽根が塔の前を通るたびに音量が上下し、規則的な変動は一定の騒音よりも気づかれやすくなります。"],
+"風機噪音在低頻能量最高，高頻較少":["Turbine noise has the most energy at low frequencies and less at high ones","風車の騒音は低周波にエネルギーが多く、高周波は少ない"],
+"A 加權把低頻壓低很多：50 Hz 約減 30 dB":["A-weighting cuts low frequencies hard: about 30 dB at 50 Hz","A 特性は低周波を大きく下げる：50 Hz で約 30 dB"],
+"低頻穿牆能力強，室內仍可能感到悶響":["Low frequencies pass through walls, so a dull rumble may still be felt indoors","低周波は壁を通りやすく、室内でもこもった音を感じることがある"],
+"葉片通過的規律起伏（調幅）更容易被注意":["The regular rise and fall as blades pass (amplitude modulation) is more noticeable","羽根が通過するたびの規則的な変動（振幅変調）は気づかれやすい"],
+"風機噪音頻譜與 A 加權（示意）":["Turbine noise spectrum and A-weighting (schematic)","風車騒音のスペクトルと A 特性（模式）"],
+"原始聲壓級":["Raw level","補正前の音圧レベル"],
+"A 加權後":["After A-weighting","A 特性補正後"],
+"50 Hz 約 −30 dB":["≈ −30 dB at 50 Hz","50 Hz で約 −30 dB"],
+"調幅：每片葉片經過，音量起伏一次":["Modulation: each blade pass makes the level rise and fall once","振幅変調：羽根が 1 枚通過するたびに音量が 1 回上下する"],
+"通過頻率 = 3 × 15 rpm ÷ 60 = 0.75 Hz":["Pass frequency = 3 × 15 rpm ÷ 60 = 0.75 Hz","通過周波数 = 3 × 15 rpm ÷ 60 = 0.75 Hz"],
+"為什麼低頻特別受關注":["Why low frequencies draw attention","低周波が特に注目される理由"],
+"低頻在空氣中衰減慢":["Low frequencies fade slowly in air","低周波は空気中で減衰しにくい"],
+"穿牆穿窗的損失也較少":["They also lose less through walls and windows","壁や窓を通る際の損失も小さい"],
+"夜裡室內仍可能感到悶響":["A dull rumble may be felt indoors at night","夜の室内でもこもった音を感じることがある"],
+"住宅外牆與窗的隔音量（示例）":["Sound insulation of a home's walls and windows (example)","住宅の外壁と窓の遮音量（例）"],
+"20–200 Hz 低頻":["20–200 Hz low frequency","20～200 Hz 低周波"],
+"1 kHz 以上高頻":["Above 1 kHz","1 kHz 以上の高周波"],
+"約 {v} dB":["≈ {v} dB","約 {v} dB"],
+"台灣另列 20–200 Hz 低頻管制":["Taiwan regulates 20–200 Hz separately","台湾は 20～200 Hz を別枠で規制"],
+"以 1/3 八音度頻帶量測":["Measured in 1/3-octave bands","1/3 オクターブバンドで測定"],
+"調幅聲比穩定噪音更容易被注意":["Modulated sound is noticed more than steady noise","変動する音は一定の騒音より気づかれやすい"],
 /* 分鏡 4 */
-"地形與障礙物":["Terrain and obstacles","地形と障害物"],
-"風場的地形會重新塑造風。平緩的山丘或台地讓氣流在頂端被壓縮加速，山脊上的風速可比平地高出一成以上，但坡度太陡時，背風面會出現分離與亂流。建築物與防風林則像一道牆，下風處數倍於其高度的範圍內都是低速而紊亂的氣流，會降低發電量並加重疲勞載重。台灣西部沿海地勢平坦，常見的障礙物是木麻黃防風林、魚塭堤岸與聚落，評估時要以數值模型模擬這些地形與障礙物的影響。":["Terrain reshapes the wind. A gentle hill or plateau squeezes the airflow over its top and speeds it up, so the wind on a ridge can be more than 10% faster than on flat ground; if the slope is too steep, however, the flow separates and becomes turbulent on the lee side. Buildings and windbreaks act like a wall: for a distance several times their height downwind, the air is slow and turbulent, cutting output and adding fatigue loads. Taiwan's west coast is flat, and the usual obstacles are casuarina windbreaks, fish-pond embankments and villages, so assessments use numerical flow models to simulate the effect of terrain and obstacles.","地形は風を形づくり直します。なだらかな丘や台地では気流が頂部で圧縮されて加速し、尾根の風速は平地より 1 割以上高くなることがあります。ただし斜面が急すぎると、風下側で流れがはく離して乱流になります。建物や防風林は壁のように働き、風下側では高さの数倍の範囲で風が弱く乱れ、発電量を下げ疲労荷重を増やします。台湾西部沿岸は平坦で、主な障害物はモクマオウの防風林、養殖池の堤防、集落です。評価では数値モデルでこうした地形や障害物の影響を解析します。"],
-"風從海面吹來，越過平緩的山丘":["Wind from the sea crosses a gentle hill","海から吹く風がなだらかな丘を越える"],
-"氣流在丘頂被壓縮，風速變快":["The flow is squeezed over the crest and speeds up","気流が丘の頂部で圧縮され、風速が上がる"],
-"防風林與房屋後方，是一片低速亂流":["Behind windbreaks and houses lies slow, turbulent air","防風林や家屋の風下は、弱く乱れた風"],
-"風機放在丘頂受益，放在障礙物後方吃虧":["A turbine gains on the crest and loses behind obstacles","丘の頂部では有利、障害物の風下では不利"],
-"丘頂加速":["Speed-up on crest","頂部の増速"],
-"防風林":["Windbreak","防風林"],
-"下風處亂流":["Turbulent wake","風下の乱流"],
-"風速較高":["Stronger wind","風速が高い"],
-"風弱且紊亂":["Weak, turbulent wind","弱く乱れた風"],
+"光影閃爍：低斜陽光下的影子":["Shadow flicker: shadows in low sunlight","シャドーフリッカー：低い日差しの影"],
+"光影閃爍發生在太陽低斜、風機位於太陽與住宅之間的時候。旋轉的葉片會遮住一部分陽光，影子掃過住宅窗戶，室內光線就隨葉片通過而忽明忽暗。太陽越低，影子越長：以輪轂高度約 80 公尺估算，太陽高度角 10 度時，輪轂的影子可延伸約 450 公尺。影子掃過的範圍是一整條帶狀區域，只有住宅剛好位在帶內、又是晴天且風機運轉時，才會看到閃爍。":["Shadow flicker happens when the sun is low and the turbine stands between the sun and a home. The spinning blades block part of the sunlight, their shadow sweeps across the window, and the light indoors dims and brightens as each blade passes. The lower the sun, the longer the shadow: with a hub height of about 80 m, a sun elevation of 10 degrees stretches the hub's shadow about 450 m. The swept area is a whole band; flicker is seen only when a home sits inside the band on a sunny day while the turbine is running.","シャドーフリッカーは、太陽が低く、風車が太陽と住宅の間にあるときに起きます。回転する羽根が日差しの一部をさえぎり、その影が住宅の窓を横切ると、羽根が通るたびに室内の明るさが上下します。太陽が低いほど影は長くなり、ハブ高さを約 80 m とすると、太陽高度 10 度ではハブの影が約 450 m まで伸びます。影が通る範囲は帯状の領域で、住宅がその帯の中にあり、しかも晴れて風車が運転しているときだけちらつきが見られます。"],
+"太陽高，影子短，落在風機附近":["With the sun high, the shadow is short and falls near the turbine","太陽が高いと影は短く、風車の近くに落ちる"],
+"太陽漸漸降低，影子被拉長":["As the sun sinks, the shadow stretches","太陽が低くなるにつれ、影が伸びる"],
+"住宅進入影子帶，窗戶光線隨葉片忽明忽暗":["The home enters the shadow band and window light pulses with each blade","住宅が影の帯に入り、窓の光が羽根の通過ごとに明滅する"],
+"太陽越低，影子帶越長，影響的距離越遠":["The lower the sun, the longer the band and the farther the reach","太陽が低いほど影の帯は長く、影響が及ぶ距離も遠くなる"],
+"輪轂高度約 80 m":["Hub height about 80 m","ハブ高さ約 80 m"],
+"影子帶（葉片掃過的範圍）":["Shadow band (area swept by blades)","影の帯（羽根が通る範囲）"],
+"窗戶忽明忽暗":["Window light pulses","窓が明滅する"],
+"太陽與影子（計算）":["Sun and shadow (calculated)","太陽と影（計算）"],
+"太陽高度角":["Sun elevation","太陽高度"],
+"輪轂影子距離":["Hub shadow reach","ハブの影の距離"],
+"閃爍頻率":["Flicker rate","ちらつき周波数"],
 /* 分鏡 5 */
-"尾流與風機排列":["Wakes and turbine layout","後流と風車配置"],
-"風機從風中取走能量，身後會留下一道風速較低、亂流較強的尾流，要往下游數倍轉子直徑的距離才慢慢恢復。因此風機不能排得太密：與主風向垂直的方向常相隔 3–5 倍轉子直徑，主風向上的前後間距常拉開到 5–9 倍。台灣西部沿海秋冬以東北季風為主，排列時會讓風機列與主風向垂直。即使如此，整個風場因尾流而損失的發電量，常見仍在 5–15% 之間。":["A turbine takes energy out of the wind and leaves behind a wake of slower, more turbulent air that only recovers several rotor diameters downstream. Turbines therefore cannot be packed too closely: across the prevailing wind they are often 3–5 rotor diameters apart, and along it 5–9 diameters. On Taiwan's west coast the northeast monsoon dominates in autumn and winter, so turbine rows are laid out perpendicular to it. Even so, wake losses across a whole wind farm are commonly 5–15% of its output.","風車は風からエネルギーを取り出すため、背後に風速が低く乱れの強い後流が残り、下流へロータ直径の数倍進んでようやく回復します。そのため風車を密に並べすぎることはできません。卓越風向と直交する方向には直径の 3〜5 倍、卓越風向に沿った前後には 5〜9 倍の間隔をとるのが一般的です。台湾西部沿岸では秋冬に北東季節風が卓越するため、風車の列はその風向と直交するように配置します。それでも、風力発電所全体での後流による発電損失は 5〜15% 程度が一般的です。"],
-"風機取走能量，身後留下一道尾流":["A turbine takes energy and leaves a wake","風車がエネルギーを取り出し、後流が残る"],
-"尾流中的風較慢，也較紊亂":["Wind in the wake is slower and more turbulent","後流の中の風は遅く、乱れている"],
-"前後拉開 5–9 倍直徑，左右 3–5 倍":["5–9 diameters along the wind, 3–5 across","前後は直径の 5〜9 倍、左右は 3〜5 倍"],
-"風場的尾流損失，常見在 5–15%":["Wake losses in a wind farm are often 5–15%","発電所全体の後流損失は 5〜15% 程度"],
-"風場排列（頂視示意）":["Wind farm layout (plan view)","風車配置（平面図）"],
-"主風向":["Prevailing wind","卓越風向"],
-"前後 5–9 D":["5–9 D along wind","前後 5〜9 D"],
-"左右 3–5 D":["3–5 D across","左右 3〜5 D"],
-"D：轉子直徑，例如 136 m":["D: rotor diameter, e.g. 136 m","D：ロータ直径（例：136 m）"],
-"風機列與東北季風垂直":["Rows face the NE monsoon","列は北東季節風と直交"],
-"下游風機感受到的風速（示例）":["Wind speed at a downstream turbine (example)","下流の風車が受ける風速（例）"],
-"下游距離（倍轉子直徑）":["Distance downstream (rotor diameters)","下流距離（ロータ直径の倍数）"],
-"未受擾動的風":["Free wind","乱されていない風"],
-"7 D：風速 {v}%":["7 D: wind {v}%","7 D：風速 {v}%"],
-"三次方：發電約少 {p}%":["Cubed: about {p}% less power","3 乗で発電量は約 {p}% 減"],
-"整個風場尾流損失常見 5–15%":["Farm wake loss often 5–15%","発電所全体の後流損失 5〜15%"],
+"閃爍時數怎麼算":["How shadow-flicker hours are calculated","ちらつき時間の算出方法"],
+"評估光影閃爍，是把全年每分鐘的太陽位置、風機與住宅座標算一遍，找出葉片影子落在窗上的時段。條件包括太陽高度角高於約 3 度、葉片遮住至少兩成陽光。德國指引在最嚴情境（全年無雲、風機一直運轉）限制每年 30 小時、每天 30 分鐘，實際情境則是每年 8 小時。示例中某住宅的理論值為 34 小時，扣掉雲量與風況後約 12 小時，仍高於 8 小時，因此需要加裝停機控制，才能降到限值以下。":["To assess shadow flicker, the sun's position for every minute of the year is computed together with the turbine and home coordinates, to find when blade shadows fall on a window. The conditions are a sun elevation above about 3 degrees and blades blocking at least 20% of the sunlight. The German guideline limits the worst case (clear sky all year, turbine always running) to 30 hours a year and 30 minutes a day, and the real case to 8 hours a year. In the example, a home has a theoretical 34 hours, about 12 hours after accounting for cloud and wind, still above 8, so shutdown control is needed to bring it under the limit.","シャドーフリッカーの評価では、1 年間の毎分の太陽位置と、風車・住宅の座標を計算し、羽根の影が窓にかかる時間帯を求めます。条件は、太陽高度が約 3 度より高く、羽根が日差しの 2 割以上をさえぎることです。ドイツ指針では最悪ケース（1 年中晴れ、風車は常に運転）で年 30 時間・1 日 30 分、実際のケースでは年 8 時間に制限しています。例では、ある住宅の理論値は 34 時間、雲量と風況を考慮して約 12 時間となり、なお 8 時間を超えるため、停止制御を加えて限度内に抑える必要があります。"],
+"影子越長，影響的距離越遠；太陽高度角低於約 3 度就看不見":["Longer shadows reach farther; below about 3 degrees of sun elevation flicker is not visible","影が長いほど影響距離は遠くなり、太陽高度が約 3 度より低いと見えない"],
+"逐月計算葉片影子落在窗上的時數":["Month by month, add up the hours blade shadows fall on the window","月ごとに、羽根の影が窓にかかる時間を積み上げる"],
+"德國指引：最嚴情境每年 30 小時，實際情境 8 小時":["German guideline: worst case 30 h a year, real case 8 h","ドイツ指針：最悪ケース年 30 時間、実際のケース 8 時間"],
+"超標時，用停機控制把實際閃爍壓到限值內":["When over the limit, shutdown control holds real flicker within it","超過する場合は、停止制御で実際のちらつきを限度内に抑える"],
+"輪轂影子距離與太陽高度角":["Hub shadow reach versus sun elevation","ハブの影の距離と太陽高度"],
+"太陽高度角 (°)":["Sun elevation (°)","太陽高度 (°)"],
+"閃爍出現的條件":["Conditions for flicker","ちらつきが起きる条件"],
+"太陽高度角高於約 3°，葉片遮住 ≥ 20% 陽光":["Sun above about 3°, blades block ≥ 20% of sunlight","太陽高度が約 3° より高く、羽根が日差しの 20% 以上をさえぎる"],
+"晴天、風機運轉、窗戶朝向風機":["Clear sky, turbine running, window facing the turbine","晴天、風車が運転中、窓が風車の方向を向いている"],
+"閃爍頻率 = 3 片 × 15 rpm ÷ 60 = 0.75 Hz":["Flicker rate = 3 blades × 15 rpm ÷ 60 = 0.75 Hz","ちらつき周波数 = 3 枚 × 15 rpm ÷ 60 = 0.75 Hz"],
+"低於常被引用的 3 Hz 門檻":["Below the often-cited 3 Hz threshold","よく引用される 3 Hz のしきい値を下回る"],
+"示例：某住宅每月的理論閃爍時數":["Example: theoretical flicker hours per month for one home","例：ある住宅の月ごとの理論ちらつき時間"],
+"累計 {n} h":["Total {n} h","累計 {n} h"],
+"與德國指引比較（示例）":["Comparison with the German guideline (example)","ドイツ指針との比較（例）"],
+"最嚴情境 ≤ 30 h／年、≤ 30 分／日；實際情境 ≤ 8 h／年":["Worst case ≤ 30 h/yr and ≤ 30 min/day; real case ≤ 8 h/yr","最悪ケース 年 30 h 以下・日 30 分以下、実際のケース 年 8 h 以下"],
+"理論最嚴情境（無雲、全年運轉）":["Worst case (no cloud, running all year)","理論上の最悪ケース（雲なし・通年運転）"],
+"實際情境（計入雲量與風況）":["Real case (with cloud and wind)","実際のケース（雲量・風況を考慮）"],
+"加裝停機控制後":["With shutdown control","停止制御を加えた後"],
 /* 分鏡 6 */
-"哪裡能蓋：層層篩選":["Where turbines can go","どこに建てられるか：制約の重ね合わせ"],
-"風好的地方不一定能蓋。選址時會把各種限制畫成圖層逐一疊上：聚落與住家要保持距離，風機基座距最近建築物 500 公尺以下就必須實施環境影響評估，還要符合低頻噪音管制；濕地與保護區、候鳥遷徙路線要避開；機場、氣象與軍事雷達附近有高度與干擾限制。再考慮超長葉片的運輸道路與併網變電所的距離，最後剩下的區域才依尾流間距排出風機位置。":["A windy place is not always a buildable one. Siting stacks each constraint as a map layer. Turbines must keep their distance from villages and homes: if a turbine base is within 500 m of the nearest building, an environmental impact assessment is required, and low-frequency noise limits must also be met. Wetlands, protected areas and bird migration routes are avoided, and airports and weather and military radars impose height and interference limits. Access roads for very long blades and the distance to a grid substation are then considered, and only in the area that remains are turbine positions laid out with wake spacing.","風が良い場所でも建てられるとは限りません。立地選定では各種の制約を地図のレイヤーとして重ねていきます。集落や住宅からは距離をとる必要があり、風車基礎から最寄りの建物まで 500 m 以下なら環境影響評価が必要で、低周波騒音の規制も満たさなければなりません。湿地や保護区、渡り鳥の飛行ルートは避け、空港や気象・軍事レーダーの周辺には高さや電波干渉の制限があります。さらに長大なブレードの輸送道路や系統連系する変電所までの距離を考え、最後に残った範囲に後流間隔を考慮して風車の位置を配置します。"],
-"風場範圍內，先標出聚落與住家":["First, mark villages and homes in the project area","計画区域内で、まず集落と住宅を示す"],
-"以 500 公尺畫出與住家的距離":["Draw a 500 m distance around homes","住宅から 500 m の範囲を描く"],
-"避開濕地保護區與候鳥路線":["Avoid protected wetlands and bird routes","保護湿地と渡り鳥のルートを避ける"],
-"雷達與航空限高也要排除":["Exclude radar and aviation height limits","レーダーと航空の高さ制限も除外する"],
-"剩下的空間，才排得出風機位置":["Turbines are placed in the space that remains","残った範囲に風車の位置を配置する"],
-"台灣海峽":["Taiwan Strait","台湾海峡"],
-"沿海風場規劃範圍（示意）":["Coastal project area (illustrative)","沿岸の計画区域（模式図）"],
-"聚落":["Village","集落"],
-"距住家 500 m":["500 m from homes","住宅から 500 m"],
-"濕地保護區":["Protected wetland","保護湿地"],
-"候鳥路線":["Bird route","渡り鳥ルート"],
-"雷達干擾與限高":["Radar limits","レーダー干渉と高さ制限"],
-"葉片運輸道路":["Blade transport road","ブレード輸送道路"],
-"變電所":["Substation","変電所"],
-"候選風機位置":["Candidate turbine sites","風車の候補位置"],
-"篩選結果（示例）":["Screening (example)","選定結果（例）"],
-"可開發面積":["Usable area","開発可能面積"],
-"候選風機":["Candidates","候補風車"],
-"{n} 部":["{n}","{n} 基"],
-/* 分鏡 7 */
-"從測風到年發電量":["From wind data to annual energy","風況観測から年間発電量へ"],
-"最後把所有資料串起來：一年的現地量測先與附近氣象站十年以上的長期資料比對，修正成長期平均（MCP 方法）；再用風場流場模型把測風點的風推算到每一個機位，套上機型的功率曲線，扣掉尾流、可用率、電氣與其他損失，得到淨年發電量。因為風每年都不同，評估結果以機率表示：P50 是一半的年份會超過的發電量，P90 則有九成機率會超過，銀行融資通常以 P90 為依據。":["Finally, everything is put together. A year of site data is compared with ten or more years of records from a nearby weather station and corrected to a long-term average (the MCP method). A flow model then carries the measured wind to every turbine position, the turbine's power curve is applied, and wake, availability, electrical and other losses are subtracted to give the net annual energy. Because the wind differs from year to year, the result is expressed as probabilities: P50 is the output exceeded in half of all years, P90 is exceeded with 90% probability, and bank financing is usually based on P90.","最後にすべてのデータをつなげます。1 年分の現地観測を近くの気象観測所の 10 年以上の長期データと照合し、長期平均に補正します（MCP 法）。次に風況モデルで観測地点の風を各風車の位置に推定し、機種のパワーカーブを当てはめ、後流、稼働率、電気、その他の損失を差し引いて正味の年間発電量を求めます。風は年ごとに異なるため、評価結果は確率で示します。P50 は半分の年で上回る発電量、P90 は 90% の確率で上回る発電量で、銀行の融資は通常 P90 を基準にします。"],
-"現地一年的資料，與長期氣象資料比對修正":["A year of site data is corrected with long-term records","現地 1 年のデータを長期気象データで補正"],
-"以模型推算每個機位的風，套上功率曲線":["A model estimates wind at each site, then the power curve","モデルで各位置の風を推定し、パワーカーブを適用"],
-"扣掉尾流、可用率與電氣損失，得到淨發電量":["Subtract wake, availability and electrical losses","後流・稼働率・電気損失を引いて正味の発電量に"],
-"以 P50 與 P90 表示發電量的不確定性":["P50 and P90 express the uncertainty","P50 と P90 で発電量の不確かさを示す"],
-"現地測風":["Site data","現地観測"],
-"長期修正":["Long-term","長期補正"],
-"流場模型":["Flow model","風況モデル"],
-"功率曲線":["Power curve","パワーカーブ"],
-"扣除損失":["Losses","損失控除"],
-"年發電量":["Annual energy","年間発電量"],
-"年發電量的損失（示例）":["Energy losses (example)","年間発電量の損失（例）"],
-"總發電量":["Gross","総発電量"],
-"尾流":["Wake","後流"],
-"可用率":["Availability","稼働率"],
-"電氣損失":["Electrical","電気損失"],
-"其他":["Other","その他"],
-"淨發電量":["Net","正味"],
-"淨年發電量的機率分布（示例）":["Probability of net annual energy (example)","正味年間発電量の確率分布（例）"],
-"淨年發電量（相對值）":["Net annual energy (relative)","正味年間発電量（相対値）"],
-"P50：一半年份會超過":["P50: exceeded half the time","P50：半分の年で上回る"],
-"P90：九成機率會超過":["P90: exceeded 90% of the time","P90：90% の確率で上回る"],
-"融資常以 P90 為依據":["Lenders often use P90","融資は P90 が基準"]
+"減噪對策與停機排程":["Noise measures and shutdown scheduling","低騒音化の対策と停止スケジュール"],
+"噪音可以從葉片、運轉與選址三方面處理：鋸齒尾緣讓尾緣氣流更平順，約可降低 2 至 3 dB(A)；降噪運轉模式降低轉速並調整槳角，約降 2 至 4 dB(A)，發電量略減；夜間或特定風向限轉，則按住宅位置與時段排程守住管制值；選址時多留一倍距離，約少 6 dB。光影閃爍則先算出會閃爍的時段，再由光感測器確認有日照，才讓該部機組短暫停機，一年的發電損失通常很小。各項成效要靠量測驗證，並與社區持續溝通。":["Noise can be tackled through the blades, the operation and the siting. Serrated trailing edges smooth the trailing-edge flow and cut roughly 2 to 3 dB(A); a noise-reduced operating mode lowers rotor speed and adjusts blade pitch for roughly 2 to 4 dB(A) at a slight cost in energy; limiting rotation at night or in certain wind directions follows a schedule by home location and time to stay within the limit; leaving twice the distance when siting saves about 6 dB. For shadow flicker, the flicker periods are calculated first, and only when a light sensor confirms sunshine is that turbine stopped briefly, so the annual generation loss is usually small. Results must be verified by measurement, with continuing dialogue with the community.","騒音は、羽根、運転、立地の 3 つの面から対策できます。セレーション付きの後縁は後縁の流れを整え、約 2～3 dB(A) 下げます。低騒音運転モードは回転数を下げてピッチ角を調整し、約 2～4 dB(A) 下げますが、発電量はわずかに減ります。夜間や特定の風向での出力制限は、住宅の位置と時間帯に応じたスケジュールで規制値を守ります。立地で距離を 2 倍にとれば約 6 dB 下がります。シャドーフリッカーは、ちらつく時間帯を事前に計算し、光センサーで日照を確認したときだけその風車を短時間停止するため、年間の発電損失は通常わずかです。効果は測定で検証し、地域との対話を続けることが大切です。"],
+"鋸齒尾緣、降噪模式與限轉，各降幾個 dB":["Serrated edges, a noise-reduced mode and curtailment each cut a few dB","セレーション、低騒音モード、出力制限で、それぞれ数 dB 下げる"],
+"選址多留一倍距離，約少 6 dB":["Leaving twice the distance when siting saves about 6 dB","立地で距離を 2 倍とると約 6 dB 下がる"],
+"先預算會閃爍的時段，找出住宅受影響的日期與時刻":["First calculate the flicker periods to find the dates and times a home is affected","まずちらつく時間帯を計算し、住宅が影響を受ける日と時刻を洗い出す"],
+"光感測器確認有日照才短暫停機，年損失很小":["Stop briefly only when a light sensor confirms sunshine; the annual loss is small","光センサーで日照を確認したときだけ短時間停止し、年間損失は小さい"],
+"噪音對策（示例）":["Noise measures (example)","騒音対策（例）"],
+"鋸齒尾緣葉片":["Serrated trailing-edge blades","セレーション付き後縁の羽根"],
+"讓尾緣氣流更平順，需改裝或原廠設計":["Smooths trailing-edge flow; retrofit or factory design","後縁の流れを整える。後付けまたは標準設計"],
+"約 −2～3 dB(A)":["≈ −2 to −3 dB(A)","約 −2～3 dB(A)"],
+"降噪運轉模式":["Noise-reduced operating mode","低騒音運転モード"],
+"降低轉速、調整槳角，發電量略減":["Lower rotor speed, adjusted pitch; slightly less energy","回転数を下げピッチ角を調整。発電量はわずかに減る"],
+"約 −2～4 dB(A)":["≈ −2 to −4 dB(A)","約 −2～4 dB(A)"],
+"夜間或特定風向限轉":["Night and wind curtailment","夜間・特定風向での出力制限"],
+"依住宅位置與時段排程，守住管制值":["Scheduled by home location and time to stay within the limit","住宅の位置と時間帯でスケジュールし、規制値を守る"],
+"以排程控管":["Scheduled","スケジュール管理"],
+"退縮距離與配置":["Setback and layout","離隔距離と配置"],
+"選址時拉開與住宅的距離":["Increase distance to homes when siting","立地で住宅との距離をとる"],
+"距離加倍 −6 dB":["Double distance −6 dB","距離 2 倍で −6 dB"],
+"示例：預測會閃爍的時段（住宅在風機西側）":["Example: predicted flicker periods (home west of the turbine)","例：ちらつきが予測される時間帯（住宅は風車の西側）"],
+"{h} 時":["{h}:00","{h} 時"],
+"月":["Month","月"],
+"預測閃爍：該時段停機":["Predicted flicker: stop in this period","ちらつき予測：この時間帯は停止"],
+"停機排程怎麼運作":["How shutdown scheduling works","停止スケジュールの仕組み"],
+"預先計算：太陽位置、風機與住宅座標":["Calculate ahead: sun position, turbine and home coordinates","事前計算：太陽位置、風車と住宅の座標"],
+"現場光感測器確認有日照，才下停機指令":["On-site light sensor confirms sunshine before the stop command","現地の光センサーで日照を確認してから停止指令を出す"],
+"只在必要時段停機：年損失通常 < 0.5%（示例）":["Stop only when needed: annual loss usually < 0.5% (example)","必要な時間帯だけ停止：年間損失は通常 0.5% 未満（例）"]
 });
 
 /* ================= theme: journal（DOF LAB 品牌層） =================

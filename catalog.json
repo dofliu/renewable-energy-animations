@@ -927,6 +927,20 @@
                 "en": "Met masts and lidar, the cube of wind speed, roughness and terrain, wake spacing, distance to homes and constraint layers, P50/P90",
                 "ja": "風況観測塔とライダー、風速の 3 乗、粗度と地形、後流と間隔、住宅からの距離と制約レイヤー、P50／P90"
               }
+            },
+            {
+              "no": 15,
+              "file": "ep15.html",
+              "title": {
+                "zh": "噪音與光影閃爍",
+                "en": "Noise and shadow flicker",
+                "ja": "騒音とシャドーフリッカー"
+              },
+              "sub": {
+                "zh": "噪音來源與距離衰減、低頻與調幅、光影閃爍成因與時數估算、減噪對策與停機排程",
+                "en": "Noise sources and distance decay, low frequency and modulation, how shadow flicker arises and is estimated, noise measures and shutdown scheduling",
+                "ja": "騒音の発生源と距離減衰、低周波と振幅変調、シャドーフリッカーの成因と時間の見積もり、低騒音化対策と停止スケジュール"
+              }
             }
           ]
         },
