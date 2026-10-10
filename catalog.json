@@ -1421,6 +1421,20 @@
                 "en": "Four stages of anaerobic digestion, biogas desulfurization, gas engines and heat recovery, digestate on farmland",
                 "ja": "嫌気性消化の 4 段階、バイオガスの脱硫、発電機と排熱回収、消化液の農地利用"
               }
+            },
+            {
+              "no": 2,
+              "file": "ep02.html",
+              "title": {
+                "zh": "生質燃料與生質發電",
+                "en": "Biomass fuels and biomass power",
+                "ja": "バイオマス燃料とバイオマス発電"
+              },
+              "sub": {
+                "zh": "農林剩餘資源、製成生質顆粒、鍋爐與蒸汽輪機發電、直接燃燒與氣化、生質柴油與酒精、低碳的條件",
+                "en": "Farm and forest residues, pellets, boiler and steam turbine power, combustion vs gasification, biodiesel and ethanol, conditions for low carbon",
+                "ja": "農林残渣、ペレット化、ボイラーと蒸気タービン発電、直接燃焼とガス化、バイオディーゼルとエタノール、低炭素の条件"
+              }
             }
           ]
         }
