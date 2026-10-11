@@ -1378,6 +1378,20 @@
                 "en": "Why tides happen, power and the cube of flow speed, seabed vs floating turbines, slack-water installation",
                 "ja": "潮汐の成り立ちと大潮・小潮、流速の 3 乗とパワー、海底設置式と浮体式、憩流での据え付け"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "海洋溫差發電",
+                "en": "Ocean thermal energy conversion",
+                "ja": "海洋温度差発電"
+              },
+              "sub": {
+                "zh": "表層溫水與深層冷水、閉式朗肯循環與氨、卡諾效率與淨效率、冷水管鋪設、台灣東部條件與示範案例",
+                "en": "Warm surface and cold deep water, the closed Rankine cycle with ammonia, Carnot vs net efficiency, cold water pipe laying, eastern Taiwan and demonstration plants",
+                "ja": "表層の温水と深層の冷水、アンモニアの閉サイクル、カルノー効率と正味効率、冷水管の敷設、台湾東部の条件と実証事例"
+              }
             }
           ]
         }
