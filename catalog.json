@@ -719,6 +719,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生命週期",
+            "en": "Life cycle",
+            "ja": "ライフサイクル"
+          },
+          "episodes": [
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "太陽光電模組回收",
+                "en": "Recycling solar modules",
+                "ja": "太陽光発電モジュールのリサイクル"
+              },
+              "sub": {
+                "zh": "模組組成、除役運送、拆框、玻璃與電池片分離、銀銅矽回收、台灣回收費制度",
+                "en": "Module make-up, decommissioning, frame removal, glass–cell separation, silver/copper/silicon recovery, Taiwan's recycling fee",
+                "ja": "モジュールの構成、撤去と搬送、フレーム取り外し、ガラスとセルの分離、銀・銅・シリコンの回収、台湾の回収費制度"
+              }
+            }
+          ]
         }
       ]
     },
