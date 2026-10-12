@@ -1134,6 +1134,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "應用",
+            "en": "Applications",
+            "ja": "利用"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "儲能如何參與電力市場",
+                "en": "How storage takes part in the power market",
+                "ja": "蓄電池は電力市場にどう参加するか"
+              },
+              "sub": {
+                "zh": "日前輔助服務市場、調頻與備轉、一秒內反應、充放電策略與風險",
+                "en": "Day-ahead ancillary services, regulation and reserves, one-second response, scheduling and risks",
+                "ja": "前日補助サービス市場、周波数調整と予備力、1 秒の応答、充放電計画とリスク"
+              }
+            }
+          ]
         }
       ]
     },
