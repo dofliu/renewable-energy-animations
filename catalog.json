@@ -1529,6 +1529,20 @@
                 "en": "Aggregating distributed resources, demand response, reserve services on the trading platform, storage and EVs",
                 "ja": "分散型リソースの集約、デマンドレスポンス、電力取引の予備力、蓄電池と EV"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "輸電網與變電所",
+                "en": "Transmission grid and substations",
+                "ja": "送電網と変電所"
+              },
+              "sub": {
+                "zh": "345／161／69 kV 電網階層、高壓輸電原理、變電所設備、N-1 準則、強化電網",
+                "en": "345/161/69 kV hierarchy, why high voltage, substation equipment, the N-1 rule, grid strengthening",
+                "ja": "345／161／69 kV の系統階層、高電圧送電の原理、変電所設備、N-1 基準、系統強化"
+              }
             }
           ]
         }
