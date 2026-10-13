@@ -1287,6 +1287,20 @@
                 "en": "Geothermal reservoirs, production and injection wells, flash and binary cycles, Qingshui and Tatun",
                 "ja": "地熱貯留層、生産井と還元井、フラッシュとバイナリー、清水と大屯火山"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "增強型地熱系統（EGS）",
+                "en": "Enhanced geothermal systems (EGS)",
+                "ja": "増強型地熱システム（EGS）"
+              },
+              "sub": {
+                "zh": "乾熱岩、水力刺激造裂、微震監測與紅綠燈、注水循環發電",
+                "en": "Hot dry rock, hydraulic stimulation, microseismic monitoring and traffic lights, circulating water for power",
+                "ja": "乾燥高温岩体、水圧刺激、微小地震の監視と信号機方式、注水循環発電"
+              }
             }
           ]
         },
