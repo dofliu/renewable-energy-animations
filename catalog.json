@@ -1438,6 +1438,20 @@
                 "en": "Warm surface and cold deep water, the closed Rankine cycle with ammonia, Carnot vs net efficiency, cold water pipe laying, eastern Taiwan and demonstration plants",
                 "ja": "表層の温水と深層の冷水、アンモニアの閉サイクル、カルノー効率と正味効率、冷水管の敷設、台湾東部の条件と実証事例"
               }
+            },
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "黑潮洋流發電",
+                "en": "Kuroshio ocean current power",
+                "ja": "黒潮の海流発電"
+              },
+              "sub": {
+                "zh": "黑潮流量與流速、水流功率與流速三次方、雙轉子海流渦輪、錨繫浮游式設計、深海錨碇與海纜",
+                "en": "Kuroshio flow and speed, current power vs. speed cubed, twin-rotor turbines, moored floating design, deep-sea anchors and cables",
+                "ja": "黒潮の流量と流速、流速の3乗に比例する出力、双ローター海流タービン、係留浮遊式、深海アンカーと海底ケーブル"
+              }
             }
           ]
         }
