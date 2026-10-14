@@ -1466,6 +1466,20 @@
                 "en": "Kuroshio flow and speed, current power vs. speed cubed, twin-rotor turbines, moored floating design, deep-sea anchors and cables",
                 "ja": "黒潮の流量と流速、流速の3乗に比例する出力、双ローター海流タービン、係留浮遊式、深海アンカーと海底ケーブル"
               }
+            },
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "波浪發電的各種型式",
+                "en": "Wave energy converter types",
+                "ja": "波力発電のさまざまな方式"
+              },
+              "sub": {
+                "zh": "振盪水柱、越浪式、衰減器式、擺板式的原理、適合的海岸與水深，以及 Mutriku、Pelamis 案例",
+                "en": "Oscillating water column, overtopping, attenuator and flap: how each works, suitable coasts and depths, Mutriku and Pelamis cases",
+                "ja": "振動水柱型・越波型・アッテネータ型・揺動板型の仕組みと適地、ムトリクと Pelamis の事例"
+              }
             }
           ]
         }
