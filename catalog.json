@@ -457,6 +457,20 @@
                 "en": "Unmanned operation and remote monitoring, transformer dissolved gas analysis, SF₆ density and partial discharge in GIS, scheduled visits, fire and life-saving equipment",
                 "ja": "無人運転と遠隔監視、変圧器の油中ガス分析、GISのSF₆密度と部分放電、定期上陸、消火・救命設備"
               }
+            },
+            {
+              "no": 33,
+              "file": "ep33.html",
+              "title": {
+                "zh": "運維的天候窗口排程",
+                "en": "Scheduling O&M around weather windows",
+                "ja": "O&Mの天候ウィンドウとスケジューリング"
+              },
+              "sub": {
+                "zh": "出海判斷、預報圖上的天候窗口、浪高週期與波向、工單時間、α 係數與預報誤差、提早撤離、全年排程",
+                "en": "Go/no-go decisions, finding windows in forecasts, wave height, period and direction, job duration, alpha factors, leaving early, year-round planning",
+                "ja": "出航判断、予報図の天候ウィンドウ、波高・周期・波向、作業時間、α係数と予報誤差、早期撤収、年間計画"
+              }
             }
           ]
         },
