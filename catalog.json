@@ -1523,6 +1523,20 @@
                 "en": "Farm and forest residues, pellets, boiler and steam turbine power, combustion vs gasification, biodiesel and ethanol, conditions for low carbon",
                 "ja": "農林残渣、ペレット化、ボイラーと蒸気タービン発電、直接燃焼とガス化、バイオディーゼルとエタノール、低炭素の条件"
               }
+            },
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "垃圾焚化與汽電共生",
+                "en": "Waste-to-energy and cogeneration",
+                "ja": "ごみ焼却とコージェネレーション"
+              },
+              "sub": {
+                "zh": "垃圾貯坑與爐排燃燒、鍋爐產汽發電、汽電共生、空污防制設備、底渣與飛灰去向、焚化在垃圾管理中的角色",
+                "en": "Waste pit and grate combustion, boiler steam power, cogeneration, flue gas cleaning, bottom and fly ash, the role of incineration in waste management",
+                "ja": "ごみピットとストーカ燃焼、ボイラー蒸気発電、コージェネレーション、排ガス処理設備、底灰と飛灰の行き先、ごみ管理における焼却の役割"
+              }
             }
           ]
         }
