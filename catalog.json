@@ -471,6 +471,20 @@
                 "en": "Go/no-go decisions, finding windows in forecasts, wave height, period and direction, job duration, alpha factors, leaving early, year-round planning",
                 "ja": "出航判断、予報図の天候ウィンドウ、波高・周期・波向、作業時間、α係数と予報誤差、早期撤収、年間計画"
               }
+            },
+            {
+              "no": 34,
+              "file": "ep34.html",
+              "title": {
+                "zh": "連續作業中的天候變化與機艙待命",
+                "en": "Weather turns mid-campaign: waiting it out in the nacelle",
+                "ja": "連続作業中の天候急変とナセル内待機"
+              },
+              "sub": {
+                "zh": "維修戰役派工、依序送人登塔、預報更新與窗口提早關閉、和浪高賽跑接人、機艙內過夜待命、避難物資與回程窗口",
+                "en": "Campaign planning, sequential drop-offs, a forecast update that closes the window early, racing the waves to collect crews, an overnight wait in the nacelle, refuge kits and the return window",
+                "ja": "キャンペーンの作業計画、順番の送り出し、予報更新でウィンドウが早く閉じる、波高との競争による回収、ナセルでの夜間待機、避難用物資と帰りのウィンドウ"
+              }
             }
           ]
         },
