@@ -1340,6 +1340,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "應用",
+            "en": "Applications",
+            "ja": "利用"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "地熱的直接利用與地源熱泵",
+                "en": "Direct use of geothermal heat and ground-source heat pumps",
+                "ja": "地熱の直接利用と地中熱ヒートポンプ"
+              },
+              "sub": {
+                "zh": "溫泉水梯級利用、溫室與乾燥、淺層地溫的恆溫層、地源熱泵與效益限制",
+                "en": "Cascading hot spring heat, greenhouses and drying, steady shallow-ground temperature, ground-source heat pumps and their limits",
+                "ja": "温泉水のカスケード利用、温室と乾燥、浅い地中の恒温層、地中熱ヒートポンプとその限界"
+              }
+            }
+          ]
         }
       ]
     },
