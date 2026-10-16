@@ -1377,6 +1377,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "運轉",
+            "en": "Operations",
+            "ja": "運転"
+          },
+          "episodes": [
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "地熱電廠的運轉挑戰",
+                "en": "Operating challenges of geothermal plants",
+                "ja": "地熱発電所の運転上の課題"
+              },
+              "sub": {
+                "zh": "結垢與腐蝕、不凝結氣體、硫化氫處理、回注與熱突破、產能衰減與補注水",
+                "en": "Scaling and corrosion, non-condensable gases, hydrogen sulfide treatment, reinjection and thermal breakthrough, output decline and make-up water",
+                "ja": "スケールと腐食、不凝縮ガス、硫化水素の処理、還元と熱突破、出力低下と補給水"
+              }
+            }
+          ]
         }
       ]
     },
