@@ -1531,6 +1531,20 @@
                 "en": "Oscillating water column, overtopping, attenuator and flap: how each works, suitable coasts and depths, Mutriku and Pelamis cases",
                 "ja": "振動水柱型・越波型・アッテネータ型・揺動板型の仕組みと適地、ムトリクと Pelamis の事例"
               }
+            },
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "潮汐發電",
+                "en": "Tidal barrage power",
+                "ja": "潮汐発電"
+              },
+              "sub": {
+                "zh": "潮汐壩與水閘門、退潮／漲潮／雙向發電時序、燈泡型機組、潮差平方與能量、朗斯與始華湖、生態代價",
+                "en": "Barrage and sluice gates, ebb, flood and two-way schedules, bulb turbines, range-squared energy, La Rance and Sihwa Lake, ecological cost",
+                "ja": "潮汐堰と水門、引き潮・上げ潮・双方向の運転、バルブ水車、潮差の2乗とエネルギー、ランスと始華湖、生態系への代償"
+              }
             }
           ]
         }
