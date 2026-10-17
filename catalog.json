@@ -1664,6 +1664,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "未來技術",
+            "en": "Emerging technology",
+            "ja": "将来技術"
+          },
+          "episodes": [
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "生質能與碳捕捉（BECCS）",
+                "en": "Bioenergy with carbon capture and storage (BECCS)",
+                "ja": "バイオエネルギーと炭素回収（BECCS）"
+              },
+              "sub": {
+                "zh": "生質碳循環、胺溶劑燃燒後捕捉、壓縮與管線輸送、深部鹽水層封存、負碳排的帳目、成立條件與爭議",
+                "en": "Biogenic carbon cycle, amine post-combustion capture, compression and pipelines, deep saline aquifer storage, the ledger of negative emissions, conditions and controversies",
+                "ja": "バイオマスの炭素循環、アミンによる燃焼後回収、圧縮とパイプライン輸送、深部塩水層への貯留、負の排出の収支、成立条件と論点"
+              }
+            }
+          ]
         }
       ]
     },
