@@ -1570,6 +1570,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "未來技術",
+            "en": "Future technology",
+            "ja": "将来技術"
+          },
+          "episodes": [
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "鹽差發電",
+                "en": "Salinity gradient power",
+                "ja": "塩分濃度差発電"
+              },
+              "sub": {
+                "zh": "河口混合能、滲透壓與半透膜、壓力延遲滲透（PRO）、逆電透析（RED）、功率密度與積垢瓶頸、台灣的可能方向",
+                "en": "Estuary mixing energy, osmotic pressure and membranes, pressure retarded osmosis (PRO), reverse electrodialysis (RED), power density and fouling, outlook for Taiwan",
+                "ja": "河口の混合エネルギー、浸透圧と半透膜、圧力遅延浸透（PRO）、逆電気透析（RED）、出力密度と汚れの課題、台湾での可能性"
+              }
+            }
+          ]
         }
       ]
     },
