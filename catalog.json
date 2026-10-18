@@ -1400,6 +1400,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "案例背景",
+            "en": "Taiwan context",
+            "ja": "台湾の事例"
+          },
+          "episodes": [
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "台灣地熱開發",
+                "en": "Geothermal development in Taiwan",
+                "ja": "台湾の地熱開発"
+              },
+              "sub": {
+                "zh": "大屯火山群與宜蘭、火山型與非火山型、清水停機與重啟、探勘到併網的流程、與地方溝通",
+                "en": "Datun volcanic group and Yilan, volcanic vs non-volcanic systems, Qingshui shutdown and restart, from exploration to grid, working with communities",
+                "ja": "大屯火山群と宜蘭、火山型と非火山型、清水の停止と再稼働、探査から系統連系までの流れ、地域との対話"
+              }
+            }
+          ]
         }
       ]
     },
