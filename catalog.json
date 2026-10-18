@@ -1733,6 +1733,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生命週期",
+            "en": "Life cycle",
+            "ja": "ライフサイクル"
+          },
+          "episodes": [
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "生質能的原料與永續",
+                "en": "Biomass feedstock and sustainability",
+                "ja": "バイオマス原料と持続可能性"
+              },
+              "sub": {
+                "zh": "稻稈、林地殘材、廚餘與能源作物、永續風險階梯、收集運輸半徑、每噸稻稈的碳排帳、永續條件",
+                "en": "Straw, forest residues, food waste and energy crops, the sustainability ladder, collection radius, carbon ledger per tonne of straw, conditions for sustainability",
+                "ja": "稲わら、林地残材、生ごみとエネルギー作物、持続可能性リスクの階段、収集半径、稲わら 1 トンあたりの炭素収支、持続可能性の条件"
+              }
+            }
+          ]
         }
       ]
     },
