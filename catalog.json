@@ -1616,6 +1616,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "設備與原理",
+            "en": "Equipment and principles",
+            "ja": "設備と原理"
+          },
+          "episodes": [
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "海洋能的海況與生存設計",
+                "en": "Sea states and survival design",
+                "ja": "海洋エネルギーの海象と生存設計"
+              },
+              "sub": {
+                "zh": "颱風與極端波浪、生存模式與設計情況、錨繫失效、腐蝕與生物附著、維修窗口、台灣測試場",
+                "en": "Typhoon waves, survival mode and design situations, mooring failure, corrosion and marine growth, maintenance windows, Taiwan test sites",
+                "ja": "台風と極端な波、生存モードと設計状態、係留の破断、腐食と生物付着、保守の窓、台湾の試験場"
+              }
+            }
+          ]
         }
       ]
     },
