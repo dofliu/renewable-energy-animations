@@ -1480,6 +1480,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生態與環境",
+            "en": "Ecology and environment",
+            "ja": "生態と環境"
+          },
+          "episodes": [
+            {
+              "no": 3,
+              "file": "ep03.html",
+              "title": {
+                "zh": "魚道與生態流量",
+                "en": "Fishways and ecological flow",
+                "ja": "魚道と生態流量"
+              },
+              "sub": {
+                "zh": "減水河段、放流量與 Tennant 經驗法則、三種魚道、池堰式魚道的爬升、台灣小水力的生態檢核",
+                "en": "Bypassed reach, release flow and the Tennant rule of thumb, three kinds of fishway, climbing a pool-and-weir fishway, ecological checks for small hydro in Taiwan",
+                "ja": "減水区間、放流量とTennant経験則、3種類の魚道、階段式魚道の上り方、台湾の小水力の生態調査"
+              }
+            }
+          ]
         }
       ]
     },
