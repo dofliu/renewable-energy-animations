@@ -1503,6 +1503,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "設備與原理",
+            "en": "Equipment and principles",
+            "ja": "設備と原理"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "水庫泥沙與防淤隧道",
+                "en": "Reservoir sediment and desilting tunnels",
+                "ja": "貯水池の堆砂と排砂トンネル"
+              },
+              "sub": {
+                "zh": "颱風與崩塌帶來泥沙、三種淤積形態、防淤隧道排砂、三道防線、淤積對發電的影響",
+                "en": "Typhoon-driven sediment, three deposition patterns, sluicing through a desilting tunnel, three lines of defence, effects on power generation",
+                "ja": "台風と崩壊が運ぶ土砂、3つの堆積形態、排砂トンネルによる排砂、三段構えの対策、堆砂が発電に与える影響"
+              }
+            }
+          ]
         }
       ]
     },
