@@ -1185,6 +1185,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "安全",
+            "en": "Safety",
+            "ja": "安全"
+          },
+          "episodes": [
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "電池熱失控與儲能消防",
+                "en": "Thermal runaway and fire safety for storage",
+                "ja": "電池の熱暴走と蓄電所の防火"
+              },
+              "sub": {
+                "zh": "熱失控三階段、熱蔓延與隔熱、氣體早期偵測、滅火冷卻排氣、UL 9540A 與層層防護",
+                "en": "Three stages of runaway, heat propagation and insulation, early gas detection, suppression and venting, UL 9540A and layered protection",
+                "ja": "熱暴走の 3 段階、延焼と断熱、ガスの早期検知、消火・冷却・排気、UL 9540A と多重防護"
+              }
+            }
+          ]
         }
       ]
     },
