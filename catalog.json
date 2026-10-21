@@ -1297,6 +1297,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "安全",
+            "en": "Safety",
+            "ja": "安全"
+          },
+          "episodes": [
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "氫氣的安全",
+                "en": "Hydrogen safety",
+                "ja": "水素の安全"
+              },
+              "sub": {
+                "zh": "可燃範圍與點火能量、洩漏後向上散開與頂棚排氣、看不見的火焰、偵測與緊急停機、耐氫材料與洩壓、層層防護",
+                "en": "Flammable range and ignition energy, leaks rising and canopy venting, the invisible flame, detection and shutdown, hydrogen-tolerant materials and relief, layers of protection",
+                "ja": "可燃範囲と着火エネルギー、漏れた水素の上昇と頂部排気、見えない炎、検知と緊急停止、耐水素材料と圧力放出、多層の防護"
+              }
+            }
+          ]
         }
       ]
     },
