@@ -1917,6 +1917,20 @@
                 "en": "345/161/69 kV hierarchy, why high voltage, substation equipment, the N-1 rule, grid strengthening",
                 "ja": "345／161／69 kV の系統階層、高電圧送電の原理、変電所設備、N-1 基準、系統強化"
               }
+            },
+            {
+              "no": 4,
+              "file": "ep04.html",
+              "title": {
+                "zh": "離島微電網",
+                "en": "Island microgrids",
+                "ja": "離島のマイクログリッド"
+              },
+              "sub": {
+                "zh": "孤島供電、微電網組成與 EMS、一天的電力分配、電池穩頻、蘭嶼儲能與七美減柴油",
+                "en": "Island supply, microgrid parts and EMS, a day of power sharing, battery frequency support, Lanyu storage and cutting diesel on Qimei",
+                "ja": "離島の電力供給、マイクログリッドの構成と EMS、一日の電力配分、蓄電池による周波数維持、蘭嶼の蓄電と七美のディーゼル削減"
+              }
             }
           ]
         }
