@@ -685,6 +685,20 @@
                 "en": "Photoelectric effect, PN junction, cells to modules, the I-V curve and temperature",
                 "ja": "光電効果、PN 接合、セルからモジュール、I-V カーブと温度"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "變流器與最大功率追蹤",
+                "en": "Inverters and maximum power point tracking",
+                "ja": "パワコンと最大電力点追従"
+              },
+              "sub": {
+                "zh": "直流轉交流、最大功率點、擾動觀察法、部分遮蔭與直交流容量比",
+                "en": "DC to AC conversion, the maximum power point, perturb and observe, partial shading and the DC/AC ratio",
+                "ja": "直流から交流への変換、最大電力点、山登り法、部分的な影と DC/AC 比"
+              }
             }
           ]
         },
