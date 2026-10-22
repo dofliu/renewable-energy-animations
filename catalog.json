@@ -1968,6 +1968,20 @@
                 "en": "Island supply, microgrid parts and EMS, a day of power sharing, battery frequency support, Lanyu storage and cutting diesel on Qimei",
                 "ja": "離島の電力供給、マイクログリッドの構成と EMS、一日の電力配分、蓄電池による周波数維持、蘭嶼の蓄電と七美のディーゼル削減"
               }
+            },
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "系統慣量與頻率響應",
+                "en": "System inertia and frequency response",
+                "ja": "系統慣性と周波数応答"
+              },
+              "sub": {
+                "zh": "頻率與供需、轉子慣量、機組跳脫後的頻率曲線、再生能源降低慣量、低頻卸載、儲能與組網型變流器",
+                "en": "Frequency and balance, rotor inertia, the frequency curve after a trip, renewables lowering inertia, load shedding, storage and grid-forming inverters",
+                "ja": "周波数と需給、回転子の慣性、電源脱落後の周波数曲線、再エネによる慣性低下、負荷遮断、蓄電池とグリッドフォーミング"
+              }
             }
           ]
         }
