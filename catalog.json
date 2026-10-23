@@ -699,6 +699,20 @@
                 "en": "DC to AC conversion, the maximum power point, perturb and observe, partial shading and the DC/AC ratio",
                 "ja": "直流から交流への変換、最大電力点、山登り法、部分的な影と DC/AC 比"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "追日系統與雙面模組",
+                "en": "Solar trackers and bifacial modules",
+                "ja": "追尾式架台と両面モジュール"
+              },
+              "sub": {
+                "zh": "單軸與雙軸追日、一天的發電曲線、雙面模組背面受光、反照率與離地高度、颱風避風位置",
+                "en": "Single- and dual-axis tracking, the daily power curve, rear-side capture in bifacial modules, albedo and mounting height, typhoon stow position",
+                "ja": "単軸・二軸追尾、一日の発電カーブ、両面モジュールの背面受光、アルベドと地上高、台風時の退避姿勢"
+              }
             }
           ]
         },
