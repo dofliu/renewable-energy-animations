@@ -1584,6 +1584,20 @@
                 "en": "Typhoon-driven sediment, three deposition patterns, sluicing through a desilting tunnel, three lines of defence, effects on power generation",
                 "ja": "台風と崩壊が運ぶ土砂、3つの堆積形態、排砂トンネルによる排砂、三段構えの対策、堆砂が発電に与える影響"
               }
+            },
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "調速器與黑啟動",
+                "en": "Governors and black start",
+                "ja": "調速機とブラックスタート"
+              },
+              "sub": {
+                "zh": "頻率就是轉速、調速器閉環與導葉、調差率分工、有水庫水力的黑啟動、從一部機組到整個電網復電",
+                "en": "Frequency as rotor speed, the governor loop and guide vanes, droop sharing, black start from a reservoir plant, restoring the whole grid",
+                "ja": "周波数は回転数、調速機の閉ループとガイドベーン、調定率の分担、貯水池式水力のブラックスタート、系統全体の復電"
+              }
             }
           ]
         }
