@@ -1188,6 +1188,20 @@
                 "en": "LFP chemistry, voltage curve, SOC and ageing, thermal runaway and protection",
                 "ja": "リン酸鉄リチウムの化学、充放電曲線、SOC と寿命、熱暴走と防護"
               }
+            },
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "液流電池與長時儲能",
+                "en": "Flow batteries and long-duration storage",
+                "ja": "フロー電池と長時間蓄電"
+              },
+              "sub": {
+                "zh": "釩離子充放電、功率與容量分開設計、與鋰電池比較、台灣示範案例",
+                "en": "Vanadium ion charge and discharge, sizing power and energy separately, comparison with lithium-ion, Taiwan demos",
+                "ja": "バナジウムイオンの充放電、出力と容量の分離設計、リチウムとの比較、台湾の実証例"
+              }
             }
           ]
         },
