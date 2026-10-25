@@ -1314,6 +1314,20 @@
                 "en": "The hydrogen–oxygen reaction, membrane and catalyst, from cell to stack, fuel cell cars, stationary CHP",
                 "ja": "水素と酸素の反応と 1.23 V、電解質膜と触媒、セルからスタックへ、燃料電池車、定置用コージェネ"
               }
+            },
+            {
+              "no": 5,
+              "file": "ep05.html",
+              "title": {
+                "zh": "氫氣混燒發電",
+                "en": "Hydrogen co-firing for power",
+                "ja": "水素混焼発電"
+              },
+              "sub": {
+                "zh": "複循環電廠、體積混氫與減碳比例、火焰速度與回火、氮氧化物控制、混氫站與逐步提高、台灣興達示範",
+                "en": "Combined-cycle plants, blend share vs CO2 cut, flame speed and flashback, NOx control, blending station and step-up, Taiwan's Hsinta demo",
+                "ja": "複合発電所、体積混焼率と CO2 削減、火炎速度と逆火、NOx 抑制、混合ステーションと段階的引き上げ、台湾・興達の実証"
+              }
             }
           ]
         },
