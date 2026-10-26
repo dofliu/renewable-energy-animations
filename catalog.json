@@ -1640,6 +1640,20 @@
                 "en": "Frequency as rotor speed, the governor loop and guide vanes, droop sharing, black start from a reservoir plant, restoring the whole grid",
                 "ja": "周波数は回転数、調速機の閉ループとガイドベーン、調定率の分担、貯水池式水力のブラックスタート、系統全体の復電"
               }
+            },
+            {
+              "no": 6,
+              "file": "ep06.html",
+              "title": {
+                "zh": "水錘與調壓井",
+                "en": "Water hammer and surge tanks",
+                "ja": "水撃作用とサージタンク"
+              },
+              "sub": {
+                "zh": "甩負載與導葉關閉、儒可夫斯基公式、壓力波來回、關閉時間與壓升、調壓井縮短有效管長、層層防護",
+                "en": "Load rejection and vane closing, the Joukowsky equation, the pressure wave round trip, closing time and pressure rise, surge tank shortening the pipe, layers of protection",
+                "ja": "負荷遮断とベーン閉鎖、ジューコフスキーの式、圧力波の往復、閉鎖時間と圧力上昇、サージタンクによる有効管長の短縮、多重の防護"
+              }
             }
           ]
         }
