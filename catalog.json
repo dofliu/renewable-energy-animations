@@ -1202,6 +1202,20 @@
                 "en": "Vanadium ion charge and discharge, sizing power and energy separately, comparison with lithium-ion, Taiwan demos",
                 "ja": "バナジウムイオンの充放電、出力と容量の分離設計、リチウムとの比較、台湾の実証例"
               }
+            },
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "電池老化與健康度（SOH）",
+                "en": "Battery ageing and state of health",
+                "ja": "電池の劣化と健全度（SOH）"
+              },
+              "sub": {
+                "zh": "SOH 定義、負極 SEI 膜、日曆與循環老化、衰退曲線與保固、擴容與梯次利用",
+                "en": "SOH definition, anode SEI layer, calendar and cycle ageing, fade curve and warranty, augmentation and second life",
+                "ja": "SOH の定義、負極 SEI 膜、カレンダー劣化とサイクル劣化、劣化曲線と保証、増設とセカンドライフ"
+              }
             }
           ]
         },
