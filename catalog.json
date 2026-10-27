@@ -1239,6 +1239,20 @@
                 "en": "Day-ahead ancillary services, regulation and reserves, one-second response, scheduling and risks",
                 "ja": "前日補助サービス市場、周波数調整と予備力、1 秒の応答、充放電計画とリスク"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "用戶端儲能：削峰與時間電價",
+                "en": "Behind-the-meter storage: peak shaving and time-of-use",
+                "ja": "需要家側蓄電：ピークカットと時間帯別料金"
+              },
+              "sub": {
+                "zh": "時間電價套利、需量與契約容量、削峰放電、超約風險與回收評估",
+                "en": "Tariff arbitrage, demand and contract capacity, peak shaving, overrun risk and payback",
+                "ja": "時間帯別料金の裁定、デマンドと契約容量、ピークカット、超過リスクと回収評価"
+              }
             }
           ]
         },
