@@ -713,6 +713,20 @@
                 "en": "Single- and dual-axis tracking, the daily power curve, rear-side capture in bifacial modules, albedo and mounting height, typhoon stow position",
                 "ja": "単軸・二軸追尾、一日の発電カーブ、両面モジュールの背面受光、アルベドと地上高、台風時の退避姿勢"
               }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "熱斑與旁路二極體",
+                "en": "Hot spots and bypass diodes",
+                "ja": "ホットスポットとバイパスダイオード"
+              },
+              "sub": {
+                "zh": "遮蔭與串聯電流、反向受壓與局部過熱、旁路二極體分流、熱像巡檢、IEC 61215 熱斑耐久測試、二極體失效",
+                "en": "Shading and series current, reverse bias and local overheating, bypass-diode shunting, thermal inspection, IEC 61215 hot-spot endurance test, diode failure",
+                "ja": "影と直列電流、逆電圧と局所過熱、バイパスダイオードによる迂回、赤外線点検、IEC 61215 ホットスポット耐久試験、ダイオードの故障"
+              }
             }
           ]
         },
