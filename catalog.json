@@ -1940,6 +1940,20 @@
                 "en": "Waste pit and grate combustion, boiler steam power, cogeneration, flue gas cleaning, bottom and fly ash, the role of incineration in waste management",
                 "ja": "ごみピットとストーカ燃焼、ボイラー蒸気発電、コージェネレーション、排ガス処理設備、底灰と飛灰の行き先、ごみ管理における焼却の役割"
               }
+            },
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "厭氧消化的四階段與穩定運轉",
+                "en": "The four stages of anaerobic digestion",
+                "ja": "嫌気性消化の4段階と安定運転"
+              },
+              "sub": {
+                "zh": "水解、酸化、產乙酸、產甲烷接力，中溫與高溫、滯留時間，進料過量酸掉與穩定運轉指標",
+                "en": "Hydrolysis to methanogenesis in relay, mesophilic vs thermophilic, retention time, souring from overload and stability indicators",
+                "ja": "加水分解からメタン生成までのリレー、中温と高温、滞留時間、供給過多による酸敗と安定運転の指標"
+              }
             }
           ]
         },
