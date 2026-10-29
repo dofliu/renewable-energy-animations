@@ -727,6 +727,20 @@
                 "en": "Shading and series current, reverse bias and local overheating, bypass-diode shunting, thermal inspection, IEC 61215 hot-spot endurance test, diode failure",
                 "ja": "影と直列電流、逆電圧と局所過熱、バイパスダイオードによる迂回、赤外線点検、IEC 61215 ホットスポット耐久試験、ダイオードの故障"
               }
+            },
+            {
+              "no": 11,
+              "file": "ep11.html",
+              "title": {
+                "zh": "電位誘發衰減（PID）",
+                "en": "Potential-induced degradation (PID)",
+                "ja": "電圧誘起出力低下（PID）"
+              },
+              "sub": {
+                "zh": "串列高電壓與邊框接地、負端電位、鈉離子遷移與接面分流、濕熱加速衰減、IEC TS 62804-1 測試與 EL 影像、預防與夜間修復",
+                "en": "High string voltage and grounded frames, negative-end potential, sodium migration and junction shunting, humid-heat acceleration, IEC TS 62804-1 test and EL imaging, prevention and night-time recovery",
+                "ja": "ストリング高電圧とフレーム接地、負極側の電位、ナトリウム移動と接合の分流、高温多湿での加速、IEC TS 62804-1 試験と EL 画像、予防と夜間回復"
+              }
             }
           ]
         },
