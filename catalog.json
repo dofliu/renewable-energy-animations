@@ -1446,6 +1446,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "永續",
+            "en": "Sustainability",
+            "ja": "持続可能性"
+          },
+          "episodes": [
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "氫的顏色與碳足跡",
+                "en": "Hydrogen colours and carbon footprint",
+                "ja": "水素の色と炭素フットプリント"
+              },
+              "sub": {
+                "zh": "灰氫天然氣重組、藍氫碳捕捉、綠氫電解、電力排碳係數決定綠不綠、歐盟 3.4 kg 門檻與三條電力規則",
+                "en": "Grey from natural gas, blue with carbon capture, green by electrolysis, how the grid's emission factor decides, the EU 3.4 kg threshold and three power rules",
+                "ja": "天然ガス改質のグレー、CO₂回収のブルー、電解のグリーン、電力の排出係数が決める炭素量、EU の 3.4 kg 基準と 3 つの電力規則"
+              }
+            }
+          ]
         }
       ]
     },
