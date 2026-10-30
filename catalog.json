@@ -1618,6 +1618,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "設備與原理",
+            "en": "Equipment and principles",
+            "ja": "設備と原理"
+          },
+          "episodes": [
+            {
+              "no": 7,
+              "file": "ep07.html",
+              "title": {
+                "zh": "地熱井的鑽井與完井",
+                "en": "Drilling and completing a geothermal well",
+                "ja": "地熱井の掘削と仕上げ"
+              },
+              "sub": {
+                "zh": "鑽機與泥漿循環、四層套管與固井、防噴器與壓力窗口、完井與噴流測試",
+                "en": "Rig and mud circulation, four casing strings and cementing, blowout preventer and pressure window, completion and flow test",
+                "ja": "リグと泥水循環、四段のケーシングとセメンチング、防噴装置と圧力ウィンドウ、仕上げと噴出試験"
+              }
+            }
+          ]
         }
       ]
     },
