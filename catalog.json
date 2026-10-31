@@ -741,6 +741,20 @@
                 "en": "High string voltage and grounded frames, negative-end potential, sodium migration and junction shunting, humid-heat acceleration, IEC TS 62804-1 test and EL imaging, prevention and night-time recovery",
                 "ja": "ストリング高電圧とフレーム接地、負極側の電位、ナトリウム移動と接合の分流、高温多湿での加速、IEC TS 62804-1 試験と EL 画像、予防と夜間回復"
               }
+            },
+            {
+              "no": 12,
+              "file": "ep12.html",
+              "title": {
+                "zh": "孤島效應與防孤島保護",
+                "en": "Islanding and anti-islanding protection",
+                "ja": "単独運転と単独運転防止保護"
+              },
+              "sub": {
+                "zh": "停電時光電仍供電的孤島、被動與主動偵測、IEC 62116 測試與台電併聯規定",
+                "en": "Islands that keep PV energized in an outage, passive and active detection, IEC 62116 tests and Taipower rules",
+                "ja": "停電時も太陽光が送電する島、受動・能動検出、IEC 62116 試験と台湾電力の連系ルール"
+              }
             }
           ]
         },
