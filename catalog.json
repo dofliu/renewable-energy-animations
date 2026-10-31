@@ -2051,6 +2051,20 @@
                 "en": "Used cooking oil to biodiesel by transesterification, ethanol fermentation and distillation, sustainable aviation fuel and Taiwan's trials, feedstock and land-use debates",
                 "ja": "廃食用油のエステル交換によるバイオディーゼル、エタノールの発酵と蒸留、持続可能な航空燃料（SAF）と台湾の試行、原料と土地利用をめぐる議論"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "沼氣純化與生質甲烷",
+                "en": "Biogas upgrading and biomethane",
+                "ja": "バイオガスの精製とバイオメタン"
+              },
+              "sub": {
+                "zh": "沼氣組成、除硫除水前處理、水洗法與薄膜法分離二氧化碳、四種技術比較、生質甲烷的去處",
+                "en": "Biogas composition, desulfurization and drying, CO₂ removal by water scrubbing and membranes, comparing four technologies, where biomethane goes",
+                "ja": "バイオガスの組成、脱硫・除湿の前処理、水洗法と膜によるCO₂分離、4技術の比較、バイオメタンの行き先"
+              }
             }
           ]
         },
