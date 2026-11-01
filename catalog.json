@@ -1653,6 +1653,20 @@
                 "en": "Rig and mud circulation, four casing strings and cementing, blowout preventer and pressure window, completion and flow test",
                 "ja": "リグと泥水循環、四段のケーシングとセメンチング、防噴装置と圧力ウィンドウ、仕上げと噴出試験"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "地熱電廠的雙循環與有機朗肯循環",
+                "en": "Binary cycles and the organic Rankine cycle",
+                "ja": "地熱発電所のバイナリーサイクルと有機ランキンサイクル"
+              },
+              "sub": {
+                "zh": "為何需要雙循環、蒸發器兩個迴路、渦輪冷凝與泵、效率與溫度、台灣適用性",
+                "en": "Why binary plants exist, the two loops in the evaporator, turbine, condenser and pump, efficiency vs temperature, fit in Taiwan",
+                "ja": "バイナリーが必要な理由、蒸発器の2つのループ、タービン・凝縮器・ポンプ、効率と温度、台湾での適用性"
+              }
             }
           ]
         }
