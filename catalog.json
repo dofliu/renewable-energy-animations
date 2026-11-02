@@ -1812,6 +1812,20 @@
                 "en": "Vapour pressure and cold-water boiling, low pressure at the runner outlet, bubble collapse and pitting, Thoma number and allowable setting height, layered protection",
                 "ja": "蒸気圧と冷水の沸騰、ランナ出口の低圧、気泡崩壊と孔食、トーマ係数と許容吸出し高さ、多層の防護"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "抽蓄水力的變速機組",
+                "en": "Variable-speed pumped storage units",
+                "ja": "揚水発電の可変速機"
+              },
+              "sub": {
+                "zh": "定速機組的限制、轉速與抽水功率的三次方關係、雙饋感應電機與變頻器、轉子頻率與轉差、抽水也能調頻、成本取捨",
+                "en": "Limits of fixed-speed units, the cubic link between speed and pumping power, doubly-fed machine and converter, rotor frequency and slip, frequency regulation while pumping, cost trade-offs",
+                "ja": "定速機の限界、回転数と揚水電力の3乗関係、二次励磁機とコンバータ、回転子周波数とすべり、揚水中の周波数調整、コストのトレードオフ"
+              }
             }
           ]
         }
