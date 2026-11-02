@@ -1962,6 +1962,20 @@
                 "en": "Estuary mixing energy, osmotic pressure and membranes, pressure retarded osmosis (PRO), reverse electrodialysis (RED), power density and fouling, outlook for Taiwan",
                 "ja": "河口の混合エネルギー、浸透圧と半透膜、圧力遅延浸透（PRO）、逆電気透析（RED）、出力密度と汚れの課題、台湾での可能性"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "離岸漂浮式多用途平台",
+                "en": "Offshore floating multi-use platforms",
+                "ja": "洋上浮体式多目的プラットフォーム"
+              },
+              "sub": {
+                "zh": "風浪共構、相對升沉取電、共用錨碇與海纜、共用的成本與代價、結合養殖與製氫、台灣海域的限制",
+                "en": "Wind-wave co-location, relative-heave power, shared moorings and cables, cost and trade-offs, aquaculture and hydrogen, limits in Taiwan",
+                "ja": "風力・波力の複合、相対上下動による発電、係留とケーブルの共用、コストと代償、養殖と水素製造、台湾海域の制約"
+              }
             }
           ]
         },
