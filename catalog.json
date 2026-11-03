@@ -1258,6 +1258,20 @@
                 "en": "SOH definition, anode SEI layer, calendar and cycle ageing, fade curve and warranty, augmentation and second life",
                 "ja": "SOH の定義、負極 SEI 膜、カレンダー劣化とサイクル劣化、劣化曲線と保証、増設とセカンドライフ"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "鈉離子電池與電池化學比較",
+                "en": "Sodium-ion batteries and chemistry comparison",
+                "ja": "ナトリウムイオン電池と電池化学の比較"
+              },
+              "sub": {
+                "zh": "搖椅式充放電、硬碳負極、低溫與能量密度、與磷酸鐵鋰及液流電池分工、資源成本與產業現況",
+                "en": "Rocking-chair charging, hard-carbon anode, cold weather and energy density, roles versus LFP and flow batteries, resources, cost and industry",
+                "ja": "ロッキングチェア型の充放電、ハードカーボン負極、低温とエネルギー密度、LFP・フロー電池との役割分担、資源・コスト・産業の現状"
+              }
             }
           ]
         },
