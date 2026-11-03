@@ -2121,6 +2121,20 @@
                 "en": "Biogas composition, desulfurization and drying, CO₂ removal by water scrubbing and membranes, comparing four technologies, where biomethane goes",
                 "ja": "バイオガスの組成、脱硫・除湿の前処理、水洗法と膜によるCO₂分離、4技術の比較、バイオメタンの行き先"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "生質顆粒與農林廢棄物燃料",
+                "en": "Biomass pellets from agricultural and forestry residues",
+                "ja": "バイオマスペレットと農林廃棄物燃料"
+              },
+              "sub": {
+                "zh": "粉碎乾燥、環模造粒與木質素黏結、ISO 17225-2 A1 規格、儲運與粉塵爆炸防護、混燒與工業鍋爐",
+                "en": "Grinding and drying, ring-die pelleting and lignin bonding, ISO 17225-2 A1 specification, storage and dust-explosion protection, co-firing and industrial boilers",
+                "ja": "粉砕・乾燥、リングダイ造粒とリグニン結合、ISO 17225-2 A1 規格、貯蔵と粉じん爆発対策、混焼と産業ボイラー"
+              }
             }
           ]
         },
