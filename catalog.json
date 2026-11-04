@@ -1681,6 +1681,20 @@
                 "en": "Why binary plants exist, the two loops in the evaporator, turbine, condenser and pump, efficiency vs temperature, fit in Taiwan",
                 "ja": "バイナリーが必要な理由、蒸発器の2つのループ、タービン・凝縮器・ポンプ、効率と温度、台湾での適用性"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "地熱資源探勘：鑽井之前先看懂地下",
+                "en": "Geothermal exploration: reading the subsurface before drilling",
+                "ja": "地熱資源探査：掘削の前に地下を読み解く"
+              },
+              "sub": {
+                "zh": "地熱系統四要件、地表地質與溫泉、水化學地溫計、大地電磁法、溫度梯度井、概念模型",
+                "en": "Four requirements, surface geology and springs, geothermometers, magnetotellurics, gradient holes, the conceptual model",
+                "ja": "地熱系の4要件、地表地質と温泉、水化学地温計、MT法、温度勾配井、概念モデル"
+              }
             }
           ]
         }
