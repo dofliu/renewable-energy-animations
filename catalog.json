@@ -1426,6 +1426,20 @@
                 "en": "Gas path inside the station, nozzle connection and leak test, pre-cooling to −40°C, fuelling protocol and pressure curve, breakaway coupling, Taiwan's Nanzih station",
                 "ja": "ステーション内の水素の経路、ノズル接続とリークテスト、−40°C 予冷、充填プロトコルと圧力曲線、ブレークアウェイカップリング、台湾・楠梓ステーション"
               }
+            },
+            {
+              "no": 8,
+              "file": "ep08.html",
+              "title": {
+                "zh": "氫能煉鋼：用氫取代焦炭",
+                "en": "Hydrogen steelmaking: replacing coke with hydrogen",
+                "ja": "水素製鉄：コークスを水素に置き換える"
+              },
+              "sub": {
+                "zh": "高爐與焦炭的碳排、氫還原與吸熱、豎爐直接還原、電弧爐、每噸鋼的氫與電、台灣低碳煉鋼路徑",
+                "en": "Blast furnace emissions, hydrogen reduction and its heat demand, shaft furnace, arc furnace, hydrogen and power per tonne of steel, Taiwan's low-carbon steel pathway",
+                "ja": "高炉とコークスの排出、水素還元と吸熱、シャフト炉直接還元、電気アーク炉、鋼 1 トンの水素と電力、台湾の低炭素製鉄"
+              }
             }
           ]
         },
