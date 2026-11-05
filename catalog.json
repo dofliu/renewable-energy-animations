@@ -1868,6 +1868,20 @@
                 "en": "Limits of fixed-speed units, the cubic link between speed and pumping power, doubly-fed machine and converter, rotor frequency and slip, frequency regulation while pumping, cost trade-offs",
                 "ja": "定速機の限界、回転数と揚水電力の3乗関係、二次励磁機とコンバータ、回転子周波数とすべり、揚水中の周波数調整、コストのトレードオフ"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "水輪機的型式選擇與比速",
+                "en": "Choosing a turbine type and specific speed",
+                "ja": "水車形式の選定と比速度"
+              },
+              "sub": {
+                "zh": "功率公式與落差流量互換、高落差佩爾頓、中落差法蘭西斯、低落差卡普蘭、比速 nq 選型、部分負載效率與 60 Hz 同步轉速",
+                "en": "Power formula and the head–flow trade-off, Pelton at high head, Francis at medium head, Kaplan at low head, selecting by specific speed nq, part-load efficiency and 60 Hz synchronous speed",
+                "ja": "出力式と落差・流量の置き換え、高落差のペルトン、中落差のフランシス、低落差のカプラン、比速度nqによる選定、部分負荷効率と60Hz同期速度"
+              }
             }
           ]
         }
