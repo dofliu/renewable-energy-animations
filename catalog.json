@@ -2364,6 +2364,20 @@
                 "en": "Cloud shadows swinging PV output, Taipower's two forecasts and 48-hour rolling updates, forecast error, the relay of storage, pumped hydro and gas, the evening ramp and priority dispatch",
                 "ja": "雲の影による太陽光出力の変動、台湾電力の 2 つの予測と 48 時間ローリング、予測誤差、蓄電池・揚水・ガスの応答リレー、夕方のランプと優先給電"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "高壓直流輸電與離岸風電送電",
+                "en": "HVDC transmission for offshore wind",
+                "ja": "高圧直流送電と洋上風力の送電"
+              },
+              "sub": {
+                "zh": "交流海纜的充電電流限制、海上與陸上換流站整流與逆變、成本交會距離、連接不同頻率電網與潮流控制、台灣情境的取捨",
+                "en": "Charging-current limits of AC cables, offshore and onshore converter stations rectifying and inverting, the cost crossover distance, linking grids of different frequency and controlling power flow, and trade-offs in Taiwan",
+                "ja": "交流ケーブルの充電電流による制約、洋上・陸上変換所による整流と逆変換、コストが交わる距離、周波数の異なる系統の連系と潮流制御、台湾の状況でのトレードオフ"
+              }
             }
           ]
         }
