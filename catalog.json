@@ -1375,6 +1375,20 @@
                 "en": "How electrolysis works, alkaline and PEM electrolysers, electricity per kilogram, grey vs green hydrogen, compression and storage",
                 "ja": "電解の原理と電圧、アルカリ形と PEM 形、水素 1 kg の電力量、グレーとグリーン水素、圧縮と貯蔵"
               }
+            },
+            {
+              "no": 9,
+              "file": "ep09.html",
+              "title": {
+                "zh": "綠氨：把氫變成氨的哈柏法",
+                "en": "Green ammonia: the Haber-Bosch process",
+                "ja": "グリーンアンモニア：水素をアンモニアに変えるハーバー・ボッシュ法"
+              },
+              "sub": {
+                "zh": "氨的儲氫密度、空氣分離取氮、哈柏法迴路、溫度與壓力的取捨、風光起伏的緩衝、每噸氨約 10 MWh",
+                "en": "Ammonia's hydrogen density, air separation, the synthesis loop, the temperature–pressure trade-off, buffering variable power, about 10 MWh per tonne",
+                "ja": "アンモニアの水素密度、空気分離、合成ループ、温度と圧力の折り合い、変動電力の緩衝、1 トンあたり約 10 MWh"
+              }
             }
           ]
         },
