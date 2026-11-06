@@ -755,6 +755,20 @@
                 "en": "Islands that keep PV energized in an outage, passive and active detection, IEC 62116 tests and Taipower rules",
                 "ja": "停電時も太陽光が送電する島、受動・能動検出、IEC 62116 試験と台湾電力の連系ルール"
               }
+            },
+            {
+              "no": 13,
+              "file": "ep13.html",
+              "title": {
+                "zh": "直流電弧與快速關斷",
+                "en": "DC arcs and rapid shutdown",
+                "ja": "直流アークとラピッドシャットダウン"
+              },
+              "sub": {
+                "zh": "接頭鬆脫的串聯電弧、電弧偵測器、交流斷了直流仍在、NEC 快速關斷",
+                "en": "Series arcs from loose connectors, arc-fault detectors, live DC after AC is off, NEC rapid shutdown",
+                "ja": "コネクタ緩みの直列アーク、アーク検出器、交流を切っても残る直流、NEC ラピッドシャットダウン"
+              }
             }
           ]
         },
