@@ -1348,6 +1348,29 @@
               }
             }
           ]
+        },
+        {
+          "name": {
+            "zh": "生命週期",
+            "en": "Lifecycle",
+            "ja": "ライフサイクル"
+          },
+          "episodes": [
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "電池梯次利用與回收",
+                "en": "Battery second life and recycling",
+                "ja": "電池のセカンドライフ利用とリサイクル"
+              },
+              "sub": {
+                "zh": "約 80% 健康度退役、檢測分選與重組、備用與削峰、火法／濕法／直接再生、台灣與歐盟回收制度",
+                "en": "Retirement near 80% health, testing, sorting and regrouping, backup and peak shaving, pyro/hydro/direct recycling, Taiwan and EU rules",
+                "ja": "健全度約 80% での退役、検査・選別・再構成、バックアップとピークカット、乾式・湿式・ダイレクト、台湾と EU の制度"
+              }
+            }
+          ]
         }
       ]
     },
