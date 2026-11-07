@@ -2443,6 +2443,20 @@
                 "en": "Charging-current limits of AC cables, offshore and onshore converter stations rectifying and inverting, the cost crossover distance, linking grids of different frequency and controlling power flow, and trade-offs in Taiwan",
                 "ja": "交流ケーブルの充電電流による制約、洋上・陸上変換所による整流と逆変換、コストが交わる距離、周波数の異なる系統の連系と潮流制御、台湾の状況でのトレードオフ"
               }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "電動車智慧充電與 V2G",
+                "en": "EV smart charging and V2G",
+                "ja": "EVのスマート充電と V2G"
+              },
+              "sub": {
+                "zh": "回家即充墊高夜間尖峰、車樁通訊與依電價排程的智慧充電、V2G 雙向放電、一輛車一天的電量變化、千輛聚合與取捨、台灣情境",
+                "en": "How charge-on-arrival raises the evening peak, smart charging scheduled by car–charger communication and tariffs, bidirectional V2G discharge, one car's daily charge profile, aggregating a thousand cars with trade-offs, and the Taiwan context",
+                "ja": "帰宅後すぐ充電が夜間ピークを押し上げる問題、車と充電器の通信と料金に基づくスマート充電、双方向 V2G 放電、1 台の 1 日の残量変化、1,000 台の集約とトレードオフ、台湾の状況"
+              }
             }
           ]
         }
