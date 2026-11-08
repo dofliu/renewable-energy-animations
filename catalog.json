@@ -2471,6 +2471,20 @@
                 "en": "Cascading trips seen through the March 3 incident, the station-service deadlock, a hydro unit starting on its own, energizing the cranking path section by section, picking up load in batches, and merging islands to full restoration",
                 "ja": "303 事故に見る連鎖脱落、所内電源の行き詰まり、水力発電機の自力起動、起動経路の区間加圧、負荷の段階投入、孤立系統の併入と全面復旧"
               }
+            },
+            {
+              "no": 12,
+              "file": "ep12.html",
+              "title": {
+                "zh": "需量反應的基準線與聚合調度",
+                "en": "Demand response baselines and aggregated dispatch",
+                "ja": "DR のベースラインと集約運用"
+              },
+              "sub": {
+                "zh": "尖峰缺口、減載通知、基準線與抑低量、聚合商與 1 MW 門檻、虛擬電廠的取捨",
+                "en": "Peak gap, curtailment notice, baseline and curtailed load, aggregators and the 1 MW threshold, VPP trade-offs",
+                "ja": "ピーク不足、削減通知、ベースラインと削減量、アグリゲーターと 1 MW 基準、VPP のトレードオフ"
+              }
             }
           ]
         }
