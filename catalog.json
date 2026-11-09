@@ -829,6 +829,20 @@
                 "en": "Monitoring and PR, drone thermography, hot spots, cleaning and weeding, typhoon checks",
                 "ja": "監視と PR、ドローン赤外線点検、ホットスポット、洗浄と除草、台風前後の点検"
               }
+            },
+            {
+              "no": 14,
+              "file": "ep14.html",
+              "title": {
+                "zh": "性能比（PR）：發電量去了哪裡",
+                "en": "Performance ratio: where did the energy go",
+                "ja": "性能比（PR）：発電量はどこへ消えたか"
+              },
+              "sub": {
+                "zh": "Yf 與 Yr、溫度損失、損失瀑布、髒污與清洗、PR 曲線診斷、年發電量估算",
+                "en": "Yf and Yr, temperature loss, loss waterfall, soiling and cleaning, PR-curve diagnosis, annual yield estimate",
+                "ja": "Yf と Yr、温度損失、損失ウォーターフォール、汚れと洗浄、PR 曲線による診断、年間発電量の見積もり"
+              }
             }
           ]
         },
