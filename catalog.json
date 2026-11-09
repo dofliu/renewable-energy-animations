@@ -2106,6 +2106,20 @@
                 "en": "Typhoon waves, survival mode and design situations, mooring failure, corrosion and marine growth, maintenance windows, Taiwan test sites",
                 "ja": "台風と極端な波、生存モードと設計状態、係留の破断、腐食と生物付着、保守の窓、台湾の試験場"
               }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "海洋能的輸出特性與可預測性",
+                "en": "Output profiles and predictability of ocean energy",
+                "ja": "海洋エネルギーの出力特性と予測可能性"
+              },
+              "sub": {
+                "zh": "三種海洋能的輸出曲線、潮汐的天文時間表、波浪功率公式、黑潮的穩定與渦旋、預報誤差與聚合平滑",
+                "en": "Output curves of three ocean energy sources, the tidal timetable, the wave power formula, Kuroshio steadiness and eddies, forecast error and aggregation",
+                "ja": "三種の海洋エネルギーの出力曲線、潮汐の天文時間表、波力の出力式、黒潮の安定と渦、予測誤差と集約による平滑化"
+              }
             }
           ]
         }
