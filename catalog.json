@@ -1454,6 +1454,20 @@
                 "en": "Ammonia's hydrogen density, air separation, the synthesis loop, the temperature–pressure trade-off, buffering variable power, about 10 MWh per tonne",
                 "ja": "アンモニアの水素密度、空気分離、合成ループ、温度と圧力の折り合い、変動電力の緩衝、1 トンあたり約 10 MWh"
               }
+            },
+            {
+              "no": 10,
+              "file": "ep10.html",
+              "title": {
+                "zh": "固態氧化物電解（SOEC）與高溫電解",
+                "en": "Solid oxide electrolysis: making hydrogen hot",
+                "ja": "固体酸化物形電解（SOEC）と高温電解"
+              },
+              "sub": {
+                "zh": "700–850 °C 運轉、熱能取代部分電能、耗電比較、可逆運轉與陶瓷電堆劣化",
+                "en": "700–850 °C operation, heat replacing electricity, power use, reversible mode and ceramic stack degradation",
+                "ja": "700〜850 °C 運転、熱による電力の置き換え、消費電力比較、可逆運転とセラミックスタックの劣化"
+              }
             }
           ]
         },
